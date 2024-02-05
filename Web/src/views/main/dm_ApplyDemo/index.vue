@@ -51,8 +51,7 @@
 								
 								<el-button icon="ele-Download" @click="exportData" > 导出数据 </el-button>
 
-								<ImportButton accept=".xlsx" url="/api/dm_ApplyDemo/import" 
-								btnText="导入数据" @success="handleQuery"/> 
+								<ImportButton accept=".xlsx" url="/api/dm_ApplyDemo/import" @success="handleQuery">导入数据</ImportButton> 
 					</el-col>
 				</el-row>
 			</el-form>
@@ -110,7 +109,6 @@ import editDialog from '/@/views/main/dm_ApplyDemo/component/editDialog.vue';
 import { pageDm_ApplyDemo, deleteDm_ApplyDemo,exportDm_ApplyDemo as exportData } from '/@/api/main/dm_ApplyDemo';
 import ImportButton from '/@/components/importButton/index.vue';
 
-const baseUrl = window.__env__.VITE_API_URL;
 const showAdvanceQueryUI = ref(false);
 const printDialogRef = ref();
 const editDialogRef = ref();

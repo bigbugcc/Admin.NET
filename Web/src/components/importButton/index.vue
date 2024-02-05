@@ -1,12 +1,14 @@
 <template>
 	<input class="el-upload__input" ref="reffile" name="file" @change="fileChange($event)" :accept="$props.accept" type="file">
-	<el-button  icon="ele-Upload" @click="onClick">{{$props.btnText}}</el-button>
+	<el-button  icon="ele-Upload" @click="onClick">
+		<slot></slot>
+	</el-button>
 </template>
 
 <script setup lang="ts" name="ImportButton">
 
 import { reactive, ref, onMounted, watch } from 'vue';
-import request,{request2} from '/@/utils/request';
+import {request2} from '/@/utils/request';
 import { ElMessage } from 'element-plus';
 
 // 定义父组件传过来的值
@@ -20,10 +22,7 @@ const props = defineProps({
 	},
 	url: {
 		type: String, 
-	}, 
-	btnText: {
-		type: String, 
-	},
+	},  
 });
 
 // 定义子组件向父组件传值/事件
@@ -79,9 +78,5 @@ function fileChange(event) {
 		alert('上传错误')
 	});
 }
-// 页面加载时
-onMounted(() => {
-	// initFormField();
-});
 </script>
  
