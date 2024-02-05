@@ -50,10 +50,15 @@ public static class CommonUtil
     public static string GetLocalhost()
     {
         string result = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Host.Value}";
+
         // 代理模式：获取真正的本机地址
         // X-Original-Host=原始请求
         // X-Forwarded-Server=从哪里转发过来
-        if (App.HttpContext.Request.Headers.ContainsKey("X-Original-Host"))
+        if (App.HttpContext.Request.Headers.ContainsKey("Origin")) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
+            result = $"{App.HttpContext.Request.Headers["Origin"]}";
+        else if (App.HttpContext.Request.Headers.ContainsKey("X-Original")) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
+            result = $"{App.HttpContext.Request.Headers["X-Original"]}";
+        else if (App.HttpContext.Request.Headers.ContainsKey("X-Original-Host"))
             result = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Headers["X-Original-Host"]}";
         return result;
     }

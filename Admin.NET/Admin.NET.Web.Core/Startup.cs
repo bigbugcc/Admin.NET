@@ -108,13 +108,38 @@ public class Startup : AppStartup
             options.LogEnabled = false;
             // 事件执行器（失败重试）
             options.AddExecutor<RetryEventHandlerExecutor>();
+
+            #region Redis消息队列
+
             //// 替换事件源存储器
             //options.ReplaceStorer(serviceProvider =>
             //{
             //    var redisCache = serviceProvider.GetService<ICache>();
-            //    // 创建默认内存通道事件源对象，可自定义队列路由key，比如这里是 eventbus
-            //    return new RedisEventSourceStorer(redisCache, "eventbus", 3000);
+            //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
+            //    return new RedisEventSourceStorer(redisCache, "adminnet", 3000);
             //});
+
+            #endregion Redis消息队列
+
+            #region RabbitMQ消息队列
+
+            //// 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
+            //var eventBusOpt = App.GetConfig<EventBusOptions>("EventBus", true);
+            //var rbmqEventSourceStorer = new RabbitMQEventSourceStore(new ConnectionFactory
+            //{
+            //    UserName = eventBusOpt.RabbitMQ.UserName,
+            //    Password = eventBusOpt.RabbitMQ.Password,
+            //    HostName = eventBusOpt.RabbitMQ.HostName,
+            //    Port = eventBusOpt.RabbitMQ.Port
+            //}, "adminnet", 3000);
+
+            //// 替换默认事件总线存储器
+            //options.ReplaceStorer(serviceProvider =>
+            //{
+            //    return rbmqEventSourceStorer;
+            //});
+
+            #endregion RabbitMQ消息队列
         });
 
         // 图像处理
@@ -155,17 +180,8 @@ public class Startup : AppStartup
             app.UseHsts();
         }
 
-        // 添加状态码拦截中间件
-        app.UseUnifyResultStatusCodes();
-
-        // 配置多语言
-        app.UseAppLocalization();
-
         // 图像处理
         app.UseImageSharp();
-
-        //// 启用HTTPS
-        //app.UseHttpsRedirection();
 
         // 特定文件类型（文件后缀）处理
         var contentTypeProvider = FS.GetFileExtensionContentTypeProvider();
@@ -175,16 +191,28 @@ public class Startup : AppStartup
             ContentTypeProvider = contentTypeProvider
         });
 
+        //// 启用HTTPS
+        //app.UseHttpsRedirection();
+
+        // 添加状态码拦截中间件
+        app.UseUnifyResultStatusCodes();
+
+        // 启用多语言，必须在 UseRouting 之前
+        app.UseAppLocalization();
+
+        // 路由注册
         app.UseRouting();
 
+        // 启用跨域，必须在 UseRouting 和 UseAuthentication 之间注册
         app.UseCorsAccessor();
+
+        // 启用鉴权授权
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         // 限流组件（在跨域之后）
         app.UseIpRateLimiting();
         app.UseClientRateLimiting();
-
-        app.UseAuthentication();
-        app.UseAuthorization();
 
         // 任务调度看板
         app.UseScheduleUI();

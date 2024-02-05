@@ -1,4 +1,4 @@
-// 麻省理工学院许可证
+﻿// 麻省理工学院许可证
 //
 // 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
 //
@@ -62,18 +62,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="path"></param>
     /// <returns></returns>
     [DisplayName("上传文件")]
-    public async Task<FileOutput> UploadFile([Required] IFormFile file, [FromQuery] string? path)
+    public async Task<SysFile> UploadFile([Required] IFormFile file, [FromQuery] string? path)
     {
-        var sysFile = await HandleUploadFile(file, path);
-        return new FileOutput
-        {
-            Id = sysFile.Id,
-            Url = sysFile.Url, // string.IsNullOrWhiteSpace(sysFile.Url) ? _commonService.GetFileUrl(sysFile) : sysFile.Url,
-            SizeKb = sysFile.SizeKb,
-            Suffix = sysFile.Suffix,
-            FilePath = sysFile.FilePath,
-            FileName = sysFile.FileName
-        };
+        return await HandleUploadFile(file, path);
     }
 
     /// <summary>
@@ -84,7 +75,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="contentType"></param>
     /// <param name="path"></param>
     /// <returns></returns>
-    private async Task<FileOutput> UploadFileFromBase64(string strBase64, string fileName, string contentType, string? path)
+    private async Task<SysFile> UploadFileFromBase64(string strBase64, string fileName, string contentType, string? path)
     {
         byte[] fileData = Convert.FromBase64String(strBase64);
         var ms = new MemoryStream();
@@ -109,7 +100,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <returns></returns>
     [DisplayName("上传文件Base64")]
     [HttpPost]
-    public async Task<FileOutput> UploadFileFromBase64(UploadFileFromBase64Input input)
+    public async Task<SysFile> UploadFileFromBase64(UploadFileFromBase64Input input)
     {
         return await UploadFileFromBase64(input.FileDataBase64, input.FileName, input.ContentType, input.Path);
     }
@@ -120,9 +111,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="files"></param>
     /// <returns></returns>
     [DisplayName("上传多文件")]
-    public async Task<List<FileOutput>> UploadFiles([Required] List<IFormFile> files)
+    public async Task<List<SysFile>> UploadFiles([Required] List<IFormFile> files)
     {
-        var filelist = new List<FileOutput>();
+        var filelist = new List<SysFile>();
         foreach (var file in files)
         {
             filelist.Add(await UploadFile(file, ""));
@@ -151,6 +142,44 @@ public class SysFileService : IDynamicApiController, ITransient
             var filePath = Path.Combine(file.FilePath, file.Id.ToString() + file.Suffix);
             var path = Path.Combine(App.WebHostEnvironment.WebRootPath, filePath);
             return new FileStreamResult(new FileStream(path, FileMode.Open), "application/octet-stream") { FileDownloadName = fileName + file.Suffix };
+        }
+    }
+
+    /// <summary>
+    /// 下载指定文件Base64格式
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    public async Task<string> DownloadFileBase64([FromBody] string url)
+    {
+        if (_OSSProviderOptions.IsEnable)
+        {
+            using var httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                // 读取文件内容并将其转换为 Base64 字符串
+                byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
+                return Convert.ToBase64String(fileBytes);
+            }
+            else
+            {
+                throw new HttpRequestException($"Request failed with status code: {response.StatusCode}");
+            }
+        }
+        else
+        {
+            var sysFile = await _sysFileRep.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
+            var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, sysFile.FilePath);
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
+
+            var realFile = Path.Combine(filePath, $"{sysFile.Id}{sysFile.Suffix}");
+            if (!File.Exists(realFile))
+                throw Oops.Oh($"文件[{realFile}]不在存");
+            byte[] fileBytes = File.ReadAllBytes(realFile);
+            return Convert.ToBase64String(fileBytes);
         }
     }
 
@@ -226,7 +255,12 @@ public class SysFileService : IDynamicApiController, ITransient
             {
                 fileMd5 = OssUtils.ComputeContentMd5(fileStream, fileStream.Length);
             }
-            var sysFile = await _sysFileRep.GetFirstAsync(u => u.FileMd5 == fileMd5 && (u.SizeKb == null || u.SizeKb == sizeKb.ToString()));
+            /*
+             * Mysql8 中如果使用了 utf8mb4_general_ci 之外的编码会出错，尽量避免在条件里使用.ToString()
+             * 因为 Squsugar 并不是把变量转换为字符串来构造SQL语句，而是构造了CAST(123 AS CHAR)这样的语句，这样这个返回值是utf8mb4_general_ci，所以容易出错。
+             */
+            var strSizeKb = sizeKb.ToString();
+            var sysFile = await _sysFileRep.GetFirstAsync(u => u.FileMd5 == fileMd5 && (u.SizeKb == null || u.SizeKb == strSizeKb));
             if (sysFile != null) return sysFile;
         }
 
@@ -322,7 +356,10 @@ public class SysFileService : IDynamicApiController, ITransient
             //}
 
             // 生成外链
-            newFile.Url = $"{CommonUtil.GetLocalhost()}/{newFile.FilePath}/{newFile.Id + newFile.Suffix}";
+            var host = CommonUtil.GetLocalhost();
+            if (!host.EndsWith("/"))
+                host += "/";
+            newFile.Url = $"{host}{newFile.FilePath}/{newFile.Id + newFile.Suffix}";
         }
         await _sysFileRep.AsInsertable(newFile).ExecuteCommandAsync();
         return newFile;
@@ -345,21 +382,20 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="file"></param>
     /// <returns></returns>
     [DisplayName("上传头像")]
-    public async Task<FileOutput> UploadAvatar([Required] IFormFile file)
+    public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
+        var sysFile = await UploadFile(file, "Upload/Avatar");
+
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
-        // 删除当前用户已有头像
+        // 删除已有头像文件
         if (!string.IsNullOrWhiteSpace(user.Avatar))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Avatar);
             await DeleteFile(new DeleteFileInput { Id = long.Parse(fileId) });
         }
-
-        var res = await UploadFile(file, "Upload/Avatar");
-        var url = _OSSProviderOptions.IsEnable ? res.Url : $"{res.FilePath}/{res.Name}";
-        await sysUserRep.UpdateAsync(u => new SysUser() { Avatar = url }, u => u.Id == user.Id);
-        return res;
+        await sysUserRep.UpdateAsync(u => new SysUser() { Avatar = sysFile.Url }, u => u.Id == user.Id);
+        return sysFile;
     }
 
     /// <summary>
@@ -368,20 +404,19 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="file"></param>
     /// <returns></returns>
     [DisplayName("上传电子签名")]
-    public async Task<FileOutput> UploadSignature([Required] IFormFile file)
+    public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
+        var sysFile = await UploadFile(file, "Upload/Signature");
+
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
-        // 删除当前用户已有电子签名
+        // 删除已有电子签名文件
         if (!string.IsNullOrWhiteSpace(user.Signature) && user.Signature.EndsWith(".png"))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Signature);
             await DeleteFile(new DeleteFileInput { Id = long.Parse(fileId) });
         }
-
-        var res = await UploadFile(file, "Upload/Signature");
-        var url = _OSSProviderOptions.IsEnable ? res.Url : $"{res.FilePath}/{res.Name}";
-        await sysUserRep.UpdateAsync(u => new SysUser() { Signature = url }, u => u.Id == user.Id);
-        return res;
+        await sysUserRep.UpdateAsync(u => new SysUser() { Signature = sysFile.Url }, u => u.Id == user.Id);
+        return sysFile;
     }
 }

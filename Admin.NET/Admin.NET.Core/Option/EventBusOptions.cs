@@ -1,4 +1,4 @@
-// 麻省理工学院许可证
+﻿// 麻省理工学院许可证
 //
 // 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
 //
@@ -7,47 +7,41 @@
 // 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
 // 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
 
-namespace Admin.NET.Core.Service;
+namespace Admin.NET.Core;
 
-public class FileOutput
+/// <summary>
+/// 事件总线配置选项
+/// </summary>
+public sealed class EventBusOptions : IConfigurableOptions
 {
     /// <summary>
-    /// Id
+    /// RabbitMQ
     /// </summary>
-    public long Id { get; set; }
+    public RabbitMQSettings RabbitMQ { get; set; }
+}
+
+/// <summary>
+/// RabbitMQ
+/// </summary>
+public sealed class RabbitMQSettings
+{
+    /// <summary>
+    /// 账号
+    /// </summary>
+    public string UserName { get; set; }
 
     /// <summary>
-    /// 提供者
+    /// 密码
     /// </summary>
-    public string Provider { get; set; }
+    public string Password { get; set; }
 
     /// <summary>
-    /// 名称
+    /// 主机
     /// </summary>
-    public string Name => Id + Suffix;
+    public string HostName { get; set; }
 
     /// <summary>
-    /// URL
+    /// 端口
     /// </summary>
-    public string Url { get; set; }
-
-    /// <summary>
-    /// 大小
-    /// </summary>
-    public string SizeKb { get; set; }
-
-    /// <summary>
-    /// 后缀
-    /// </summary>
-    public string Suffix { get; set; }
-
-    /// <summary>
-    /// 路径
-    /// </summary>
-    public string FilePath { get; set; }
-
-    /// <summary>
-    /// 文件名称
-    /// </summary>
-    public string FileName { get; set; }
+    public int Port { get; set; }
 }

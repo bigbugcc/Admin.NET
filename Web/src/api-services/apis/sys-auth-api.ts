@@ -17,6 +17,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { AdminResultBoolean } from '../models';
 import { AdminResultLoginOutput } from '../models';
 import { AdminResultLoginUserOutput } from '../models';
 import { AdminResultObject } from '../models';
@@ -292,6 +293,58 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
 
             if (accessToken !== undefined) {
                 localVarQueryParameter['accessToken'] = accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 验证锁屏密码
+         * @param {string} password 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAuthUnLockScreenPost: async (password: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'password' is not null or undefined
+            if (password === null || password === undefined) {
+                throw new RequiredError('password','Required parameter password was null or undefined when calling apiSysAuthUnLockScreenPost.');
+            }
+            const localVarPath = `/api/sysAuth/unLockScreen`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (password !== undefined) {
+                localVarQueryParameter['password'] = password;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -588,6 +641,20 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 验证锁屏密码
+         * @param {string} password 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultBoolean>>> {
+            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthUnLockScreenPost(password, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取登录账号
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -708,6 +775,16 @@ export const SysAuthApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary 验证锁屏密码
+         * @param {string} password 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultBoolean>> {
+            return SysAuthApiFp(configuration).apiSysAuthUnLockScreenPost(password, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取登录账号
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -816,6 +893,17 @@ export class SysAuthApi extends BaseAPI {
      */
     public async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
         return SysAuthApiFp(this.configuration).apiSysAuthRefreshTokenGet(accessToken, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 验证锁屏密码
+     * @param {string} password 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysAuthApi
+     */
+    public async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultBoolean>> {
+        return SysAuthApiFp(this.configuration).apiSysAuthUnLockScreenPost(password, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

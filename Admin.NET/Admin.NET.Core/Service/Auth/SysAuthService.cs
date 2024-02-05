@@ -114,6 +114,36 @@ public class SysAuthService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 验证锁屏密码
+    /// </summary>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    [DisplayName("验证锁屏密码")]
+    public async Task<bool> UnLockScreen([Required, FromQuery] string password)
+    {
+        // 账号是否存在
+        var user = await _sysUserRep.GetFirstAsync(u => u.Id == _userManager.UserId);
+        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+
+        // 国密SM2解密（前端密码传输SM2加密后的）
+        password = CryptogramUtil.SM2Decrypt(password);
+
+        // 密码是否正确
+        if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
+        {
+            if (!user.Password.Equals(MD5Encryption.Encrypt(password)))
+                throw Oops.Oh(ErrorCodeEnum.D1000);
+        }
+        else
+        {
+            if (!CryptogramUtil.Decrypt(user.Password).Equals(password))
+                throw Oops.Oh(ErrorCodeEnum.D1000);
+        }
+
+        return true;
+    }
+
+    /// <summary>
     /// 手机号登录
     /// </summary>
     /// <param name="input"></param>

@@ -7,32 +7,20 @@
 // 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
 // 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统角色菜单表
+/// 国密公钥私钥对输出
 /// </summary>
-[SugarTable(null, "系统角色菜单表")]
-[SysTable]
-public class SysRoleMenu : EntityBaseId
+public class SmKeyPairOutput
 {
     /// <summary>
-    /// 角色Id
+    /// 私匙
     /// </summary>
-    [SugarColumn(ColumnDescription = "角色Id")]
-    public long RoleId { get; set; }
+    public string PrivateKey { get; set; }
 
     /// <summary>
-    /// 菜单Id
+    /// 公匙
     /// </summary>
-    [SugarColumn(ColumnDescription = "菜单Id")]
-    public long MenuId { get; set; }
-
-    /// <summary>
-    /// 菜单
-    /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
-    [System.Text.Json.Serialization.JsonIgnore]
-    [Navigate(NavigateType.OneToOne, nameof(MenuId))]
-    public SysMenu SysMenu { get; set; }
+    public string PublicKey { get; set; }
 }

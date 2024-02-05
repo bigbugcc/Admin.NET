@@ -213,6 +213,8 @@ public class SysUser : EntityTenant
     /// <summary>
     /// 直属主管
     /// </summary>
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     [Navigate(NavigateType.OneToOne, nameof(ManagerUserId))]
     public SysUser ManagerUser { get; set; }
 
@@ -225,6 +227,8 @@ public class SysUser : EntityTenant
     /// <summary>
     /// 职位
     /// </summary>
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     [Navigate(NavigateType.OneToOne, nameof(PosId))]
     public SysPos SysPos { get; set; }
 

@@ -18,11 +18,9 @@ import { CultureLevelEnum } from './culture-level-enum';
 import { GenderEnum } from './gender-enum';
 import { StatusEnum } from './status-enum';
 import { SysOrg } from './sys-org';
-import { SysPos } from './sys-pos';
-import { SysUser } from './sys-user';
 import { SysUserExtOrg } from './sys-user-ext-org';
 import {
-    AccountTypeEnum,CardTypeEnum,CultureLevelEnum,GenderEnum,StatusEnum,SysOrg,SysPos,SysUser,SysUserExtOrg,
+    AccountTypeEnum,CardTypeEnum,CultureLevelEnum,GenderEnum,StatusEnum,SysOrg,SysUserExtOrg,
 } from ".";
 
 /**
@@ -302,24 +300,12 @@ export interface AddUserInput {
     managerUserId?: number | null;
 
     /**
-     * @type {SysUser}
-     * @memberof AddUserInput
-     */
-    managerUser?: SysUser;
-
-    /**
      * 职位Id
      *
      * @type {number}
      * @memberof AddUserInput
      */
     posId?: number;
-
-    /**
-     * @type {SysPos}
-     * @memberof AddUserInput
-     */
-    sysPos?: SysPos;
 
     /**
      * 工号

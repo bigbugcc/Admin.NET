@@ -25,6 +25,8 @@ public class SysUserRole : EntityBaseId
     /// <summary>
     /// 用户
     /// </summary>
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     [Navigate(NavigateType.OneToOne, nameof(UserId))]
     public SysUser SysUser { get; set; }
 
