@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance,AxiosRequestConfig } from 'axios';
 import { ElMessage } from 'element-plus';
 import { Local, Session } from '/@/utils/storage';
 
@@ -204,10 +204,10 @@ export function getJWTDate(timestamp: number): Date {
 /**
  * Ajax请求，如果成功返回result字段，如果不成功提示错误信息
  * @description Ajax请求
- * @config CreateAxiosDefaults 请求参数
+ * @config AxiosRequestConfig 请求参数
  * @returns 返回对象
  */
-export function request2(config?: CreateAxiosDefaults): any {
+export function request2(config: AxiosRequestConfig<any>): any { 
 	return new Promise((resolve, reject) => {
 		service(config)
 			.then((res) => {
