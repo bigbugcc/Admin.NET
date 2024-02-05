@@ -77,4 +77,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entity\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 </Project>

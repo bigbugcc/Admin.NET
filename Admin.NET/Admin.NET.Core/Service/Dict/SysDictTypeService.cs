@@ -150,20 +150,23 @@ public class SysDictTypeService : IDynamicApiController, ITransient
         await _sysDictTypeRep.UpdateAsync(dictType);
     }
 
+
     /// <summary>
     /// 获取所有字典集合
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
     [DisplayName("获取所有字典集合")]
-    public async Task<List<SysDictType>> GetAllDictList()
+    public async Task<dynamic> GetAllDictList()
     {
-        var dictList = await _sysDictTypeRep.AsQueryable()
-            .Includes(u => u.Children)
-            .OrderBy(u => new { u.OrderNo, u.Code })
+        var ds = await _sysDictTypeRep.AsQueryable()
+            .InnerJoin<SysDictData>((m, n) => m.Id == n.DictTypeId)
+            .Where((m, n) => m.IsDelete == false && n.IsDelete == false && n.Status == StatusEnum.Enable)
+            .Select((m, n) => new { TypeCode = m.Code,  n.Code, n.Value, n.Remark, n.OrderNo,n.TagType })
             .ToListAsync();
-        // 字典数据项排序
-        dictList.ForEach(u => u.Children = u.Children.OrderBy(c => c.OrderNo).ThenBy(c => c.Code).ToList());
-        return dictList;
+        return ds
+            .OrderBy(s => s.OrderNo).GroupBy(m => m.TypeCode)
+            .ToDictionary(m => m.Key, m => m);
     }
+
 }

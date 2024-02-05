@@ -26,6 +26,11 @@ export const getToken = () => {
 	return Local.get(accessTokenKey);
 };
 
+// 获取上传文件Header
+export const getHeader  = () => {
+	return { authorization: 'Bearer ' + getToken() };
+};
+
 // 清除 token
 export const clearAccessTokens = () => {
 	clearTokens();
