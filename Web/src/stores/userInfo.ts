@@ -47,9 +47,8 @@ export const useUserInfo = defineStore('userInfo', {
 		},
 		async setDictList() {
 			// 存储字典信息到浏览器缓存
-			var res= await getAPI(SysDictTypeApi)
-						.apiSysDictTypeAllDictListGet();
-			this.dictList=res.data.result ;
+			var res = await getAPI(SysDictTypeApi).apiSysDictTypeAllDictListGet();
+			this.dictList = res.data.result;
 			// if (Session.get('dictList')) {
 			// 	this.dictList = Session.get('dictList');
 			// } else {
@@ -130,10 +129,10 @@ export const useUserInfo = defineStore('userInfo', {
 				}
 			});
 		},
-		
+
 		//根据字典类型和值取字典项
-		getDictItemByVal( typePCode: string,val: string) {
-			const _val= val.toString();
+		getDictItemByVal(typePCode: string, val: string) {
+			const _val = val.toString();
 			const ds = this.getDictDatasByCode(typePCode);
 			for (let index = 0; index < ds.length; index++) {
 				const element = ds[index];
@@ -145,11 +144,11 @@ export const useUserInfo = defineStore('userInfo', {
 		},
 
 		//根据字典类型和值取描述
-		getDictLabelByVal( typePCode: string,val: string) {
-			return this.getDictItemByVal(typePCode,val).value;
+		getDictLabelByVal(typePCode: string, val: string) {
+			return this.getDictItemByVal(typePCode, val).value;
 		},
 		//根据字典类型和描述取值
-		getDictValByLabel(typePCode: string,label: string) {
+		getDictValByLabel(typePCode: string, label: string) {
 			const ds = this.getDictDatasByCode(typePCode);
 			for (let index = 0; index < ds.length; index++) {
 				const element = ds[index];
@@ -162,20 +161,20 @@ export const useUserInfo = defineStore('userInfo', {
 		getDictDatasByCode(dictTypeCode: string) {
 			return this.dictList[dictTypeCode] || [];
 		},
-		
+
 		//根据字典类型字典数据,值转为数字类型
 		getDictIntDatasByCode(dictTypeCode: string) {
-			var ds=this.dictListInt[dictTypeCode];
-			if(ds){
+			var ds = this.dictListInt[dictTypeCode];
+			if (ds) {
 				return ds;
-			}else{
-				ds=this.dictList[dictTypeCode]
-				.map((element: { code: any; }) => {
-					element.code= element.code-0;
-					return element;
+			} else {
+				ds = this.dictList[dictTypeCode].map((element: { code: any }) => {
+					var d={...element};
+					d.code = element.code - 0;
+					return d;
 				});
-				this.dictListInt[dictTypeCode]=ds;
-				return ds ;
+				this.dictListInt[dictTypeCode] = ds;
+				return ds;
 			}
 		},
 	},

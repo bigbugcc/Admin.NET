@@ -48,6 +48,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="mb10"> 
 								<el-button type="primary" icon="ele-Plus" @click="openAddDm_ApplyDemo" v-auth="'dm_ApplyDemo:add'"> 新增 </el-button>
+								<el-button type="primary" icon="ele-Plus" @click="openPatchAddDm_ApplyDemo" v-auth="'dm_ApplyDemo:add'"> 批量添加 </el-button>
 								
 								<el-button icon="ele-Download" @click="exportData" > 导出数据 </el-button>
 
@@ -94,6 +95,7 @@
 			/>
 			<printDialog ref="printDialogRef" :title="printDm_ApplyDemoTitle" @reloadTable="handleQuery" />
 			<editDialog ref="editDialogRef" :title="editDm_ApplyDemoTitle" @reloadTable="handleQuery" />
+			<patchEditDialog ref="patchEditDialogRef" :title="editDm_ApplyDemoTitle" @reloadTable="handleQuery" />
 		</el-card>
 	</div>
 </template>
@@ -105,6 +107,7 @@ import { auth } from '/@/utils/authFunction';
 import { getDictDataItem as di, getDictDataList as dl } from '/@/utils/dict-utils';
 
 import printDialog from '/@/views/system/print/component/hiprint/preview.vue';
+import patchEditDialog from '/@/views/main/dm_ApplyDemo/component/patchEditDialog.vue';
 import editDialog from '/@/views/main/dm_ApplyDemo/component/editDialog.vue';
 import { pageDm_ApplyDemo, deleteDm_ApplyDemo,exportDm_ApplyDemo as exportData } from '/@/api/main/dm_ApplyDemo';
 import ImportButton from '/@/components/importButton/index.vue';
@@ -112,6 +115,7 @@ import ImportButton from '/@/components/importButton/index.vue';
 const showAdvanceQueryUI = ref(false);
 const printDialogRef = ref();
 const editDialogRef = ref();
+const patchEditDialogRef= ref();
 const loading = ref(false);
 const tableData = ref<any>([]);
 const queryParams = ref<any>({});
@@ -149,6 +153,11 @@ const sortChange = async (column: any) => {
 const openAddDm_ApplyDemo = () => {
 	editDm_ApplyDemoTitle.value = '添加申请示例';
 	editDialogRef.value.openDialog({});
+};
+// 打开批量新增页面
+const openPatchAddDm_ApplyDemo = () => {
+	editDm_ApplyDemoTitle.value = '批量添加申请示例';
+	patchEditDialogRef.value.openDialog({});
 };
 
 // 打开打印页面
