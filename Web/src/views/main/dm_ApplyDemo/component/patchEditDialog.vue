@@ -7,7 +7,7 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<TableEditor :columns="editFormSchema" :v-model:value="vm.value"></TableEditor>
+			<TableEditor :columns="editFormSchema" :v-model:value="vm.value" :rules="rules"></TableEditor>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button @click="cancel">取 消</el-button>
@@ -45,18 +45,17 @@
 	const ruleForm = ref<any>({});
 	//自行添加其他规则
 	const rules = ref<FormRules>({
+        orgType: [{ required: true, message: '请输入机构类型！', trigger: 'blur',},],
         applyNO: [{ required: true, message: '请输入申请号！', trigger: 'blur',},],
         applicatDate: [{ required: true, message: '请选择申请时间！', trigger: 'change',},],
         amount: [{ required: true, message: '请输入申请金额！', trigger: 'blur',},],
-        remark: [{ required: true, message: '请输入备注！', trigger: 'blur',},],
+  //      remark: [{ required: true, message: '请输入备注！', trigger: 'blur',},],
 	});
  const editFormSchema = [
   {
     label: 'id',
     field: 'id',
     component: 'el-input',
-    required: false,
-    colProps: { span: 6 },
     ifShow: false,
   }, 
   {
@@ -66,43 +65,31 @@
     componentProps: {
       options: dl('org_type'),
     },
-    required: false,
-    colProps: { span: 6 },
   },
   {
     label: '申请号',
     field: 'applyNO',
     component: 'el-input',
-    required: false,
-    colProps: { span: 6 },
   },
   {
     label: '申请时间',
     field: 'applicatDate',
     component: 'el-date-picker',
-    required: false,
-    colProps: { span: 6 },
   },
   {
     label: '申请金额',
     field: 'amount',
     component: 'el-input-number',
-    required: false,
-    colProps: { span: 6 },
   },
   {
     label: '是否通知',
     field: 'isNotice',
     component: 'el-switch',
-    required: false,
-    colProps: { span: 6 },
   },
   {
     label: '备注',
     field: 'remark',
     component: 'el-input',
-    required: false,
-    colProps: { span: 6 },
   },
 ];
 
