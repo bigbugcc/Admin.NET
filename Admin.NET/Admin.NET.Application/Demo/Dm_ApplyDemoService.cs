@@ -4,6 +4,7 @@ using Admin.NET.Application.Entity;
 using Microsoft.AspNetCore.Http;
 using Magicodes.ExporterAndImporter.Core.Models;
 using Furion.Logging;
+using Yitter.IdGenerator;
 namespace Admin.NET.Application;
 /// <summary>
 /// 申请示例服务
@@ -37,7 +38,7 @@ public class Dm_ApplyDemoService : IDynamicApiController, ITransient
     /// <returns></returns>
     private ISugarQueryable<Dm_ApplyDemo> Query(Dm_ApplyDemoInput input)
     {
-        var query = _rep.AsQueryable()
+        var query = _rep.AsQueryable().Where(m=>!m.IsDelete)
             .WhereIF(!string.IsNullOrWhiteSpace(input.SearchKey), u =>
                 u.ApplyNO.Contains(input.SearchKey.Trim())
                 || u.Remark.Contains(input.SearchKey.Trim())
@@ -83,6 +84,24 @@ public class Dm_ApplyDemoService : IDynamicApiController, ITransient
         var entity = input.Adapt<Dm_ApplyDemo>();
         await _rep.InsertAsync(entity);
         return entity.Id;
+    }
+    /// <summary>
+    /// 批量增加申请示例
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "PatchAdd")]
+    public async Task<List<PathAddApplyDemoItem>> PatchAdd(List<PathAddApplyDemoItem> input)
+    {
+        foreach (var item in input)
+        {
+            var entity = item.Adapt<Dm_ApplyDemo>();
+            entity.Id = YitIdHelper.NextId();
+            await _rep.InsertAsync(entity);
+            item.Id= entity.Id;
+        }
+        return input;
     }
 
     /// <summary>

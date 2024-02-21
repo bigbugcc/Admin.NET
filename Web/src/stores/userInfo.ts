@@ -132,12 +132,14 @@ export const useUserInfo = defineStore('userInfo', {
 
 		//根据字典类型和值取字典项
 		getDictItemByVal(typePCode: string, val: string) {
-			const _val = val.toString();
-			const ds = this.getDictDatasByCode(typePCode);
-			for (let index = 0; index < ds.length; index++) {
-				const element = ds[index];
-				if (element.code == _val) {
-					return element;
+			if(val){
+				const _val = val.toString();
+				const ds = this.getDictDatasByCode(typePCode);
+				for (let index = 0; index < ds.length; index++) {
+					const element = ds[index];
+					if (element.code == _val) {
+						return element;
+					}
 				}
 			}
 			return {};
@@ -149,6 +151,7 @@ export const useUserInfo = defineStore('userInfo', {
 		},
 		//根据字典类型和描述取值
 		getDictValByLabel(typePCode: string, label: string) {
+			if(!label) return ''
 			const ds = this.getDictDatasByCode(typePCode);
 			for (let index = 0; index < ds.length; index++) {
 				const element = ds[index];

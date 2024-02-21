@@ -1,4 +1,4 @@
-﻿import request from '/@/utils/request';
+﻿import request,{request2} from '/@/utils/request';
 import { downloadByData } from '/@/utils/download';
 enum Api {
 	AddDm_ApplyDemo = '/api/dm_ApplyDemo/add',
@@ -7,6 +7,14 @@ enum Api {
 	PageDm_ApplyDemo = '/api/dm_ApplyDemo/page',
 	DetailDm_ApplyDemo = '/api/dm_ApplyDemo/detail',
 }
+
+// 批量增加申请示例
+export const patchAddDm_ApplyDemo = (params?: any) =>
+	request2({
+		url: '/api/dm_ApplyDemo/PatchAdd',
+		method: 'post',
+		data: params,
+	});
 
 // 增加申请示例
 export const addDm_ApplyDemo = (params?: any) =>

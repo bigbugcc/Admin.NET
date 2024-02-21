@@ -76,6 +76,54 @@ public class Dm_ApplyDemoBaseInput
 }
 
 /// <summary>
+/// 批量添加
+/// </summary>
+public class PathAddApplyDemoInput
+{
+    public List<PathAddApplyDemoItem> Items { get; set; }
+}
+public class PathAddApplyDemoItem
+{
+    /// <summary>
+    /// Id
+    /// </summary> 
+    public long Id { get; set; }
+
+    /// <summary>
+    /// 机构类型 详见字典类型 org_type
+    /// </summary>
+    public virtual long? OrgType { get; set; }
+
+    /// <summary>
+    /// ApplyNO
+    /// </summary>
+    [Required(ErrorMessage = "ApplyNO不能为空")]
+    public string ApplyNO { get; set; }
+
+    /// <summary>
+    /// ApplicatDate
+    /// </summary>
+    [Required(ErrorMessage = "ApplicatDate不能为空")]
+    public DateTime ApplicatDate { get; set; }
+
+    /// <summary>
+    /// Amount
+    /// </summary>
+    [Required(ErrorMessage = "Amount不能为空")]
+    public decimal Amount { get; set; }
+
+    /// <summary>
+    /// IsNotice
+    /// </summary>
+    [Required(ErrorMessage = "IsNotice不能为空")]
+    public bool IsNotice { get; set; }
+
+    /// <summary>
+    /// Remark
+    /// </summary>
+    public string Remark { get; set; }
+}
+/// <summary>
 /// 申请示例分页查询输入参数
 /// </summary>
 public class Dm_ApplyDemoInput : BasePageInput
@@ -121,73 +169,73 @@ public class Dm_ApplyDemoInput : BasePageInput
     public List<DateTime?> ApplicatDateRange { get; set; }
 }
 
+/// <summary>
+/// 申请示例增加输入参数
+/// </summary>
+public class AddDm_ApplyDemoInput : Dm_ApplyDemoBaseInput
+{
     /// <summary>
-    /// 申请示例增加输入参数
+    /// ApplyNO
     /// </summary>
-    public class AddDm_ApplyDemoInput : Dm_ApplyDemoBaseInput
-    {
-        /// <summary>
-        /// ApplyNO
-        /// </summary>
-        [Required(ErrorMessage = "ApplyNO不能为空")]
-        public override string ApplyNO { get; set; }
-        
-        /// <summary>
-        /// ApplicatDate
-        /// </summary>
-        [Required(ErrorMessage = "ApplicatDate不能为空")]
-        public override DateTime ApplicatDate { get; set; }
-        
-        /// <summary>
-        /// Amount
-        /// </summary>
-        [Required(ErrorMessage = "Amount不能为空")]
-        public override decimal Amount { get; set; }
-        
-        /// <summary>
-        /// IsNotice
-        /// </summary>
-        [Required(ErrorMessage = "IsNotice不能为空")]
-        public override bool IsNotice { get; set; }
-        
-        /// <summary>
-        /// Remark
-        /// </summary>
-        [Required(ErrorMessage = "Remark不能为空")]
-        public override string Remark { get; set; }
-        
-        /// <summary>
-        /// IsDelete
-        /// </summary>
-        [Required(ErrorMessage = "IsDelete不能为空")]
-        public override bool IsDelete { get; set; }
-        
-    }
+    [Required(ErrorMessage = "ApplyNO不能为空")]
+    public override string ApplyNO { get; set; }
 
     /// <summary>
-    /// 申请示例删除输入参数
+    /// ApplicatDate
     /// </summary>
-    public class DeleteDm_ApplyDemoInput : BaseIdInput
-    {
-    }
+    [Required(ErrorMessage = "ApplicatDate不能为空")]
+    public override DateTime ApplicatDate { get; set; }
 
     /// <summary>
-    /// 申请示例更新输入参数
+    /// Amount
     /// </summary>
-    public class UpdateDm_ApplyDemoInput : Dm_ApplyDemoBaseInput
-    {
-        /// <summary>
-        /// Id
-        /// </summary>
-        [Required(ErrorMessage = "Id不能为空")]
-        public long Id { get; set; }
-        
-    }
+    [Required(ErrorMessage = "Amount不能为空")]
+    public override decimal Amount { get; set; }
 
     /// <summary>
-    /// 申请示例主键查询输入参数
+    /// IsNotice
     /// </summary>
-    public class QueryByIdDm_ApplyDemoInput : DeleteDm_ApplyDemoInput
-    {
+    [Required(ErrorMessage = "IsNotice不能为空")]
+    public override bool IsNotice { get; set; }
 
-    }
+    /// <summary>
+    /// Remark
+    /// </summary>
+    [Required(ErrorMessage = "Remark不能为空")]
+    public override string Remark { get; set; }
+
+    /// <summary>
+    /// IsDelete
+    /// </summary>
+    [Required(ErrorMessage = "IsDelete不能为空")]
+    public override bool IsDelete { get; set; }
+
+}
+
+/// <summary>
+/// 申请示例删除输入参数
+/// </summary>
+public class DeleteDm_ApplyDemoInput : BaseIdInput
+{
+}
+
+/// <summary>
+/// 申请示例更新输入参数
+/// </summary>
+public class UpdateDm_ApplyDemoInput : Dm_ApplyDemoBaseInput
+{
+    /// <summary>
+    /// Id
+    /// </summary>
+    [Required(ErrorMessage = "Id不能为空")]
+    public long Id { get; set; }
+
+}
+
+/// <summary>
+/// 申请示例主键查询输入参数
+/// </summary>
+public class QueryByIdDm_ApplyDemoInput : DeleteDm_ApplyDemoInput
+{
+
+}
