@@ -74,6 +74,9 @@ const editFormSchema = [
 		label: '申请时间',
 		field: 'applicatDate',
 		component: 'el-date-picker',
+		componentProps: {
+			"value-format":'YYYY-MM-DD'
+		},
 	},
 	{
 		label: '申请金额',

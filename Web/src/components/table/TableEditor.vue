@@ -90,9 +90,9 @@ async function add() {
 		let val = vm.formData[field];
 		if(val){
 			if(isDate(val) ){
-			val=dayjs(val).format(props.columns.filter(m=>m.field==field)[0]
-			.format|| 'YYYY-MM-DD'); 
-			vm.formData[field]=val;
+				val=dayjs(val).format(props.columns.filter(m=>m.field==field)[0]
+				.format|| 'YYYY-MM-DD'); 
+				vm.formData[field]=val;
 			}else if (!isString(val)) {
 				val= val.toString();
 			}
