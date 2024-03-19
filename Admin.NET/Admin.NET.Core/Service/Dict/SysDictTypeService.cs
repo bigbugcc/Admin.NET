@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统字典类型服务
+/// 系统字典类型服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 430)]
 [AllowAnonymous]
@@ -22,7 +22,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典类型分页列表
+    /// 获取字典类型分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取字典类型分页列表")]
@@ -36,7 +36,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典类型列表
+    /// 获取字典类型列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取字典类型列表")]
@@ -46,7 +46,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典类型-值列表
+    /// 获取字典类型-值列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -62,7 +62,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 添加字典类型
+    /// 添加字典类型 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -78,7 +78,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新字典类型
+    /// 更新字典类型 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -98,7 +98,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除字典类型
+    /// 删除字典类型 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -116,7 +116,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典类型详情
+    /// 获取字典类型详情 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -127,7 +127,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 修改字典类型状态
+    /// 修改字典类型状态 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -146,7 +146,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取所有字典集合
+    /// 获取所有字典集合 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]

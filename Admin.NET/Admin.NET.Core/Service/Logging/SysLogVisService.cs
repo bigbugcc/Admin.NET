@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统访问日志服务
+/// 系统访问日志服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 340)]
 public class SysLogVisService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysLogVisService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取访问日志分页列表
+    /// 获取访问日志分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [SuppressMonitor]
@@ -33,7 +33,7 @@ public class SysLogVisService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 清空访问日志
+    /// 清空访问日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]

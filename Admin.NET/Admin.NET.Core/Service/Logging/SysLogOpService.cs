@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统操作日志服务
+/// 系统操作日志服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 360)]
 public class SysLogOpService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysLogOpService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取操作日志分页列表
+    /// 获取操作日志分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [SuppressMonitor]
@@ -34,7 +34,7 @@ public class SysLogOpService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 清空操作日志
+    /// 清空操作日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
@@ -45,7 +45,7 @@ public class SysLogOpService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 导出操作日志
+    /// 导出操作日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Export"), NonUnify]

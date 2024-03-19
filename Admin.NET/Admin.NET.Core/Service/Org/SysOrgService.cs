@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统机构服务
+/// 系统机构服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 470)]
 public class SysOrgService : IDynamicApiController, ITransient
@@ -33,7 +33,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取机构列表
+    /// 获取机构列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取机构列表")]
@@ -91,7 +91,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加机构
+    /// 增加机构 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -126,7 +126,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新机构
+    /// 更新机构 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -174,7 +174,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除机构
+    /// 删除机构 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

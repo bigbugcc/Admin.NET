@@ -8,7 +8,7 @@ using MimeKit;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统邮件发送服务
+/// 系统邮件发送服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 370)]
 public class SysEmailService : IDynamicApiController, ITransient
@@ -21,7 +21,7 @@ public class SysEmailService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送邮件
+    /// 发送邮件 📧
     /// </summary>
     /// <param name="content"></param>
     /// <param name="title"></param>

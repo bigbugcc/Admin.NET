@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统差异日志服务
+/// 系统差异日志服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 330)]
 public class SysLogDiffService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysLogDiffService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取差异日志分页列表
+    /// 获取差异日志分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [SuppressMonitor]
@@ -33,7 +33,7 @@ public class SysLogDiffService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 清空差异日志
+    /// 清空差异日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]

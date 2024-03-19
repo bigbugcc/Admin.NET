@@ -317,7 +317,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// <param name="userId"></param>
     /// <returns></returns>
     [DisplayName("获取用户拥有角色集合")]
-    public virtual async Task<List<long>> GetOwnRoleList(long userId)
+    public async Task<List<long>> GetOwnRoleList(long userId)
     {
         return await _sysUserRoleService.GetUserRoleIdList(userId);
     }
@@ -328,7 +328,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// <param name="userId"></param>
     /// <returns></returns>
     [DisplayName("获取用户扩展机构集合")]
-    public virtual async Task<List<SysUserExtOrg>> GetOwnExtOrgList(long userId)
+    public async Task<List<SysUserExtOrg>> GetOwnExtOrgList(long userId)
     {
         return await _sysUserExtOrgService.GetUserExtOrgList(userId);
     }

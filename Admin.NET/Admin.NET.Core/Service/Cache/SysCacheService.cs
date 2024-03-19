@@ -40,7 +40,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     /// <param name="value"></param>
     /// <returns></returns>
     [NonAction]
-    public virtual bool Set(string key, object value)
+    public bool Set(string key, object value)
     {
         if (string.IsNullOrWhiteSpace(key)) return false;
         return _cache.Set($"{_cacheOptions.Prefix}{key}", value);

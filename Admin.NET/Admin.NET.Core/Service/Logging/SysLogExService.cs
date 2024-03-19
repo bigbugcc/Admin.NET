@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统异常日志服务
+/// 系统异常日志服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 350)]
 public class SysLogExService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysLogExService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取异常日志分页列表
+    /// 获取异常日志分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [SuppressMonitor]
@@ -34,7 +34,7 @@ public class SysLogExService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 清空异常日志
+    /// 清空异常日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
@@ -45,7 +45,7 @@ public class SysLogExService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 导出异常日志
+    /// 导出异常日志 🔖
     /// </summary>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Export"), NonUnify]

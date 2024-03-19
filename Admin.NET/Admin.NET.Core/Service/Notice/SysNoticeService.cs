@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统通知公告服务
+/// 系统通知公告服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 380)]
 public class SysNoticeService : IDynamicApiController, ITransient
@@ -31,7 +31,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取通知公告分页列表
+    /// 获取通知公告分页列表 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -47,7 +47,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加通知公告
+    /// 增加通知公告 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -61,7 +61,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新通知公告
+    /// 更新通知公告 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -76,7 +76,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除通知公告
+    /// 删除通知公告 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -91,7 +91,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发布通知公告
+    /// 发布通知公告 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -119,7 +119,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 设置通知公告已读状态
+    /// 设置通知公告已读状态 📢
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -150,7 +150,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取未读的通知公告
+    /// 获取未读的通知公告 📢
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取未读的通知公告")]

@@ -9,7 +9,7 @@ using Npgsql;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统数据库管理服务
+/// 系统数据库管理服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 250)]
 public class SysDatabaseService : IDynamicApiController, ITransient
@@ -28,7 +28,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取库列表
+    /// 获取库列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取库列表")]
@@ -38,7 +38,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字段列表
+    /// 获取字段列表 🔖
     /// </summary>
     /// <param name="tableName">表名</param>
     /// <param name="configId">ConfigId</param>
@@ -55,7 +55,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取数据库数据类型列表
+    /// 获取数据库数据类型列表 🔖
     /// </summary>
     /// <param name="configId"></param>
     /// <returns></returns>
@@ -67,7 +67,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加列
+    /// 增加列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "AddColumn"), HttpPost]
@@ -93,7 +93,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除列
+    /// 删除列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "DeleteColumn"), HttpPost]
@@ -105,7 +105,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 编辑列
+    /// 编辑列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "UpdateColumn"), HttpPost]
@@ -120,7 +120,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取表列表
+    /// 获取表列表 🔖
     /// </summary>
     /// <param name="configId">ConfigId</param>
     /// <returns></returns>
@@ -132,7 +132,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加表
+    /// 增加表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "AddTable"), HttpPost]
@@ -167,7 +167,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除表
+    /// 删除表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "DeleteTable"), HttpPost]
@@ -179,7 +179,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 编辑表
+    /// 编辑表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "UpdateTable"), HttpPost]
@@ -195,14 +195,14 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             else
                 db.DbMaintenance.AddTableRemark(input.TableName, input.Description);
         }
-        catch (NotSupportedException)
+        catch (NotSupportedException ex)
         {
-            //Ignore 不支持该方法则不处理
+            throw Oops.Oh(ex.ToString());
         }
     }
 
     /// <summary>
-    /// 创建实体
+    /// 创建实体 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "CreateEntity"), HttpPost]
@@ -248,7 +248,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 创建种子数据
+    /// 创建种子数据 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "CreateSeedData"), HttpPost]
@@ -449,6 +449,8 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [HttpPost, NonUnify]
+    [DisplayName("备份数据库（PostgreSQL）")]
+
     public async Task<IActionResult> BackupDatabase()
     {
         if (_db.CurrentConnectionConfig.DbType != SqlSugar.DbType.PostgreSQL)

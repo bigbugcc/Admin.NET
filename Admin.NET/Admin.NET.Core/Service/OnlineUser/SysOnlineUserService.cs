@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统在线用户服务
+/// 系统在线用户服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 300)]
 public class SysOnlineUserService : IDynamicApiController, ITransient
@@ -26,7 +26,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取在线用户分页列表
+    /// 获取在线用户分页列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取在线用户分页列表")]
@@ -39,7 +39,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 强制下线
+    /// 强制下线 🔖
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>

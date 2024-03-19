@@ -9,7 +9,7 @@ using OnceMi.AspNetCore.OSS;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统文件服务
+/// 系统文件服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 410)]
 public class SysFileService : IDynamicApiController, ITransient
@@ -35,7 +35,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取文件分页列表
+    /// 获取文件分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -51,7 +51,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件
+    /// 上传文件 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <param name="path"></param>
@@ -89,7 +89,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件Base64
+    /// 上传文件Base64 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -101,7 +101,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传多文件
+    /// 上传多文件 🔖
     /// </summary>
     /// <param name="files"></param>
     /// <returns></returns>
@@ -117,7 +117,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据文件Id或Url下载
+    /// 根据文件Id或Url下载 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -141,11 +141,12 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 下载指定文件Base64格式
+    /// 下载指定文件Base64格式 🔖
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
     [AllowAnonymous]
+    [DisplayName("下载指定文件Base64格式")]
     public async Task<string> DownloadFileBase64([FromBody] string url)
     {
         if (_OSSProviderOptions.IsEnable)
@@ -179,7 +180,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除文件
+    /// 删除文件 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -206,7 +207,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新文件
+    /// 更新文件 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -372,7 +373,7 @@ public class SysFileService : IDynamicApiController, ITransient
     //}
 
     /// <summary>
-    /// 上传头像
+    /// 上传头像 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
@@ -394,7 +395,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传电子签名
+    /// 上传电子签名 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>

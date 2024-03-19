@@ -8,7 +8,7 @@ using AngleSharp.Html.Dom;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统行政区域服务
+/// 系统行政区域服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 310)]
 public class SysRegionService : IDynamicApiController, ITransient
@@ -24,7 +24,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取行政区域分页列表
+    /// 获取行政区域分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取行政区域列表
+    /// 获取行政区域列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -50,7 +50,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加行政区域
+    /// 增加行政区域 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -68,7 +68,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新行政区域
+    /// 更新行政区域 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -99,7 +99,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除行政区域
+    /// 删除行政区域 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -113,7 +113,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 同步行政区域
+    /// 同步行政区域 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("同步行政区域")]

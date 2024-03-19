@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统代码生成配置服务
+/// 系统代码生成配置服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 260)]
 public class SysCodeGenConfigService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取代码生成配置列表
+    /// 获取代码生成配置列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -37,7 +37,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新代码生成配置
+    /// 更新代码生成配置 🔖
     /// </summary>
     /// <param name="inputList"></param>
     /// <returns></returns>
@@ -63,7 +63,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取代码生成配置详情
+    /// 获取代码生成配置详情 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

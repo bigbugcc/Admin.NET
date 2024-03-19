@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信支付服务
+/// 微信支付服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 210)]
 public class SysWechatPayService : IDynamicApiController, ITransient
@@ -48,7 +48,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 生成JSAPI调起支付所需参数
+    /// 生成JSAPI调起支付所需参数 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -59,7 +59,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信支付统一下单获取Id(商户直连)
+    /// 微信支付统一下单获取Id(商户直连) 🔖
     /// </summary>
     [DisplayName("微信支付统一下单获取Id(商户直连)")]
     public async Task<dynamic> CreatePayTransaction([FromBody] WechatPayTransactionInput input)
@@ -103,7 +103,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信支付统一下单获取Id(服务商模式)
+    /// 微信支付统一下单获取Id(服务商模式) 🔖
     /// </summary>
     [DisplayName("微信支付统一下单获取Id(服务商模式)")]
     public async Task<dynamic> CreatePayPartnerTransaction([FromBody] WechatPayTransactionInput input)
@@ -152,7 +152,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取支付订单详情
+    /// 获取支付订单详情 🔖
     /// </summary>
     /// <param name="tradeId"></param>
     /// <returns></returns>
@@ -163,7 +163,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信支付成功回调(商户直连)
+    /// 微信支付成功回调(商户直连) 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
@@ -210,7 +210,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信支付成功回调(服务商模式)
+    /// 微信支付成功回调(服务商模式) 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]

@@ -13,7 +13,7 @@ using OnceMi.AspNetCore.OSS;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统服务器监控服务
+/// 系统服务器监控服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 290)]
 public class SysServerService : IDynamicApiController, ITransient
@@ -23,7 +23,7 @@ public class SysServerService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取服务器配置信息
+    /// 获取服务器配置信息 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器配置信息")]
@@ -46,7 +46,7 @@ public class SysServerService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取服务器使用信息
+    /// 获取服务器使用信息 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器使用信息")]
@@ -71,7 +71,7 @@ public class SysServerService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取服务器磁盘信息
+    /// 获取服务器磁盘信息 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器磁盘信息")]
@@ -81,7 +81,7 @@ public class SysServerService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取框架主要程序集
+    /// 获取框架主要程序集 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取框架主要程序集")]

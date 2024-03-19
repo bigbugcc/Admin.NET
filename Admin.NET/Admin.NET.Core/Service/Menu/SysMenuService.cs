@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统菜单服务
+/// 系统菜单服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 450)]
 public class SysMenuService : IDynamicApiController, ITransient
@@ -30,7 +30,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取登录菜单树
+    /// 获取登录菜单树 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取登录菜单树")]
@@ -71,7 +71,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取菜单列表
+    /// 获取菜单列表 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
@@ -97,7 +97,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加菜单
+    /// 增加菜单 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -134,7 +134,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新菜单
+    /// 更新菜单 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -174,7 +174,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除菜单
+    /// 删除菜单 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -227,7 +227,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取用户拥有按钮权限集合（缓存）
+    /// 获取用户拥有按钮权限集合（缓存） 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取按钮权限集合")]

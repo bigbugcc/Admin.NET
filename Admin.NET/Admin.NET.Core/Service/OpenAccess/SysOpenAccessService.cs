@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 开放接口身份服务
+/// 开放接口身份服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 244)]
 public class SysOpenAccessService : IDynamicApiController, ITransient
@@ -26,7 +26,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取开放接口身份分页列表
+    /// 获取开放接口身份分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -47,7 +47,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加开放接口身份
+    /// 增加开放接口身份 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -63,7 +63,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新开放接口身份
+    /// 更新开放接口身份 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -81,7 +81,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除开放接口身份
+    /// 删除开放接口身份 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -97,7 +97,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 创建密钥
+    /// 创建密钥 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("创建密钥")]

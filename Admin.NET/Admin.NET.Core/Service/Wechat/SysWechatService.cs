@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信公众号服务
+/// 微信公众号服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 230)]
 public class SysWechatService : IDynamicApiController, ITransient
@@ -26,7 +26,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 生成网页授权Url
+    /// 生成网页授权Url 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -38,7 +38,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取微信用户OpenId
+    /// 获取微信用户OpenId 🔖
     /// </summary>
     /// <param name="input"></param>
     [AllowAnonymous]
@@ -78,7 +78,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信用户登录OpenId
+    /// 微信用户登录OpenId 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -104,7 +104,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取配置签名参数(wx.config)
+    /// 获取配置签名参数(wx.config) 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取配置签名参数(wx.config)")]
@@ -122,7 +122,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取模板列表
+    /// 获取模板列表 🔖
     /// </summary>
     [DisplayName("获取模板列表")]
     public async Task<dynamic> GetMessageTemplateList()
@@ -140,7 +140,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送模板消息
+    /// 发送模板消息 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -173,7 +173,7 @@ public class SysWechatService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除模板
+    /// 删除模板 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

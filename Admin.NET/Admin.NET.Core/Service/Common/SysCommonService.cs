@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统通用服务
+/// 系统通用服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 101)]
 [AllowAnonymous]
@@ -24,7 +24,7 @@ public class SysCommonService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取国密公钥私钥对
+    /// 获取国密公钥私钥对 🏆
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取国密公钥私钥对")]
@@ -42,7 +42,7 @@ public class SysCommonService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取所有接口/动态API
+    /// 获取所有接口/动态API 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取所有接口/动态API")]

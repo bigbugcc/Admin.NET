@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统字典值服务
+/// 系统字典值服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 420)]
 [AllowAnonymous]
@@ -19,7 +19,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典值分页列表
+    /// 获取字典值分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -35,7 +35,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典值列表
+    /// 获取字典值列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取字典值列表")]
@@ -45,7 +45,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加字典值
+    /// 增加字典值 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -61,7 +61,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新字典值
+    /// 更新字典值 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -79,7 +79,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除字典值
+    /// 删除字典值 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -95,7 +95,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字典值详情
+    /// 获取字典值详情 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -106,7 +106,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 修改字典值状态
+    /// 修改字典值状态 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -139,7 +139,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据字典类型编码获取字典值集合
+    /// 根据字典类型编码获取字典值集合 🔖
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
@@ -154,7 +154,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据查询条件获取字典值集合
+    /// 根据查询条件获取字典值集合 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

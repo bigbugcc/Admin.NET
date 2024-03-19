@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统打印模板服务
+/// 系统打印模板服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 305)]
 public class SysPrintService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取打印模板列表
+    /// 获取打印模板列表 🖨️
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -32,7 +32,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取打印模板
+    /// 获取打印模板 🖨️
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -43,7 +43,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加打印模板
+    /// 增加打印模板 🖨️
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -59,7 +59,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新打印模板
+    /// 更新打印模板 🖨️
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -75,7 +75,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除打印模板
+    /// 删除打印模板 🖨️
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

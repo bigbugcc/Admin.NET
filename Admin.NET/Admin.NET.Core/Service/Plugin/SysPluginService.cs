@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统动态插件服务
+/// 系统动态插件服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 245)]
 public class SysPluginService : IDynamicApiController, ITransient
@@ -21,7 +21,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取动态插件列表
+    /// 获取动态插件列表 🧩
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -35,7 +35,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加动态插件
+    /// 增加动态插件 🧩
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -54,7 +54,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新动态插件
+    /// 更新动态插件 🧩
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -74,7 +74,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除动态插件
+    /// 删除动态插件 🧩
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -92,7 +92,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 添加动态程序集/接口
+    /// 添加动态程序集/接口 🧩
     /// </summary>
     /// <param name="csharpCode"></param>
     /// <param name="assemblyName">程序集名称</param>
@@ -111,7 +111,7 @@ public class SysPluginService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 移除动态程序集/接口
+    /// 移除动态程序集/接口 🧩
     /// </summary>
     [ApiDescriptionSettings(Name = "RemoveAssembly"), HttpPost]
     [DisplayName("移除动态程序集/接口")]

@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统角色服务
+/// 系统角色服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 480)]
 public class SysRoleService : IDynamicApiController, ITransient
@@ -33,7 +33,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取角色分页列表
+    /// 获取角色分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -49,7 +49,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取角色列表
+    /// 获取角色列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取角色列表")]
@@ -64,7 +64,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加角色
+    /// 增加角色 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -101,7 +101,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新角色
+    /// 更新角色 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -119,7 +119,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除角色
+    /// 删除角色 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -151,7 +151,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 授权角色菜单
+    /// 授权角色菜单 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -163,7 +163,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 授权角色数据范围
+    /// 授权角色数据范围 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -206,7 +206,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据角色Id获取菜单Id集合
+    /// 根据角色Id获取菜单Id集合 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -217,7 +217,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据角色Id获取机构Id集合
+    /// 根据角色Id获取机构Id集合 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -228,7 +228,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 设置角色状态
+    /// 设置角色状态 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

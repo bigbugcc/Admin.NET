@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统参数配置服务
+/// 系统参数配置服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 440)]
 public class SysConfigService : IDynamicApiController, ITransient
@@ -21,7 +21,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取参数配置分页列表
+    /// 获取参数配置分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -37,7 +37,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取参数配置列表
+    /// 获取参数配置列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取参数配置列表")]
@@ -47,7 +47,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加参数配置
+    /// 增加参数配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -63,7 +63,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新参数配置
+    /// 更新参数配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -82,7 +82,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除参数配置
+    /// 删除参数配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -100,7 +100,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 批量删除参数配置
+    /// 批量删除参数配置 🔖
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
@@ -121,7 +121,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取参数配置详情
+    /// 获取参数配置详情 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -153,7 +153,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取分组列表
+    /// 获取分组列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取分组列表")]

@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信账号服务
+/// 微信账号服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 220)]
 public class SysWechatUserService : IDynamicApiController, ITransient
@@ -18,7 +18,7 @@ public class SysWechatUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取微信用户列表
+    /// 获取微信用户列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -33,7 +33,7 @@ public class SysWechatUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加微信用户
+    /// 增加微信用户 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -45,7 +45,7 @@ public class SysWechatUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新微信用户
+    /// 更新微信用户 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -58,7 +58,7 @@ public class SysWechatUserService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除微信用户
+    /// 删除微信用户 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

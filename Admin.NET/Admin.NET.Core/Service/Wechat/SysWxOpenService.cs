@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信小程序服务
+/// 微信小程序服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 240)]
 public class SysWxOpenService : IDynamicApiController, ITransient
@@ -24,7 +24,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取微信用户OpenId
+    /// 获取微信用户OpenId 🔖
     /// </summary>
     /// <param name="input"></param>
     [AllowAnonymous]
@@ -63,7 +63,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取微信用户电话号码
+    /// 获取微信用户电话号码 🔖
     /// </summary>
     /// <param name="input"></param>
     [AllowAnonymous]
@@ -87,7 +87,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 微信小程序登录OpenId
+    /// 微信小程序登录OpenId 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -113,7 +113,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取订阅消息模板列表
+    /// 获取订阅消息模板列表 🔖
     /// </summary>
     [DisplayName("获取订阅消息模板列表")]
     public async Task<dynamic> GetMessageTemplateList()
@@ -131,7 +131,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送订阅消息
+    /// 发送订阅消息 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -154,7 +154,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加订阅消息模板
+    /// 增加订阅消息模板 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

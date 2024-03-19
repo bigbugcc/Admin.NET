@@ -257,7 +257,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// 退出系统 🔖
     /// </summary>
     [DisplayName("退出系统")]
-    public virtual void Logout()
+    public void Logout()
     {
         if (string.IsNullOrWhiteSpace(_userManager.Account))
             throw Oops.Oh(ErrorCodeEnum.D1011);
@@ -272,7 +272,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     [AllowAnonymous]
     [SuppressMonitor]
     [DisplayName("获取登录配置")]
-    public virtual async Task<dynamic> GetLoginConfig()
+    public async Task<dynamic> GetLoginConfig()
     {
         var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSecondVer);
         var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysCaptcha);
@@ -285,7 +285,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <returns></returns>
     [SuppressMonitor]
     [DisplayName("获取水印配置")]
-    public virtual async Task<dynamic> GetWatermarkConfig()
+    public async Task<dynamic> GetWatermarkConfig()
     {
         var watermarkEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysWatermark);
         return new { WatermarkEnabled = watermarkEnabled };
@@ -298,7 +298,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     [AllowAnonymous]
     [SuppressMonitor]
     [DisplayName("获取验证码")]
-    public virtual dynamic GetCaptcha()
+    public dynamic GetCaptcha()
     {
         var codeId = YitIdHelper.NextId().ToString();
         var captcha = _captcha.Generate(codeId);
@@ -312,7 +312,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     [AllowAnonymous]
     [HttpPost("/api/swagger/checkUrl"), NonUnify]
     [DisplayName("Swagger登录检查")]
-    public virtual int SwaggerCheckUrl()
+    public int SwaggerCheckUrl()
     {
         return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? 200 : 401;
     }
@@ -325,7 +325,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     [AllowAnonymous]
     [HttpPost("/api/swagger/submitUrl"), NonUnify]
     [DisplayName("Swagger登录提交")]
-    public virtual async Task<int> SwaggerSubmitUrl([FromForm] SpecificationAuth auth)
+    public async Task<int> SwaggerSubmitUrl([FromForm] SpecificationAuth auth)
     {
         try
         {

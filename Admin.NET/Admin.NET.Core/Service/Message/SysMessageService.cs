@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统消息发送服务
+/// 系统消息发送服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 370)]
 public class SysMessageService : IDynamicApiController, ITransient
@@ -26,7 +26,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送消息给所有人
+    /// 发送消息给所有人 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -37,7 +37,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送消息给除了发送人的其他人
+    /// 发送消息给除了发送人的其他人 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -52,7 +52,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送消息给某个人
+    /// 发送消息给某个人 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -67,7 +67,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 发送消息给某些人
+    /// 发送消息给某些人 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

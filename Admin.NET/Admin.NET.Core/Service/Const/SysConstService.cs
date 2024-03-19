@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统常量服务
+/// 系统常量服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 280)]
 [AllowAnonymous]
@@ -19,7 +19,7 @@ public class SysConstService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取所有常量列表
+    /// 获取所有常量列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取所有常量列表")]
@@ -42,7 +42,7 @@ public class SysConstService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据类名获取常量数据
+    /// 根据类名获取常量数据 🔖
     /// </summary>
     /// <param name="typeName"></param>
     /// <returns></returns>

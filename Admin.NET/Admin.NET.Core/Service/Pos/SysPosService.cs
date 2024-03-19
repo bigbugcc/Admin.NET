@@ -5,7 +5,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统职位服务
+/// 系统职位服务 💥
 /// </summary>
 [ApiDescriptionSettings(Order = 460)]
 public class SysPosService : IDynamicApiController, ITransient
@@ -24,7 +24,7 @@ public class SysPosService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取职位列表
+    /// 获取职位列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -38,7 +38,7 @@ public class SysPosService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加职位
+    /// 增加职位 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -53,7 +53,7 @@ public class SysPosService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新职位
+    /// 更新职位 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -72,7 +72,7 @@ public class SysPosService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除职位
+    /// 删除职位 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
