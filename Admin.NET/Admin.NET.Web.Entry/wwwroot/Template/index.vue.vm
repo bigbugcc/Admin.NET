@@ -1,4 +1,4 @@
-﻿@{
+@{
   var pkField = Model.TableField.Where(c => c.ColumnKey == "True").FirstOrDefault();
   string pkFieldName = LowerFirstLetter(pkField.PropertyName);
   Dictionary<string, int> definedObjects = new Dictionary<string, int>();
@@ -11,10 +11,10 @@
 }
 <template>
   <div class="@(@Model.LowerClassName)-container">
-    <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
-      @if(Model.QueryWhetherList.Count > 0){
-      @:<el-form :model="queryParams" ref="queryForm" labelWidth="90">
-        @:<el-row>
+    <el-card shadow="hover" :body-style="{ paddingBottom: '0' }"> 
+      @<el-form :model="queryParams" ref="queryForm" labelWidth="90">
+        @<el-row>
+              @if(Model.QueryWhetherList.Count > 0){
           @if(haveLikeCdt){
           @:<el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="4" class="mb10">
             @:<el-form-item label="关键字">
@@ -76,22 +76,25 @@
             </el-form-item>
             }
           @:</el-col>
-            }
-          @:<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" class="mb10">
-            @:<el-form-item>
-              @:<el-button-group style="display: flex; align-items: center;">
-                @:<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> 查询 </el-button>
-                @:<el-button icon="ele-Refresh" @@click="() => queryParams = {}"> 重置 </el-button>
-                @if(haveLikeCdt){
-                @:<el-button icon="ele-ZoomIn" @@click="changeAdvanceQueryUI" v-if="!showAdvanceQueryUI" style="margin-left:5px;"> 高级查询 </el-button>
-                @:<el-button icon="ele-ZoomOut" @@click="changeAdvanceQueryUI" v-if="showAdvanceQueryUI" style="margin-left:5px;"> 隐藏 </el-button>
-                }
-                @:<el-button type="primary" style="margin-left:5px;" icon="ele-Plus" @@click="openAdd@(@Model.ClassName)" v-auth="'@(@Model.LowerClassName):add'"> 新增 </el-button>
-                @:
+            } 
+      }
+          @<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" class="mb10">
+            @<el-form-item>
+              @<el-button-group style="display: flex; align-items: center;">
+                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> 查询 </el-button>
+                   @if(Model.QueryWhetherList.Count > 0){
+                      @:<el-button icon="ele-Refresh" @@click="() => queryParams = {}"> 重置 </el-button>
+                        @if(haveLikeCdt){
+                        @:<el-button icon="ele-ZoomIn" @@click="changeAdvanceQueryUI" v-if="!showAdvanceQueryUI" style="margin-left:5px;"> 高级查询 </el-button>
+                        @:<el-button icon="ele-ZoomOut" @@click="changeAdvanceQueryUI" v-if="showAdvanceQueryUI" style="margin-left:5px;"> 隐藏 </el-button>
+                        }
+                    }
+                @<el-button type="primary" style="margin-left:5px;" icon="ele-Plus" @@click="openAdd@(@Model.ClassName)" v-auth="'@(@Model.LowerClassName):add'"> 新增 </el-button>
+                @
               </el-button-group>
             </el-form-item>
-            @:
-          @:</el-col>
+            @
+          @</el-col>
         </el-row>
         @* 操作区另起一行
         @:<el-row>
@@ -103,7 +106,6 @@
         </el-row>
 		*@
       </el-form>
-      }
     </el-card>
     <el-card class="full-table" shadow="hover" style="margin-top: 5px">
       <el-table
