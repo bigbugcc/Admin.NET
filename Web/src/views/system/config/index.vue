@@ -31,7 +31,6 @@
 <script lang="ts" setup name="sysConfig">
 import { onMounted, onUnmounted, reactive, ref, defineAsyncComponent, nextTick } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import mittBus from '/@/utils/mitt';
 import EditConfig from '/@/views/system/config/component/editConfig.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
