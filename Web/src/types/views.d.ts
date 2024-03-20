@@ -356,3 +356,12 @@ interface HttpJobMessage {
 	httpMethod?: string | null;
 	body?: string | null;
 }
+
+// 修改记录相关字段定义
+declare type ModifyRecord = {
+	createUserName?: string | null;
+	createTime?: string | null;
+	updateUserName?: string | null;
+	updateTime?: string | null;
+	remark?: string | null;
+};
