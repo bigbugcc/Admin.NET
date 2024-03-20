@@ -80,6 +80,10 @@ public class SysTenantService : IDynamicApiController, ITransient
                 OrderNo = u.OrderNo,
                 Remark = u.Remark,
                 Status = u.Status,
+                CreateTime = u.CreateTime,
+                CreateUserName = u.CreateUserName,
+                UpdateTime = u.UpdateTime,
+                UpdateUserName = u.UpdateUserName,
             })
             .ToPagedListAsync(input.Page, input.PageSize);
     }

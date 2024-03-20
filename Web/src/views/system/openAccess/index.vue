@@ -27,55 +27,7 @@
 				<el-table-column prop="bindTenantName" label="绑定租户名称" header-align="center" show-overflow-tooltip />
 				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-popover placement="bottom" width="280" trigger="hover">
-							<template #reference>
-								<el-text type="primary">
-									<el-icon><ele-InfoFilled /></el-icon>详情
-								</el-text>
-							</template>
-							<el-descriptions direction="vertical" :column="2" border>
-								<el-descriptions-item width="140">
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>创建者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>创建时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>修改者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>修改时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Tickets /></el-icon>备注
-										</el-text>
-									</template>
-									{{ scope.row.remark }}
-								</el-descriptions-item>
-							</el-descriptions>
-						</el-popover>
+						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" width="200" fixed="right" align="center" show-overflow-tooltip>
@@ -108,6 +60,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import EditOpenAccess from '/@/views/system/openAccess/component/editOpenAccess.vue';
 import HelpView from '/@/views/system/openAccess/component/helpView.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOpenAccessApi } from '/@/api-services/api';
