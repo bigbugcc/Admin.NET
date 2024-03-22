@@ -41,7 +41,7 @@
 				check-strictly
 			>
 				<template #default="{ node }">
-					<el-icon><ele-School /></el-icon>{{ node.label }}
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-School /></el-icon>{{ node.label }}
 				</template>
 			</el-tree>
 		</div>
