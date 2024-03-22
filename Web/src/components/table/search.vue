@@ -53,7 +53,15 @@
 								@change="val.change"
 								class="w100"
 							/>
-							<el-select v-model="searchModel[val.prop]" v-bind="val.comProps" :clearable="!val.required" :placeholder="val.placeholder" v-else-if="val.type === 'select'" @change="val.change" class="w100">
+							<el-select
+								v-model="searchModel[val.prop]"
+								v-bind="val.comProps"
+								:clearable="!val.required"
+								:placeholder="val.placeholder"
+								v-else-if="val.type === 'select'"
+								@change="val.change"
+								class="w100"
+							>
 								<el-option v-for="item in val.options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
 							</el-select>
 							<el-cascader
@@ -85,8 +93,8 @@
 						<div>
 							<!-- 使用el-button-group会导致具有type属性的按钮的右边框无法显示 -->
 							<!-- <el-button-group> -->
-								<el-button plain type="primary" icon="ele-Search" @click="onSearch(tableSearchRef)"> 查询 </el-button>
-								<el-button icon="ele-Refresh" @click="onReset(tableSearchRef)" style="margin-left: 12px"> 重置 </el-button>
+							<el-button plain type="primary" icon="ele-Search" @click="onSearch(tableSearchRef)"> 查询 </el-button>
+							<el-button icon="ele-Refresh" @click="onReset(tableSearchRef)" style="margin-left: 12px"> 重置 </el-button>
 							<!-- </el-button-group> -->
 						</div>
 					</el-form-item>
@@ -100,7 +108,6 @@
 import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { saulVModel } from '/@/utils/saulVModel';
-
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -122,7 +129,7 @@ const props = defineProps({
 
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['search', 'reset', 'update:modelValue']);
-const searchModel=ref(props.modelValue);
+const searchModel = ref(props.modelValue);
 // 定义变量内容
 const tableSearchRef = ref<FormInstance>();
 const state = reactive({
@@ -137,7 +144,7 @@ const onSearch = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate((valid: boolean) => {
 		if (valid) {
-			emit('search',model);
+			emit('search', model);
 		} else {
 			return false;
 		}
@@ -148,9 +155,8 @@ const onSearch = (formEl: FormInstance | undefined) => {
 const onReset = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.resetFields();
-	emit('reset',model);
+	emit('reset', model);
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -169,5 +175,4 @@ const onReset = (formEl: FormInstance | undefined) => {
 		}
 	}
 }
-
 </style>
