@@ -354,6 +354,7 @@ public class SysJobService : IDynamicApiController, ITransient
         return await _sysJobTriggerRecordRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.JobId), u => u.JobId.Contains(input.JobId))
             .WhereIF(!string.IsNullOrWhiteSpace(input.TriggerId), u => u.TriggerId.Contains(input.TriggerId))
+            .OrderByDescending(u => u.Id)
             .ToPagedListAsync(input.Page, input.PageSize);
     }
 }

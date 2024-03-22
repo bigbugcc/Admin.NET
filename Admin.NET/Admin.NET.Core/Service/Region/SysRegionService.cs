@@ -58,6 +58,19 @@ public class SysRegionService : IDynamicApiController, ITransient
     [DisplayName("增加行政区域")]
     public async Task<long> AddRegion(AddRegionInput input)
     {
+        input.Code = input.Code.Trim();
+        if (input.Code.Length != 12 && input.Code.Length != 9 && input.Code.Length != 6)
+            throw Oops.Oh("行政区代码只能为6、9或12位");
+
+        if (input.Pid != 0)
+        {
+            var pRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Pid);
+            pRegion ??= await _sysRegionRep.GetFirstAsync(u => u.Code == input.Pid.ToString());
+            if (pRegion == null)
+                throw Oops.Oh(ErrorCodeEnum.D2000);
+            input.Pid = pRegion.Id;
+        }
+
         var isExist = await _sysRegionRep.IsAnyAsync(u => u.Name == input.Name && u.Code == input.Code);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.R2002);
@@ -76,11 +89,24 @@ public class SysRegionService : IDynamicApiController, ITransient
     [DisplayName("更新行政区域")]
     public async Task UpdateRegion(UpdateRegionInput input)
     {
-        if (input.Pid != 0)
+        input.Code = input.Code.Trim();
+        if (input.Code.Length != 12 && input.Code.Length != 9 && input.Code.Length != 6)
+            throw Oops.Oh("行政区代码只能为6、9或12位");
+
+        if (input.Pid != input.Pid && input.Pid != 0)
         {
             var pRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Pid);
-            _ = pRegion ?? throw Oops.Oh(ErrorCodeEnum.D2000);
+            pRegion ??= await _sysRegionRep.GetFirstAsync(u => u.Code == input.Pid.ToString());
+            if (pRegion == null)
+                throw Oops.Oh(ErrorCodeEnum.D2000);
+
+            input.Pid = pRegion.Id;
+            var regionTreeList = await _sysRegionRep.AsQueryable().ToChildListAsync(u => u.Pid, input.Id, true);
+            var childIdList = regionTreeList.Select(u => u.Id).ToList();
+            if (childIdList.Contains(input.Pid))
+                throw Oops.Oh("父节点不能为自己的子节点");
         }
+
         if (input.Id == input.Pid)
             throw Oops.Oh(ErrorCodeEnum.R2001);
 

@@ -69,9 +69,9 @@ public class BaseService<TEntity> : IDynamicApiController where TEntity : class,
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Update"), HttpPost]
     [DisplayName("更新")]
-    public virtual async Task<bool> Update(TEntity entity)
+    public virtual async Task<int> Update(TEntity entity)
     {
-        return await _rep.UpdateAsync(entity);
+        return await _rep.AsUpdateable(entity).IgnoreColumns(true).ExecuteCommandAsync();
     }
 
     /// <summary>
