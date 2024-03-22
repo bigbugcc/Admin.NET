@@ -4,7 +4,7 @@
 			<el-col :span="12" :xs="24">
 				<el-card class="full-table" shadow="hover" :body-style="{ paddingBottom: '20' }">
 					<template #header>
-						<el-icon><ele-Collection /></el-icon>字典
+						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
 					</template>
 					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true">
 						<el-form-item label="名称">
@@ -71,7 +71,7 @@
 			<el-col :span="12" :xs="24">
 				<el-card class="full-table" shadow="hover" :body-style="{ paddingBottom: '20' }">
 					<template #header>
-						<el-icon><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
+						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
 					</template>
 					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true">
 						<!-- <el-form-item label="字典值">
