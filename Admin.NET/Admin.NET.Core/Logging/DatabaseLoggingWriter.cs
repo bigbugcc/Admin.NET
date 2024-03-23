@@ -12,23 +12,19 @@ namespace Admin.NET.Core;
 public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
 {
     private readonly IServiceScope _serviceScope;
-    private readonly SqlSugarRepository<SysLogVis> _sysLogVisRep; // 访问日志
-    private readonly SqlSugarRepository<SysLogOp> _sysLogOpRep; // 操作日志
-    private readonly SqlSugarRepository<SysLogEx> _sysLogExRep; // 异常日志
+    private readonly ISqlSugarClient _db;
     private readonly SysConfigService _sysConfigService; // 参数配置服务
     private readonly ILogger<DatabaseLoggingWriter> _logger; // 日志组件
 
     public DatabaseLoggingWriter(IServiceScopeFactory scopeFactory)
     {
         _serviceScope = scopeFactory.CreateScope();
-        _sysLogVisRep = _serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogVis>>();
-        _sysLogOpRep = _serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogOp>>();
-        _sysLogExRep = _serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogEx>>();
+        _db = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
         _logger = _serviceScope.ServiceProvider.GetRequiredService<ILogger<DatabaseLoggingWriter>>();
     }
 
-    public async void Write(LogMessage logMsg, bool flush)
+    public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();
         if (jsonStr == null) return;
@@ -67,7 +63,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             // 记录异常日志并发送邮件
             if (logMsg.Exception != null || loggingMonitor.exception != null)
             {
-                await _sysLogExRep.InsertAsync(new SysLogEx
+                await _db.Insertable(new SysLogEx
                 {
                     ControllerName = loggingMonitor.controllerName,
                     ActionName = loggingMonitor.actionTypeName,
@@ -95,18 +91,17 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                     CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
                     TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId),
                     LogLevel = logMsg.LogLevel
-                });
+                }).ExecuteCommandAsync();
 
                 // 将异常日志发送到邮件
                 await App.GetRequiredService<IEventPublisher>().PublishAsync("Send:ErrorMail", loggingMonitor.exception);
-
                 return;
             }
 
-            // 记录访问日志-登录登出
+            // 记录访问日志-登录退出
             if (loggingMonitor.actionName == "userInfo" || loggingMonitor.actionName == "logout")
             {
-                await _sysLogVisRep.InsertAsync(new SysLogVis
+                await _db.Insertable(new SysLogVis
                 {
                     ControllerName = loggingMonitor.controllerName,
                     ActionName = loggingMonitor.actionTypeName,
@@ -125,15 +120,14 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                     CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
                     TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId),
                     LogLevel = logMsg.LogLevel
-                });
-
+                }).ExecuteCommandAsync();
                 return;
             }
 
             // 记录操作日志
             var enabledSysOpLog = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
             if (!enabledSysOpLog) return;
-            await _sysLogOpRep.InsertAsync(new SysLogOp
+            await _db.Insertable(new SysLogOp
             {
                 ControllerName = loggingMonitor.controllerName,
                 ActionName = loggingMonitor.actionTypeName,
@@ -161,7 +155,9 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
                 TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId),
                 LogLevel = logMsg.LogLevel
-            });
+            }).ExecuteCommandAsync();
+
+            await Task.Delay(50); // 延迟 0.05 秒写入数据库，有效减少高频写入数据库导致死锁问题
         }
         catch (Exception ex)
         {
@@ -186,7 +182,6 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         {
             // 不做处理
         }
-
         return ("未知", 0, 0);
     }
 

@@ -9,18 +9,20 @@ namespace Admin.NET.Core;
 /// <summary>
 /// ES日志写入器
 /// </summary>
-public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
+public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
 {
+    private readonly IServiceScope _serviceScope;
     private readonly ElasticClient _esClient;
     private readonly SysConfigService _sysConfigService;
 
-    public ElasticSearchLoggingWriter(ElasticClient esClient, SysConfigService sysConfigService)
+    public ElasticSearchLoggingWriter(IServiceScopeFactory scopeFactory)
     {
-        _esClient = esClient;
-        _sysConfigService = sysConfigService;
+        _serviceScope = scopeFactory.CreateScope();
+        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticClient>();
+        _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
     }
 
-    public async void Write(LogMessage logMsg, bool flush)
+    public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         // 是否启用操作日志
         var sysOpLogEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
@@ -29,11 +31,9 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
         var jsonStr = logMsg.Context.Get("loggingMonitor").ToString();
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
 
-        // 不记录登录登出日志
+        // 不记录登录退出日志
         if (loggingMonitor.actionName == "userInfo" || loggingMonitor.actionName == "logout")
             return;
-
-        #region 处理操作日志
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
@@ -54,9 +54,6 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
 
         string remoteIPv4 = loggingMonitor.remoteIPv4;
         (string ipLocation, double? longitude, double? latitude) = DatabaseLoggingWriter.GetIpAddress(remoteIPv4);
-        //var client = Parser.GetDefault().Parse(loggingMonitor.userAgent.ToString());
-        //var browser = $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
-        //var os = $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}";
 
         var sysLogOp = new SysLogOp
         {
@@ -87,9 +84,14 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
             CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId)
         };
-
-        #endregion 处理操作日志
-
         await _esClient.IndexDocumentAsync(sysLogOp);
+    }
+
+    /// <summary>
+    /// 释放服务作用域
+    /// </summary>
+    public void Dispose()
+    {
+        _serviceScope.Dispose();
     }
 }
