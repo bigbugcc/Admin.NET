@@ -34,7 +34,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			viteCompression({
 				verbose: true, // 是否在控制台中输出压缩结果
 				disable: false, // 是否禁用压缩
-				deleteOriginFile: true, // 压缩后是否删除源文件
+				deleteOriginFile: false, // 压缩后是否删除源文件
 				threshold: 5120, // 对大于 5KB 文件进行 gzip 压缩，单位Bytes
 				algorithm: 'gzip', // 压缩算法，可选[‘gzip’，‘brotliCompress’，‘deflate’，‘deflateRaw’]
 				ext: '.gz', // 生成的压缩包的后缀

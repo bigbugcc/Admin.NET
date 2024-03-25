@@ -109,11 +109,11 @@
 			<vue-office-docx :src="state.docxUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
 		</el-drawer>
 		<el-drawer :title="state.fileName" v-model="state.dialogXlsxVisible" size="50%" destroy-on-close>
-			<vue-office-excel :src="state.excelUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler"
-		/></el-drawer>
+			<vue-office-excel :src="state.excelUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
+		</el-drawer>
 		<el-drawer :title="state.fileName" v-model="state.dialogPdfVisible" size="50%" destroy-on-close>
-			<vue-office-pdf :src="state.pdfUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler"
-		/></el-drawer>
+			<vue-office-pdf :src="state.pdfUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
+		</el-drawer>
 		<el-image-viewer v-if="state.showViewer" :url-list="state.previewList" @close="state.showViewer = false"></el-image-viewer>
 		<EditSysFile ref="editSysFileRef" title="编辑文件" @handleQuery="handleQuery" />
 	</div>
