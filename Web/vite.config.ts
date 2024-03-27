@@ -77,8 +77,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 					assetFileNames: 'assets/[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
 					manualChunks(id) {
 						if (id.includes('node_modules')) {
-							let newId = id.toString().replace('/.', '/');
-							return newId.match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender';
+							return id.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender';
 						}
 					},
 				},
