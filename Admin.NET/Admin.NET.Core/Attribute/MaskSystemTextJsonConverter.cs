@@ -57,20 +57,3 @@ public class MaskEmailSystemTextJsonConverter : JsonConverter<string>
         writer.WriteStringValue(value?.ToString().MaskEmail());
     }
 }
-
-/// <summary>
-/// 银行卡号掩码
-/// </summary>
-[SuppressSniffer]
-public class MaskBankCardSystemTextJsonConverter : JsonConverter<string>
-{
-    public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        return reader.GetString();
-    }
-
-    public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value?.ToString().MaskBankCard());
-    }
-}

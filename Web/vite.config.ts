@@ -23,7 +23,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 	fs.writeFileSync('./public/config.js', `window.__env__ = ${JSON.stringify(env, null, 2)} `);
 	return {
 		plugins: [
-			visualizer({ open: true }), // 自动开启分析页面
+			visualizer({ open: false }), // 开启可视化分析页面
 			CodeInspectorPlugin({
 				bundler: 'vite',
 				hotKeys: ['shiftKey'],

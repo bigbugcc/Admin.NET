@@ -296,7 +296,8 @@ public static partial class ObjectExtension
     {
         if (!idCard.TryValidate(ValidationTypes.IDCard).IsValid) return idCard;
 
-        return idCard.Replace("(?<=\\w{3})\\w(?=\\w{4})", $"{mask}");
+        var masks = mask.ToString().PadLeft(8, mask);
+        return Regex.Replace(idCard, @"^(.{6})(.*)(.{4})$", $"$1{masks}$3");
     }
 
     /// <summary>
@@ -310,20 +311,6 @@ public static partial class ObjectExtension
         if (!email.TryValidate(ValidationTypes.EmailAddress).IsValid) return email;
 
         var masks = mask.ToString().PadLeft(4, mask);
-        return email.Replace("(^\\w)[^@]*(@.*$)", $"$1{masks}$2");
-    }
-
-    /// <summary>
-    /// 银行卡号掩码
-    /// </summary>
-    /// <param name="bankCard">银行卡号</param>
-    /// <param name="mask">掩码符</param>
-    /// <returns></returns>
-    public static string MaskBankCard(this string bankCard, char mask = '*')
-    {
-        if (bankCard.Length < 10) return bankCard;
-
-        var masks = mask.ToString().PadLeft(4, mask);
-        return bankCard.Replace("(\\d{6})\\d{9}(\\d{4})", $"$1{masks}$2");
+        return email.Replace(@"^([^\.]+)\.?", $"$1{masks}$2");
     }
 }
