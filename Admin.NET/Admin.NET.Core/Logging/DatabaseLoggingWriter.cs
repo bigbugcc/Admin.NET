@@ -22,6 +22,10 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         _db = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
         _logger = _serviceScope.ServiceProvider.GetRequiredService<ILogger<DatabaseLoggingWriter>>();
+
+        // 切换日志独立数据库
+        if (SqlSugarSetup.ITenant.IsAnyConnection(SqlSugarConst.LogConfigId))
+            _db = SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.LogConfigId);
     }
 
     public async Task WriteAsync(LogMessage logMsg, bool flush)
