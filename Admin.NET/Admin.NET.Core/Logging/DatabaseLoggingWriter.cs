@@ -19,13 +19,14 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
     public DatabaseLoggingWriter(IServiceScopeFactory scopeFactory)
     {
         _serviceScope = scopeFactory.CreateScope();
-        _db = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+        //_db = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
         _logger = _serviceScope.ServiceProvider.GetRequiredService<ILogger<DatabaseLoggingWriter>>();
 
         // 切换日志独立数据库
-        if (SqlSugarSetup.ITenant.IsAnyConnection(SqlSugarConst.LogConfigId))
-            _db = SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.LogConfigId);
+        _db = SqlSugarSetup.ITenant.IsAnyConnection(SqlSugarConst.LogConfigId)
+            ? SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.LogConfigId)
+            : SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.MainConfigId);
     }
 
     public async Task WriteAsync(LogMessage logMsg, bool flush)
