@@ -100,6 +100,14 @@ public static class SqlSugarSetup
         {
             db.Aop.OnLogExecuting = (sql, pars) =>
             {
+                // 若参数值超过100个字符则进行截取
+                foreach (var par in pars)
+                {
+                    if (par.DbType != System.Data.DbType.String || par.IsNullable || par.IsNullOrEmpty()) continue;
+                    if (par.Value.ToString().Length > 100)
+                        par.Value = string.Concat(par.Value.ToString()[..100], "......");
+                }
+
                 var log = $"【{DateTime.Now}——执行SQL】\r\n{UtilMethods.GetNativeSql(sql, pars)}\r\n";
                 var originColor = Console.ForegroundColor;
                 if (sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
@@ -127,6 +135,14 @@ public static class SqlSugarSetup
                 // 执行时间超过5秒时
                 if (db.Ado.SqlExecutionTime.TotalSeconds > 5)
                 {
+                    // 若参数值超过100个字符则进行截取
+                    foreach (var par in pars)
+                    {
+                        if (par.DbType != System.Data.DbType.String || par.IsNullable || par.IsNullOrEmpty()) continue;
+                        if (par.Value.ToString().Length > 100)
+                            par.Value = string.Concat(par.Value.ToString()[..100], "......");
+                    }
+
                     var fileName = db.Ado.SqlStackTrace.FirstFileName; // 文件名
                     var fileLine = db.Ado.SqlStackTrace.FirstLine; // 行号
                     var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
