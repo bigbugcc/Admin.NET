@@ -103,7 +103,7 @@ public static class SqlSugarSetup
                 // 若参数值超过100个字符则进行截取
                 foreach (var par in pars)
                 {
-                    if (par.DbType != System.Data.DbType.String || par.IsNullable || par.IsNullOrEmpty()) continue;
+                    if (par.DbType != System.Data.DbType.String || par.Value == null) continue;
                     if (par.Value.ToString().Length > 100)
                         par.Value = string.Concat(par.Value.ToString()[..100], "......");
                 }
@@ -138,7 +138,7 @@ public static class SqlSugarSetup
                     // 若参数值超过100个字符则进行截取
                     foreach (var par in pars)
                     {
-                        if (par.DbType != System.Data.DbType.String || par.IsNullable || par.IsNullOrEmpty()) continue;
+                        if (par.DbType != System.Data.DbType.String || par.Value == null) continue;
                         if (par.Value.ToString().Length > 100)
                             par.Value = string.Concat(par.Value.ToString()[..100], "......");
                     }
