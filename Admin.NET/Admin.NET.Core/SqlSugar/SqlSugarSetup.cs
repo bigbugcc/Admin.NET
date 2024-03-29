@@ -100,6 +100,14 @@ public static class SqlSugarSetup
         {
             db.Aop.OnLogExecuting = (sql, pars) =>
             {
+                //// 若参数值超过100个字符则进行截取
+                //foreach (var par in pars)
+                //{
+                //    if (par.DbType != System.Data.DbType.String || par.Value == null) continue;
+                //    if (par.Value.ToString().Length > 100)
+                //        par.Value = string.Concat(par.Value.ToString()[..100], "......");
+                //}
+
                 var log = $"【{DateTime.Now}——执行SQL】\r\n{UtilMethods.GetNativeSql(sql, pars)}\r\n";
                 var originColor = Console.ForegroundColor;
                 if (sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
@@ -124,13 +132,13 @@ public static class SqlSugarSetup
             };
             db.Aop.OnLogExecuted = (sql, pars) =>
             {
-                // 若参数值超过100个字符则进行截取
-                foreach (var par in pars)
-                {
-                    if (par.DbType != System.Data.DbType.String || par.Value == null) continue;
-                    if (par.Value.ToString().Length > 100)
-                        par.Value = string.Concat(par.Value.ToString()[..100], "......");
-                }
+                //// 若参数值超过100个字符则进行截取
+                //foreach (var par in pars)
+                //{
+                //    if (par.DbType != System.Data.DbType.String || par.Value == null) continue;
+                //    if (par.Value.ToString().Length > 100)
+                //        par.Value = string.Concat(par.Value.ToString()[..100], "......");
+                //}
 
                 // 执行时间超过5秒时
                 if (db.Ado.SqlExecutionTime.TotalSeconds > 5)
