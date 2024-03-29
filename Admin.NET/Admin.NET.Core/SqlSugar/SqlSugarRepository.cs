@@ -22,13 +22,13 @@ public class SqlSugarRepository<T> : SimpleClient<T> where T : class, new()
             return;
         }
 
-        //// 若实体贴有日志表特性，则返回日志库连接
-        //if (typeof(T).IsDefined(typeof(LogTableAttribute), false))
-        //{
-        //    if (iTenant.IsAnyConnection(SqlSugarConst.LogConfigId))
-        //        base.Context = iTenant.GetConnectionScope(SqlSugarConst.LogConfigId);
-        //    return;
-        //}
+        // 若实体贴有日志表特性，则返回日志库连接
+        if (typeof(T).IsDefined(typeof(LogTableAttribute), false))
+        {
+            if (iTenant.IsAnyConnection(SqlSugarConst.LogConfigId))
+                base.Context = iTenant.GetConnectionScope(SqlSugarConst.LogConfigId);
+            return;
+        }
 
         // 若实体贴有系统表特性，则返回默认库连接
         if (typeof(T).IsDefined(typeof(SysTableAttribute), false))
