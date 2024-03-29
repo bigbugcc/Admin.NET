@@ -51,6 +51,11 @@ public class CommonConst
     public const string SysRefreshTokenExpire = "sys_refresh_token_expire";
 
     /// <summary>
+    /// 开启发送异常日志邮件
+    /// </summary>
+    public const string SysErrorMail = "sys_error_mail";
+
+    /// <summary>
     /// 单用户登录
     /// </summary>
     public const string SysSingleLogin = "sys_single_login";

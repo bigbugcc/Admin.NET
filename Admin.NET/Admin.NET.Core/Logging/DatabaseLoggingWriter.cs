@@ -99,7 +99,11 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 }).ExecuteCommandAsync();
 
                 // 将异常日志发送到邮件
-                await App.GetRequiredService<IEventPublisher>().PublishAsync("Send:ErrorMail", loggingMonitor.exception);
+                if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail))
+                {
+                    await App.GetRequiredService<IEventPublisher>().PublishAsync("Send:ErrorMail", loggingMonitor.exception);
+                }
+
                 return;
             }
 
@@ -130,8 +134,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             }
 
             // 记录操作日志
-            var enabledSysOpLog = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
-            if (!enabledSysOpLog) return;
+            if (!(await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog))) return;
             await _db.Insertable(new SysLogOp
             {
                 ControllerName = loggingMonitor.controllerName,
