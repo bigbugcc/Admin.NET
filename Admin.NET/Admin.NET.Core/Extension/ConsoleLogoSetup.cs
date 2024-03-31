@@ -1,6 +1,6 @@
-﻿// 大名科技（天津）有限公司版权所有  电话：18020030720  QQ：515096995
+﻿// 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证。
 //
-// 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证
+// 必须在法律法规允许的范围内正确使用，严禁将其用于非法、欺诈、恶意或侵犯他人合法权益的目的。
 
 namespace Admin.NET.Core;
 
@@ -19,8 +19,6 @@ public static class ConsoleLogoSetup
    / /\ \ / _` | '_ ` _ \| | '_ \  | . ` |  __|    | |
   / ____ \ (_| | | | | | | | | | |_| |\  | |____   | |
  /_/    \_\__,_|_| |_| |_|_|_| |_(_)_| \_|______|  |_| ");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(@"源码地址: https://gitee.com/zuohuaijun/Admin.NET");
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(@"让.NET更简单、更通用、更流行！");
     }

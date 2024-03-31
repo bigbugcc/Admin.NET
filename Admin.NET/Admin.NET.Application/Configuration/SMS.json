@@ -3,8 +3,8 @@
 
   "SMS": {
     "Aliyun": {
-      "AccessKeyId": "LTAI5t8q8PMXkonqpVNtN7aZ",
-      "AccessKeySecret": "giAHi3RRL1UbEu6Ai6aBX40D06XFtO",
+      "AccessKeyId": "",
+      "AccessKeySecret": "",
       "SignName": "AdminNET平台", // 短信签名
       "TemplateCode": "" // 短信模板
     }

@@ -1,6 +1,6 @@
-﻿// 大名科技（天津）有限公司版权所有  电话：18020030720  QQ：515096995
+﻿// 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证。
 //
-// 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证
+// 必须在法律法规允许的范围内正确使用，严禁将其用于非法、欺诈、恶意或侵犯他人合法权益的目的。
 
 namespace Admin.NET.Core;
 
@@ -17,7 +17,7 @@ public class SysOrgSeedData : ISqlSugarEntitySeedData<SysOrg>
     {
         return new[]
         {
-            new SysOrg{ Id=1300000000101, Pid=0, Name="大名科技", Code="1001", Type="101", Level=1, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="大名科技", TenantId=1300000000001 },
+            new SysOrg{ Id=1300000000101, Pid=0, Name="XXX公司", Code="1001", Type="101", Level=1, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="XXX公司", TenantId=1300000000001 },
             new SysOrg{ Id=1300000000102, Pid=1300000000101, Name="市场部", Code="100101", Level=2, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="市场部", TenantId=1300000000001 },
             new SysOrg{ Id=1300000000103, Pid=1300000000101, Name="研发部", Code="100102", Level=2, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="研发部", TenantId=1300000000001 },
             new SysOrg{ Id=1300000000104, Pid=1300000000101, Name="财务部", Code="100103", Level=2, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="财务部", TenantId=1300000000001 },

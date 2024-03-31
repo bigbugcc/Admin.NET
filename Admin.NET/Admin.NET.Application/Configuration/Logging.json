@@ -22,7 +22,7 @@
     "ElasticSearch": {
       "Enabled": false, // 启用ES日志
       "AuthType": "Basic", // ES认证类型，可选 Basic、ApiKey、Base64ApiKey
-      "User": "dilon", // Basic认证的用户名，使用Basic认证类型时必填
+      "User": "admin", // Basic认证的用户名，使用Basic认证类型时必填
       "Password": "123456", // Basic认证的密码，使用Basic认证类型时必填
       "ApiId": "", // 使用ApiKey认证类型时必填
       "ApiKey": "", // 使用ApiKey认证类型时必填
