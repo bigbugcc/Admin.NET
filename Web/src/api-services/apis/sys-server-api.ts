@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -26,7 +26,7 @@ export const SysServerApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 获取框架主要程序集
+         * @summary 获取框架主要程序集 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -69,7 +69,7 @@ export const SysServerApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取服务器配置信息
+         * @summary 获取服务器配置信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -112,7 +112,7 @@ export const SysServerApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取服务器磁盘信息
+         * @summary 获取服务器磁盘信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -155,7 +155,7 @@ export const SysServerApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取服务器使用信息
+         * @summary 获取服务器使用信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -207,7 +207,7 @@ export const SysServerApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取框架主要程序集
+         * @summary 获取框架主要程序集 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -220,7 +220,7 @@ export const SysServerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取服务器配置信息
+         * @summary 获取服务器配置信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -233,7 +233,7 @@ export const SysServerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取服务器磁盘信息
+         * @summary 获取服务器磁盘信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -246,7 +246,7 @@ export const SysServerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取服务器使用信息
+         * @summary 获取服务器使用信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -268,7 +268,7 @@ export const SysServerApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 获取框架主要程序集
+         * @summary 获取框架主要程序集 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -277,7 +277,7 @@ export const SysServerApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取服务器配置信息
+         * @summary 获取服务器配置信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -286,7 +286,7 @@ export const SysServerApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取服务器磁盘信息
+         * @summary 获取服务器磁盘信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -295,7 +295,7 @@ export const SysServerApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取服务器使用信息
+         * @summary 获取服务器使用信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -314,7 +314,7 @@ export const SysServerApiFactory = function (configuration?: Configuration, base
 export class SysServerApi extends BaseAPI {
     /**
      * 
-     * @summary 获取框架主要程序集
+     * @summary 获取框架主要程序集 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysServerApi
@@ -324,7 +324,7 @@ export class SysServerApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取服务器配置信息
+     * @summary 获取服务器配置信息 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysServerApi
@@ -334,7 +334,7 @@ export class SysServerApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取服务器磁盘信息
+     * @summary 获取服务器磁盘信息 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysServerApi
@@ -344,7 +344,7 @@ export class SysServerApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取服务器使用信息
+     * @summary 获取服务器使用信息 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysServerApi

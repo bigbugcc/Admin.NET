@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -28,7 +28,7 @@ export const SysOnlineUserApiAxiosParamCreator = function (configuration?: Confi
     return {
         /**
          * 
-         * @summary 强制下线
+         * @summary 强制下线 🔖
          * @param {SysOnlineUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,7 +76,7 @@ export const SysOnlineUserApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 获取在线用户分页列表
+         * @summary 获取在线用户分页列表 🔖
          * @param {PageOnlineUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -133,7 +133,7 @@ export const SysOnlineUserApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 强制下线
+         * @summary 强制下线 🔖
          * @param {SysOnlineUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -147,7 +147,7 @@ export const SysOnlineUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取在线用户分页列表
+         * @summary 获取在线用户分页列表 🔖
          * @param {PageOnlineUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -170,7 +170,7 @@ export const SysOnlineUserApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
-         * @summary 强制下线
+         * @summary 强制下线 🔖
          * @param {SysOnlineUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -180,7 +180,7 @@ export const SysOnlineUserApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 获取在线用户分页列表
+         * @summary 获取在线用户分页列表 🔖
          * @param {PageOnlineUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -200,7 +200,7 @@ export const SysOnlineUserApiFactory = function (configuration?: Configuration, 
 export class SysOnlineUserApi extends BaseAPI {
     /**
      * 
-     * @summary 强制下线
+     * @summary 强制下线 🔖
      * @param {SysOnlineUser} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -211,7 +211,7 @@ export class SysOnlineUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取在线用户分页列表
+     * @summary 获取在线用户分页列表 🔖
      * @param {PageOnlineUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

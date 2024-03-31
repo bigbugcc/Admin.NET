@@ -2,7 +2,7 @@
 	<div class="layout-footer pb15">
 		<div class="layout-footer-warp">
 			<div>{{ themeConfig.globalTitle }}</div>
-			<div class="mt5">Copyright © 2023 Daming All rights reserved.</div>
+			<div class="mt5">Copyright © 2021-2014 zuohuaijun All rights reserved.</div>
 		</div>
 	</div>
 </template>
@@ -19,6 +19,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 .layout-footer {
 	width: 100%;
 	display: flex;
+
 	&-warp {
 		margin: auto;
 		color: var(--el-text-color-secondary);

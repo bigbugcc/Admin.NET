@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -61,12 +61,52 @@ export interface CodeGenInput {
     descStr?: string | null;
 
     /**
+     * 数据库表名
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    tableName?: string | null;
+
+    /**
+     * 业务名（业务代码包名称）
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    busName?: string | null;
+
+    /**
+     * 命名空间
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    nameSpace?: string | null;
+
+    /**
      * 作者姓名
      *
      * @type {string}
      * @memberof CodeGenInput
      */
     authorName?: string | null;
+
+    /**
+     * 生成方式
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    generateType?: string | null;
+
+    /**
+     * 菜单父级
+     *
+     * @type {number}
+     * @memberof CodeGenInput
+     */
+    menuPid?: number;
 
     /**
      * 类名
@@ -117,38 +157,6 @@ export interface CodeGenInput {
     connectionString?: string | null;
 
     /**
-     * 生成方式
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    generateType?: string | null;
-
-    /**
-     * 数据库表名
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    tableName?: string | null;
-
-    /**
-     * 命名空间
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    nameSpace?: string | null;
-
-    /**
-     * 业务名（业务代码包名称）
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    busName?: string | null;
-
-    /**
      * 功能名（数据库表名称）
      *
      * @type {string}
@@ -163,14 +171,6 @@ export interface CodeGenInput {
      * @memberof CodeGenInput
      */
     menuApplication?: string | null;
-
-    /**
-     * 菜单父级
-     *
-     * @type {number}
-     * @memberof CodeGenInput
-     */
-    menuPid?: number;
 
     /**
      * 支持打印类型

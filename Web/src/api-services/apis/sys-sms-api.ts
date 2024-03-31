@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -25,7 +25,7 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 发送短信
+         * @summary 发送短信 📨
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -83,7 +83,7 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 发送短信
+         * @summary 发送短信 📨
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -106,7 +106,7 @@ export const SysSmsApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
-         * @summary 发送短信
+         * @summary 发送短信 📨
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -126,7 +126,7 @@ export const SysSmsApiFactory = function (configuration?: Configuration, basePat
 export class SysSmsApi extends BaseAPI {
     /**
      * 
-     * @summary 发送短信
+     * @summary 发送短信 📨
      * @param {string} phoneNumber 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -39,7 +39,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 添加作业
+         * @summary 添加作业 ⏰
          * @param {AddJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -87,7 +87,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 添加触发器
+         * @summary 添加触发器 ⏰
          * @param {AddJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -135,7 +135,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 取消作业
+         * @summary 取消作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -183,7 +183,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 强制唤醒作业调度器
+         * @summary 强制唤醒作业调度器 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -226,7 +226,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 删除作业
+         * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -274,7 +274,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 删除触发器
+         * @summary 删除触发器 ⏰
          * @param {DeleteJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -322,7 +322,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取集群列表
+         * @summary 获取集群列表 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -365,7 +365,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取触发器列表
+         * @summary 获取触发器列表 ⏰
          * @param {string} [jobId] 作业Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,7 +413,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取作业分页列表
+         * @summary 获取作业分页列表 ⏰
          * @param {PageJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -461,7 +461,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取作业触发器运行记录分页列表
+         * @summary 获取作业触发器运行记录分页列表 ⏰
          * @param {PageJobTriggerRecordInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -509,7 +509,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 暂停所有作业
+         * @summary 暂停所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -552,7 +552,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 暂停作业
+         * @summary 暂停作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -600,7 +600,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 暂停触发器
+         * @summary 暂停触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -648,7 +648,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 强制触发所有作业持久化
+         * @summary 强制触发所有作业持久化 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -691,7 +691,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 执行作业
+         * @summary 执行作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -739,7 +739,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 启动所有作业
+         * @summary 启动所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -782,7 +782,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 启动作业
+         * @summary 启动作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -830,7 +830,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 启动触发器
+         * @summary 启动触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -878,7 +878,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 更新作业
+         * @summary 更新作业 ⏰
          * @param {UpdateJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -926,7 +926,7 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 更新触发器
+         * @summary 更新触发器 ⏰
          * @param {UpdateJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -983,7 +983,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 添加作业
+         * @summary 添加作业 ⏰
          * @param {AddJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -997,7 +997,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 添加触发器
+         * @summary 添加触发器 ⏰
          * @param {AddJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1011,7 +1011,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 取消作业
+         * @summary 取消作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1025,7 +1025,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 强制唤醒作业调度器
+         * @summary 强制唤醒作业调度器 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1038,7 +1038,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除作业
+         * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1052,7 +1052,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除触发器
+         * @summary 删除触发器 ⏰
          * @param {DeleteJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1066,7 +1066,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取集群列表
+         * @summary 获取集群列表 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1079,7 +1079,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取触发器列表
+         * @summary 获取触发器列表 ⏰
          * @param {string} [jobId] 作业Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1093,7 +1093,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取作业分页列表
+         * @summary 获取作业分页列表 ⏰
          * @param {PageJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1107,7 +1107,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取作业触发器运行记录分页列表
+         * @summary 获取作业触发器运行记录分页列表 ⏰
          * @param {PageJobTriggerRecordInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1121,7 +1121,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 暂停所有作业
+         * @summary 暂停所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1134,7 +1134,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 暂停作业
+         * @summary 暂停作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1148,7 +1148,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 暂停触发器
+         * @summary 暂停触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1162,7 +1162,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 强制触发所有作业持久化
+         * @summary 强制触发所有作业持久化 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1175,7 +1175,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 执行作业
+         * @summary 执行作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1189,7 +1189,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 启动所有作业
+         * @summary 启动所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1202,7 +1202,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 启动作业
+         * @summary 启动作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1216,7 +1216,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 启动触发器
+         * @summary 启动触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1230,7 +1230,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新作业
+         * @summary 更新作业 ⏰
          * @param {UpdateJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1244,7 +1244,7 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新触发器
+         * @summary 更新触发器 ⏰
          * @param {UpdateJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1267,7 +1267,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
-         * @summary 添加作业
+         * @summary 添加作业 ⏰
          * @param {AddJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1277,7 +1277,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 添加触发器
+         * @summary 添加触发器 ⏰
          * @param {AddJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1287,7 +1287,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 取消作业
+         * @summary 取消作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1297,7 +1297,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 强制唤醒作业调度器
+         * @summary 强制唤醒作业调度器 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1306,7 +1306,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 删除作业
+         * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1316,7 +1316,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 删除触发器
+         * @summary 删除触发器 ⏰
          * @param {DeleteJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1326,7 +1326,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 获取集群列表
+         * @summary 获取集群列表 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1335,7 +1335,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 获取触发器列表
+         * @summary 获取触发器列表 ⏰
          * @param {string} [jobId] 作业Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1345,7 +1345,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 获取作业分页列表
+         * @summary 获取作业分页列表 ⏰
          * @param {PageJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1355,7 +1355,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 获取作业触发器运行记录分页列表
+         * @summary 获取作业触发器运行记录分页列表 ⏰
          * @param {PageJobTriggerRecordInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1365,7 +1365,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 暂停所有作业
+         * @summary 暂停所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1374,7 +1374,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 暂停作业
+         * @summary 暂停作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1384,7 +1384,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 暂停触发器
+         * @summary 暂停触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1394,7 +1394,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 强制触发所有作业持久化
+         * @summary 强制触发所有作业持久化 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1403,7 +1403,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 执行作业
+         * @summary 执行作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1413,7 +1413,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 启动所有作业
+         * @summary 启动所有作业 ⏰
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1422,7 +1422,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 启动作业
+         * @summary 启动作业 ⏰
          * @param {JobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1432,7 +1432,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 启动触发器
+         * @summary 启动触发器 ⏰
          * @param {JobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1442,7 +1442,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 更新作业
+         * @summary 更新作业 ⏰
          * @param {UpdateJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1452,7 +1452,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 更新触发器
+         * @summary 更新触发器 ⏰
          * @param {UpdateJobTriggerInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1472,7 +1472,7 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
 export class SysJobApi extends BaseAPI {
     /**
      * 
-     * @summary 添加作业
+     * @summary 添加作业 ⏰
      * @param {AddJobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1483,7 +1483,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 添加触发器
+     * @summary 添加触发器 ⏰
      * @param {AddJobTriggerInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1494,7 +1494,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 取消作业
+     * @summary 取消作业 ⏰
      * @param {JobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1505,7 +1505,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 强制唤醒作业调度器
+     * @summary 强制唤醒作业调度器 ⏰
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysJobApi
@@ -1515,7 +1515,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除作业
+     * @summary 删除作业 ⏰
      * @param {DeleteJobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1526,7 +1526,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除触发器
+     * @summary 删除触发器 ⏰
      * @param {DeleteJobTriggerInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1537,7 +1537,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取集群列表
+     * @summary 获取集群列表 ⏰
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysJobApi
@@ -1547,7 +1547,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取触发器列表
+     * @summary 获取触发器列表 ⏰
      * @param {string} [jobId] 作业Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1558,7 +1558,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取作业分页列表
+     * @summary 获取作业分页列表 ⏰
      * @param {PageJobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1569,7 +1569,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取作业触发器运行记录分页列表
+     * @summary 获取作业触发器运行记录分页列表 ⏰
      * @param {PageJobTriggerRecordInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1580,7 +1580,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 暂停所有作业
+     * @summary 暂停所有作业 ⏰
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysJobApi
@@ -1590,7 +1590,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 暂停作业
+     * @summary 暂停作业 ⏰
      * @param {JobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1601,7 +1601,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 暂停触发器
+     * @summary 暂停触发器 ⏰
      * @param {JobTriggerInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1612,7 +1612,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 强制触发所有作业持久化
+     * @summary 强制触发所有作业持久化 ⏰
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysJobApi
@@ -1622,7 +1622,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 执行作业
+     * @summary 执行作业 ⏰
      * @param {JobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1633,7 +1633,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 启动所有作业
+     * @summary 启动所有作业 ⏰
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysJobApi
@@ -1643,7 +1643,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 启动作业
+     * @summary 启动作业 ⏰
      * @param {JobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1654,7 +1654,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 启动触发器
+     * @summary 启动触发器 ⏰
      * @param {JobTriggerInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1665,7 +1665,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新作业
+     * @summary 更新作业 ⏰
      * @param {UpdateJobDetailInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1676,7 +1676,7 @@ export class SysJobApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新触发器
+     * @summary 更新触发器 ⏰
      * @param {UpdateJobTriggerInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

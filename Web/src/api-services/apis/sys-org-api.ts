@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -30,7 +30,7 @@ export const SysOrgApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 增加机构
+         * @summary 增加机构 🔖
          * @param {AddOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -78,7 +78,7 @@ export const SysOrgApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 删除机构
+         * @summary 删除机构 🔖
          * @param {DeleteOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -126,7 +126,7 @@ export const SysOrgApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取机构列表
+         * @summary 获取机构列表 🔖
          * @param {number} id 主键Id
          * @param {string} [name] 名称
          * @param {string} [code] 编码
@@ -193,7 +193,7 @@ export const SysOrgApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 更新机构
+         * @summary 更新机构 🔖
          * @param {UpdateOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -250,7 +250,7 @@ export const SysOrgApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加机构
+         * @summary 增加机构 🔖
          * @param {AddOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -264,7 +264,7 @@ export const SysOrgApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除机构
+         * @summary 删除机构 🔖
          * @param {DeleteOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -278,7 +278,7 @@ export const SysOrgApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取机构列表
+         * @summary 获取机构列表 🔖
          * @param {number} id 主键Id
          * @param {string} [name] 名称
          * @param {string} [code] 编码
@@ -295,7 +295,7 @@ export const SysOrgApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新机构
+         * @summary 更新机构 🔖
          * @param {UpdateOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -318,7 +318,7 @@ export const SysOrgApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
-         * @summary 增加机构
+         * @summary 增加机构 🔖
          * @param {AddOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -328,7 +328,7 @@ export const SysOrgApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 删除机构
+         * @summary 删除机构 🔖
          * @param {DeleteOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -338,7 +338,7 @@ export const SysOrgApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 获取机构列表
+         * @summary 获取机构列表 🔖
          * @param {number} id 主键Id
          * @param {string} [name] 名称
          * @param {string} [code] 编码
@@ -351,7 +351,7 @@ export const SysOrgApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary 更新机构
+         * @summary 更新机构 🔖
          * @param {UpdateOrgInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -371,7 +371,7 @@ export const SysOrgApiFactory = function (configuration?: Configuration, basePat
 export class SysOrgApi extends BaseAPI {
     /**
      * 
-     * @summary 增加机构
+     * @summary 增加机构 🔖
      * @param {AddOrgInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -382,7 +382,7 @@ export class SysOrgApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除机构
+     * @summary 删除机构 🔖
      * @param {DeleteOrgInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -393,7 +393,7 @@ export class SysOrgApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取机构列表
+     * @summary 获取机构列表 🔖
      * @param {number} id 主键Id
      * @param {string} [name] 名称
      * @param {string} [code] 编码
@@ -407,7 +407,7 @@ export class SysOrgApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新机构
+     * @summary 更新机构 🔖
      * @param {UpdateOrgInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

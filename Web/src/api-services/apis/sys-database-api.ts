@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -36,7 +36,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @summary 增加列
+         * @summary 增加列 🔖
          * @param {DbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -84,7 +84,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 增加表
+         * @summary 增加表 🔖
          * @param {DbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -175,7 +175,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字段列表
+         * @summary 获取字段列表 🔖
          * @param {string} tableName 表名
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -230,7 +230,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 创建实体
+         * @summary 创建实体 🔖
          * @param {CreateEntityInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -278,7 +278,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 创建种子数据
+         * @summary 创建种子数据 🔖
          * @param {CreateSeedDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -326,7 +326,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取数据库数据类型列表
+         * @summary 获取数据库数据类型列表 🔖
          * @param {string} configId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -375,7 +375,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 删除列
+         * @summary 删除列 🔖
          * @param {DeleteDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -423,7 +423,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 删除表
+         * @summary 删除表 🔖
          * @param {DeleteDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -471,7 +471,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取库列表
+         * @summary 获取库列表 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -514,7 +514,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取表列表
+         * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -563,7 +563,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 编辑列
+         * @summary 编辑列 🔖
          * @param {UpdateDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -611,7 +611,7 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 编辑表
+         * @summary 编辑表 🔖
          * @param {UpdateDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -668,7 +668,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加列
+         * @summary 增加列 🔖
          * @param {DbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -682,7 +682,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 增加表
+         * @summary 增加表 🔖
          * @param {DbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -709,7 +709,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字段列表
+         * @summary 获取字段列表 🔖
          * @param {string} tableName 表名
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -724,7 +724,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 创建实体
+         * @summary 创建实体 🔖
          * @param {CreateEntityInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -738,7 +738,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 创建种子数据
+         * @summary 创建种子数据 🔖
          * @param {CreateSeedDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -752,7 +752,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取数据库数据类型列表
+         * @summary 获取数据库数据类型列表 🔖
          * @param {string} configId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -766,7 +766,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除列
+         * @summary 删除列 🔖
          * @param {DeleteDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -780,7 +780,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除表
+         * @summary 删除表 🔖
          * @param {DeleteDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -794,7 +794,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取库列表
+         * @summary 获取库列表 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -807,7 +807,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取表列表
+         * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -821,7 +821,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 编辑列
+         * @summary 编辑列 🔖
          * @param {UpdateDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -835,7 +835,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 编辑表
+         * @summary 编辑表 🔖
          * @param {UpdateDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -858,7 +858,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @summary 增加列
+         * @summary 增加列 🔖
          * @param {DbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -868,7 +868,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 增加表
+         * @summary 增加表 🔖
          * @param {DbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -887,7 +887,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字段列表
+         * @summary 获取字段列表 🔖
          * @param {string} tableName 表名
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -898,7 +898,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 创建实体
+         * @summary 创建实体 🔖
          * @param {CreateEntityInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -908,7 +908,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 创建种子数据
+         * @summary 创建种子数据 🔖
          * @param {CreateSeedDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -918,7 +918,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取数据库数据类型列表
+         * @summary 获取数据库数据类型列表 🔖
          * @param {string} configId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -928,7 +928,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 删除列
+         * @summary 删除列 🔖
          * @param {DeleteDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -938,7 +938,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 删除表
+         * @summary 删除表 🔖
          * @param {DeleteDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -948,7 +948,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取库列表
+         * @summary 获取库列表 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -957,7 +957,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取表列表
+         * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -967,7 +967,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 编辑列
+         * @summary 编辑列 🔖
          * @param {UpdateDbColumnInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -977,7 +977,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 编辑表
+         * @summary 编辑表 🔖
          * @param {UpdateDbTableInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -997,7 +997,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
 export class SysDatabaseApi extends BaseAPI {
     /**
      * 
-     * @summary 增加列
+     * @summary 增加列 🔖
      * @param {DbColumnInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1008,7 +1008,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 增加表
+     * @summary 增加表 🔖
      * @param {DbTableInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1029,7 +1029,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字段列表
+     * @summary 获取字段列表 🔖
      * @param {string} tableName 表名
      * @param {string} configId ConfigId
      * @param {*} [options] Override http request option.
@@ -1041,7 +1041,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 创建实体
+     * @summary 创建实体 🔖
      * @param {CreateEntityInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1052,7 +1052,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 创建种子数据
+     * @summary 创建种子数据 🔖
      * @param {CreateSeedDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1063,7 +1063,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取数据库数据类型列表
+     * @summary 获取数据库数据类型列表 🔖
      * @param {string} configId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1074,7 +1074,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除列
+     * @summary 删除列 🔖
      * @param {DeleteDbColumnInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1085,7 +1085,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除表
+     * @summary 删除表 🔖
      * @param {DeleteDbTableInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1096,7 +1096,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取库列表
+     * @summary 获取库列表 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysDatabaseApi
@@ -1106,7 +1106,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取表列表
+     * @summary 获取表列表 🔖
      * @param {string} configId ConfigId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1117,7 +1117,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 编辑列
+     * @summary 编辑列 🔖
      * @param {UpdateDbColumnInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1128,7 +1128,7 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 编辑表
+     * @summary 编辑表 🔖
      * @param {UpdateDbTableInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

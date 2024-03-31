@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -27,7 +27,7 @@ export const SysCommonApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API
+         * @summary 获取所有接口/动态API 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,7 +70,7 @@ export const SysCommonApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对
+         * @summary 获取国密公钥私钥对 🏆
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -122,7 +122,7 @@ export const SysCommonApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API
+         * @summary 获取所有接口/动态API 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -135,7 +135,7 @@ export const SysCommonApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对
+         * @summary 获取国密公钥私钥对 🏆
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -157,7 +157,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API
+         * @summary 获取所有接口/动态API 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -166,7 +166,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对
+         * @summary 获取国密公钥私钥对 🏆
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -185,7 +185,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
 export class SysCommonApi extends BaseAPI {
     /**
      * 
-     * @summary 获取所有接口/动态API
+     * @summary 获取所有接口/动态API 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysCommonApi
@@ -195,7 +195,7 @@ export class SysCommonApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取国密公钥私钥对
+     * @summary 获取国密公钥私钥对 🏆
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysCommonApi

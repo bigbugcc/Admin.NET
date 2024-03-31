@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -28,7 +28,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 根据键名前缀删除缓存
+         * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -77,7 +77,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 删除缓存
+         * @summary 删除缓存 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -126,7 +126,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 获取缓存键名集合
+         * @summary 获取缓存键名集合 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -169,7 +169,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 根据键名前缀获取键名集合
+         * @summary 根据键名前缀获取键名集合 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -218,7 +218,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 获取缓存值
+         * @summary 获取缓存值 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -276,7 +276,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 根据键名前缀删除缓存
+         * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -290,7 +290,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除缓存
+         * @summary 删除缓存 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -304,7 +304,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取缓存键名集合
+         * @summary 获取缓存键名集合 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -317,7 +317,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 根据键名前缀获取键名集合
+         * @summary 根据键名前缀获取键名集合 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -331,7 +331,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取缓存值
+         * @summary 获取缓存值 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -354,7 +354,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 根据键名前缀删除缓存
+         * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -364,7 +364,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 删除缓存
+         * @summary 删除缓存 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -374,7 +374,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 获取缓存键名集合
+         * @summary 获取缓存键名集合 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -383,7 +383,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 根据键名前缀获取键名集合
+         * @summary 根据键名前缀获取键名集合 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -393,7 +393,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 获取缓存值
+         * @summary 获取缓存值 🔖
          * @param {string} key 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,7 +413,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
 export class SysCacheApi extends BaseAPI {
     /**
      * 
-     * @summary 根据键名前缀删除缓存
+     * @summary 根据键名前缀删除缓存 🔖
      * @param {string} prefixKey 键名前缀
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -424,7 +424,7 @@ export class SysCacheApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除缓存
+     * @summary 删除缓存 🔖
      * @param {string} key 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -435,7 +435,7 @@ export class SysCacheApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取缓存键名集合
+     * @summary 获取缓存键名集合 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysCacheApi
@@ -445,7 +445,7 @@ export class SysCacheApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 根据键名前缀获取键名集合
+     * @summary 根据键名前缀获取键名集合 🔖
      * @param {string} prefixKey 键名前缀
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -456,7 +456,7 @@ export class SysCacheApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取缓存值
+     * @summary 获取缓存值 🔖
      * @param {string} key 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

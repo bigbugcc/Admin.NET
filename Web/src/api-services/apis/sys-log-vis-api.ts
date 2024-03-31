@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/><a href='https://gitee.com/zuohuaijun/Admin.NET/'>https://gitee.com/zuohuaijun/Admin.NET</a>
+ * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -28,7 +28,7 @@ export const SysLogVisApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 清空访问日志
+         * @summary 清空访问日志 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -71,7 +71,7 @@ export const SysLogVisApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取访问日志分页列表
+         * @summary 获取访问日志分页列表 🔖
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -128,7 +128,7 @@ export const SysLogVisApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 清空访问日志
+         * @summary 清空访问日志 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -141,7 +141,7 @@ export const SysLogVisApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取访问日志分页列表
+         * @summary 获取访问日志分页列表 🔖
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -164,7 +164,7 @@ export const SysLogVisApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 清空访问日志
+         * @summary 清空访问日志 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -173,7 +173,7 @@ export const SysLogVisApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取访问日志分页列表
+         * @summary 获取访问日志分页列表 🔖
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -193,7 +193,7 @@ export const SysLogVisApiFactory = function (configuration?: Configuration, base
 export class SysLogVisApi extends BaseAPI {
     /**
      * 
-     * @summary 清空访问日志
+     * @summary 清空访问日志 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysLogVisApi
@@ -203,7 +203,7 @@ export class SysLogVisApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取访问日志分页列表
+     * @summary 获取访问日志分页列表 🔖
      * @param {PageLogInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
