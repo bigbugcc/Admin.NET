@@ -35,6 +35,11 @@ public class SysEnumService : IDynamicApiController, ITransient
         return result;
     }
 
+    /// <summary>
+    /// 获取字典描述
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     private EnumTypeOutput GetEnumDescription(Type type)
     {
         string description = type.Name;

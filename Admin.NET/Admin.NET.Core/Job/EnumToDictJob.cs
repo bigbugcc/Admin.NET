@@ -13,16 +13,19 @@ public class EnumToDictJob : IJob
 {
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IJsonSerializerProvider _jsonSerializer;
+
     public EnumToDictJob(IServiceScopeFactory scopeFactory, IJsonSerializerProvider jsonSerializer)
     {
         _scopeFactory = scopeFactory;
         _jsonSerializer = jsonSerializer;
     }
+
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
     {
         using var serviceScope = _scopeFactory.CreateScope();
         var sysEnumService = serviceScope.ServiceProvider.GetService<SysEnumService>();
-        using var db = serviceScope.ServiceProvider.GetService<ISqlSugarClient>().CopyNew();
+        var db = serviceScope.ServiceProvider.GetService<ISqlSugarClient>().CopyNew();
+
         var enumTypeList = sysEnumService.GetEnumTypeList();
         var enumCodeList = enumTypeList.Select(x => x.TypeName);
         var sysDictTypeCodeList = await db.Queryable<SysDictType>().Where(x => enumCodeList.Contains(x.Code)).Select(x => x.Code).ToListAsync(stoppingToken);
@@ -54,14 +57,11 @@ public class EnumToDictJob : IJob
                                 d.Code = enumData.Name;
                                 uSysDictData.Add(d);
                             }
-
                         });
-
                     }
                     if (!uSysDictType.Any(x => x.Id == uDictType.Id))
                     {
                         uSysDictType.Add(uDictType);
-
                     }
                 }
             });
@@ -98,14 +98,13 @@ public class EnumToDictJob : IJob
                 Remark = x.TypeRemark,
                 Status = StatusEnum.Enable,
                 OrderNo = 100
-
             }).ToList();
             // 需要新增的字典数据
             var dictData = iEnumType.Join(iDictType, t1 => t1.TypeName, t2 => t2.Code, (t1, t2) => new
             {
                 data = t1.EnumEntities.Select(x => new SysDictData
                 {
-                    // 性能优化，使用BulkCopyAsync必须手动获取id
+                    // 性能优化，使用BulkCopyAsync必须手动获取Id
                     Id = YitIdHelper.NextId(),
                     DictTypeId = t2.Id,
                     Name = x.Describe,
@@ -143,9 +142,8 @@ public class EnumToDictJob : IJob
         }
 
         var originColor = Console.ForegroundColor;
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("【" + DateTime.Now + "】服务重启后枚举转换字典");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("【" + DateTime.Now + "】系统枚举转换字典");
         Console.ForegroundColor = originColor;
-
     }
 }

@@ -27,7 +27,7 @@ public class OnlineUserJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("【" + DateTime.Now + "】服务重启清空在线用户");
+        Console.WriteLine("【" + DateTime.Now + "】清空在线用户列表");
         Console.ForegroundColor = originColor;
 
         // 缓存租户列表
