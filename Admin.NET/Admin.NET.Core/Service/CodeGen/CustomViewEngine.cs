@@ -56,6 +56,8 @@ public class CustomViewEngine : ViewEngineModel
 
     public string GetColumnNetType(object tbName, object colName)
     {
+        if (tbName == null || colName == null) return null;
+
         var config = App.GetOptions<DbConnectionOptions>().ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == ConfigId);
         ColumnList = GetColumnListByTableName(tbName.ToString());
         var col = ColumnList.Where(c => (config.DbSettings.EnableUnderLine
