@@ -87,9 +87,6 @@
 		"last 2 versions",
 		"not dead"
 	],
-	"bugs": {
-		"url": "https://gitee.com/zuohuaijun/Admin.NET/issues"
-	},
 	"engines": {
 		"node": ">=16.0.0",
 		"npm": ">= 7.0.0"
@@ -103,9 +100,5 @@
 		"element-plus",
 		"vue-next-admin",
 		"next-admin"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://gitee.com/zuohuaijun/Admin.NET"
-	}
+	]
 }
