@@ -44,11 +44,13 @@ public class SysEnumService : IDynamicApiController, ITransient
             var att = ((DescriptionAttribute[])attrs)[0];
             description = att.Description;
         }
+        var enumType = App.EffectiveTypes.FirstOrDefault(t => t.IsEnum && t.Name == type.Name);
         return new EnumTypeOutput
         {
             TypeDescribe = description,
             TypeName = type.Name,
-            TypeRemark = description
+            TypeRemark = description,
+            EnumEntities = enumType.EnumToList()
         };
     }
 

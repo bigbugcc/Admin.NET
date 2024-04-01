@@ -23,4 +23,8 @@ public class EnumTypeOutput
     /// 枚举类型备注
     /// </summary>
     public string TypeRemark { get; set; }
+    /// <summary>
+    /// 枚举实体
+    /// </summary>
+    public List<EnumEntity> EnumEntities { get; set; }
 }
