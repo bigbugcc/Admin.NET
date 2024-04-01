@@ -99,7 +99,7 @@ import { Local } from '/@/utils/storage';
 
 import { clearAccessTokens, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysNoticeApi } from '/@/api-services/api';
-
+import Push from 'push.js';
 import { signalR } from '/@/views/system/onlineUser/signalR';
 
 // 引入组件
@@ -221,7 +221,19 @@ onMounted(async () => {
 		initI18nOrSize('globalComponentSize', 'disabledSize');
 		initI18nOrSize('globalI18n', 'disabledI18n');
 	}
-
+	// 手动获取用户桌面通知权限
+	if (Push.Permission.GRANTED) {
+		// 判断当前是否有权限，没有则手动获取
+		Push.Permission.request();
+	}
+	// 监听浏览器 当前系统是否在当前页
+	document.addEventListener('visibilitychange', () => {
+		if (!document.hidden) {
+			// 处于当前页面
+			// 关闭之前的消息通知，清空
+			Push.clear();
+		}
+	});
 	// 加载未读的站内信
 	var res = await getAPI(SysNoticeApi).apiSysNoticeUnReadListGet();
 	state.noticeList = res.data.result ?? [];
@@ -251,6 +263,12 @@ const receiveNotice = (msg: any) => {
 		message: '您有一条新消息...',
 		type: 'info',
 		position: 'bottom-right',
+	});
+	Push.create('提示', {
+		body: '你有一条新的消息',
+		icon: 'logo.png', //public目录下的
+		timeout: 4500, // 通知显示时间，单位为毫秒
+
 	});
 };
 </script>

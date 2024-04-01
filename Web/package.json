@@ -36,6 +36,7 @@
 		"nprogress": "^0.2.0",
 		"pinia": "^2.1.7",
 		"print-js": "^1.6.0",
+		"push.js": "^1.0.12",
 		"qrcodejs2-fixes": "^0.0.2",
 		"qs": "^6.12.0",
 		"relation-graph": "^2.1.38",
