@@ -250,8 +250,8 @@ public static class SqlSugarSetup
                 AfterData = JSON.Serialize(u.AfterData),
                 // 操作前记录（字段描述、列名、值、表名、表描述）
                 BeforeData = JSON.Serialize(u.BeforeData),
-                // 传进来的对象
-                BusinessData = JSON.Serialize(u.BusinessData),
+                // 传进来的对象（如果对象为空，则使用首个数据的表名作为业务对象）
+                BusinessData = u.BusinessData == null ? u.AfterData.FirstOrDefault()?.TableName : JSON.Serialize(u.BusinessData),
                 // 枚举（insert、update、delete）
                 DiffType = u.DiffType.ToString(),
                 Sql = UtilMethods.GetNativeSql(u.Sql, u.Parameters),
