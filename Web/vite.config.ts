@@ -8,7 +8,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { CodeInspectorPlugin } from 'code-inspector-plugin';
 import fs from 'fs';
 import { visualizer } from 'rollup-plugin-visualizer';
-
+import { webUpdateNotice } from '@plugin-web-update-notification/vite';
 const pathResolve = (dir: string) => {
 	return resolve(__dirname, '.', dir);
 };
@@ -30,6 +30,17 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			}),
 			vue(),
 			vueJsx(),
+			webUpdateNotice({
+				notificationConfig: {
+					placement: 'topLeft',
+				},
+				notificationProps: {
+					title: '📢 系统更新',
+					description: '系统更新啦！请刷新页面',
+					buttonText: '刷新',
+					dismissButtonText: '忽略',
+				},
+			}),
 			vueSetupExtend(),
 			viteCompression({
 				verbose: true, // 是否在控制台中输出压缩结果
