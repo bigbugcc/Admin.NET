@@ -19,6 +19,13 @@ public static class SqlSugarSetup
         var snowIdOpt = App.GetConfig<SnowIdOptions>("SnowId", true);
         YitIdHelper.SetIdGenerator(snowIdOpt);
 
+        // 自定义 SqlSugar 雪花ID算法
+        SnowFlakeSingle.WorkId = snowIdOpt.WorkerId;
+        StaticConfig.CustomSnowFlakeFunc = () =>
+        {
+            return YitIdHelper.NextId();
+        };
+
         var dbOptions = App.GetConfig<DbConnectionOptions>("DbConnection", true);
         dbOptions.ConnectionConfigs.ForEach(SetDbConfig);
 
