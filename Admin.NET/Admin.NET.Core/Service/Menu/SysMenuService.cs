@@ -106,8 +106,8 @@ public class SysMenuService : IDynamicApiController, ITransient
     public async Task AddMenu(AddMenuInput input)
     {
         var isExist = input.Type != MenuTypeEnum.Btn
-            ? await _sysMenuRep.IsAnyAsync(u => u.Title == input.Title)
-            : await _sysMenuRep.IsAnyAsync(u => u.Permission == input.Permission);
+            ? await _sysMenuRep.IsAnyAsync(u => u.Title == input.Title && u.Pid == input.Pid)
+            : await _sysMenuRep.IsAnyAsync(u => u.Permission == input.Permission && u.Pid == input.Pid);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D4000);
 
@@ -146,8 +146,8 @@ public class SysMenuService : IDynamicApiController, ITransient
             throw Oops.Oh(ErrorCodeEnum.D4008);
 
         var isExist = input.Type != MenuTypeEnum.Btn
-            ? await _sysMenuRep.IsAnyAsync(u => u.Title == input.Title && u.Type == input.Type && u.Id != input.Id)
-            : await _sysMenuRep.IsAnyAsync(u => u.Permission == input.Permission && u.Type == input.Type && u.Id != input.Id);
+            ? await _sysMenuRep.IsAnyAsync(u => u.Title == input.Title && u.Type == input.Type && u.Pid == input.Pid && u.Id != input.Id)
+            : await _sysMenuRep.IsAnyAsync(u => u.Permission == input.Permission && u.Type == input.Type && u.Pid == input.Pid && u.Id != input.Id);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D4000);
 
