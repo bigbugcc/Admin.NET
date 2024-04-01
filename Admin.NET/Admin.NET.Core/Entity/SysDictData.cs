@@ -44,7 +44,7 @@ public partial class SysDictData : EntityBase
     /// 名称
     /// </summary>
     [SugarColumn(ColumnDescription = "名称", Length = 128)]
-    [Required, MaxLength(128)]
+    [MaxLength(128)]
     public virtual string? Name { get; set; }
 
     /// <summary>
