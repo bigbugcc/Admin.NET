@@ -35,7 +35,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @summary 添加字典类型 🔖
+         * @summary 添加字典类型
          * @param {AddDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -83,7 +83,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取所有字典集合 🔖
+         * @summary 获取所有字典集合
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -126,7 +126,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典类型-值列表 🔖
+         * @summary 获取字典类型-值列表
          * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -178,7 +178,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 删除字典类型 🔖
+         * @summary 删除字典类型
          * @param {DeleteDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -226,7 +226,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典类型详情 🔖
+         * @summary 获取字典类型详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -283,7 +283,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典类型列表 🔖
+         * @summary 获取字典类型列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -326,7 +326,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典类型分页列表 🔖
+         * @summary 获取字典类型分页列表
          * @param {PageDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -374,7 +374,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 修改字典类型状态 🔖
+         * @summary 修改字典类型状态
          * @param {DictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -422,7 +422,7 @@ export const SysDictTypeApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 更新字典类型 🔖
+         * @summary 更新字典类型
          * @param {UpdateDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -479,7 +479,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 添加字典类型 🔖
+         * @summary 添加字典类型
          * @param {AddDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -493,7 +493,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取所有字典集合 🔖
+         * @summary 获取所有字典集合
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -506,7 +506,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典类型-值列表 🔖
+         * @summary 获取字典类型-值列表
          * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -520,7 +520,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除字典类型 🔖
+         * @summary 删除字典类型
          * @param {DeleteDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -534,7 +534,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典类型详情 🔖
+         * @summary 获取字典类型详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -549,7 +549,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典类型列表 🔖
+         * @summary 获取字典类型列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -562,7 +562,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典类型分页列表 🔖
+         * @summary 获取字典类型分页列表
          * @param {PageDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -576,7 +576,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 修改字典类型状态 🔖
+         * @summary 修改字典类型状态
          * @param {DictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -590,7 +590,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新字典类型 🔖
+         * @summary 更新字典类型
          * @param {UpdateDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -613,7 +613,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @summary 添加字典类型 🔖
+         * @summary 添加字典类型
          * @param {AddDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -623,7 +623,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取所有字典集合 🔖
+         * @summary 获取所有字典集合
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -632,7 +632,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典类型-值列表 🔖
+         * @summary 获取字典类型-值列表
          * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -642,7 +642,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 删除字典类型 🔖
+         * @summary 删除字典类型
          * @param {DeleteDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -652,7 +652,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典类型详情 🔖
+         * @summary 获取字典类型详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -663,7 +663,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典类型列表 🔖
+         * @summary 获取字典类型列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -672,7 +672,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典类型分页列表 🔖
+         * @summary 获取字典类型分页列表
          * @param {PageDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -682,7 +682,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 修改字典类型状态 🔖
+         * @summary 修改字典类型状态
          * @param {DictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -692,7 +692,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 更新字典类型 🔖
+         * @summary 更新字典类型
          * @param {UpdateDictTypeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -712,7 +712,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
 export class SysDictTypeApi extends BaseAPI {
     /**
      * 
-     * @summary 添加字典类型 🔖
+     * @summary 添加字典类型
      * @param {AddDictTypeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -723,7 +723,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取所有字典集合 🔖
+     * @summary 获取所有字典集合
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysDictTypeApi
@@ -733,7 +733,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典类型-值列表 🔖
+     * @summary 获取字典类型-值列表
      * @param {string} code 编码
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -744,7 +744,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除字典类型 🔖
+     * @summary 删除字典类型
      * @param {DeleteDictTypeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -755,7 +755,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典类型详情 🔖
+     * @summary 获取字典类型详情
      * @param {number} id 主键Id
      * @param {StatusEnum} [status] 状态
      * @param {*} [options] Override http request option.
@@ -767,7 +767,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典类型列表 🔖
+     * @summary 获取字典类型列表
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysDictTypeApi
@@ -777,7 +777,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典类型分页列表 🔖
+     * @summary 获取字典类型分页列表
      * @param {PageDictTypeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -788,7 +788,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 修改字典类型状态 🔖
+     * @summary 修改字典类型状态
      * @param {DictTypeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -799,7 +799,7 @@ export class SysDictTypeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新字典类型 🔖
+     * @summary 更新字典类型
      * @param {UpdateDictTypeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

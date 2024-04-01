@@ -30,7 +30,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
     return {
         /**
          * 
-         * @summary 生成JSAPI调起支付所需参数 🔖
+         * @summary 生成JSAPI调起支付所需参数
          * @param {WechatPayParaInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -78,7 +78,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -121,7 +121,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -170,7 +170,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付成功回调(服务商模式) 🔖
+         * @summary 微信支付成功回调(服务商模式)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -213,7 +213,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付统一下单获取Id(服务商模式)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -261,7 +261,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付统一下单获取Id(商户直连)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -318,7 +318,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 生成JSAPI调起支付所需参数 🔖
+         * @summary 生成JSAPI调起支付所需参数
          * @param {WechatPayParaInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -332,7 +332,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -345,7 +345,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -359,7 +359,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付成功回调(服务商模式) 🔖
+         * @summary 微信支付成功回调(服务商模式)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -372,7 +372,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付统一下单获取Id(服务商模式)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -386,7 +386,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付统一下单获取Id(商户直连)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -409,7 +409,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
-         * @summary 生成JSAPI调起支付所需参数 🔖
+         * @summary 生成JSAPI调起支付所需参数
          * @param {WechatPayParaInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -419,7 +419,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -428,7 +428,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -438,7 +438,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付成功回调(服务商模式) 🔖
+         * @summary 微信支付成功回调(服务商模式)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -447,7 +447,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付统一下单获取Id(服务商模式)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -457,7 +457,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付统一下单获取Id(商户直连)
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -477,7 +477,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
 export class SysWechatPayApi extends BaseAPI {
     /**
      * 
-     * @summary 生成JSAPI调起支付所需参数 🔖
+     * @summary 生成JSAPI调起支付所需参数
      * @param {WechatPayParaInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -488,7 +488,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付成功回调(商户直连) 🔖
+     * @summary 微信支付成功回调(商户直连)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysWechatPayApi
@@ -498,7 +498,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取支付订单详情 🔖
+     * @summary 获取支付订单详情
      * @param {string} tradeId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -509,7 +509,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付成功回调(服务商模式) 🔖
+     * @summary 微信支付成功回调(服务商模式)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysWechatPayApi
@@ -519,7 +519,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+     * @summary 微信支付统一下单获取Id(服务商模式)
      * @param {WechatPayTransactionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -530,7 +530,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付统一下单获取Id(商户直连) 🔖
+     * @summary 微信支付统一下单获取Id(商户直连)
      * @param {WechatPayTransactionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -27,7 +27,7 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合（目前仅支持枚举类型） 🔖
+         * @summary 通过实体的字段名获取相关枚举值集合
          * @param {string} entityName 实体名称
          * @param {string} fieldName 字段名称
          * @param {*} [options] Override http request option.
@@ -88,7 +88,7 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合 🔖
+         * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -140,7 +140,7 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取所有枚举类型 🔖
+         * @summary 获取所有枚举类型
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -192,7 +192,7 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合（目前仅支持枚举类型） 🔖
+         * @summary 通过实体的字段名获取相关枚举值集合
          * @param {string} entityName 实体名称
          * @param {string} fieldName 字段名称
          * @param {*} [options] Override http request option.
@@ -207,7 +207,7 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合 🔖
+         * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -221,7 +221,7 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取所有枚举类型 🔖
+         * @summary 获取所有枚举类型
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -243,7 +243,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合（目前仅支持枚举类型） 🔖
+         * @summary 通过实体的字段名获取相关枚举值集合
          * @param {string} entityName 实体名称
          * @param {string} fieldName 字段名称
          * @param {*} [options] Override http request option.
@@ -254,7 +254,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合 🔖
+         * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -264,7 +264,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取所有枚举类型 🔖
+         * @summary 获取所有枚举类型
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -283,7 +283,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
 export class SysEnumApi extends BaseAPI {
     /**
      * 
-     * @summary 通过实体的字段名获取相关枚举值集合（目前仅支持枚举类型） 🔖
+     * @summary 通过实体的字段名获取相关枚举值集合
      * @param {string} entityName 实体名称
      * @param {string} fieldName 字段名称
      * @param {*} [options] Override http request option.
@@ -295,7 +295,7 @@ export class SysEnumApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 通过枚举类型获取枚举值集合 🔖
+     * @summary 通过枚举类型获取枚举值集合
      * @param {string} enumName 枚举类型名称
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -306,7 +306,7 @@ export class SysEnumApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取所有枚举类型 🔖
+     * @summary 获取所有枚举类型
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysEnumApi

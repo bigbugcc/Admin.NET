@@ -27,7 +27,7 @@ export const SysCommonApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API 🔖
+         * @summary 获取所有接口/动态API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -70,7 +70,7 @@ export const SysCommonApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对 🏆
+         * @summary 获取国密公钥私钥对
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -122,7 +122,7 @@ export const SysCommonApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API 🔖
+         * @summary 获取所有接口/动态API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -135,7 +135,7 @@ export const SysCommonApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对 🏆
+         * @summary 获取国密公钥私钥对
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -157,7 +157,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 获取所有接口/动态API 🔖
+         * @summary 获取所有接口/动态API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -166,7 +166,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取国密公钥私钥对 🏆
+         * @summary 获取国密公钥私钥对
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -185,7 +185,7 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
 export class SysCommonApi extends BaseAPI {
     /**
      * 
-     * @summary 获取所有接口/动态API 🔖
+     * @summary 获取所有接口/动态API
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysCommonApi
@@ -195,7 +195,7 @@ export class SysCommonApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取国密公钥私钥对 🏆
+     * @summary 获取国密公钥私钥对
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysCommonApi

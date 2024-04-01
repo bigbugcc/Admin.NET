@@ -26,7 +26,7 @@ export const SysConstApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 根据类名获取常量数据 🔖
+         * @summary 根据类名获取常量数据
          * @param {string} typeName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -75,7 +75,7 @@ export const SysConstApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 获取所有常量列表 🔖
+         * @summary 获取所有常量列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -127,7 +127,7 @@ export const SysConstApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 根据类名获取常量数据 🔖
+         * @summary 根据类名获取常量数据
          * @param {string} typeName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -141,7 +141,7 @@ export const SysConstApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取所有常量列表 🔖
+         * @summary 获取所有常量列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -163,7 +163,7 @@ export const SysConstApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 根据类名获取常量数据 🔖
+         * @summary 根据类名获取常量数据
          * @param {string} typeName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -173,7 +173,7 @@ export const SysConstApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 获取所有常量列表 🔖
+         * @summary 获取所有常量列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -192,7 +192,7 @@ export const SysConstApiFactory = function (configuration?: Configuration, baseP
 export class SysConstApi extends BaseAPI {
     /**
      * 
-     * @summary 根据类名获取常量数据 🔖
+     * @summary 根据类名获取常量数据
      * @param {string} typeName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -203,7 +203,7 @@ export class SysConstApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取所有常量列表 🔖
+     * @summary 获取所有常量列表
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysConstApi

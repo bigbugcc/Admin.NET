@@ -26,7 +26,7 @@ export const SysMessageApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
-         * @summary 发送消息给所有人 🔖
+         * @summary 发送消息给所有人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -74,7 +74,7 @@ export const SysMessageApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary 发送消息给除了发送人的其他人 🔖
+         * @summary 发送消息给除了发送人的其他人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -122,7 +122,7 @@ export const SysMessageApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary 发送消息给某个人 🔖
+         * @summary 发送消息给某个人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -170,7 +170,7 @@ export const SysMessageApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary 发送消息给某些人 🔖
+         * @summary 发送消息给某些人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -227,7 +227,7 @@ export const SysMessageApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 发送消息给所有人 🔖
+         * @summary 发送消息给所有人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -241,7 +241,7 @@ export const SysMessageApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 发送消息给除了发送人的其他人 🔖
+         * @summary 发送消息给除了发送人的其他人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -255,7 +255,7 @@ export const SysMessageApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 发送消息给某个人 🔖
+         * @summary 发送消息给某个人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -269,7 +269,7 @@ export const SysMessageApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 发送消息给某些人 🔖
+         * @summary 发送消息给某些人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -292,7 +292,7 @@ export const SysMessageApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
-         * @summary 发送消息给所有人 🔖
+         * @summary 发送消息给所有人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -302,7 +302,7 @@ export const SysMessageApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary 发送消息给除了发送人的其他人 🔖
+         * @summary 发送消息给除了发送人的其他人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -312,7 +312,7 @@ export const SysMessageApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary 发送消息给某个人 🔖
+         * @summary 发送消息给某个人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -322,7 +322,7 @@ export const SysMessageApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary 发送消息给某些人 🔖
+         * @summary 发送消息给某些人
          * @param {MessageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -342,7 +342,7 @@ export const SysMessageApiFactory = function (configuration?: Configuration, bas
 export class SysMessageApi extends BaseAPI {
     /**
      * 
-     * @summary 发送消息给所有人 🔖
+     * @summary 发送消息给所有人
      * @param {MessageInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -353,7 +353,7 @@ export class SysMessageApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 发送消息给除了发送人的其他人 🔖
+     * @summary 发送消息给除了发送人的其他人
      * @param {MessageInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -364,7 +364,7 @@ export class SysMessageApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 发送消息给某个人 🔖
+     * @summary 发送消息给某个人
      * @param {MessageInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -375,7 +375,7 @@ export class SysMessageApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 发送消息给某些人 🔖
+     * @summary 发送消息给某些人
      * @param {MessageInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

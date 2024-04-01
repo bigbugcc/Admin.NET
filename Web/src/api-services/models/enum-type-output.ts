@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { EnumEntity } from './enum-entity';
  /**
  * 枚举类型输出参数
  *
@@ -43,4 +44,12 @@ export interface EnumTypeOutput {
      * @memberof EnumTypeOutput
      */
     typeRemark?: string | null;
+
+    /**
+     * 枚举实体
+     *
+     * @type {Array<EnumEntity>}
+     * @memberof EnumTypeOutput
+     */
+    enumEntities?: Array<EnumEntity> | null;
 }

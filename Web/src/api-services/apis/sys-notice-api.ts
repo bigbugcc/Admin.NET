@@ -34,7 +34,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 增加通知公告 📢
+         * @summary 增加通知公告
          * @param {AddNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -82,7 +82,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 删除通知公告 📢
+         * @summary 删除通知公告
          * @param {DeleteNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -130,7 +130,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取通知公告分页列表 📢
+         * @summary 获取通知公告分页列表
          * @param {PageNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -256,7 +256,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 发布通知公告 📢
+         * @summary 发布通知公告
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -304,7 +304,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 设置通知公告已读状态 📢
+         * @summary 设置通知公告已读状态
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -352,7 +352,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取未读的通知公告 📢
+         * @summary 获取未读的通知公告
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -395,7 +395,7 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 更新通知公告 📢
+         * @summary 更新通知公告
          * @param {UpdateNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -452,7 +452,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加通知公告 📢
+         * @summary 增加通知公告
          * @param {AddNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -466,7 +466,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除通知公告 📢
+         * @summary 删除通知公告
          * @param {DeleteNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -480,7 +480,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取通知公告分页列表 📢
+         * @summary 获取通知公告分页列表
          * @param {PageNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -514,7 +514,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 发布通知公告 📢
+         * @summary 发布通知公告
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -528,7 +528,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 设置通知公告已读状态 📢
+         * @summary 设置通知公告已读状态
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -542,7 +542,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取未读的通知公告 📢
+         * @summary 获取未读的通知公告
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -555,7 +555,7 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新通知公告 📢
+         * @summary 更新通知公告
          * @param {UpdateNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -578,7 +578,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 增加通知公告 📢
+         * @summary 增加通知公告
          * @param {AddNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -588,7 +588,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 删除通知公告 📢
+         * @summary 删除通知公告
          * @param {DeleteNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -598,7 +598,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取通知公告分页列表 📢
+         * @summary 获取通知公告分页列表
          * @param {PageNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -624,7 +624,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 发布通知公告 📢
+         * @summary 发布通知公告
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -634,7 +634,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 设置通知公告已读状态 📢
+         * @summary 设置通知公告已读状态
          * @param {NoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -644,7 +644,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取未读的通知公告 📢
+         * @summary 获取未读的通知公告
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -653,7 +653,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 更新通知公告 📢
+         * @summary 更新通知公告
          * @param {UpdateNoticeInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -673,7 +673,7 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
 export class SysNoticeApi extends BaseAPI {
     /**
      * 
-     * @summary 增加通知公告 📢
+     * @summary 增加通知公告
      * @param {AddNoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -684,7 +684,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除通知公告 📢
+     * @summary 删除通知公告
      * @param {DeleteNoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -695,7 +695,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取通知公告分页列表 📢
+     * @summary 获取通知公告分页列表
      * @param {PageNoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -723,7 +723,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 发布通知公告 📢
+     * @summary 发布通知公告
      * @param {NoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -734,7 +734,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 设置通知公告已读状态 📢
+     * @summary 设置通知公告已读状态
      * @param {NoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -745,7 +745,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取未读的通知公告 📢
+     * @summary 获取未读的通知公告
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysNoticeApi
@@ -755,7 +755,7 @@ export class SysNoticeApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新通知公告 📢
+     * @summary 更新通知公告
      * @param {UpdateNoticeInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

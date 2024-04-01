@@ -31,7 +31,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 增加动态插件 🧩
+         * @summary 增加动态插件
          * @param {AddPluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -79,7 +79,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 添加动态程序集/接口 🧩
+         * @summary 添加动态程序集/接口
          * @param {string} [body] 
          * @param {string} [assemblyName] 程序集名称
          * @param {*} [options] Override http request option.
@@ -132,7 +132,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 删除动态插件 🧩
+         * @summary 删除动态插件
          * @param {DeletePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -180,7 +180,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取动态插件列表 🧩
+         * @summary 获取动态插件列表
          * @param {PagePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -228,7 +228,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 移除动态程序集/接口 🧩
+         * @summary 移除动态程序集/接口
          * @param {string} assemblyName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -277,7 +277,7 @@ export const SysPluginApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 更新动态插件 🧩
+         * @summary 更新动态插件
          * @param {UpdatePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -334,7 +334,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加动态插件 🧩
+         * @summary 增加动态插件
          * @param {AddPluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -348,7 +348,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 添加动态程序集/接口 🧩
+         * @summary 添加动态程序集/接口
          * @param {string} [body] 
          * @param {string} [assemblyName] 程序集名称
          * @param {*} [options] Override http request option.
@@ -363,7 +363,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除动态插件 🧩
+         * @summary 删除动态插件
          * @param {DeletePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -377,7 +377,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取动态插件列表 🧩
+         * @summary 获取动态插件列表
          * @param {PagePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -391,7 +391,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 移除动态程序集/接口 🧩
+         * @summary 移除动态程序集/接口
          * @param {string} assemblyName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -405,7 +405,7 @@ export const SysPluginApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新动态插件 🧩
+         * @summary 更新动态插件
          * @param {UpdatePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -428,7 +428,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 增加动态插件 🧩
+         * @summary 增加动态插件
          * @param {AddPluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -438,7 +438,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 添加动态程序集/接口 🧩
+         * @summary 添加动态程序集/接口
          * @param {string} [body] 
          * @param {string} [assemblyName] 程序集名称
          * @param {*} [options] Override http request option.
@@ -449,7 +449,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 删除动态插件 🧩
+         * @summary 删除动态插件
          * @param {DeletePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -459,7 +459,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取动态插件列表 🧩
+         * @summary 获取动态插件列表
          * @param {PagePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -469,7 +469,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 移除动态程序集/接口 🧩
+         * @summary 移除动态程序集/接口
          * @param {string} assemblyName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -479,7 +479,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 更新动态插件 🧩
+         * @summary 更新动态插件
          * @param {UpdatePluginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -499,7 +499,7 @@ export const SysPluginApiFactory = function (configuration?: Configuration, base
 export class SysPluginApi extends BaseAPI {
     /**
      * 
-     * @summary 增加动态插件 🧩
+     * @summary 增加动态插件
      * @param {AddPluginInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -510,7 +510,7 @@ export class SysPluginApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 添加动态程序集/接口 🧩
+     * @summary 添加动态程序集/接口
      * @param {string} [body] 
      * @param {string} [assemblyName] 程序集名称
      * @param {*} [options] Override http request option.
@@ -522,7 +522,7 @@ export class SysPluginApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除动态插件 🧩
+     * @summary 删除动态插件
      * @param {DeletePluginInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -533,7 +533,7 @@ export class SysPluginApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取动态插件列表 🧩
+     * @summary 获取动态插件列表
      * @param {PagePluginInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -544,7 +544,7 @@ export class SysPluginApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 移除动态程序集/接口 🧩
+     * @summary 移除动态程序集/接口
      * @param {string} assemblyName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -555,7 +555,7 @@ export class SysPluginApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新动态插件 🧩
+     * @summary 更新动态插件
      * @param {UpdatePluginInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

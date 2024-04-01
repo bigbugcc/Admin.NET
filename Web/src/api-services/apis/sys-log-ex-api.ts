@@ -29,7 +29,7 @@ export const SysLogExApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 清空异常日志 🔖
+         * @summary 清空异常日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -72,7 +72,7 @@ export const SysLogExApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 导出异常日志 🔖
+         * @summary 导出异常日志
          * @param {LogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -120,7 +120,7 @@ export const SysLogExApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 获取异常日志分页列表 🔖
+         * @summary 获取异常日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -177,7 +177,7 @@ export const SysLogExApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 清空异常日志 🔖
+         * @summary 清空异常日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -190,7 +190,7 @@ export const SysLogExApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 导出异常日志 🔖
+         * @summary 导出异常日志
          * @param {LogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -204,7 +204,7 @@ export const SysLogExApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取异常日志分页列表 🔖
+         * @summary 获取异常日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -227,7 +227,7 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 清空异常日志 🔖
+         * @summary 清空异常日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -236,7 +236,7 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 导出异常日志 🔖
+         * @summary 导出异常日志
          * @param {LogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -246,7 +246,7 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 获取异常日志分页列表 🔖
+         * @summary 获取异常日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -266,7 +266,7 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
 export class SysLogExApi extends BaseAPI {
     /**
      * 
-     * @summary 清空异常日志 🔖
+     * @summary 清空异常日志
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysLogExApi
@@ -276,7 +276,7 @@ export class SysLogExApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 导出异常日志 🔖
+     * @summary 导出异常日志
      * @param {LogInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -287,7 +287,7 @@ export class SysLogExApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取异常日志分页列表 🔖
+     * @summary 获取异常日志分页列表
      * @param {PageLogInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

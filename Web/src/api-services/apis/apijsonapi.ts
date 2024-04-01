@@ -27,7 +27,7 @@ export const APIJSONApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 新增 🔖
+         * @summary APIJSON新增
          * @param {{ [key: string]: JToken; }} [body] 表对象或数组，若没有传Id则后端生成Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -75,7 +75,7 @@ export const APIJSONApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 删除（支持非Id条件、支持批量） 🔖
+         * @summary APIJSON删除
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -123,7 +123,7 @@ export const APIJSONApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 参数：{\"[]\":{\"SYSLOGOP\":{}}}
-         * @summary 统一查询入口 🔖
+         * @summary APIJSON统一查询
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -171,7 +171,7 @@ export const APIJSONApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 查询 🔖
+         * @summary APIJSON查询
          * @param {string} table 
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
@@ -225,7 +225,7 @@ export const APIJSONApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 更新（只支持Id作为条件） 🔖
+         * @summary APIJSON更新
          * @param {{ [key: string]: JToken; }} [body] 支持多表、多Id批量更新
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -282,7 +282,7 @@ export const APIJSONApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 新增 🔖
+         * @summary APIJSON新增
          * @param {{ [key: string]: JToken; }} [body] 表对象或数组，若没有传Id则后端生成Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -296,7 +296,7 @@ export const APIJSONApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除（支持非Id条件、支持批量） 🔖
+         * @summary APIJSON删除
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -310,7 +310,7 @@ export const APIJSONApiFp = function(configuration?: Configuration) {
         },
         /**
          * 参数：{\"[]\":{\"SYSLOGOP\":{}}}
-         * @summary 统一查询入口 🔖
+         * @summary APIJSON统一查询
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -324,7 +324,7 @@ export const APIJSONApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 查询 🔖
+         * @summary APIJSON查询
          * @param {string} table 
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
@@ -339,7 +339,7 @@ export const APIJSONApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新（只支持Id作为条件） 🔖
+         * @summary APIJSON更新
          * @param {{ [key: string]: JToken; }} [body] 支持多表、多Id批量更新
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -362,7 +362,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 新增 🔖
+         * @summary APIJSON新增
          * @param {{ [key: string]: JToken; }} [body] 表对象或数组，若没有传Id则后端生成Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -372,7 +372,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 删除（支持非Id条件、支持批量） 🔖
+         * @summary APIJSON删除
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -382,7 +382,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 参数：{\"[]\":{\"SYSLOGOP\":{}}}
-         * @summary 统一查询入口 🔖
+         * @summary APIJSON统一查询
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -392,7 +392,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 查询 🔖
+         * @summary APIJSON查询
          * @param {string} table 
          * @param {{ [key: string]: JToken; }} [body] 
          * @param {*} [options] Override http request option.
@@ -403,7 +403,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 更新（只支持Id作为条件） 🔖
+         * @summary APIJSON更新
          * @param {{ [key: string]: JToken; }} [body] 支持多表、多Id批量更新
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -423,7 +423,7 @@ export const APIJSONApiFactory = function (configuration?: Configuration, basePa
 export class APIJSONApi extends BaseAPI {
     /**
      * 
-     * @summary 新增 🔖
+     * @summary APIJSON新增
      * @param {{ [key: string]: JToken; }} [body] 表对象或数组，若没有传Id则后端生成Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -434,7 +434,7 @@ export class APIJSONApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除（支持非Id条件、支持批量） 🔖
+     * @summary APIJSON删除
      * @param {{ [key: string]: JToken; }} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -445,7 +445,7 @@ export class APIJSONApi extends BaseAPI {
     }
     /**
      * 参数：{\"[]\":{\"SYSLOGOP\":{}}}
-     * @summary 统一查询入口 🔖
+     * @summary APIJSON统一查询
      * @param {{ [key: string]: JToken; }} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -456,7 +456,7 @@ export class APIJSONApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 查询 🔖
+     * @summary APIJSON查询
      * @param {string} table 
      * @param {{ [key: string]: JToken; }} [body] 
      * @param {*} [options] Override http request option.
@@ -468,7 +468,7 @@ export class APIJSONApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新（只支持Id作为条件） 🔖
+     * @summary APIJSON更新
      * @param {{ [key: string]: JToken; }} [body] 支持多表、多Id批量更新
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

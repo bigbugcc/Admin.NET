@@ -32,7 +32,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
-         * @summary 增加行政区域 🔖
+         * @summary 增加行政区域
          * @param {AddRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -80,7 +80,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 删除行政区域 🔖
+         * @summary 删除行政区域
          * @param {DeleteRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -128,7 +128,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取行政区域列表 🔖
+         * @summary 获取行政区域列表
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -180,7 +180,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取行政区域分页列表 🔖
+         * @summary 获取行政区域分页列表
          * @param {PageRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -228,7 +228,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 同步行政区域 🔖
+         * @summary 同步行政区域
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -271,7 +271,7 @@ export const SysRegionApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 更新行政区域 🔖
+         * @summary 更新行政区域
          * @param {UpdateRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -328,7 +328,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加行政区域 🔖
+         * @summary 增加行政区域
          * @param {AddRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -342,7 +342,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除行政区域 🔖
+         * @summary 删除行政区域
          * @param {DeleteRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -356,7 +356,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取行政区域列表 🔖
+         * @summary 获取行政区域列表
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -370,7 +370,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取行政区域分页列表 🔖
+         * @summary 获取行政区域分页列表
          * @param {PageRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -384,7 +384,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 同步行政区域 🔖
+         * @summary 同步行政区域
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -397,7 +397,7 @@ export const SysRegionApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新行政区域 🔖
+         * @summary 更新行政区域
          * @param {UpdateRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -420,7 +420,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
-         * @summary 增加行政区域 🔖
+         * @summary 增加行政区域
          * @param {AddRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -430,7 +430,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 删除行政区域 🔖
+         * @summary 删除行政区域
          * @param {DeleteRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -440,7 +440,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取行政区域列表 🔖
+         * @summary 获取行政区域列表
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -450,7 +450,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取行政区域分页列表 🔖
+         * @summary 获取行政区域分页列表
          * @param {PageRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -460,7 +460,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 同步行政区域 🔖
+         * @summary 同步行政区域
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -469,7 +469,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 更新行政区域 🔖
+         * @summary 更新行政区域
          * @param {UpdateRegionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -489,7 +489,7 @@ export const SysRegionApiFactory = function (configuration?: Configuration, base
 export class SysRegionApi extends BaseAPI {
     /**
      * 
-     * @summary 增加行政区域 🔖
+     * @summary 增加行政区域
      * @param {AddRegionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -500,7 +500,7 @@ export class SysRegionApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除行政区域 🔖
+     * @summary 删除行政区域
      * @param {DeleteRegionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -511,7 +511,7 @@ export class SysRegionApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取行政区域列表 🔖
+     * @summary 获取行政区域列表
      * @param {number} id 主键Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -522,7 +522,7 @@ export class SysRegionApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取行政区域分页列表 🔖
+     * @summary 获取行政区域分页列表
      * @param {PageRegionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -533,7 +533,7 @@ export class SysRegionApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 同步行政区域 🔖
+     * @summary 同步行政区域
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysRegionApi
@@ -543,7 +543,7 @@ export class SysRegionApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新行政区域 🔖
+     * @summary 更新行政区域
      * @param {UpdateRegionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

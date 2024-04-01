@@ -31,7 +31,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
     return {
         /**
          * 
-         * @summary 增加开放接口身份 🔖
+         * @summary 增加开放接口身份
          * @param {AddOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -79,7 +79,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 删除开放接口身份 🔖
+         * @summary 删除开放接口身份
          * @param {DeleteOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -127,7 +127,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表 🔖
+         * @summary 获取开放接口身份分页列表
          * @param {OpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -175,7 +175,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 创建密钥 🔖
+         * @summary 创建密钥
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -218,7 +218,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 更新开放接口身份 🔖
+         * @summary 更新开放接口身份
          * @param {UpdateOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -275,7 +275,7 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加开放接口身份 🔖
+         * @summary 增加开放接口身份
          * @param {AddOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -289,7 +289,7 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除开放接口身份 🔖
+         * @summary 删除开放接口身份
          * @param {DeleteOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -303,7 +303,7 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表 🔖
+         * @summary 获取开放接口身份分页列表
          * @param {OpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -317,7 +317,7 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 创建密钥 🔖
+         * @summary 创建密钥
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -330,7 +330,7 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新开放接口身份 🔖
+         * @summary 更新开放接口身份
          * @param {UpdateOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -353,7 +353,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
-         * @summary 增加开放接口身份 🔖
+         * @summary 增加开放接口身份
          * @param {AddOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -363,7 +363,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 删除开放接口身份 🔖
+         * @summary 删除开放接口身份
          * @param {DeleteOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -373,7 +373,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表 🔖
+         * @summary 获取开放接口身份分页列表
          * @param {OpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -383,7 +383,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 创建密钥 🔖
+         * @summary 创建密钥
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -392,7 +392,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 更新开放接口身份 🔖
+         * @summary 更新开放接口身份
          * @param {UpdateOpenAccessInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -412,7 +412,7 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
 export class SysOpenAccessApi extends BaseAPI {
     /**
      * 
-     * @summary 增加开放接口身份 🔖
+     * @summary 增加开放接口身份
      * @param {AddOpenAccessInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -423,7 +423,7 @@ export class SysOpenAccessApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除开放接口身份 🔖
+     * @summary 删除开放接口身份
      * @param {DeleteOpenAccessInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -434,7 +434,7 @@ export class SysOpenAccessApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取开放接口身份分页列表 🔖
+     * @summary 获取开放接口身份分页列表
      * @param {OpenAccessInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -445,7 +445,7 @@ export class SysOpenAccessApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 创建密钥 🔖
+     * @summary 创建密钥
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysOpenAccessApi
@@ -455,7 +455,7 @@ export class SysOpenAccessApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新开放接口身份 🔖
+     * @summary 更新开放接口身份
      * @param {UpdateOpenAccessInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

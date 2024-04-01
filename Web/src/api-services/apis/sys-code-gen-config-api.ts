@@ -28,7 +28,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情 🔖
+         * @summary 获取代码生成配置详情
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -226,7 +226,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @summary 获取代码生成配置列表 🔖
+         * @summary 获取代码生成配置列表
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -424,7 +424,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @summary 更新代码生成配置 🔖
+         * @summary 更新代码生成配置
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -481,7 +481,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情 🔖
+         * @summary 获取代码生成配置详情
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -525,7 +525,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取代码生成配置列表 🔖
+         * @summary 获取代码生成配置列表
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -569,7 +569,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新代码生成配置 🔖
+         * @summary 更新代码生成配置
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -592,7 +592,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情 🔖
+         * @summary 获取代码生成配置详情
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -632,7 +632,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取代码生成配置列表 🔖
+         * @summary 获取代码生成配置列表
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -672,7 +672,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 更新代码生成配置 🔖
+         * @summary 更新代码生成配置
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -692,7 +692,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
 export class SysCodeGenConfigApi extends BaseAPI {
     /**
      * 
-     * @summary 获取代码生成配置详情 🔖
+     * @summary 获取代码生成配置详情
      * @param {number} [id] 主键Id
      * @param {number} [codeGenId] 代码生成主表ID
      * @param {string} [columnName] 数据库字段名
@@ -733,7 +733,7 @@ export class SysCodeGenConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取代码生成配置列表 🔖
+     * @summary 获取代码生成配置列表
      * @param {number} [id] 主键Id
      * @param {number} [codeGenId] 代码生成主表ID
      * @param {string} [columnName] 数据库字段名
@@ -774,7 +774,7 @@ export class SysCodeGenConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新代码生成配置 🔖
+     * @summary 更新代码生成配置
      * @param {Array<CodeGenConfig>} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

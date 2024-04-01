@@ -28,7 +28,7 @@ export const SysLogDiffApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
-         * @summary 清空差异日志 🔖
+         * @summary 清空差异日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -71,7 +71,7 @@ export const SysLogDiffApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary 获取差异日志分页列表 🔖
+         * @summary 获取差异日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -128,7 +128,7 @@ export const SysLogDiffApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 清空差异日志 🔖
+         * @summary 清空差异日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -141,7 +141,7 @@ export const SysLogDiffApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取差异日志分页列表 🔖
+         * @summary 获取差异日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -164,7 +164,7 @@ export const SysLogDiffApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
-         * @summary 清空差异日志 🔖
+         * @summary 清空差异日志
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -173,7 +173,7 @@ export const SysLogDiffApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary 获取差异日志分页列表 🔖
+         * @summary 获取差异日志分页列表
          * @param {PageLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -193,7 +193,7 @@ export const SysLogDiffApiFactory = function (configuration?: Configuration, bas
 export class SysLogDiffApi extends BaseAPI {
     /**
      * 
-     * @summary 清空差异日志 🔖
+     * @summary 清空差异日志
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysLogDiffApi
@@ -203,7 +203,7 @@ export class SysLogDiffApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取差异日志分页列表 🔖
+     * @summary 获取差异日志分页列表
      * @param {PageLogInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

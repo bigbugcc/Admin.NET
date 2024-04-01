@@ -26,7 +26,7 @@ export const SysOAuthApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 授权回调 🔖
+         * @summary 授权回调
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -79,7 +79,7 @@ export const SysOAuthApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary 第三方登录 🔖
+         * @summary 第三方登录
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -141,7 +141,7 @@ export const SysOAuthApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 授权回调 🔖
+         * @summary 授权回调
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -156,7 +156,7 @@ export const SysOAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 第三方登录 🔖
+         * @summary 第三方登录
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -180,7 +180,7 @@ export const SysOAuthApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 授权回调 🔖
+         * @summary 授权回调
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -191,7 +191,7 @@ export const SysOAuthApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @summary 第三方登录 🔖
+         * @summary 第三方登录
          * @param {string} [provider] 
          * @param {string} [redirectUrl] 
          * @param {*} [options] Override http request option.
@@ -212,7 +212,7 @@ export const SysOAuthApiFactory = function (configuration?: Configuration, baseP
 export class SysOAuthApi extends BaseAPI {
     /**
      * 
-     * @summary 授权回调 🔖
+     * @summary 授权回调
      * @param {string} [provider] 
      * @param {string} [redirectUrl] 
      * @param {*} [options] Override http request option.
@@ -224,7 +224,7 @@ export class SysOAuthApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 第三方登录 🔖
+     * @summary 第三方登录
      * @param {string} [provider] 
      * @param {string} [redirectUrl] 
      * @param {*} [options] Override http request option.

@@ -110,6 +110,14 @@ export interface UpdateDictDataInput {
     code: string;
 
     /**
+     * 名称
+     *
+     * @type {string}
+     * @memberof UpdateDictDataInput
+     */
+    name?: string | null;
+
+    /**
      * 显示样式-标签颜色
      *
      * @type {string}

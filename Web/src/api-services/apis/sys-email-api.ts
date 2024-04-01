@@ -25,7 +25,7 @@ export const SysEmailApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 发送邮件 📧
+         * @summary 发送邮件
          * @param {string} content 
          * @param {string} title 
          * @param {*} [options] Override http request option.
@@ -89,7 +89,7 @@ export const SysEmailApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 发送邮件 📧
+         * @summary 发送邮件
          * @param {string} content 
          * @param {string} title 
          * @param {*} [options] Override http request option.
@@ -113,7 +113,7 @@ export const SysEmailApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 发送邮件 📧
+         * @summary 发送邮件
          * @param {string} content 
          * @param {string} title 
          * @param {*} [options] Override http request option.
@@ -134,7 +134,7 @@ export const SysEmailApiFactory = function (configuration?: Configuration, baseP
 export class SysEmailApi extends BaseAPI {
     /**
      * 
-     * @summary 发送邮件 📧
+     * @summary 发送邮件
      * @param {string} content 
      * @param {string} title 
      * @param {*} [options] Override http request option.

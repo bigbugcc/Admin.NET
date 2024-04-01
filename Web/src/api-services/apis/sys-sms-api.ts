@@ -25,7 +25,7 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 发送短信 📨
+         * @summary 发送短信
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -83,7 +83,7 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 发送短信 📨
+         * @summary 发送短信
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -106,7 +106,7 @@ export const SysSmsApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
-         * @summary 发送短信 📨
+         * @summary 发送短信
          * @param {string} phoneNumber 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -126,7 +126,7 @@ export const SysSmsApiFactory = function (configuration?: Configuration, basePat
 export class SysSmsApi extends BaseAPI {
     /**
      * 
-     * @summary 发送短信 📨
+     * @summary 发送短信
      * @param {string} phoneNumber 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

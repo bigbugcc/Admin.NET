@@ -34,7 +34,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @summary 增加字典值 🔖
+         * @summary 增加字典值
          * @param {AddDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -82,7 +82,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 根据字典类型编码获取字典值集合 🔖
+         * @summary 根据字典类型编码获取字典值集合
          * @param {string} code 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -131,7 +131,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 根据查询条件获取字典值集合 🔖
+         * @summary 根据查询条件获取字典值集合
          * @param {string} code 编码
          * @param {number} [status] 状态
          * @param {*} [options] Override http request option.
@@ -188,7 +188,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 删除字典值 🔖
+         * @summary 删除字典值
          * @param {DeleteDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -236,7 +236,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典值详情 🔖
+         * @summary 获取字典值详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -293,7 +293,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典值列表 🔖
+         * @summary 获取字典值列表
          * @param {number} dictTypeId 字典类型Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -345,7 +345,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取字典值分页列表 🔖
+         * @summary 获取字典值分页列表
          * @param {PageDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -393,7 +393,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 修改字典值状态 🔖
+         * @summary 修改字典值状态
          * @param {DictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -441,7 +441,7 @@ export const SysDictDataApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 更新字典值 🔖
+         * @summary 更新字典值
          * @param {UpdateDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -498,7 +498,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加字典值 🔖
+         * @summary 增加字典值
          * @param {AddDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -512,7 +512,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 根据字典类型编码获取字典值集合 🔖
+         * @summary 根据字典类型编码获取字典值集合
          * @param {string} code 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -526,7 +526,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 根据查询条件获取字典值集合 🔖
+         * @summary 根据查询条件获取字典值集合
          * @param {string} code 编码
          * @param {number} [status] 状态
          * @param {*} [options] Override http request option.
@@ -541,7 +541,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除字典值 🔖
+         * @summary 删除字典值
          * @param {DeleteDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -555,7 +555,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典值详情 🔖
+         * @summary 获取字典值详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -570,7 +570,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典值列表 🔖
+         * @summary 获取字典值列表
          * @param {number} dictTypeId 字典类型Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -584,7 +584,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取字典值分页列表 🔖
+         * @summary 获取字典值分页列表
          * @param {PageDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -598,7 +598,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 修改字典值状态 🔖
+         * @summary 修改字典值状态
          * @param {DictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -612,7 +612,7 @@ export const SysDictDataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新字典值 🔖
+         * @summary 更新字典值
          * @param {UpdateDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -635,7 +635,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @summary 增加字典值 🔖
+         * @summary 增加字典值
          * @param {AddDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -645,7 +645,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 根据字典类型编码获取字典值集合 🔖
+         * @summary 根据字典类型编码获取字典值集合
          * @param {string} code 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -655,7 +655,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 根据查询条件获取字典值集合 🔖
+         * @summary 根据查询条件获取字典值集合
          * @param {string} code 编码
          * @param {number} [status] 状态
          * @param {*} [options] Override http request option.
@@ -666,7 +666,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 删除字典值 🔖
+         * @summary 删除字典值
          * @param {DeleteDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -676,7 +676,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典值详情 🔖
+         * @summary 获取字典值详情
          * @param {number} id 主键Id
          * @param {StatusEnum} [status] 状态
          * @param {*} [options] Override http request option.
@@ -687,7 +687,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典值列表 🔖
+         * @summary 获取字典值列表
          * @param {number} dictTypeId 字典类型Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -697,7 +697,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取字典值分页列表 🔖
+         * @summary 获取字典值分页列表
          * @param {PageDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -707,7 +707,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 修改字典值状态 🔖
+         * @summary 修改字典值状态
          * @param {DictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -717,7 +717,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 更新字典值 🔖
+         * @summary 更新字典值
          * @param {UpdateDictDataInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -737,7 +737,7 @@ export const SysDictDataApiFactory = function (configuration?: Configuration, ba
 export class SysDictDataApi extends BaseAPI {
     /**
      * 
-     * @summary 增加字典值 🔖
+     * @summary 增加字典值
      * @param {AddDictDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -748,7 +748,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 根据字典类型编码获取字典值集合 🔖
+     * @summary 根据字典类型编码获取字典值集合
      * @param {string} code 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -759,7 +759,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 根据查询条件获取字典值集合 🔖
+     * @summary 根据查询条件获取字典值集合
      * @param {string} code 编码
      * @param {number} [status] 状态
      * @param {*} [options] Override http request option.
@@ -771,7 +771,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除字典值 🔖
+     * @summary 删除字典值
      * @param {DeleteDictDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -782,7 +782,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典值详情 🔖
+     * @summary 获取字典值详情
      * @param {number} id 主键Id
      * @param {StatusEnum} [status] 状态
      * @param {*} [options] Override http request option.
@@ -794,7 +794,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典值列表 🔖
+     * @summary 获取字典值列表
      * @param {number} dictTypeId 字典类型Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -805,7 +805,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取字典值分页列表 🔖
+     * @summary 获取字典值分页列表
      * @param {PageDictDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -816,7 +816,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 修改字典值状态 🔖
+     * @summary 修改字典值状态
      * @param {DictDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -827,7 +827,7 @@ export class SysDictDataApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新字典值 🔖
+     * @summary 更新字典值
      * @param {UpdateDictDataInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
