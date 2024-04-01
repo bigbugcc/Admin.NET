@@ -36,7 +36,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				},
 				notificationProps: {
 					title: '📢 系统更新',
-					description: '系统更新啦！请刷新页面',
+					description: '系统更新啦，请刷新页面！',
 					buttonText: '刷新',
 					dismissButtonText: '忽略',
 				},

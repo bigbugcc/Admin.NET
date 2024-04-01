@@ -229,8 +229,7 @@ onMounted(async () => {
 	// 监听浏览器 当前系统是否在当前页
 	document.addEventListener('visibilitychange', () => {
 		if (!document.hidden) {
-			// 处于当前页面
-			// 关闭之前的消息通知，清空
+			// 清空关闭消息通知，
 			Push.clear();
 		}
 	});
