@@ -45,7 +45,7 @@ public partial class SysDictData : EntityBase
     /// </summary>
     [SugarColumn(ColumnDescription = "名称", Length = 128)]
     [Required, MaxLength(128)]
-    public virtual string Name { get; set; }
+    public virtual string? Name { get; set; }
 
     /// <summary>
     /// 显示样式-标签颜色
