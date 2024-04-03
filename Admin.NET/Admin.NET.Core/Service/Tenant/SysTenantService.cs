@@ -435,7 +435,7 @@ public class SysTenantService : IDynamicApiController, ITransient
         {
             // 从缓存里面获取租户信息
             var tenant = _sysCacheService.Get<List<SysTenant>>(CacheConst.KeyTenant)?.First(u => u.Id == tenantId);
-            if (tenant == null) return null;
+            if (tenant == null || tenant.TenantType == TenantTypeEnum.Id) return null;
 
             // 获取默认库连接配置
             var dbOptions = App.GetOptions<DbConnectionOptions>();
