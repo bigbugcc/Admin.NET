@@ -47,3 +47,29 @@ public class UpdateOpenAccessInput : AddOpenAccessInput
 public class DeleteOpenAccessInput : BaseIdInput
 {
 }
+
+public class GenerateSignatureInput
+{
+    /// <summary>
+    /// 密钥
+    /// </summary>
+    [Required(ErrorMessage = "密钥不能为空")]
+    public string AppSecret { get; set; }
+
+    /// <summary>
+    /// 身份标识
+    /// </summary>
+    [Required(ErrorMessage = "身份标识不能为空")]
+    public string AccessKey { get; set; }
+
+    /// <summary>
+    /// 请求方法
+    /// </summary>
+    public HttpMethodEnum Method { get; set; }
+
+    /// <summary>
+    /// 请求接口地址
+    /// </summary>
+    [Required(ErrorMessage = "请求接口地址不能为空")]
+    public string Url { get; set; }
+}

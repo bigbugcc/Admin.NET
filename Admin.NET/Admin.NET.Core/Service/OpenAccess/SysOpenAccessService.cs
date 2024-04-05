@@ -33,33 +33,28 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取生成的签名
     /// </summary>
-    /// <param name="appSecret">密钥</param>
-    /// <param name="accessKey">身份标识</param>
-    /// <param name="method">请求方法</param>
-    /// <param name="url">请求接口地址</param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    [HttpGet]
     [DisplayName("获取生成的签名")]
-    public string GetGenerateSignature([FromQuery] string appSecret, string accessKey, HttpMethodEnum method, string url)
+    public string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
     {
         // 密钥
-        var appSecretByte = Encoding.UTF8.GetBytes(appSecret);
+        var appSecretByte = Encoding.UTF8.GetBytes(input.AppSecret);
         // 时间戳，精确到秒
         DateTimeOffset currentTime = DateTimeOffset.UtcNow;
         var timestamp = currentTime.ToUnixTimeSeconds();
-        // 唯一随机数,可以使用guid或者雪花id,以下是sqlsugar提供获取雪花id的方法
+        // 唯一随机数，可以使用guid或者雪花id，以下是sqlsugar提供获取雪花id的方法
         var nonce = YitIdHelper.NextId();
-        // 请求方式
-        var sMethod = method.ToString();
+        //// 请求方式
+        //var sMethod = method.ToString();
         // 拼接参数
-        var parameter = $"{method}&{url}&{accessKey}&{timestamp}&{nonce}";
-        //使用 HMAC-SHA256 协议创建基于哈希的消息身份验证代码 (HMAC)，以appSecretByte 作为密钥，对上面拼接的参数进行计算签名，所得签名进行 Base-64 编码
+        var parameter = $"{input.Method}&{input.Url}&{input.AccessKey}&{timestamp}&{nonce}";
+        // 使用 HMAC-SHA256 协议创建基于哈希的消息身份验证代码 (HMAC)，以appSecretByte 作为密钥，对上面拼接的参数进行计算签名，所得签名进行 Base-64 编码
         using HMAC hmac = new HMACSHA256();
         hmac.Key = appSecretByte;
         var sign = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(parameter)));
         return sign;
     }
-
 
     /// <summary>
     /// 获取开放接口身份分页列表 🔖
