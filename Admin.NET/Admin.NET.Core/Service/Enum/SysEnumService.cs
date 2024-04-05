@@ -44,7 +44,7 @@ public class SysEnumService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private EnumTypeOutput GetEnumDescription(Type type)
+    private static EnumTypeOutput GetEnumDescription(Type type)
     {
         string description = type.Name;
         var attrs = type.GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -84,7 +84,7 @@ public class SysEnumService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [DisplayName("通过实体的字段名获取相关枚举值集合")]
-    public List<EnumEntity> GetEnumDataListByField([FromQuery] QueryEnumDataInput input)
+    public static List<EnumEntity> GetEnumDataListByField([FromQuery] QueryEnumDataInput input)
     {
         // 获取实体类型属性
         Type entityType = App.EffectiveTypes.FirstOrDefault(u => u.Name == input.EntityName) ?? throw Oops.Oh(ErrorCodeEnum.D1504);

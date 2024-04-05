@@ -201,7 +201,7 @@ public class SelectTable : ISingleton
     }
 
     // 动态调用方法
-    private object ExecFunc(string funcname, object[] param, Type[] types)
+    private static object ExecFunc(string funcname, object[] param, Type[] types)
     {
         var method = typeof(FuncList).GetMethod(funcname);
         var reflector = method.GetReflector();
@@ -215,7 +215,7 @@ public class SelectTable : ISingleton
         var values = JObject.Parse(json);
         page = values["page"] == null ? page : int.Parse(values["page"].ToString());
         count = values["count"] == null ? count : int.Parse(values["count"].ToString());
-        query = values["query"] == null ? query : int.Parse(values["query"].ToString());
+        _ = values["query"] == null ? query : int.Parse(values["query"].ToString());
         values.Remove("page");
         values.Remove("count");
         subtable = _tableMapper.GetTableName(subtable);
@@ -558,7 +558,7 @@ public class SelectTable : ISingleton
 
     // "@having":"function0(...)?value0;function1(...)?value1;function2(...)?value2..."，
     // SQL函数条件，一般和 @group一起用，函数一般在 @column里声明
-    private void ProcessHaving(JObject values, ISugarQueryable<ExpandoObject> tb)
+    private static void ProcessHaving(JObject values, ISugarQueryable<ExpandoObject> tb)
     {
         if (values["@having"].IsNullOrEmpty())
         {
@@ -588,13 +588,13 @@ public class SelectTable : ISingleton
                     model.ConditionalType = ConditionalType.LessThanOrEqual;
                     model.FieldValue = and.Split(new string[] { "<=" }, StringSplitOptions.RemoveEmptyEntries)[1];
                 }
-                else if (and.Contains(">"))
+                else if (and.Contains('>'))
                 {
                     model.FieldName = and.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries)[0];
                     model.ConditionalType = ConditionalType.GreaterThan;
                     model.FieldValue = and.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries)[1];
                 }
-                else if (and.Contains("<"))
+                else if (and.Contains('<'))
                 {
                     model.FieldName = and.Split(new string[] { "<" }, StringSplitOptions.RemoveEmptyEntries)[0];
                     model.ConditionalType = ConditionalType.LessThan;
@@ -606,7 +606,7 @@ public class SelectTable : ISingleton
                     model.ConditionalType = ConditionalType.NoEqual;
                     model.FieldValue = and.Split(new string[] { "!=" }, StringSplitOptions.RemoveEmptyEntries)[1];
                 }
-                else if (and.Contains("="))
+                else if (and.Contains('='))
                 {
                     model.FieldName = and.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries)[0];
                     model.ConditionalType = ConditionalType.Equal;
@@ -670,7 +670,7 @@ public class SelectTable : ISingleton
     /// </summary>
     /// <param name="values"></param>
     /// <param name="tb"></param>
-    private void ProcessLimit(JObject values, ISugarQueryable<ExpandoObject> tb)
+    private static void ProcessLimit(JObject values, ISugarQueryable<ExpandoObject> tb)
     {
         if (values["@count"].IsNullOrEmpty())
         {
@@ -733,7 +733,7 @@ public class SelectTable : ISingleton
     /// <param name="conModels"></param>
     /// <param name="va"></param>
     /// <param name="tb"></param>
-    private void ConditionBetween(string subtable, List<IConditionalModel> conModels, KeyValuePair<string, JToken> va, ISugarQueryable<ExpandoObject> tb)
+    private static void ConditionBetween(string subtable, List<IConditionalModel> conModels, KeyValuePair<string, JToken> va, ISugarQueryable<ExpandoObject> tb)
     {
         var vakey = va.Key.Trim();
         var field = vakey.TrimEnd("%".ToCharArray());

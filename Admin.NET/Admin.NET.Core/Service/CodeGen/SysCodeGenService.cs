@@ -381,7 +381,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="configs"></param>
     /// <returns></returns>
-    private (string, string) GetJoinTableStr(List<CodeGenConfig> configs)
+    private static (string, string) GetJoinTableStr(List<CodeGenConfig> configs)
     {
         var uploads = configs.Where(u => u.EffectType == "Upload").ToList();
         var fks = configs.Where(u => u.EffectType == "fk").ToList();
