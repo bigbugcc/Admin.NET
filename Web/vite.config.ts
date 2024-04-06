@@ -2,7 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { defineConfig, loadEnv, ConfigEnv } from 'vite';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
-import viteCompression from 'vite-plugin-compression';
+import compression from 'vite-plugin-compression2';
 import { buildConfig } from './src/utils/build';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { CodeInspectorPlugin } from 'code-inspector-plugin';
@@ -42,13 +42,12 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				},
 			}),
 			vueSetupExtend(),
-			viteCompression({
-				verbose: true, // 是否在控制台中输出压缩结果
-				disable: false, // 是否禁用压缩
-				deleteOriginFile: false, // 压缩后是否删除源文件
+			compression({
+				deleteOriginalAssets: false, // 是否删除源文件
 				threshold: 5120, // 对大于 5KB 文件进行 gzip 压缩，单位Bytes
-				algorithm: 'gzip', // 压缩算法，可选[‘gzip’，‘brotliCompress’，‘deflate’，‘deflateRaw’]
-				ext: '.gz', // 生成的压缩包的后缀
+				skipIfLargerOrEqual: true, // 如果压缩后的文件大小等于或大于原始文件，则跳过压缩
+				// algorithm: 'gzip', // 压缩算法，可选[‘gzip’，‘brotliCompress’，‘deflate’，‘deflateRaw’]
+				// exclude: [/\.(br)$/, /\.(gz)$/], // 排除指定文件
 			}),
 			JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
 		],
