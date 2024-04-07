@@ -46,8 +46,8 @@
 					<template #default="scope">
 						<el-table style="margin-left: 48px; width: calc(100% - 48px)" :data="(scope.row as JobDetailOutput).jobTriggers" border size="small">
 							<el-table-column type="index" label="序号" width="55" align="center" fixed />
-							<el-table-column prop="triggerId" label="触发器编号" width="120" header-align="center" fixed show-overflow-tooltip />
-							<el-table-column prop="triggerType" label="类型" width="180" header-align="center" show-overflow-tooltip />
+							<el-table-column prop="triggerId" label="触发器编号" width="180" header-align="center" fixed show-overflow-tooltip />
+							<el-table-column prop="triggerType" label="类型" width="200" header-align="center" show-overflow-tooltip />
 							<!-- <el-table-column prop="assemblyName" label="程序集" show-overflow-tooltip /> -->
 							<el-table-column prop="args" label="参数" header-align="center" show-overflow-tooltip />
 							<el-table-column prop="description" label="描述" width="120" header-align="center" show-overflow-tooltip />
@@ -126,7 +126,7 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="jobDetail.groupName" label="组名称" width="100" align="center" show-overflow-tooltip />
-				<el-table-column prop="jobDetail.jobType" label="类型" width="180" header-align="center" show-overflow-tooltip />
+				<el-table-column prop="jobDetail.jobType" label="类型" width="200" header-align="center" show-overflow-tooltip />
 				<!-- <el-table-column prop="jobDetail.assemblyName" label="程序集" show-overflow-tooltip /> -->
 				<el-table-column prop="jobDetail.description" label="描述" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="jobDetail.concurrent" label="执行方式" width="90" align="center" show-overflow-tooltip>
