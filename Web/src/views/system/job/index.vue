@@ -47,7 +47,7 @@
 						<el-table style="margin-left: 48px; width: calc(100% - 48px)" :data="(scope.row as JobDetailOutput).jobTriggers" border size="small">
 							<el-table-column type="index" label="序号" width="55" align="center" fixed />
 							<el-table-column prop="triggerId" label="触发器编号" width="120" header-align="center" fixed show-overflow-tooltip />
-							<el-table-column prop="triggerType" label="类型" header-align="center" show-overflow-tooltip />
+							<el-table-column prop="triggerType" label="类型" width="180" header-align="center" show-overflow-tooltip />
 							<!-- <el-table-column prop="assemblyName" label="程序集" show-overflow-tooltip /> -->
 							<el-table-column prop="args" label="参数" header-align="center" show-overflow-tooltip />
 							<el-table-column prop="description" label="描述" width="120" header-align="center" show-overflow-tooltip />
@@ -126,7 +126,7 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="jobDetail.groupName" label="组名称" width="100" align="center" show-overflow-tooltip />
-				<el-table-column prop="jobDetail.jobType" label="类型" header-align="center" show-overflow-tooltip />
+				<el-table-column prop="jobDetail.jobType" label="类型" width="180" header-align="center" show-overflow-tooltip />
 				<!-- <el-table-column prop="jobDetail.assemblyName" label="程序集" show-overflow-tooltip /> -->
 				<el-table-column prop="jobDetail.description" label="描述" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="jobDetail.concurrent" label="执行方式" width="90" align="center" show-overflow-tooltip>
@@ -222,7 +222,7 @@
 					<el-table-column prop="triggerId" label="触发器编号" min-width="120" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="numberOfRuns" label="当前运行次数" min-width="100" align="center" show-overflow-tooltip />
 					<el-table-column prop="lastRunTime" label="最近运行时间" min-width="130" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="120" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="130" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="status" label="触发器状态" align="center" show-overflow-tooltip>
 						<template #default="scope">
 							<el-tag type="warning" effect="plain" v-if="(scope.row as SysJobTrigger).status == 0"> 积压 </el-tag>
