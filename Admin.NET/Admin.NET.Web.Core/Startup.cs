@@ -13,6 +13,7 @@ using Furion;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
+using IPTools.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -163,6 +164,12 @@ public class Startup : AppStartup
 
         // 控制台logo
         services.AddConsoleLogo();
+
+        // 将IP地址数据库文件完全加载到内存，提升查询速度（以空间换时间，内存将会增加60-70M）
+        IpToolSettings.LoadInternationalDbToMemory = true;
+        // 设置默认查询器China和International
+        //IpToolSettings.DefalutSearcherType = IpSearcherType.China;
+        IpToolSettings.DefalutSearcherType = IpSearcherType.International;
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

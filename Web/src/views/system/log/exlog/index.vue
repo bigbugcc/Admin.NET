@@ -47,6 +47,8 @@
 				<el-table-column prop="realName" label="真实姓名" width="100" align="center" show-overflow-tooltip />
 				<el-table-column prop="remoteIp" label="IP地址" width="120" align="center" show-overflow-tooltip />
 				<el-table-column prop="location" label="登录地点" width="150" align="center" show-overflow-tooltip />
+				<el-table-column prop="longitude" label="经度" min-width="100" align="center" show-overflow-tooltip />
+				<el-table-column prop="latitude" label="纬度" min-width="100" align="center" show-overflow-tooltip />
 				<el-table-column prop="browser" label="浏览器" width="160" align="center" show-overflow-tooltip />
 				<el-table-column prop="os" label="操作系统" width="120" align="center" show-overflow-tooltip />
 				<el-table-column prop="status" label="状态" width="70" align="center" show-overflow-tooltip>
@@ -77,7 +79,7 @@
 				layout="total, sizes, prev, pager, next, jumper"
 			/>
 		</el-card>
-		<el-dialog v-model="state.dialogVisible" draggable width="1000px">
+		<el-dialog v-model="state.dialogVisible" draggable fullscreen>
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Document /> </el-icon>
