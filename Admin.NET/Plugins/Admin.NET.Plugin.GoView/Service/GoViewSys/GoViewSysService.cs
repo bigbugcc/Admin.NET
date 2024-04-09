@@ -38,6 +38,7 @@ public class GoViewSysService : IDynamicApiController
     {
         _sysCacheService.Set(CommonConst.SysCaptcha, false);
 
+        input.Password = CryptogramUtil.SM2Encrypt(input.Password);
         var loginResult = await _sysAuthService.Login(new LoginInput()
         {
             Account = input.Username,
