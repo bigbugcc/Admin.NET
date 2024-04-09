@@ -1,4 +1,4 @@
-﻿// 大名科技（天津）有限公司 版权所有
+// 大名科技（天津）有限公司 版权所有
 //
 // 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证
 //
@@ -432,7 +432,7 @@ public class SelectTable : ISingleton
         var tb = _db.Queryable(subtable, "tb");
 
         // select
-        if (values["@column"].IsNullOrEmpty())
+        if (!values["@column"].IsNullOrEmpty())
         {
             ProcessColumn(subtable, selectrole, values, tb);
         }
@@ -507,7 +507,7 @@ public class SelectTable : ISingleton
     private void ProcessWhere(string subtable, JObject values, ISugarQueryable<ExpandoObject> tb, JObject dd)
     {
         var conModels = new List<IConditionalModel>();
-        if (values["identity"].IsNullOrEmpty())
+        if (!values["identity"].IsNullOrEmpty())
             conModels.Add(new ConditionalModel() { FieldName = values["identity"].ToString(), ConditionalType = ConditionalType.Equal, FieldValue = _identitySvc.GetUserIdentity() });
 
         foreach (var va in values)
@@ -560,7 +560,7 @@ public class SelectTable : ISingleton
     // SQL函数条件，一般和 @group一起用，函数一般在 @column里声明
     private static void ProcessHaving(JObject values, ISugarQueryable<ExpandoObject> tb)
     {
-        if (values["@having"].IsNullOrEmpty())
+        if (!values["@having"].IsNullOrEmpty())
         {
             var hw = new List<IConditionalModel>();
             var havingItems = new List<string>();
@@ -625,7 +625,7 @@ public class SelectTable : ISingleton
     // 2.Table主键在 @group中声明
     private void PrccessGroup(string subtable, JObject values, ISugarQueryable<ExpandoObject> tb)
     {
-        if (values["@group"].IsNullOrEmpty())
+        if (!values["@group"].IsNullOrEmpty())
         {
             var groupList = new List<GroupByModel>(); // 多库兼容写法
             foreach (var col in values["@group"].ToString().Split(','))
@@ -644,7 +644,7 @@ public class SelectTable : ISingleton
     // 处理排序 "@order":"name-,id"查询按 name降序、id默认顺序 排序的User数组
     private void ProcessOrder(string subtable, JObject values, ISugarQueryable<ExpandoObject> tb)
     {
-        if (values["@order"].IsNullOrEmpty())
+        if (!values["@order"].IsNullOrEmpty())
         {
             var orderList = new List<OrderByModel>(); // 多库兼容写法
             foreach (var item in values["@order"].ToString().Split(','))
@@ -672,7 +672,7 @@ public class SelectTable : ISingleton
     /// <param name="tb"></param>
     private static void ProcessLimit(JObject values, ISugarQueryable<ExpandoObject> tb)
     {
-        if (values["@count"].IsNullOrEmpty())
+        if (!values["@count"].IsNullOrEmpty())
         {
             int c = values["@count"].ToObject<int>();
             tb.Take(c);
