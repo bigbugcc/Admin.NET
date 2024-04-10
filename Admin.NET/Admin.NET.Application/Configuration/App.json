@@ -7,7 +7,8 @@
   "AllowedHosts": "*",
 
   "AppSettings": {
-    "InjectSpecificationDocument": true // 生产环境是否开启Swagger
+    "InjectSpecificationDocument": true, // 生产环境是否开启Swagger
+    "ExternalAssemblies": [ "plugins" ] // 插件目录
   },
   "DynamicApiControllerSettings": {
     //"DefaultRoutePrefix": "api", // 默认路由前缀
