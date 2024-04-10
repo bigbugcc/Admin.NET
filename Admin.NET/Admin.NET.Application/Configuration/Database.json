@@ -8,7 +8,7 @@
       {
         //"ConfigId": "1300000000001", // 默认库标识-禁止修改
         "DbType": "Sqlite", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
-        "ConnectionString": "DataSource=./Admin.NET.db", // 库连接字符串
+        "ConnectionString": "DataSource=F:\\CodeProject\\gkxsn.com\\Admin.NET\\Admin.NET\\Admin.NET.Web.Entry\\bin\\Debug\\net6.0Admin.NET.db", // 库连接字符串
         //"SlaveConnectionConfigs": [ // 读写分离/主从
         //	{
         //		"HitRate": 10,

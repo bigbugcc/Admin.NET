@@ -25,6 +25,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     private readonly SysConfigService _sysConfigService;
     private readonly ICaptcha _captcha;
     private readonly SysCacheService _sysCacheService;
+    private readonly SysLdapService _sysLdapService;
 
     public SysAuthService(UserManager userManager,
         SqlSugarRepository<SysUser> sysUserRep,
@@ -33,7 +34,8 @@ public class SysAuthService : IDynamicApiController, ITransient
         SysOnlineUserService sysOnlineUserService,
         SysConfigService sysConfigService,
         ICaptcha captcha,
-        SysCacheService sysCacheService)
+        SysCacheService sysCacheService,
+        SysLdapService sysLdapService)
     {
         _userManager = userManager;
         _sysUserRep = sysUserRep;
@@ -43,6 +45,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         _sysConfigService = sysConfigService;
         _captcha = captcha;
         _sysCacheService = sysCacheService;
+        _sysLdapService = sysLdapService;
     }
 
     /// <summary>
@@ -88,8 +91,18 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 国密SM2解密（前端密码传输SM2加密后的）
         input.Password = CryptogramUtil.SM2Decrypt(input.Password);
 
+        // 是否开启域登录验证
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysDomainLogin))
+        {
+            // 判断验证码
+            if (!await _sysLdapService.Auth(tenant.Id, user.Id, input.Password))
+            {
+                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                throw Oops.Oh(ErrorCodeEnum.D1000);
+            }
+        }
         // 密码是否正确
-        if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
+        else if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (!user.Password.Equals(MD5Encryption.Encrypt(input.Password)))
             {

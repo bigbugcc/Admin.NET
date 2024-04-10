@@ -73,4 +73,9 @@ public class CommonConst
     /// 开启全局脱敏处理（默认不开启）
     /// </summary>
     public static bool SysSensitiveDetection = false;
+
+    /// <summary>
+    /// 开启域登录验证
+    /// </summary>
+    public const string SysDomainLogin= "sys_domain_login";
 }
