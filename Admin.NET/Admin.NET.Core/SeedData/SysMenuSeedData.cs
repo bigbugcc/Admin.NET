@@ -82,6 +82,13 @@ public class SysMenuSeedData : ISqlSugarEntitySeedData<SysMenu>
             new SysMenu{ Id=1310000000184, Pid=1310000000181, Title="增加", Permission="sysWechatUser:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
             new SysMenu{ Id=1310000000185, Pid=1310000000181, Title="删除", Permission="sysWechatUser:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
 
+            new SysMenu{ Id=1310000000191, Pid=1310000000101, Title="AD域配置", Path="/system/sysldap", Name="sysLdap", Component="/system/ldap/index",Icon="ele-Management", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=160 },
+            new SysMenu{ Id=1310000000192, Pid=1310000000191, Title="查询", Permission="sysLdap:page", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1310000000193, Pid=1310000000191, Title="详情", Permission="sysLdap:detail", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=110 },
+            new SysMenu{ Id=1310000000193, Pid=1310000000191, Title="编辑", Permission="sysLdap:update", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=120 },
+            new SysMenu{ Id=1310000000194, Pid=1310000000191, Title="增加", Permission="sysLdap:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=130 },
+            new SysMenu{ Id=1310000000195, Pid=1310000000191, Title="删除", Permission="sysLdap:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=140 },
+
             new SysMenu{ Id=1310000000301, Pid=0, Title="平台管理", Path="/platform", Name="platform", Component="Layout", Icon="ele-Menu", Type=MenuTypeEnum.Dir, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=11000 },
 
             new SysMenu{ Id=1310000000311, Pid=1310000000301, Title="租户管理", Path="/platform/tenant", Name="sysTenant", Component="/system/tenant/index", Icon="ele-School", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },

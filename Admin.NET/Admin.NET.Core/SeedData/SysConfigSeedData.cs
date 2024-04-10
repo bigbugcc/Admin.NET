@@ -31,6 +31,7 @@ public class SysConfigSeedData : ISqlSugarEntitySeedData<SysConfig>
             new SysConfig{ Id=1300000000108, Name="Token过期时间", Code="sys_token_expire", Value="10080", SysFlag=YesNoEnum.Y, Remark="Token过期时间（分钟）", OrderNo=8, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000109, Name="刷新Token过期时间", Code="sys_refresh_token_expire", Value="20160", SysFlag=YesNoEnum.Y, Remark="刷新Token过期时间（分钟）（一般 refresh_token 的有效时间 > 2 * access_token 的有效时间）", OrderNo=9, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000110, Name="发送异常日志邮件", Code="sys_error_mail", Value="True", SysFlag=YesNoEnum.Y, Remark="是否发送异常日志邮件", OrderNo=10, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000111, Name="开启域登录验证", Code="sys_domain_login", Value="True", SysFlag=YesNoEnum.Y, Remark="是否开启域登录验证", OrderNo=11, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
         };
     }
 }

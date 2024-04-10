@@ -35,6 +35,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.29" />
     <PackageReference Include="NEST" Version="7.17.5" />
     <PackageReference Include="NewLife.Redis" Version="5.6.2024.402" />
+    <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.1" />
