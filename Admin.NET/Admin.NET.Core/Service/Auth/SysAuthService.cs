@@ -94,7 +94,6 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 是否开启域登录验证
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysDomainLogin))
         {
-            // 判断验证码
             if (!await _sysLdapService.Auth(tenant.Id, user.Id, input.Password))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));

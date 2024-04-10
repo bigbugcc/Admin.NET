@@ -24,7 +24,7 @@
 		</el-card>
 
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
-			<el-table :data="state.noticeData" style="width: 100%" v-loading="state.loading" border>
+			<el-table :data="state.noticeData" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="title" label="标题" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="content" label="内容" header-align="center" show-overflow-tooltip>

@@ -77,5 +77,5 @@ public class CommonConst
     /// <summary>
     /// 开启域登录验证
     /// </summary>
-    public const string SysDomainLogin= "sys_domain_login";
+    public const string SysDomainLogin = "sys_domain_login";
 }
