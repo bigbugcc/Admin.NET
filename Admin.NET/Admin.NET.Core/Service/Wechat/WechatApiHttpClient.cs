@@ -40,8 +40,8 @@ public partial class WechatApiClientFactory : ISingleton
             PushToken = _wechatOptions.WechatToken,
             PushEncodingAESKey = _wechatOptions.WechatEncodingAESKey,
         })
-            .UseHttpClient(_httpClientFactory.CreateClient(), disposeClient: false) // 设置 HttpClient 不随客户端一同销毁
-            .Build();
+        .UseHttpClient(_httpClientFactory.CreateClient(), disposeClient: false) // 设置 HttpClient 不随客户端一同销毁
+        .Build();
 
         client.Configure(config =>
         {
@@ -67,9 +67,9 @@ public partial class WechatApiClientFactory : ISingleton
         {
             AppId = _wechatOptions.WxOpenAppId,
             AppSecret = _wechatOptions.WxOpenAppSecret,
-			PushToken = _wechatOptions.WxToken,
-			PushEncodingAESKey = _wechatOptions.WxEncodingAESKey,
-		})
+            PushToken = _wechatOptions.WxToken,
+            PushEncodingAESKey = _wechatOptions.WxEncodingAESKey,
+        })
         .UseHttpClient(_httpClientFactory.CreateClient(), disposeClient: false) // 设置 HttpClient 不随客户端一同销毁
         .Build();
 
