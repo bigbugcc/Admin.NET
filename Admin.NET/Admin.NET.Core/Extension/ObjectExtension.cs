@@ -58,7 +58,7 @@ public static partial class ObjectExtension
     /// <returns></returns>
     public static string UrlEncode(this string str)
     {
-        return string.IsNullOrEmpty(str) ? "" : System.Web.HttpUtility.UrlEncode(str, Encoding.UTF8);
+        return string.IsNullOrEmpty(str) ? "" : System.Uri.EscapeDataString(str);
     }
 
     /// <summary>
