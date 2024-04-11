@@ -1,4 +1,4 @@
-﻿// 大名科技（天津）有限公司 版权所有
+// 大名科技（天津）有限公司 版权所有
 //
 // 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证
 //
@@ -107,21 +107,20 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <summary>
     /// 账号验证
     /// </summary>
-    /// <param name="userId">用户Id</param>
+    /// <param name="account">域用户</param>
     /// <param name="password">密码</param>
     /// <param name="tenantId">租户</param>
     /// <returns></returns>
     [NonAction]
-    public async Task<bool> Auth(long tenantId, long userId, string password)
+    public async Task<bool> Auth(long tenantId, string account, string password)
     {
-        var user = await _sysUserLdapRep.GetFirstAsync(u => u.UserId == userId && u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
-        var ldap = await _sysLdapRep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        var ldapConn = new LdapConnection();
+        var ldap = await _rep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        LdapConnection conn = new LdapConnection();
         try
         {
-            ldapConn.Connect(ldap.Host, ldap.Port);
-            ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={user.Account}", null, false);
+            conn.Connect(ldap.Host, ldap.Port);
+            conn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
+            var userEntitys = conn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={account}", null, false);
             string dn = string.Empty;
             while (userEntitys.HasMore())
             {
