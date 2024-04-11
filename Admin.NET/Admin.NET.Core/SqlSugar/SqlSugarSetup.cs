@@ -275,9 +275,8 @@ public static class SqlSugarSetup
                 Parameters = JSON.Serialize(u.Parameters),
                 Elapsed = u.Time == null ? 0 : (long)u.Time.Value.TotalMilliseconds
             };
-            //修复单独日志库没有差异日志问题
-            var _db = SqlSugarSetup.ITenant.IsAnyConnection(SqlSugarConst.LogConfigId) ? ITenant.GetConnectionScope(SqlSugarConst.LogConfigId) : db;
-            await _db.CopyNew().Insertable(logDiff).ExecuteCommandAsync();
+            var logDb = ITenant.IsAnyConnection(SqlSugarConst.LogConfigId) ? ITenant.GetConnectionScope(SqlSugarConst.LogConfigId) : db;
+            await logDb.CopyNew().Insertable(logDiff).ExecuteCommandAsync();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(DateTime.Now + $"\r\n*****开始差异日志*****\r\n{Environment.NewLine}{JSON.Serialize(logDiff)}{Environment.NewLine}*****结束差异日志*****\r\n");
         };

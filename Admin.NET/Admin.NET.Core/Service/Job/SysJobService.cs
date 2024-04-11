@@ -267,8 +267,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("暂停作业")]
     public void PauseJob(JobDetailInput input)
     {
-        var scheduler = _schedulerFactory.GetJob(input.JobId);
-        scheduler?.Pause();
+        _schedulerFactory.TryPauseJob(input.JobId, out _);
     }
 
     /// <summary>
@@ -277,8 +276,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("启动作业")]
     public void StartJob(JobDetailInput input)
     {
-        var scheduler = _schedulerFactory.GetJob(input.JobId);
-        scheduler?.Start();
+        _schedulerFactory.TryStartJob(input.JobId, out _);
     }
 
     /// <summary>
@@ -287,8 +285,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("取消作业")]
     public void CancelJob(JobDetailInput input)
     {
-        var scheduler = _schedulerFactory.GetJob(input.JobId);
-        scheduler?.Cancel();
+        _schedulerFactory.TryCancelJob(input.JobId, out _);
     }
 
     /// <summary>
@@ -298,7 +295,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("执行作业")]
     public void RunJob(JobDetailInput input)
     {
-        if (_schedulerFactory.TryRunJob(input.JobId) != ScheduleResult.Succeed)
+        if (_schedulerFactory.TryRunJob(input.JobId, out _) != ScheduleResult.Succeed)
             throw Oops.Oh(ErrorCodeEnum.D1705);
     }
 
