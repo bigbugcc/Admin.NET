@@ -114,13 +114,13 @@ public class SysLdapService : IDynamicApiController, ITransient
     [NonAction]
     public async Task<bool> Auth(long tenantId, string account, string password)
     {
-        var ldap = await _rep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        LdapConnection conn = new LdapConnection();
+        var ldap = await _sysLdapRep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var ldapConn = new LdapConnection();
         try
         {
-            conn.Connect(ldap.Host, ldap.Port);
-            conn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = conn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={account}", null, false);
+            ldapConn.Connect(ldap.Host, ldap.Port);
+            ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
+            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={account}", null, false);
             string dn = string.Empty;
             while (userEntitys.HasMore())
             {

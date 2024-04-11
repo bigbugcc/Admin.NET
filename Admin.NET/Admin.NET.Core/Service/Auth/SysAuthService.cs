@@ -100,19 +100,16 @@ public class SysAuthService : IDynamicApiController, ITransient
             var userLdap = await _sysUserLdap.GetFirstAsync(u => u.UserId == user.Id && u.TenantId == tenant.Id);
             if (userLdap == null)
             {
-                //不存在用户信息则采用原本密码验证规则
-                UserPasswordValid(input, keyErrorPasswordCount, errorPasswordCount, user);
+                VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
             }
-            // 域验证
             else if (!await _sysLdapService.Auth(tenant.Id, userLdap.Account, input.Password))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
-        // 密码是否正确
         else
-            UserPasswordValid(input, keyErrorPasswordCount, errorPasswordCount, user);
+            VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
 
         // 登录成功则清空密码错误次数
         _sysCacheService.Remove(keyErrorPasswordCount);
@@ -121,13 +118,13 @@ public class SysAuthService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 用户密码验证
+    /// 验证用户密码
     /// </summary>
     /// <param name="input"></param>
     /// <param name="keyErrorPasswordCount"></param>
     /// <param name="errorPasswordCount"></param>
     /// <param name="user"></param>
-    private void UserPasswordValid(LoginInput input, string keyErrorPasswordCount, int errorPasswordCount, SysUser user)
+    private void VerifyPassword(LoginInput input, string keyErrorPasswordCount, int errorPasswordCount, SysUser user)
     {
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
@@ -146,7 +143,6 @@ public class SysAuthService : IDynamicApiController, ITransient
             }
         }
     }
-
 
     /// <summary>
     /// 验证锁屏密码 🔖
