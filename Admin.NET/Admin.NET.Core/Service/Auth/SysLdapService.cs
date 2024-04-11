@@ -106,21 +106,20 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <summary>
     /// 账号验证
     /// </summary>
-    /// <param name="userId">用户Id</param>
+    /// <param name="account">域用户</param>
     /// <param name="password">密码</param>
     /// <param name="tenantId">租户</param>
     /// <returns></returns>
     [NonAction]
-    public async Task<bool> Auth(long tenantId, long userId, string password)
+    public async Task<bool> Auth(long tenantId, string account, string password)
     {
-        var user = await _repUserLdap.GetFirstAsync(u => u.UserId == userId && u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
         var ldap = await _rep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
         LdapConnection conn = new LdapConnection();
         try
         {
             conn.Connect(ldap.Host, ldap.Port);
             conn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = conn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={user.Account}", null, false);
+            var userEntitys = conn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={account}", null, false);
             string dn = string.Empty;
             while (userEntitys.HasMore())
             {
