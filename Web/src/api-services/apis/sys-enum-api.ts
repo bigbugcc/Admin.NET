@@ -27,67 +27,6 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合
-         * @param {string} entityName 实体名称
-         * @param {string} fieldName 字段名称
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysEnumEnumDataListByFieldGet: async (entityName: string, fieldName: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'entityName' is not null or undefined
-            if (entityName === null || entityName === undefined) {
-                throw new RequiredError('entityName','Required parameter entityName was null or undefined when calling apiSysEnumEnumDataListByFieldGet.');
-            }
-            // verify required parameter 'fieldName' is not null or undefined
-            if (fieldName === null || fieldName === undefined) {
-                throw new RequiredError('fieldName','Required parameter fieldName was null or undefined when calling apiSysEnumEnumDataListByFieldGet.');
-            }
-            const localVarPath = `/api/sysEnum/enumDataListByField`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (entityName !== undefined) {
-                localVarQueryParameter['EntityName'] = entityName;
-            }
-
-            if (fieldName !== undefined) {
-                localVarQueryParameter['FieldName'] = fieldName;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
@@ -192,21 +131,6 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合
-         * @param {string} entityName 实体名称
-         * @param {string} fieldName 字段名称
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysEnumEnumDataListByFieldGet(entityName: string, fieldName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListEnumEntity>>> {
-            const localVarAxiosArgs = await SysEnumApiAxiosParamCreator(configuration).apiSysEnumEnumDataListByFieldGet(entityName, fieldName, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
          * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
@@ -243,17 +167,6 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 通过实体的字段名获取相关枚举值集合
-         * @param {string} entityName 实体名称
-         * @param {string} fieldName 字段名称
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysEnumEnumDataListByFieldGet(entityName: string, fieldName: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListEnumEntity>> {
-            return SysEnumApiFp(configuration).apiSysEnumEnumDataListByFieldGet(entityName, fieldName, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary 通过枚举类型获取枚举值集合
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
@@ -281,18 +194,6 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class SysEnumApi extends BaseAPI {
-    /**
-     * 
-     * @summary 通过实体的字段名获取相关枚举值集合
-     * @param {string} entityName 实体名称
-     * @param {string} fieldName 字段名称
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysEnumApi
-     */
-    public async apiSysEnumEnumDataListByFieldGet(entityName: string, fieldName: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListEnumEntity>> {
-        return SysEnumApiFp(this.configuration).apiSysEnumEnumDataListByFieldGet(entityName, fieldName, options).then((request) => request(this.axios, this.basePath));
-    }
     /**
      * 
      * @summary 通过枚举类型获取枚举值集合

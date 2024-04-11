@@ -17,28 +17,29 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AddOpenAccessInput } from '../models';
-import { AdminResultSqlSugarPagedListOpenAccessOutput } from '../models';
-import { AdminResultString } from '../models';
-import { DeleteOpenAccessInput } from '../models';
-import { HttpMethodEnum } from '../models';
-import { OpenAccessInput } from '../models';
-import { UpdateOpenAccessInput } from '../models';
+import { AddSysLdapInput } from '../models';
+import { AdminResultInt64 } from '../models';
+import { AdminResultListSysLdap } from '../models';
+import { AdminResultSqlSugarPagedListSysLdap } from '../models';
+import { AdminResultSysLdap } from '../models';
+import { DeleteSysLdapInput } from '../models';
+import { SysLdapInput } from '../models';
+import { UpdateSysLdapInput } from '../models';
 /**
- * SysOpenAccessApi - axios parameter creator
+ * SysLdapApi - axios parameter creator
  * @export
  */
-export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SysLdapApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加开放接口身份
-         * @param {AddOpenAccessInput} [body] 
+         * @summary 增加系统域登录信息配置
+         * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessAddPost: async (body?: AddOpenAccessInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysOpenAccess/add`;
+        apiSysLdapAddPost: async (body?: AddSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -80,13 +81,13 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 删除开放接口身份
-         * @param {DeleteOpenAccessInput} [body] 
+         * @summary 删除系统域登录信息配置
+         * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessDeletePost: async (body?: DeleteOpenAccessInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysOpenAccess/delete`;
+        apiSysLdapDeletePost: async (body?: DeleteSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -128,28 +129,17 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 获取系统域登录信息配置详情
+         * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessGenerateSignatureGet: async (appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'appSecret' is not null or undefined
-            if (appSecret === null || appSecret === undefined) {
-                throw new RequiredError('appSecret','Required parameter appSecret was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
+        apiSysLdapDetailGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysLdapDetailGet.');
             }
-            // verify required parameter 'accessKey' is not null or undefined
-            if (accessKey === null || accessKey === undefined) {
-                throw new RequiredError('accessKey','Required parameter accessKey was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
-            }
-            // verify required parameter 'url' is not null or undefined
-            if (url === null || url === undefined) {
-                throw new RequiredError('url','Required parameter url was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
-            }
-            const localVarPath = `/api/sysOpenAccess/generateSignature`;
+            const localVarPath = `/api/sysLdap/detail`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -169,20 +159,8 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
-            if (appSecret !== undefined) {
-                localVarQueryParameter['AppSecret'] = appSecret;
-            }
-
-            if (accessKey !== undefined) {
-                localVarQueryParameter['AccessKey'] = accessKey;
-            }
-
-            if (method !== undefined) {
-                localVarQueryParameter['Method'] = method;
-            }
-
-            if (url !== undefined) {
-                localVarQueryParameter['Url'] = url;
+            if (id !== undefined) {
+                localVarQueryParameter['Id'] = id;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -203,13 +181,91 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表
-         * @param {OpenAccessInput} [body] 
+         * @summary 获取系统域登录信息配置列表
+         * @param {string} [searchKey] 关键字查询
+         * @param {string} [host] 主机
+         * @param {number} [page] 当前页码
+         * @param {number} [pageSize] 页码容量
+         * @param {string} [field] 排序字段
+         * @param {string} [order] 排序方向
+         * @param {string} [descStr] 降序排序
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessPagePost: async (body?: OpenAccessInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysOpenAccess/page`;
+        apiSysLdapListGet: async (searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (searchKey !== undefined) {
+                localVarQueryParameter['SearchKey'] = searchKey;
+            }
+
+            if (host !== undefined) {
+                localVarQueryParameter['Host'] = host;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['Page'] = page;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['PageSize'] = pageSize;
+            }
+
+            if (field !== undefined) {
+                localVarQueryParameter['Field'] = field;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['Order'] = order;
+            }
+
+            if (descStr !== undefined) {
+                localVarQueryParameter['DescStr'] = descStr;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取系统域登录信息配置分页列表
+         * @param {SysLdapInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysLdapPagePost: async (body?: SysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/page`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -251,56 +307,13 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 创建密钥
+         * @summary 更新系统域登录信息配置
+         * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessSecretPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysOpenAccess/secret`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary 更新开放接口身份
-         * @param {UpdateOpenAccessInput} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysOpenAccessUpdatePost: async (body?: UpdateOpenAccessInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysOpenAccess/update`;
+        apiSysLdapUpdatePost: async (body?: UpdateSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -344,20 +357,20 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
 };
 
 /**
- * SysOpenAccessApi - functional programming interface
+ * SysLdapApi - functional programming interface
  * @export
  */
-export const SysOpenAccessApiFp = function(configuration?: Configuration) {
+export const SysLdapApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加开放接口身份
-         * @param {AddOpenAccessInput} [body] 
+         * @summary 增加系统域登录信息配置
+         * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessAddPost(body?: AddOpenAccessInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessAddPost(body, options);
+        async apiSysLdapAddPost(body?: AddSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultInt64>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapAddPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -365,13 +378,13 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除开放接口身份
-         * @param {DeleteOpenAccessInput} [body] 
+         * @summary 删除系统域登录信息配置
+         * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessDeletePost(body?: DeleteOpenAccessInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessDeletePost(body, options);
+        async apiSysLdapDeletePost(body?: DeleteSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapDeletePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -379,16 +392,13 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 获取系统域登录信息配置详情
+         * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options);
+        async apiSysLdapDetailGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysLdap>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapDetailGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -396,13 +406,19 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表
-         * @param {OpenAccessInput} [body] 
+         * @summary 获取系统域登录信息配置列表
+         * @param {string} [searchKey] 关键字查询
+         * @param {string} [host] 主机
+         * @param {number} [page] 当前页码
+         * @param {number} [pageSize] 页码容量
+         * @param {string} [field] 排序字段
+         * @param {string} [order] 排序方向
+         * @param {string} [descStr] 降序排序
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessPagePost(body?: OpenAccessInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListOpenAccessOutput>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessPagePost(body, options);
+        async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysLdap>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -410,12 +426,13 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 创建密钥
+         * @summary 获取系统域登录信息配置分页列表
+         * @param {SysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessSecretPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessSecretPost(options);
+        async apiSysLdapPagePost(body?: SysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLdap>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapPagePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -423,13 +440,13 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新开放接口身份
-         * @param {UpdateOpenAccessInput} [body] 
+         * @summary 更新系统域登录信息配置
+         * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessUpdatePost(body?: UpdateOpenAccessInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessUpdatePost(body, options);
+        async apiSysLdapUpdatePost(body?: UpdateSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapUpdatePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -439,149 +456,157 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * SysOpenAccessApi - factory interface
+ * SysLdapApi - factory interface
  * @export
  */
-export const SysOpenAccessApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const SysLdapApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
          * 
-         * @summary 增加开放接口身份
-         * @param {AddOpenAccessInput} [body] 
+         * @summary 增加系统域登录信息配置
+         * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessAddPost(body?: AddOpenAccessInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessAddPost(body, options).then((request) => request(axios, basePath));
+        async apiSysLdapAddPost(body?: AddSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultInt64>> {
+            return SysLdapApiFp(configuration).apiSysLdapAddPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 删除开放接口身份
-         * @param {DeleteOpenAccessInput} [body] 
+         * @summary 删除系统域登录信息配置
+         * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessDeletePost(body?: DeleteOpenAccessInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessDeletePost(body, options).then((request) => request(axios, basePath));
+        async apiSysLdapDeletePost(body?: DeleteSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysLdapApiFp(configuration).apiSysLdapDeletePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 获取系统域登录信息配置详情
+         * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options).then((request) => request(axios, basePath));
+        async apiSysLdapDetailGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysLdap>> {
+            return SysLdapApiFp(configuration).apiSysLdapDetailGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取开放接口身份分页列表
-         * @param {OpenAccessInput} [body] 
+         * @summary 获取系统域登录信息配置列表
+         * @param {string} [searchKey] 关键字查询
+         * @param {string} [host] 主机
+         * @param {number} [page] 当前页码
+         * @param {number} [pageSize] 页码容量
+         * @param {string} [field] 排序字段
+         * @param {string} [order] 排序方向
+         * @param {string} [descStr] 降序排序
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessPagePost(body?: OpenAccessInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListOpenAccessOutput>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessPagePost(body, options).then((request) => request(axios, basePath));
+        async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysLdap>> {
+            return SysLdapApiFp(configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 创建密钥
+         * @summary 获取系统域登录信息配置分页列表
+         * @param {SysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessSecretPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessSecretPost(options).then((request) => request(axios, basePath));
+        async apiSysLdapPagePost(body?: SysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLdap>> {
+            return SysLdapApiFp(configuration).apiSysLdapPagePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 更新开放接口身份
-         * @param {UpdateOpenAccessInput} [body] 
+         * @summary 更新系统域登录信息配置
+         * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessUpdatePost(body?: UpdateOpenAccessInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessUpdatePost(body, options).then((request) => request(axios, basePath));
+        async apiSysLdapUpdatePost(body?: UpdateSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysLdapApiFp(configuration).apiSysLdapUpdatePost(body, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * SysOpenAccessApi - object-oriented interface
+ * SysLdapApi - object-oriented interface
  * @export
- * @class SysOpenAccessApi
+ * @class SysLdapApi
  * @extends {BaseAPI}
  */
-export class SysOpenAccessApi extends BaseAPI {
+export class SysLdapApi extends BaseAPI {
     /**
      * 
-     * @summary 增加开放接口身份
-     * @param {AddOpenAccessInput} [body] 
+     * @summary 增加系统域登录信息配置
+     * @param {AddSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessAddPost(body?: AddOpenAccessInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessAddPost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapAddPost(body?: AddSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultInt64>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapAddPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 删除开放接口身份
-     * @param {DeleteOpenAccessInput} [body] 
+     * @summary 删除系统域登录信息配置
+     * @param {DeleteSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessDeletePost(body?: DeleteOpenAccessInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessDeletePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapDeletePost(body?: DeleteSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapDeletePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取生成的签名
-     * @param {string} appSecret 密钥
-     * @param {string} accessKey 身份标识
-     * @param {string} url 请求接口地址
-     * @param {HttpMethodEnum} [method] 请求方法
+     * @summary 获取系统域登录信息配置详情
+     * @param {number} id 主键Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapDetailGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysLdap>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapDetailGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取开放接口身份分页列表
-     * @param {OpenAccessInput} [body] 
+     * @summary 获取系统域登录信息配置列表
+     * @param {string} [searchKey] 关键字查询
+     * @param {string} [host] 主机
+     * @param {number} [page] 当前页码
+     * @param {number} [pageSize] 页码容量
+     * @param {string} [field] 排序字段
+     * @param {string} [order] 排序方向
+     * @param {string} [descStr] 降序排序
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessPagePost(body?: OpenAccessInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListOpenAccessOutput>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessPagePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysLdap>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 创建密钥
+     * @summary 获取系统域登录信息配置分页列表
+     * @param {SysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessSecretPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessSecretPost(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapPagePost(body?: SysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLdap>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapPagePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 更新开放接口身份
-     * @param {UpdateOpenAccessInput} [body] 
+     * @summary 更新系统域登录信息配置
+     * @param {UpdateSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOpenAccessApi
+     * @memberof SysLdapApi
      */
-    public async apiSysOpenAccessUpdatePost(body?: UpdateOpenAccessInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapUpdatePost(body?: UpdateSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

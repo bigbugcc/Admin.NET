@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Service\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Admin.NET.Application.xml" />
     <None Remove="Configuration\Limit.json" />
     <None Remove="Configuration\Logging.json" />
@@ -78,10 +84,6 @@
     <None Update="Configuration\Wechat.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,7 @@
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
 namespace Admin.NET.Core;
+
 /// <summary>
 /// 系统用户域配置表
 /// </summary>
@@ -14,13 +15,14 @@ namespace Admin.NET.Core;
 [SysTable]
 [SugarIndex("index_{table}_A", nameof(Account), OrderByType.Asc)]
 [SugarIndex("index_{table}_U", nameof(UserId), OrderByType.Asc)]
-public class SysUserLdap: EntityTenant
+public class SysUserLdap : EntityTenant
 {
     /// <summary>
-    /// 用户ID
+    /// 用户Id
     /// </summary>
-    [SugarColumn(ColumnDescription = "用户ID")]
-    public long UserId {  get; set; }
+    [SugarColumn(ColumnDescription = "用户Id")]
+    public long UserId { get; set; }
+
     /// <summary>
     /// 域账号
     /// AD域对应sAMAccountName
@@ -28,9 +30,10 @@ public class SysUserLdap: EntityTenant
     /// </summary>
     [SugarColumn(ColumnDescription = "域账号", Length = 32)]
     public string Account { get; set; }
+
     /// <summary>
-    /// 对应employeeID(用于数据导入对照)
+    /// 对应EmployeeId(用于数据导入对照)
     /// </summary>
-    [SugarColumn(ColumnDescription = "对应employeeID", Length = 32)]
+    [SugarColumn(ColumnDescription = "对应EmployeeId", Length = 32)]
     public string EmployeeId { get; set; }
 }
