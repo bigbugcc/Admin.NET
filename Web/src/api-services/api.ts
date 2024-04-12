@@ -43,6 +43,7 @@ export * from './apis/sys-pos-api';
 export * from './apis/sys-print-api';
 export * from './apis/sys-region-api';
 export * from './apis/sys-role-api';
+export * from './apis/sys-server-api';
 export * from './apis/sys-sms-api';
 export * from './apis/sys-tenant-api';
 export * from './apis/sys-user-api';
