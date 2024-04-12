@@ -54,13 +54,25 @@ public class SysLdap : EntityTenant
     /// </summary>
     [SugarColumn(ColumnDescription = "用户过滤规则", Length = 128)]
     [Required]
-    public virtual string AuthFilter { get; set; } = "sAMAccountName";
+    public virtual string AuthFilter { get; set; } = "sAMAccountName=%s";
 
     /// <summary>
     /// Ldap版本
     /// </summary>
     [SugarColumn(ColumnDescription = "Ldap版本")]
     public int Version { get; set; }
+
+    /// <summary>
+    /// 绑定域账号字段属性值
+    /// </summary>
+    [SugarColumn(ColumnDescription = "绑定域账号字段属性值", Length = 24)]
+    public virtual string BindAttrAccount { get; set; } = "sAMAccountName";
+
+    /// <summary>
+    /// 绑定用户employeeID属性值
+    /// </summary>
+    [SugarColumn(ColumnDescription = "绑定用户employeeID属性值", Length = 24)]
+    public virtual string BindAttrEmployeeId { get; set; } = "employeeID";
 
     /// <summary>
     /// 状态

@@ -22,6 +22,7 @@ public class SysUserService : IDynamicApiController, ITransient
     private readonly SysConfigService _sysConfigService;
     private readonly SysOnlineUserService _sysOnlineUserService;
     private readonly SysCacheService _sysCacheService;
+    private readonly SysUserLdapService _sysUserLdapService;
 
     public SysUserService(UserManager userManager,
         SqlSugarRepository<SysUser> sysUserRep,
@@ -30,7 +31,8 @@ public class SysUserService : IDynamicApiController, ITransient
         SysUserRoleService sysUserRoleService,
         SysConfigService sysConfigService,
         SysOnlineUserService sysOnlineUserService,
-        SysCacheService sysCacheService)
+        SysCacheService sysCacheService,
+        SysUserLdapService sysUserLdapService)
     {
         _userManager = userManager;
         _sysUserRep = sysUserRep;
@@ -40,6 +42,7 @@ public class SysUserService : IDynamicApiController, ITransient
         _sysConfigService = sysConfigService;
         _sysOnlineUserService = sysOnlineUserService;
         _sysCacheService = sysCacheService;
+        _sysUserLdapService = sysUserLdapService;
     }
 
     /// <summary>
@@ -76,7 +79,8 @@ public class SysUserService : IDynamicApiController, ITransient
             {
                 OrgName = a.Name,
                 PosName = b.Name,
-                RoleName = SqlFunc.Subqueryable<SysUserRole>().LeftJoin<SysRole>((m, n) => m.RoleId == n.Id).Where(m => m.UserId == u.Id).SelectStringJoin((m, n) => n.Name, ",")
+                RoleName = SqlFunc.Subqueryable<SysUserRole>().LeftJoin<SysRole>((m, n) => m.RoleId == n.Id).Where(m => m.UserId == u.Id).SelectStringJoin((m, n) => n.Name, ","),
+                DomainAccount = SqlFunc.Subqueryable<SysUserLdap>().Where(m => m.UserId == u.Id).Select(m => m.Account)
             }, true)
             .ToPagedListAsync(input.Page, input.PageSize);
     }
@@ -101,7 +105,10 @@ public class SysUserService : IDynamicApiController, ITransient
         var newUser = await _sysUserRep.AsInsertable(user).ExecuteReturnEntityAsync();
         input.Id = newUser.Id;
         await UpdateRoleAndExtOrg(input);
-
+        if (!string.IsNullOrWhiteSpace(input.DomainAccount))
+        {
+            await _sysUserLdapService.AddUserLdapAsync(newUser.TenantId.Value, newUser.Id, newUser.Account, input.DomainAccount);
+        }
         return newUser.Id;
     }
 
@@ -131,6 +138,7 @@ public class SysUserService : IDynamicApiController, ITransient
         var roleIds = await GetOwnRoleList(input.Id);
         if (input.OrgId != user.OrgId || !input.RoleIdList.OrderBy(u => u).SequenceEqual(roleIds.OrderBy(u => u)))
             await _sysOnlineUserService.ForceOffline(input.Id);
+        await _sysUserLdapService.AddUserLdapAsync(user.TenantId.Value, user.Id, user.Account, input.DomainAccount);
     }
 
     /// <summary>
@@ -171,6 +179,9 @@ public class SysUserService : IDynamicApiController, ITransient
 
         // 删除用户扩展机构
         await _sysUserExtOrgService.DeleteUserExtOrgByUserId(input.Id);
+
+        //删除用户域关联信息
+        await _sysUserLdapService.DeleteUserLdapByUserId(input.Id);
     }
 
     /// <summary>

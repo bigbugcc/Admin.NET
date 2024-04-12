@@ -63,6 +63,11 @@ public class AddUserInput : SysUser
     public override string RealName { get; set; }
 
     /// <summary>
+    /// 域用户
+    /// </summary>
+    public string DomainAccount { get; set; }
+
+    /// <summary>
     /// 角色集合
     /// </summary>
     public List<long> RoleIdList { get; set; }

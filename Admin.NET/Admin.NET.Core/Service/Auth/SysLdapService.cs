@@ -17,12 +17,12 @@ namespace Admin.NET.Core;
 public class SysLdapService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysLdap> _sysLdapRep;
-    private readonly SqlSugarRepository<SysUserLdap> _sysUserLdapRep;
+    private readonly SysUserLdapService _sysUserLdapService;
 
-    public SysLdapService(SqlSugarRepository<SysLdap> rep, SqlSugarRepository<SysUserLdap> sysUserLdapRep)
+    public SysLdapService(SqlSugarRepository<SysLdap> rep, SysUserLdapService sysUserLdapService)
     {
         _sysLdapRep = rep;
-        _sysUserLdapRep = sysUserLdapRep;
+        _sysUserLdapService = sysUserLdapService;
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class SysLdapService : IDynamicApiController, ITransient
         {
             ldapConn.Connect(ldap.Host, ldap.Port);
             ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, $"{ldap.AuthFilter}={account}", null, false);
+            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, ldap.AuthFilter.Replace("$s", account), null, false);
             string dn = string.Empty;
             while (userEntitys.HasMore())
             {
@@ -145,7 +145,6 @@ public class SysLdapService : IDynamicApiController, ITransient
                     throw Oops.Oh(ErrorCodeEnum.D0009);
                 case LdapException.InvalidCredentials:
                     return false;
-
                 default:
                     throw Oops.Oh(e.Message);
             }
@@ -155,5 +154,110 @@ public class SysLdapService : IDynamicApiController, ITransient
             ldapConn.Disconnect();
         }
         return true;
+    }
+
+    /// <summary>
+    /// 同步域用户
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "UserSync")]
+    public async Task UserSync(UserSyncIdSysLdapInput input)
+    {
+        var ldap = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        LdapConnection ldapConn = new LdapConnection();
+        try
+        {
+            ldapConn.Connect(ldap.Host, ldap.Port);
+            ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
+            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+            string dn = string.Empty;
+            var listUserLdap = new List<SysUserLdap>();
+            while (userEntitys.HasMore())
+            {
+                LdapEntry entity;
+                try
+                {
+                    entity = userEntitys.Next();
+                    if (entity == null) continue;
+                }
+                catch (LdapException)
+                {
+                    continue;
+                }
+                var attrs = entity.GetAttributeSet();
+                if (attrs.Count == 0 || attrs.ContainsKey("OU"))
+                    LdapUserSearchDn(ldapConn, ldap, listUserLdap, entity.Dn);
+                else
+                {
+                    var sysUserLdap = new SysUserLdap
+                    {
+                        Account = !attrs.ContainsKey(ldap.BindAttrAccount) ? null : attrs.GetAttribute(ldap.BindAttrAccount)?.StringValue,
+                        EmployeeId = !attrs.ContainsKey(ldap.BindAttrEmployeeId) ? null : attrs.GetAttribute(ldap.BindAttrEmployeeId)?.StringValue
+                    };
+                    if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
+                    listUserLdap.Add(sysUserLdap);
+                }
+            }
+            if (listUserLdap.Count == 0)
+                return;           
+            await _sysUserLdapService.InsertUserLdapsAsync(ldap.TenantId.Value, listUserLdap);
+        }
+        catch (LdapException e)
+        {
+            switch (e.ResultCode)
+            {
+                case LdapException.NoSuchObject:
+                case LdapException.NoSuchAttribute:
+                    throw Oops.Oh(ErrorCodeEnum.D0009);
+                case LdapException.InvalidCredentials:
+                default:
+                    throw Oops.Oh(e.Message);
+            }
+        }
+        finally
+        {
+            ldapConn.Disconnect();
+        }
+    }
+
+    /// <summary>
+    /// 域用户遍历查询
+    /// </summary>
+    /// <param name="conn"></param>
+    /// <param name="ldap"></param>
+    /// <param name="listUserLdap"></param>
+    /// <param name="baseDn"></param>
+    private void LdapUserSearchDn(LdapConnection conn, SysLdap ldap, List<SysUserLdap> listUserLdap, string baseDn)
+    {
+        var userEntitys = conn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+        string dn = string.Empty;
+        while (userEntitys.HasMore())
+        {
+            LdapEntry entity;
+            try
+            {
+                entity = userEntitys.Next();
+                if (entity == null) continue;
+            }
+            catch (LdapException)
+            {
+                continue;
+            }
+            var attrs = entity.GetAttributeSet();
+            if (attrs.Count == 0 || attrs.ContainsKey("OU"))
+                LdapUserSearchDn(conn, ldap, listUserLdap, entity.Dn);
+            else
+            {
+                var sysUserLdap = new SysUserLdap
+                {
+                    Account = !attrs.ContainsKey(ldap.BindAttrAccount) ? null : attrs.GetAttribute(ldap.BindAttrAccount)?.StringValue,
+                    EmployeeId = !attrs.ContainsKey(ldap.BindAttrEmployeeId) ? null : attrs.GetAttribute(ldap.BindAttrEmployeeId)?.StringValue
+                };
+                if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
+                listUserLdap.Add(sysUserLdap);
+            }
+        }
     }
 }

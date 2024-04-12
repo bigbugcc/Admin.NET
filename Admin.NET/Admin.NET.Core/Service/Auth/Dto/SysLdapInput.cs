@@ -39,3 +39,11 @@ public class DeleteSysLdapInput : BaseIdInput
 public class DetailSysLdapInput : BaseIdInput
 {
 }
+
+public class QueryByIdSysLdapInput : BaseIdInput
+{
+}
+
+public class UserSyncIdSysLdapInput:BaseIdInput
+{
+}
