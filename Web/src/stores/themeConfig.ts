@@ -141,7 +141,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 网站副标题（登录页顶部文字）
 			globalViceTitle: 'Admin.NET',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitleMsg: '有可能是.NET最好用的通用权限开发框架',
+			globalViceTitleMsg: '站在巨人肩膀上的 .NET 通用权限开发框架',
 			// 默认初始语言，可选值"<zh-cn|en|zh-tw>"，默认 zh-cn
 			globalI18n: 'zh-cn',
 			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'

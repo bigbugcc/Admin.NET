@@ -10,7 +10,7 @@
 			<div class="upgrade-content">
 				{{ getThemeConfig.globalTitle }} {{ $t('message.upgrade.msg') }}
 				<div class="mt5">
-					<el-link type="primary" class="font12" href="https://gitee.com/zuohuaijun/Admin.NET/tree/next/Web/CHANGELOG.md" target="_black"> CHANGELOG.md </el-link>
+					<el-link type="primary" class="font12" href="https://xxx/CHANGELOG.md" target="_black"> CHANGELOG.md </el-link>
 				</div>
 				<!-- <div class="upgrade-content-desc mt5">{{ $t("message.upgrade.desc") }}</div> -->
 			</div>
@@ -44,10 +44,20 @@ const state = reactive({
 const getThemeConfig = computed(() => {
 	return themeConfig.value;
 });
+
+// 页面加载时
+onMounted(() => {
+	delayShow();
+	setTimeout(() => {
+		state.btnTxt = t('message.upgrade.btnTwo');
+	}, 200);
+});
+
 // 残忍拒绝
 const onCancel = () => {
 	state.isUpgrade = false;
 };
+
 // 马上更新
 const onUpgrade = () => {
 	state.isLoading = true;
@@ -58,19 +68,13 @@ const onUpgrade = () => {
 		// Local.set('version', state.version);
 	}, 2000);
 };
+
 // 延迟显示，防止刷新时界面显示太快
 const delayShow = () => {
 	setTimeout(() => {
 		state.isUpgrade = true;
 	}, 2000);
 };
-// 页面加载时
-onMounted(() => {
-	delayShow();
-	setTimeout(() => {
-		state.btnTxt = t('message.upgrade.btnTwo');
-	}, 200);
-});
 </script>
 
 <style scoped lang="scss">
