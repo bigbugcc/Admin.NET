@@ -241,8 +241,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="file">文件</param>
     /// <param name="savePath">路径</param>
+    /// <param name="allowSuffix">允许的格式，比如 .jpg.png.gif.tif.bmp </param>
     /// <returns></returns>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath)
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "")
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -294,6 +295,12 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         if (string.IsNullOrWhiteSpace(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
+
+        //增强安全，防止客户端伪造文件
+        if (!string.IsNullOrWhiteSpace(allowSuffix) && !allowSuffix.Contains(suffix))
+            throw Oops.Oh(ErrorCodeEnum.D8003);
+        if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
+            throw Oops.Oh(ErrorCodeEnum.D8001);
 
         var newFile = new SysFile
         {
@@ -384,7 +391,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传头像")]
     public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(file, "Upload/Avatar");
+        var sysFile = await HandleUploadFile(file, "Upload/Avatar", ".jpg.png.gif.tif.bmp");
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
@@ -406,7 +413,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传电子签名")]
     public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(file, "Upload/Signature");
+        var sysFile = await HandleUploadFile(file, "Upload/Signature", ".jpg.png.gif.tif.bmp");
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
