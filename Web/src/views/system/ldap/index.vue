@@ -44,7 +44,15 @@
 				<el-table-column label="操作" width="140" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete')">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditSysLdap(scope.row)" v-auth="'sysLdap:update'"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delSysLdap(scope.row)" v-auth="'sysLdap:delete'"> 删除 </el-button>
+						<el-dropdown>
+							<el-button icon="ele-MoreFilled" size="small" text type="primary" style="padding-left: 12px" />
+							<template #dropdown>
+								<el-dropdown-menu>
+									<el-dropdown-item icon="ele-OfficeBuilding" @click="syncDomainData(scope.row)" v-auth="'sysLdap:userSync'"> 同步域账户 </el-dropdown-item>
+									<el-dropdown-item icon="ele-Delete" @click="delSysLdap(scope.row)" divided v-auth="'sysLdap:delete'"> 删除角色 </el-dropdown-item>
+								</el-dropdown-menu>
+							</template>
+						</el-dropdown>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -122,6 +130,21 @@ const openAddSysLdap = () => {
 const openEditSysLdap = (row: any) => {
 	state.dialogTitle = '编辑系统域登录信息配置';
 	editLdapRef.value?.openDialog(row);
+};
+
+//同步域账户
+const syncDomainData = (row: any) => {
+	ElMessageBox.confirm(`确定要同步吗?`, "提示", {
+		confirmButtonText: "确定",
+		cancelButtonText: "取消",
+		type: "warning",
+	})
+		.then(async () => {
+			await getAPI(SysLdapApi).apiSysLdapUserSyncPost({ id: row.id });
+			handleQuery();
+			ElMessage.success("删除成功");
+		})
+		.catch(() => { });
 };
 
 // 删除
