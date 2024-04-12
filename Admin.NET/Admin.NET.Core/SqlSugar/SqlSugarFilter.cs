@@ -22,7 +22,7 @@ public static class SqlSugarFilter
     /// <param name="dbConfigId"></param>
     public static void DeleteUserOrgCache(long userId, string dbConfigId)
     {
-        var sysCacheService = App.GetService<SysCacheService>();
+        var sysCacheService = App.GetRequiredService<SysCacheService>();
 
         // 删除用户机构集合缓存
         sysCacheService.Remove($"{CacheConst.KeyUserOrg}{userId}");
@@ -49,14 +49,7 @@ public static class SqlSugarFilter
         if (orgFilter == null)
         {
             // 获取用户所属机构
-            var orgIds = App.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
-
-            var orglds = new List<long>();
-            Scoped.Create((factory, scope) =>
-            {
-                var serviceProvider = scope.ServiceProvider;
-                orglds = serviceProvider.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
-            });
+            var orgIds = App.GetRequiredService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
             if (orgIds == null || orgIds.Count == 0) return;
 
             // 获取业务实体数据表
@@ -97,7 +90,7 @@ public static class SqlSugarFilter
         if (string.IsNullOrWhiteSpace(userId)) return maxDataScope;
 
         // 获取用户最大数据范围---仅本人数据
-        maxDataScope = App.GetService<SysCacheService>().Get<int>(CacheConst.KeyRoleMaxDataScope + userId);
+        maxDataScope = App.GetRequiredService<SysCacheService>().Get<int>(CacheConst.KeyRoleMaxDataScope + userId);
         if (maxDataScope != (int)DataScopeEnum.Self) return maxDataScope;
 
         // 配置用户数据范围缓存

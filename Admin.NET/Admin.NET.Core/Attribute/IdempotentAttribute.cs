@@ -54,7 +54,7 @@ public class IdempotentAttribute : Attribute, IAsyncActionFilter
         }
 
         var cacheKey = MD5Encryption.Encrypt($"{CacheKey}{path}{userId}{parameters}");
-        var sysCacheService = App.GetService<SysCacheService>();
+        var sysCacheService = App.GetRequiredService<SysCacheService>();
         if (sysCacheService.ExistKey(cacheKey))
         {
             if (ThrowBah) throw Oops.Oh(Message);
