@@ -19,6 +19,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { AddCodeGenInput } from '../models';
 import { AdminResultListColumnOuput } from '../models';
+import { AdminResultListDatabaseOutput } from '../models';
 import { AdminResultListString } from '../models';
 import { AdminResultListTableOutput } from '../models';
 import { AdminResultObject } from '../models';
@@ -145,6 +146,49 @@ export const SysCodeGenApiAxiosParamCreator = function (configuration?: Configur
             const localVarPath = `/api/sysCodeGen/columnListByTableName/{tableName}/{configId}`
                 .replace(`{${"tableName"}}`, encodeURIComponent(String(tableName)))
                 .replace(`{${"configId"}}`, encodeURIComponent(String(configId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取数据库库集合
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysCodeGenDatabaseListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysCodeGen/databaseList`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -526,6 +570,19 @@ export const SysCodeGenApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取数据库库集合
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCodeGenDatabaseListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListDatabaseOutput>>> {
+            const localVarAxiosArgs = await SysCodeGenApiAxiosParamCreator(configuration).apiSysCodeGenDatabaseListGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 删除代码生成
          * @param {Array<DeleteCodeGenInput>} [body] 
          * @param {*} [options] Override http request option.
@@ -649,6 +706,15 @@ export const SysCodeGenApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
+         * @summary 获取数据库库集合
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCodeGenDatabaseListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListDatabaseOutput>> {
+            return SysCodeGenApiFp(configuration).apiSysCodeGenDatabaseListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 删除代码生成
          * @param {Array<DeleteCodeGenInput>} [body] 
          * @param {*} [options] Override http request option.
@@ -749,6 +815,16 @@ export class SysCodeGenApi extends BaseAPI {
      */
     public async apiSysCodeGenColumnListByTableNameTableNameConfigIdGet(tableName: string, configId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListColumnOuput>> {
         return SysCodeGenApiFp(this.configuration).apiSysCodeGenColumnListByTableNameTableNameConfigIdGet(tableName, configId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取数据库库集合
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysCodeGenApi
+     */
+    public async apiSysCodeGenDatabaseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListDatabaseOutput>> {
+        return SysCodeGenApiFp(this.configuration).apiSysCodeGenDatabaseListGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
