@@ -50,6 +50,13 @@ public static class SqlSugarFilter
         {
             // 获取用户所属机构
             var orgIds = App.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+
+            var orglds = new List<long>();
+            Scoped.Create((factory, scope) =>
+            {
+                var serviceProvider = scope.ServiceProvider;
+                orglds = serviceProvider.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+            });
             if (orgIds == null || orgIds.Count == 0) return;
 
             // 获取业务实体数据表

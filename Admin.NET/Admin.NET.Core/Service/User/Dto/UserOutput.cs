@@ -24,7 +24,7 @@ public class UserOutput : SysUser
     /// 角色名称
     /// </summary>
     public string RoleName { get; set; }
-    
+
     /// <summary>
     /// 域用户
     /// </summary>

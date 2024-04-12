@@ -65,14 +65,16 @@ public class SysLdap : EntityTenant
     /// <summary>
     /// 绑定域账号字段属性值
     /// </summary>
-    [SugarColumn(ColumnDescription = "绑定域账号字段属性值", Length = 24)]
+    [SugarColumn(ColumnDescription = "绑定域账号字段属性值", Length = 32)]
+    [Required]
     public virtual string BindAttrAccount { get; set; } = "sAMAccountName";
 
     /// <summary>
-    /// 绑定用户employeeID属性值
+    /// 绑定用户EmployeeId属性值
     /// </summary>
-    [SugarColumn(ColumnDescription = "绑定用户employeeID属性值", Length = 24)]
-    public virtual string BindAttrEmployeeId { get; set; } = "employeeID";
+    [SugarColumn(ColumnDescription = "绑定用户EmployeeId属性值", Length = 32)]
+    [Required]
+    public virtual string BindAttrEmployeeId { get; set; } = "EmployeeId";
 
     /// <summary>
     /// 状态

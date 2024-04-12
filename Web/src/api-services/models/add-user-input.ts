@@ -312,14 +312,6 @@ export interface AddUserInput {
     jobNum?: string | null;
 
     /**
-     * 域账号
-     *
-     * @type {string}
-     * @memberof UpdateUserInput
-     */
-    domainAccount?: string | null;
-
-    /**
      * 职级
      *
      * @type {string}
@@ -422,6 +414,14 @@ export interface AddUserInput {
      * @memberof AddUserInput
      */
     realName: string;
+
+    /**
+     * 域用户
+     *
+     * @type {string}
+     * @memberof AddUserInput
+     */
+    domainAccount?: string | null;
 
     /**
      * 角色集合

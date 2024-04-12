@@ -16,15 +16,15 @@
  * 
  *
  * @export
- * @interface UserSyncSysLdapInput
+ * @interface SyncSysLdapInput
  */
-export interface UserSyncSysLdapInput {
+export interface SyncSysLdapInput {
 
     /**
      * 主键Id
      *
      * @type {number}
-     * @memberof UserSyncSysLdapInput
+     * @memberof SyncSysLdapInput
      */
     id: number;
 }

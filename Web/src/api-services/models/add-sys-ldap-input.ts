@@ -150,6 +150,22 @@ export interface AddSysLdapInput {
     version?: number;
 
     /**
+     * 绑定域账号字段属性值
+     *
+     * @type {string}
+     * @memberof AddSysLdapInput
+     */
+    bindAttrAccount: string;
+
+    /**
+     * 绑定用户EmployeeId属性值
+     *
+     * @type {string}
+     * @memberof AddSysLdapInput
+     */
+    bindAttrEmployeeId: string;
+
+    /**
      * @type {StatusEnum}
      * @memberof AddSysLdapInput
      */

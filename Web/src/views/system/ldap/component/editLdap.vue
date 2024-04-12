@@ -41,14 +41,12 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="绑定账号属性" prop="bindAttrAccount">
-							<el-input v-model="state.ruleForm.bindAttrAccount" placeholder="请输入域账号字段属性值" maxlength="24"
-								show-word-limit clearable />
+							<el-input v-model="state.ruleForm.bindAttrAccount" placeholder="请输入域账号字段属性值" maxlength="24" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="绑定账号属性" prop="bindAttrEmployeeId">
-							<el-input v-model="state.ruleForm.bindAttrEmployeeId" placeholder="请输入绑定用户employeeID属性！"
-								maxlength="24" show-word-limit clearable />
+							<el-input v-model="state.ruleForm.bindAttrEmployeeId" placeholder="请输入绑定用户EmployeeId属性！" maxlength="24" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -130,8 +128,8 @@ const rules = ref<FormRules>({
 	bindPass: [{ required: true, message: '请输入绑定密码！', trigger: 'blur' }],
 	authFilter: [{ required: true, message: '请输入用户过滤规则！', trigger: 'blur' }],
 	version: [{ required: true, message: '请输入Ldap版本！', trigger: 'blur' }],
-	bindAttrAccount: [{ required: true, message: '请输入账号绑定字段！', trigger: 'blur', },],
-	bindAttrEmployeeId: [{ required: true, message: '绑定用户employeeID属性！', trigger: 'blur', },],
+	bindAttrAccount: [{ required: true, message: '请输入账号绑定字段！', trigger: 'blur' }],
+	bindAttrEmployeeId: [{ required: true, message: '绑定用户EmployeeId属性！', trigger: 'blur' }],
 });
 
 // 导出对象

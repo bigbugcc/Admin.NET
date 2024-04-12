@@ -13,7 +13,7 @@
  */
 
  /**
- * 系统域登录信息配置表分页查询输入参数
+ * 系统域登录信息配置输入参数
  *
  * @export
  * @interface SysLdapInput

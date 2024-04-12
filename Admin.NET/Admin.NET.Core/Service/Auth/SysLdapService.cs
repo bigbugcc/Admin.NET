@@ -30,6 +30,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [DisplayName("获取系统域登录信息配置分页列表")]
     public async Task<SqlSugarPagedList<SysLdap>> Page(SysLdapInput input)
     {
         return await _sysLdapRep.AsQueryable()
@@ -45,6 +46,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Add"), HttpPost]
+    [DisplayName("增加系统域登录信息配置")]
     public async Task<long> Add(AddSysLdapInput input)
     {
         var entity = input.Adapt<SysLdap>();
@@ -59,6 +61,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Update"), HttpPost]
+    [DisplayName("更新系统域登录信息配置")]
     public async Task Update(UpdateSysLdapInput input)
     {
         var entity = input.Adapt<SysLdap>();
@@ -75,6 +78,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Delete"), HttpPost]
+    [DisplayName("删除系统域登录信息配置")]
     public async Task Delete(DeleteSysLdapInput input)
     {
         var entity = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
@@ -87,7 +91,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Detail")]
+    [DisplayName("获取系统域登录信息配置详情")]
     public async Task<SysLdap> GetDetail([FromQuery] DetailSysLdapInput input)
     {
         return await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id);
@@ -98,7 +102,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "List")]
+    [DisplayName("获取系统域登录信息配置列表")]
     public async Task<List<SysLdap>> GetList([FromQuery] SysLdapInput input)
     {
         return await _sysLdapRep.AsQueryable().Select<SysLdap>().ToListAsync();
@@ -145,6 +149,7 @@ public class SysLdapService : IDynamicApiController, ITransient
                     throw Oops.Oh(ErrorCodeEnum.D0009);
                 case LdapException.InvalidCredentials:
                     return false;
+
                 default:
                     throw Oops.Oh(e.Message);
             }
@@ -161,18 +166,16 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    [ApiDescriptionSettings(Name = "UserSync")]
-    public async Task UserSync(UserSyncIdSysLdapInput input)
+    [DisplayName("同步域用户")]
+    public async Task SyncSysLdapUser(SyncSysLdapInput input)
     {
         var ldap = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        LdapConnection ldapConn = new LdapConnection();
+        var ldapConn = new LdapConnection();
         try
         {
             ldapConn.Connect(ldap.Host, ldap.Port);
             ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
             var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
-            string dn = string.Empty;
             var listUserLdap = new List<SysUserLdap>();
             while (userEntitys.HasMore())
             {
@@ -201,8 +204,9 @@ public class SysLdapService : IDynamicApiController, ITransient
                 }
             }
             if (listUserLdap.Count == 0)
-                return;           
-            await _sysUserLdapService.InsertUserLdapsAsync(ldap.TenantId.Value, listUserLdap);
+                return;
+
+            await _sysUserLdapService.InsertUserLdaps(ldap.TenantId.Value, listUserLdap);
         }
         catch (LdapException e)
         {
@@ -232,7 +236,6 @@ public class SysLdapService : IDynamicApiController, ITransient
     private void LdapUserSearchDn(LdapConnection conn, SysLdap ldap, List<SysUserLdap> listUserLdap, string baseDn)
     {
         var userEntitys = conn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
-        string dn = string.Empty;
         while (userEntitys.HasMore())
         {
             LdapEntry entity;

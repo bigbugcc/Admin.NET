@@ -215,6 +215,7 @@ export * from './sql-sugar-paged-list-tenant-output';
 export * from './sql-sugar-paged-list-user-output';
 export * from './status-enum';
 export * from './swagger-submit-url-body';
+export * from './sync-sys-ldap-input';
 export * from './sys-code-gen';
 export * from './sys-code-gen-config';
 export * from './sys-config';

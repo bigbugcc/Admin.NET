@@ -327,14 +327,6 @@ export interface UserOutput {
     jobNum?: string | null;
 
     /**
-     * 域账号
-     *
-     * @type {string}
-     * @memberof UpdateUserInput
-     */
-    domainAccount?: string | null;
-    
-    /**
      * 职级
      *
      * @type {string}
@@ -445,4 +437,12 @@ export interface UserOutput {
      * @memberof UserOutput
      */
     roleName?: string | null;
+
+    /**
+     * 域用户
+     *
+     * @type {string}
+     * @memberof UserOutput
+     */
+    domainAccount?: string | null;
 }

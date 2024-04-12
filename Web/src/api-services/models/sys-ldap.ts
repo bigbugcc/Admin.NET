@@ -150,6 +150,22 @@ export interface SysLdap {
     version?: number;
 
     /**
+     * 绑定域账号字段属性值
+     *
+     * @type {string}
+     * @memberof SysLdap
+     */
+    bindAttrAccount: string;
+
+    /**
+     * 绑定用户EmployeeId属性值
+     *
+     * @type {string}
+     * @memberof SysLdap
+     */
+    bindAttrEmployeeId: string;
+
+    /**
      * @type {StatusEnum}
      * @memberof SysLdap
      */

@@ -150,6 +150,22 @@ export interface UpdateSysLdapInput {
     version?: number;
 
     /**
+     * 绑定域账号字段属性值
+     *
+     * @type {string}
+     * @memberof UpdateSysLdapInput
+     */
+    bindAttrAccount: string;
+
+    /**
+     * 绑定用户EmployeeId属性值
+     *
+     * @type {string}
+     * @memberof UpdateSysLdapInput
+     */
+    bindAttrEmployeeId: string;
+
+    /**
      * @type {StatusEnum}
      * @memberof UpdateSysLdapInput
      */

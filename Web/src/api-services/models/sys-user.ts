@@ -327,14 +327,6 @@ export interface SysUser {
     jobNum?: string | null;
 
     /**
-     * 域账号
-     *
-     * @type {string}
-     * @memberof UpdateUserInput
-     */
-    domainAccount?: string | null;
-    
-    /**
      * 职级
      *
      * @type {string}

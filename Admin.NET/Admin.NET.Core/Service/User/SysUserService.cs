@@ -103,12 +103,14 @@ public class SysUserService : IDynamicApiController, ITransient
         var user = input.Adapt<SysUser>();
         user.Password = CryptogramUtil.Encrypt(password);
         var newUser = await _sysUserRep.AsInsertable(user).ExecuteReturnEntityAsync();
+
         input.Id = newUser.Id;
         await UpdateRoleAndExtOrg(input);
+
+        // 增加域账号
         if (!string.IsNullOrWhiteSpace(input.DomainAccount))
-        {
-            await _sysUserLdapService.AddUserLdapAsync(newUser.TenantId.Value, newUser.Id, newUser.Account, input.DomainAccount);
-        }
+            await _sysUserLdapService.AddUserLdap(newUser.TenantId.Value, newUser.Id, newUser.Account, input.DomainAccount);
+
         return newUser.Id;
     }
 
@@ -138,7 +140,8 @@ public class SysUserService : IDynamicApiController, ITransient
         var roleIds = await GetOwnRoleList(input.Id);
         if (input.OrgId != user.OrgId || !input.RoleIdList.OrderBy(u => u).SequenceEqual(roleIds.OrderBy(u => u)))
             await _sysOnlineUserService.ForceOffline(input.Id);
-        await _sysUserLdapService.AddUserLdapAsync(user.TenantId.Value, user.Id, user.Account, input.DomainAccount);
+        // 更新域账号
+        await _sysUserLdapService.AddUserLdap(user.TenantId.Value, user.Id, user.Account, input.DomainAccount);
     }
 
     /// <summary>
@@ -180,7 +183,7 @@ public class SysUserService : IDynamicApiController, ITransient
         // 删除用户扩展机构
         await _sysUserExtOrgService.DeleteUserExtOrgByUserId(input.Id);
 
-        //删除用户域关联信息
+        // 删除域账号
         await _sysUserLdapService.DeleteUserLdapByUserId(input.Id);
     }
 

@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统域登录信息配置表分页查询输入参数
+/// 系统域登录信息配置输入参数
 /// </summary>
 public class SysLdapInput : BasePageInput
 {
@@ -40,10 +40,6 @@ public class DetailSysLdapInput : BaseIdInput
 {
 }
 
-public class QueryByIdSysLdapInput : BaseIdInput
-{
-}
-
-public class UserSyncIdSysLdapInput:BaseIdInput
+public class SyncSysLdapInput : BaseIdInput
 {
 }
