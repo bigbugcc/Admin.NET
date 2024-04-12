@@ -160,7 +160,7 @@ const syncDomainData = (row: any) => {
 		type: 'warning',
 	})
 		.then(async () => {
-			await getAPI(SysLdapApi).apiSysLdapSyncSysLdapUserPost({ id: row.id });
+			await getAPI(SysLdapApi).apiSysLdapSyncUserPost({ id: row.id });
 			handleQuery();
 			ElMessage.success('删除成功');
 		})

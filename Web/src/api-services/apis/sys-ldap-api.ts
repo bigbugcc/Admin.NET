@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
+ * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><br/>👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -34,7 +34,7 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 增加系统域登录信息配置
+         * @summary 增加系统域登录配置
          * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -82,7 +82,7 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 删除系统域登录信息配置
+         * @summary 删除系统域登录配置
          * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -130,7 +130,7 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置详情
+         * @summary 获取系统域登录配置详情
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -182,18 +182,11 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置列表
-         * @param {string} [searchKey] 关键字查询
-         * @param {string} [host] 主机
-         * @param {number} [page] 当前页码
-         * @param {number} [pageSize] 页码容量
-         * @param {string} [field] 排序字段
-         * @param {string} [order] 排序方向
-         * @param {string} [descStr] 降序排序
+         * @summary 获取系统域登录配置列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysLdapListGet: async (searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysLdapListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysLdap/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -214,34 +207,6 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
-            if (searchKey !== undefined) {
-                localVarQueryParameter['SearchKey'] = searchKey;
-            }
-
-            if (host !== undefined) {
-                localVarQueryParameter['Host'] = host;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['Page'] = page;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['PageSize'] = pageSize;
-            }
-
-            if (field !== undefined) {
-                localVarQueryParameter['Field'] = field;
-            }
-
-            if (order !== undefined) {
-                localVarQueryParameter['Order'] = order;
-            }
-
-            if (descStr !== undefined) {
-                localVarQueryParameter['DescStr'] = descStr;
-            }
-
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -260,7 +225,7 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置分页列表
+         * @summary 获取系统域登录配置分页列表
          * @param {SysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -313,8 +278,8 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysLdapSyncSysLdapUserPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysLdap/syncSysLdapUser`;
+        apiSysLdapSyncUserPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/syncUser`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -356,7 +321,7 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 更新系统域登录信息配置
+         * @summary 更新系统域登录配置
          * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,7 +378,7 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加系统域登录信息配置
+         * @summary 增加系统域登录配置
          * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -427,7 +392,7 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除系统域登录信息配置
+         * @summary 删除系统域登录配置
          * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -441,7 +406,7 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置详情
+         * @summary 获取系统域登录配置详情
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -455,19 +420,12 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置列表
-         * @param {string} [searchKey] 关键字查询
-         * @param {string} [host] 主机
-         * @param {number} [page] 当前页码
-         * @param {number} [pageSize] 页码容量
-         * @param {string} [field] 排序字段
-         * @param {string} [order] 排序方向
-         * @param {string} [descStr] 降序排序
+         * @summary 获取系统域登录配置列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysLdap>>> {
-            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options);
+        async apiSysLdapListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysLdap>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapListGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -475,7 +433,7 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置分页列表
+         * @summary 获取系统域登录配置分页列表
          * @param {SysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -494,8 +452,8 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapSyncSysLdapUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncSysLdapUserPost(body, options);
+        async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncUserPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -503,7 +461,7 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新系统域登录信息配置
+         * @summary 更新系统域登录配置
          * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -526,7 +484,7 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 增加系统域登录信息配置
+         * @summary 增加系统域登录配置
          * @param {AddSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -536,7 +494,7 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 删除系统域登录信息配置
+         * @summary 删除系统域登录配置
          * @param {DeleteSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -546,7 +504,7 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置详情
+         * @summary 获取系统域登录配置详情
          * @param {number} id 主键Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -556,23 +514,16 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置列表
-         * @param {string} [searchKey] 关键字查询
-         * @param {string} [host] 主机
-         * @param {number} [page] 当前页码
-         * @param {number} [pageSize] 页码容量
-         * @param {string} [field] 排序字段
-         * @param {string} [order] 排序方向
-         * @param {string} [descStr] 降序排序
+         * @summary 获取系统域登录配置列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysLdap>> {
-            return SysLdapApiFp(configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options).then((request) => request(axios, basePath));
+        async apiSysLdapListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysLdap>> {
+            return SysLdapApiFp(configuration).apiSysLdapListGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取系统域登录信息配置分页列表
+         * @summary 获取系统域登录配置分页列表
          * @param {SysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -587,12 +538,12 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapSyncSysLdapUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysLdapApiFp(configuration).apiSysLdapSyncSysLdapUserPost(body, options).then((request) => request(axios, basePath));
+        async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysLdapApiFp(configuration).apiSysLdapSyncUserPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 更新系统域登录信息配置
+         * @summary 更新系统域登录配置
          * @param {UpdateSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -612,7 +563,7 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
 export class SysLdapApi extends BaseAPI {
     /**
      * 
-     * @summary 增加系统域登录信息配置
+     * @summary 增加系统域登录配置
      * @param {AddSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -623,7 +574,7 @@ export class SysLdapApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除系统域登录信息配置
+     * @summary 删除系统域登录配置
      * @param {DeleteSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -634,7 +585,7 @@ export class SysLdapApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取系统域登录信息配置详情
+     * @summary 获取系统域登录配置详情
      * @param {number} id 主键Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -645,24 +596,17 @@ export class SysLdapApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取系统域登录信息配置列表
-     * @param {string} [searchKey] 关键字查询
-     * @param {string} [host] 主机
-     * @param {number} [page] 当前页码
-     * @param {number} [pageSize] 页码容量
-     * @param {string} [field] 排序字段
-     * @param {string} [order] 排序方向
-     * @param {string} [descStr] 降序排序
+     * @summary 获取系统域登录配置列表
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysLdapApi
      */
-    public async apiSysLdapListGet(searchKey?: string, host?: string, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysLdap>> {
-        return SysLdapApiFp(this.configuration).apiSysLdapListGet(searchKey, host, page, pageSize, field, order, descStr, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysLdap>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapListGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取系统域登录信息配置分页列表
+     * @summary 获取系统域登录配置分页列表
      * @param {SysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -679,12 +623,12 @@ export class SysLdapApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysLdapApi
      */
-    public async apiSysLdapSyncSysLdapUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysLdapApiFp(this.configuration).apiSysLdapSyncSysLdapUserPost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapSyncUserPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 更新系统域登录信息配置
+     * @summary 更新系统域登录配置
      * @param {UpdateSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
