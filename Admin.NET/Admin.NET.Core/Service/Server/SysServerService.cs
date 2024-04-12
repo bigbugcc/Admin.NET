@@ -31,7 +31,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器配置信息")]
-    public static dynamic GetServerBase()
+    public dynamic GetServerBase()
     {
         return new
         {
@@ -54,7 +54,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器使用信息")]
-    public static dynamic GetServerUsed()
+    public dynamic GetServerUsed()
     {
         var programStartTime = Process.GetCurrentProcess().StartTime;
         var totalMilliseconds = (DateTime.Now - programStartTime).TotalMilliseconds.ToString();
@@ -79,7 +79,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器磁盘信息")]
-    public static dynamic GetServerDisk()
+    public dynamic GetServerDisk()
     {
         return ComputerUtil.GetDiskInfos();
     }
@@ -89,7 +89,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取框架主要程序集")]
-    public static dynamic GetAssemblyList()
+    public dynamic GetAssemblyList()
     {
         var furionAssembly = typeof(App).Assembly.GetName();
         var sqlSugarAssembly = typeof(ISqlSugarClient).Assembly.GetName();

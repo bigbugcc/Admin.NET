@@ -36,7 +36,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取库列表")]
-    public static List<string> GetList()
+    public List<string> GetList()
     {
         return App.GetOptions<DbConnectionOptions>().ConnectionConfigs.Select(u => u.ConfigId.ToString()).ToList();
     }

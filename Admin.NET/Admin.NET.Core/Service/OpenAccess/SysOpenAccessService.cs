@@ -36,7 +36,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [DisplayName("获取生成的签名")]
-    public static string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
+    public string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
     {
         // 密钥
         var appSecretByte = Encoding.UTF8.GetBytes(input.AppSecret);
@@ -132,7 +132,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("创建密钥")]
-    public static Task<string> CreateSecret()
+    public Task<string> CreateSecret()
     {
         return Task.FromResult(Convert.ToBase64String(Guid.NewGuid().ToByteArray())[..^2]);
     }
