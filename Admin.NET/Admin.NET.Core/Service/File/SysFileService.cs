@@ -23,6 +23,7 @@ public class SysFileService : IDynamicApiController, ITransient
     private readonly OSSProviderOptions _OSSProviderOptions;
     private readonly UploadOptions _uploadOptions;
     private readonly IOSSService _OSSService;
+    private readonly string _imageType = ".jpg.png.bmp.gif.tif";
 
     public SysFileService(UserManager userManager,
         SqlSugarRepository<SysFile> sysFileRep,
@@ -241,7 +242,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="file">文件</param>
     /// <param name="savePath">路径</param>
-    /// <param name="allowSuffix">允许的格式，比如 .jpg.png.gif.tif.bmp </param>
+    /// <param name="allowSuffix">允许格式：.jpg.png.gif.tif.bmp</param>
     /// <returns></returns>
     private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "")
     {
@@ -278,12 +279,15 @@ public class SysFileService : IDynamicApiController, ITransient
             });
         }
 
+        // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
             throw Oops.Oh(ErrorCodeEnum.D8001);
 
+        // 验证文件大小
         if (sizeKb > _uploadOptions.MaxSize)
             throw Oops.Oh(ErrorCodeEnum.D8002);
 
+        // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
         if (string.IsNullOrWhiteSpace(suffix))
         {
@@ -296,7 +300,7 @@ public class SysFileService : IDynamicApiController, ITransient
         if (string.IsNullOrWhiteSpace(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
 
-        //增强安全，防止客户端伪造文件
+        // 防止客户端伪造文件类型
         if (!string.IsNullOrWhiteSpace(allowSuffix) && !allowSuffix.Contains(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
         if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
@@ -391,7 +395,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传头像")]
     public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
-        var sysFile = await HandleUploadFile(file, "Upload/Avatar", ".jpg.png.gif.tif.bmp");
+        var sysFile = await HandleUploadFile(file, "Upload/Avatar", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
@@ -413,7 +417,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传电子签名")]
     public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
-        var sysFile = await HandleUploadFile(file, "Upload/Signature", ".jpg.png.gif.tif.bmp");
+        var sysFile = await HandleUploadFile(file, "Upload/Signature", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
