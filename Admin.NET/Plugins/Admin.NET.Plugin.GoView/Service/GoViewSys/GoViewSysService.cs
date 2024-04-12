@@ -79,7 +79,7 @@ public class GoViewSysService : IDynamicApiController
     [AllowAnonymous]
     [ApiDescriptionSettings(Name = "GetOssInfo")]
     [DisplayName("获取 OSS 上传接口")]
-    public Task<GoViewOssUrlOutput> GetOssInfo()
+    public static Task<GoViewOssUrlOutput> GetOssInfo()
     {
         return Task.FromResult(new GoViewOssUrlOutput { BucketURL = "" });
     }

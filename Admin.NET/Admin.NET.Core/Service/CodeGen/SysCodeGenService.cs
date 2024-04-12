@@ -120,7 +120,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取数据库库集合")]
-    public async Task<List<DatabaseOutput>> GetDatabaseList()
+    public static async Task<List<DatabaseOutput>> GetDatabaseList()
     {
         var dbConfigs = App.GetOptions<DbConnectionOptions>().ConnectionConfigs;
         return await Task.FromResult(dbConfigs.Adapt<List<DatabaseOutput>>());
@@ -220,18 +220,20 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         for (int i = result.Count - 1; i >= 0; i--)
         {
             var columnOutput = result[i];
-            // 先找自定义字段名的
-            var propertyInfo = entityProperties.FirstOrDefault(p => (p.GetCustomAttribute<SugarColumn>()?.ColumnName ?? "").ToLower() == columnOutput.ColumnName.ToLower());
-            // 如果找不到就再找自动生成字段名的(并且过滤掉没有SugarColumn的属性)
-            if (propertyInfo == null)
-                propertyInfo = entityProperties.FirstOrDefault(p => p.GetCustomAttribute<SugarColumn>() != null && p.Name.ToLower() == (config.DbSettings.EnableUnderLine ? CodeGenUtil.CamelColumnName(columnOutput.ColumnName, entityBasePropertyNames).ToLower() : columnOutput.ColumnName.ToLower()));
+            // 先找自定义字段名的，如果找不到就再找自动生成字段名的(并且过滤掉没有SugarColumn的属性)
+            var propertyInfo = entityProperties.FirstOrDefault(p => (p.GetCustomAttribute<SugarColumn>()?.ColumnName ?? "").ToLower() == columnOutput.ColumnName.ToLower()) ??
+                entityProperties.FirstOrDefault(p => p.GetCustomAttribute<SugarColumn>() != null && p.Name.ToLower() == (config.DbSettings.EnableUnderLine
+                ? CodeGenUtil.CamelColumnName(columnOutput.ColumnName, entityBasePropertyNames).ToLower()
+                : columnOutput.ColumnName.ToLower()));
             if (propertyInfo != null)
             {
                 columnOutput.PropertyName = propertyInfo.Name;
                 columnOutput.ColumnComment = propertyInfo.GetCustomAttribute<SugarColumn>().ColumnDescription;
             }
             else
-                result.RemoveAt(i); //移除没有定义此属性的字段
+            {
+                result.RemoveAt(i); // 移除没有定义此属性的字段
+            }
         }
         return result;
     }

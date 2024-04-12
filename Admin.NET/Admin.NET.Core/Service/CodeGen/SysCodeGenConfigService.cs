@@ -143,7 +143,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="codeGenConfig"></param>
     /// <returns></returns>
-    private string GetDefaultQueryType(SysCodeGenConfig codeGenConfig)
+    private static string GetDefaultQueryType(SysCodeGenConfig codeGenConfig)
     {
         return (codeGenConfig.NetType?.TrimEnd('?')) switch
         {

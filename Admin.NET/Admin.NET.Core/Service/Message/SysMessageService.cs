@@ -17,15 +17,12 @@ namespace Admin.NET.Core.Service;
 public class SysMessageService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
-    private readonly EmailOptions _emailOptions;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _chatHubContext;
 
     public SysMessageService(SysCacheService sysCacheService,
-        IOptions<EmailOptions> emailOptions,
         IHubContext<OnlineUserHub, IOnlineUserHub> chatHubContext)
     {
         _sysCacheService = sysCacheService;
-        _emailOptions = emailOptions.Value;
         _chatHubContext = chatHubContext;
     }
 

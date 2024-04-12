@@ -39,7 +39,7 @@ namespace Admin.NET.Web.Core
             using var serviceScope = _serviceProvider.CreateScope();
 
             // 若当前账号存在黑名单中则授权失败
-            var sysCacheService = serviceScope.ServiceProvider.GetService<SysCacheService>();
+            var sysCacheService = serviceScope.ServiceProvider.GetRequiredService<SysCacheService>();
             if (sysCacheService.ExistKey($"{CacheConst.KeyBlacklist}{context.User.FindFirst(ClaimConst.UserId)?.Value}"))
             {
                 context.Fail();
@@ -47,7 +47,7 @@ namespace Admin.NET.Web.Core
                 return;
             }
 
-            var sysConfigService = serviceScope.ServiceProvider.GetService<SysConfigService>();
+            var sysConfigService = serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
             var tokenExpire = await sysConfigService.GetTokenExpire();
             var refreshTokenExpire = await sysConfigService.GetRefreshTokenExpire();
             if (JWTEncryption.AutoRefreshToken(context, context.GetCurrentHttpContext(), tokenExpire, refreshTokenExpire))

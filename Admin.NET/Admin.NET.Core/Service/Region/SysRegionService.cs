@@ -16,8 +16,8 @@ public class SysRegionService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysRegion> _sysRegionRep;
 
-    // Url地址-国家统计局行政区域2023年
-    private readonly string _url = "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html";
+    //// Url地址-国家统计局行政区域2023年
+    //private readonly string _url = "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html";
 
     public SysRegionService(SqlSugarRepository<SysRegion> sysRegionRep)
     {

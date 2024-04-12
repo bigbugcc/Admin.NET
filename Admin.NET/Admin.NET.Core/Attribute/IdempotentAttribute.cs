@@ -13,6 +13,8 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 防止重复请求过滤器特性
 /// </summary>
+[SuppressSniffer]
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
 public class IdempotentAttribute : Attribute, IAsyncActionFilter
 {
     /// <summary>

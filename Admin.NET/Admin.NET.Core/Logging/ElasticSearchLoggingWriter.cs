@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-using Nest;
+using Elastic.Clients.Elasticsearch;
 
 namespace Admin.NET.Core;
 
@@ -16,13 +16,13 @@ namespace Admin.NET.Core;
 public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
 {
     private readonly IServiceScope _serviceScope;
-    private readonly ElasticClient _esClient;
+    private readonly ElasticsearchClient _esClient;
     private readonly SysConfigService _sysConfigService;
 
     public ElasticSearchLoggingWriter(IServiceScopeFactory scopeFactory)
     {
         _serviceScope = scopeFactory.CreateScope();
-        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticClient>();
+        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticsearchClient>();
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
     }
 
@@ -88,7 +88,7 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
             CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId)
         };
-        await _esClient.IndexDocumentAsync(sysLogOp);
+        await _esClient.IndexAsync(sysLogOp);
     }
 
     /// <summary>

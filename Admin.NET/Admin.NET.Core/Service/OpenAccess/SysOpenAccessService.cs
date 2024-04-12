@@ -36,7 +36,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [DisplayName("获取生成的签名")]
-    public string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
+    public static string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
     {
         // 密钥
         var appSecretByte = Encoding.UTF8.GetBytes(input.AppSecret);
@@ -132,7 +132,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("创建密钥")]
-    public Task<string> CreateSecret()
+    public static Task<string> CreateSecret()
     {
         return Task.FromResult(Convert.ToBase64String(Guid.NewGuid().ToByteArray())[..^2]);
     }
@@ -166,22 +166,22 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
         {
             OnGetAccessSecret = context =>
             {
-                var logger = context.HttpContext.RequestServices.GetService<ILogger<SysOpenAccessService>>();
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<SysOpenAccessService>>();
                 try
                 {
-                    var openAccessService = context.HttpContext.RequestServices.GetService<SysOpenAccessService>();
+                    var openAccessService = context.HttpContext.RequestServices.GetRequiredService<SysOpenAccessService>();
                     var openAccess = openAccessService.GetByKey(context.AccessKey).GetAwaiter().GetResult();
                     return Task.FromResult(openAccess == null ? "" : openAccess.AccessSecret);
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, ex.Message);
+                    logger.LogError(ex, "开发接口身份验证");
                     return Task.FromResult("");
                 }
             },
             OnValidated = context =>
             {
-                var openAccessService = context.HttpContext.RequestServices.GetService<SysOpenAccessService>();
+                var openAccessService = context.HttpContext.RequestServices.GetRequiredService<SysOpenAccessService>();
                 var openAccess = openAccessService.GetByKey(context.AccessKey).GetAwaiter().GetResult();
                 var identity = ((ClaimsIdentity)context.Principal!.Identity!);
 

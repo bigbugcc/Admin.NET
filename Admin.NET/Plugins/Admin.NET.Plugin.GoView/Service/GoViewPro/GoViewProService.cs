@@ -17,18 +17,12 @@ public class GoViewProService : IDynamicApiController
 {
     private readonly SqlSugarRepository<GoViewPro> _goViewProRep;
     private readonly SqlSugarRepository<GoViewProData> _goViewProDataRep;
-    private readonly SqlSugarRepository<SysFile> _sysFileRep;
-    private readonly SysFileService _fileService;
 
     public GoViewProService(SqlSugarRepository<GoViewPro> goViewProjectRep,
-        SqlSugarRepository<GoViewProData> goViewProjectDataRep,
-        SqlSugarRepository<SysFile> fileRep,
-        SysFileService fileService)
+        SqlSugarRepository<GoViewProData> goViewProjectDataRep)
     {
         _goViewProRep = goViewProjectRep;
         _goViewProDataRep = goViewProjectDataRep;
-        _sysFileRep = fileRep;
-        _fileService = fileService;
     }
 
     /// <summary>

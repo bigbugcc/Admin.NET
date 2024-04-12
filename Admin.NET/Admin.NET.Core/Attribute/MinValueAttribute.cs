@@ -11,6 +11,7 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 最小值校验
 /// </summary>
+[SuppressSniffer]
 public class MinValueAttribute : ValidationAttribute
 {
     private double MinValue { get; set; }

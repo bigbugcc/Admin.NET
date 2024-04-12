@@ -16,19 +16,18 @@ public static class ComputerUtil
     /// <returns></returns>
     public static MemoryMetrics GetComputerInfo()
     {
-        MemoryMetricsClient client = new();
         MemoryMetrics memoryMetrics;
         if (IsMacOS())
         {
-            memoryMetrics = client.GetMacOSMetrics();
+            memoryMetrics = MemoryMetricsClient.GetMacOSMetrics();
         }
         else if (IsUnix())
         {
-            memoryMetrics = client.GetUnixMetrics();
+            memoryMetrics = MemoryMetricsClient.GetUnixMetrics();
         }
         else
         {
-            memoryMetrics = client.GetWindowsMetrics();
+            memoryMetrics = MemoryMetricsClient.GetWindowsMetrics();
         }
         memoryMetrics.FreeRam = Math.Round(memoryMetrics.Free / 1024, 2) + "GB";
         memoryMetrics.UsedRam = Math.Round(memoryMetrics.Used / 1024, 2) + "GB";
@@ -319,7 +318,7 @@ public class MemoryMetricsClient
     /// windows系统获取内存信息
     /// </summary>
     /// <returns></returns>
-    public MemoryMetrics GetWindowsMetrics()
+    public static MemoryMetrics GetWindowsMetrics()
     {
         string output = ShellUtil.Cmd("wmic", "OS get FreePhysicalMemory,TotalVisibleMemorySize /Value");
         var metrics = new MemoryMetrics();
@@ -340,7 +339,7 @@ public class MemoryMetricsClient
     /// Unix系统获取
     /// </summary>
     /// <returns></returns>
-    public MemoryMetrics GetUnixMetrics()
+    public static MemoryMetrics GetUnixMetrics()
     {
         string output = ShellUtil.Bash("free -m | awk '{print $2,$3,$4,$5,$6}'");
         var metrics = new MemoryMetrics();
@@ -364,7 +363,7 @@ public class MemoryMetricsClient
     /// macOS系统获取
     /// </summary>
     /// <returns></returns>
-    public MemoryMetrics GetMacOSMetrics()
+    public static MemoryMetrics GetMacOSMetrics()
     {
         var metrics = new MemoryMetrics();
         //物理内存大小
@@ -413,14 +412,15 @@ public class ShellUtil
     /// <param name="args"></param>
     /// <returns></returns>
     public static string Cmd(string fileName, string args)
-    {
-        string output = string.Empty;
+    { 
+        var info = new ProcessStartInfo
+        {
+            FileName = fileName,
+            Arguments = args,
+            RedirectStandardOutput = true
+        };
 
-        var info = new ProcessStartInfo();
-        info.FileName = fileName;
-        info.Arguments = args;
-        info.RedirectStandardOutput = true;
-
+        var output = string.Empty;
         using (var process = Process.Start(info))
         {
             output = process.StandardOutput.ReadToEnd();
@@ -464,14 +464,15 @@ public class ShellHelper
     /// <param name="args"></param>
     /// <returns></returns>
     public static string Cmd(string fileName, string args)
-    {
-        string output = string.Empty;
+    { 
+        var info = new ProcessStartInfo
+        {
+            FileName = fileName,
+            Arguments = args,
+            RedirectStandardOutput = true
+        };
 
-        var info = new ProcessStartInfo();
-        info.FileName = fileName;
-        info.Arguments = args;
-        info.RedirectStandardOutput = true;
-
+        var output = string.Empty;
         using (var process = Process.Start(info))
         {
             output = process.StandardOutput.ReadToEnd();

@@ -100,7 +100,7 @@ public class JobClusterServer : IJobClusterServer
     /// </summary>
     /// <param name="clusterId">集群 Id</param>
     /// <returns></returns>
-    private async Task WorkNowAsync(string clusterId)
+    private static async Task WorkNowAsync(string clusterId)
     {
         var _sysJobClusterRep = App.GetRequiredService<SqlSugarRepository<SysJobCluster>>();
         // 在作业集群表中，更新 clusterId 的 status 为 ClusterStatus.Working

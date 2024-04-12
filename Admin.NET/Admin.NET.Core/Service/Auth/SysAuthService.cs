@@ -102,7 +102,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             {
                 VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
             }
-            else if (!await _sysLdapService.Auth(tenant.Id, userLdap.Account, input.Password))
+            else if (!await _sysLdapService.AuthAccount(tenant.Id, userLdap.Account, input.Password))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);

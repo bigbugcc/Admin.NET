@@ -26,7 +26,7 @@ public class OnlineUserJob : IJob
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var rep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysOnlineUser>>();
+        var rep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysOnlineUser>>();
         await rep.CopyNew().AsDeleteable().ExecuteCommandAsync(stoppingToken);
 
         var originColor = Console.ForegroundColor;
@@ -35,6 +35,6 @@ public class OnlineUserJob : IJob
         Console.ForegroundColor = originColor;
 
         // 缓存租户列表
-        await serviceScope.ServiceProvider.GetService<SysTenantService>().CacheTenant();
+        await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
     }
 }

@@ -8,10 +8,10 @@
 
 using AngleSharp.Html.Parser;
 using AspNetCoreRateLimit;
+using Elastic.Clients.Elasticsearch;
 using Lazy.Captcha.Core;
 using Magicodes.ExporterAndImporter.Pdf;
 using MailKit.Net.Smtp;
-using Nest;
 using OnceMi.AspNetCore.OSS;
 
 namespace Admin.NET.Core.Service;
@@ -31,7 +31,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器配置信息")]
-    public dynamic GetServerBase()
+    public static dynamic GetServerBase()
     {
         return new
         {
@@ -42,7 +42,7 @@ public class SysServerService : IDynamicApiController, ITransient
             SysRunTime = ComputerUtil.GetRunTime(), // 系统运行时间
             RemoteIp = ComputerUtil.GetIpFromOnline(), // 外网地址
             LocalIp = App.HttpContext?.Connection?.LocalIpAddress.ToString(), // 本地地址
-            FrameworkDescription = RuntimeInformation.FrameworkDescription, // NET框架
+            RuntimeInformation.FrameworkDescription, // NET框架
             Environment = App.HostEnvironment.IsDevelopment() ? "Development" : "Production",
             Wwwroot = App.WebHostEnvironment.WebRootPath, // 网站根目录
             Stage = App.HostEnvironment.IsStaging() ? "Stage环境" : "非Stage环境", // 是否Stage环境
@@ -54,7 +54,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器使用信息")]
-    public dynamic GetServerUsed()
+    public static dynamic GetServerUsed()
     {
         var programStartTime = Process.GetCurrentProcess().StartTime;
         var totalMilliseconds = (DateTime.Now - programStartTime).TotalMilliseconds.ToString();
@@ -79,7 +79,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器磁盘信息")]
-    public dynamic GetServerDisk()
+    public static dynamic GetServerDisk()
     {
         return ComputerUtil.GetDiskInfos();
     }
@@ -89,7 +89,7 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取框架主要程序集")]
-    public dynamic GetAssemblyList()
+    public static dynamic GetAssemblyList()
     {
         var furionAssembly = typeof(App).Assembly.GetName();
         var sqlSugarAssembly = typeof(ISqlSugarClient).Assembly.GetName();
@@ -103,7 +103,7 @@ public class SysServerService : IDynamicApiController, ITransient
         var wechatTenpayAssembly = typeof(WechatTenpayClient).Assembly.GetName();
         var ossAssembly = typeof(IOSSServiceFactory).Assembly.GetName();
         var parserAssembly = typeof(Parser).Assembly.GetName();
-        var nestAssembly = typeof(IElasticClient).Assembly.GetName();
+        var nestAssembly = typeof(ElasticsearchClient).Assembly.GetName();
         var limitAssembly = typeof(IpRateLimitMiddleware).Assembly.GetName();
         var htmlParserAssembly = typeof(HtmlParser).Assembly.GetName();
         var fluentEmailAssembly = typeof(SmtpClient).Assembly.GetName();

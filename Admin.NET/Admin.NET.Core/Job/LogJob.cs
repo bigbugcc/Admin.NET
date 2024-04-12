@@ -26,9 +26,9 @@ public class LogJob : IJob
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var logVisRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogVis>>();
-        var logOpRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogOp>>();
-        var logDiffRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogDiff>>();
+        var logVisRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogVis>>();
+        var logOpRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogOp>>();
+        var logDiffRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogDiff>>();
 
         var daysAgo = 30; // 删除30天以前
         await logVisRep.CopyNew().AsDeleteable().Where(u => (DateTime)u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除访问日志
