@@ -41,7 +41,7 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="240" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete')">
+				<el-table-column label="操作" width="240" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete') || auth('sysLdap:userSync')">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditSysLdap(scope.row)" v-auth="'sysLdap:update'"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="delSysLdap(scope.row)" v-auth="'sysLdap:delete'"> 删除 </el-button>

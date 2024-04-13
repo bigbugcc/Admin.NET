@@ -32,8 +32,8 @@ public class SysLdapService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<SysLdap>> Page(SysLdapInput input)
     {
         return await _sysLdapRep.AsQueryable()
-             .WhereIF(!string.IsNullOrWhiteSpace(input.SearchKey), u => u.Host.Contains(input.SearchKey.Trim()))
-             .WhereIF(!string.IsNullOrWhiteSpace(input.Host), u => u.Host.Contains(input.Host.Trim()))
+            .WhereIF(!string.IsNullOrWhiteSpace(input.SearchKey), u => u.Host.Contains(input.SearchKey.Trim()))
+            .WhereIF(!string.IsNullOrWhiteSpace(input.Host), u => u.Host.Contains(input.Host.Trim()))
             .OrderBy(u => u.CreateTime, OrderByType.Desc)
             .ToPagedListAsync(input.Page, input.PageSize);
     }
@@ -67,6 +67,7 @@ public class SysLdapService : IDynamicApiController, ITransient
         {
             entity.BindPass = CryptogramUtil.Encrypt(input.BindPass); // 加密
         }
+
         await _sysLdapRep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
     }
 
@@ -80,7 +81,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     public async Task Delete(DeleteSysLdapInput input)
     {
         var entity = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        await _sysLdapRep.FakeDeleteAsync(entity);  // 假删除
+        await _sysLdapRep.FakeDeleteAsync(entity); // 假删除
         //await _rep.DeleteAsync(entity);  // 真删除
     }
 
@@ -121,11 +122,11 @@ public class SysLdapService : IDynamicApiController, ITransient
         {
             ldapConn.Connect(ldap.Host, ldap.Port);
             ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, ldap.AuthFilter.Replace("$s", account), null, false);
+            var userEntities = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeSub, ldap.AuthFilter.Replace("$s", account), null, false);
             string dn = string.Empty;
-            while (userEntitys.HasMore())
+            while (userEntities.HasMore())
             {
-                var entity = userEntitys.Next();
+                var entity = userEntities.Next();
                 var sAMAccountName = entity.GetAttribute(ldap.AuthFilter)?.StringValue;
                 if (!string.IsNullOrEmpty(sAMAccountName))
                 {
@@ -133,8 +134,9 @@ public class SysLdapService : IDynamicApiController, ITransient
                     break;
                 }
             }
+
             if (string.IsNullOrEmpty(dn)) throw Oops.Oh(ErrorCodeEnum.D1002);
-            var attr = new LdapAttribute("userPassword", password);
+            // var attr = new LdapAttribute("userPassword", password);
             ldapConn.Bind(dn, password);
         }
         catch (LdapException e)
@@ -150,6 +152,7 @@ public class SysLdapService : IDynamicApiController, ITransient
         {
             ldapConn.Disconnect();
         }
+
         return true;
     }
 
@@ -167,20 +170,21 @@ public class SysLdapService : IDynamicApiController, ITransient
         {
             ldapConn.Connect(ldap.Host, ldap.Port);
             ldapConn.Bind(ldap.Version, ldap.BindDn, ldap.BindPass);
-            var userEntitys = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+            var userEntities = ldapConn.Search(ldap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
             var listUserLdap = new List<SysUserLdap>();
-            while (userEntitys.HasMore())
+            while (userEntities.HasMore())
             {
                 LdapEntry entity;
                 try
                 {
-                    entity = userEntitys.Next();
+                    entity = userEntities.Next();
                     if (entity == null) continue;
                 }
                 catch (LdapException)
                 {
                     continue;
                 }
+
                 var attrs = entity.GetAttributeSet();
                 if (attrs.Count == 0 || attrs.ContainsKey("OU"))
                     SearchDnLdapUser(ldapConn, ldap, listUserLdap, entity.Dn);
@@ -195,10 +199,11 @@ public class SysLdapService : IDynamicApiController, ITransient
                     listUserLdap.Add(sysUserLdap);
                 }
             }
+
             if (listUserLdap.Count == 0)
                 return;
 
-            await App.GetRequiredService<SysUserLdapService>().InsertUserLdaps(ldap.TenantId.Value, listUserLdap);
+            await App.GetRequiredService<SysUserLdapService>().InsertUserLdaps(ldap.TenantId!.Value, listUserLdap);
         }
         catch (LdapException e)
         {
@@ -223,19 +228,20 @@ public class SysLdapService : IDynamicApiController, ITransient
     /// <param name="baseDn"></param>
     private static void SearchDnLdapUser(LdapConnection conn, SysLdap ldap, List<SysUserLdap> listUserLdap, string baseDn)
     {
-        var userEntitys = conn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
-        while (userEntitys.HasMore())
+        var userEntities = conn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+        while (userEntities.HasMore())
         {
             LdapEntry entity;
             try
             {
-                entity = userEntitys.Next();
+                entity = userEntities.Next();
                 if (entity == null) continue;
             }
             catch (LdapException)
             {
                 continue;
             }
+
             var attrs = entity.GetAttributeSet();
             if (attrs.Count == 0 || attrs.ContainsKey("OU"))
                 SearchDnLdapUser(conn, ldap, listUserLdap, entity.Dn);
