@@ -213,7 +213,54 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
 
+    /// <summary>
+    /// 获取企业内部应用的access_token
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [DisplayName("获取企业内部应用的access_token")]
+    public async Task<GetDingTalkTokenOutput> GetDingTalkToken([FromQuery] GetDingTalkTokenInput input)
+    {
+        return await _dingTalkApi.GetDingTalkToken(input);
+    }
 
+    /// <summary>
+    /// 获取在职员工列表
+    /// </summary>
+    /// <param name="access_token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [DisplayName("获取在职员工列表")]
+    public async Task<DingTalkBaseResponse<GetDingTalkCurrentEmployeesListOutput>> GetDingTalkCurrentEmployeesList(string access_token, [Required] GetDingTalkCurrentEmployeesListInput input)
+    {
+        return await _dingTalkApi.GetDingTalkCurrentEmployeesList(access_token, input);
+    }
+    /// <summary>
+    /// 获取员工花名册字段信息
+    /// </summary>
+    /// <param name="access_token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [DisplayName("获取员工花名册字段信息")]
+    public async Task<DingTalkBaseResponse<List<DingTalkEmpRosterFieldVo>>> GetDingTalkCurrentEmployeesRosterList(string access_token, [Required] GetDingTalkCurrentEmployeesRosterListInput input)
+    {
+        return await _dingTalkApi.GetDingTalkCurrentEmployeesRosterList(access_token, input);
+    }
+    /// <summary>
+    /// 发送钉钉互动卡片
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [DisplayName("给指定用户发送钉钉互动卡片")]
+    public async Task<DingTalkSendInteractiveCardsOutput> DingTalkSendInteractiveCards(string token, DingTalkSendInteractiveCardsInput input)
+    {
+        return await _dingTalkApi.DingTalkSendInteractiveCards(token, input);
+    }
 
 
 
