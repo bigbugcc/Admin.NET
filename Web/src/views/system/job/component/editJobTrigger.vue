@@ -33,7 +33,7 @@
 								<template #append>
 									<el-space :size="10" spacer="|">
 										<el-dropdown style="color: inherit" trigger="click" @command="macroDropDownCommand">
-											<el-button style="margin: 0px 0px 0px -20px; color: inherit"> Macro </el-button>
+											<el-button style="margin: 0px -10px 0px -20px; color: inherit"> Macro </el-button>
 											<template #dropdown>
 												<el-dropdown-menu>
 													<el-dropdown-item v-for="(item, index) in macroData" :key="index" :command="item">
