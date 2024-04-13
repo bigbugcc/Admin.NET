@@ -39,6 +39,7 @@ public static class ProjectOptions
         services.AddConfigurableOptions<CryptogramOptions>();
         services.AddConfigurableOptions<SMSOptions>();
         services.AddConfigurableOptions<EventBusOptions>();
+        services.AddConfigurableOptions<DingTalkOptions>();
         services.Configure<IpRateLimitOptions>(App.Configuration.GetSection("IpRateLimiting"));
         services.Configure<IpRateLimitPolicies>(App.Configuration.GetSection("IpRateLimitPolicies"));
         services.Configure<ClientRateLimitOptions>(App.Configuration.GetSection("ClientRateLimiting"));

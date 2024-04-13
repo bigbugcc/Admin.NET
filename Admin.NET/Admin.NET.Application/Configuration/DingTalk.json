@@ -1,0 +1,12 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+  "DingTalk": {
+    "AppId": "",
+    "AgentId": "",
+    // 原 AppKey 和 SuiteKey
+    "ClientId": "xxxx",
+    // 原 AppSecret 和 SuiteSecret
+    "ClientSecret": "xxxx"
+  }
+
+}
