@@ -192,3 +192,21 @@ public interface IEntityFilter
     /// <returns></returns>
     IEnumerable<TableFilterItem<object>> AddEntityFilter();
 }
+
+///// <summary>
+///// 自定义业务实体过滤器示例
+///// </summary>
+//public class TestEntityFilter : IEntityFilter
+//{
+//    public IEnumerable<TableFilterItem<object>> AddEntityFilter()
+//    {
+//        // 构造自定义条件的过滤器
+//        Expression<Func<SysUser, bool>> dynamicExpression = u => u.Remark.Contains("xxx");
+//        var tableFilterItem = new TableFilterItem<object>(typeof(SysUser), dynamicExpression);
+
+//        return new[]
+//        {
+//            tableFilterItem
+//        };
+//    }
+//}
