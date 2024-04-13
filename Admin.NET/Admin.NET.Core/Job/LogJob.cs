@@ -16,10 +16,12 @@ namespace Admin.NET.Core;
 public class LogJob : IJob
 {
     private readonly IServiceScopeFactory _scopeFactory;
+    private readonly ILogger _logger;
 
-    public LogJob(IServiceScopeFactory scopeFactory)
+    public LogJob(IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
+        _logger = loggerFactory.CreateLogger("System.Logging.LoggingMonitor");
     }
 
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
@@ -37,7 +39,10 @@ public class LogJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("【" + DateTime.Now + "】清空系统日志（30天前）");
+        Console.WriteLine("【" + DateTime.Now + "】清理系统日志（30天前）");
         Console.ForegroundColor = originColor;
+
+        // 自定义日志
+        _logger.LogInformation("清理系统日志");
     }
 }

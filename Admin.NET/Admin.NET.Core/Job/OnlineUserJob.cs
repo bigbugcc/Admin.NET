@@ -6,6 +6,8 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
+using Furion.Logging.Extensions;
+
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -16,10 +18,12 @@ namespace Admin.NET.Core;
 public class OnlineUserJob : IJob
 {
     private readonly IServiceScopeFactory _scopeFactory;
+    private readonly ILogger _logger;
 
-    public OnlineUserJob(IServiceScopeFactory scopeFactory)
+    public OnlineUserJob(IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
+        _logger = loggerFactory.CreateLogger("System.Logging.LoggingMonitor");
     }
 
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
@@ -36,5 +40,8 @@ public class OnlineUserJob : IJob
 
         // 缓存租户列表
         await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
+
+        // 自定义日志
+        _logger.LogInformation("服务已重启...");
     }
 }
