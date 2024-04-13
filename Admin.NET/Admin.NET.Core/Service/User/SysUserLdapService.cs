@@ -48,7 +48,7 @@ public class SysUserLdapService : ITransient
     /// <returns></returns>
     public async Task AddUserLdap(long tenantId, long userId, string account, string domainAccount)
     {
-        var userLdap = _sysUserLdapRep.GetFirstAsync(u => u.TenantId == tenantId && u.IsDelete == false && (u.Account == account || u.UserId == userId || u.EmployeeId == domainAccount));
+        var userLdap = await _sysUserLdapRep.GetFirstAsync(u => u.TenantId == tenantId && u.IsDelete == false && (u.Account == account || u.UserId == userId || u.EmployeeId == domainAccount));
         if (userLdap != null)
             await _sysUserLdapRep.DeleteByIdAsync(userLdap.Id);
 
