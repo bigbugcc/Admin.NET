@@ -49,7 +49,16 @@ public static class SqlSugarFilter
         if (orgFilter == null)
         {
             // 获取用户所属机构
-            var orgIds = App.GetRequiredService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+            //var orgIds = App.GetRequiredService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+            
+
+            //上面这种方式获取不能保证在同一个作用域，某些时候访问机构列表时会报会报在scoped生命期中已创建实例
+            List<long> orgIds = new List<long>();
+            Scoped.Create((factory, scope) => {
+                var services = scope.ServiceProvider;
+                orgIds=services.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+            });
+
             if (orgIds == null || orgIds.Count == 0) return;
 
             // 获取业务实体数据表
