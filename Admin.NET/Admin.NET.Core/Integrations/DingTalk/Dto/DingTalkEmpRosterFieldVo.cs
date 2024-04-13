@@ -6,25 +6,23 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Core.Integrations;
 
-/// <summary>
-/// SqlSugar相关常量
-/// </summary>
-public class SqlSugarConst
+public class DingTalkEmpRosterFieldVo
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// 企业的corpid。
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    [JsonPropertyName("corp_id")]
+    public string CorpId { get; set; }
     /// <summary>
-    /// 默认日志数据库标识
+    /// 返回的字段信息列表
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
+    [JsonPropertyName("field_data_list")]
+    public List<DingTalkEmpFieldDataVo> FieldDataList { get; set; }
     /// <summary>
-    /// 默认表主键
+    /// 员工的userid
     /// </summary>
-    public const string PrimaryKey = "Id";
+    [JsonPropertyName("userid")]
+    public string UserId { get; set; }
 }

@@ -6,25 +6,18 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
-
-/// <summary>
-/// SqlSugar相关常量
-/// </summary>
-public class SqlSugarConst
+namespace Admin.NET.Core.Integrations;
+public class GetDingTalkCurrentEmployeesListOutput
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// 查询到的员工userid列表
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    [JsonPropertyName("data_list")]
+    public List<string> DataList { get; set; }
     /// <summary>
-    /// 默认日志数据库标识
+    /// 下一次分页调用的offset值，当返回结果里没有next_cursor时，表示分页结束。
     /// </summary>
-    public const string LogConfigId = "1300000000002";
+    [JsonPropertyName("next_cursor")]
+    public int? NextCursor { get; set; }
 
-    /// <summary>
-    /// 默认表主键
-    /// </summary>
-    public const string PrimaryKey = "Id";
 }

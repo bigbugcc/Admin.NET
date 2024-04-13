@@ -9,22 +9,20 @@
 namespace Admin.NET.Core;
 
 /// <summary>
-/// SqlSugar相关常量
+/// 钉钉字段常量
 /// </summary>
-public class SqlSugarConst
+public class DingTalkFieldConst
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// 姓名
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    public const string NameField = "sys00-name";
     /// <summary>
-    /// 默认日志数据库标识
+    /// 手机号
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
+    public const string MobileField = "sys00-mobile";
     /// <summary>
-    /// 默认表主键
+    /// 工号
     /// </summary>
-    public const string PrimaryKey = "Id";
+    public const string JobNumberField = "sys00-jobNumber";
 }

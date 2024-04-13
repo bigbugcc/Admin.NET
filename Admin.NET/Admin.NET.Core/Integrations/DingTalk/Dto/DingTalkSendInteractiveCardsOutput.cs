@@ -6,25 +6,20 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
-
+namespace Admin.NET.Core.Integrations;
 /// <summary>
-/// SqlSugar相关常量
+/// 发送钉钉互动卡片返回
 /// </summary>
-public class SqlSugarConst
+public class DingTalkSendInteractiveCardsOutput
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// 返回结果
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    [JsonPropertyName("success")]
+    public bool Success { get; set; }
     /// <summary>
-    /// 默认日志数据库标识
+    /// 创建卡片结果
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
-    /// <summary>
-    /// 默认表主键
-    /// </summary>
-    public const string PrimaryKey = "Id";
+    [JsonPropertyName("result")]
+    public DingTalkSendInteractiveCardsResult Result { get; set; }
 }

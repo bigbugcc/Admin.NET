@@ -8,23 +8,22 @@
 
 namespace Admin.NET.Core;
 
-/// <summary>
-/// SqlSugar相关常量
-/// </summary>
-public class SqlSugarConst
+public sealed class DingTalkOptions : IConfigurableOptions
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// AppId
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    public string AppId { get; set; }
     /// <summary>
-    /// 默认日志数据库标识
+    /// AgentId
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
+    public string AgentId { get; set; }
     /// <summary>
-    /// 默认表主键
+    /// 原 AppKey 和 SuiteKey
     /// </summary>
-    public const string PrimaryKey = "Id";
+    public string ClientId { get; set; }
+    /// <summary>
+    /// 原 AppSecret 和 SuiteSecret
+    /// </summary>
+    public string ClientSecret { get; set; }
 }

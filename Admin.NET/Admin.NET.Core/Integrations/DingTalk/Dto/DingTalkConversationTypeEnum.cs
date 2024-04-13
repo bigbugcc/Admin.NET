@@ -6,25 +6,21 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
-
+namespace Admin.NET.Core.Integrations;
 /// <summary>
-/// SqlSugar相关常量
+/// 钉钉发送的会话类型
 /// </summary>
-public class SqlSugarConst
+[Description("钉钉发送的会话类型")]
+public enum DingTalkConversationTypeEnum
 {
     /// <summary>
-    /// 默认主数据库标识（默认租户）
+    /// 单聊
     /// </summary>
-    public const string MainConfigId = "1300000000001";
-
+    [Description("单聊")]
+    SingleChat = 0,
     /// <summary>
-    /// 默认日志数据库标识
+    /// 群聊
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
-    /// <summary>
-    /// 默认表主键
-    /// </summary>
-    public const string PrimaryKey = "Id";
+    [Description("群聊")]
+    GroupChat = 1
 }

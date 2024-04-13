@@ -6,25 +6,24 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Core.Integrations;
 
-/// <summary>
-/// SqlSugar相关常量
-/// </summary>
-public class SqlSugarConst
+public class DingTalkFieldValueVo
 {
-    /// <summary>
-    /// 默认主数据库标识（默认租户）
-    /// </summary>
-    public const string MainConfigId = "1300000000001";
 
     /// <summary>
-    /// 默认日志数据库标识
+    /// 第几条的明细标识，下标从0开始
     /// </summary>
-    public const string LogConfigId = "1300000000002";
-
+    [JsonPropertyName("item_index")]
+    public int ItemIndex { get; set; }
     /// <summary>
-    /// 默认表主键
+    /// 字段展示值，选项类型字段对应选项的value。
     /// </summary>
-    public const string PrimaryKey = "Id";
+    [JsonPropertyName("label")]
+    public string Label { get; set; }
+    /// <summary>
+    /// 字段取值，选项类型字段对应选项的key。
+    /// </summary>
+    [JsonPropertyName("value")]
+    public string Value { get; set; }
 }
