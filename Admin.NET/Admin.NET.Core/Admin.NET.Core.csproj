@@ -50,7 +50,6 @@
 
   <ItemGroup>
     <Folder Include="Service\File\" />
-    <Folder Include="integrations\" />
   </ItemGroup>
 	
 </Project>
