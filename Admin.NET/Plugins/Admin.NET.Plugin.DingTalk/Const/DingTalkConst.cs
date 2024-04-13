@@ -6,21 +6,29 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Plugin.DingTalk;
 
 /// <summary>
-/// 钉钉字段常量
+/// 钉钉相关常量
 /// </summary>
-public class DingTalkFieldConst
+[Const("钉钉相关常量")]
+public class DingTalkConst
 {
+    /// <summary>
+    /// API分组名称
+    /// </summary>
+    public const string GroupName = "钉钉【DingTalk】";
+
     /// <summary>
     /// 姓名
     /// </summary>
     public const string NameField = "sys00-name";
+
     /// <summary>
     /// 手机号
     /// </summary>
     public const string MobileField = "sys00-mobile";
+
     /// <summary>
     /// 工号
     /// </summary>

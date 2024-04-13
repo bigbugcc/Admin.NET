@@ -6,20 +6,12 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
-/// <summary>
-/// 发送钉钉互动卡片返回
-/// </summary>
-public class DingTalkSendInteractiveCardsOutput
+namespace Admin.NET.Plugin.DingTalk;
+
+public class DingTalkSendInteractiveCardsResult
 {
     /// <summary>
-    /// 返回结果
+    /// 用于业务方后续查看已读列表的查询key
     /// </summary>
-    [JsonPropertyName("success")]
-    public bool Success { get; set; }
-    /// <summary>
-    /// 创建卡片结果
-    /// </summary>
-    [JsonPropertyName("result")]
-    public DingTalkSendInteractiveCardsResult Result { get; set; }
+    public string ProcessQueryKey { get; set; }
 }

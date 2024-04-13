@@ -6,23 +6,28 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
 
 public class DingTalkEmpRosterFieldVo
 {
     /// <summary>
-    /// 企业的corpid。
+    /// 企业的corpid
     /// </summary>
-    [JsonPropertyName("corp_id")]
+    [Newtonsoft.Json.JsonProperty("corp_id")]
+    [System.Text.Json.Serialization.JsonPropertyName("corp_id")]
     public string CorpId { get; set; }
+
     /// <summary>
     /// 返回的字段信息列表
     /// </summary>
-    [JsonPropertyName("field_data_list")]
+    [Newtonsoft.Json.JsonProperty("field_data_list")]
+    [System.Text.Json.Serialization.JsonPropertyName("field_data_list")]
     public List<DingTalkEmpFieldDataVo> FieldDataList { get; set; }
+
     /// <summary>
     /// 员工的userid
     /// </summary>
-    [JsonPropertyName("userid")]
+    [Newtonsoft.Json.JsonProperty("userid")]
+    [System.Text.Json.Serialization.JsonPropertyName("userid")]
     public string UserId { get; set; }
 }

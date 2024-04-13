@@ -17,5 +17,5 @@ public class GoViewConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "GoView";
+    public const string GroupName = "可视化大屏【GoView】";
 }

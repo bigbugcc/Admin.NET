@@ -6,28 +6,35 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 public class DingTalkEmpFieldDataVo
 {
     /// <summary>
     /// 字段名称
     /// </summary>
-    [JsonPropertyName("field_name")]
+    [Newtonsoft.Json.JsonProperty("field_name")]
+    [System.Text.Json.Serialization.JsonPropertyName("field_name")]
     public string FieldName { get; set; }
+
     /// <summary>
     /// 字段标识
     /// </summary>
-    [JsonPropertyName("field_code")]
+    [Newtonsoft.Json.JsonProperty("field_code")]
+    [System.Text.Json.Serialization.JsonPropertyName("field_code")]
     public string FieldCode { get; set; }
+
     /// <summary>
     /// 分组标识
     /// </summary>
-    [JsonPropertyName("group_id")]
+    [Newtonsoft.Json.JsonProperty("group_id")]
+    [System.Text.Json.Serialization.JsonPropertyName("group_id")]
     public string GroupId { get; set; }
-    /// <summary>
-    /// 
-    /// </summary>
-    [JsonPropertyName("field_value_list")]
-    public List<DingTalkFieldValueVo> FieldValueList { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    [Newtonsoft.Json.JsonProperty("field_value_list")]
+    [System.Text.Json.Serialization.JsonPropertyName("field_value_list")]
+    public List<DingTalkFieldValueVo> FieldValueList { get; set; }
 }

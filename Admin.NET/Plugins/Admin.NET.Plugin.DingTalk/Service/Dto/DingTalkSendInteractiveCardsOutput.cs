@@ -6,24 +6,20 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Plugin.DingTalk;
 
-public sealed class DingTalkOptions : IConfigurableOptions
+/// <summary>
+/// 发送钉钉互动卡片返回
+/// </summary>
+public class DingTalkSendInteractiveCardsOutput
 {
     /// <summary>
-    /// AppId
+    /// 返回结果
     /// </summary>
-    public string AppId { get; set; }
+    public bool Success { get; set; }
+
     /// <summary>
-    /// AgentId
+    /// 创建卡片结果
     /// </summary>
-    public string AgentId { get; set; }
-    /// <summary>
-    /// 原 AppKey 和 SuiteKey
-    /// </summary>
-    public string ClientId { get; set; }
-    /// <summary>
-    /// 原 AppSecret 和 SuiteSecret
-    /// </summary>
-    public string ClientSecret { get; set; }
+    public DingTalkSendInteractiveCardsResult Result { get; set; }
 }

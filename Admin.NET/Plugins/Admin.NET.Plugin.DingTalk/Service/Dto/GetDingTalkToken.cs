@@ -6,42 +6,44 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 public class GetDingTalkTokenInput
 {
     /// <summary>
-    /// 应用的唯一标识key 
+    /// 应用的唯一标识key
     /// </summary>
-    [JsonPropertyName("appkey")]
     public string AppKey { get; set; }
+
     /// <summary>
     /// 应用的密钥。AppKey和AppSecret可在钉钉开发者后台的应用详情页面获取。
     /// </summary>
-    [JsonPropertyName("appsecret")]
     public string AppSecret { get; set; }
 }
 
 public class GetDingTalkTokenOutput
 {
     /// <summary>
-    /// 生成的access_token 
+    /// 生成的access_token
     /// </summary>
-    [JsonPropertyName("access_token")]
+    [Newtonsoft.Json.JsonProperty("access_token")]
+    [System.Text.Json.Serialization.JsonPropertyName("access_token")]
     public string AccessToken { get; set; }
+
     /// <summary>
     /// access_token的过期时间，单位秒
     /// </summary>
-    [JsonPropertyName("expires_in")]
+    [Newtonsoft.Json.JsonProperty("expires_in")]
+    [System.Text.Json.Serialization.JsonPropertyName("expires_in")]
     public int ExpiresIn { get; set; }
+
     /// <summary>
-    /// 返回码描述。
+    /// 返回码描述
     /// </summary>
-    [JsonPropertyName("errmsg")]
     public string ErrMsg { get; set; }
+
     /// <summary>
-    /// 返回码。
+    /// 返回码
     /// </summary>
-    [JsonPropertyName("errcode")]
     public int ErrCode { get; set; }
 }
-

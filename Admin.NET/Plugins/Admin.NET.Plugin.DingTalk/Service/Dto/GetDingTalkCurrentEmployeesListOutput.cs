@@ -6,18 +6,21 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 public class GetDingTalkCurrentEmployeesListOutput
 {
     /// <summary>
-    /// 查询到的员工userid列表
+    /// 查询到的员工userId列表
     /// </summary>
-    [JsonPropertyName("data_list")]
+    [Newtonsoft.Json.JsonProperty("data_list")]
+    [System.Text.Json.Serialization.JsonPropertyName("data_list")]
     public List<string> DataList { get; set; }
+
     /// <summary>
     /// 下一次分页调用的offset值，当返回结果里没有next_cursor时，表示分页结束。
     /// </summary>
-    [JsonPropertyName("next_cursor")]
+    [Newtonsoft.Json.JsonProperty("next_cursor")]
+    [System.Text.Json.Serialization.JsonPropertyName("next_cursor")]
     public int? NextCursor { get; set; }
-
 }

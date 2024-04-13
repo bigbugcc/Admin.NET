@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
 
 /// <summary>
 /// 钉钉基础响应结果
@@ -17,31 +17,27 @@ public class DingTalkBaseResponse<T>
     /// <summary>
     /// 返回结果
     /// </summary>
-    [JsonPropertyName("result")]
     public T Result { get; set; }
+
     /// <summary>
     /// 返回码
     /// </summary>
-    [JsonPropertyName("errcode")]
     public int ErrCode { get; set; }
+
     /// <summary>
     /// 返回码描述。
     /// </summary>
-    [JsonPropertyName("errmsg")]
     public string ErrMsg { get; set; }
+
     /// <summary>
     /// 是否调用成功
     /// </summary>
-    /// <remarks>
-    /// true：成功；
-    /// false：失败；
-    /// </remarks>
-    [JsonPropertyName("success")]
     public bool Success { get; set; }
-    /// <summary>
-    /// 请求ID。
-    /// </summary>
-    [JsonPropertyName("request_id")]
-    public string RequestId { get; set; }
 
+    /// <summary>
+    /// 请求Id
+    /// </summary>
+    [Newtonsoft.Json.JsonProperty("request_id")]
+    [System.Text.Json.Serialization.JsonPropertyName("request_id")]
+    public string RequestId { get; set; }
 }

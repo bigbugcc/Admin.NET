@@ -8,7 +8,8 @@
 
 using Furion.RemoteRequest;
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 public interface IDingTalkApi : IHttpDispatchProxy
 {
     /// <summary>
@@ -17,6 +18,7 @@ public interface IDingTalkApi : IHttpDispatchProxy
     /// <returns></returns>
     [Get("https://oapi.dingtalk.com/gettoken")]
     Task<GetDingTalkTokenOutput> GetDingTalkToken([QueryString] GetDingTalkTokenInput input);
+
     /// <summary>
     /// 获取在职员工列表
     /// </summary>
@@ -26,6 +28,7 @@ public interface IDingTalkApi : IHttpDispatchProxy
     [Post("https://oapi.dingtalk.com/topapi/smartwork/hrm/employee/queryonjob")]
     Task<DingTalkBaseResponse<GetDingTalkCurrentEmployeesListOutput>> GetDingTalkCurrentEmployeesList([QueryString] string access_token,
         [Body, Required] GetDingTalkCurrentEmployeesListInput input);
+
     /// <summary>
     /// 获取员工花名册字段信息
     /// </summary>
@@ -35,6 +38,7 @@ public interface IDingTalkApi : IHttpDispatchProxy
     [Post("https://oapi.dingtalk.com/topapi/smartwork/hrm/employee/v2/list")]
     Task<DingTalkBaseResponse<List<DingTalkEmpRosterFieldVo>>> GetDingTalkCurrentEmployeesRosterList([QueryString] string access_token,
         [Body, Required] GetDingTalkCurrentEmployeesRosterListInput input);
+
     /// <summary>
     /// 发送钉钉互动卡片
     /// </summary>
@@ -45,6 +49,7 @@ public interface IDingTalkApi : IHttpDispatchProxy
     Task<DingTalkSendInteractiveCardsOutput> DingTalkSendInteractiveCards(
         [Headers("x-acs-dingtalk-access-token")] string token,
         [Body] DingTalkSendInteractiveCardsInput input);
+
     /// <summary>
     /// 获取钉钉卡片消息读取状态
     /// </summary>
@@ -55,5 +60,4 @@ public interface IDingTalkApi : IHttpDispatchProxy
     Task<GetDingTalkCardMessageReadStatusOutput> GetDingTalkCardMessageReadStatus(
     [Headers("x-acs-dingtalk-access-token")] string token,
     [QueryString] GetDingTalkCardMessageReadStatusInput input);
-
 }

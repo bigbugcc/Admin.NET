@@ -6,14 +6,13 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core;
+namespace Admin.NET.Plugin.DingTalk;
 
 /// <summary>
 /// 钉钉用户表
 /// </summary>
 [SugarTable(null, "钉钉用户表")]
-[SysTable]
-public class SysDingTalkUser : EntityBase
+public class DingTalkUser : EntityBase
 {
     /// <summary>
     /// 系统用户Id
@@ -51,24 +50,11 @@ public class SysDingTalkUser : EntityBase
     public string? Name { get; set; }
 
     /// <summary>
-    /// 头像
-    /// </summary>
-    [SugarColumn(ColumnDescription = "头像", Length = 256)]
-    [MaxLength(256)]
-    public string? Avatar { get; set; }
-
-    /// <summary>
     /// 手机号码
     /// </summary>
     [SugarColumn(ColumnDescription = "手机号码", Length = 16)]
     [MaxLength(16)]
     public string? Mobile { get; set; }
-    /// <summary>
-    /// 工号
-    /// </summary>
-    [SugarColumn(ColumnDescription = "工号", Length = 16)]
-    [MaxLength(16)]
-    public string? JobNumber { get; set; }
 
     /// <summary>
     /// 性别
@@ -76,5 +62,17 @@ public class SysDingTalkUser : EntityBase
     [SugarColumn(ColumnDescription = "性别")]
     public int? Sex { get; set; }
 
+    /// <summary>
+    /// 头像
+    /// </summary>
+    [SugarColumn(ColumnDescription = "头像", Length = 256)]
+    [MaxLength(256)]
+    public string? Avatar { get; set; }
 
+    /// <summary>
+    /// 工号
+    /// </summary>
+    [SugarColumn(ColumnDescription = "工号", Length = 16)]
+    [MaxLength(16)]
+    public string? JobNumber { get; set; }
 }

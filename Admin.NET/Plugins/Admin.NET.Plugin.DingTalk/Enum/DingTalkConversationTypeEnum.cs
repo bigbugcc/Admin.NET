@@ -6,11 +6,12 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 /// <summary>
-/// 钉钉发送的会话类型
+/// 钉钉发送的会话类型枚举
 /// </summary>
-[Description("钉钉发送的会话类型")]
+[Description("钉钉发送的会话类型枚举")]
 public enum DingTalkConversationTypeEnum
 {
     /// <summary>
@@ -18,6 +19,7 @@ public enum DingTalkConversationTypeEnum
     /// </summary>
     [Description("单聊")]
     SingleChat = 0,
+
     /// <summary>
     /// 群聊
     /// </summary>

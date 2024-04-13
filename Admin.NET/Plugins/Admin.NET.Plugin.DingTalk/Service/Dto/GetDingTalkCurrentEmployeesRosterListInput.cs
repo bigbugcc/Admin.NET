@@ -6,22 +6,26 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
+
 public class GetDingTalkCurrentEmployeesRosterListInput
 {
     /// <summary>
-    /// 员工的userid列表，多个userid之间使用逗号分隔，一次最多支持传100个值。
+    /// 员工的userId列表，多个userid之间使用逗号分隔，一次最多支持传100个值。
     /// </summary>
-    [JsonPropertyName("userid_list")]
+    [Newtonsoft.Json.JsonProperty("userid_list")]
+    [System.Text.Json.Serialization.JsonPropertyName("userid_list")]
     public string UserIdList { get; set; }
+
     /// <summary>
     /// 需要获取的花名册字段field_code值列表，多个字段之间使用逗号分隔，一次最多支持传100个值。
     /// </summary>
-    [JsonPropertyName("field_filter_list")]
+    [Newtonsoft.Json.JsonProperty("field_filter_list")]
+    [System.Text.Json.Serialization.JsonPropertyName("field_filter_list")]
     public string FieldFilterList { get; set; }
+
     /// <summary>
     /// 应用的AgentId
     /// </summary>
-    [JsonPropertyName("agentid")]
     public string AgentId { get; set; }
 }

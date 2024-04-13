@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Core.Integrations;
+namespace Admin.NET.Plugin.DingTalk;
 
 /// <summary>
 /// 卡片公有数据
@@ -16,12 +16,11 @@ public class DingTalkCardData
     /// <summary>
     /// 卡片模板内容替换参数，普通文本类型。
     /// </summary>
-    [JsonPropertyName("cardParamMap")]
     public DingTalkCardParamMap CardParamMap { get; set; }
+
     /// <summary>
     /// 卡片模板内容替换参数，多媒体类型。
     /// </summary>
-    [JsonPropertyName("cardMediaIdParamMap")]
     public string CardMediaIdParamMap { get; set; }
 }
 
@@ -33,6 +32,7 @@ public class DingTalkCardParamMap
     /// <summary>
     /// 片模板内容替换参数
     /// </summary>
-    [JsonPropertyName("sys_full_json_obj")]
+    [Newtonsoft.Json.JsonProperty("sys_full_json_obj")]
+    [System.Text.Json.Serialization.JsonPropertyName("sys_full_json_obj")]
     public string SysFullJsonObj { get; set; }
 }
