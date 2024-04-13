@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Application.Const;
+namespace Admin.NET.Application;
 
 /// <summary>
 /// 业务应用相关常量
@@ -16,5 +16,5 @@ public class ApplicationConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "业务应用";
+    public const string GroupName = "xxx业务应用";
 }

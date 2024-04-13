@@ -12,6 +12,7 @@ global using Furion.ConfigurableOptions;
 global using Furion.DependencyInjection;
 global using Furion.DynamicApiController;
 global using Furion.FriendlyException;
+global using Furion.RemoteRequest;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Options;

@@ -412,7 +412,7 @@ public class ShellUtil
     /// <param name="args"></param>
     /// <returns></returns>
     public static string Cmd(string fileName, string args)
-    { 
+    {
         var info = new ProcessStartInfo
         {
             FileName = fileName,
@@ -464,7 +464,7 @@ public class ShellHelper
     /// <param name="args"></param>
     /// <returns></returns>
     public static string Cmd(string fileName, string args)
-    { 
+    {
         var info = new ProcessStartInfo
         {
             FileName = fileName,

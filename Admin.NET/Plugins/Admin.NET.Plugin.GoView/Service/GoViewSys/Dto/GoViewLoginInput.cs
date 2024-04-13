@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Plugin.GoView.Service.Dto;
+namespace Admin.NET.Plugin.GoView.Service;
 
 /// <summary>
 /// 登录输入
