@@ -41,11 +41,11 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="240" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete') || auth('sysLdap:userSync')">
+				<el-table-column label="操作" width="240" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete') || auth('sysLdap:syncUser')">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditSysLdap(scope.row)" v-auth="'sysLdap:update'"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="delSysLdap(scope.row)" v-auth="'sysLdap:delete'"> 删除 </el-button>
-						<el-button icon="ele-Refresh" size="small" text type="primary" @click="syncDomainData(scope.row)" v-auth="'sysLdap:userSync'"> 同步域账户 </el-button>
+						<el-button icon="ele-Refresh" size="small" text type="primary" @click="syncDomainUser(scope.row)" v-auth="'sysLdap:syncUser'"> 同步域账户 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -153,7 +153,7 @@ const handleCurrentChange = (val: number) => {
 };
 
 // 同步域账户
-const syncDomainData = (row: any) => {
+const syncDomainUser = (row: any) => {
 	ElMessageBox.confirm(`确定要同步域账户吗?`, '提示', {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
