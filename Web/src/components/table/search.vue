@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts" name="makeTableDemoSearch">
-import { reactive, ref } from 'vue';
+import { reactive, ref, toRefs } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { saulVModel } from '/@/utils/saulVModel';
 
@@ -129,7 +129,11 @@ const props = defineProps({
 
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['search', 'reset', 'update:modelValue']);
-const searchModel = ref(props.modelValue);
+
+// 将 props中的值转为 ref
+const refProps = toRefs(props);
+const searchModel = refProps.modelValue;
+
 // 定义变量内容
 const tableSearchRef = ref<FormInstance>();
 const state = reactive({
