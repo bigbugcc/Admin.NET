@@ -49,7 +49,6 @@ public abstract class EntityBase : EntityBaseId, IDeletedFilter
     /// </summary>
     [Newtonsoft.Json.JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    [Navigate(NavigateType.OneToOne, nameof(CreateUserId))]
     public virtual SysUser CreateUser { get; set; }
 
     /// <summary>
@@ -69,7 +68,6 @@ public abstract class EntityBase : EntityBaseId, IDeletedFilter
     /// </summary>
     [Newtonsoft.Json.JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    [Navigate(NavigateType.OneToOne, nameof(UpdateUserId))]
     public virtual SysUser UpdateUser { get; set; }
 
     /// <summary>

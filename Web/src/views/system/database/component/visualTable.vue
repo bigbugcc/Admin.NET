@@ -1,68 +1,64 @@
 <template>
-	<div class="sys-databaseVisual-container">
-		<div style="height: calc(100vh - 60px)">
-			<RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick">
-				<template #graph-plug>
-					<!-- To facilitate understanding, the CSS style code is directly embedded here. -->
-					<div
-						style="
-							z-index: 300;
-							position: absolute;
-							left: 10px;
-							top: calc(100% - 50px);
-							font-size: 12px;
-							background-color: #ffffff;
-							border: #efefef solid 1px;
-							border-radius: 10px;
-							width: 260px;
-							height: 40px;
-							display: flex;
-							align-items: center;
-							justify-content: center;
-						"
-					>
-						图例：
-						<div>
-							一对多
-							<div style="height: 5px; width: 80px; background-color: rgba(0, 255, 0, 0.5)"></div>
-						</div>
-						<div style="margin-left: 10px">
-							一对一
-							<div style="height: 5px; width: 80px; background-color: rgba(255, 0, 0, 0.5)"></div>
-						</div>
+	<div class="sys-databaseVisual-container" style="height: calc(100vh - 60px)">
+		<RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick">
+			<template #graph-plug>
+				<div
+					style="
+						z-index: 300;
+						position: absolute;
+						left: 10px;
+						top: calc(100% - 50px);
+						font-size: 12px;
+						background-color: #ffffff;
+						border: #efefef solid 1px;
+						border-radius: 10px;
+						width: 260px;
+						height: 40px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					"
+				>
+					图例：
+					<div>
+						一对多
+						<div style="height: 5px; width: 80px; background-color: rgba(0, 255, 0, 0.5)"></div>
 					</div>
-				</template>
+					<div style="margin-left: 10px">
+						一对一
+						<div style="height: 5px; width: 80px; background-color: rgba(255, 0, 0, 0.5)"></div>
+					</div>
+				</div>
+			</template>
 
-				<template #canvas-plug>
-					<!--- You can put some elements that are not allowed to be dragged here --->
-				</template>
+			<template #canvas-plug>
+				<!--- You can put some elements that are not allowed to be dragged here --->
+			</template>
 
-				<template #node="{ node }">
-					<div style="width: 500px; background-color: #f39930">
-						<!---------------- if node a ---------------->
-						<div style="height: 30px; display: flex; align-items: center; justify-content: center">{{ node.text }} - 【{{ node.data.columns.length }}列】</div>
-						<table class="c-data-table">
+			<template #node="{ node }">
+				<div style="width: 500px; background-color: #f39930">
+					<div style="height: 30px; display: flex; align-items: center; justify-content: center">{{ node.text }} - 【{{ node.data.columns.length }}列】</div>
+					<table class="c-data-table">
+						<tr>
+							<th>列名</th>
+							<th>类型</th>
+							<th>长度</th>
+							<th>描述</th>
+						</tr>
+						<template v-for="column of node.data.columns" :key="column.columnName">
 							<tr>
-								<th>列名</th>
-								<th>类型</th>
-								<th>长度</th>
-								<th>描述</th>
+								<td>
+									<div :id="`${node.id}-${column.columnName}`">{{ column.columnName }}</div>
+								</td>
+								<td>{{ column.dataType }}</td>
+								<td>{{ column.dataLength }}</td>
+								<td>{{ column.columnDescription }}</td>
 							</tr>
-							<template v-for="column of node.data.columns" :key="column.columnName">
-								<tr>
-									<td>
-										<div :id="`${node.id}-${column.columnName}`" style="background-color: var(--el-color-primary-light-3)">{{ column.columnName }}</div>
-									</td>
-									<td>{{ column.dataType }}</td>
-									<td>{{ column.dataLength }}</td>
-									<td>{{ column.columnDescription }}</td>
-								</tr>
-							</template>
-						</table>
-					</div>
-				</template>
-			</RelationGraph>
-		</div>
+						</template>
+					</table>
+				</div>
+			</template>
+		</RelationGraph>
 	</div>
 </template>
 
@@ -75,73 +71,22 @@ import type { RGOptions, RGNode, RGLine, RGLink, RGUserEvent, RGJsonData, Relati
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysDatabaseApi } from '/@/api-services/api';
-import { DbColumnOutput, DbTableInfo } from '/@/api-services/models';
 
 const route = useRoute();
 const state = reactive({
 	loading: false,
-	loading1: false,
-	dbData: [] as any,
 	configId: '' as any,
-	tableData: [] as Array<DbTableInfo>,
-	visualTable: [],
-	visualRTable: [],
-	tableName: '',
-	columnData: [] as Array<DbColumnOutput>,
-	queryParams: {
-		name: undefined,
-		code: undefined,
-	},
-	editPosTitle: '',
-	appNamespaces: [] as Array<String>, // 存储位置
-	//graphOptions: {
-	//    defaultNodeBorderWidth: 0,
-	//    defaultNodeColor: "rgba(238, 178, 94, 1)",
-	//    allowSwitchLineShape: true,
-	//    allowSwitchJunctionPoint: true,
-	//    defaultLineShape: 1,
-	//    layouts: [
-	//      {
-	//        label: "自动布局",
-	//        layoutName: "force",
-	//        layoutClassName: "seeks-layout-force",
-	//        distance_coefficient: 3
-	//      },
-	//    ],
-	//    defaultJunctionPoint: "border",
-	//  },
-});
-
-onMounted(async () => {
-	state.configId = route.query.configId;
-	console.log(state.configId);
-
-	showGraph();
 });
 
 const graphRef = ref<RelationGraphComponent | null>(null);
 const graphOptions: RGOptions = {
-	debug: false,
-	allowSwitchLineShape: true,
-	allowSwitchJunctionPoint: true,
-	allowShowDownloadButton: true,
 	defaultJunctionPoint: 'border',
-	// placeOtherNodes: false,
-	placeSingleNode: false,
-	graphOffset_x: -200,
-	graphOffset_y: 100,
-	defaultLineMarker: {
-		markerWidth: 20,
-		markerHeight: 20,
-		refX: 3,
-		refY: 3,
-		data: 'M 0 0, V 6, L 4 3, Z',
-	},
-	layout: {
-		layoutName: 'fixed',
-	},
-	// You can refer to the parameters in "Graph" for setting here
 };
+
+onMounted(async () => {
+	state.configId = route.query.configId;
+	showGraph();
+});
 
 // 获取可视化表和字段
 const showGraph = async () => {
@@ -159,7 +104,6 @@ const showGraph = async () => {
 			y,
 			nodeShape: 1,
 			data: {
-				// Costomer key have to in data
 				columns: visualColumnList.filter((col: any) => col.tableName === table.tableName),
 			},
 		};
@@ -219,7 +163,7 @@ const onLineClick = (lineObject: RGLine, linkObject: RGLink, $event: RGUserEvent
 }
 .c-data-table td div,
 .c-data-table th div {
-	background-color: #1da9f5;
+	background-color: var(--el-color-primary-light-3);
 	color: #ffffff;
 	border-radius: 5px;
 }
