@@ -1,8 +1,8 @@
 <template>
 	<div class="sys-dict-container">
-		<el-row :gutter="8" style="width: 100%">
-			<el-col :span="12" :xs="24">
-				<el-card class="full-table" shadow="hover" :body-style="{ paddingBottom: '20' }">
+		<el-row :gutter="8" style="width: 100%; height: 100%; flex: 1">
+			<el-col :span="12" :xs="24" style="display: flex; height: 100%; flex: 1">
+				<el-card class="full-table" shadow="hover" :body-style="{ height: 'calc(100% - 51px)' }">
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
 					</template>
@@ -34,7 +34,7 @@
 								<el-tag type="danger" v-else>禁用</el-tag>
 							</template>
 						</el-table-column>
-						<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
+						<el-table-column prop="orderNo" label="排序" width="60" align="center" show-overflow-tooltip />
 						<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 							<template #default="scope">
 								<ModifyRecord :data="scope.row" />
@@ -68,8 +68,8 @@
 				</el-card>
 			</el-col>
 
-			<el-col :span="12" :xs="24">
-				<el-card class="full-table" shadow="hover" :body-style="{ paddingBottom: '20' }">
+			<el-col :span="12" :xs="24" style="display: flex; height: 100%; flex: 1">
+				<el-card class="full-table" shadow="hover" :body-style="{ height: 'calc(100% - 51px)' }">
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
 					</template>
@@ -93,12 +93,12 @@
 
 					<el-table :data="state.dictDataData" style="width: 100%" v-loading="state.loading" border>
 						<el-table-column type="index" label="序号" width="55" align="center" />
-						<el-table-column prop="value" label="字典值" header-align="center" min-width="140" show-overflow-tooltip>
+						<el-table-column prop="value" label="字典值" header-align="center" min-width="120" show-overflow-tooltip>
 							<template #default="scope">
 								<el-tag :type="scope.row.tagType" :style="scope.row.styleSetting" :class="scope.row.classSetting">{{ scope.row.value }}</el-tag>
 							</template>
 						</el-table-column>
-						<el-table-column prop="code" label="编码" header-align="center" min-width="100" show-overflow-tooltip />
+						<el-table-column prop="code" label="编码" header-align="center" min-width="120" show-overflow-tooltip />
 						<el-table-column prop="extData" label="拓展数据" width="90" align="center">
 							<template #default="scope">
 								<el-tag type="warning" v-if="scope.row.extData == null || scope.row.extData == ''">空</el-tag>
@@ -111,7 +111,7 @@
 								<el-tag type="danger" v-else>禁用</el-tag>
 							</template>
 						</el-table-column>
-						<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
+						<el-table-column prop="orderNo" label="排序" width="60" align="center" show-overflow-tooltip />
 						<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 							<template #default="scope">
 								<ModifyRecord :data="scope.row" />
