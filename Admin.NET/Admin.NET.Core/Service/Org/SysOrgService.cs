@@ -84,7 +84,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="orgTree"></param>
     /// <param name="userOrgIdList"></param>
-    private void HandlerOrgTree(List<SysOrg> orgTree, List<long> userOrgIdList)
+    private static void HandlerOrgTree(List<SysOrg> orgTree, List<long> userOrgIdList)
     {
         foreach (var org in orgTree)
         {

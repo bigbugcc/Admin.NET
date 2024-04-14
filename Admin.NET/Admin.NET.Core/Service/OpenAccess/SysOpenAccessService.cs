@@ -132,9 +132,9 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("创建密钥")]
-    public Task<string> CreateSecret()
+    public async Task<string> CreateSecret()
     {
-        return Task.FromResult(Convert.ToBase64String(Guid.NewGuid().ToByteArray())[..^2]);
+        return await Task.FromResult(Convert.ToBase64String(Guid.NewGuid().ToByteArray())[..^2]);
     }
 
     /// <summary>
@@ -143,9 +143,9 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     /// <param name="accessKey"></param>
     /// <returns></returns>
     [NonAction]
-    public Task<SysOpenAccess> GetByKey(string accessKey)
+    public async Task<SysOpenAccess> GetByKey(string accessKey)
     {
-        return Task.FromResult(
+        return await Task.FromResult(
             _sysCacheService.GetOrAdd(CacheConst.KeyOpenAccess + accessKey, _ =>
             {
                 return _sysOpenAccessRep.AsQueryable()
