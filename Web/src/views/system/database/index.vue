@@ -309,13 +309,13 @@ const delColumn = (row: any) => {
 
 // 可视化表
 const visualTable = () => {
-	if (state.configId == '') {
-		ElMessage({
-			type: 'error',
-			message: `请选择库名!`,
-		});
-		return;
-	}
+	//if (state.configId == '') {
+	//	ElMessage({
+	//		type: 'error',
+	//		message: `请选择库名!`,
+	//	});
+	//	return;
+	//}
 	router.push(`/develop/database/visual?configId=${state.configId}`);
 };
 </script>
