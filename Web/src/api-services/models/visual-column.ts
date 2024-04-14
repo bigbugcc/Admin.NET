@@ -37,4 +37,16 @@ export interface VisualColumn {
      * @memberof VisualColumn
      */
     dataType?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof VisualColumn
+     */
+    dataLength?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof VisualColumn
+     */
+    columnDescription?: string | null;
 }

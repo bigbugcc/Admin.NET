@@ -24,11 +24,11 @@
 						图例：
 						<div>
 							一对多
-							<div style="height: 5px; width: 80px; background-color: rgba(159, 23, 227, 0.65)"></div>
+							<div style="height: 5px; width: 80px; background-color: rgba(0, 255, 0, 0.5)"></div>
 						</div>
 						<div style="margin-left: 10px">
 							一对一
-							<div style="height: 5px; width: 80px; background-color: rgba(29, 169, 245, 0.76)"></div>
+							<div style="height: 5px; width: 80px; background-color: rgba(255, 0, 0, 0.5)"></div>
 						</div>
 					</div>
 				</template>
@@ -38,13 +38,15 @@
 				</template>
 
 				<template #node="{ node }">
-					<div style="width: 350px; background-color: #f39930">
+					<div style="width: 500px; background-color: #f39930">
 						<!---------------- if node a ---------------->
 						<div style="height: 30px; display: flex; align-items: center; justify-content: center">{{ node.text }} - 【{{ node.data.columns.length }}列】</div>
 						<table class="c-data-table">
 							<tr>
 								<th>列名</th>
 								<th>类型</th>
+								<th>长度</th>
+								<th>描述</th>
 							</tr>
 							<template v-for="column of node.data.columns" :key="column.columnName">
 								<tr>
@@ -52,6 +54,8 @@
 										<div :id="`${node.id}-${column.columnName}`" style="background-color: var(--el-color-primary-light-3)">{{ column.columnName }}</div>
 									</td>
 									<td>{{ column.dataType }}</td>
+									<td>{{ column.dataLength }}</td>
+									<td>{{ column.columnDescription }}</td>
 								</tr>
 							</template>
 						</table>
@@ -164,7 +168,7 @@ const showGraph = async () => {
 		return {
 			from: relation.sourceTableName + '-' + relation.sourceColumnName, // HtmlElement id
 			to: relation.targetTableName + '-' + relation.targetColumnName, // HtmlElement id
-			color: relation.type === 'ONE_TO_ONE' ? 'rgba(29,169,245,0.76)' : 'rgba(159,23,227,0.65)',
+			color: relation.type === 'ONE_TO_ONE' ? 'rgba(255,0,0,0.5)' : 'rgba(0,255,0,0.5)',
 			text: '',
 			fromJunctionPoint: 'left',
 			toJunctionPoint: 'lr',

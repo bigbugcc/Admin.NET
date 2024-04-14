@@ -38,6 +38,10 @@ public class VisualColumn
     public string ColumnName { get; set; }
 
     public string DataType { get; set; }
+
+    public string DataLength { get; set; }
+
+    public string ColumnDescription { get; set; }
 }
 
 public class ColumnRelation

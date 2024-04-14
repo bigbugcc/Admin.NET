@@ -74,7 +74,9 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                 {
                     TableName = columnInfo.DbTableName,
                     ColumnName = columnInfo.DbColumnName,
-                    DataType = columnInfo.DataType
+                    DataType = columnInfo.PropertyInfo.PropertyType.Name,
+                    DataLength = columnInfo.Length.ToString(),
+                    ColumnDescription = columnInfo.ColumnDescription,
                 };
                 visualColumnList.Add(visualColumn);
 
