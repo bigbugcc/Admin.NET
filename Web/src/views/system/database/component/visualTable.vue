@@ -141,7 +141,7 @@ const graphOptions: RGOptions = {
 
 // 获取可视化表和字段
 const showGraph = async () => {
-	var res = await getAPI(SysDatabaseApi).apiSysDatabaseVisualListGet();
+	var res = await getAPI(SysDatabaseApi).apiSysDatabaseVisualDbTableGet();
 	const visualTableList: any = res.data.result?.visualTableList;
 	const visualColumnList: any = res.data.result?.visualColumnList;
 	const columnRelationList: any = res.data.result?.columnRelationList;
