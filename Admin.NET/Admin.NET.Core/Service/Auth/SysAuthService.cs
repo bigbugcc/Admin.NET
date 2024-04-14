@@ -12,7 +12,7 @@ using Lazy.Captcha.Core;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统登录授权服务 💥
+/// 系统登录授权服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 500)]
 public class SysAuthService : IDynamicApiController, ITransient

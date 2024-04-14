@@ -13,7 +13,7 @@ using OnceMi.AspNetCore.OSS;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统文件服务 💥
+/// 系统文件服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 410)]
 public class SysFileService : IDynamicApiController, ITransient

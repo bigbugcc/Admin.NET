@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统访问日志服务 💥
+/// 系统访问日志服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 340)]
 public class SysLogVisService : IDynamicApiController, ITransient

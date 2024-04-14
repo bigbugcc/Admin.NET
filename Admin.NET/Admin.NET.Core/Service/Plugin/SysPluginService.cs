@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统动态插件服务 💥
+/// 系统动态插件服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 245)]
 public class SysPluginService : IDynamicApiController, ITransient

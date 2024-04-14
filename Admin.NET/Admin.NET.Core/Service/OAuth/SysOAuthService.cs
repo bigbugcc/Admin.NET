@@ -12,7 +12,7 @@ using System.Security.Claims;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统OAuth服务 💥
+/// 系统OAuth服务 🧩
 /// </summary>
 [AllowAnonymous]
 [ApiDescriptionSettings(Order = 495)]

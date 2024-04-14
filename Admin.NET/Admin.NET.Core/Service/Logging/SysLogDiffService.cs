@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统差异日志服务 💥
+/// 系统差异日志服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 330)]
 public class SysLogDiffService : IDynamicApiController, ITransient

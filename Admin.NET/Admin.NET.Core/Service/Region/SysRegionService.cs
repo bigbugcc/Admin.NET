@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统行政区域服务 💥
+/// 系统行政区域服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 310)]
 public class SysRegionService : IDynamicApiController, ITransient

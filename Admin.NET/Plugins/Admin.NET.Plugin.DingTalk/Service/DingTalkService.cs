@@ -9,7 +9,7 @@
 namespace Admin.NET.Plugin.DingTalk.Service;
 
 /// <summary>
-/// 钉钉服务
+/// 钉钉服务 🧩
 /// </summary>
 [ApiDescriptionSettings(DingTalkConst.GroupName, Module = "DingTalk", Order = 100)]
 public class DingTalkService : IDynamicApiController, IScoped
@@ -31,7 +31,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 同步钉钉用户
+    /// 同步钉钉用户 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("同步钉钉用户")]
@@ -161,7 +161,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 获取企业内部应用的access_token
+    /// 获取企业内部应用的access_token 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -172,7 +172,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 获取在职员工列表
+    /// 获取在职员工列表 🔖
     /// </summary>
     /// <param name="access_token"></param>
     /// <param name="input"></param>
@@ -184,7 +184,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 获取员工花名册字段信息
+    /// 获取员工花名册字段信息 🔖
     /// </summary>
     /// <param name="access_token"></param>
     /// <param name="input"></param>
@@ -196,7 +196,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 发送钉钉互动卡片
+    /// 发送钉钉互动卡片 🔖
     /// </summary>
     /// <param name="token"></param>
     /// <param name="input"></param>

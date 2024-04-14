@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信支付服务 💥
+/// 微信支付服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 210)]
 public class SysWechatPayService : IDynamicApiController, ITransient

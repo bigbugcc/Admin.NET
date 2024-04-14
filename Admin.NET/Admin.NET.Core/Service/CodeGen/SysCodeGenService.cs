@@ -11,7 +11,7 @@ using System.IO.Compression;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统代码生成器服务 💥
+/// 系统代码生成器服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 270)]
 public class SysCodeGenService : IDynamicApiController, ITransient

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统在线用户服务 💥
+/// 系统在线用户服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 300)]
 public class SysOnlineUserService : IDynamicApiController, ITransient

@@ -13,7 +13,7 @@ using Npgsql;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统数据库管理服务 💥
+/// 系统数据库管理服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 250)]
 public class SysDatabaseService : IDynamicApiController, ITransient

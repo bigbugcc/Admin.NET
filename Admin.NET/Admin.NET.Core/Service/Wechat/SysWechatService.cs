@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信公众号服务 💥
+/// 微信公众号服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 230)]
 public class SysWechatService : IDynamicApiController, ITransient

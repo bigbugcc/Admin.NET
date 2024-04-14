@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统职位服务 💥
+/// 系统职位服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 460)]
 public class SysPosService : IDynamicApiController, ITransient

@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统用户服务 💥
+/// 系统用户服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 490)]
 public class SysUserService : IDynamicApiController, ITransient
