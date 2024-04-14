@@ -1,6 +1,10 @@
 @{
   var pkField = Model.TableField.Where(c => c.ColumnKey == "True").FirstOrDefault();
-  string pkFieldName = LowerFirstLetter(pkField.PropertyName);
+  string pkFieldName = null;
+  if(pkField != null && !string.IsNullOrEmpty(pkField.PropertyName))
+  {
+    pkFieldName = LowerFirstLetter(pkField.PropertyName);
+  }
   Dictionary<string, int> definedObjects = new Dictionary<string, int>();
   bool haveLikeCdt = false;
   foreach (var column in Model.TableField){
@@ -113,7 +117,10 @@
 				style="width: 100%"
 				v-loading="loading"
 				tooltip-effect="light"
-				row-key="@(@pkFieldName)"
+                @if(@pkFieldName != null)
+                {
+				@:row-key="@(@pkFieldName)"
+                }
                 @@sort-change="sortChange"
 				border="">
         <el-table-column type="index" label="序号" width="55" align="center"/>
