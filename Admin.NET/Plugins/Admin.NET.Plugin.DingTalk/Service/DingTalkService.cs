@@ -33,12 +33,16 @@ public class DingTalkService : IDynamicApiController, IScoped
     /// <summary>
     /// 获取企业内部应用的access_token
     /// </summary>
-    /// <param name="input"></param>
     /// <returns></returns>
     [DisplayName("获取企业内部应用的access_token")]
-    public async Task<GetDingTalkTokenOutput> GetDingTalkToken([FromQuery] GetDingTalkTokenInput input)
+    public async Task<GetDingTalkTokenOutput> GetDingTalkToken()
     {
-        return await _dingTalkApi.GetDingTalkToken(input);
+        var tokenRes = await _dingTalkApi.GetDingTalkToken(_dingTalkOptions.ClientId, _dingTalkOptions.ClientSecret);
+        if (tokenRes.ErrCode != 0)
+        {
+            throw Oops.Oh(tokenRes.ErrMsg);
+        }
+        return tokenRes;
     }
 
     /// <summary>
