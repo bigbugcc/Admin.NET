@@ -8,18 +8,6 @@
 
 namespace Admin.NET.Plugin.DingTalk;
 
-public class GetDingTalkTokenInput
-{
-    /// <summary>
-    /// 应用的唯一标识key
-    /// </summary>
-    public string AppKey { get; set; }
-
-    /// <summary>
-    /// 应用的密钥。AppKey和AppSecret可在钉钉开发者后台的应用详情页面获取。
-    /// </summary>
-    public string AppSecret { get; set; }
-}
 
 public class GetDingTalkTokenOutput
 {

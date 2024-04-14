@@ -6,8 +6,6 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-using Furion.RemoteRequest;
-
 namespace Admin.NET.Plugin.DingTalk;
 
 public interface IDingTalkApi : IHttpDispatchProxy
@@ -15,9 +13,11 @@ public interface IDingTalkApi : IHttpDispatchProxy
     /// <summary>
     /// 获取企业内部应用的access_token
     /// </summary>
+    /// <param name="appkey">应用的唯一标识key</param>
+    /// <param name="appsecret"> 应用的密钥。AppKey和AppSecret可在钉钉开发者后台的应用详情页面获取。</param>
     /// <returns></returns>
     [Get("https://oapi.dingtalk.com/gettoken")]
-    Task<GetDingTalkTokenOutput> GetDingTalkToken([QueryString] GetDingTalkTokenInput input);
+    Task<GetDingTalkTokenOutput> GetDingTalkToken([QueryString] string appkey, [QueryString] string appsecret);
 
     /// <summary>
     /// 获取在职员工列表

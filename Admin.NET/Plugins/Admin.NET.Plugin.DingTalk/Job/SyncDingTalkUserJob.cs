@@ -38,12 +38,7 @@ public class SyncDingTalkUserJob : IJob
         var _dingTalkUserRepo = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<DingTalkUser>>();
         var _dingTalkOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<DingTalkOptions>>();
         // 获取token
-        var param = new GetDingTalkTokenInput()
-        {
-            AppKey = _dingTalkOptions.Value.ClientId,
-            AppSecret = _dingTalkOptions.Value.ClientSecret
-        };
-        var tokenRes = await _dingTalkApi.GetDingTalkToken(param);
+        var tokenRes = await _dingTalkApi.GetDingTalkToken(_dingTalkOptions.Value.ClientId, _dingTalkOptions.Value.ClientSecret);
         if (tokenRes.ErrCode != 0)
         {
             throw Oops.Oh(tokenRes.ErrMsg);
@@ -99,19 +94,19 @@ public class SyncDingTalkUserJob : IJob
         var iDingTalkUser = dingTalkUserList.Where(u => !sysDingTalkUserIdList.Any(d => d.DingTalkUserId == u.UserId));
         #region 新增钉钉用户
         var iUser = iDingTalkUser
-            .Select(res => new SysDingTalkUser
+            .Select(res => new DingTalkUser
             {
                 DingTalkUserId = res.UserId,
                 Name = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.NameField)
+                .Where(f => f.FieldCode == DingTalkConst.NameField)
                 .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
                 Mobile = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.MobileField)
+                .Where(f => f.FieldCode == DingTalkConst.MobileField)
                    .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
                 JobNumber = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.JobNumberField)
+                .Where(f => f.FieldCode == DingTalkConst.JobNumberField)
                   .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
             }).ToList();
@@ -127,20 +122,20 @@ public class SyncDingTalkUserJob : IJob
 
         #region 更新钉钉用户
         var uUser = uDingTalkUser
-        .Select(res => new SysDingTalkUser
+        .Select(res => new DingTalkUser
         {
             Id = sysDingTalkUserIdList.Where(d => d.DingTalkUserId == res.UserId).Select(d => d.Id).FirstOrDefault(),
             DingTalkUserId = res.UserId,
             Name = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.NameField)
+                .Where(f => f.FieldCode == DingTalkConst.NameField)
                 .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
             Mobile = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.MobileField)
+                .Where(f => f.FieldCode == DingTalkConst.MobileField)
                    .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
             JobNumber = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkFieldConst.JobNumberField)
+                .Where(f => f.FieldCode == DingTalkConst.JobNumberField)
                   .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
                 .FirstOrDefault(),
         }).ToList();
