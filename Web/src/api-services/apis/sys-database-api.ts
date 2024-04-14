@@ -20,6 +20,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AdminResultListDbColumnOutput } from '../models';
 import { AdminResultListDbTableInfo } from '../models';
 import { AdminResultListString } from '../models';
+import { AdminResultVisualDbTable } from '../models';
 import { CreateEntityInput } from '../models';
 import { CreateSeedDataInput } from '../models';
 import { DbColumnInput } from '../models';
@@ -512,43 +513,6 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
-        apiSysDatabaseVisualListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysDatabase/visuallist`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @summary 获取表列表 🔖
@@ -688,6 +652,49 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取可视化库列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysDatabaseVisualListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysDatabase/visualList`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -842,14 +849,6 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
                 return axios.request(axiosRequestArgs);
             };
         },
-        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListString>>> {
-            const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseVisualListGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        
         /**
          * 
          * @summary 获取表列表 🔖
@@ -887,6 +886,19 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
          */
         async apiSysDatabaseUpdateTablePost(body?: UpdateDbTableInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseUpdateTablePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取可视化库列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultVisualDbTable>>> {
+            const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseVisualListGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1000,10 +1012,6 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         async apiSysDatabaseListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListString>> {
             return SysDatabaseApiFp(configuration).apiSysDatabaseListGet(options).then((request) => request(axios, basePath));
         },
-        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListString>> {
-            return SysDatabaseApiFp(configuration).apiSysDatabaseVisualListGet(options).then((request) => request(axios, basePath));
-        },
-        
         /**
          * 
          * @summary 获取表列表 🔖
@@ -1033,6 +1041,15 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
          */
         async apiSysDatabaseUpdateTablePost(body?: UpdateDbTableInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return SysDatabaseApiFp(configuration).apiSysDatabaseUpdateTablePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取可视化库列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultVisualDbTable>> {
+            return SysDatabaseApiFp(configuration).apiSysDatabaseVisualListGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1153,10 +1170,6 @@ export class SysDatabaseApi extends BaseAPI {
     public async apiSysDatabaseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListString>> {
         return SysDatabaseApiFp(this.configuration).apiSysDatabaseListGet(options).then((request) => request(this.axios, this.basePath));
     }
-    public async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListString>> {
-        return SysDatabaseApiFp(this.configuration).apiSysDatabaseVisualListGet(options).then((request) => request(this.axios, this.basePath));
-    }
-    
     /**
      * 
      * @summary 获取表列表 🔖
@@ -1189,5 +1202,15 @@ export class SysDatabaseApi extends BaseAPI {
      */
     public async apiSysDatabaseUpdateTablePost(body?: UpdateDbTableInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysDatabaseApiFp(this.configuration).apiSysDatabaseUpdateTablePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取可视化库列表 🔖
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysDatabaseApi
+     */
+    public async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultVisualDbTable>> {
+        return SysDatabaseApiFp(this.configuration).apiSysDatabaseVisualListGet(options).then((request) => request(this.axios, this.basePath));
     }
 }

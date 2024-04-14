@@ -32,22 +32,24 @@
 						</div>
 					</div>
 				</template>
+
 				<template #canvas-plug>
 					<!--- You can put some elements that are not allowed to be dragged here --->
 				</template>
+
 				<template #node="{ node }">
-					<div style="width: 300px; background-color: #f39930">
+					<div style="width: 350px; background-color: #f39930">
 						<!---------------- if node a ---------------->
-						<div>{{ node.text }} - {{ node.data.columns.length }} Cols</div>
+						<div style="height: 30px; display: flex; align-items: center; justify-content: center">{{ node.text }} - 【{{ node.data.columns.length }}列】</div>
 						<table class="c-data-table">
 							<tr>
-								<th>Column Name</th>
-								<th>Data Type</th>
+								<th>列名</th>
+								<th>类型</th>
 							</tr>
 							<template v-for="column of node.data.columns" :key="column.columnName">
 								<tr>
 									<td>
-										<div :id="`${node.id}-${column.columnName}`">{{ column.columnName }}</div>
+										<div :id="`${node.id}-${column.columnName}`" style="background-color: var(--el-color-primary-light-3)">{{ column.columnName }}</div>
 									</td>
 									<td>{{ column.dataType }}</td>
 								</tr>
@@ -111,29 +113,7 @@ onMounted(async () => {
 	console.log(state.configId);
 
 	showGraph();
-
 });
-
-// // 获取可视化表和字段
-// const getVisualTableList = async () => {
-// 	state.columnData = [];
-// 	if (state.tableName == '') return;
-
-// 	state.loading1 = true;
-// 	var res = await getAPI(SysDatabaseApi).apiGetVisualTableList();
-// 	state.columnData = res.data.result ?? [];
-// 	state.loading1 = false;
-// };
-
-// 获取可视化表关系
-const getVisualRTableList = async () => {
-	state.columnData = [];
-	if (state.tableName == '') return;
-
-	state.loading1 = true;
-	var res = await getAPI(SysDatabaseApi).apiSysDatabaseListGet();
-	state.loading1 = false;
-};
 
 const graphRef = ref<RelationGraphComponent | null>(null);
 const graphOptions: RGOptions = {
@@ -159,14 +139,14 @@ const graphOptions: RGOptions = {
 	// You can refer to the parameters in "Graph" for setting here
 };
 
+// 获取可视化表和字段
 const showGraph = async () => {
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseVisualListGet();
-	const tables = res.data.result.tables;
-	const tableCols = res.data.result.tableColslist;
-	const columnRelations = res.data.result.columnRelationslist;
-	//debugger;
+	const visualTableList: any = res.data.result?.visualTableList;
+	const visualColumnList: any = res.data.result?.visualColumnList;
+	const columnRelationList: any = res.data.result?.columnRelationList;
 
-	const graphNodes = tables.map((table) => {
+	const graphNodes = visualTableList.map((table: any) => {
 		const { tableName, tableComents, x, y } = table;
 		return {
 			id: tableName,
@@ -176,17 +156,14 @@ const showGraph = async () => {
 			nodeShape: 1,
 			data: {
 				// Costomer key have to in data
-
-				columns: tableCols.filter((col) => col.tableName === table.tableName),
+				columns: visualColumnList.filter((col: any) => col.tableName === table.tableName),
 			},
 		};
 	});
-	const graphLines = columnRelations.map((relation) => {
+	const graphLines = columnRelationList.map((relation: any) => {
 		return {
 			from: relation.sourceTableName + '-' + relation.sourceColumnName, // HtmlElement id
-
 			to: relation.targetTableName + '-' + relation.targetColumnName, // HtmlElement id
-
 			color: relation.type === 'ONE_TO_ONE' ? 'rgba(29,169,245,0.76)' : 'rgba(159,23,227,0.65)',
 			text: '',
 			fromJunctionPoint: 'left',
