@@ -42,6 +42,94 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 可视化获取库列表 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("可视化获取库列表")]
+    public YourType GetVisualList()
+    {
+        List<tables> tables = new List<tables>();
+        List<tableCols> tableColslist = new List<tableCols>();
+        List<columnRelations> columnRelationslist = new List<columnRelations>();
+        var tableslist = _db.DbMaintenance.GetTableInfoList(false);
+        foreach (DbTableInfo item in tableslist)
+        {
+            Random ran = new Random();
+            tables tables1 = new tables();
+            tables1.tableName = item.Name;
+            tables1.tableComents = item.Name + " comments";
+            tables1.x = ran.Next(10000);
+            tables1.y = ran.Next(10000);
+            tables.Add(tables1);
+            List<DbColumnInfo> dbColumnInfos = _db.DbMaintenance.GetColumnInfosByTableName(item.Name, false);
+            foreach (var item2 in dbColumnInfos)
+            {
+                tableCols tableCols1 = new tableCols();
+                tableCols1.tableName = item2.TableName;
+                tableCols1.columnName = item2.DbColumnName;
+                tableCols1.dataType = item2.DataType;
+                tableColslist.Add(tableCols1);
+            }
+        }
+        columnRelations columnRelations = new columnRelations();
+        columnRelations.sourceTableName = "SysDictType";
+        columnRelations.sourceColumnName = "Id";
+        columnRelations.type = "ONE_TO_ONE";
+        columnRelations.targetTableName = "SysDictData";
+        columnRelations.targetColumnName = "Id";
+        columnRelations columnRelations2 = new columnRelations();
+        columnRelations2.sourceTableName = "";
+        columnRelations2.sourceColumnName = "";
+        columnRelations2.type = "ONE_TO_ONE";
+        columnRelations2.targetTableName = "";
+        columnRelations2.targetColumnName = "";
+        columnRelationslist.Add(columnRelations);
+        //columnRelationslist.Add(columnRelations2);
+
+        return new YourType { tables = tables, tableColslist = tableColslist, columnRelationslist = columnRelationslist };
+    }
+    public class tables
+    {
+        public string tableName { get; set; }
+
+        public string tableComents { get; set; }
+
+        public int x { get; set; }
+
+        public int y { get; set; }
+    }
+
+    public class tableCols
+    {
+        public string tableName { get; set; }
+
+        public string columnName { get; set; }
+
+        public string dataType { get; set; }
+    }
+
+    public class columnRelations
+    {
+        public string sourceTableName { get; set; }
+
+        public string sourceColumnName { get; set; }
+
+        public string type { get; set; }
+
+        public string targetTableName { get; set; }
+
+        public string targetColumnName { get; set; }
+    }
+
+    public class YourType
+    {
+        public List<tables> tables { get; set; }
+        public List<tableCols> tableColslist { get; set; }
+        public List<columnRelations> columnRelationslist { get; set; }
+    }
+
+
+    /// <summary>
     /// 获取字段列表 🔖
     /// </summary>
     /// <param name="tableName">表名</param>

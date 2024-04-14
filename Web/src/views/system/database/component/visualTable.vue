@@ -67,8 +67,8 @@ import { useRoute } from 'vue-router';
 import RelationGraph from 'relation-graph/vue3';
 import type { RGOptions, RGNode, RGLine, RGLink, RGUserEvent, RGJsonData, RelationGraphComponent } from 'relation-graph/vue3';
 
-// import { getAPI } from '/@/utils/axios-utils';
-// import { SysDatabaseApi } from '/@/api-services/api';
+import { getAPI } from '/@/utils/axios-utils';
+import { SysDatabaseApi } from '/@/api-services/api';
 import { DbColumnOutput, DbTableInfo } from '/@/api-services/models';
 
 const route = useRoute();
@@ -111,6 +111,7 @@ onMounted(async () => {
 	console.log(state.configId);
 
 	showGraph();
+
 });
 
 // // 获取可视化表和字段
@@ -124,16 +125,15 @@ onMounted(async () => {
 // 	state.loading1 = false;
 // };
 
-// // 获取可视化表关系
-// const getVisualRTableList = async () => {
-// 	state.columnData = [];
-// 	if (state.tableName == '') return;
+// 获取可视化表关系
+const getVisualRTableList = async () => {
+	state.columnData = [];
+	if (state.tableName == '') return;
 
-// 	state.loading1 = true;
-// 	var res = await getAPI(SysDatabaseApi).apiGetVisualRTableList();
-// 	state.columnData = res.data.result ?? [];
-// 	state.loading1 = false;
-// };
+	state.loading1 = true;
+	var res = await getAPI(SysDatabaseApi).apiSysDatabaseListGet();
+	state.loading1 = false;
+};
 
 const graphRef = ref<RelationGraphComponent | null>(null);
 const graphOptions: RGOptions = {
@@ -160,49 +160,12 @@ const graphOptions: RGOptions = {
 };
 
 const showGraph = async () => {
-	const tables = [
-		{ tableName: 'SYS_USER', tableComents: 'SYS_USER comments', x: 500, y: -300 },
-		{ tableName: 'SYS_DEPT', tableComents: 'SYS_DEPT comments', x: 0, y: -300 },
-		{ tableName: 'SYS_ROLE', tableComents: 'SYS_ROLE comments', x: 0, y: 0 },
-		{ tableName: 'SYS_USER_ROLE', tableComents: 'SYS_USER_ROLE comments', x: 500, y: 0 },
-		{ tableName: 'SYS_RESOURCE', tableComents: 'SYS_RESOURCE comments', x: 0, y: 300 },
-		{ tableName: 'SYS_ROLE_RESOURCE', tableComents: 'SYS_ROLE_RESOURCE comments', x: 500, y: 300 },
-	];
-	const tableCols = [
-		{ tableName: 'SYS_USER', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_USER', columnName: 'user_name', dataType: 'varchar(50)' },
-		{ tableName: 'SYS_USER', columnName: 'dept_id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_USER', columnName: 'create_time', dataType: 'TIMESTAMP' },
-		{ tableName: 'SYS_USER', columnName: 'status', dataType: 'varchar(1)' },
-		{ tableName: 'SYS_DEPT', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_DEPT', columnName: 'dept_name', dataType: 'varchar(50)' },
-		{ tableName: 'SYS_DEPT', columnName: 'parent_dept_id', dataType: 'varchar(50)' },
-		{ tableName: 'SYS_DEPT', columnName: 'create_time', dataType: 'TIMESTAMP' },
-		{ tableName: 'SYS_DEPT', columnName: 'status', dataType: 'varchar(50)' },
-		{ tableName: 'SYS_ROLE', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_ROLE', columnName: 'role_name', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_ROLE', columnName: 'create_time', dataType: 'TIMESTAMP' },
-		{ tableName: 'SYS_USER_ROLE', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_USER_ROLE', columnName: 'user_id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_USER_ROLE', columnName: 'role_id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_USER_ROLE', columnName: 'create_time', dataType: 'TIMESTAMP' },
-		{ tableName: 'SYS_USER_ROLE', columnName: 'status', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_RESOURCE', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_RESOURCE', columnName: 'resource_name', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_RESOURCE', columnName: 'create_time', dataType: 'TIMESTAMP' },
-		{ tableName: 'SYS_ROLE_RESOURCE', columnName: 'id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_ROLE_RESOURCE', columnName: 'role_id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_ROLE_RESOURCE', columnName: 'resource_id', dataType: 'varchar(36)' },
-		{ tableName: 'SYS_ROLE_RESOURCE', columnName: 'status', dataType: 'varchar(1)' },
-	];
-	const columnRelations = [
-		{ sourceTableName: 'SYS_USER', sourceColumnName: 'dept_id', type: 'MORE_TO_ONE', targetTableName: 'SYS_DEPT', targetColumnName: 'id' },
-		{ sourceTableName: 'SYS_DEPT', sourceColumnName: 'parent_dept_id', type: 'ONE_TO_ONE', targetTableName: 'SYS_DEPT', targetColumnName: 'id' },
-		{ sourceTableName: 'SYS_USER_ROLE', sourceColumnName: 'user_id', type: 'MORE_TO_ONE', targetTableName: 'SYS_USER', targetColumnName: 'id' },
-		{ sourceTableName: 'SYS_USER_ROLE', sourceColumnName: 'role_id', type: 'MORE_TO_ONE', targetTableName: 'SYS_ROLE', targetColumnName: 'id' },
-		{ sourceTableName: 'SYS_ROLE_RESOURCE', sourceColumnName: 'role_id', type: 'MORE_TO_ONE', targetTableName: 'SYS_ROLE', targetColumnName: 'id' },
-		{ sourceTableName: 'SYS_ROLE_RESOURCE', sourceColumnName: 'resource_id', type: 'MORE_TO_ONE', targetTableName: 'SYS_RESOURCE', targetColumnName: 'id' },
-	];
+	var res = await getAPI(SysDatabaseApi).apiSysDatabaseVisualListGet();
+	const tables = res.data.result.tables;
+	const tableCols = res.data.result.tableColslist;
+	const columnRelations = res.data.result.columnRelationslist;
+	//debugger;
+
 	const graphNodes = tables.map((table) => {
 		const { tableName, tableComents, x, y } = table;
 		return {
