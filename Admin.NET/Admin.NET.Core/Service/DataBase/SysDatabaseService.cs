@@ -42,51 +42,59 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取可视化库列表 🔖
+    /// 获取可视化库表结构 🔖
     /// </summary>
     /// <returns></returns>
-    [DisplayName("可视化获取库列表")]
-    public VisualDbTable GetVisualList()
+    [DisplayName("获取可视化库表结构")]
+    public VisualDbTable GetVisualDbTable()
     {
         var visualTableList = new List<VisualTable>();
         var visualColumnList = new List<VisualColumn>();
         var columnRelationList = new List<ColumnRelation>();
 
-        var dbTableInfos = _db.DbMaintenance.GetTableInfoList(false);
-        foreach (DbTableInfo tableInfo in dbTableInfos)
+        // 遍历所有实体获取所有库表结构
+        var random = new Random();
+        var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false)).ToList();
+        foreach (var entityType in entityTypes)
         {
-            var ran = new Random();
+            var entityInfo = _db.EntityMaintenance.GetEntityInfoNoCache(entityType);
+
             var visualTable = new VisualTable
             {
-                TableName = tableInfo.Name,
-                TableComents = tableInfo.Name + tableInfo.Description,
-                X = ran.Next(5000),
-                Y = ran.Next(5000)
+                TableName = entityInfo.DbTableName,
+                TableComents = entityInfo.TableDescription + entityInfo.DbTableName,
+                X = random.Next(5000),
+                Y = random.Next(5000)
             };
             visualTableList.Add(visualTable);
 
-            var dbColumnInfos = _db.DbMaintenance.GetColumnInfosByTableName(tableInfo.Name, false);
-            foreach (DbColumnInfo columnInfo in dbColumnInfos)
+            foreach (EntityColumnInfo columnInfo in entityInfo.Columns)
             {
                 var visualColumn = new VisualColumn
                 {
-                    TableName = columnInfo.TableName,
+                    TableName = columnInfo.DbTableName,
                     ColumnName = columnInfo.DbColumnName,
                     DataType = columnInfo.DataType
                 };
                 visualColumnList.Add(visualColumn);
+
+                // 根据导航配置获取表之间关联关系
+                if (columnInfo.Navigat != null)
+                {
+                    var name1 = columnInfo.Navigat.GetName();
+                    var name2 = columnInfo.Navigat.GetName2();
+                    var relation = new ColumnRelation
+                    {
+                        SourceTableName = columnInfo.DbTableName,
+                        SourceColumnName = name1,
+                        Type = columnInfo.Navigat.GetNavigateType() == NavigateType.OneToOne ? "ONE_TO_ONE" : "ONE_TO_MANY",
+                        TargetTableName = columnInfo.DbColumnName,
+                        TargetColumnName = string.IsNullOrEmpty(name2) ? "Id" : name2
+                    };
+                    columnRelationList.Add(relation);
+                }
             }
         }
-
-        var columnRelation = new ColumnRelation
-        {
-            SourceTableName = "SysDictType",
-            SourceColumnName = "Id",
-            Type = "ONE_TO_ONE",
-            TargetTableName = "SysDictData",
-            TargetColumnName = "Id"
-        };
-        columnRelationList.Add(columnRelation);
 
         return new VisualDbTable { VisualTableList = visualTableList, VisualColumnList = visualColumnList, ColumnRelationList = columnRelationList };
     }

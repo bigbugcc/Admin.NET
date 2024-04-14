@@ -660,12 +660,12 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 获取可视化库列表 🔖
+         * @summary 获取可视化库表结构 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysDatabaseVisualListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysDatabase/visualList`;
+        apiSysDatabaseVisualDbTableGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysDatabase/visualDbTable`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -893,12 +893,12 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取可视化库列表 🔖
+         * @summary 获取可视化库表结构 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultVisualDbTable>>> {
-            const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseVisualListGet(options);
+        async apiSysDatabaseVisualDbTableGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultVisualDbTable>>> {
+            const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseVisualDbTableGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1044,12 +1044,12 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 获取可视化库列表 🔖
+         * @summary 获取可视化库表结构 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultVisualDbTable>> {
-            return SysDatabaseApiFp(configuration).apiSysDatabaseVisualListGet(options).then((request) => request(axios, basePath));
+        async apiSysDatabaseVisualDbTableGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultVisualDbTable>> {
+            return SysDatabaseApiFp(configuration).apiSysDatabaseVisualDbTableGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1205,12 +1205,12 @@ export class SysDatabaseApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取可视化库列表 🔖
+     * @summary 获取可视化库表结构 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysDatabaseApi
      */
-    public async apiSysDatabaseVisualListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultVisualDbTable>> {
-        return SysDatabaseApiFp(this.configuration).apiSysDatabaseVisualListGet(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysDatabaseVisualDbTableGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultVisualDbTable>> {
+        return SysDatabaseApiFp(this.configuration).apiSysDatabaseVisualDbTableGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
