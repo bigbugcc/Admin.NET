@@ -293,7 +293,7 @@ const submitPassword = () => {
 
 		// SM2加密密码
 		const cpwd: ChangePwdInput = { passwordOld: '', passwordNew: '' };
-		const publicKey = `0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312`;
+		const publicKey = window.__env__.VITE_SM_PUBLIC_KEY;
 		cpwd.passwordOld = sm2.doEncrypt(state.ruleFormPassword.passwordOld, publicKey, 1);
 		cpwd.passwordNew = sm2.doEncrypt(state.ruleFormPassword.passwordNew, publicKey, 1);
 		await getAPI(SysUserApi).apiSysUserChangePwdPost(cpwd);
