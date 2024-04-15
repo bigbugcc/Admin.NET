@@ -118,7 +118,6 @@ public class ChangePwdInput
     /// 新密码
     /// </summary>
     [Required(ErrorMessage = "新密码不能为空"), MinLength(5, ErrorMessage = "密码需要大于5个字符")]
-    //[StringLength(20, MinimumLength = 5, ErrorMessage = "密码需要大于5个字符")]
     public string PasswordNew { get; set; }
 }
 

@@ -28,12 +28,6 @@ public enum ErrorCodeEnum
     D0009,
 
     /// <summary>
-    /// 账号或密码不存在
-    /// </summary>
-    [ErrorCodeItemMetadata("账号或密码错误")]
-    D0010,
-
-    /// <summary>
     /// 密码不正确
     /// </summary>
     [ErrorCodeItemMetadata("密码不正确")]

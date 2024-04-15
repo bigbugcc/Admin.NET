@@ -290,13 +290,14 @@ const resetPassword = () => {
 const submitPassword = () => {
 	ruleFormPasswordRef.value?.validate(async (valid: boolean) => {
 		if (!valid) return;
+
 		// SM2加密密码
-		const cpwd:ChangePwdInput={passwordOld:'',passwordNew:''};
+		const cpwd: ChangePwdInput = { passwordOld: '', passwordNew: '' };
 		const publicKey = `0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312`;
 		cpwd.passwordOld = sm2.doEncrypt(state.ruleFormPassword.passwordOld, publicKey, 1);
 		cpwd.passwordNew = sm2.doEncrypt(state.ruleFormPassword.passwordNew, publicKey, 1);
-		//
 		await getAPI(SysUserApi).apiSysUserChangePwdPost(cpwd);
+
 		// 退出系统
 		ElMessageBox.confirm('密码已修改，是否重新登录系统？', '提示', {
 			confirmButtonText: '确定',
