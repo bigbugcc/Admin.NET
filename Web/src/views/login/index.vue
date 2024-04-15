@@ -103,13 +103,14 @@ onMounted(() => {
 			z-index: 1;
 			animation: logoAnimation 0.3s ease;
 			img {
-				width: 100px;
+				// width: 100px;
 				height: 64px;
 			}
 			.login-left-logo-text {
 				display: flex;
 				flex-direction: column;
 				span {
+					margin-left: 20px;
 					font-size: 28px;
 					font-weight: 700;
 					color: var(--el-color-white);
