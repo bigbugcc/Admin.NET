@@ -80,7 +80,7 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // 账号是否存在
         var user = await _sysUserRep.AsQueryable().Includes(t => t.SysOrg).ClearFilter().FirstAsync(u => u.Account.Equals(input.Account));
-        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0010);
 
         // 账号是否被冻结
         if (user.Status == StatusEnum.Disable)
@@ -131,7 +131,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             if (!user.Password.Equals(MD5Encryption.Encrypt(input.Password)))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
-                throw Oops.Oh(ErrorCodeEnum.D1000);
+                throw Oops.Oh(ErrorCodeEnum.D0010);
             }
         }
         else
@@ -139,7 +139,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
-                throw Oops.Oh(ErrorCodeEnum.D1000);
+                throw Oops.Oh(ErrorCodeEnum.D0010);
             }
         }
     }
@@ -154,7 +154,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     {
         // 账号是否存在
         var user = await _sysUserRep.GetFirstAsync(u => u.Id == _userManager.UserId);
-        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0010);
 
         // 国密SM2解密（前端密码传输SM2加密后的）
         password = CryptogramUtil.SM2Decrypt(password);
@@ -163,12 +163,12 @@ public class SysAuthService : IDynamicApiController, ITransient
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (!user.Password.Equals(MD5Encryption.Encrypt(password)))
-                throw Oops.Oh(ErrorCodeEnum.D1000);
+                throw Oops.Oh(ErrorCodeEnum.D0010);
         }
         else
         {
             if (!CryptogramUtil.Decrypt(user.Password).Equals(password))
-                throw Oops.Oh(ErrorCodeEnum.D1000);
+                throw Oops.Oh(ErrorCodeEnum.D0010);
         }
 
         return true;
