@@ -186,15 +186,13 @@ public class SysLdapService : IDynamicApiController, ITransient
                 }
 
                 var attrs = ldapEntry.GetAttributeSet();
+                string deptCode = GetDepartmentCode(attrs, sysLdap.BindAttrCode);
                 if (attrs.Count == 0 || attrs.ContainsKey("OU"))
-                    SearchDnLdapUser(ldapConn, sysLdap, userLdapList, ldapEntry.Dn);
+                    SearchDnLdapUser(ldapConn, sysLdap, userLdapList, ldapEntry.Dn, deptCode);
                 else
                 {
-                    var sysUserLdap = new SysUserLdap
-                    {
-                        Account = !attrs.ContainsKey(sysLdap.BindAttrAccount) ? null : attrs.GetAttribute(sysLdap.BindAttrAccount)?.StringValue,
-                        EmployeeId = !attrs.ContainsKey(sysLdap.BindAttrEmployeeId) ? null : attrs.GetAttribute(sysLdap.BindAttrEmployeeId)?.StringValue
-                    };
+                    var sysUserLdap = CreateSysUserLdap(attrs, sysLdap.BindAttrAccount, sysLdap.BindAttrEmployeeId, deptCode);
+
                     if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
                     userLdapList.Add(sysUserLdap);
                 }
@@ -220,15 +218,144 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 获取部门代码
+    /// </summary>
+    /// <param name="attrs"></param>
+    /// <param name="bindAttrCode"></param>
+    /// <returns></returns>
+    private static string GetDepartmentCode(LdapAttributeSet attrs, string bindAttrCode)
+    {
+        return bindAttrCode == "objectGUID"
+            ? new Guid(attrs.GetAttribute(bindAttrCode)?.ByteValue).ToString()
+            : attrs.GetAttribute(bindAttrCode)?.StringValue ?? "0";
+    }
+
+    /// <summary>
+    /// 创建同步对象
+    /// </summary>
+    /// <param name="attrs"></param>
+    /// <param name="bindAttrAccount"></param>
+    /// <param name="bindAttrEmployeeId"></param>
+    /// <param name="deptCode"></param>
+    /// <returns></returns>
+    private static SysUserLdap CreateSysUserLdap(LdapAttributeSet attrs, string bindAttrAccount, string bindAttrEmployeeId, string deptCode)
+    {
+        return new SysUserLdap
+        {
+            Account = !attrs.ContainsKey(bindAttrAccount) ? null : attrs.GetAttribute(bindAttrAccount)?.StringValue,
+            EmployeeId = !attrs.ContainsKey(bindAttrEmployeeId) ? null : attrs.GetAttribute(bindAttrEmployeeId)?.StringValue,
+            DeptCode = deptCode
+        };
+    }
+
+    /// <summary>
     /// 遍历查询域用户
     /// </summary>
-    /// <param name="conn"></param>
-    /// <param name="ldap"></param>
+    /// <param name="ldapConn"></param>
+    /// <param name="sysLdap"></param>
     /// <param name="userLdapList"></param>
     /// <param name="baseDn"></param>
-    private static void SearchDnLdapUser(LdapConnection conn, SysLdap ldap, List<SysUserLdap> userLdapList, string baseDn)
+    /// <param name="deptCode"></param>
+    private static void SearchDnLdapUser(LdapConnection ldapConn, SysLdap sysLdap, List<SysUserLdap> userLdapList, string baseDn, string deptCode)
     {
-        var ldapSearchResults = conn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+        var ldapSearchResults = ldapConn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+        while (ldapSearchResults.HasMore())
+        {
+            LdapEntry ldapEntry;
+            try
+            {
+                ldapEntry = ldapSearchResults.Next();
+                if (ldapEntry == null) continue;
+            }
+            catch (LdapException)
+            {
+                continue;
+            }
+
+            var attrs = ldapEntry.GetAttributeSet();
+            deptCode = GetDepartmentCode(attrs, sysLdap.BindAttrCode);
+
+            if (attrs.Count == 0 || attrs.ContainsKey("OU"))
+                SearchDnLdapUser(ldapConn, sysLdap, userLdapList, ldapEntry.Dn, deptCode);
+            else
+            {
+                var sysUserLdap = CreateSysUserLdap(attrs, sysLdap.BindAttrAccount, sysLdap.BindAttrEmployeeId, deptCode);
+
+                if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
+                userLdapList.Add(sysUserLdap);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 同步域组织 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [DisplayName("同步域组织")]
+    public async Task SyncDept(SyncSysLdapInput input)
+    {
+        var sysLdap = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var ldapConn = new LdapConnection();
+        try
+        {
+            ldapConn.Connect(sysLdap.Host, sysLdap.Port);
+            ldapConn.Bind(sysLdap.Version, sysLdap.BindDn, sysLdap.BindPass);
+            var ldapSearchResults = ldapConn.Search(sysLdap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
+            var listOrgs = new List<SysOrg>();
+            while (ldapSearchResults.HasMore())
+            {
+                LdapEntry ldapEntry;
+                try
+                {
+                    ldapEntry = ldapSearchResults.Next();
+                    if (ldapEntry == null) continue;
+                }
+                catch (LdapException)
+                {
+                    continue;
+                }
+
+                var attrs = ldapEntry.GetAttributeSet();
+                if (attrs.Count == 0 || attrs.ContainsKey("OU"))
+                {
+                    var sysOrg = CreateSysOrg(attrs, sysLdap, listOrgs, new SysOrg { Id = 0, Level = 0 });
+                    listOrgs.Add(sysOrg);
+
+                    SearchDnLdapDept(ldapConn, sysLdap, listOrgs, ldapEntry.Dn, sysOrg);
+                }
+            }
+
+            if (listOrgs.Count == 0)
+                return;
+
+            await App.GetRequiredService<SysOrgService>().BatchAddOrgs(listOrgs);
+        }
+        catch (LdapException e)
+        {
+            throw e.ResultCode switch
+            {
+                LdapException.NoSuchObject or LdapException.NoSuchAttribute => Oops.Oh(ErrorCodeEnum.D0009),
+                _ => Oops.Oh(e.Message),
+            };
+        }
+        finally
+        {
+            ldapConn.Disconnect();
+        }
+    }
+
+    /// <summary>
+    /// 遍历查询域用户
+    /// </summary>
+    /// <param name="ldapConn"></param>
+    /// <param name="sysLdap"></param>
+    /// <param name="listOrgs"></param>
+    /// <param name="baseDn"></param>
+    /// <param name="org"></param>
+    private static void SearchDnLdapDept(LdapConnection ldapConn, SysLdap sysLdap, List<SysOrg> listOrgs, string baseDn, SysOrg org)
+    {
+        var ldapSearchResults = ldapConn.Search(baseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
         while (ldapSearchResults.HasMore())
         {
             LdapEntry ldapEntry;
@@ -244,17 +371,33 @@ public class SysLdapService : IDynamicApiController, ITransient
 
             var attrs = ldapEntry.GetAttributeSet();
             if (attrs.Count == 0 || attrs.ContainsKey("OU"))
-                SearchDnLdapUser(conn, ldap, userLdapList, ldapEntry.Dn);
-            else
             {
-                var sysUserLdap = new SysUserLdap
-                {
-                    Account = !attrs.ContainsKey(ldap.BindAttrAccount) ? null : attrs.GetAttribute(ldap.BindAttrAccount)?.StringValue,
-                    EmployeeId = !attrs.ContainsKey(ldap.BindAttrEmployeeId) ? null : attrs.GetAttribute(ldap.BindAttrEmployeeId)?.StringValue
-                };
-                if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
-                userLdapList.Add(sysUserLdap);
+                var sysOrg = CreateSysOrg(attrs, sysLdap, listOrgs, org);
+                listOrgs.Add(sysOrg);
+
+                SearchDnLdapDept(ldapConn, sysLdap, listOrgs, ldapEntry.Dn, sysOrg);
             }
         }
+    }
+
+    /// <summary>
+    /// 创建架构对象
+    /// </summary>
+    /// <param name="attrs"></param>
+    /// <param name="sysLdap"></param>
+    /// <param name="listOrgs"></param>
+    /// <param name="org"></param>
+    /// <returns></returns>
+    private static SysOrg CreateSysOrg(LdapAttributeSet attrs, SysLdap sysLdap, List<SysOrg> listOrgs, SysOrg org)
+    {
+        return new SysOrg
+        {
+            Pid = org.Id,
+            Id = YitIdHelper.NextId(),
+            Code = !attrs.ContainsKey(sysLdap.BindAttrCode) ? null : new Guid(attrs.GetAttribute(sysLdap.BindAttrCode)?.ByteValue).ToString(),
+            Level = org.Level + 1,
+            Name = !attrs.ContainsKey(sysLdap.BindAttrAccount) ? null : attrs.GetAttribute(sysLdap.BindAttrAccount)?.StringValue,
+            OrderNo = listOrgs.Count + 1,
+        };
     }
 }

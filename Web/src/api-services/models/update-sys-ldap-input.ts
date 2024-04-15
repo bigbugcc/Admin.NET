@@ -166,6 +166,14 @@ export interface UpdateSysLdapInput {
     bindAttrEmployeeId: string;
 
     /**
+     * 绑定Code属性值
+     *
+     * @type {string}
+     * @memberof AddSysLdapInput
+     */
+    bindAttrCode: string;
+
+    /**
      * @type {StatusEnum}
      * @memberof UpdateSysLdapInput
      */

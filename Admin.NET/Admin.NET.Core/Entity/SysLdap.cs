@@ -77,6 +77,13 @@ public class SysLdap : EntityTenant
     public virtual string BindAttrEmployeeId { get; set; } = "EmployeeId";
 
     /// <summary>
+    /// 绑定Code属性值
+    /// </summary>
+    [SugarColumn(ColumnDescription = "绑定对象Code属性值", Length = 64)]
+    [Required]
+    public virtual string BindAttrCode { get; set; } = "objectGUID";
+
+    /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnDescription = "状态")]

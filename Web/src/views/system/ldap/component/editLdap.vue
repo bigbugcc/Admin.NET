@@ -50,6 +50,11 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="绑定Code属性" prop="bindAttrCode">
+							<el-input v-model="state.ruleForm.bindAttrCode" placeholder="请输入绑定Code属性！" maxlength="64" show-word-limit clearable />
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="Ldap版本" prop="version">
 							<el-input v-model="state.ruleForm.version" type="number" placeholder="请输入Ldap版本" maxlength="4" clearable />
 						</el-form-item>
@@ -130,6 +135,7 @@ const rules = ref<FormRules>({
 	version: [{ required: true, message: '请输入Ldap版本！', trigger: 'blur' }],
 	bindAttrAccount: [{ required: true, message: '请输入账号绑定字段！', trigger: 'blur' }],
 	bindAttrEmployeeId: [{ required: true, message: '绑定用户EmployeeId属性！', trigger: 'blur' }],
+	bindAttrCode: [{ required: true, message: '绑定Code属性！', trigger: 'blur' }],
 });
 
 // 导出对象
