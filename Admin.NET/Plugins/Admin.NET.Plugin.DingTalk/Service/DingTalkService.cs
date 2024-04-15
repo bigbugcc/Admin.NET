@@ -1,4 +1,4 @@
-﻿// 大名科技（天津）有限公司 版权所有
+// 大名科技（天津）有限公司 版权所有
 //
 // 此源代码遵循位于源代码树根目录中的 LICENSE 文件的许可证
 //
@@ -9,7 +9,7 @@
 namespace Admin.NET.Plugin.DingTalk.Service;
 
 /// <summary>
-/// 钉钉服务
+/// 钉钉服务 🧩
 /// </summary>
 [ApiDescriptionSettings(DingTalkConst.GroupName, Module = "DingTalk", Order = 100)]
 public class DingTalkService : IDynamicApiController, IScoped
@@ -46,7 +46,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 获取在职员工列表
+    /// 获取在职员工列表 🔖
     /// </summary>
     /// <param name="access_token"></param>
     /// <param name="input"></param>
@@ -58,7 +58,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 获取员工花名册字段信息
+    /// 获取员工花名册字段信息 🔖
     /// </summary>
     /// <param name="access_token"></param>
     /// <param name="input"></param>
@@ -70,7 +70,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     }
 
     /// <summary>
-    /// 发送钉钉互动卡片
+    /// 发送钉钉互动卡片 🔖
     /// </summary>
     /// <param name="token"></param>
     /// <param name="input"></param>

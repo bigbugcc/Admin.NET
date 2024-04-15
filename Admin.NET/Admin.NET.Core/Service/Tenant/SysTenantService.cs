@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统租户管理服务 💥
+/// 系统租户管理服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 390)]
 public class SysTenantService : IDynamicApiController, ITransient

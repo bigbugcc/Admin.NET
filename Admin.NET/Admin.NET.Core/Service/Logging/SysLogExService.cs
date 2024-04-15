@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统异常日志服务 💥
+/// 系统异常日志服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 350)]
 public class SysLogExService : IDynamicApiController, ITransient

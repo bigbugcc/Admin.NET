@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统常量服务 💥
+/// 系统常量服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 280)]
 [AllowAnonymous]

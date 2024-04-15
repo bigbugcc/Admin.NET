@@ -11,7 +11,7 @@ using Novell.Directory.Ldap;
 namespace Admin.NET.Core;
 
 /// <summary>
-/// 系统域登录配置服务 💥
+/// 系统域登录配置服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 485)]
 public class SysLdapService : IDynamicApiController, ITransient
@@ -24,7 +24,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取系统域登录配置分页列表
+    /// 获取系统域登录配置分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加系统域登录配置
+    /// 增加系统域登录配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -54,7 +54,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新系统域登录配置
+    /// 更新系统域登录配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -72,7 +72,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除系统域登录配置
+    /// 删除系统域登录配置 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -86,7 +86,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取系统域登录配置详情
+    /// 获取系统域登录配置详情 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -97,7 +97,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取系统域登录配置列表
+    /// 获取系统域登录配置列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取系统域登录配置列表")]
@@ -157,7 +157,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 同步域用户
+    /// 同步域用户 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

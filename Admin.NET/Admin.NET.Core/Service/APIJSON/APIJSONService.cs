@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// APIJSON服务 💥
+/// APIJSON服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 100)]
 public class APIJSONService : IDynamicApiController, ITransient

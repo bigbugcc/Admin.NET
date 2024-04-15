@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><br/>👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！
+ * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -28,7 +28,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情
+         * @summary 获取代码生成配置详情 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -226,7 +226,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @summary 获取代码生成配置列表
+         * @summary 获取代码生成配置列表 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -424,7 +424,7 @@ export const SysCodeGenConfigApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @summary 更新代码生成配置
+         * @summary 更新代码生成配置 🔖
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -481,7 +481,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情
+         * @summary 获取代码生成配置详情 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -525,7 +525,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取代码生成配置列表
+         * @summary 获取代码生成配置列表 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -569,7 +569,7 @@ export const SysCodeGenConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新代码生成配置
+         * @summary 更新代码生成配置 🔖
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -592,7 +592,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @summary 获取代码生成配置详情
+         * @summary 获取代码生成配置详情 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -632,7 +632,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 获取代码生成配置列表
+         * @summary 获取代码生成配置列表 🔖
          * @param {number} [id] 主键Id
          * @param {number} [codeGenId] 代码生成主表ID
          * @param {string} [columnName] 数据库字段名
@@ -672,7 +672,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary 更新代码生成配置
+         * @summary 更新代码生成配置 🔖
          * @param {Array<CodeGenConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -692,7 +692,7 @@ export const SysCodeGenConfigApiFactory = function (configuration?: Configuratio
 export class SysCodeGenConfigApi extends BaseAPI {
     /**
      * 
-     * @summary 获取代码生成配置详情
+     * @summary 获取代码生成配置详情 🔖
      * @param {number} [id] 主键Id
      * @param {number} [codeGenId] 代码生成主表ID
      * @param {string} [columnName] 数据库字段名
@@ -733,7 +733,7 @@ export class SysCodeGenConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取代码生成配置列表
+     * @summary 获取代码生成配置列表 🔖
      * @param {number} [id] 主键Id
      * @param {number} [codeGenId] 代码生成主表ID
      * @param {string} [columnName] 数据库字段名
@@ -774,7 +774,7 @@ export class SysCodeGenConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新代码生成配置
+     * @summary 更新代码生成配置 🔖
      * @param {Array<CodeGenConfig>} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

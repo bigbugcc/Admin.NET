@@ -17,7 +17,7 @@ using OnceMi.AspNetCore.OSS;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统服务器监控服务 💥
+/// 系统服务器监控服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 290)]
 public class SysServerService : IDynamicApiController, ITransient

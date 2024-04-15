@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><br/>👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！
+ * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -27,7 +27,7 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合
+         * @summary 通过枚举类型获取枚举值集合 🔖
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -79,7 +79,7 @@ export const SysEnumApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取所有枚举类型
+         * @summary 获取所有枚举类型 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -131,7 +131,7 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合
+         * @summary 通过枚举类型获取枚举值集合 🔖
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -145,7 +145,7 @@ export const SysEnumApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取所有枚举类型
+         * @summary 获取所有枚举类型 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -167,7 +167,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 通过枚举类型获取枚举值集合
+         * @summary 通过枚举类型获取枚举值集合 🔖
          * @param {string} enumName 枚举类型名称
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -177,7 +177,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取所有枚举类型
+         * @summary 获取所有枚举类型 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -196,7 +196,7 @@ export const SysEnumApiFactory = function (configuration?: Configuration, basePa
 export class SysEnumApi extends BaseAPI {
     /**
      * 
-     * @summary 通过枚举类型获取枚举值集合
+     * @summary 通过枚举类型获取枚举值集合 🔖
      * @param {string} enumName 枚举类型名称
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -207,7 +207,7 @@ export class SysEnumApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取所有枚举类型
+     * @summary 获取所有枚举类型 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysEnumApi

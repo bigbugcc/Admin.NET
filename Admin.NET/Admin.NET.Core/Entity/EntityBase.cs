@@ -44,13 +44,13 @@ public abstract class EntityBase : EntityBaseId, IDeletedFilter
     [SugarColumn(ColumnDescription = "创建者Id", IsOnlyIgnoreUpdate = true)]
     public virtual long? CreateUserId { get; set; }
 
-    /// <summary>
-    /// 创建者
-    /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
-    [System.Text.Json.Serialization.JsonIgnore]
-    [Navigate(NavigateType.OneToOne, nameof(CreateUserId))]
-    public virtual SysUser CreateUser { get; set; }
+    ///// <summary>
+    ///// 创建者
+    ///// </summary>
+    //[Newtonsoft.Json.JsonIgnore]
+    //[System.Text.Json.Serialization.JsonIgnore]
+    //[Navigate(NavigateType.OneToOne, nameof(CreateUserId))]
+    //public virtual SysUser CreateUser { get; set; }
 
     /// <summary>
     /// 创建者姓名
@@ -64,13 +64,13 @@ public abstract class EntityBase : EntityBaseId, IDeletedFilter
     [SugarColumn(ColumnDescription = "修改者Id")]
     public virtual long? UpdateUserId { get; set; }
 
-    /// <summary>
-    /// 修改者
-    /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
-    [System.Text.Json.Serialization.JsonIgnore]
-    [Navigate(NavigateType.OneToOne, nameof(UpdateUserId))]
-    public virtual SysUser UpdateUser { get; set; }
+    ///// <summary>
+    ///// 修改者
+    ///// </summary>
+    //[Newtonsoft.Json.JsonIgnore]
+    //[System.Text.Json.Serialization.JsonIgnore]
+    //[Navigate(NavigateType.OneToOne, nameof(UpdateUserId))]
+    //public virtual SysUser UpdateUser { get; set; }
 
     /// <summary>
     /// 修改者姓名

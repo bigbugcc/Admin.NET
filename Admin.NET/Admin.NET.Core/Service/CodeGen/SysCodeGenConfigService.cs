@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统代码生成配置服务 💥
+/// 系统代码生成配置服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 260)]
 public class SysCodeGenConfigService : IDynamicApiController, ITransient

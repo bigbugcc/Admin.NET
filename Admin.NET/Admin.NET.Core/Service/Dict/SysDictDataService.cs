@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统字典值服务 💥
+/// 系统字典值服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 420)]
 [AllowAnonymous]

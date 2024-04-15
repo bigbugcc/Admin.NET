@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统机构服务 💥
+/// 系统机构服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 470)]
 public class SysOrgService : IDynamicApiController, ITransient

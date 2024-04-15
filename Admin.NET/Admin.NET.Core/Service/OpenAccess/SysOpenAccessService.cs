@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 开放接口身份服务 💥
+/// 开放接口身份服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 244)]
 public class SysOpenAccessService : IDynamicApiController, ITransient

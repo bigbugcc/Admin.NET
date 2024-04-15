@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 微信小程序服务 💥
+/// 微信小程序服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 240)]
 public class SysWxOpenService : IDynamicApiController, ITransient

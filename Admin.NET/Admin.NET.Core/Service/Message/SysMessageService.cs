@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统消息发送服务 💥
+/// 系统消息发送服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 370)]
 public class SysMessageService : IDynamicApiController, ITransient
