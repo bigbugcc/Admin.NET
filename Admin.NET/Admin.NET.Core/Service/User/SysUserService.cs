@@ -269,6 +269,10 @@ public class SysUserService : IDynamicApiController, ITransient
     [DisplayName("修改用户密码")]
     public virtual async Task<int> ChangePwd(ChangePwdInput input)
     {
+        // 国密SM2解密（前端密码传输SM2加密后的）
+        input.PasswordOld = CryptogramUtil.SM2Decrypt(input.PasswordOld);
+        input.PasswordNew = CryptogramUtil.SM2Decrypt(input.PasswordNew);
+        //
         var user = await _sysUserRep.GetFirstAsync(u => u.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
