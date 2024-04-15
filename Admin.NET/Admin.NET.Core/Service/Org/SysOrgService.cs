@@ -130,6 +130,19 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 批量增加机构
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task BatchAddOrgs(List<SysOrg> list)
+    {
+        DeleteAllUserOrgCache(0, 0);
+        await _sysOrgRep.AsDeleteable().ExecuteCommandAsync();
+        await _sysOrgRep.AsInsertable(list).ExecuteCommandAsync();
+    }
+
+    /// <summary>
     /// 更新机构 🔖
     /// </summary>
     /// <param name="input"></param>

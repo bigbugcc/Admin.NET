@@ -89,6 +89,7 @@ public class SysMenuSeedData : ISqlSugarEntitySeedData<SysMenu>
             new SysMenu{ Id=1310000000195, Pid=1310000000191, Title="增加", Permission="sysLdap:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=130 },
             new SysMenu{ Id=1310000000196, Pid=1310000000191, Title="删除", Permission="sysLdap:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=140 },
             new SysMenu{ Id=1310000000197, Pid=1310000000191, Title="同步域账户", Permission="sysLdap:syncUser", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=150 },
+            new SysMenu{ Id=1310000000198, Pid=1310000000191, Title="同步域组织", Permission="sysLdap:syncOrg", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=160 },
 
             new SysMenu{ Id=1310000000301, Pid=0, Title="平台管理", Path="/platform", Name="platform", Component="Layout", Icon="ele-Menu", Type=MenuTypeEnum.Dir, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=11000 },
 
