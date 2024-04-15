@@ -169,7 +169,7 @@ export interface SysLdap {
      * 绑定Code属性值
      *
      * @type {string}
-     * @memberof AddSysLdapInput
+     * @memberof SysLdap
      */
     bindAttrCode: string;
 

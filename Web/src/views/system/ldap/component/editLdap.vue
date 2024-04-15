@@ -20,12 +20,12 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="用户搜索基准" prop="baseDn">
+						<el-form-item label="搜索基准" prop="baseDn">
 							<el-input v-model="state.ruleForm.baseDn" placeholder="请输入用户搜索基准" maxlength="128" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="用户过滤规则" prop="authFilter">
+						<el-form-item label="过滤规则" prop="authFilter">
 							<el-input v-model="state.ruleForm.authFilter" placeholder="请输入用户过滤规则" maxlength="128" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
@@ -40,12 +40,12 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="绑定账号属性" prop="bindAttrAccount">
+						<el-form-item label="字段属性" prop="bindAttrAccount">
 							<el-input v-model="state.ruleForm.bindAttrAccount" placeholder="请输入域账号字段属性值" maxlength="24" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="绑定账号属性" prop="bindAttrEmployeeId">
+						<el-form-item label="用户属性" prop="bindAttrEmployeeId">
 							<el-input v-model="state.ruleForm.bindAttrEmployeeId" placeholder="请输入绑定用户EmployeeId属性！" maxlength="24" show-word-limit clearable />
 						</el-form-item>
 					</el-col>

@@ -29,17 +29,18 @@ public class SysUserLdap : EntityTenant
     /// Ldap对应uid
     /// </summary>
     [SugarColumn(ColumnDescription = "域账号", Length = 32)]
+    [Required]
     public string Account { get; set; }
 
     /// <summary>
     /// 对应EmployeeId(用于数据导入对照)
     /// </summary>
     [SugarColumn(ColumnDescription = "对应EmployeeId", Length = 32)]
-    public string EmployeeId { get; set; }
+    public string? EmployeeId { get; set; }
 
     /// <summary>
     /// 组织代码
     /// </summary>
-    [SugarColumn(ColumnDescription = "DeptCode", Length = 64)]
-    public string DeptCode { get; set; }
+    [SugarColumn(ColumnDescription = "组织代码", Length = 64)]
+    public string? DeptCode { get; set; }
 }

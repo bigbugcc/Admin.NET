@@ -169,7 +169,7 @@ export interface UpdateSysLdapInput {
      * 绑定Code属性值
      *
      * @type {string}
-     * @memberof AddSysLdapInput
+     * @memberof UpdateSysLdapInput
      */
     bindAttrCode: string;
 

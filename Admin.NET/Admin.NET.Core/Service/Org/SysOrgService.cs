@@ -132,14 +132,14 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// <summary>
     /// 批量增加机构
     /// </summary>
-    /// <param name="list"></param>
+    /// <param name="orgs"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task BatchAddOrgs(List<SysOrg> list)
+    public async Task BatchAddOrgs(List<SysOrg> orgs)
     {
         DeleteAllUserOrgCache(0, 0);
         await _sysOrgRep.AsDeleteable().ExecuteCommandAsync();
-        await _sysOrgRep.AsInsertable(list).ExecuteCommandAsync();
+        await _sysOrgRep.AsInsertable(orgs).ExecuteCommandAsync();
     }
 
     /// <summary>

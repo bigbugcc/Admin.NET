@@ -186,13 +186,14 @@ public class SysLdapService : IDynamicApiController, ITransient
                 }
 
                 var attrs = ldapEntry.GetAttributeSet();
-                string deptCode = GetDepartmentCode(attrs, sysLdap.BindAttrCode);
+                var deptCode = GetDepartmentCode(attrs, sysLdap.BindAttrCode);
                 if (attrs.Count == 0 || attrs.ContainsKey("OU"))
+                {
                     SearchDnLdapUser(ldapConn, sysLdap, userLdapList, ldapEntry.Dn, deptCode);
+                }
                 else
                 {
                     var sysUserLdap = CreateSysUserLdap(attrs, sysLdap.BindAttrAccount, sysLdap.BindAttrEmployeeId, deptCode);
-
                     if (string.IsNullOrEmpty(sysUserLdap.EmployeeId)) continue;
                     userLdapList.Add(sysUserLdap);
                 }
@@ -302,7 +303,7 @@ public class SysLdapService : IDynamicApiController, ITransient
             ldapConn.Connect(sysLdap.Host, sysLdap.Port);
             ldapConn.Bind(sysLdap.Version, sysLdap.BindDn, sysLdap.BindPass);
             var ldapSearchResults = ldapConn.Search(sysLdap.BaseDn, LdapConnection.ScopeOne, "(objectClass=*)", null, false);
-            var listOrgs = new List<SysOrg>();
+            var orgList = new List<SysOrg>();
             while (ldapSearchResults.HasMore())
             {
                 LdapEntry ldapEntry;
@@ -319,17 +320,17 @@ public class SysLdapService : IDynamicApiController, ITransient
                 var attrs = ldapEntry.GetAttributeSet();
                 if (attrs.Count == 0 || attrs.ContainsKey("OU"))
                 {
-                    var sysOrg = CreateSysOrg(attrs, sysLdap, listOrgs, new SysOrg { Id = 0, Level = 0 });
-                    listOrgs.Add(sysOrg);
+                    var sysOrg = CreateSysOrg(attrs, sysLdap, orgList, new SysOrg { Id = 0, Level = 0 });
+                    orgList.Add(sysOrg);
 
-                    SearchDnLdapDept(ldapConn, sysLdap, listOrgs, ldapEntry.Dn, sysOrg);
+                    SearchDnLdapDept(ldapConn, sysLdap, orgList, ldapEntry.Dn, sysOrg);
                 }
             }
 
-            if (listOrgs.Count == 0)
+            if (orgList.Count == 0)
                 return;
 
-            await App.GetRequiredService<SysOrgService>().BatchAddOrgs(listOrgs);
+            await App.GetRequiredService<SysOrgService>().BatchAddOrgs(orgList);
         }
         catch (LdapException e)
         {

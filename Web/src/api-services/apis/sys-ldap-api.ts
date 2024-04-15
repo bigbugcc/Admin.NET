@@ -273,13 +273,13 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 同步域用户 🔖
+         * @summary 同步域组织 🔖
          * @param {SyncSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysLdapSyncUserPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysLdap/syncUser`;
+        apiSysLdapSyncDeptPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/syncDept`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -321,13 +321,13 @@ export const SysLdapApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 同步域组织 🔖
+         * @summary 同步域用户 🔖
          * @param {SyncSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysLdapSyncOrgPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysLdap/syncOrg`;
+        apiSysLdapSyncUserPost: async (body?: SyncSysLdapInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLdap/syncUser`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -495,13 +495,13 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 同步域用户 🔖
+         * @summary 同步域组织 🔖
          * @param {SyncSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncUserPost(body, options);
+        async apiSysLdapSyncDeptPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncDeptPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -509,13 +509,13 @@ export const SysLdapApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 同步域组织 🔖
+         * @summary 同步域用户 🔖
          * @param {SyncSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLdapSyncOrgPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncOrgPost(body, options);
+        async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysLdapApiAxiosParamCreator(configuration).apiSysLdapSyncUserPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -595,6 +595,16 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary 同步域组织 🔖
+         * @param {SyncSysLdapInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLdapSyncDeptPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysLdapApiFp(configuration).apiSysLdapSyncDeptPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 同步域用户 🔖
          * @param {SyncSysLdapInput} [body] 
          * @param {*} [options] Override http request option.
@@ -602,16 +612,6 @@ export const SysLdapApiFactory = function (configuration?: Configuration, basePa
          */
         async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return SysLdapApiFp(configuration).apiSysLdapSyncUserPost(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary 同步域组织 🔖
-         * @param {SyncSysLdapInput} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysLdapSyncOrgPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysLdapApiFp(configuration).apiSysLdapSyncOrgPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -689,6 +689,17 @@ export class SysLdapApi extends BaseAPI {
     }
     /**
      * 
+     * @summary 同步域组织 🔖
+     * @param {SyncSysLdapInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysLdapApi
+     */
+    public async apiSysLdapSyncDeptPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysLdapApiFp(this.configuration).apiSysLdapSyncDeptPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary 同步域用户 🔖
      * @param {SyncSysLdapInput} [body] 
      * @param {*} [options] Override http request option.
@@ -697,17 +708,6 @@ export class SysLdapApi extends BaseAPI {
      */
     public async apiSysLdapSyncUserPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysLdapApiFp(this.configuration).apiSysLdapSyncUserPost(body, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * 
-     * @summary 同步域组织 🔖
-     * @param {SyncSysLdapInput} [body] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysLdapApi
-     */
-    public async apiSysLdapSyncOrgPost(body?: SyncSysLdapInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysLdapApiFp(this.configuration).apiSysLdapSyncOrgPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

@@ -194,7 +194,6 @@ const onLockScreenSubmit = async () => {
 	if (state.lockScreenPassword) {
 		try {
 			// SM2加密密码
-			// const keys = SM2.generateKeyPair();
 			const publicKey = window.__env__.VITE_SM_PUBLIC_KEY;
 			const password = sm2.doEncrypt(state.lockScreenPassword, publicKey, 1);
 			const [err, res] = await feature(getAPI(SysAuthApi).apiSysAuthUnLockScreenPost(password));
