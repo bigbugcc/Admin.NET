@@ -11,7 +11,7 @@ using NewLife.Caching.Models;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统缓存服务 💥
+/// 系统缓存服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 400)]
 public class SysCacheService : IDynamicApiController, ISingleton

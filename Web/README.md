@@ -52,12 +52,6 @@
 > Vite 不再支持 Node 12 / 13 / 15，因为上述版本已经进入了 EOL 阶段。现在你必须使用 Node 14.18+ / 16+ 版本。
 
 ```bash
-# 克隆项目
-git clone https://gitee.com/zuohuaijun/Admin.NET
-
-# 进入项目
-cd web
-
 # 安装依赖
 pnpm install
 

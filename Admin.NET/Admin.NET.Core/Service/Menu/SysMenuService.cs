@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统菜单服务 💥
+/// 系统菜单服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 450)]
 public class SysMenuService : IDynamicApiController, ITransient

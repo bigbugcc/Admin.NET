@@ -13,6 +13,8 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 防止重复请求过滤器特性
 /// </summary>
+[SuppressSniffer]
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
 public class IdempotentAttribute : Attribute, IAsyncActionFilter
 {
     /// <summary>
@@ -54,7 +56,7 @@ public class IdempotentAttribute : Attribute, IAsyncActionFilter
         }
 
         var cacheKey = MD5Encryption.Encrypt($"{CacheKey}{path}{userId}{parameters}");
-        var sysCacheService = App.GetService<SysCacheService>();
+        var sysCacheService = App.GetRequiredService<SysCacheService>();
         if (sysCacheService.ExistKey(cacheKey))
         {
             if (ThrowBah) throw Oops.Oh(Message);

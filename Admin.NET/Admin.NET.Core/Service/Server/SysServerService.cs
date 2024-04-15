@@ -8,16 +8,16 @@
 
 using AngleSharp.Html.Parser;
 using AspNetCoreRateLimit;
+using Elastic.Clients.Elasticsearch;
 using Lazy.Captcha.Core;
 using Magicodes.ExporterAndImporter.Pdf;
 using MailKit.Net.Smtp;
-using Nest;
 using OnceMi.AspNetCore.OSS;
 
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统服务器监控服务 💥
+/// 系统服务器监控服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 290)]
 public class SysServerService : IDynamicApiController, ITransient
@@ -42,7 +42,7 @@ public class SysServerService : IDynamicApiController, ITransient
             SysRunTime = ComputerUtil.GetRunTime(), // 系统运行时间
             RemoteIp = ComputerUtil.GetIpFromOnline(), // 外网地址
             LocalIp = App.HttpContext?.Connection?.LocalIpAddress.ToString(), // 本地地址
-            FrameworkDescription = RuntimeInformation.FrameworkDescription, // NET框架
+            RuntimeInformation.FrameworkDescription, // NET框架
             Environment = App.HostEnvironment.IsDevelopment() ? "Development" : "Production",
             Wwwroot = App.WebHostEnvironment.WebRootPath, // 网站根目录
             Stage = App.HostEnvironment.IsStaging() ? "Stage环境" : "非Stage环境", // 是否Stage环境
@@ -103,7 +103,7 @@ public class SysServerService : IDynamicApiController, ITransient
         var wechatTenpayAssembly = typeof(WechatTenpayClient).Assembly.GetName();
         var ossAssembly = typeof(IOSSServiceFactory).Assembly.GetName();
         var parserAssembly = typeof(Parser).Assembly.GetName();
-        var nestAssembly = typeof(IElasticClient).Assembly.GetName();
+        var nestAssembly = typeof(ElasticsearchClient).Assembly.GetName();
         var limitAssembly = typeof(IpRateLimitMiddleware).Assembly.GetName();
         var htmlParserAssembly = typeof(HtmlParser).Assembly.GetName();
         var fluentEmailAssembly = typeof(SmtpClient).Assembly.GetName();

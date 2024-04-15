@@ -11,21 +11,18 @@ using Microsoft.AspNetCore.SignalR;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统消息发送服务 💥
+/// 系统消息发送服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 370)]
 public class SysMessageService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
-    private readonly EmailOptions _emailOptions;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _chatHubContext;
 
     public SysMessageService(SysCacheService sysCacheService,
-        IOptions<EmailOptions> emailOptions,
         IHubContext<OnlineUserHub, IOnlineUserHub> chatHubContext)
     {
         _sysCacheService = sysCacheService;
-        _emailOptions = emailOptions.Value;
         _chatHubContext = chatHubContext;
     }
 

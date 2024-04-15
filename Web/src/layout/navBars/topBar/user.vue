@@ -180,8 +180,6 @@ const onHandleCommandClick = (path: string) => {
 				clearAccessTokens();
 			})
 			.catch(() => {});
-	} else if (path === 'wareHouse') {
-		window.open('https://gitee.com/zuohuaijun/Admin.NET');
 	} else {
 		router.push(path);
 	}
@@ -267,7 +265,6 @@ const receiveNotice = (msg: any) => {
 		body: '你有一条新的消息',
 		icon: 'logo.png', //public目录下的
 		timeout: 4500, // 通知显示时间，单位为毫秒
-
 	});
 };
 </script>

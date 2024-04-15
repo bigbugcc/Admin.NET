@@ -39,7 +39,7 @@ namespace Admin.NET.Web.Core
             using var serviceScope = _serviceProvider.CreateScope();
 
             // 若当前账号存在黑名单中则授权失败
-            var sysCacheService = serviceScope.ServiceProvider.GetService<SysCacheService>();
+            var sysCacheService = serviceScope.ServiceProvider.GetRequiredService<SysCacheService>();
             if (sysCacheService.ExistKey($"{CacheConst.KeyBlacklist}{context.User.FindFirst(ClaimConst.UserId)?.Value}"))
             {
                 context.Fail();
@@ -47,7 +47,7 @@ namespace Admin.NET.Web.Core
                 return;
             }
 
-            var sysConfigService = serviceScope.ServiceProvider.GetService<SysConfigService>();
+            var sysConfigService = serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
             var tokenExpire = await sysConfigService.GetTokenExpire();
             var refreshTokenExpire = await sysConfigService.GetRefreshTokenExpire();
             if (JWTEncryption.AutoRefreshToken(context, context.GetCurrentHttpContext(), tokenExpire, refreshTokenExpire))
@@ -93,10 +93,11 @@ namespace Admin.NET.Web.Core
                 ? httpContext.Request.Path.Value[5..].Replace("/", ":")
                 : httpContext.Request.Path.Value[1..].Replace("/", ":");
 
+            var sysMenuService = App.GetRequiredService<SysMenuService>();
             // 获取用户拥有按钮权限集合
-            var ownBtnPermList = await App.GetService<SysMenuService>().GetOwnBtnPermList();
+            var ownBtnPermList = await sysMenuService.GetOwnBtnPermList();
             // 获取系统所有按钮权限集合
-            var allBtnPermList = await App.GetService<SysMenuService>().GetAllBtnPermList();
+            var allBtnPermList = await sysMenuService.GetAllBtnPermList();
 
             // 已拥有该按钮权限或者所有按钮集合里面不存在
             var exist1 = ownBtnPermList.Exists(u => routeName.Equals(u, StringComparison.CurrentCultureIgnoreCase));

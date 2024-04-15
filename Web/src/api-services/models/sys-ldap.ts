@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
+ * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -148,6 +148,22 @@ export interface SysLdap {
      * @memberof SysLdap
      */
     version?: number;
+
+    /**
+     * 绑定域账号字段属性值
+     *
+     * @type {string}
+     * @memberof SysLdap
+     */
+    bindAttrAccount: string;
+
+    /**
+     * 绑定用户EmployeeId属性值
+     *
+     * @type {string}
+     * @memberof SysLdap
+     */
+    bindAttrEmployeeId: string;
 
     /**
      * @type {StatusEnum}

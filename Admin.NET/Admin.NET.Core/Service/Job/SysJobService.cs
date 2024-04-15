@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统作业任务服务 💥
+/// 系统作业任务服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 320)]
 public class SysJobService : IDynamicApiController, ITransient

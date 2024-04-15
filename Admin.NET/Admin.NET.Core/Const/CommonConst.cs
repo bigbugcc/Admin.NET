@@ -69,10 +69,10 @@ public class CommonConst
     /// </summary>
     public const string SysAdminRole = "sys_admin";
 
-    /// <summary>
-    /// 开启全局脱敏处理（默认不开启）
-    /// </summary>
-    public static bool SysSensitiveDetection = false;
+    ///// <summary>
+    ///// 开启全局脱敏处理（默认不开启）
+    ///// </summary>
+    //public static bool SysSensitiveDetection = false;
 
     /// <summary>
     /// 开启域登录验证

@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统通用服务 💥
+/// 系统通用服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 101)]
 [AllowAnonymous]

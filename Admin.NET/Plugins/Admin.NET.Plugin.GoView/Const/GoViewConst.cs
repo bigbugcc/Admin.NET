@@ -6,7 +6,7 @@
 //
 // 任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关
 
-namespace Admin.NET.Plugin.GoView.Const;
+namespace Admin.NET.Plugin.GoView;
 
 /// <summary>
 /// GoView 相关常量
@@ -17,5 +17,5 @@ public class GoViewConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "GoView";
+    public const string GroupName = "可视化大屏【GoView】";
 }

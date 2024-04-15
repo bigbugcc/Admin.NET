@@ -16,19 +16,21 @@ namespace Admin.NET.Core;
 public class LogJob : IJob
 {
     private readonly IServiceScopeFactory _scopeFactory;
+    private readonly ILogger _logger;
 
-    public LogJob(IServiceScopeFactory scopeFactory)
+    public LogJob(IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
+        _logger = loggerFactory.CreateLogger("System.Logging.LoggingMonitor");
     }
 
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var logVisRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogVis>>();
-        var logOpRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogOp>>();
-        var logDiffRep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysLogDiff>>();
+        var logVisRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogVis>>();
+        var logOpRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogOp>>();
+        var logDiffRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogDiff>>();
 
         var daysAgo = 30; // 删除30天以前
         await logVisRep.CopyNew().AsDeleteable().Where(u => (DateTime)u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除访问日志
@@ -37,7 +39,10 @@ public class LogJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("【" + DateTime.Now + "】清空系统日志（30天前）");
+        Console.WriteLine("【" + DateTime.Now + "】清理系统日志（30天前）");
         Console.ForegroundColor = originColor;
+
+        // 自定义日志
+        _logger.LogInformation("清理系统日志");
     }
 }

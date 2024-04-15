@@ -114,7 +114,7 @@ public class Startup : AppStartup
             //// 替换事件源存储器
             //options.ReplaceStorer(serviceProvider =>
             //{
-            //    var redisCache = serviceProvider.GetService<ICache>();
+            //    var redisCache = serviceProvider.GetRequiredService<ICache>();
             //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
             //    return new RedisEventSourceStorer(redisCache, "adminnet", 3000);
             //});
@@ -242,7 +242,13 @@ public class Startup : AppStartup
             }
         });
 
-        app.UseInject(string.Empty);
+        app.UseInject(string.Empty, options =>
+        {
+            foreach (var groupInfo in SpecificationDocumentBuilder.GetOpenApiGroups())
+            {
+                groupInfo.Description += "<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！</font></b></u>";
+            }
+        });
 
         app.UseEndpoints(endpoints =>
         {

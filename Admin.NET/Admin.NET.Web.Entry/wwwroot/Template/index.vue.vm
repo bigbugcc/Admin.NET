@@ -1,6 +1,10 @@
 @{
   var pkField = Model.TableField.Where(c => c.ColumnKey == "True").FirstOrDefault();
-  string pkFieldName = LowerFirstLetter(pkField.PropertyName);
+  string pkFieldName = null;
+  if(pkField != null && !string.IsNullOrEmpty(pkField.PropertyName))
+  {
+    pkFieldName = LowerFirstLetter(pkField.PropertyName);
+  }
   Dictionary<string, int> definedObjects = new Dictionary<string, int>();
   bool haveLikeCdt = false;
   foreach (var column in Model.TableField){
@@ -113,14 +117,17 @@
 				style="width: 100%"
 				v-loading="loading"
 				tooltip-effect="light"
-				row-key="@(@pkFieldName)"
+                @if(@pkFieldName != null)
+                {
+				@:row-key="@(@pkFieldName)"
+                }
                 @@sort-change="sortChange"
 				border="">
         <el-table-column type="index" label="序号" width="55" align="center"/>
         @foreach (var column in Model.TableField){
         if(@column.WhetherTable == "Y"){
         if(@column.EffectType == "Upload"||@column.EffectType == "fk"||@column.EffectType == "ApiTreeSelect"||@column.EffectType == "Switch"||@column.EffectType == "ConstSelector"){
-        @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" width="@(column.ColumnComment!=null && column.ColumnComment.Length > 5 ? column.ColumnComment.Length * 15 : 120)" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="">
+        @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="">
           @:<template #default="scope">
             if(@column.EffectType == "Upload"){
             @:<el-image
@@ -149,21 +156,21 @@
         </el-table-column>
         }
         else if(@column.EffectType == "Select"){
-          @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" width="@(column.ColumnComment!=null && column.ColumnComment.Length > 5 ? column.ColumnComment.Length * 15 : 140)" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
+          @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
             @:<template #default="scope">
               @:<el-tag :type="di('@(@column.DictTypeCode)', scope.row.@(@column.LowerPropertyName))?.tagType"> {{di("@(@column.DictTypeCode)", scope.row.@(@column.LowerPropertyName))?.value}} </el-tag>
             @:</template>
           @:</el-table-column>
         }
         else if(@column.EffectType == "EnumSelector"){
-          @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" width="@(column.ColumnComment!=null && column.ColumnComment.Length > 5 ? column.ColumnComment.Length * 15 : 140)" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
+          @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
             @:<template #default="scope">
               @:<el-tag>{{ getEnumDesc(scope.row.@column.LowerPropertyName, getEnum@(@column.PropertyName)Data_Index)}}</el-tag>
             @:</template>
           @:</el-table-column>
         }
         else {
-        @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" width="@(column.ColumnComment!=null && column.ColumnComment.Length > 5 ? column.ColumnComment.Length * 15 : 140)" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" />
+        @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" />
         }
         }
         }

@@ -22,7 +22,7 @@ public class GenAuthUrlInput
     /// Scope
     /// </summary>
     public string Scope { get; set; }
-    
+
     /// <summary>
     /// State
     /// </summary>

@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Admin.NET 通用权限开发平台
- * 让 .NET 开发更简单、更通用、更流行。前后端分离架构(.NET6/Vue3)，开箱即用紧随前沿技术。<br/>
+ * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，均与作者无关！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -42,7 +42,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary 增加用户
+         * @summary 增加用户 🔖
          * @param {AddUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -90,7 +90,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 查看用户基本信息
+         * @summary 查看用户基本信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -133,7 +133,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 更新用户基本信息
+         * @summary 更新用户基本信息 🔖
          * @param {SysUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -181,7 +181,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 修改用户密码
+         * @summary 修改用户密码 🔖
          * @param {ChangePwdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -229,7 +229,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 删除用户
+         * @summary 删除用户 🔖
          * @param {DeleteUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -277,7 +277,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 授权用户角色
+         * @summary 授权用户角色 🔖
          * @param {UserRoleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -325,7 +325,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取用户扩展机构集合
+         * @summary 获取用户扩展机构集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -374,7 +374,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取用户拥有角色集合
+         * @summary 获取用户拥有角色集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -423,7 +423,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 获取用户分页列表
+         * @summary 获取用户分页列表 🔖
          * @param {PageUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -471,7 +471,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 重置用户密码
+         * @summary 重置用户密码 🔖
          * @param {ResetPwdUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -519,7 +519,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 设置用户状态
+         * @summary 设置用户状态 🔖
          * @param {UserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -567,7 +567,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 解除登录锁定
+         * @summary 解除登录锁定 🔖
          * @param {UnlockLoginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -615,7 +615,7 @@ export const SysUserApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 更新用户
+         * @summary 更新用户 🔖
          * @param {UpdateUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -672,7 +672,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加用户
+         * @summary 增加用户 🔖
          * @param {AddUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -686,7 +686,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 查看用户基本信息
+         * @summary 查看用户基本信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -699,7 +699,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新用户基本信息
+         * @summary 更新用户基本信息 🔖
          * @param {SysUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -713,7 +713,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 修改用户密码
+         * @summary 修改用户密码 🔖
          * @param {ChangePwdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -727,7 +727,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除用户
+         * @summary 删除用户 🔖
          * @param {DeleteUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -741,7 +741,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 授权用户角色
+         * @summary 授权用户角色 🔖
          * @param {UserRoleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -755,7 +755,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取用户扩展机构集合
+         * @summary 获取用户扩展机构集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -769,7 +769,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取用户拥有角色集合
+         * @summary 获取用户拥有角色集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -783,7 +783,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取用户分页列表
+         * @summary 获取用户分页列表 🔖
          * @param {PageUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -797,7 +797,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 重置用户密码
+         * @summary 重置用户密码 🔖
          * @param {ResetPwdUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -811,7 +811,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 设置用户状态
+         * @summary 设置用户状态 🔖
          * @param {UserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -825,7 +825,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 解除登录锁定
+         * @summary 解除登录锁定 🔖
          * @param {UnlockLoginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -839,7 +839,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新用户
+         * @summary 更新用户 🔖
          * @param {UpdateUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -862,7 +862,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary 增加用户
+         * @summary 增加用户 🔖
          * @param {AddUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -872,7 +872,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 查看用户基本信息
+         * @summary 查看用户基本信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -881,7 +881,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 更新用户基本信息
+         * @summary 更新用户基本信息 🔖
          * @param {SysUser} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -891,7 +891,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 修改用户密码
+         * @summary 修改用户密码 🔖
          * @param {ChangePwdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -901,7 +901,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 删除用户
+         * @summary 删除用户 🔖
          * @param {DeleteUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -911,7 +911,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 授权用户角色
+         * @summary 授权用户角色 🔖
          * @param {UserRoleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -921,7 +921,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取用户扩展机构集合
+         * @summary 获取用户扩展机构集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -931,7 +931,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取用户拥有角色集合
+         * @summary 获取用户拥有角色集合 🔖
          * @param {number} userId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -941,7 +941,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 获取用户分页列表
+         * @summary 获取用户分页列表 🔖
          * @param {PageUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -951,7 +951,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 重置用户密码
+         * @summary 重置用户密码 🔖
          * @param {ResetPwdUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -961,7 +961,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 设置用户状态
+         * @summary 设置用户状态 🔖
          * @param {UserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -971,7 +971,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 解除登录锁定
+         * @summary 解除登录锁定 🔖
          * @param {UnlockLoginInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -981,7 +981,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 更新用户
+         * @summary 更新用户 🔖
          * @param {UpdateUserInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1001,7 +1001,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
 export class SysUserApi extends BaseAPI {
     /**
      * 
-     * @summary 增加用户
+     * @summary 增加用户 🔖
      * @param {AddUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1012,7 +1012,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 查看用户基本信息
+     * @summary 查看用户基本信息 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysUserApi
@@ -1022,7 +1022,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新用户基本信息
+     * @summary 更新用户基本信息 🔖
      * @param {SysUser} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1033,7 +1033,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 修改用户密码
+     * @summary 修改用户密码 🔖
      * @param {ChangePwdInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1044,7 +1044,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除用户
+     * @summary 删除用户 🔖
      * @param {DeleteUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1055,7 +1055,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 授权用户角色
+     * @summary 授权用户角色 🔖
      * @param {UserRoleInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1066,7 +1066,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取用户扩展机构集合
+     * @summary 获取用户扩展机构集合 🔖
      * @param {number} userId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1077,7 +1077,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取用户拥有角色集合
+     * @summary 获取用户拥有角色集合 🔖
      * @param {number} userId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1088,7 +1088,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取用户分页列表
+     * @summary 获取用户分页列表 🔖
      * @param {PageUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1099,7 +1099,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 重置用户密码
+     * @summary 重置用户密码 🔖
      * @param {ResetPwdUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1110,7 +1110,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 设置用户状态
+     * @summary 设置用户状态 🔖
      * @param {UserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1121,7 +1121,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 解除登录锁定
+     * @summary 解除登录锁定 🔖
      * @param {UnlockLoginInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1132,7 +1132,7 @@ export class SysUserApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新用户
+     * @summary 更新用户 🔖
      * @param {UpdateUserInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

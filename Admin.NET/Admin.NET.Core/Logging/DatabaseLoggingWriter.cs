@@ -36,9 +36,23 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
     public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();
-        if (jsonStr == null) return;
-        var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
+        if (jsonStr == null)
+        {
+            await _db.Insertable(new SysLogOp
+            {
+                DisplayTitle = "自定义操作日志",
+                LogDateTime = logMsg.LogDateTime,
+                EventId = logMsg.EventId.Id,
+                ThreadId = logMsg.ThreadId,
+                TraceId = logMsg.TraceId,
+                Exception = logMsg.Exception == null ? null : JSON.Serialize(logMsg.Exception),
+                Message = logMsg.Message,
+                LogLevel = logMsg.LogLevel
+            }).ExecuteCommandAsync();
+            return;
+        }
 
+        var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
         // 不记录数据校验日志
         if (loggingMonitor.validation != null) return;
 
@@ -69,7 +83,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         // 捕捉异常，否则会由于 unhandled exception 导致程序崩溃
         try
         {
-            // 记录异常日志并发送邮件
+            // 记录异常日志-发送邮件
             if (logMsg.Exception != null || loggingMonitor.exception != null)
             {
                 await _db.Insertable(new SysLogEx
@@ -173,7 +187,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, ex.Message);
+            _logger.LogError(ex, "操作日志入库");
         }
     }
 

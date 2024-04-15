@@ -16,7 +16,7 @@ public class SqlSugarCache : ICacheService
     /// <summary>
     /// 系统缓存服务
     /// </summary>
-    private static readonly SysCacheService _cache = App.GetService<SysCacheService>();
+    private static readonly SysCacheService _cache = App.GetRequiredService<SysCacheService>();
 
     public void Add<V>(string key, V value)
     {

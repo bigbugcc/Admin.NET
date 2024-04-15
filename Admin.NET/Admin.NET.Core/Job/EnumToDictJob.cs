@@ -27,8 +27,8 @@ public class EnumToDictJob : IJob
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
     {
         using var serviceScope = _scopeFactory.CreateScope();
-        var sysEnumService = serviceScope.ServiceProvider.GetService<SysEnumService>();
-        var db = serviceScope.ServiceProvider.GetService<ISqlSugarClient>().CopyNew();
+        var sysEnumService = serviceScope.ServiceProvider.GetRequiredService<SysEnumService>();
+        var db = serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
         var enumTypeList = sysEnumService.GetEnumTypeList();
         var enumCodeList = enumTypeList.Select(x => x.TypeName);

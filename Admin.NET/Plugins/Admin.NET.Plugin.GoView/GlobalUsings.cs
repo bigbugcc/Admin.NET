@@ -8,10 +8,6 @@
 
 global using Admin.NET.Core;
 global using Admin.NET.Core.Service;
-global using Admin.NET.Plugin.GoView.Const;
-global using Admin.NET.Plugin.GoView.Entity;
-global using Admin.NET.Plugin.GoView.Enum;
-global using Admin.NET.Plugin.GoView.Service.Dto;
 global using Furion;
 global using Furion.DatabaseAccessor;
 global using Furion.DataValidation;

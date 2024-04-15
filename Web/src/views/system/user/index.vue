@@ -83,7 +83,7 @@
 									<template #dropdown>
 										<el-dropdown-menu>
 											<el-dropdown-item icon="ele-RefreshLeft" @click="resetUserPwd(scope.row)" :disabled="!auth('sysUser:resetPwd')"> 重置密码 </el-dropdown-item>
-											<el-dropdown-item icon="ele-Unlock" @click="unlockLogin(scope.row)" :disabled="!auth('sysUser:unlockLogin')"> 解除登录锁定 </el-dropdown-item>
+											<el-dropdown-item icon="ele-Unlock" @click="unlockLogin(scope.row)" divided :disabled="!auth('sysUser:unlockLogin')"> 解除锁定 </el-dropdown-item>
 											<el-dropdown-item icon="ele-Delete" @click="delUser(scope.row)" divided :disabled="!auth('sysUser:delete')"> 删除账号 </el-dropdown-item>
 										</el-dropdown-menu>
 									</template>
@@ -245,7 +245,7 @@ const resetUserPwd = async (row: any) => {
 
 // 解除登录锁定
 const unlockLogin = async (row: any) => {
-	ElMessageBox.confirm(`确定解除：【${row.account}】登录锁定?`, '提示', {
+	ElMessageBox.confirm(`确定解除登录锁定：【${row.account}】?`, '提示', {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',

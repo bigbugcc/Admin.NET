@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统打印模板服务 💥
+/// 系统打印模板服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 305)]
 public class SysPrintService : IDynamicApiController, ITransient

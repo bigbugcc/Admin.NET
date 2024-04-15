@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统代码生成配置服务 💥
+/// 系统代码生成配置服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 260)]
 public class SysCodeGenConfigService : IDynamicApiController, ITransient
@@ -143,7 +143,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="codeGenConfig"></param>
     /// <returns></returns>
-    private string GetDefaultQueryType(SysCodeGenConfig codeGenConfig)
+    private static string GetDefaultQueryType(SysCodeGenConfig codeGenConfig)
     {
         return (codeGenConfig.NetType?.TrimEnd('?')) switch
         {

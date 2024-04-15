@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统机构服务 💥
+/// 系统机构服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 470)]
 public class SysOrgService : IDynamicApiController, ITransient
@@ -84,7 +84,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="orgTree"></param>
     /// <param name="userOrgIdList"></param>
-    private void HandlerOrgTree(List<SysOrg> orgTree, List<long> userOrgIdList)
+    private static void HandlerOrgTree(List<SysOrg> orgTree, List<long> userOrgIdList)
     {
         foreach (var org in orgTree)
         {

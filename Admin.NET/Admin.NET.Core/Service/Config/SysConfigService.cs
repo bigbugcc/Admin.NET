@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统参数配置服务 💥
+/// 系统参数配置服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 440)]
 public class SysConfigService : IDynamicApiController, ITransient

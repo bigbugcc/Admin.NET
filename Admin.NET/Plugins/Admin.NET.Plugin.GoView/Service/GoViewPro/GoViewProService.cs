@@ -9,7 +9,7 @@
 namespace Admin.NET.Plugin.GoView.Service;
 
 /// <summary>
-/// 项目管理服务
+/// 项目管理服务 🧩
 /// </summary>
 [UnifyProvider("GoView")]
 [ApiDescriptionSettings(GoViewConst.GroupName, Module = "goview", Name = "project", Order = 100)]
@@ -17,22 +17,16 @@ public class GoViewProService : IDynamicApiController
 {
     private readonly SqlSugarRepository<GoViewPro> _goViewProRep;
     private readonly SqlSugarRepository<GoViewProData> _goViewProDataRep;
-    private readonly SqlSugarRepository<SysFile> _sysFileRep;
-    private readonly SysFileService _fileService;
 
     public GoViewProService(SqlSugarRepository<GoViewPro> goViewProjectRep,
-        SqlSugarRepository<GoViewProData> goViewProjectDataRep,
-        SqlSugarRepository<SysFile> fileRep,
-        SysFileService fileService)
+        SqlSugarRepository<GoViewProData> goViewProjectDataRep)
     {
         _goViewProRep = goViewProjectRep;
         _goViewProDataRep = goViewProjectDataRep;
-        _sysFileRep = fileRep;
-        _fileService = fileService;
     }
 
     /// <summary>
-    /// 获取项目列表
+    /// 获取项目列表 🔖
     /// </summary>
     /// <param name="page"></param>
     /// <param name="limit"></param>
@@ -47,7 +41,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 新增项目
+    /// 新增项目 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -63,7 +57,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 修改项目
+    /// 修改项目 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -74,7 +68,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 删除项目
+    /// 删除项目 🔖
     /// </summary>
     [ApiDescriptionSettings(Name = "Delete")]
     [DisplayName("删除项目")]
@@ -87,7 +81,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 修改发布状态
+    /// 修改发布状态 🔖
     /// </summary>
     [HttpPut]
     [DisplayName("修改发布状态")]
@@ -103,7 +97,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 获取项目数据
+    /// 获取项目数据 🔖
     /// </summary>
     /// <param name="projectId"></param>
     /// <returns></returns>
@@ -123,7 +117,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 保存项目数据
+    /// 保存项目数据 🔖
     /// </summary>
     [ApiDescriptionSettings(Name = "save/data")]
     [DisplayName("保存项目数据")]
@@ -150,7 +144,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 上传预览图
+    /// 上传预览图 🔖
     /// </summary>
     [DisplayName("上传预览图")]
     public async Task<GoViewProUploadOutput> Upload(IFormFile @object)
@@ -161,17 +155,17 @@ public class GoViewProService : IDynamicApiController
          * 否则使用 GetOssInfo 接口获取到的 BucketUrl 和 FileName 进行拼接
          */
 
-        //文件名格式示例 13414795568325_index_preview.png
+        // 文件名格式示例 13414795568325_index_preview.png
         var fileNameSplit = @object.FileName.Split('_');
         var idStr = fileNameSplit[0];
         if (!long.TryParse(idStr, out var id)) return new GoViewProUploadOutput();
 
-        //将预览图转换成 Base64
+        // 将预览图转换成 Base64
         var ms = new MemoryStream();
         await @object.CopyToAsync(ms);
         var base64Image = Convert.ToBase64String(ms.ToArray());
 
-        //保存
+        // 保存
         if (await _goViewProDataRep.IsAnyAsync(u => u.Id == id))
         {
             await _goViewProDataRep.AsUpdateable()
@@ -241,7 +235,7 @@ public class GoViewProService : IDynamicApiController
     }
 
     /// <summary>
-    /// 获取预览图
+    /// 获取预览图 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]

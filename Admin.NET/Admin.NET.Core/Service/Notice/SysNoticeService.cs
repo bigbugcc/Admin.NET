@@ -9,7 +9,7 @@
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统通知公告服务 💥
+/// 系统通知公告服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 380)]
 public class SysNoticeService : IDynamicApiController, ITransient

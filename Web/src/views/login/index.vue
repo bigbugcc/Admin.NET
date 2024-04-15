@@ -8,7 +8,7 @@
 					<span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span>
 				</div>
 			</div>
-			<el-carousel height="500px">
+			<el-carousel height="500px" class="login-carousel">
 				<el-carousel-item>
 					<img :src="loginIconTwo" class="login-icon-group-icon" />
 				</el-carousel-item>
@@ -83,18 +83,23 @@ onMounted(() => {
 <style scoped lang="scss">
 .login-container {
 	height: 100%;
-	background: var(--el-color-white);
+	background-color: rgba(53, 62, 84);
 	.login-left {
-		flex: 1;
-		// position: relative;
-		// background-color: rgba(211, 239, 255, 1);
-		// margin-right: 100px;
+		width: 50%;
+		height: 100%;
+		float: left;
+		justify-content: center;
+		.login-carousel {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
 		.login-left-logo {
 			display: flex;
 			align-items: center;
 			position: absolute;
-			top: 50px;
-			left: 80px;
+			top: 30px;
+			left: 30px;
 			z-index: 1;
 			animation: logoAnimation 0.3s ease;
 			img {
@@ -105,14 +110,14 @@ onMounted(() => {
 				display: flex;
 				flex-direction: column;
 				span {
-					margin-left: 10px;
-					font-size: 30px;
+					font-size: 28px;
 					font-weight: 700;
-					color: var(--el-color-primary);
+					color: var(--el-color-white);
 				}
 				.login-left-logo-text-msg {
-					font-size: 12px;
-					color: var(--el-color-primary);
+					padding-top: 5px;
+					font-size: 14px;
+					color: var(--el-color-white);
 				}
 			}
 		}
@@ -126,7 +131,9 @@ onMounted(() => {
 		}
 	}
 	.login-right {
-		width: 700px;
+		width: 50%;
+		float: right;
+		background: var(--el-color-white);
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
 			border-radius: 3px;

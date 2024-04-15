@@ -12,7 +12,7 @@ using Lazy.Captcha.Core;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统登录授权服务 💥
+/// 系统登录授权服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 500)]
 public class SysAuthService : IDynamicApiController, ITransient
@@ -102,7 +102,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             {
                 VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
             }
-            else if (!await _sysLdapService.Auth(tenant.Id, userLdap.Account, input.Password))
+            else if (!await _sysLdapService.AuthAccount(tenant.Id, userLdap.Account, input.Password))
             {
                 _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);

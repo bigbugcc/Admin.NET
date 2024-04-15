@@ -46,11 +46,13 @@ const onLayoutResize = () => {
 		});
 	}
 };
+
 // 页面加载前
 onBeforeMount(() => {
 	onLayoutResize();
 	window.addEventListener('resize', onLayoutResize);
 });
+
 // 页面卸载时
 onUnmounted(() => {
 	window.removeEventListener('resize', onLayoutResize);

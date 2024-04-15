@@ -11,6 +11,7 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 最大值校验
 /// </summary>
+[SuppressSniffer]
 public class MaxValueAttribute : ValidationAttribute
 {
     private double MaxValue { get; }

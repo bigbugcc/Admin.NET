@@ -9,7 +9,7 @@
 namespace Admin.NET.Plugin.GoView.Service;
 
 /// <summary>
-/// 系统登录服务
+/// 系统登录服务 🧩
 /// </summary>
 [UnifyProvider("GoView")]
 [ApiDescriptionSettings(GoViewConst.GroupName, Module = "goview", Name = "sys", Order = 500)]
@@ -29,7 +29,7 @@ public class GoViewSysService : IDynamicApiController
     }
 
     /// <summary>
-    /// GoView 登录
+    /// GoView 登录 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
@@ -64,7 +64,7 @@ public class GoViewSysService : IDynamicApiController
     }
 
     /// <summary>
-    /// GoView 退出
+    /// GoView 退出 🔖
     /// </summary>
     [DisplayName("GoView 退出")]
     public void GetLogout()
@@ -73,13 +73,13 @@ public class GoViewSysService : IDynamicApiController
     }
 
     /// <summary>
-    /// 获取 OSS 上传接口
+    /// 获取 OSS 上传接口 🔖
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
     [ApiDescriptionSettings(Name = "GetOssInfo")]
     [DisplayName("获取 OSS 上传接口")]
-    public Task<GoViewOssUrlOutput> GetOssInfo()
+    public static Task<GoViewOssUrlOutput> GetOssInfo()
     {
         return Task.FromResult(new GoViewOssUrlOutput { BucketURL = "" });
     }

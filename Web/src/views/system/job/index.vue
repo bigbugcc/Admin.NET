@@ -172,7 +172,7 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="270" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-tooltip content="执行记录">
 							<el-button size="small" type="primary" icon="ele-Timer" text @click="openJobTriggerRecord(scope.row)"> </el-button>

@@ -27,7 +27,7 @@
 				<el-table-column prop="port" label="端口" show-overflow-tooltip="" />
 				<el-table-column prop="baseDn" label="用户搜索基准" show-overflow-tooltip="" />
 				<el-table-column prop="bindDn" label="绑定DN" show-overflow-tooltip="" />
-				<el-table-column prop="bindPass" label="绑定密码" min-width="150" show-overflow-tooltip="" />
+				<el-table-column prop="bindPass" label="绑定密码" min-width="200" show-overflow-tooltip="" />
 				<el-table-column prop="authFilter" label="用户过滤规则" show-overflow-tooltip="" />
 				<el-table-column prop="version" label="Ldap版本" show-overflow-tooltip="" />
 				<el-table-column prop="status" label="状态" width="80" align="center" show-overflow-tooltip="">
@@ -41,10 +41,11 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="140" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete')">
+				<el-table-column label="操作" width="240" align="center" fixed="right" show-overflow-tooltip="" v-if="auth('sysLdap:update') || auth('sysLdap:delete') || auth('sysLdap:syncUser')">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditSysLdap(scope.row)" v-auth="'sysLdap:update'"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delSysLdap(scope.row)" v-auth="'sysLdap:delete'"> 删除 </el-button>
+						<el-button icon="ele-Delete" size="small" text type="danger" @click="delSysLdap(scope.row)" v-auth="'sysLdap:delete'"> 删除 </el-button>
+						<el-button icon="ele-Refresh" size="small" text type="primary" @click="syncDomainUser(scope.row)" v-auth="'sysLdap:syncUser'"> 同步域账户 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -126,7 +127,7 @@ const openEditSysLdap = (row: any) => {
 
 // 删除
 const delSysLdap = (row: any) => {
-	ElMessageBox.confirm(`确定要删除吗：【${row.host}】?`, '提示', {
+	ElMessageBox.confirm(`确定要删除域登录信息配置：【${row.host}】?`, '提示', {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',
@@ -149,5 +150,20 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
 	state.tableParams.page = val;
 	handleQuery();
+};
+
+// 同步域账户
+const syncDomainUser = (row: any) => {
+	ElMessageBox.confirm(`确定要同步域账户吗?`, '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	})
+		.then(async () => {
+			await getAPI(SysLdapApi).apiSysLdapSyncUserPost({ id: row.id });
+			handleQuery();
+			ElMessage.success('删除成功');
+		})
+		.catch(() => {});
 };
 </script>
