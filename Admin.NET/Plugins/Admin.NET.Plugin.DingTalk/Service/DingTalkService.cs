@@ -16,18 +16,12 @@ public class DingTalkService : IDynamicApiController, IScoped
 {
     private readonly IDingTalkApi _dingTalkApi;
     private readonly DingTalkOptions _dingTalkOptions;
-    private readonly SqlSugarRepository<DingTalkUser> _dingTalkUserRepo;
-    private readonly SqlSugarRepository<SysUser> _sysUserRep;
 
     public DingTalkService(IDingTalkApi dingTalkApi,
-        IOptions<DingTalkOptions> dingTalkOptions,
-        SqlSugarRepository<DingTalkUser> dingTalkUserRepo,
-        SqlSugarRepository<SysUser> sysUserRep)
+        IOptions<DingTalkOptions> dingTalkOptions)
     {
         _dingTalkApi = dingTalkApi;
         _dingTalkOptions = dingTalkOptions.Value;
-        _dingTalkUserRepo = dingTalkUserRepo;
-        _sysUserRep = sysUserRep;
     }
 
     /// <summary>

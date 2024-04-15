@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Admin.NET.Plugin.Job;
 
-
 /// <summary>
 /// 同步钉钉用户job
 /// </summary>
@@ -24,6 +23,7 @@ public class SyncDingTalkUserJob : IJob
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IDingTalkApi _dingTalkApi;
     private readonly ILogger _logger;
+
     public SyncDingTalkUserJob(IServiceScopeFactory scopeFactory, IDingTalkApi dingTalkApi, ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
@@ -37,17 +37,17 @@ public class SyncDingTalkUserJob : IJob
         var _sysUserRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysUser>>();
         var _dingTalkUserRepo = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<DingTalkUser>>();
         var _dingTalkOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<DingTalkOptions>>();
-        // 获取token
+
+        // 获取Token
         var tokenRes = await _dingTalkApi.GetDingTalkToken(_dingTalkOptions.Value.ClientId, _dingTalkOptions.Value.ClientSecret);
         if (tokenRes.ErrCode != 0)
-        {
             throw Oops.Oh(tokenRes.ErrMsg);
-        }
+
         var dingTalkUserList = new List<DingTalkEmpRosterFieldVo>();
         var offset = 0;
         while (offset >= 0)
         {
-            // 获取用户id列表
+            // 获取用户Id列表
             var userIdsRes = await _dingTalkApi.GetDingTalkCurrentEmployeesList(tokenRes.AccessToken, new GetDingTalkCurrentEmployeesListInput
             {
                 StatusList = "2,3,5,-1",
@@ -59,7 +59,7 @@ public class SyncDingTalkUserJob : IJob
                 _logger.LogError(userIdsRes.ErrMsg);
                 break;
             }
-            // 根据用户id获取花名册
+            // 根据用户Id获取花名册
             var rosterRes = await _dingTalkApi.GetDingTalkCurrentEmployeesRosterList(tokenRes.AccessToken, new GetDingTalkCurrentEmployeesRosterListInput()
             {
                 UserIdList = string.Join(",", userIdsRes.Result.DataList),
@@ -81,119 +81,83 @@ public class SyncDingTalkUserJob : IJob
         }
 
         // 判断新增还是更新
-        var sysDingTalkUserIdList = await _dingTalkUserRepo.AsQueryable()
-            .Select(x => new
-            {
-                x.Id,
-                x.DingTalkUserId
-            })
-            .ToListAsync();
-        // 需要更新的用户id
-        var uDingTalkUser = dingTalkUserList.Where(x => sysDingTalkUserIdList.Any(d => d.DingTalkUserId == x.UserId));
-        // 需要新增的用户id
-        var iDingTalkUser = dingTalkUserList.Where(u => !sysDingTalkUserIdList.Any(d => d.DingTalkUserId == u.UserId));
-        #region 新增钉钉用户
-        var iUser = iDingTalkUser
-            .Select(res => new DingTalkUser
-            {
-                DingTalkUserId = res.UserId,
-                Name = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.NameField)
-                .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
-                Mobile = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.MobileField)
-                   .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
-                JobNumber = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.JobNumberField)
-                  .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
-            }).ToList();
+        var sysDingTalkUserIdList = await _dingTalkUserRepo.AsQueryable().Select(u => new
+        {
+            u.Id,
+            u.DingTalkUserId
+        }).ToListAsync();
+
+        var uDingTalkUser = dingTalkUserList.Where(u => sysDingTalkUserIdList.Any(m => m.DingTalkUserId == u.UserId)); // 需要更新的用户Id
+        var iDingTalkUser = dingTalkUserList.Where(u => !sysDingTalkUserIdList.Any(m => m.DingTalkUserId == u.UserId)); // 需要新增的用户Id
+
+        // 新增钉钉用户
+        var iUser = iDingTalkUser.Select(res => new DingTalkUser
+        {
+            DingTalkUserId = res.UserId,
+            Name = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.NameField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Mobile = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.MobileField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            JobNumber = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.JobNumberField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+        }).ToList();
         if (iUser.Count > 0)
         {
-            var iUserRes = await _dingTalkUserRepo.CopyNew().AsInsertable(iUser).ExecuteCommandAsync();
-            if (iUserRes <= 0)
-            {
-                throw Oops.Oh("保存钉钉用户错误");
-            }
+            await _dingTalkUserRepo.CopyNew().AsInsertable(iUser).ExecuteCommandAsync();
         }
-        #endregion
 
-        #region 更新钉钉用户
-        var uUser = uDingTalkUser
-        .Select(res => new DingTalkUser
+        // 更新钉钉用户
+        var uUser = uDingTalkUser.Select(res => new DingTalkUser
         {
-            Id = sysDingTalkUserIdList.Where(d => d.DingTalkUserId == res.UserId).Select(d => d.Id).FirstOrDefault(),
+            Id = sysDingTalkUserIdList.Where(u => u.DingTalkUserId == res.UserId).Select(u => u.Id).FirstOrDefault(),
             DingTalkUserId = res.UserId,
-            Name = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.NameField)
-                .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
-            Mobile = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.MobileField)
-                   .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
-            JobNumber = res.FieldDataList
-                .Where(f => f.FieldCode == DingTalkConst.JobNumberField)
-                  .Select(f => f.FieldValueList.Select(v => v.Value).FirstOrDefault())
-                .FirstOrDefault(),
+            Name = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.NameField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Mobile = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.MobileField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            JobNumber = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.JobNumberField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
         }).ToList();
         if (uUser.Count > 0)
         {
-            var uUserRes = await _dingTalkUserRepo.CopyNew().AsUpdateable(uUser)
-            .UpdateColumns(d => new
+            await _dingTalkUserRepo.CopyNew().AsUpdateable(uUser).UpdateColumns(u => new
             {
-                d.DingTalkUserId,
-                d.Name,
-                d.Mobile,
-                d.JobNumber,
-                d.UpdateTime,
-                d.UpdateUserName,
-                d.UpdateUserId,
+                u.DingTalkUserId,
+                u.Name,
+                u.Mobile,
+                u.JobNumber,
+                u.UpdateTime,
+                u.UpdateUserName,
+                u.UpdateUserId,
             }).ExecuteCommandAsync();
-            if (uUserRes <= 0)
-            {
-                throw Oops.Oh("更新钉钉用户错误");
-            }
         }
-        #endregion
-        // 通过系统用户账号(工号)，更新钉钉用户表里面的系统用户id
-        var sysUser = await _sysUserRep.AsQueryable().Select(x => new
-        {
-            x.Id,
-            x.Account
-        }).ToListAsync();
-        var sysDingTalkUser = await _dingTalkUserRepo.AsQueryable()
-            .Where(d => sysUser.Any(u => u.Account == d.JobNumber))
-            .Select(x => new
+
+        // 通过系统用户账号(工号)，更新钉钉用户表里面的系统用户Id
+        var sysUser = await _sysUserRep.AsQueryable()
+            .Select(u => new
             {
-                x.Id,
-                x.JobNumber,
-                x.Mobile
+                u.Id,
+                u.Account
             }).ToListAsync();
-        var uSysDingTalkUser = sysDingTalkUser.Select(d => new DingTalkUser
+        var sysDingTalkUser = await _dingTalkUserRepo.AsQueryable()
+            .Where(u => sysUser.Any(m => m.Account == u.JobNumber))
+            .Select(u => new
+            {
+                u.Id,
+                u.JobNumber,
+                u.Mobile
+            }).ToListAsync();
+        var uSysDingTalkUser = sysDingTalkUser.Select(u => new DingTalkUser
         {
-            Id = d.Id,
-            SysUserId = sysUser.Where(u => u.Account == d.JobNumber).Select(u => u.Id).FirstOrDefault(),
+            Id = u.Id,
+            SysUserId = sysUser.Where(m => m.Account == u.JobNumber).Select(u => u.Id).FirstOrDefault(),
         }).ToList();
-        var uSysDingTalkUserRes = await _dingTalkUserRepo.CopyNew().AsUpdateable(uSysDingTalkUser)
-        .UpdateColumns(d => new
+
+        await _dingTalkUserRepo.CopyNew().AsUpdateable(uSysDingTalkUser).UpdateColumns(u => new
         {
-            d.SysUserId,
-            d.UpdateTime,
-            d.UpdateUserName,
-            d.UpdateUserId,
+            u.SysUserId,
+            u.UpdateTime,
+            u.UpdateUserName,
+            u.UpdateUserId,
         }).ExecuteCommandAsync();
-        if (uSysDingTalkUserRes <= 0)
-        {
-            _logger.LogError("同步钉钉用户错误");
-            return;
-        }
+
         var originColor = Console.ForegroundColor;
-        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("【" + DateTime.Now + "】同步钉钉用户");
         Console.ForegroundColor = originColor;
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace Admin.NET.Plugin.DingTalk;
 
-
 public class GetDingTalkTokenOutput
 {
     /// <summary>

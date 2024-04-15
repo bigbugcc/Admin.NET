@@ -12,7 +12,7 @@ namespace Admin.NET.Plugin.GoView.Service;
 /// 系统登录服务 🧩
 /// </summary>
 [UnifyProvider("GoView")]
-[ApiDescriptionSettings(GoViewConst.GroupName, Module = "goview", Name = "sys", Order = 500)]
+[ApiDescriptionSettings(GoViewConst.GroupName, Module = "goview", Name = "sys", Order = 100)]
 public class GoViewSysService : IDynamicApiController
 {
     private readonly SysAuthService _sysAuthService;
