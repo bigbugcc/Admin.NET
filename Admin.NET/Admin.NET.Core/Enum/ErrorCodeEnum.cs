@@ -30,7 +30,7 @@ public enum ErrorCodeEnum
     /// <summary>
     /// 账号或密码不存在
     /// </summary>
-    [ErrorCodeItemMetadata("账号或密码不存在")]
+    [ErrorCodeItemMetadata("账号或密码错误")]
     D0010,
 
     /// <summary>
