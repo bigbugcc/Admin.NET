@@ -15,7 +15,7 @@ public class DingTalkConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "钉钉【DingTalk】";
+    public const string GroupName = "DingTalk";
 
     /// <summary>
     /// 姓名

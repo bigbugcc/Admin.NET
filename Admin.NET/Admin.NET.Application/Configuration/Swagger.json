@@ -8,13 +8,15 @@
         "Group": "Default",
         "Title": "Admin.NET 通用权限开发平台",
         "Description": "让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。",
-        "Version": "1.0.0"
+        "Version": "1.0.0",
+        "Order": 1000
       },
       {
         "Group": "All Groups",
         "Title": "所有接口",
         "Description": "让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。",
-        "Version": "1.0.0"
+        "Version": "1.0.0",
+        "Order": 0
       }
     ],
     "DefaultGroupName": "Default", // 默认分组名

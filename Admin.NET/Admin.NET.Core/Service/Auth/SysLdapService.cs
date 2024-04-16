@@ -11,7 +11,7 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 系统域登录配置服务 🧩
 /// </summary>
-[ApiDescriptionSettings(Order = 485)]
+[ApiDescriptionSettings(Order = 496)]
 public class SysLdapService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysLdap> _sysLdapRep;

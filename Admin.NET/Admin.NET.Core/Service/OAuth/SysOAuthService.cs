@@ -13,7 +13,7 @@ namespace Admin.NET.Core.Service;
 /// 系统OAuth服务 🧩
 /// </summary>
 [AllowAnonymous]
-[ApiDescriptionSettings(Order = 495)]
+[ApiDescriptionSettings(Order = 498)]
 public class SysOAuthService : IDynamicApiController, ITransient
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
