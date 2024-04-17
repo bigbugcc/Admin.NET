@@ -2,7 +2,7 @@
 	<div class="layout-footer pb15">
 		<div class="layout-footer-warp">
 			<div>{{ themeConfig.globalTitle }}</div>
-			<div class="mt5">Copyright © 2021-2014 Admin.NET All rights reserved.</div>
+			<div class="mt5">{{ themeConfig.copyright }}</div>
 		</div>
 	</div>
 </template>

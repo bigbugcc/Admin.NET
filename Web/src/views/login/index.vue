@@ -46,6 +46,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="copyright mt5">{{ getThemeConfig.copyright }}</div>
 	</div>
 </template>
 
@@ -138,7 +139,6 @@ onMounted(() => {
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
 			border-radius: 3px;
-			width: 500px;
 			height: 550px;
 			position: relative;
 			overflow: hidden;
@@ -255,6 +255,33 @@ onMounted(() => {
 				}
 			}
 		}
+	}
+}
+.copyright {
+	position: absolute;
+	bottom: 2%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+}
+@media screen and (min-width: 1200px) {
+	.login-right-warp {
+		width: 500px;
+	}
+	.copyright {
+		left: 75%;
+		color: var(--el-text-color-secondary);
+	}
+}
+@media screen and (max-width: 1200px) {
+	.copyright {
+		left: 50%;
+		color: var(--el-color-white);
+	}
+}
+@media screen and (max-width: 580px) {
+	.copyright {
+		left: 50%;
+		color: var(--el-text-color-secondary);
 	}
 }
 </style>
