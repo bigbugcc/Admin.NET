@@ -9,13 +9,13 @@
 		<UserSecretsId>ad9369d1-f29b-4f8f-a7df-8b4d7aa0726b</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
+		<Copyright>© Admin.NET</Copyright>
+		<Description>Admin.NET 通用权限开发平台</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Remove="logs\**" />
 		<Compile Remove="publish\**" />
-		<Content Remove="logs\**" />
-		<Content Remove="publish\**" />
 		<EmbeddedResource Remove="logs\**" />
 		<EmbeddedResource Remove="publish\**" />
 		<None Remove="logs\**" />
@@ -24,65 +24,32 @@
 
 	<ItemGroup>
 		<Content Update="wwwroot\Avatar\**" CopyToPublishDirectory="Never" />
-		<Content Update="wwwroot\logs\**" CopyToPublishDirectory="Never" />
 		<Content Update="wwwroot\upload\**" CopyToPublishDirectory="Never" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Admin.NET.db" />
-		<None Remove="sensitive-words.txt" />
+		<Content Update="wwwroot\Template\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="sensitive-words.txt">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </EmbeddedResource>
+		<None Update="GeoLite2-City.mmdb">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="ip2region.db">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="sensitive-words.txt">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Admin.NET.Web.Core\Admin.NET.Web.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="wwwroot\Template\data.data.ts.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\dataModal.vue.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Dto.cs.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Entity.cs.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\index.vue.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Input.cs.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Manage - Copy.js.vm">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Manage.js.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Output.cs.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Update="wwwroot\Template\Service.cs.vm">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="GeoLite2-City.mmdb">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="ip2region.db">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>
