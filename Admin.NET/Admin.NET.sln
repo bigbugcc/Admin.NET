@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.GoView", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.Elsa", "Plugins\Admin.NET.Plugin.Elsa\Admin.NET.Plugin.Elsa.csproj", "{48EFC3A6-BDC0-4D05-819A-B1FB927FA4C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.NET.Plugin.DingTalk", "Plugins\Admin.NET.Plugin.DingTalk\Admin.NET.Plugin.DingTalk.csproj", "{F6A002AD-CF7F-4771-8597-F12A50A93DAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.DingTalk", "Plugins\Admin.NET.Plugin.DingTalk\Admin.NET.Plugin.DingTalk.csproj", "{F6A002AD-CF7F-4771-8597-F12A50A93DAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

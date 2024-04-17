@@ -9,25 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Service\**" />
-    <EmbeddedResource Remove="Service\**" />
-    <None Remove="Service\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Admin.NET.Application.xml" />
-    <None Remove="Configuration\Limit.json" />
-    <None Remove="Configuration\Logging.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Configuration\Logging.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Configuration\**\*">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>      
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Configuration\Limit.json">
+    <Content Include="wwwroot\**\*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 
@@ -35,57 +25,6 @@
     <ProjectReference Include="..\Admin.NET.Core\Admin.NET.Core.csproj" />
     <ProjectReference Include="..\Plugins\Admin.NET.Plugin.DingTalk\Admin.NET.Plugin.DingTalk.csproj" />
     <ProjectReference Include="..\Plugins\Admin.NET.Plugin.GoView\Admin.NET.Plugin.GoView.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-	  <None Update="Configuration\APIJSON.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Configuration\App.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Configuration\Captcha.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-    <None Update="Configuration\Cache.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Enum.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\CodeGen.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Database.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Email.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\EventBus.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\JWT.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\SMS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\OAuth.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\OSS.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Swagger.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Upload.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configuration\Wechat.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
