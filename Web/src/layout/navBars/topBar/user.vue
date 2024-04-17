@@ -222,7 +222,7 @@ onMounted(async () => {
 	// 手动获取用户桌面通知权限
 	if (Push.Permission.GRANTED) {
 		// 判断当前是否有权限，没有则手动获取
-		Push.Permission.request();
+		Push.Permission.request(null, null);
 	}
 	// 监听浏览器 当前系统是否在当前页
 	document.addEventListener('visibilitychange', () => {
