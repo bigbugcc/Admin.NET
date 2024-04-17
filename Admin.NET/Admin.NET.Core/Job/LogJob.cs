@@ -37,10 +37,10 @@ public class LogJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("【" + DateTime.Now + "】清理系统日志（30天前）");
+        Console.WriteLine($"【{DateTime.Now}】清理系统日志（30天前）");
         Console.ForegroundColor = originColor;
 
         // 自定义日志
-        _logger.LogInformation("清理系统日志");
+        _logger.LogInformation($"【{DateTime.Now}】清理系统日志...");
     }
 }

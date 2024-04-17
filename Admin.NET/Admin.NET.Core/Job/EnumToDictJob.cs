@@ -145,7 +145,7 @@ public class EnumToDictJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("【" + DateTime.Now + "】系统枚举转换字典");
+        Console.WriteLine($"【{DateTime.Now}】系统枚举转换字典");
         Console.ForegroundColor = originColor;
     }
 }
