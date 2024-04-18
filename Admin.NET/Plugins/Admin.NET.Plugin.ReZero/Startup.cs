@@ -5,6 +5,8 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Admin.NET.Core;
+using Admin.NET.Plugin.ReZero.Service;
+using Furion.Localization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +32,11 @@ public class Startup : AppStartup
                     ConnectionString = dbOptions.ConnectionConfigs[0].ConnectionString
                 }
             },
-            UiOptions = new UiOptions() { DefaultIndexSource = "/index.html" }
+            UiOptions = new UiOptions() { DefaultIndexSource = "/index.html" },
+            InterfaceOptions = new InterfaceOptions()
+            {
+                SuperApiAop = new SuperApiAop() // 授权拦截器
+            }
         };
 
         // 注册超级API
