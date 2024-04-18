@@ -74,9 +74,14 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         string remoteIPv4 = loggingMonitor.remoteIPv4;
         (string ipLocation, double? longitude, double? latitude) = GetIpAddress(remoteIPv4);
 
-        var client = Parser.GetDefault().Parse(loggingMonitor.userAgent.ToString());
-        var browser = $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
-        var os = $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}";
+        var browser = "";
+        var os = "";
+        if (loggingMonitor.userAgent != null)
+        {
+            var client = Parser.GetDefault().Parse(loggingMonitor.userAgent.ToString());
+            browser = $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
+            os = $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}";
+        }
 
         // 捕捉异常，否则会由于 unhandled exception 导致程序崩溃
         try

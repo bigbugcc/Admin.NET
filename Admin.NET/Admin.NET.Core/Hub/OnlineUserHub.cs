@@ -44,14 +44,14 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         var claims = JWTEncryption.ReadJwtToken(token)?.Claims;
         var client = Parser.GetDefault().Parse(httpContext.Request.Headers["User-Agent"]);
 
-        var userId = claims.FirstOrDefault(u => u.Type == ClaimConst.UserId)?.Value;
-        var tenantId = claims.FirstOrDefault(u => u.Type == ClaimConst.TenantId)?.Value;
+        var userId = claims?.FirstOrDefault(u => u.Type == ClaimConst.UserId)?.Value;
+        var tenantId = claims?.FirstOrDefault(u => u.Type == ClaimConst.TenantId)?.Value;
         var user = new SysOnlineUser
         {
             ConnectionId = Context.ConnectionId,
             UserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
-            UserName = claims.FirstOrDefault(u => u.Type == ClaimConst.Account)?.Value,
-            RealName = claims.FirstOrDefault(u => u.Type == ClaimConst.RealName)?.Value,
+            UserName = claims?.FirstOrDefault(u => u.Type == ClaimConst.Account)?.Value,
+            RealName = claims?.FirstOrDefault(u => u.Type == ClaimConst.RealName)?.Value,
             Time = DateTime.Now,
             Ip = httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString(),
             Browser = client.UA.Family + client.UA.Major,

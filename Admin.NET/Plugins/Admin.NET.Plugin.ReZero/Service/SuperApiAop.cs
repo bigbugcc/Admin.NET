@@ -4,9 +4,16 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core;
+using Furion.ClayObject;
+using Furion.DataEncryption;
 using Furion.FriendlyException;
+using Furion.JsonSerialization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using NewLife;
 using ReZero.SuperAPI;
 
 namespace Admin.NET.Plugin.ReZero.Service;
@@ -30,11 +37,72 @@ public class SuperApiAop : DefaultSuperApiAop
 
     public override async Task OnExecutedAsync(InterfaceContext aopContext)
     {
+        InitLogContext(aopContext, LogLevel.Information);
+
         await base.OnExecutedAsync(aopContext);
     }
 
     public override async Task OnErrorAsync(InterfaceContext aopContext)
     {
+        InitLogContext(aopContext, LogLevel.Error);
+
         await base.OnErrorAsync(aopContext);
+    }
+
+    /// <summary>
+    /// 保存超级API接口日志
+    /// </summary>
+    /// <param name="aopContext"></param>
+    /// <param name="logLevel"></param>
+    private void InitLogContext(InterfaceContext aopContext, LogLevel logLevel)
+    {
+        var api = aopContext.InterfaceInfo;
+        var context = aopContext.HttpContext;
+
+        var accessToken = context.Response.Headers["access-token"].ToString();
+        var token = string.IsNullOrWhiteSpace(accessToken)
+            ? context.Request.Headers["Authorization"].ToString()
+            : "Bearer " + accessToken;
+        var claims = JWTEncryption.ReadJwtToken(token)?.Claims;
+        var userName = claims?.FirstOrDefault(u => u.Type == ClaimConst.Account)?.Value;
+        var realName = claims?.FirstOrDefault(u => u.Type == ClaimConst.RealName)?.Value;
+
+        var paths = api.Url.Split('/');
+        var actionName = paths[paths.Length - 1];
+
+        var apiInfo = Clay.Object(new
+        {
+            requestUrl = api.Url,
+            httpMethod = api.HttpMethod,
+            displayTitle = api.Name,
+            actionTypeName = actionName,
+            controllerName = aopContext.InterfaceType == InterfaceType.DynamicApi ? $"ReZero动态-{api.GroupName}" : $"ReZero系统-{api.GroupName}",
+            remoteIPv4 = context.GetRemoteIpAddressToIPv4(),
+            userAgent = context.Request.Headers["User-Agent"],
+            returnInformation = new
+            {
+                httpStatusCode = context.Response.StatusCode,
+            },
+            authorizationClaims = new[]
+            {
+                new
+                {
+                    type = ClaimConst.Account,
+                    value = userName
+                },
+                new
+                {
+                    type = ClaimConst.RealName,
+                    value = realName
+                },
+            },
+            exception = aopContext.Exception == null ? null : JSON.Serialize(aopContext.Exception)
+        });
+
+        var logger = App.GetRequiredService<ILoggerFactory>().CreateLogger("System.Logging.LoggingMonitor");
+        using var scope = logger.ScopeContext(new Dictionary<object, object> {
+            { "loggingMonitor", apiInfo.ToString() }
+        });
+        logger.Log(logLevel, "ReZero超级API接口日志");
     }
 }
