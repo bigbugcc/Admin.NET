@@ -29,7 +29,8 @@ public class Startup : AppStartup
                     DbType = dbOptions.ConnectionConfigs[0].DbType,
                     ConnectionString = dbOptions.ConnectionConfigs[0].ConnectionString
                 }
-            }
+            },
+            UiOptions = new UiOptions() { DefaultIndexSource = "/index.html" }
         };
 
         // 注册超级API
