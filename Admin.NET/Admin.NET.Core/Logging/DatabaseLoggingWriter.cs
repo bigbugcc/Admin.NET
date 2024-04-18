@@ -34,7 +34,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
     public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();
-        if (jsonStr == null)
+        if (string.IsNullOrWhiteSpace(jsonStr))
         {
             await _db.Insertable(new SysLogOp
             {
