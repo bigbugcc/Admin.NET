@@ -20,6 +20,8 @@ public class Startup : AppStartup
 {
     public void ConfigureServices(IServiceCollection services)
     {
+        var reZeroOpt = App.GetConfig<ReZeroOptions>("ReZero", true);
+
         // 获取默认数据库配置（第一个）
         var dbOptions = App.GetConfig<DbConnectionOptions>("DbConnection", true);
         var superAPIOption = new SuperAPIOptions()
@@ -35,7 +37,8 @@ public class Startup : AppStartup
             UiOptions = new UiOptions() { DefaultIndexSource = "/index.html" },
             InterfaceOptions = new InterfaceOptions()
             {
-                SuperApiAop = new SuperApiAop() // 授权拦截器
+                AuthorizationLocalStorageName = reZeroOpt.AccessTokenKey, // 浏览器本地存储LocalStorage存储Token的键名
+                SuperApiAop = new SuperApiAop() // 超级API拦截器
             }
         };
 

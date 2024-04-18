@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NewLife;
 using ReZero.SuperAPI;
 
 namespace Admin.NET.Plugin.ReZero.Service;
@@ -25,12 +24,17 @@ public class SuperApiAop : DefaultSuperApiAop
 {
     public override async Task OnExecutingAsync(InterfaceContext aopContext)
     {
-        if (aopContext.InterfaceType == InterfaceType.DynamicApi)
-        {
-            var authenticateResult = await aopContext.HttpContext.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
-            if (!authenticateResult.Succeeded)
-                throw Oops.Oh("没权限 Unauthorized");
-        }
+        //if (aopContext.InterfaceType == InterfaceType.DynamicApi)
+        //{
+        var authenticateResult = await aopContext.HttpContext.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
+        if (!authenticateResult.Succeeded)
+            throw Oops.Oh("没权限 Unauthorized");
+        //}
+
+        var accessToken = aopContext.HttpContext.Request.Headers["Authorization"].ToString();
+        var (isValid, tokenData, validationResult) = JWTEncryption.Validate(accessToken.Replace("Bearer ", ""));
+        if (!isValid)
+            throw Oops.Oh("Token 无效");
 
         await base.OnExecutingAsync(aopContext);
     }
@@ -59,11 +63,10 @@ public class SuperApiAop : DefaultSuperApiAop
         var api = aopContext.InterfaceInfo;
         var context = aopContext.HttpContext;
 
-        var accessToken = context.Response.Headers["access-token"].ToString();
-        var token = string.IsNullOrWhiteSpace(accessToken)
-            ? context.Request.Headers["Authorization"].ToString()
-            : "Bearer " + accessToken;
-        var claims = JWTEncryption.ReadJwtToken(token)?.Claims;
+        var accessToken = context.Request.Headers["Authorization"].ToString();
+        if (!string.IsNullOrWhiteSpace(accessToken) && accessToken.StartsWith("Bearer "))
+            accessToken = accessToken.Replace("Bearer ", "");
+        var claims = JWTEncryption.ReadJwtToken(accessToken)?.Claims;
         var userName = claims?.FirstOrDefault(u => u.Type == ClaimConst.Account)?.Value;
         var realName = claims?.FirstOrDefault(u => u.Type == ClaimConst.RealName)?.Value;
 
