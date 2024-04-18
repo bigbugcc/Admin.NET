@@ -30,7 +30,8 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
         var sysOpLogEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
         if (!sysOpLogEnabled) return;
 
-        var jsonStr = logMsg.Context.Get("loggingMonitor").ToString();
+        var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();
+        if (jsonStr is null) return;
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
 
         // 不记录登录退出日志
