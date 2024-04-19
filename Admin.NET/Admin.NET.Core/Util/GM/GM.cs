@@ -407,6 +407,7 @@ public class GM
 
     public const string SM4_ECB_NOPADDING = "SM4/ECB/NoPadding";
     public const string SM4_CBC_NOPADDING = "SM4/CBC/NoPadding";
+    public const string SM4_ECB_PKCS7PADDING = "SM4/ECB/PKCS7Padding";
     public const string SM4_CBC_PKCS7PADDING = "SM4/CBC/PKCS7Padding";
 
     /**

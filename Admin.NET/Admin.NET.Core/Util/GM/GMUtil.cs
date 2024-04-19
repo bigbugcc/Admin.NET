@@ -70,7 +70,7 @@ public class GMUtil
     public static string SM4EncryptECB(string key_string, string plainText)
     {
         byte[] key = Hex.Decode(key_string);
-        byte[] bs = GM.Sm4EncryptECB(key, Encoding.UTF8.GetBytes(plainText), GM.SM4_CBC_PKCS7PADDING);//NoPadding 的情况下需要校验数据长度是16的倍数. 使用 HandleSm4Padding 处理
+        byte[] bs = GM.Sm4EncryptECB(key, Encoding.UTF8.GetBytes(plainText), GM.SM4_ECB_PKCS7PADDING);//NoPadding 的情况下需要校验数据长度是16的倍数. 使用 HandleSm4Padding 处理
         return Hex.ToHexString(bs);
     }
 
@@ -83,7 +83,7 @@ public class GMUtil
     public static string SM4DecryptECB(string key_string, string cipherText)
     {
         byte[] key = Hex.Decode(key_string);
-        byte[] bs = GM.Sm4DecryptECB(key, Hex.Decode(cipherText), GM.SM4_CBC_PKCS7PADDING);
+        byte[] bs = GM.Sm4DecryptECB(key, Hex.Decode(cipherText), GM.SM4_ECB_PKCS7PADDING);
         return Encoding.UTF8.GetString(bs);
     }
 
