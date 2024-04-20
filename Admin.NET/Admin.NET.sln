@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.Elsa", "Pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.DingTalk", "Plugins\Admin.NET.Plugin.DingTalk\Admin.NET.Plugin.DingTalk.csproj", "{F6A002AD-CF7F-4771-8597-F12A50A93DAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.NET.Plugin.ReZero", "Plugins\Admin.NET.Plugin.ReZero\Admin.NET.Plugin.ReZero.csproj", "{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.ReZero", "Plugins\Admin.NET.Plugin.ReZero\Admin.NET.Plugin.ReZero.csproj", "{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

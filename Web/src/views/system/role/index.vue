@@ -69,7 +69,6 @@
 
 		<EditRole ref="editRoleRef" :title="state.editRoleTitle" @handleQuery="handleQuery" />
 		<GrantData ref="grantDataRef" @handleQuery="handleQuery" />
-		<GrantApi ref="grantApiRef" @handleQuery="handleQuery" />
 	</div>
 </template>
 

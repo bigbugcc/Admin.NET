@@ -381,7 +381,7 @@ public static class RepositoryExtension
     /// <returns></returns>
     public static List<T> WhereIF<T>(this T thisValue, bool isWhere, Func<T, bool> whereExpression) where T : class, new()
     {
-        return !isWhere ? new List<T>() { thisValue } : new List<T>() { thisValue };
+        return new List<T>() { thisValue };
     }
 
     /// <summary>
