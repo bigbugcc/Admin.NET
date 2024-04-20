@@ -20,9 +20,9 @@
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="6.0.15" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.8" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.2.24" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.2.24" />
-    <PackageReference Include="Furion.Pure" Version="4.9.2.24" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.2.25" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.2.25" />
+    <PackageReference Include="Furion.Pure" Version="4.9.2.25" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
     <PackageReference Include="IPTools.International" Version="1.6.0" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
@@ -32,7 +32,7 @@
     <PackageReference Include="MailKit" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.29" />
-    <PackageReference Include="NewLife.Redis" Version="5.6.2024.411-beta0755" />
+    <PackageReference Include="NewLife.Redis" Version="5.6.2024.420-beta0005" />
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
