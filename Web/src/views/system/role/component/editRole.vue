@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-role-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="700px">
+		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -48,6 +48,7 @@
 								icon="ele-Menu"
 								highlight-current
 								default-expand-all
+								style="height: 600px;overflow-y: auto;"
 							/>
 						</el-form-item>
 					</el-col>

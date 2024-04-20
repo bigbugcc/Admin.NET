@@ -68,7 +68,7 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="180" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="200" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button icon="ele-Coin" size="small" text type="danger" @click="createTenant(scope.row)" v-auth="'sysTenant:createDb'" :disabled="scope.row.tenantType == 0"> 创建库 </el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditTenant(scope.row)" v-auth="'sysTenant:update'"> 编辑 </el-button>

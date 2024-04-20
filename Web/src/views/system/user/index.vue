@@ -75,7 +75,7 @@
 								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
-						<el-table-column label="操作" width="110" align="center" fixed="right" show-overflow-tooltip>
+						<el-table-column label="操作" width="130" align="center" fixed="right" show-overflow-tooltip>
 							<template #default="scope">
 								<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditUser(scope.row)" v-auth="'sysUser:update'"> 编辑 </el-button>
 								<el-dropdown>

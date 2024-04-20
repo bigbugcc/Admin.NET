@@ -46,18 +46,11 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="110" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="240" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
+						<el-button icon="ele-OfficeBuilding" size="small" text type="primary" @click="openGrantData(scope.row)" v-auth="'sysRole:grantDataScope'"> 数据范围 </el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditRole(scope.row)" v-auth="'sysRole:update'"> 编辑 </el-button>
-						<el-dropdown>
-							<el-button icon="ele-MoreFilled" size="small" text type="primary" style="padding-left: 12px" />
-							<template #dropdown>
-								<el-dropdown-menu>
-									<el-dropdown-item icon="ele-OfficeBuilding" @click="openGrantData(scope.row)" :disabled="!auth('sysRole:grantDataScope')"> 数据范围 </el-dropdown-item>
-									<el-dropdown-item icon="ele-Delete" @click="delRole(scope.row)" divided :disabled="!auth('sysRole:delete')"> 删除角色 </el-dropdown-item>
-								</el-dropdown-menu>
-							</template>
-						</el-dropdown>
+						<el-button icon="ele-Delete" size="small" text type="danger" @click="delRole(scope.row)" v-auth="'sysRole:delete'"> 删除 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -76,6 +69,7 @@
 
 		<EditRole ref="editRoleRef" :title="state.editRoleTitle" @handleQuery="handleQuery" />
 		<GrantData ref="grantDataRef" @handleQuery="handleQuery" />
+		<GrantApi ref="grantApiRef" @handleQuery="handleQuery" />
 	</div>
 </template>
 
