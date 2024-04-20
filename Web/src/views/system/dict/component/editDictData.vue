@@ -22,11 +22,11 @@
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="标签类型">
 							<el-radio-group v-model="state.ruleForm.tagType">
-								<el-radio label="default"><el-tag type="default">主题色</el-tag></el-radio>
-								<el-radio type="success" label="success"><el-tag type="success">success</el-tag></el-radio>
-								<el-radio type="info" label="info"><el-tag type="info">info</el-tag></el-radio>
-								<el-radio type="warning" label="warning"><el-tag type="warning">warning</el-tag></el-radio>
-								<el-radio type="danger" label="danger"><el-tag type="danger" style="font:">danger</el-tag></el-radio>
+								<el-radio value="primary"><el-tag type="primary">主题色</el-tag></el-radio>
+								<el-radio value="success"><el-tag type="success">success</el-tag></el-radio>
+								<el-radio value="info"><el-tag type="info">info</el-tag></el-radio>
+								<el-radio value="warning"><el-tag type="warning">warning</el-tag></el-radio>
+								<el-radio value="danger"><el-tag type="danger" style="font:">danger</el-tag></el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
