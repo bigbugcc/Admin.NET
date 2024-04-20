@@ -107,7 +107,6 @@ const state = reactive({
 		name: undefined,
 		code: undefined,
 	},
-	editPosTitle: '',
 	appNamespaces: [] as Array<String>, // 存储位置
 });
 

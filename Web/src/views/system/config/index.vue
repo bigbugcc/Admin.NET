@@ -138,7 +138,6 @@ const getGroupList = async () => {
 
 //表格多选事件
 const tableSelection = (data: EmptyObjectType[]) => {
-	// console.log('表格多选事件', data)
 	state.selectlist = data;
 };
 

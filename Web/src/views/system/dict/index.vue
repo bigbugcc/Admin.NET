@@ -217,7 +217,6 @@ const handleDictDataQuery = async () => {
 
 // 点击表格
 const handleDictType = (row: any, event: any, column: any) => {
-	console.log(row, event, column);
 	openDictDataDialog(row);
 };
 
