@@ -63,7 +63,10 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
             //var eventSource = JsonConvert.DeserializeObject<ChannelEventSource>(cr);
 
             // 写入内存管道存储器
-            _channel.Writer.WriteAsync(cr);
+            Task.Run(async () =>
+            {
+                await _channel.Writer.WriteAsync(cr);
+            });
         };
 
         // 启动消费者
