@@ -387,4 +387,28 @@ public static class RepositoryExtension
         }
         return new List<T>() { thisValue };
     }
+
+    /// <summary>
+    /// 只更新某些列
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="R"></typeparam>
+    /// <param name="updateable"></param>
+    /// <returns></returns>
+   public static IUpdateable<T> OnlyUpdateColumn<T,R>(this IUpdateable<T> updateable) where T : EntityBase, new() where R : class, new()
+   {
+      if (updateable.UpdateBuilder.UpdateColumns == null)
+      {
+          updateable.UpdateBuilder.UpdateColumns = new List<string>();
+      }
+      foreach (PropertyInfo info in typeof(R).GetProperties())
+      {
+          //判断是否是相同属性
+          PropertyInfo pro = typeof(T).GetProperty(info.Name);
+          if (pro != null)
+              updateable.UpdateBuilder.UpdateColumns.Add(info.Name);
+
+      }
+      return updateable;
+   }
 }
