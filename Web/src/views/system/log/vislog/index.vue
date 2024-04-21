@@ -15,7 +15,7 @@
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
-					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysVislog:clear'"> 清空 </el-button>
+					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysVislog:clear'" disabled> 清空 </el-button>
 				</el-form-item>
 			</el-form>
 		</el-card>
