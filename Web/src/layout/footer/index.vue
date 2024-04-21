@@ -1,8 +1,8 @@
 <template>
 	<div class="layout-footer pb15">
 		<div class="layout-footer-warp">
-			<div>{{ themeConfig.globalTitle }}</div>
-			<div class="mt5">{{ themeConfig.copyright }}</div>
+			<!-- <div>{{ themeConfig.globalTitle }}</div> -->
+			<div class="mt5">{{ themeConfig.copyright }} {{ themeConfig.globalTitle }}</div>
 		</div>
 	</div>
 </template>
