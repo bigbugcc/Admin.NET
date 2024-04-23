@@ -70,7 +70,7 @@
 		"@vitejs/plugin-vue-jsx": "^3.1.0",
 		"@vue/compiler-sfc": "^3.4.23",
 		"code-inspector-plugin": "^0.12.2",
-		"eslint": "^9.1.0",
+		"eslint": "^8.56.0",
 		"eslint-plugin-vue": "^9.25.0",
 		"less": "^4.2.0",
 		"prettier": "^3.2.5",
