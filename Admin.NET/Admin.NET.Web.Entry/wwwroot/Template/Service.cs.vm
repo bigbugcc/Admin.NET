@@ -1,5 +1,4 @@
 using Admin.NET.Core.Service;
-using @(@Model.NameSpace).Const;
 using @(@Model.NameSpace).Entity;
 using Microsoft.AspNetCore.Http;
 @{
