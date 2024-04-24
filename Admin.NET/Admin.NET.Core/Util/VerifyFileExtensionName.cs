@@ -29,8 +29,8 @@ public static class VerifyFileExtensionName
         dics_ext.Add("252150532D41646F6265", ".ps");
 
         // 办公文档类
-        dics_ext.Add("D0CF11E0", ".doc"); // ppt、doc、xls
-        dics_ext.Add("504B0304", ".docx"); // pptx、docx、xlsx
+        dics_ext.Add("D0CF11E0", ".ppt,.doc,.xls"); // ppt、doc、xls
+        dics_ext.Add("504B0304", ".pptx,.docx,.xlsx"); // pptx、docx、xlsx
 
         /* 注意由于文本文档录入内容过多，则读取文件头时较为多变-START */
         dics_ext.Add("0D0A0D0A", ".txt"); // txt
@@ -78,10 +78,13 @@ public static class VerifyFileExtensionName
 
         foreach (var dics in dics_ext)
         {
-            if (!ext_dics.ContainsKey(dics.Value))
-                ext_dics.Add(dics.Value, new HashSet<int> { dics.Key.Length / 2 });
-            else
-                ext_dics[dics.Value].Add(dics.Key.Length / 2);
+            foreach (var ext in dics.Value.Split(","))
+            {
+                if (!ext_dics.ContainsKey(ext))
+                    ext_dics.Add(ext, new HashSet<int> { dics.Key.Length / 2 });
+                else
+                    ext_dics[ext].Add(dics.Key.Length / 2);
+            }
         }
     }
 
