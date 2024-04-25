@@ -136,15 +136,27 @@ public static class CommonUtil
     /// <typeparam name="T"></typeparam>
     /// <param name="file"></param>
     /// <returns></returns>
-    public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file) where T : class, new()
+    public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
     {
         var newFile = await App.GetRequiredService<SysFileService>().UploadFile(file, "");
         var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, newFile.FilePath, newFile.Id.ToString() + newFile.Suffix);
+        var errorFileUrl = Path.Combine(newFile.FilePath, newFile.Id.ToString() + "_" + newFile.Suffix);
 
         IImporter importer = new ExcelImporter();
-        var res = await importer.Import<T>(filePath);
+        var res = await importer.Import<T>(filePath,importResultCallback);
         if (res == null || res.Exception != null)
             throw Oops.Oh("导入异常:" + res.Exception);
+        if (res.HasError)
+        {
+            if (res.TemplateErrors.Count > 0)
+            {
+                throw Oops.Oh("导入模板格式错误");
+            }
+            else
+            {
+                throw Oops.Oh($"请下载错误文件,根据提示修改后再次导入,<a href='{errorFileUrl}' target='_blank'>点击下载</a>");
+            }
+        }
         return res.Data;
     }
 
@@ -160,7 +172,8 @@ public static class CommonUtil
     {
         MethodInfo importMethod = typeof(CommonUtil).GetMethods().FirstOrDefault(p => p.Name == "ImportExcelData" && p.IsGenericMethodDefinition);
         MethodInfo closedImportMethod = importMethod.MakeGenericMethod(dataDto.GetType());
-        var task = (Task)closedImportMethod.Invoke(null, new object[] { file });
+        var parameters=importMethod.GetParameters();
+        var task = (Task)closedImportMethod.Invoke(null, new object[] { file, parameters[1].DefaultValue });
         await task;
         return task.GetType().GetProperty("Result").GetValue(task);
     }
