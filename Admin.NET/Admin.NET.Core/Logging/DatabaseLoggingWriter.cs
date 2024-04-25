@@ -45,7 +45,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 TraceId = logMsg.TraceId,
                 Exception = logMsg.Exception == null ? null : JSON.Serialize(logMsg.Exception),
                 Message = logMsg.Message,
-                LogLevel = logMsg.LogLevel
+                LogLevel = logMsg.LogLevel,
+                Status = "200",
             }).ExecuteCommandAsync();
             return;
         }

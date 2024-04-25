@@ -100,7 +100,6 @@ public static class CommonUtil
         }
     }
 
-
     /// <summary>
     /// 导出模板Excel
     /// </summary>
@@ -113,8 +112,6 @@ public static class CommonUtil
         var res = await importer.GenerateTemplate<T>(Path.Combine(App.WebHostEnvironment.WebRootPath, fileName));
         return new FileStreamResult(new FileStream(res.FileName, FileMode.Open), "application/octet-stream") { FileDownloadName = fileName };
     }
-
-
 
     /// <summary>
     /// 导出模板Excel
@@ -129,12 +126,12 @@ public static class CommonUtil
         return await (Task<IActionResult>)closedGenerateTemplateMethod.Invoke(null, new object[] { fileName });
     }
 
-
     /// <summary>
     /// 导入数据Excel
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="file"></param>
+    /// <param name="importResultCallback"></param>
     /// <returns></returns>
     public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
     {
@@ -143,7 +140,7 @@ public static class CommonUtil
         var errorFileUrl = Path.Combine(newFile.FilePath, newFile.Id.ToString() + "_" + newFile.Suffix);
 
         IImporter importer = new ExcelImporter();
-        var res = await importer.Import<T>(filePath,importResultCallback);
+        var res = await importer.Import<T>(filePath, importResultCallback);
         if (res == null || res.Exception != null)
             throw Oops.Oh("导入异常:" + res.Exception);
         if (res.HasError)
@@ -160,8 +157,6 @@ public static class CommonUtil
         return res.Data;
     }
 
-
-
     /// <summary>
     /// 导入数据Excel
     /// </summary>
@@ -172,7 +167,7 @@ public static class CommonUtil
     {
         MethodInfo importMethod = typeof(CommonUtil).GetMethods().FirstOrDefault(p => p.Name == "ImportExcelData" && p.IsGenericMethodDefinition);
         MethodInfo closedImportMethod = importMethod.MakeGenericMethod(dataDto.GetType());
-        var parameters=importMethod.GetParameters();
+        var parameters = importMethod.GetParameters();
         var task = (Task)closedImportMethod.Invoke(null, new object[] { file, parameters[1].DefaultValue });
         await task;
         return task.GetType().GetProperty("Result").GetValue(task);
