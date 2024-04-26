@@ -184,7 +184,7 @@ public static class SqlSugarSetup
                         entityInfo.SetValue(YitIdHelper.NextId());
                 }
                 // 若创建时间为空则赋值当前时间
-                else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime) && entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue) != null)
+                else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime) && entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue) == null)
                 {
                     entityInfo.SetValue(DateTime.Now);
                 }
