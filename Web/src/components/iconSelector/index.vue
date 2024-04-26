@@ -8,8 +8,6 @@
 			:size="size"
 			ref="inputWidthRef"
 			@clear="onClearFontIcon"
-			@focus="onIconFocus"
-			@blur="onIconBlur"
 		>
 			<template #prepend>
 				<SvgIcon
@@ -119,20 +117,7 @@ const state = reactive({
 	},
 });
 
-// 处理 input 获取焦点时，modelValue 有值时，改变 input 的 placeholder 值
-const onIconFocus = () => {
-	if (!props.modelValue) return false;
-	state.fontIconSearch = '';
-	state.fontIconPlaceholder = props.modelValue;
-};
-// 处理 input 失去焦点时，为空将清空 input 值，为点击选中图标时，将取原先值
-const onIconBlur = () => {
-	const list = fontIconTabNameList();
-	setTimeout(() => {
-		const icon = list.filter((icon: string) => icon === state.fontIconSearch);
-		if (icon.length <= 0) state.fontIconSearch = '';
-	}, 300);
-};
+
 // 图标搜索及图标数据显示
 const fontIconSheetsFilterList = computed(() => {
 	const list = fontIconTabNameList();
@@ -235,8 +220,10 @@ onMounted(() => {
 watch(
 	() => props.modelValue,
 	() => {
+        state.fontIconSearch='';
 		initModeValueEcho();
 		initFontIconName();
+        getInputWidth();
 	}
 );
 </script>
