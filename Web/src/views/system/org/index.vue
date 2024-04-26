@@ -1,11 +1,11 @@
 <template>
 	<div class="sys-org-container">
-		<el-row :gutter="8" style="width: 100%">
+		<el-row :gutter="5" style="width: 100%; flex: 1">
 			<el-col :span="4" :xs="24">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</el-col>
 
-			<el-col :span="20" :xs="24">
+			<el-col :span="20" :xs="24" style="display: flex; flex-direction: column">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="机构名称">
@@ -31,7 +31,7 @@
 					</el-form>
 				</el-card>
 
-				<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+				<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 					<el-table :data="state.orgData" style="width: 100%" v-loading="state.loading" row-key="id" default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" border>
 						<el-table-column prop="name" label="机构名称" min-width="160" header-align="center" show-overflow-tooltip />
 						<el-table-column prop="code" label="机构编码" align="center" show-overflow-tooltip />
@@ -46,55 +46,7 @@
 						</el-table-column>
 						<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-popover placement="bottom" width="280" trigger="hover">
-									<template #reference>
-										<el-text type="primary">
-											<el-icon><ele-InfoFilled /></el-icon>详情
-										</el-text>
-									</template>
-									<el-descriptions direction="vertical" :column="2" border>
-										<el-descriptions-item width="140">
-											<template #label>
-												<el-text>
-													<el-icon><ele-UserFilled /></el-icon>创建者
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Calendar /></el-icon>创建时间
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-UserFilled /></el-icon>修改者
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Calendar /></el-icon>修改时间
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Tickets /></el-icon>备注
-												</el-text>
-											</template>
-											{{ scope.row.remark }}
-										</el-descriptions-item>
-									</el-descriptions>
-								</el-popover>
+								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
 						<el-table-column label="操作" width="140" fixed="right" align="center" show-overflow-tooltip>
@@ -117,6 +69,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditOrg from '/@/views/system/org/component/editOrg.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOrgApi, SysDictDataApi } from '/@/api-services/api';

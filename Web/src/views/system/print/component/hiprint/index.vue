@@ -200,6 +200,15 @@ const changeMode = () => {
 		template: template,
 		settingContainer: '#PrintElementOptionSetting',
 		paginationContainer: '.hiprint-printPagination',
+		fontList: [
+			{ title: '微软雅黑', value: 'Microsoft YaHei' },
+			{ title: '黑体', value: 'STHeitiSC-Light' },
+			{ title: 'Arial', value: 'Arial' },
+			{ title: '宋体', value: 'SimSun' },
+			{ title: '华为楷体', value: 'STKaiti' },
+			{ title: 'cursive', value: 'cursive' },
+			{ title: 'Vector', value: 'Vector' },
+		],
 	});
 	hiprintTemplate.value.design('#hiprint-printTemplate');
 	// 获取当前放大比例, 当zoom时传true才会有

@@ -3,7 +3,7 @@
 		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 			<TableSearch :search="tb.tableData.search" @search="onSearch" />
 		</el-card>
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<Table ref="tableRef" v-bind="tb.tableData" :getData="getData" :exportChangeData="exportChangeData" @sortHeader="onSortHeader" @selectionChange="tableSelection" border>
 				<template #command>
 					<el-button type="primary" icon="ele-Plus" @click="openAddConfig" v-auth="'sysConfig:add'"> 新增 </el-button>
@@ -15,55 +15,7 @@
 					<el-tag type="danger" v-else> 否 </el-tag>
 				</template>
 				<template #remark="scope">
-					<el-popover placement="bottom" width="280" trigger="hover">
-						<template #reference>
-							<el-text type="primary">
-								<el-icon><ele-InfoFilled /></el-icon>详情
-							</el-text>
-						</template>
-						<el-descriptions direction="vertical" :column="2" border>
-							<el-descriptions-item width="140">
-								<template #label>
-									<el-text>
-										<el-icon><ele-UserFilled /></el-icon>创建者
-									</el-text>
-								</template>
-								<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-							</el-descriptions-item>
-							<el-descriptions-item>
-								<template #label>
-									<el-text>
-										<el-icon><ele-Calendar /></el-icon>创建时间
-									</el-text>
-								</template>
-								<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-							</el-descriptions-item>
-							<el-descriptions-item>
-								<template #label>
-									<el-text>
-										<el-icon><ele-UserFilled /></el-icon>修改者
-									</el-text>
-								</template>
-								<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-							</el-descriptions-item>
-							<el-descriptions-item>
-								<template #label>
-									<el-text>
-										<el-icon><ele-Calendar /></el-icon>修改时间
-									</el-text>
-								</template>
-								<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-							</el-descriptions-item>
-							<el-descriptions-item>
-								<template #label>
-									<el-text>
-										<el-icon><ele-Tickets /></el-icon>备注
-									</el-text>
-								</template>
-								{{ scope.row.remark }}
-							</el-descriptions-item>
-						</el-descriptions>
-					</el-popover>
+					<ModifyRecord :data="scope.row" />
 				</template>
 				<template #action="scope">
 					<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditConfig(scope.row)" v-auth="'sysConfig:update'"> 编辑 </el-button>
@@ -79,8 +31,8 @@
 <script lang="ts" setup name="sysConfig">
 import { onMounted, onUnmounted, reactive, ref, defineAsyncComponent, nextTick } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import mittBus from '/@/utils/mitt';
 import EditConfig from '/@/views/system/config/component/editConfig.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysConfigApi } from '/@/api-services/api';
@@ -186,7 +138,6 @@ const getGroupList = async () => {
 
 //表格多选事件
 const tableSelection = (data: EmptyObjectType[]) => {
-	// console.log('表格多选事件', data)
 	state.selectlist = data;
 };
 

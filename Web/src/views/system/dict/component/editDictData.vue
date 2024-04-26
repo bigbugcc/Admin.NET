@@ -19,14 +19,19 @@
 							<el-input v-model="state.ruleForm.code" placeholder="编码" clearable />
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="名称" prop="name" :rules="[{ required: true, message: '名称不能为空', trigger: 'blur' }]">
+							<el-input v-model="state.ruleForm.name" placeholder="名称" clearable />
+						</el-form-item>
+					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="标签类型">
 							<el-radio-group v-model="state.ruleForm.tagType">
-								<el-radio label="default"><el-tag type="default">主题色</el-tag></el-radio>
-								<el-radio type="success" label="success"><el-tag type="success">success</el-tag></el-radio>
-								<el-radio type="info" label="info"><el-tag type="info">info</el-tag></el-radio>
-								<el-radio type="warning" label="warning"><el-tag type="warning">warning</el-tag></el-radio>
-								<el-radio type="danger" label="danger"><el-tag type="danger" style="font:">danger</el-tag></el-radio>
+								<el-radio value="primary"><el-tag type="primary">主题色</el-tag></el-radio>
+								<el-radio value="success"><el-tag type="success">success</el-tag></el-radio>
+								<el-radio value="info"><el-tag type="info">info</el-tag></el-radio>
+								<el-radio value="warning"><el-tag type="warning">warning</el-tag></el-radio>
+								<el-radio value="danger"><el-tag type="danger" style="font:">danger</el-tag></el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
@@ -43,8 +48,8 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="状态">
 							<el-radio-group v-model="state.ruleForm.status">
-								<el-radio :label="1">启用</el-radio>
-								<el-radio :label="2">禁用</el-radio>
+								<el-radio :value="1">启用</el-radio>
+								<el-radio :value="2">禁用</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>

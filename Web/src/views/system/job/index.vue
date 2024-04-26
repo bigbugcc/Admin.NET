@@ -40,14 +40,14 @@
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.jobData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="expand" fixed>
 					<template #default="scope">
 						<el-table style="margin-left: 48px; width: calc(100% - 48px)" :data="(scope.row as JobDetailOutput).jobTriggers" border size="small">
 							<el-table-column type="index" label="序号" width="55" align="center" fixed />
-							<el-table-column prop="triggerId" label="触发器编号" width="120" header-align="center" fixed show-overflow-tooltip />
-							<el-table-column prop="triggerType" label="类型" header-align="center" show-overflow-tooltip />
+							<el-table-column prop="triggerId" label="触发器编号" width="180" header-align="center" fixed show-overflow-tooltip />
+							<el-table-column prop="triggerType" label="类型" width="200" header-align="center" show-overflow-tooltip />
 							<!-- <el-table-column prop="assemblyName" label="程序集" show-overflow-tooltip /> -->
 							<el-table-column prop="args" label="参数" header-align="center" show-overflow-tooltip />
 							<el-table-column prop="description" label="描述" width="120" header-align="center" show-overflow-tooltip />
@@ -126,7 +126,7 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="jobDetail.groupName" label="组名称" width="100" align="center" show-overflow-tooltip />
-				<el-table-column prop="jobDetail.jobType" label="类型" header-align="center" show-overflow-tooltip />
+				<el-table-column prop="jobDetail.jobType" label="类型" width="200" header-align="center" show-overflow-tooltip />
 				<!-- <el-table-column prop="jobDetail.assemblyName" label="程序集" show-overflow-tooltip /> -->
 				<el-table-column prop="jobDetail.description" label="描述" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="jobDetail.concurrent" label="执行方式" width="90" align="center" show-overflow-tooltip>
@@ -172,7 +172,7 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="270" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-tooltip content="执行记录">
 							<el-button size="small" type="primary" icon="ele-Timer" text @click="openJobTriggerRecord(scope.row)"> </el-button>
@@ -222,7 +222,7 @@
 					<el-table-column prop="triggerId" label="触发器编号" min-width="120" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="numberOfRuns" label="当前运行次数" min-width="100" align="center" show-overflow-tooltip />
 					<el-table-column prop="lastRunTime" label="最近运行时间" min-width="130" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="120" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="130" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="status" label="触发器状态" align="center" show-overflow-tooltip>
 						<template #default="scope">
 							<el-tag type="warning" effect="plain" v-if="(scope.row as SysJobTrigger).status == 0"> 积压 </el-tag>
@@ -506,8 +506,8 @@ const openJobTriggerRecord = (row: any) => {
 // 作业触发器运行记录查询操作
 const handleQuery2 = async () => {
 	state.loading2 = true;
-	// let params = Object.assign(state.currentJob.jobDetail.jobId); //state.currentJob.jobTriggers[0].triggerId
-	var res = await getAPI(SysJobApi).apiSysJobPageJobTriggerRecordPost({ jobId: state.currentJob.jobDetail.jobId });
+	let params = Object.assign({ jobId: state.currentJob.jobDetail.jobId }, state.tableParams2); //state.currentJob.jobTriggers[0].triggerId
+	var res = await getAPI(SysJobApi).apiSysJobPageJobTriggerRecordPost(params);
 	state.triggerRecordData = res.data.result?.items ?? [];
 	state.tableParams2.total = res.data.result?.total;
 	state.loading2 = false;

@@ -30,7 +30,7 @@ public class Dm_ApplyDemoInport
     /// 申请时间
     /// </summary>
     [ImporterHeader(Name = "申请时间")]
-    [ExporterHeader(DisplayName = "申请时间")]
+    [ExporterHeader(DisplayName = "申请时间",Format ="yyyy-MM-dd")]
     public DateTime? ApplicatDate { get; set; }
 
     /// <summary>
@@ -38,7 +38,7 @@ public class Dm_ApplyDemoInport
     /// </summary>
     [ImporterHeader(Name = "申请金额")]
     [ExporterHeader(DisplayName = "申请金额")]
-    public DateTime Amount { get; set; }
+    public decimal Amount { get; set; }
 
     /// <summary>
     /// 备注

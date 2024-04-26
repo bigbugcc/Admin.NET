@@ -15,12 +15,12 @@
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
-					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysVislog:clear'"> 清空 </el-button>
+					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysVislog:clear'" disabled> 清空 </el-button>
 				</el-form-item>
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.logData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="displayTitle" label="显示名称" width="150" align="center" show-overflow-tooltip />
@@ -28,7 +28,9 @@
 				<el-table-column prop="account" label="账号名称" width="100" align="center" show-overflow-tooltip />
 				<el-table-column prop="realName" label="真实姓名" width="100" align="center" show-overflow-tooltip />
 				<el-table-column prop="remoteIp" label="IP地址" min-width="120" align="center" show-overflow-tooltip />
-				<el-table-column prop="location" label="登录地点" min-width="120" align="center" show-overflow-tooltip />
+				<el-table-column prop="location" label="登录地点" min-width="150" align="center" show-overflow-tooltip />
+				<el-table-column prop="longitude" label="经度" min-width="100" align="center" show-overflow-tooltip />
+				<el-table-column prop="latitude" label="纬度" min-width="100" align="center" show-overflow-tooltip />
 				<el-table-column prop="browser" label="浏览器" min-width="150" align="center" show-overflow-tooltip />
 				<el-table-column prop="os" label="操作系统" width="120" align="center" show-overflow-tooltip />
 				<el-table-column prop="status" label="状态" width="70" align="center" show-overflow-tooltip>

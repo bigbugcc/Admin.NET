@@ -1,11 +1,8 @@
-﻿// 麻省理工学院许可证
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 namespace Admin.NET.Core.Service;
 
@@ -24,8 +21,10 @@ public class DbJobPersistence : IJobPersistence
     /// <summary>
     /// 作业调度服务启动时
     /// </summary>
+    /// <param name="stoppingToken"></param>
     /// <returns></returns>
-    public IEnumerable<SchedulerBuilder> Preload()
+    /// <exception cref="NotSupportedException"></exception>
+    public async Task<IEnumerable<SchedulerBuilder>> PreloadAsync(CancellationToken stoppingToken)
     {
         using var scope = _serviceScopeFactory.CreateScope();
         var jobDetailRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobDetail>>();
@@ -44,14 +43,14 @@ public class DbJobPersistence : IJobPersistence
             var jobBuilder = schedulerBuilder.GetJobBuilder();
 
             // 加载数据库数据
-            var dbDetail = jobDetailRep.GetFirst(u => u.JobId == jobBuilder.JobId);
+            var dbDetail = await jobDetailRep.GetFirstAsync(u => u.JobId == jobBuilder.JobId);
             if (dbDetail == null) continue;
 
             // 同步数据库数据
             jobBuilder.LoadFrom(dbDetail);
 
             // 获取作业的所有数据库的触发器
-            var dbTriggers = jobTriggerRep.GetList(u => u.JobId == jobBuilder.JobId).ToArray();
+            var dbTriggers = await jobTriggerRep.GetListAsync(u => u.JobId == jobBuilder.JobId);
             // 遍历所有作业触发器
             foreach (var (_, triggerBuilder) in schedulerBuilder.GetEnumerable())
             {
@@ -75,7 +74,7 @@ public class DbJobPersistence : IJobPersistence
         }
 
         // 获取数据库所有通过脚本创建的作业
-        var allDbScriptJobs = jobDetailRep.GetList(u => u.CreateType != JobCreateTypeEnum.BuiltIn);
+        var allDbScriptJobs = await jobDetailRep.GetListAsync(u => u.CreateType != JobCreateTypeEnum.BuiltIn);
         foreach (var dbDetail in allDbScriptJobs)
         {
             // 动态创建作业
@@ -102,7 +101,7 @@ public class DbJobPersistence : IJobPersistence
             jobBuilder.SetIncludeAnnotations(false);
 
             // 获取作业的所有数据库的触发器加入到作业中
-            var dbTriggers = jobTriggerRep.GetList(u => u.JobId == jobBuilder.JobId).ToArray();
+            var dbTriggers = await jobTriggerRep.GetListAsync(u => u.JobId == jobBuilder.JobId);
             var triggerBuilders = dbTriggers.Select(u => TriggerBuilder.Create(u.TriggerId).LoadFrom(u).Updated());
             var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilders.ToArray());
 
@@ -119,35 +118,36 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划初始化通知
     /// </summary>
     /// <param name="builder"></param>
+    /// <param name="stoppingToken"></param>
     /// <returns></returns>
-    public SchedulerBuilder OnLoading(SchedulerBuilder builder)
+    public Task<SchedulerBuilder> OnLoadingAsync(SchedulerBuilder builder, CancellationToken stoppingToken)
     {
-        return builder;
+        return Task.FromResult(builder);
     }
 
     /// <summary>
     /// 作业计划Scheduler的JobDetail变化时
     /// </summary>
     /// <param name="context"></param>
-    public void OnChanged(PersistenceContext context)
+    public async Task OnChangedAsync(PersistenceContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var jobDetailRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobDetail>>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
 
             var jobDetail = context.JobDetail.Adapt<SysJobDetail>();
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobDetailRep.AsInsertable(jobDetail).ExecuteCommand();
+                    await db.Insertable(jobDetail).ExecuteCommandAsync();
                     break;
 
                 case PersistenceBehavior.Updated:
-                    jobDetailRep.AsUpdateable(jobDetail).WhereColumns(u => new { u.JobId }).IgnoreColumns(u => new { u.Id, u.CreateType, u.ScriptCode }).ExecuteCommand();
+                    await db.Updateable(jobDetail).WhereColumns(u => new { u.JobId }).IgnoreColumns(u => new { u.Id, u.CreateType, u.ScriptCode }).ExecuteCommandAsync();
                     break;
 
                 case PersistenceBehavior.Removed:
-                    jobDetailRep.AsDeleteable().Where(u => u.JobId == jobDetail.JobId).ExecuteCommand();
+                    await db.Deleteable<SysJobDetail>().Where(u => u.JobId == jobDetail.JobId).ExecuteCommandAsync();
                     break;
             }
         }
@@ -157,25 +157,25 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划Scheduler的触发器Trigger变化时
     /// </summary>
     /// <param name="context"></param>
-    public void OnTriggerChanged(PersistenceTriggerContext context)
+    public async Task OnTriggerChangedAsync(PersistenceTriggerContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var jobTriggerRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobTrigger>>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
 
             var jobTrigger = context.Trigger.Adapt<SysJobTrigger>();
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobTriggerRep.AsInsertable(jobTrigger).ExecuteCommand();
+                    await db.Insertable(jobTrigger).ExecuteCommandAsync();
                     break;
 
                 case PersistenceBehavior.Updated:
-                    jobTriggerRep.AsUpdateable(jobTrigger).WhereColumns(u => new { u.TriggerId, u.JobId }).IgnoreColumns(u => new { u.Id }).ExecuteCommand();
+                    await db.Updateable(jobTrigger).WhereColumns(u => new { u.TriggerId, u.JobId }).IgnoreColumns(u => new { u.Id }).ExecuteCommandAsync();
                     break;
 
                 case PersistenceBehavior.Removed:
-                    jobTriggerRep.AsDeleteable().Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ExecuteCommand();
+                    await db.Deleteable<SysJobTrigger>().Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ExecuteCommandAsync();
                     break;
             }
         }
@@ -185,14 +185,14 @@ public class DbJobPersistence : IJobPersistence
     /// 作业触发器运行记录
     /// </summary>
     /// <param name="timeline"></param>
-    public void OnExecutionRecord(TriggerTimeline timeline)
+    public async Task OnExecutionRecordAsync(TriggerTimeline timeline)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var jobTriggerRecordRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobTriggerRecord>>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
 
             var jobTriggerRecord = timeline.Adapt<SysJobTriggerRecord>();
-            jobTriggerRecordRep.CopyNew().AsInsertable(jobTriggerRecord).ExecuteCommand();
+            await db.Insertable(jobTriggerRecord).ExecuteCommandAsync();
         }
     }
 }

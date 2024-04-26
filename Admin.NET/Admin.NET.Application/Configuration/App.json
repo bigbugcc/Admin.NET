@@ -7,7 +7,8 @@
   "AllowedHosts": "*",
 
   "AppSettings": {
-    "InjectSpecificationDocument": true // 生产环境是否开启Swagger
+    "InjectSpecificationDocument": true, // 生产环境是否开启Swagger
+    "ExternalAssemblies": [ "plugins" ] // 插件目录
   },
   "DynamicApiControllerSettings": {
     //"DefaultRoutePrefix": "api", // 默认路由前缀
@@ -35,13 +36,13 @@
   },
   "SnowId": {
     "WorkerId": 1, // 机器码 全局唯一
-    "WorkerIdBitLength": 2, // 机器码位长 默认值6，取值范围 [1, 19]
+    "WorkerIdBitLength": 6, // 机器码位长 默认值6，取值范围 [1, 19]
     "SeqBitLength": 6, // 序列数位长 默认值6，取值范围 [3, 21]（建议不小于4，值越大性能越高、Id位数也更长）
     "WorkerPrefix": "adminnet_" // 缓存前缀
   },
   "Cryptogram": {
     "StrongPassword": false, // 是否开启密码强度验证
-    "PasswordStrengthValidation": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[~@#$%\\*-\\+=:,\\\\?\\[\\]\\{}]).{6,16}$", // 密码强度验证正则表达式，必须须包含大小写字母、数字和特殊字符的组合，长度在6-16之间
+    "PasswordStrengthValidation": "(?=^.{6,16}$)(?=.*\\d)(?=.*\\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\\n).*$", // 密码强度验证正则表达式，必须须包含大小写字母、数字和特殊字符的组合，长度在6-16之间
     "PasswordStrengthValidationMsg": "密码必须包含大小写字母、数字和特殊字符的组合，长度在6-16之间", // 密码强度验证消息提示
     "CryptoType": "SM2", // 密码加密算法：MD5、SM2、SM4
     "PublicKey": "0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312", // 公钥

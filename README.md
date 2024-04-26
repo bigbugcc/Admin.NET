@@ -1,5 +1,5 @@
 <div align="center"><h1>Admin.NET</h1></div>
-<div align="center"><h3>有可能是.NET最好用的通用权限开发框架</h3></div>
+<div align="center"><h3>站在巨人肩膀上的 .NET 通用权限开发框架</h3></div>
 
 <div align="center">
 
@@ -10,19 +10,19 @@
 </div>
 
 ## 🎁框架介绍
-基于.NET6(Furion)/SqlSugar实现的通用权限开发框架，前端Vue3/Element-plus。整合最新技术，模块插件式开发，前后端分离，开箱即用。
+基于 .NET6 (Furion/SqlSugar) 实现的通用权限开发框架，前端采用 Vue3/Element-plus，代码简洁、易扩展。整合最新技术，模块插件式开发，前后端分离，开箱即用。集成多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、打印等众多黑科技。
 
-内置国密算法，是国内首个.NET中具备国密且前后端分离快速开发平台，软件层面完全符合等保测评和信创要求，同时实现国产化机型、操作系统、中间件、数据库适配！
+前后端分离架构模式，内置国密算法（SM2/SM4），软件层面完全符合等保测评和信创要求，同时实现国产化机型、操作系统（麒麟）、中间件、数据库（达梦、人大金仓等）等适配！
 
 ```
-最好用的框架(Furion)配合性能最强的ORM(SqlSugar)加持，阅历痛点，相见恨晚！让 .NET 开发更简单，更通用，更流行！
+超高人气的框架(Furion)配合高性能超简单的ORM(SqlSugar)加持，阅历痛点，相见恨晚！让 .NET 开发更简单，更通用，更流行！
 ```
 
 ## 🍁说明
 1.  支持各种数据库，后台配置文件自行修改（自动生成数据库及种子数据）
 2.  前端运行步骤：1、安装依赖pnpm install 2、运行pnpm run dev 3、打包pnpm run build
-3.  微信号：zuohuaijun  QQ群1：[87333204](https://jq.qq.com/?_wv=1027&k=1t8iqf0G)  QQ群2：[252381476](https://jq.qq.com/?_wv=1027&k=IkzihDcL)  
-4.  演示环境1：http://101.43.53.74:5005/dist/index.html  演示环境2：http://demo.devqd.com/   (每天凌晨3点定时重置数据库) 
+3.  QQ交流群1：[87333204](https://jq.qq.com/?_wv=1027&k=1t8iqf0G)  QQ交流群2：[252381476](https://jq.qq.com/?_wv=1027&k=IkzihDcL)  
+4.  演示环境1：http://101.43.53.74:5005/dist/index.html
 5. [GitHub 镜像地址](https://github.com/zuohuaijun/Admin.NET.git)  [Gitee 镜像地址](https://gitee.com/zuohuaijun/Admin.NET.git)
 
 ## 📙开发流程

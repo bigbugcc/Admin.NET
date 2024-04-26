@@ -20,7 +20,7 @@
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.tenantData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" fixed />
 				<el-table-column prop="name" label="租户名称" width="160" align="center" show-overflow-tooltip />
@@ -65,58 +65,10 @@
 				<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
 				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-popover placement="bottom" width="280" trigger="hover">
-							<template #reference>
-								<el-text type="primary">
-									<el-icon><ele-InfoFilled /></el-icon>详情
-								</el-text>
-							</template>
-							<el-descriptions direction="vertical" :column="2" border>
-								<el-descriptions-item width="140">
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>创建者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>创建时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>修改者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>修改时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Tickets /></el-icon>备注
-										</el-text>
-									</template>
-									{{ scope.row.remark }}
-								</el-descriptions-item>
-							</el-descriptions>
-						</el-popover>
+						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="180" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="200" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button icon="ele-Coin" size="small" text type="danger" @click="createTenant(scope.row)" v-auth="'sysTenant:createDb'" :disabled="scope.row.tenantType == 0"> 创建库 </el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditTenant(scope.row)" v-auth="'sysTenant:update'"> 编辑 </el-button>
@@ -156,6 +108,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import EditTenant from '/@/views/system/tenant/component/editTenant.vue';
 import GrantMenu from '/@/views/system/tenant/component/grantMenu.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysTenantApi } from '/@/api-services/api';

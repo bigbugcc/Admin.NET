@@ -41,7 +41,10 @@
 				check-strictly
 			>
 				<template #default="{ node }">
-					<el-icon><ele-School /></el-icon>{{ node.label }}
+					<el-icon v-if="node.level == 1" size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-School /></el-icon>
+					<el-icon v-else-if="node.level == 2" size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-PriceTag /></el-icon>
+					<el-icon v-else size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-CollectionTag /></el-icon>
+					{{ node.label }}
 				</template>
 			</el-tree>
 		</div>

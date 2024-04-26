@@ -33,7 +33,7 @@
 								<template #append>
 									<el-space :size="10" spacer="|">
 										<el-dropdown style="color: inherit" trigger="click" @command="macroDropDownCommand">
-											<el-button style="margin: 0px 0px 0px -20px; color: inherit"> Macro </el-button>
+											<el-button style="margin: 0px -10px 0px -20px; color: inherit"> Macro </el-button>
 											<template #dropdown>
 												<el-dropdown-menu>
 													<el-dropdown-item v-for="(item, index) in macroData" :key="index" :command="item">
@@ -84,16 +84,16 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="立即启动">
 							<el-radio-group v-model="state.ruleForm.startNow">
-								<el-radio :label="true">是</el-radio>
-								<el-radio :label="false">否</el-radio>
+								<el-radio :value="true">是</el-radio>
+								<el-radio :value="false">否</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="启动时执行一次">
 							<el-radio-group v-model="state.ruleForm.runOnStart">
-								<el-radio :label="true">是</el-radio>
-								<el-radio :label="false">否</el-radio>
+								<el-radio :value="true">是</el-radio>
+								<el-radio :value="false">否</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
@@ -108,8 +108,8 @@
 								</div>
 							</template>
 							<el-radio-group v-model="state.ruleForm.resetOnlyOnce">
-								<el-radio :label="true">是</el-radio>
-								<el-radio :label="false">否</el-radio>
+								<el-radio :value="true">是</el-radio>
+								<el-radio :value="false">否</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
@@ -223,9 +223,11 @@ const cronValue: WritableComputedRef<string> = computed({
 		// 第二个参数值参阅 https://furion.baiqian.ltd/docs/cron#2624-cronstringformat-%E6%A0%BC%E5%BC%8F%E5%8C%96
 		let cronStringFormatValue = -1;
 		// 如果是 Macro 标识符，使用默认格式
-		if (newValue.startsWith('@')) cronStringFormatValue = 0; // 默认格式，书写顺序：分 时 天 月 周
+		if (newValue.startsWith('@'))
+			cronStringFormatValue = 0; // 默认格式，书写顺序：分 时 天 月 周
 		else {
-			if (newValue.split(' ').length == 6) cronStringFormatValue = 2; // 带秒格式，书写顺序：秒 分 时 天 月 周
+			if (newValue.split(' ').length == 6)
+				cronStringFormatValue = 2; // 带秒格式，书写顺序：秒 分 时 天 月 周
 			else cronStringFormatValue = 3; // 带秒和年格式，书写顺序：秒 分 时 天 月 周 年
 		}
 		state.ruleForm.args = `"${newValue}",${cronStringFormatValue}`;

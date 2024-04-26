@@ -62,6 +62,19 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 			icon: 'ele-Clock',
 		},
 	},
+	{
+		path: '/develop/database/visual',
+		name: 'databaseVisual',
+		component: () => import('/@/views/system/database/component/visualTable.vue'),
+		meta: {
+			title: '库表可视化',
+			isHide: true,
+			isKeepAlive: true,
+			isAffix: false,
+			// isIframe: true,
+			icon: 'ele-View',
+		},
+	},
 ];
 
 /**
@@ -108,20 +121,20 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 	 * 提示：写在这里的为全屏界面，不建议写在这里
 	 * 请写在 `dynamicRoutes` 路由数组中
 	 */
-	{
-		path: '/visualizingDemo1',
-		name: 'visualizingDemo1',
-		component: () => import('/@/views/visualizing/demo1.vue'),
-		meta: {
-			title: 'message.router.visualizingLinkDemo1',
-		},
-	},
-	{
-		path: '/visualizingDemo2',
-		name: 'visualizingDemo2',
-		component: () => import('/@/views/visualizing/demo2.vue'),
-		meta: {
-			title: 'message.router.visualizingLinkDemo2',
-		},
-	},
+	// {
+	// 	path: '/visualizingDemo1',
+	// 	name: 'visualizingDemo1',
+	// 	component: () => import('/@/views/visualizing/demo1.vue'),
+	// 	meta: {
+	// 		title: 'message.router.visualizingLinkDemo1',
+	// 	},
+	// },
+	// {
+	// 	path: '/visualizingDemo2',
+	// 	name: 'visualizingDemo2',
+	// 	component: () => import('/@/views/visualizing/demo2.vue'),
+	// 	meta: {
+	// 		title: 'message.router.visualizingLinkDemo2',
+	// 	},
+	// },
 ];

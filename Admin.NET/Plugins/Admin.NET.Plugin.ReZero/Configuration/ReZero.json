@@ -1,0 +1,15 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "[openapi:ReZero]": {
+    "Group": "ReZero",
+    "Title": "ReZero",
+    "Description": "全网唯一并且免费的运行时界面创建API接口的项目，并且生成接口文档，真正的运时行创建低代码、线上建表、线上建接口、线上生成接口文档、线上测试接口、热插拔、超级API。",
+    "Version": "1.0.0",
+    "Order": 80
+  },
+  "ReZero": {
+    "AccessTokenKey": "admin.net:access-token",
+    "RefreshAccessTokenKey": "admin.net:x-access-token"
+  }
+}

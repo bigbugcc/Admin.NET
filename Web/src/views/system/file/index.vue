@@ -23,7 +23,7 @@
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.fileData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="fileName" label="名称" min-width="150" header-align="center" show-overflow-tooltip />
@@ -54,55 +54,7 @@
 				<el-table-column prop="id" label="存储标识" align="center" show-overflow-tooltip />
 				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-popover placement="bottom" width="280" trigger="hover">
-							<template #reference>
-								<el-text type="primary">
-									<el-icon><ele-InfoFilled /></el-icon>详情
-								</el-text>
-							</template>
-							<el-descriptions direction="vertical" :column="2" border>
-								<el-descriptions-item width="140">
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>创建者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>创建时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>修改者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>修改时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Tickets /></el-icon>备注
-										</el-text>
-									</template>
-									{{ scope.row.remark }}
-								</el-descriptions-item>
-							</el-descriptions>
-						</el-popover>
+						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
@@ -157,11 +109,11 @@
 			<vue-office-docx :src="state.docxUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
 		</el-drawer>
 		<el-drawer :title="state.fileName" v-model="state.dialogXlsxVisible" size="50%" destroy-on-close>
-			<vue-office-excel :src="state.excelUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler"
-		/></el-drawer>
+			<vue-office-excel :src="state.excelUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
+		</el-drawer>
 		<el-drawer :title="state.fileName" v-model="state.dialogPdfVisible" size="50%" destroy-on-close>
-			<vue-office-pdf :src="state.pdfUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler"
-		/></el-drawer>
+			<vue-office-pdf :src="state.pdfUrl" style="height: 100vh" @rendered="renderedHandler" @error="errorHandler" />
+		</el-drawer>
 		<el-image-viewer v-if="state.showViewer" :url-list="state.previewList" @close="state.showViewer = false"></el-image-viewer>
 		<EditSysFile ref="editSysFileRef" title="编辑文件" @handleQuery="handleQuery" />
 	</div>
@@ -177,6 +129,7 @@ import '@vue-office/docx/lib/index.css';
 import '@vue-office/excel/lib/index.css';
 
 import EditSysFile from '/@/views/system/file/component/editSysfile.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { downloadByUrl } from '/@/utils/download';
 import { getAPI } from '/@/utils/axios-utils';

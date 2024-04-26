@@ -1,11 +1,11 @@
 <template>
 	<div class="sys-user-container">
-		<el-row :gutter="8" style="width: 100%">
+		<el-row :gutter="5" style="width: 100%; flex: 1">
 			<el-col :span="4" :xs="24">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</el-col>
 
-			<el-col :span="20" :xs="24">
+			<el-col :span="20" :xs="24" style="display: flex; flex-direction: column">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
@@ -29,7 +29,7 @@
 					</el-form>
 				</el-card>
 
-				<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+				<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 					<el-table :data="state.userData" style="width: 100%" v-loading="state.loading" border>
 						<el-table-column type="index" label="序号" width="55" align="center" fixed />
 						<el-table-column label="头像" width="80" align="center" show-overflow-tooltip>
@@ -72,58 +72,10 @@
 						<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
 						<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-popover placement="bottom" width="280" trigger="hover">
-									<template #reference>
-										<el-text type="primary">
-											<el-icon><ele-InfoFilled /></el-icon>详情
-										</el-text>
-									</template>
-									<el-descriptions direction="vertical" :column="2" border>
-										<el-descriptions-item width="140">
-											<template #label>
-												<el-text>
-													<el-icon><ele-UserFilled /></el-icon>创建者
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Calendar /></el-icon>创建时间
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-UserFilled /></el-icon>修改者
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Calendar /></el-icon>修改时间
-												</el-text>
-											</template>
-											<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-										</el-descriptions-item>
-										<el-descriptions-item>
-											<template #label>
-												<el-text>
-													<el-icon><ele-Tickets /></el-icon>备注
-												</el-text>
-											</template>
-											{{ scope.row.remark }}
-										</el-descriptions-item>
-									</el-descriptions>
-								</el-popover>
+								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
-						<el-table-column label="操作" width="110" align="center" fixed="right" show-overflow-tooltip>
+						<el-table-column label="操作" width="130" align="center" fixed="right" show-overflow-tooltip>
 							<template #default="scope">
 								<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditUser(scope.row)" v-auth="'sysUser:update'"> 编辑 </el-button>
 								<el-dropdown>
@@ -131,6 +83,7 @@
 									<template #dropdown>
 										<el-dropdown-menu>
 											<el-dropdown-item icon="ele-RefreshLeft" @click="resetUserPwd(scope.row)" :disabled="!auth('sysUser:resetPwd')"> 重置密码 </el-dropdown-item>
+											<el-dropdown-item icon="ele-Unlock" @click="unlockLogin(scope.row)" divided :disabled="!auth('sysUser:unlockLogin')"> 解除锁定 </el-dropdown-item>
 											<el-dropdown-item icon="ele-Delete" @click="delUser(scope.row)" divided :disabled="!auth('sysUser:delete')"> 删除账号 </el-dropdown-item>
 										</el-dropdown-menu>
 									</template>
@@ -164,6 +117,7 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditUser from '/@/views/system/user/component/editUser.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
@@ -284,6 +238,23 @@ const resetUserPwd = async (row: any) => {
 				.apiSysUserResetPwdPost({ id: row.id })
 				.then((res) => {
 					ElMessage.success(`密码重置成功为：${res.data.result}`);
+				});
+		})
+		.catch(() => {});
+};
+
+// 解除登录锁定
+const unlockLogin = async (row: any) => {
+	ElMessageBox.confirm(`确定解除登录锁定：【${row.account}】?`, '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	})
+		.then(async () => {
+			await getAPI(SysUserApi)
+				.apiSysUserUnlockLoginPost({ id: row.id })
+				.then(() => {
+					ElMessage.success('解除登录锁定成功');
 				});
 		})
 		.catch(() => {});

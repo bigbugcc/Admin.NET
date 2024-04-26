@@ -1,0 +1,17 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "[openapi:DingTalk]": {
+    "Group": "DingTalk",
+    "Title": "DingTalk",
+    "Description": "集成钉钉开放平台",
+    "Version": "1.0.0",
+    "Order": 90
+  },
+  "DingTalk": {
+    "AppId": "",
+    "AgentId": "",
+    "ClientId": "xxxx", // 原 AppKey 和 SuiteKey
+    "ClientSecret": "xxxx" // 原 AppSecret 和 SuiteSecret
+  }
+}

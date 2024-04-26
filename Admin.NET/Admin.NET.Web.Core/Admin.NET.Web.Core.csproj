@@ -5,11 +5,9 @@
     <NoWarn>1701;1702;1591</NoWarn>
     <DocumentationFile></DocumentationFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>© Admin.NET</Copyright>
+    <Description>Admin.NET 通用权限开发平台</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Admin.NET.Web.Core.xml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.16" />

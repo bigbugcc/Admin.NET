@@ -27,6 +27,11 @@
 						</el-form-item>
 					</el-col> -->
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="上级行政Id" prop="pid" :rules="[{ required: true, message: '上级行政Id不能为空', trigger: 'blur' }]">
+							<el-input v-model="state.ruleForm.pid" placeholder="上级行政Id或上级行政代码或默认0" clearable />
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="行政名称" prop="name" :rules="[{ required: true, message: '行政名称不能为空', trigger: 'blur' }]">
 							<el-input v-model="state.ruleForm.name" placeholder="行政名称" clearable />
 						</el-form-item>

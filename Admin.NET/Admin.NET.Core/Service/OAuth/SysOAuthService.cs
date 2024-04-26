@@ -1,11 +1,8 @@
-﻿// 麻省理工学院许可证
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
@@ -13,10 +10,10 @@ using System.Security.Claims;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统OAuth服务
+/// 系统OAuth服务 🧩
 /// </summary>
 [AllowAnonymous]
-[ApiDescriptionSettings(Order = 495)]
+[ApiDescriptionSettings(Order = 498)]
 public class SysOAuthService : IDynamicApiController, ITransient
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -30,14 +27,14 @@ public class SysOAuthService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 第三方登录
+    /// 第三方登录 🔖
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="redirectUrl"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "SignIn"), HttpGet]
     [DisplayName("第三方登录")]
-    public async Task<IActionResult> SignIn([FromQuery] string provider, [FromQuery] string redirectUrl)
+    public virtual async Task<IActionResult> SignIn([FromQuery] string provider, [FromQuery] string redirectUrl)
     {
         if (string.IsNullOrWhiteSpace(provider) || !await _httpContextAccessor.HttpContext.IsProviderSupportedAsync(provider))
             throw Oops.Oh("不支持的OAuth类型");
@@ -50,14 +47,14 @@ public class SysOAuthService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 授权回调
+    /// 授权回调 🔖
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="redirectUrl"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "SignInCallback"), HttpGet]
     [DisplayName("授权回调")]
-    public async Task<IActionResult> SignInCallback([FromQuery] string provider = null, [FromQuery] string redirectUrl = "")
+    public virtual async Task<IActionResult> SignInCallback([FromQuery] string provider = null, [FromQuery] string redirectUrl = "")
     {
         if (string.IsNullOrWhiteSpace(provider) || !await _httpContextAccessor.HttpContext.IsProviderSupportedAsync(provider))
             throw Oops.Oh("不支持的OAuth类型");

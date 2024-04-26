@@ -154,17 +154,17 @@ const props = defineProps({
 	// 配置项：isBorder-是否显示表格边框，isSerialNo-是否显示表格序号，showSelection-是否显示表格可多选，isSelection-是否默认选中表格多选，pageSize-每页条数，hideExport-是否隐藏导出按钮，exportFileName-导出表格的文件名，空值默认用应用名称作为文件名
 	config: {
 		type: Object,
-		default: () => {},
+		default: () => ({}),
 	},
 	// 筛选参数
 	param: {
 		type: Object,
-		default: () => {},
+		default: () => ({}),
 	},
 	// 默认排序方式，{prop:"排序字段",order:"ascending or descending"}
 	defaultSort: {
 		type: Object,
-		default: () => {},
+		default: () => ({}),
 	},
 	// 导出报表自定义数据转换方法，不传按字段值导出
 	exportChangeData: {

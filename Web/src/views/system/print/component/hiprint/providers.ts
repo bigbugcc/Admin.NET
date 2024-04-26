@@ -11,11 +11,11 @@ export const aProvider = function () {
 				{
 					tid: 'aProviderModule.barcode',
 					title: '条形码',
-					data: '18020030720',
+					data: '18012345678',
 					type: 'text',
 					options: {
 						field: 'barCode',
-						testData: 'ZUO18020030720',
+						testData: 'Z18012345678',
 						height: 32,
 						fontSize: 12,
 						lineHeight: 18,
@@ -28,11 +28,11 @@ export const aProvider = function () {
 				{
 					tid: 'aProviderModule.qrcode',
 					title: '二维码',
-					data: 'ZUO18020030720',
+					data: 'Z18012345678',
 					type: 'text',
 					options: {
 						field: 'qrCode',
-						testData: 'ZUO18020030720',
+						testData: 'Z18012345678',
 						height: 64,
 						width: 64,
 						fontSize: 12,
@@ -223,11 +223,11 @@ export const bProvider = function () {
 				{
 					tid: 'bProviderModule.order',
 					title: '订单编号',
-					data: 'ZUO18020030720',
+					data: 'Z18012345678',
 					type: 'text',
 					options: {
 						field: 'orderId',
-						testData: 'ZUO18020030720',
+						testData: 'Z18012345678',
 						height: 16,
 						fontSize: 6.75,
 						fontWeight: '700',
@@ -253,10 +253,10 @@ export const bProvider = function () {
 				{
 					tid: 'bProviderModule.barcode',
 					title: '条形码',
-					data: '18020030720',
+					data: '18012345678',
 					type: 'text',
 					options: {
-						testData: 'ZUO18020030720',
+						testData: 'Z18012345678',
 						height: 32,
 						fontSize: 12,
 						lineHeight: 18,
@@ -269,10 +269,10 @@ export const bProvider = function () {
 				{
 					tid: 'bProviderModule.qrcode',
 					title: '二维码',
-					data: 'ZUO18020030720',
+					data: 'Z18012345678',
 					type: 'text',
 					options: {
-						testData: 'ZUO18020030720',
+						testData: 'Z18012345678',
 						height: 64,
 						width: 64,
 						fontSize: 12,
@@ -318,11 +318,11 @@ export const bProvider = function () {
 				{
 					tid: 'bProviderModule.tel',
 					title: '客户电话',
-					data: '18020030720',
+					data: '18012345678',
 					type: 'text',
 					options: {
 						field: 'tel',
-						testData: '18020030720',
+						testData: '18012345678',
 						height: 16,
 						fontSize: 6.75,
 						fontWeight: '700',
@@ -354,6 +354,13 @@ export const bProvider = function () {
 					columnTitleEditable: true, //列标题是否能编辑
 					columnResizable: true, //列宽是否能调整
 					columnAlignEditable: true, //列对齐是否调整
+					isEnableEditField: true, //编辑字段
+					isEnableContextMenu: true, //开启右键菜单 默认true
+					isEnableInsertRow: true, //插入行
+					isEnableDeleteRow: true, //删除行
+					isEnableInsertColumn: true, //插入列
+					isEnableDeleteColumn: true, //删除列
+					isEnableMergeCell: true, //合并单元格
 					columns: [
 						[
 							{ title: '名称', align: 'center', field: 'NAME', width: 100 },

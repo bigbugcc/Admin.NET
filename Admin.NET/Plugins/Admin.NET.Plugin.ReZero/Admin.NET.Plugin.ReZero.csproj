@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>1701;1702;1591;8632</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>© Admin.NET</Copyright>
+    <Description>Admin.NET 通用权限开发平台</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Configuration\**\*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\**\*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rezero.Api" Version="1.0.30" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Admin.NET.Core\Admin.NET.Core.csproj" />
+  </ItemGroup>
+
+</Project>

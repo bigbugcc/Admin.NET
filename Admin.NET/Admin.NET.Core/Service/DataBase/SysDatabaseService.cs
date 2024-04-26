@@ -1,19 +1,17 @@
-﻿// 麻省理工学院许可证
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Npgsql;
 
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统数据库管理服务
+/// 系统数据库管理服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 250)]
 public class SysDatabaseService : IDynamicApiController, ITransient
@@ -32,7 +30,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取库列表
+    /// 获取库列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取库列表")]
@@ -42,7 +40,67 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取字段列表
+    /// 获取可视化库表结构 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取可视化库表结构")]
+    public VisualDbTable GetVisualDbTable()
+    {
+        var visualTableList = new List<VisualTable>();
+        var visualColumnList = new List<VisualColumn>();
+        var columnRelationList = new List<ColumnRelation>();
+
+        // 遍历所有实体获取所有库表结构
+        var random = new Random();
+        var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false)).ToList();
+        foreach (var entityType in entityTypes)
+        {
+            var entityInfo = _db.EntityMaintenance.GetEntityInfoNoCache(entityType);
+
+            var visualTable = new VisualTable
+            {
+                TableName = entityInfo.DbTableName,
+                TableComents = entityInfo.TableDescription + entityInfo.DbTableName,
+                X = random.Next(5000),
+                Y = random.Next(5000)
+            };
+            visualTableList.Add(visualTable);
+
+            foreach (EntityColumnInfo columnInfo in entityInfo.Columns)
+            {
+                var visualColumn = new VisualColumn
+                {
+                    TableName = columnInfo.DbTableName,
+                    ColumnName = columnInfo.DbColumnName,
+                    DataType = columnInfo.PropertyInfo.PropertyType.Name,
+                    DataLength = columnInfo.Length.ToString(),
+                    ColumnDescription = columnInfo.ColumnDescription,
+                };
+                visualColumnList.Add(visualColumn);
+
+                // 根据导航配置获取表之间关联关系
+                if (columnInfo.Navigat != null)
+                {
+                    var name1 = columnInfo.Navigat.GetName();
+                    var name2 = columnInfo.Navigat.GetName2();
+                    var relation = new ColumnRelation
+                    {
+                        SourceTableName = columnInfo.DbTableName,
+                        SourceColumnName = name1,
+                        Type = columnInfo.Navigat.GetNavigateType() == NavigateType.OneToOne ? "ONE_TO_ONE" : "ONE_TO_MANY",
+                        TargetTableName = columnInfo.DbColumnName,
+                        TargetColumnName = string.IsNullOrEmpty(name2) ? "Id" : name2
+                    };
+                    columnRelationList.Add(relation);
+                }
+            }
+        }
+
+        return new VisualDbTable { VisualTableList = visualTableList, VisualColumnList = visualColumnList, ColumnRelationList = columnRelationList };
+    }
+
+    /// <summary>
+    /// 获取字段列表 🔖
     /// </summary>
     /// <param name="tableName">表名</param>
     /// <param name="configId">ConfigId</param>
@@ -59,7 +117,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取数据库数据类型列表
+    /// 获取数据库数据类型列表 🔖
     /// </summary>
     /// <param name="configId"></param>
     /// <returns></returns>
@@ -71,7 +129,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加列
+    /// 增加列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "AddColumn"), HttpPost]
@@ -97,7 +155,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除列
+    /// 删除列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "DeleteColumn"), HttpPost]
@@ -109,7 +167,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 编辑列
+    /// 编辑列 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "UpdateColumn"), HttpPost]
@@ -124,7 +182,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取表列表
+    /// 获取表列表 🔖
     /// </summary>
     /// <param name="configId">ConfigId</param>
     /// <returns></returns>
@@ -136,7 +194,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 增加表
+    /// 增加表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "AddTable"), HttpPost]
@@ -171,7 +229,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除表
+    /// 删除表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "DeleteTable"), HttpPost]
@@ -183,7 +241,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 编辑表
+    /// 编辑表 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "UpdateTable"), HttpPost]
@@ -199,14 +257,14 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             else
                 db.DbMaintenance.AddTableRemark(input.TableName, input.Description);
         }
-        catch (NotSupportedException)
+        catch (NotSupportedException ex)
         {
-            //Ignore 不支持该方法则不处理
+            throw Oops.Oh(ex.ToString());
         }
     }
 
     /// <summary>
-    /// 创建实体
+    /// 创建实体 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "CreateEntity"), HttpPost]
@@ -252,7 +310,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 创建种子数据
+    /// 创建种子数据 🔖
     /// </summary>
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "CreateSeedData"), HttpPost]
@@ -446,5 +504,78 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         if (!Directory.Exists(backendPath))
             Directory.CreateDirectory(backendPath);
         return Path.Combine(backendPath, input.SeedDataName + ".cs");
+    }
+
+    /// <summary>
+    /// 备份数据库（PostgreSQL）🔖
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost, NonUnify]
+    [DisplayName("备份数据库（PostgreSQL）")]
+    public async Task<IActionResult> BackupDatabase()
+    {
+        if (_db.CurrentConnectionConfig.DbType != SqlSugar.DbType.PostgreSQL)
+            throw Oops.Oh("只支持 PostgreSQL 数据库 😁");
+
+        var npgsqlConn = new NpgsqlConnectionStringBuilder(_db.CurrentConnectionConfig.ConnectionString);
+        if (npgsqlConn == null || string.IsNullOrWhiteSpace(npgsqlConn.Host) || string.IsNullOrWhiteSpace(npgsqlConn.Username) || string.IsNullOrWhiteSpace(npgsqlConn.Password) || string.IsNullOrWhiteSpace(npgsqlConn.Database))
+            throw Oops.Oh("PostgreSQL 数据库配置错误");
+
+        // 确保备份目录存在
+        var backupDirectory = Path.Combine(Directory.GetCurrentDirectory(), "backups");
+        Directory.CreateDirectory(backupDirectory);
+
+        // 构建备份文件名
+        string backupFileName = $"backup_{DateTime.Now:yyyyMMddHHmmss}.sql";
+        string backupFilePath = Path.Combine(backupDirectory, backupFileName);
+
+        // 启动pg_dump进程进行备份
+        // 设置密码：export PGPASSWORD='xxxxxx'
+        var bash = $"-U {npgsqlConn.Username} -h {npgsqlConn.Host} -p {npgsqlConn.Port} -E UTF8 -F c -b -v -f {backupFilePath} {npgsqlConn.Database}";
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "pg_dump",
+            Arguments = bash,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+            EnvironmentVariables =
+            {
+                ["PGPASSWORD"] = npgsqlConn.Password
+            }
+        };
+
+        //_logger.LogInformation("备份数据库：pg_dump " + bash);
+
+        //try
+        //{
+        using (var backupProcess = Process.Start(startInfo))
+        {
+            await backupProcess.WaitForExitAsync();
+
+            //var output = await backupProcess.StandardOutput.ReadToEndAsync();
+            //var error = await backupProcess.StandardError.ReadToEndAsync();
+
+            // 检查备份是否成功
+            if (backupProcess.ExitCode != 0)
+            {
+                throw Oops.Oh($"备份失败：ExitCode({backupProcess.ExitCode})");
+            }
+        }
+
+        //    _logger.LogInformation($"备份成功：{backupFilePath}");
+        //}
+        //catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, $"备份失败：");
+        //    throw;
+        //}
+
+        // 若备份成功则提供下载链接
+        return new FileStreamResult(new FileStream(backupFilePath, FileMode.Open), "application/octet-stream")
+        {
+            FileDownloadName = backupFileName
+        };
     }
 }

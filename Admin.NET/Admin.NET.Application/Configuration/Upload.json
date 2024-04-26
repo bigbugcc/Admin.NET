@@ -10,10 +10,10 @@
   "OSSProvider": {
     "IsEnable": false,
     "Provider": "Minio", // OSS提供者 Invalid/Minio/Aliyun/QCloud/Qiniu/HuaweiCloud
-    "Endpoint": "101.43.53.74:8090", // 节点/API地址（在腾讯云OSS中表示AppId）
-    "Region": "101.43.53.74", // 地域
-    "AccessKey": "z1KoTnXlznKBKWtlIahn",
-    "SecretKey": "n0YxRADS7Bnb4th9zplVuDiQIdPFQ5gDtQHzLyXI",
+    "Endpoint": "xxx.xxx.xxx.xxx:8090", // 节点/API地址（在腾讯云OSS中表示AppId）
+    "Region": "xxx.xxx.xxx.xxx", // 地域
+    "AccessKey": "",
+    "SecretKey": "",
     "IsEnableHttps": false, // 是否启用HTTPS
     "IsEnableCache": true, // 是否启用缓存
     "Bucket": "admin.net"

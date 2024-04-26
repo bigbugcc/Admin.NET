@@ -1,11 +1,8 @@
-﻿// 麻省理工学院许可证
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Aliyun.OSS.Util;
 using Furion.VirtualFileServer;
@@ -14,7 +11,7 @@ using OnceMi.AspNetCore.OSS;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统文件服务
+/// 系统文件服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 410)]
 public class SysFileService : IDynamicApiController, ITransient
@@ -24,6 +21,7 @@ public class SysFileService : IDynamicApiController, ITransient
     private readonly OSSProviderOptions _OSSProviderOptions;
     private readonly UploadOptions _uploadOptions;
     private readonly IOSSService _OSSService;
+    private readonly string _imageType = ".jpg.png.bmp.gif.tif";
 
     public SysFileService(UserManager userManager,
         SqlSugarRepository<SysFile> sysFileRep,
@@ -40,7 +38,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取文件分页列表
+    /// 获取文件分页列表 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -56,7 +54,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件
+    /// 上传文件 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <param name="path"></param>
@@ -94,7 +92,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件Base64
+    /// 上传文件Base64 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -106,7 +104,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传多文件
+    /// 上传多文件 🔖
     /// </summary>
     /// <param name="files"></param>
     /// <returns></returns>
@@ -122,7 +120,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据文件Id或Url下载
+    /// 根据文件Id或Url下载 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -146,11 +144,12 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 下载指定文件Base64格式
+    /// 下载指定文件Base64格式 🔖
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
     [AllowAnonymous]
+    [DisplayName("下载指定文件Base64格式")]
     public async Task<string> DownloadFileBase64([FromBody] string url)
     {
         if (_OSSProviderOptions.IsEnable)
@@ -184,7 +183,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 删除文件
+    /// 删除文件 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -211,7 +210,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 更新文件
+    /// 更新文件 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -241,8 +240,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="file">文件</param>
     /// <param name="savePath">路径</param>
+    /// <param name="allowSuffix">允许格式：.jpg.png.gif.tif.bmp</param>
     /// <returns></returns>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath)
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "")
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -277,12 +277,15 @@ public class SysFileService : IDynamicApiController, ITransient
             });
         }
 
+        // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
             throw Oops.Oh(ErrorCodeEnum.D8001);
 
+        // 验证文件大小
         if (sizeKb > _uploadOptions.MaxSize)
             throw Oops.Oh(ErrorCodeEnum.D8002);
 
+        // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
         if (string.IsNullOrWhiteSpace(suffix))
         {
@@ -294,6 +297,12 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         if (string.IsNullOrWhiteSpace(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
+
+        // 防止客户端伪造文件类型
+        if (!string.IsNullOrWhiteSpace(allowSuffix) && !allowSuffix.Contains(suffix))
+            throw Oops.Oh(ErrorCodeEnum.D8003);
+        if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
+            throw Oops.Oh(ErrorCodeEnum.D8001);
 
         var newFile = new SysFile
         {
@@ -377,14 +386,14 @@ public class SysFileService : IDynamicApiController, ITransient
     //}
 
     /// <summary>
-    /// 上传头像
+    /// 上传头像 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
     [DisplayName("上传头像")]
     public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(file, "Upload/Avatar");
+        var sysFile = await HandleUploadFile(file, "Upload/Avatar", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
@@ -399,14 +408,14 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传电子签名
+    /// 上传电子签名 🔖
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
     [DisplayName("上传电子签名")]
     public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(file, "Upload/Signature");
+        var sysFile = await HandleUploadFile(file, "Upload/Signature", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);

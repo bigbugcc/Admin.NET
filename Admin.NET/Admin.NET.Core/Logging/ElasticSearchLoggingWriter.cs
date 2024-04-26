@@ -1,44 +1,43 @@
-﻿// 麻省理工学院许可证
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using Nest;
+using Elastic.Clients.Elasticsearch;
 
 namespace Admin.NET.Core;
 
 /// <summary>
 /// ES日志写入器
 /// </summary>
-public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
+public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
 {
-    private readonly ElasticClient _esClient;
+    private readonly IServiceScope _serviceScope;
+    private readonly ElasticsearchClient _esClient;
     private readonly SysConfigService _sysConfigService;
 
-    public ElasticSearchLoggingWriter(ElasticClient esClient, SysConfigService sysConfigService)
+    public ElasticSearchLoggingWriter(IServiceScopeFactory scopeFactory)
     {
-        _esClient = esClient;
-        _sysConfigService = sysConfigService;
+        _serviceScope = scopeFactory.CreateScope();
+        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticsearchClient>();
+        _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
     }
 
-    public async void Write(LogMessage logMsg, bool flush)
+    public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         // 是否启用操作日志
         var sysOpLogEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
         if (!sysOpLogEnabled) return;
 
-        var jsonStr = logMsg.Context.Get("loggingMonitor").ToString();
+        var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();
+        if (string.IsNullOrWhiteSpace(jsonStr)) return;
+
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
 
-        // 不记录登录登出日志
+        // 不记录登录退出日志
         if (loggingMonitor.actionName == "userInfo" || loggingMonitor.actionName == "logout")
             return;
-
-        #region 处理操作日志
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
@@ -59,9 +58,6 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
 
         string remoteIPv4 = loggingMonitor.remoteIPv4;
         (string ipLocation, double? longitude, double? latitude) = DatabaseLoggingWriter.GetIpAddress(remoteIPv4);
-        //var client = Parser.GetDefault().Parse(loggingMonitor.userAgent.ToString());
-        //var browser = $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
-        //var os = $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}";
 
         var sysLogOp = new SysLogOp
         {
@@ -92,9 +88,14 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter
             CreateUserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : long.Parse(tenantId)
         };
+        await _esClient.IndexAsync(sysLogOp);
+    }
 
-        #endregion 处理操作日志
-
-        await _esClient.IndexDocumentAsync(sysLogOp);
+    /// <summary>
+    /// 释放服务作用域
+    /// </summary>
+    public void Dispose()
+    {
+        _serviceScope.Dispose();
     }
 }

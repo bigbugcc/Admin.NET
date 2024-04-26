@@ -23,7 +23,7 @@
 					<el-table-column type="index" label="序号" width="55" align="center" />
 					<el-table-column prop="userName" label="账号" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="realName" label="姓名" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="ip" label="IP地址" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="ip" label="IP地址" min-width="100" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="browser" label="浏览器" header-align="center" show-overflow-tooltip />
 					<!-- <el-table-column prop="connectionId" label="连接Id" show-overflow-tooltip></el-table-column> -->
 					<el-table-column prop="time" label="登录时间" min-width="120" header-align="center" show-overflow-tooltip />

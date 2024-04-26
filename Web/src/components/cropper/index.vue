@@ -98,6 +98,9 @@ const onSubmit = async () => {
 // 初始化cropperjs图片裁剪
 const initCropper = () => {
 	const letImg = <HTMLImageElement>document.querySelector('.cropper-warp-left-img');
+	if (letImg) {
+		letImg.setAttribute('crossOrigin', 'anonymous');
+	}
 	state.cropper = new Cropper(letImg, {
 		viewMode: 1,
 		dragMode: 'none',

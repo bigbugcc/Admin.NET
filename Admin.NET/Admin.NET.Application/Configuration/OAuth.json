@@ -3,12 +3,12 @@
 
   "OAuth": {
     "Weixin": {
-      "ClientId": "wx2959fdd3abc05362",
-      "ClientSecret": "829f65b2be0652bcd50ea8cb820fd7fa"
+      "ClientId": "xxx",
+      "ClientSecret": "xxx"
     },
     "Gitee": {
-      "ClientId": "daf46f82c7aef4ee192e7537319f7fd18a158b7f0b21ca11abccea59c55d8ac1",
-      "ClientSecret": "4ec9a6942c35d03ce64434cdffb92dee48d12fe1b2038eeda2dbb6f3c847b365"
+      "ClientId": "xxx",
+      "ClientSecret": "xxx"
     }
   }
 }

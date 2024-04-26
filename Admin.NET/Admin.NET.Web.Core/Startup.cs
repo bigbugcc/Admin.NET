@@ -1,11 +1,8 @@
-// 麻省理工学院许可证
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
-// 版权所有 (c) 2021-2023 zuohuaijun，大名科技（天津）有限公司  联系电话/微信：18020030720  QQ：515096995
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
-// 特此免费授予获得本软件的任何人以处理本软件的权利，但须遵守以下条件：在所有副本或重要部分的软件中必须包括上述版权声明和本许可声明。
-//
-// 软件按“原样”提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、适用性和非侵权的保证。
-// 在任何情况下，作者或版权持有人均不对任何索赔、损害或其他责任负责，无论是因合同、侵权或其他方式引起的，与软件或其使用或其他交易有关。
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Admin.NET.Core;
 using Admin.NET.Core.Service;
@@ -14,6 +11,7 @@ using Furion;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
+using IPTools.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -114,7 +112,7 @@ public class Startup : AppStartup
             //// 替换事件源存储器
             //options.ReplaceStorer(serviceProvider =>
             //{
-            //    var redisCache = serviceProvider.GetService<ICache>();
+            //    var redisCache = serviceProvider.GetRequiredService<ICache>();
             //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
             //    return new RedisEventSourceStorer(redisCache, "adminnet", 3000);
             //});
@@ -164,21 +162,33 @@ public class Startup : AppStartup
 
         // 控制台logo
         services.AddConsoleLogo();
+
+        // 将IP地址数据库文件完全加载到内存，提升查询速度（以空间换时间，内存将会增加60-70M）
+        IpToolSettings.LoadInternationalDbToMemory = true;
+        // 设置默认查询器China和International
+        //IpToolSettings.DefalutSearcherType = IpSearcherType.China;
+        IpToolSettings.DefalutSearcherType = IpSearcherType.International;
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseForwardedHeaders();
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            app.UseForwardedHeaders();
         }
         else
         {
             app.UseExceptionHandler("/Home/Error");
-            app.UseForwardedHeaders();
             app.UseHsts();
         }
+
+        app.Use(async (context, next) =>
+        {
+            context.Response.Headers.Add("Admin.NET", "Admin.NET");
+            await next();
+        });
 
         // 图像处理
         app.UseImageSharp();
@@ -193,6 +203,9 @@ public class Startup : AppStartup
 
         //// 启用HTTPS
         //app.UseHttpsRedirection();
+
+        // 启用OAuth
+        app.UseOAuth();
 
         // 添加状态码拦截中间件
         app.UseUnifyResultStatusCodes();
@@ -227,7 +240,13 @@ public class Startup : AppStartup
             }
         });
 
-        app.UseInject(string.Empty);
+        app.UseInject(string.Empty, options =>
+        {
+            foreach (var groupInfo in SpecificationDocumentBuilder.GetOpenApiGroups())
+            {
+                groupInfo.Description += "<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>";
+            }
+        });
 
         app.UseEndpoints(endpoints =>
         {

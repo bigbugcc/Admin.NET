@@ -4,7 +4,7 @@
 		<LockScreen v-if="themeConfig.isLockScreen" />
 		<Setings ref="setingsRef" v-show="setLockScreen" />
 		<CloseFull v-if="!themeConfig.isLockScreen" />
-		<Upgrade v-if="needUpdate" />
+		<!-- <Upgrade v-if="needUpdate" /> -->
 		<!-- <Sponsors /> -->
 	</el-config-provider>
 </template>
@@ -26,7 +26,7 @@ import setIntroduction from '/@/utils/setIconfont';
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'));
 const Setings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'));
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'));
-const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'));
+// const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'));
 // const Sponsors = defineAsyncComponent(() => import('/@/layout/sponsors/index.vue'));
 
 // 定义变量内容
@@ -107,11 +107,21 @@ watch(
 );
 </script>
 
-<style>
-.el-select {
-	width: 171px !important;
-}
-.el-select__wrapper {
-	line-height: 22px !important;
+<style lang="scss">
+.el-form--inline {
+	.el-form-item {
+		.el-select {
+			width: 171px !important;
+		}
+		.el-select__wrapper {
+			line-height: 22px !important;
+		}
+		.el-date-editor {
+			--el-date-editor-width: 171px !important;
+		}
+		.el-input {
+			width: 171px !important;
+		}
+	}
 }
 </style>

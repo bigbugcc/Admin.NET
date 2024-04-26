@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-role-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="700px">
+		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -27,8 +27,8 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="状态">
 							<el-radio-group v-model="state.ruleForm.status">
-								<el-radio :label="1">启用</el-radio>
-								<el-radio :label="2">禁用</el-radio>
+								<el-radio :value="1">启用</el-radio>
+								<el-radio :value="2">禁用</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
@@ -48,6 +48,7 @@
 								icon="ele-Menu"
 								highlight-current
 								default-expand-all
+								style="height: 600px;overflow-y: auto;"
 							/>
 						</el-form-item>
 					</el-col>

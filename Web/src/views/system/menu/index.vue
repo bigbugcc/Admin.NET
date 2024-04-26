@@ -24,7 +24,7 @@
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="hover" style="margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.menuData" v-loading="state.loading" row-key="id" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" border>
 				<el-table-column label="菜单名称" header-align="center" show-overflow-tooltip>
 					<template #default="scope">
@@ -51,55 +51,7 @@
 				</el-table-column>
 				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-popover placement="bottom" width="280" trigger="hover">
-							<template #reference>
-								<el-text type="primary">
-									<el-icon><ele-InfoFilled /></el-icon>详情
-								</el-text>
-							</template>
-							<el-descriptions direction="vertical" :column="2" border>
-								<el-descriptions-item width="140">
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>创建者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>创建时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.createTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-UserFilled /></el-icon>修改者
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateUserName ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Calendar /></el-icon>修改时间
-										</el-text>
-									</template>
-									<el-tag>{{ scope.row.updateTime ?? '无' }}</el-tag>
-								</el-descriptions-item>
-								<el-descriptions-item>
-									<template #label>
-										<el-text>
-											<el-icon><ele-Tickets /></el-icon>备注
-										</el-text>
-									</template>
-									{{ scope.row.remark }}
-								</el-descriptions-item>
-							</el-descriptions>
-						</el-popover>
+						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" width="140" fixed="right" align="center" show-overflow-tooltip>
@@ -119,6 +71,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import EditMenu from '/@/views/system/menu/component/editMenu.vue';
+import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysMenuApi } from '/@/api-services/api';
