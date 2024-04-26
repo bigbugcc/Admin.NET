@@ -79,7 +79,7 @@
 		"terser": "^5.30.4",
 		"typescript": "^5.4.5",
 		"vite": "^5.2.10",
-		"vite-plugin-cdn-import": "^1.0.0",
+		"vite-plugin-cdn-import": "^1.0.1",
 		"vite-plugin-compression2": "^1.1.0",
 		"vite-plugin-vue-setup-extend-plus": "^0.1.0",
 		"vue-eslint-parser": "^9.4.2"

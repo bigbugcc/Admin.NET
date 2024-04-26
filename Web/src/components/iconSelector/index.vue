@@ -1,14 +1,6 @@
 <template>
 	<div class="icon-selector w100 h100">
-		<el-input
-			v-model="state.fontIconSearch"
-			:placeholder="state.fontIconPlaceholder"
-			:clearable="clearable"
-			:disabled="disabled"
-			:size="size"
-			ref="inputWidthRef"
-			@clear="onClearFontIcon"
-		>
+		<el-input v-model="state.fontIconSearch" :placeholder="state.fontIconPlaceholder" :clearable="clearable" :disabled="disabled" :size="size" ref="inputWidthRef" @clear="onClearFontIcon">
 			<template #prepend>
 				<SvgIcon
 					:name="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix"
@@ -18,15 +10,7 @@
 				<i v-else :class="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix" class="font14"></i>
 			</template>
 		</el-input>
-		<el-popover
-			placement="bottom"
-			:width="state.fontIconWidth"
-			transition="el-zoom-in-top"
-			popper-class="icon-selector-popper"
-			trigger="click"
-			:virtual-ref="inputWidthRef"
-			virtual-triggering
-		>
+		<el-popover placement="bottom" :width="state.fontIconWidth" transition="el-zoom-in-top" popper-class="icon-selector-popper" trigger="click" :virtual-ref="inputWidthRef" virtual-triggering>
 			<template #default>
 				<div class="icon-selector-warp">
 					<div class="icon-selector-warp-title">{{ title }}</div>
@@ -117,7 +101,6 @@ const state = reactive({
 	},
 });
 
-
 // 图标搜索及图标数据显示
 const fontIconSheetsFilterList = computed(() => {
 	const list = fontIconTabNameList();
@@ -144,7 +127,7 @@ const initModeValueEcho = () => {
 // 处理 icon 类型，用于回显时，tab 高亮与初始化数据
 const initFontIconName = () => {
 	let name = 'ali';
-    if(props.modelValue == undefined) name = 'ele';
+	if (props.modelValue == undefined) name = 'ele';
 	else if (props.modelValue!.indexOf('iconfont') > -1) name = 'ali';
 	else if (props.modelValue!.indexOf('ele-') > -1) name = 'ele';
 	else if (props.modelValue!.indexOf('fa') > -1) name = 'awe';
@@ -220,10 +203,10 @@ onMounted(() => {
 watch(
 	() => props.modelValue,
 	() => {
-        state.fontIconSearch='';
+		state.fontIconSearch = '';
 		initModeValueEcho();
 		initFontIconName();
-        getInputWidth();
+		getInputWidth();
 	}
 );
 </script>
