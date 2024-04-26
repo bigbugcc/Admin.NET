@@ -99,6 +99,7 @@
 							</template>
 						</el-table-column>
 						<el-table-column prop="code" label="编码" header-align="center" min-width="120" show-overflow-tooltip />
+                        <el-table-column prop="name" label="名称" header-align="center" min-width="120" show-overflow-tooltip />
 						<el-table-column prop="extData" label="拓展数据" width="90" align="center">
 							<template #default="scope">
 								<el-tag type="warning" v-if="scope.row.extData == null || scope.row.extData == ''">空</el-tag>
