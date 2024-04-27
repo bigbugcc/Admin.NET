@@ -248,7 +248,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         var org = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysOrg>>().GetFirstAsync(u => u.Id == user.OrgId);
         // 获取职位
         var pos = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysPos>>().GetFirstAsync(u => u.Id == user.PosId);
-        // 获取拥有按钮权限集合
+        // 获取按钮集合
         var buttons = await _sysMenuService.GetOwnBtnPermList();
         // 获取权限集合
         var roleIds = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysUserRole>>().AsQueryable()

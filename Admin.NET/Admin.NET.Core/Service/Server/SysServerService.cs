@@ -4,13 +4,20 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using AlibabaCloud.SDK.Dysmsapi20170525.Models;
 using AngleSharp.Html.Parser;
+using AspNet.Security.OAuth.Gitee;
+using AspNet.Security.OAuth.Weixin;
 using AspNetCoreRateLimit;
 using Elastic.Clients.Elasticsearch;
+using IPTools.Core;
 using Lazy.Captcha.Core;
 using Magicodes.ExporterAndImporter.Pdf;
+using Magicodes.ExporterAndImporter.Word;
 using MailKit.Net.Smtp;
+using Novell.Directory.Ldap;
 using OnceMi.AspNetCore.OSS;
+using QRCoder;
 
 namespace Admin.NET.Core.Service;
 
@@ -96,15 +103,24 @@ public class SysServerService : IDynamicApiController, ITransient
         var jsonAssembly = typeof(NewtonsoftJsonMvcCoreBuilderExtensions).Assembly.GetName();
         var excelAssembly = typeof(IExcelImporter).Assembly.GetName();
         var pdfAssembly = typeof(IPdfExporter).Assembly.GetName();
+        var wordAssembly = typeof(IWordExporter).Assembly.GetName();
         var captchaAssembly = typeof(ICaptcha).Assembly.GetName();
         var wechatApiAssembly = typeof(WechatApiClient).Assembly.GetName();
         var wechatTenpayAssembly = typeof(WechatTenpayClient).Assembly.GetName();
         var ossAssembly = typeof(IOSSServiceFactory).Assembly.GetName();
         var parserAssembly = typeof(Parser).Assembly.GetName();
-        var nestAssembly = typeof(ElasticsearchClient).Assembly.GetName();
+        var elasticsearchClientAssembly = typeof(ElasticsearchClient).Assembly.GetName();
         var limitAssembly = typeof(IpRateLimitMiddleware).Assembly.GetName();
         var htmlParserAssembly = typeof(HtmlParser).Assembly.GetName();
         var fluentEmailAssembly = typeof(SmtpClient).Assembly.GetName();
+        var qRCodeGeneratorAssembly = typeof(QRCodeGenerator).Assembly.GetName();
+        var sendSmsRequestAssembly = typeof(SendSmsRequest).Assembly.GetName();
+        var imageAssembly = typeof(Image).Assembly.GetName();
+        var rabbitMQAssembly = typeof(RabbitMQEventSourceStore).Assembly.GetName();
+        var ldapConnectionAssembly = typeof(LdapConnection).Assembly.GetName();
+        var ipToolAssembly = typeof(IpTool).Assembly.GetName();
+        var weixinAuthenticationOptionsAssembly = typeof(WeixinAuthenticationOptions).Assembly.GetName();
+        var giteeAuthenticationOptionsAssembly = typeof(GiteeAuthenticationOptions).Assembly.GetName();
 
         return new[]
         {
@@ -115,15 +131,24 @@ public class SysServerService : IDynamicApiController, ITransient
             new { jsonAssembly.Name, jsonAssembly.Version },
             new { excelAssembly.Name, excelAssembly.Version },
             new { pdfAssembly.Name, pdfAssembly.Version },
+            new { wordAssembly.Name, wordAssembly.Version },
             new { captchaAssembly.Name, captchaAssembly.Version },
             new { wechatApiAssembly.Name, wechatApiAssembly.Version },
             new { wechatTenpayAssembly.Name, wechatTenpayAssembly.Version },
             new { ossAssembly.Name, ossAssembly.Version },
             new { parserAssembly.Name, parserAssembly.Version },
-            new { nestAssembly.Name, nestAssembly.Version },
+            new { elasticsearchClientAssembly.Name, elasticsearchClientAssembly.Version },
             new { limitAssembly.Name, limitAssembly.Version },
             new { htmlParserAssembly.Name, htmlParserAssembly.Version },
             new { fluentEmailAssembly.Name, fluentEmailAssembly.Version },
+            new { qRCodeGeneratorAssembly.Name, qRCodeGeneratorAssembly.Version },
+            new { sendSmsRequestAssembly.Name, sendSmsRequestAssembly.Version },
+            new { imageAssembly.Name, imageAssembly.Version },
+            new { rabbitMQAssembly.Name, rabbitMQAssembly.Version },
+            new { ldapConnectionAssembly.Name, ldapConnectionAssembly.Version },
+            new { ipToolAssembly.Name, ipToolAssembly.Version },
+            new { weixinAuthenticationOptionsAssembly.Name, weixinAuthenticationOptionsAssembly.Version },
+            new { giteeAuthenticationOptionsAssembly.Name, giteeAuthenticationOptionsAssembly.Version },
         };
     }
 }
