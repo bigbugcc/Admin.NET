@@ -96,7 +96,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         }
         catch
         {
-            throw Oops.Oh(ErrorCodeEnum.D1000);
+            throw Oops.Oh(ErrorCodeEnum.D0010);
         }
 
         // 是否开启域登录验证
