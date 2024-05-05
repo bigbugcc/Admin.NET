@@ -16,16 +16,12 @@ namespace Admin.NET.Core;
 /// </summary>
 public sealed class SignatureAuthenticationHandler : AuthenticationHandler<SignatureAuthenticationOptions>
 {
-    private readonly SysCacheService _cacheService;
-
     public SignatureAuthenticationHandler(IOptionsMonitor<SignatureAuthenticationOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder,
-        ISystemClock clock,
-        SysCacheService cacheService)
+        ISystemClock clock)
         : base(options, logger, encoder, clock)
     {
-        _cacheService = cacheService;
     }
 
     private new SignatureAuthenticationEvent Events
@@ -78,10 +74,11 @@ public sealed class SignatureAuthenticationHandler : AuthenticationHandler<Signa
             return await AuthenticateResultFailAsync("sign 无效的签名");
 
         // 重放检测
+        var cache = App.GetRequiredService<SysCacheService>();
         var cacheKey = $"{CacheConst.KeyOpenAccessNonce}{accessKey}|{nonce}";
-        if (_cacheService.ExistKey(cacheKey))
+        if (cache.ExistKey(cacheKey))
             return await AuthenticateResultFailAsync("重复的请求");
-        _cacheService.Set(cacheKey, null, Options.AllowedDateDrift * 2); // 缓存过期时间为偏差范围时间的2倍
+        cache.Set(cacheKey, null, Options.AllowedDateDrift * 2); // 缓存过期时间为偏差范围时间的2倍
 
         // 已验证成功
         var signatureValidatedContext = new SignatureValidatedContext(Context, Scheme, Options)

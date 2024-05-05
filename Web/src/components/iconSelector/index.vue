@@ -1,16 +1,6 @@
 <template>
 	<div class="icon-selector w100 h100">
-		<el-input
-			v-model="state.fontIconSearch"
-			:placeholder="state.fontIconPlaceholder"
-			:clearable="clearable"
-			:disabled="disabled"
-			:size="size"
-			ref="inputWidthRef"
-			@clear="onClearFontIcon"
-			@focus="onIconFocus"
-			@blur="onIconBlur"
-		>
+		<el-input v-model="state.fontIconSearch" :placeholder="state.fontIconPlaceholder" :clearable="clearable" :disabled="disabled" :size="size" ref="inputWidthRef" @clear="onClearFontIcon">
 			<template #prepend>
 				<SvgIcon
 					:name="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix"
@@ -20,15 +10,7 @@
 				<i v-else :class="state.fontIconPrefix === '' ? prepend : state.fontIconPrefix" class="font14"></i>
 			</template>
 		</el-input>
-		<el-popover
-			placement="bottom"
-			:width="state.fontIconWidth"
-			transition="el-zoom-in-top"
-			popper-class="icon-selector-popper"
-			trigger="click"
-			:virtual-ref="inputWidthRef"
-			virtual-triggering
-		>
+		<el-popover placement="bottom" :width="state.fontIconWidth" transition="el-zoom-in-top" popper-class="icon-selector-popper" trigger="click" :virtual-ref="inputWidthRef" virtual-triggering>
 			<template #default>
 				<div class="icon-selector-warp">
 					<div class="icon-selector-warp-title">{{ title }}</div>
@@ -119,20 +101,6 @@ const state = reactive({
 	},
 });
 
-// 处理 input 获取焦点时，modelValue 有值时，改变 input 的 placeholder 值
-const onIconFocus = () => {
-	if (!props.modelValue) return false;
-	state.fontIconSearch = '';
-	state.fontIconPlaceholder = props.modelValue;
-};
-// 处理 input 失去焦点时，为空将清空 input 值，为点击选中图标时，将取原先值
-const onIconBlur = () => {
-	const list = fontIconTabNameList();
-	setTimeout(() => {
-		const icon = list.filter((icon: string) => icon === state.fontIconSearch);
-		if (icon.length <= 0) state.fontIconSearch = '';
-	}, 300);
-};
 // 图标搜索及图标数据显示
 const fontIconSheetsFilterList = computed(() => {
 	const list = fontIconTabNameList();
@@ -159,7 +127,7 @@ const initModeValueEcho = () => {
 // 处理 icon 类型，用于回显时，tab 高亮与初始化数据
 const initFontIconName = () => {
 	let name = 'ali';
-    if(props.modelValue == undefined) name = 'ele';
+	if (props.modelValue == undefined) name = 'ele';
 	else if (props.modelValue!.indexOf('iconfont') > -1) name = 'ali';
 	else if (props.modelValue!.indexOf('ele-') > -1) name = 'ele';
 	else if (props.modelValue!.indexOf('fa') > -1) name = 'awe';
@@ -235,8 +203,10 @@ onMounted(() => {
 watch(
 	() => props.modelValue,
 	() => {
+		state.fontIconSearch = '';
 		initModeValueEcho();
 		initFontIconName();
+		getInputWidth();
 	}
 );
 </script>

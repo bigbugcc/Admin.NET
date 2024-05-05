@@ -39,6 +39,11 @@ public class UserManager : IScoped
     public bool SuperAdmin => _httpContextAccessor.HttpContext?.User.FindFirst(ClaimConst.AccountType)?.Value == ((int)AccountTypeEnum.SuperAdmin).ToString();
 
     /// <summary>
+    /// 是否系统管理员
+    /// </summary>
+    public bool SysAdmin => _httpContextAccessor.HttpContext?.User.FindFirst(ClaimConst.AccountType)?.Value == ((int)AccountTypeEnum.SysAdmin).ToString();
+
+    /// <summary>
     /// 组织机构Id
     /// </summary>
     public long OrgId => (_httpContextAccessor.HttpContext?.User.FindFirst(ClaimConst.OrgId)?.Value).ToLong();
