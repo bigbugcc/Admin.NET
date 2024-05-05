@@ -123,7 +123,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 // 将异常日志发送到邮件
                 if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail))
                 {
-                    await App.GetRequiredService<IEventPublisher>().PublishAsync("Send:ErrorMail", loggingMonitor.exception);
+                    await App.GetRequiredService<IEventPublisher>().PublishAsync(SysToDoEventConst.SendErrorMail, loggingMonitor.exception);
                 }
 
                 return;
