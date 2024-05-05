@@ -1,4 +1,5 @@
 <template>
+	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
 	<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
 		<el-form-item class="login-animation1" prop="account">
 			<el-input ref="accountRef" text placeholder="请输入账号" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
@@ -55,7 +56,7 @@
 		<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
 		<!-- <el-button type="primary" round v-waves @click="weixinSignIn" :loading="state.loading.signIn"></el-button> -->
 	</el-form>
-
+	</el-tooltip>
 	<div class="dialog-header">
 		<el-dialog v-model="state.rotateVerifyVisible" :show-close="false">
 			<DragVerifyImgRotate
@@ -73,7 +74,7 @@
 </template>
 
 <script lang="ts" setup name="loginAccount">
-import { reactive, computed, ref, onMounted, defineAsyncComponent } from 'vue';
+import { reactive, computed, ref, onMounted, defineAsyncComponent, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage, InputInstance } from 'element-plus';
 import { useI18n } from 'vue-i18n';
@@ -122,6 +123,7 @@ const state = reactive({
 	secondVerEnabled: false,
 	captchaEnabled: false,
 	isPassRotate: false,
+	capsLockVisible: false,
 });
 onMounted(async () => {
 	// 若URL带有Token参数（第三方登录）
@@ -134,9 +136,18 @@ onMounted(async () => {
 	var res1 = await getAPI(SysAuthApi).apiSysAuthLoginConfigGet();
 	state.secondVerEnabled = res1.data.result.secondVerEnabled ?? true;
 	state.captchaEnabled = res1.data.result.captchaEnabled ?? true;
-
 	getCaptcha();
+	// Caps Lock检测
+	document.addEventListener('keyup', handleKeyPress);
 });
+onUnmounted(() => {
+	document.removeEventListener('keyup', handleKeyPress);
+});
+const handleKeyPress = (e:any) => {
+	const isCapsLockOn = e.getModifierState('CapsLock');
+	state.capsLockVisible = isCapsLockOn;
+};
+
 // 获取验证码
 const getCaptcha = async () => {
 	if (!state.captchaEnabled) return;
