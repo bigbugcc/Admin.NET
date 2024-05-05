@@ -19,7 +19,7 @@ public class LogJob : IJob
     public LogJob(IServiceScopeFactory scopeFactory, ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
-        _logger = loggerFactory.CreateLogger("System.Logging.LoggingMonitor");
+        _logger = loggerFactory.CreateLogger(CommonConst.SysLogCategoryName);
     }
 
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)

@@ -13,26 +13,23 @@ public class JobMonitor : IJobMonitor, IDisposable
 {
     private readonly IEventPublisher _eventPublisher;
     private readonly IServiceScope _serviceScope;
-    private readonly SysConfigService _sysConfigService; // 参数配置服务
+    private readonly SysConfigService _sysConfigService;
+
     public JobMonitor(IServiceScopeFactory scopeFactory)
     {
-
         _serviceScope = scopeFactory.CreateScope();
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
         _eventPublisher = _serviceScope.ServiceProvider.GetRequiredService<IEventPublisher>(); ;
     }
 
-
-
     public async Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
     {
+        // 将异常作业发送到邮件
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
         {
             var errorInfo = $"【{context.Trigger.Description}】出现错误：{context.Exception.InnerException}";
-            // 将异常日志发送到邮件
-            await _eventPublisher.PublishAsync(SysToDoEventConst.SendErrorMail, errorInfo);
+            await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo);
         }
-
     }
 
     public Task OnExecutingAsync(JobExecutingContext context, CancellationToken stoppingToken)
