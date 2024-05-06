@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 export * from './apis/apijsonapi';
+export * from './apis/approval-flow-api';
 export * from './apis/sys-auth-api';
 export * from './apis/sys-cache-api';
 export * from './apis/sys-code-gen-api';
