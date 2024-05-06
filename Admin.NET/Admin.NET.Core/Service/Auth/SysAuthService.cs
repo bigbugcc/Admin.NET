@@ -90,7 +90,14 @@ public class SysAuthService : IDynamicApiController, ITransient
             throw Oops.Oh(ErrorCodeEnum.Z1003);
 
         // 国密SM2解密（前端密码传输SM2加密后的）
-        input.Password = CryptogramUtil.SM2Decrypt(input.Password);
+        try
+        {
+            input.Password = CryptogramUtil.SM2Decrypt(input.Password);
+        }
+        catch
+        {
+            throw Oops.Oh(ErrorCodeEnum.D0010);
+        }
 
         // 是否开启域登录验证
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysDomainLogin))
@@ -248,9 +255,9 @@ public class SysAuthService : IDynamicApiController, ITransient
         var org = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysOrg>>().GetFirstAsync(u => u.Id == user.OrgId);
         // 获取职位
         var pos = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysPos>>().GetFirstAsync(u => u.Id == user.PosId);
-        // 获取拥有按钮权限集合
+        // 获取按钮集合
         var buttons = await _sysMenuService.GetOwnBtnPermList();
-        // 获取权限集合
+        // 获取角色集合
         var roleIds = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysUserRole>>().AsQueryable()
             .Where(u => u.UserId == user.Id).Select(u => u.RoleId).ToListAsync();
 

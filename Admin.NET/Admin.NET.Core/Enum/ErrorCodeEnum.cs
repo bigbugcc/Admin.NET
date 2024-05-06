@@ -26,6 +26,12 @@ public enum ErrorCodeEnum
     D0009,
 
     /// <summary>
+    /// 密匙不匹配
+    /// </summary>
+    [ErrorCodeItemMetadata("密匙不匹配")]
+    D0010,
+
+    /// <summary>
     /// 密码不正确
     /// </summary>
     [ErrorCodeItemMetadata("密码不正确")]

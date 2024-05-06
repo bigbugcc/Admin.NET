@@ -1,9 +1,10 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Magicodes.ExporterAndImporter.Core.Models;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -103,18 +104,57 @@ public static class CommonUtil
     /// 导出模板Excel
     /// </summary>
     /// <param name="fileName"></param>
+    /// <returns></returns>
+    public static async Task<IActionResult> ExportExcelTemplate<T>(string fileName) where T : class, new()
+    {
+        fileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
+        IImporter importer = new ExcelImporter();
+        var res = await importer.GenerateTemplate<T>(Path.Combine(App.WebHostEnvironment.WebRootPath, fileName));
+        return new FileStreamResult(new FileStream(res.FileName, FileMode.Open), "application/octet-stream") { FileDownloadName = fileName };
+    }
+
+    /// <summary>
+    /// 导出模板Excel
+    /// </summary>
+    /// <param name="fileName"></param>
     /// <param name="fileDto"></param>
     /// <returns></returns>
     public static async Task<IActionResult> ExportExcelTemplate(string fileName, dynamic fileDto)
     {
-        fileName = $"{fileName}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
+        MethodInfo generateTemplateMethod = typeof(CommonUtil).GetMethods().FirstOrDefault(p => p.Name == "ExportExcelTemplate" && p.IsGenericMethodDefinition);
+        MethodInfo closedGenerateTemplateMethod = generateTemplateMethod.MakeGenericMethod(fileDto.GetType());
+        return await (Task<IActionResult>)closedGenerateTemplateMethod.Invoke(null, new object[] { fileName });
+    }
+
+    /// <summary>
+    /// 导入数据Excel
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="file"></param>
+    /// <param name="importResultCallback"></param>
+    /// <returns></returns>
+    public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
+    {
+        var newFile = await App.GetRequiredService<SysFileService>().UploadFile(file, "");
+        var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, newFile.FilePath, newFile.Id.ToString() + newFile.Suffix);
+        var errorFileUrl = Path.Combine(newFile.FilePath, newFile.Id.ToString() + "_" + newFile.Suffix);
 
         IImporter importer = new ExcelImporter();
-        MethodInfo generateTemplateMethod = importer.GetType().GetMethod("GenerateTemplate");
-        MethodInfo closedGenerateTemplateMethod = generateTemplateMethod.MakeGenericMethod(fileDto.GetType());
-        var res = await (Task<dynamic>)closedGenerateTemplateMethod.Invoke(importer, new object[] { Path.Combine(App.WebHostEnvironment.WebRootPath, fileName) });
-
-        return new FileStreamResult(new FileStream(res.FileName, FileMode.Open), "application/octet-stream") { FileDownloadName = fileName };
+        var res = await importer.Import<T>(filePath, importResultCallback);
+        if (res == null || res.Exception != null)
+            throw Oops.Oh("导入异常:" + res.Exception);
+        if (res.HasError)
+        {
+            if (res.TemplateErrors.Count > 0)
+            {
+                throw Oops.Oh("导入模板格式错误");
+            }
+            else
+            {
+                throw Oops.Oh($"请下载错误文件,根据提示修改后再次导入,<a href='{errorFileUrl}' target='_blank'>点击下载</a>");
+            }
+        }
+        return res.Data;
     }
 
     /// <summary>
@@ -125,16 +165,11 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<dynamic> ImportExcelData([Required] IFormFile file, dynamic dataDto)
     {
-        var newFile = await App.GetRequiredService<SysFileService>().UploadFile(file, "");
-        var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, newFile.FilePath, newFile.Id.ToString(), newFile.Suffix);
-
-        IImporter importer = new ExcelImporter();
-        MethodInfo importMethod = importer.GetType().GetMethod("Import");
+        MethodInfo importMethod = typeof(CommonUtil).GetMethods().FirstOrDefault(p => p.Name == "ImportExcelData" && p.IsGenericMethodDefinition);
         MethodInfo closedImportMethod = importMethod.MakeGenericMethod(dataDto.GetType());
-        var res = await (Task<dynamic>)closedImportMethod.Invoke(importer, new object[] { filePath });
-        if (res == null || res.Exception != null)
-            throw Oops.Oh("导入异常:" + res.Exception);
-
-        return res.Data;
+        var parameters = importMethod.GetParameters();
+        var task = (Task)closedImportMethod.Invoke(null, new object[] { file, parameters[1].DefaultValue });
+        await task;
+        return task.GetType().GetProperty("Result").GetValue(task);
     }
 }

@@ -76,4 +76,19 @@ public class CommonConst
     /// 开启域登录验证
     /// </summary>
     public const string SysDomainLogin = "sys_domain_login";
+
+    /// <summary>
+    /// 日志分组名称
+    /// </summary>
+    public const string SysLogCategoryName = "System.Logging.LoggingMonitor";
+
+    /// <summary>
+    /// 事件-增加异常日志
+    /// </summary>
+    public const string AddExLog = "Add:ExLog";
+
+    /// <summary>
+    /// 事件-发送异常邮件
+    /// </summary>
+    public const string SendErrorMail = "Send:ErrorMail";
 }

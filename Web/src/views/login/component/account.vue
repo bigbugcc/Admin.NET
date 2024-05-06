@@ -1,61 +1,63 @@
 <template>
-	<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
-		<el-form-item class="login-animation1" prop="account">
-			<el-input ref="accountRef" text placeholder="请输入账号" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
-				<template #prefix>
-					<el-icon>
-						<ele-User />
-					</el-icon>
-				</template>
-			</el-input>
-		</el-form-item>
-		<el-form-item class="login-animation2" prop="password">
-			<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" placeholder="请输入密码" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
-				<template #prefix>
-					<el-icon>
-						<ele-Unlock />
-					</el-icon>
-				</template>
-				<template #suffix>
-					<i class="iconfont el-input__icon login-content-password" :class="state.isShowPassword ? 'icon-yincangmima' : 'icon-xianshimima'" @click="state.isShowPassword = !state.isShowPassword"> </i>
-				</template>
-			</el-input>
-		</el-form-item>
-		<el-form-item class="login-animation3" prop="captcha" v-if="state.captchaEnabled">
-			<el-col :span="15">
-				<el-input
-					ref="codeRef"
-					text
-					maxlength="4"
-					:placeholder="$t('message.account.accountPlaceholder3')"
-					v-model="state.ruleForm.code"
-					clearable
-					autocomplete="off"
-					@keyup.enter.native="handleSignIn"
-				>
+	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
+		<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
+			<el-form-item class="login-animation1" prop="account">
+				<el-input ref="accountRef" text placeholder="请输入账号" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
 					<template #prefix>
 						<el-icon>
-							<ele-Position />
+							<ele-User />
 						</el-icon>
 					</template>
 				</el-input>
-			</el-col>
-			<el-col :span="1"></el-col>
-			<el-col :span="8">
-				<div class="login-content-code">
-					<img class="login-content-code-img" @click="getCaptcha" width="130px" height="38px" :src="state.captchaImage" style="cursor: pointer" />
-				</div>
-			</el-col>
-		</el-form-item>
-		<el-form-item class="login-animation4">
-			<el-button type="primary" class="login-content-submit" round v-waves @click="handleSignIn" :loading="state.loading.signIn">
-				<span>{{ $t('message.account.accountBtnText') }}</span>
-			</el-button>
-		</el-form-item>
-		<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
-		<!-- <el-button type="primary" round v-waves @click="weixinSignIn" :loading="state.loading.signIn"></el-button> -->
-	</el-form>
-
+			</el-form-item>
+			<el-form-item class="login-animation2" prop="password">
+				<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" placeholder="请输入密码" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
+					<template #prefix>
+						<el-icon>
+							<ele-Unlock />
+						</el-icon>
+					</template>
+					<template #suffix>
+						<i class="iconfont el-input__icon login-content-password" :class="state.isShowPassword ? 'icon-yincangmima' : 'icon-xianshimima'" @click="state.isShowPassword = !state.isShowPassword">
+						</i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item class="login-animation3" prop="captcha" v-if="state.captchaEnabled">
+				<el-col :span="15">
+					<el-input
+						ref="codeRef"
+						text
+						maxlength="4"
+						:placeholder="$t('message.account.accountPlaceholder3')"
+						v-model="state.ruleForm.code"
+						clearable
+						autocomplete="off"
+						@keyup.enter.native="handleSignIn"
+					>
+						<template #prefix>
+							<el-icon>
+								<ele-Position />
+							</el-icon>
+						</template>
+					</el-input>
+				</el-col>
+				<el-col :span="1"></el-col>
+				<el-col :span="8">
+					<div class="login-content-code">
+						<img class="login-content-code-img" @click="getCaptcha" width="130px" height="38px" :src="state.captchaImage" style="cursor: pointer" />
+					</div>
+				</el-col>
+			</el-form-item>
+			<el-form-item class="login-animation4">
+				<el-button type="primary" class="login-content-submit" round v-waves @click="handleSignIn" :loading="state.loading.signIn">
+					<span>{{ $t('message.account.accountBtnText') }}</span>
+				</el-button>
+			</el-form-item>
+			<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
+			<!-- <el-button type="primary" round v-waves @click="weixinSignIn" :loading="state.loading.signIn"></el-button> -->
+		</el-form>
+	</el-tooltip>
 	<div class="dialog-header">
 		<el-dialog v-model="state.rotateVerifyVisible" :show-close="false">
 			<DragVerifyImgRotate
@@ -73,7 +75,7 @@
 </template>
 
 <script lang="ts" setup name="loginAccount">
-import { reactive, computed, ref, onMounted, defineAsyncComponent } from 'vue';
+import { reactive, computed, ref, onMounted, defineAsyncComponent, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage, InputInstance } from 'element-plus';
 import { useI18n } from 'vue-i18n';
@@ -122,7 +124,9 @@ const state = reactive({
 	secondVerEnabled: false,
 	captchaEnabled: false,
 	isPassRotate: false,
+	capsLockVisible: false,
 });
+
 onMounted(async () => {
 	// 若URL带有Token参数（第三方登录）
 	var accessToken = route.query.token;
@@ -135,8 +139,22 @@ onMounted(async () => {
 	state.secondVerEnabled = res1.data.result.secondVerEnabled ?? true;
 	state.captchaEnabled = res1.data.result.captchaEnabled ?? true;
 
+	// 获取验证码
 	getCaptcha();
+
+	// 检测大小写按键/CapsLK
+	document.addEventListener('keyup', handleKeyPress);
 });
+
+onUnmounted(() => {
+	document.removeEventListener('keyup', handleKeyPress);
+});
+
+const handleKeyPress = (e: any) => {
+	const isCapsLockOn = e.getModifierState('CapsLock');
+	state.capsLockVisible = isCapsLockOn;
+};
+
 // 获取验证码
 const getCaptcha = async () => {
 	if (!state.captchaEnabled) return;
@@ -146,10 +164,12 @@ const getCaptcha = async () => {
 	state.captchaImage = 'data:text/html;base64,' + res.data.result?.img;
 	state.ruleForm.codeId = res.data.result?.id;
 };
+
 // 获取时间
 const currentTime = computed(() => {
 	return formatAxis(new Date());
 });
+
 // 登录
 const onSignIn = async () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
@@ -217,12 +237,14 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
 		NextLoading.start();
 	}
 };
+
 // 打开旋转验证
 const openRotateVerify = () => {
 	state.rotateVerifyVisible = true;
 	state.isPassRotate = false;
 	dragRef.value?.reset();
 };
+
 // 通过旋转验证
 const passRotateVerify = () => {
 	state.rotateVerifyVisible = false;

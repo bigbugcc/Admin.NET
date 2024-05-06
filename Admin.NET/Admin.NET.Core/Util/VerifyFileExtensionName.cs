@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -17,6 +17,7 @@ public static class VerifyFileExtensionName
     static VerifyFileExtensionName()
     {
         dics_ext.Add("FFD8FFE0", ".jpg");
+        dics_ext.Add("FFD8FFE1", ".jpg");
         dics_ext.Add("89504E47", ".png");
         dics_ext.Add("47494638", ".gif");
         dics_ext.Add("49492A00", ".tif");
@@ -28,8 +29,8 @@ public static class VerifyFileExtensionName
         dics_ext.Add("252150532D41646F6265", ".ps");
 
         // 办公文档类
-        dics_ext.Add("D0CF11E0", ".doc"); // ppt、doc、xls
-        dics_ext.Add("504B0304", ".docx"); // pptx、docx、xlsx
+        dics_ext.Add("D0CF11E0", ".ppt,.doc,.xls"); // ppt、doc、xls
+        dics_ext.Add("504B0304", ".pptx,.docx,.xlsx"); // pptx、docx、xlsx
 
         /* 注意由于文本文档录入内容过多，则读取文件头时较为多变-START */
         dics_ext.Add("0D0A0D0A", ".txt"); // txt
@@ -77,10 +78,13 @@ public static class VerifyFileExtensionName
 
         foreach (var dics in dics_ext)
         {
-            if (!ext_dics.ContainsKey(dics.Value))
-                ext_dics.Add(dics.Value, new HashSet<int> { dics.Key.Length / 2 });
-            else
-                ext_dics[dics.Value].Add(dics.Key.Length / 2);
+            foreach (var ext in dics.Value.Split(","))
+            {
+                if (!ext_dics.ContainsKey(ext))
+                    ext_dics.Add(ext, new HashSet<int> { dics.Key.Length / 2 });
+                else
+                    ext_dics[ext].Add(dics.Key.Length / 2);
+            }
         }
     }
 

@@ -102,7 +102,7 @@ public class SuperApiAop : DefaultSuperApiAop
             exception = aopContext.Exception == null ? null : JSON.Serialize(aopContext.Exception)
         });
 
-        var logger = App.GetRequiredService<ILoggerFactory>().CreateLogger("System.Logging.LoggingMonitor");
+        var logger = App.GetRequiredService<ILoggerFactory>().CreateLogger(CommonConst.SysLogCategoryName);
         using var scope = logger.ScopeContext(new Dictionary<object, object> {
             { "loggingMonitor", apiInfo.ToString() }
         });

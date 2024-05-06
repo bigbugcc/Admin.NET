@@ -117,11 +117,16 @@ public class SysOrgService : IDynamicApiController, ITransient
         }
 
         // 删除与此父机构有关的用户机构缓存
-        var pOrg = await _sysOrgRep.GetFirstAsync(u => u.Id == input.Pid);
-        if (pOrg != null)
-            DeleteAllUserOrgCache(pOrg.Id, pOrg.Pid);
-        else if (input.Pid == 0)
+        if (input.Pid == 0)
+        {
             DeleteAllUserOrgCache(0, 0);
+        }
+        else
+        {
+            var pOrg = await _sysOrgRep.GetFirstAsync(u => u.Id == input.Pid);
+            if (pOrg != null)
+                DeleteAllUserOrgCache(pOrg.Id, pOrg.Pid);
+        }
 
         var newOrg = await _sysOrgRep.AsInsertable(input.Adapt<SysOrg>()).ExecuteReturnEntityAsync();
         return newOrg.Id;

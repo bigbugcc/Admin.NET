@@ -173,17 +173,22 @@ public static class SqlSugarSetup
         // 数据审计
         db.Aop.DataExecuting = (oldValue, entityInfo) =>
         {
+            // 新增/插入
             if (entityInfo.OperationType == DataFilterType.InsertByObject)
             {
-                // 主键(long类型)且没有值的---赋值雪花Id
+                // 若主键是长整型且空则赋值雪花Id
                 if (entityInfo.EntityColumnInfo.IsPrimarykey && entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
                 {
                     var id = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue);
                     if (id == null || (long)id == 0)
                         entityInfo.SetValue(YitIdHelper.NextId());
                 }
-                if (entityInfo.PropertyName == nameof(EntityBase.CreateTime))
+                // 若创建时间为空则赋值当前时间
+                else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime) && entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue) == null)
+                {
                     entityInfo.SetValue(DateTime.Now);
+                }
+                // 若当前用户非空（web线程时）
                 if (App.User != null)
                 {
                     if (entityInfo.PropertyName == nameof(EntityTenantId.TenantId))
@@ -218,7 +223,8 @@ public static class SqlSugarSetup
                     }
                 }
             }
-            if (entityInfo.OperationType == DataFilterType.UpdateByObject)
+            // 编辑/更新
+            else if (entityInfo.OperationType == DataFilterType.UpdateByObject)
             {
                 if (entityInfo.PropertyName == nameof(EntityBase.UpdateTime))
                     entityInfo.SetValue(DateTime.Now);

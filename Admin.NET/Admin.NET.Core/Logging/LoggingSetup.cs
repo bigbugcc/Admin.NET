@@ -75,7 +75,7 @@ public static class LoggingSetup
                 options.MessageFormat = LoggerFormatter.Json;
                 options.WriteFilter = (logMsg) =>
                 {
-                    return logMsg.LogName == "System.Logging.LoggingMonitor"; // 只写LoggingMonitor日志
+                    return logMsg.LogName == CommonConst.SysLogCategoryName; // 只写LoggingMonitor日志
                 };
             });
         }
@@ -90,7 +90,7 @@ public static class LoggingSetup
                 options.IgnoreReferenceLoop = false; // 忽略循环检测
                 options.WriteFilter = (logMsg) =>
                 {
-                    return logMsg.LogName == "System.Logging.LoggingMonitor"; // 只写LoggingMonitor日志
+                    return logMsg.LogName == CommonConst.SysLogCategoryName; // 只写LoggingMonitor日志
                 };
             });
         }

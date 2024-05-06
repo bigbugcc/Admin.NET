@@ -45,7 +45,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 TraceId = logMsg.TraceId,
                 Exception = logMsg.Exception == null ? null : JSON.Serialize(logMsg.Exception),
                 Message = logMsg.Message,
-                LogLevel = logMsg.LogLevel
+                LogLevel = logMsg.LogLevel,
+                Status = "200",
             }).ExecuteCommandAsync();
             return;
         }
@@ -125,7 +126,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 // 将异常日志发送到邮件
                 if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail))
                 {
-                    await App.GetRequiredService<IEventPublisher>().PublishAsync("Send:ErrorMail", loggingMonitor.exception);
+                    await App.GetRequiredService<IEventPublisher>().PublishAsync(CommonConst.SendErrorMail, loggingMonitor.exception);
                 }
 
                 return;

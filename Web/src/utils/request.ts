@@ -127,7 +127,11 @@ service.interceptors.response.use(
 			} else {
 				message = serve.message;
 			}
-			ElMessage.error(message);
+			ElMessage({
+				dangerouslyUseHTMLString: true,
+				message: message,
+				type:'error'
+			});
 			throw new Error(message);
 		}
 
