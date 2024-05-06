@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.DingTalk",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.ReZero", "Plugins\Admin.NET.Plugin.ReZero\Admin.NET.Plugin.ReZero.csproj", "{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.Flow", "Plugins\Admin.NET.Plugin.Flow\Admin.NET.Plugin.Flow.csproj", "{C7B66502-7083-4831-8730-40CCC96C3BB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B66502-7083-4831-8730-40CCC96C3BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B66502-7083-4831-8730-40CCC96C3BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B66502-7083-4831-8730-40CCC96C3BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B66502-7083-4831-8730-40CCC96C3BB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{48EFC3A6-BDC0-4D05-819A-B1FB927FA4C8} = {76F70D22-8D53-468E-A3B6-1704666A1D71}
 		{F6A002AD-CF7F-4771-8597-F12A50A93DAA} = {76F70D22-8D53-468E-A3B6-1704666A1D71}
 		{04AB2E76-DE8B-4EFD-9F48-F8D4C0993106} = {76F70D22-8D53-468E-A3B6-1704666A1D71}
+		{C7B66502-7083-4831-8730-40CCC96C3BB4} = {76F70D22-8D53-468E-A3B6-1704666A1D71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CD801D7-984A-4F5C-8FA2-211B7A5EA9F3}
