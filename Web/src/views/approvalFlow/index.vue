@@ -41,18 +41,18 @@
 			<el-table :data="state.tableData" style="width: 100%" v-loading="state.loading" row-key="id" border="">
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="code" label="编号" width="140" show-overflow-tooltip="" />
-				<el-table-column prop="name" label="名称" width="120" show-overflow-tooltip="" />
-				<el-table-column prop="formJson" label="表单" align="center" width="120" show-overflow-tooltip="">
+				<el-table-column prop="name" label="名称" show-overflow-tooltip="" />
+				<el-table-column prop="formJson" label="表单" align="center" show-overflow-tooltip="">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditFormDialog(scope.row)"> 表单 </el-button>
 					</template>
 				</el-table-column>
-				<el-table-column prop="flowJson" label="流程" align="center" width="120" show-overflow-tooltip="">
+				<el-table-column prop="flowJson" label="流程" align="center" show-overflow-tooltip="">
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditFlowDialog(scope.row)"> 流程 </el-button>
 					</template>
 				</el-table-column>
-				<el-table-column label="修改记录" align="center" show-overflow-tooltip>
+				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<ModifyRecord :data="scope.row" />
 					</template>

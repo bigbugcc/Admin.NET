@@ -9,7 +9,7 @@ namespace Admin.NET.Core.Service;
 /// <summary>
 /// 作业执行监视器
 /// </summary>
-public class JobMonitor : IJobMonitor, IDisposable
+public class JobMonitor : IJobMonitor
 {
     private readonly IEventPublisher _eventPublisher;
     private readonly IServiceScope _serviceScope;
@@ -22,26 +22,18 @@ public class JobMonitor : IJobMonitor, IDisposable
         _eventPublisher = _serviceScope.ServiceProvider.GetRequiredService<IEventPublisher>(); ;
     }
 
-    public async Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
-    {
-        // 将异常作业发送到邮件
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
-        {
-            var errorInfo = $"【{context.Trigger.Description}】出现错误：{context.Exception.InnerException}";
-            await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo);
-        }
-    }
-
     public Task OnExecutingAsync(JobExecutingContext context, CancellationToken stoppingToken)
     {
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// 释放服务作用域
-    /// </summary>
-    public void Dispose()
+    public async Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
     {
-        _serviceScope.Dispose();
+        // 将异常作业发送到邮件
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
+        {
+            var errorInfo = $"【{context.Trigger.Description}】定时任务错误：{context.Exception.InnerException}";
+            await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo);
+        }
     }
 }
