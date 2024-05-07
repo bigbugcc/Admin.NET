@@ -57,7 +57,7 @@ export interface GenerateSignatureInput {
      * @type {number}
      * @memberof GenerateSignatureInput
      */
-    timestamp?: number;
+    timestamp: number;
 
     /**
      * 随机数
@@ -65,5 +65,5 @@ export interface GenerateSignatureInput {
      * @type {string}
      * @memberof GenerateSignatureInput
      */
-    nonce?: string | null;
+    nonce: string;
 }
