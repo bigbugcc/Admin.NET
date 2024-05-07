@@ -32,7 +32,7 @@ public class JobMonitor : IJobMonitor
         // 将异常作业发送到邮件
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
         {
-            var errorInfo = $"【{context.Trigger.Description}】定时任务错误：{context.Exception.InnerException}";
+            var errorInfo = $"【{context.Trigger.Description}】定时任务错误：{context.Exception}";
             await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo);
         }
     }
