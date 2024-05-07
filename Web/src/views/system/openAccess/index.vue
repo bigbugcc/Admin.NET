@@ -34,6 +34,7 @@
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditOpenAccess(scope.row)" v-auth="'sysOpenAccess:update'" :disabled="scope.row.status === 1"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="delOpenAccess(scope.row)" v-auth="'sysOpenAccess:delete'" :disabled="scope.row.status === 1"> 删除 </el-button>
+						<el-button size="small" text @click="openGenerateSign(scope.row)"> 生成签名 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -52,6 +53,7 @@
 
 		<EditOpenAccess ref="editOpenAccessRef" :title="state.editOpenAccessTitle" @handleQuery="handleQuery" />
 		<HelpView ref="helpViewRef" />
+		<GenerateSign ref="generateSignRef" />
 	</div>
 </template>
 
@@ -61,6 +63,7 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import EditOpenAccess from '/@/views/system/openAccess/component/editOpenAccess.vue';
 import HelpView from '/@/views/system/openAccess/component/helpView.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
+import GenerateSign from '/@/views/system/openAccess/component/generateSign.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOpenAccessApi } from '/@/api-services/api';
@@ -68,6 +71,7 @@ import { OpenAccessOutput } from '/@/api-services/models';
 
 const editOpenAccessRef = ref<InstanceType<typeof EditOpenAccess>>();
 const helpViewRef = ref<InstanceType<typeof HelpView>>();
+const generateSignRef = ref<InstanceType<typeof GenerateSign>>();
 const state = reactive({
 	loading: false,
 	openAccessData: [] as Array<OpenAccessOutput>,
@@ -144,5 +148,10 @@ const handleCurrentChange = (val: number) => {
 // 打开说明页面
 const openHelp = () => {
 	helpViewRef.value?.openDialog();
+};
+
+// 打开生成签名
+const openGenerateSign = (row: any) => {
+	generateSignRef.value?.openDialog(row);
 };
 </script>

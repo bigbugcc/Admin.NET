@@ -21,7 +21,7 @@ import { AddOpenAccessInput } from '../models';
 import { AdminResultSqlSugarPagedListOpenAccessOutput } from '../models';
 import { AdminResultString } from '../models';
 import { DeleteOpenAccessInput } from '../models';
-import { HttpMethodEnum } from '../models';
+import { GenerateSignatureInput } from '../models';
 import { OpenAccessInput } from '../models';
 import { UpdateOpenAccessInput } from '../models';
 /**
@@ -128,27 +128,12 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 生成签名
+         * @param {GenerateSignatureInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysOpenAccessGenerateSignatureGet: async (appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'appSecret' is not null or undefined
-            if (appSecret === null || appSecret === undefined) {
-                throw new RequiredError('appSecret','Required parameter appSecret was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
-            }
-            // verify required parameter 'accessKey' is not null or undefined
-            if (accessKey === null || accessKey === undefined) {
-                throw new RequiredError('accessKey','Required parameter accessKey was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
-            }
-            // verify required parameter 'url' is not null or undefined
-            if (url === null || url === undefined) {
-                throw new RequiredError('url','Required parameter url was null or undefined when calling apiSysOpenAccessGenerateSignatureGet.');
-            }
+        apiSysOpenAccessGenerateSignaturePost: async (body?: GenerateSignatureInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysOpenAccess/generateSignature`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -156,7 +141,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -169,21 +154,7 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
-            if (appSecret !== undefined) {
-                localVarQueryParameter['AppSecret'] = appSecret;
-            }
-
-            if (accessKey !== undefined) {
-                localVarQueryParameter['AccessKey'] = accessKey;
-            }
-
-            if (method !== undefined) {
-                localVarQueryParameter['Method'] = method;
-            }
-
-            if (url !== undefined) {
-                localVarQueryParameter['Url'] = url;
-            }
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -195,6 +166,8 @@ export const SysOpenAccessApiAxiosParamCreator = function (configuration?: Confi
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -379,16 +352,13 @@ export const SysOpenAccessApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 生成签名
+         * @param {GenerateSignatureInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
-            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options);
+        async apiSysOpenAccessGenerateSignaturePost(body?: GenerateSignatureInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
+            const localVarAxiosArgs = await SysOpenAccessApiAxiosParamCreator(configuration).apiSysOpenAccessGenerateSignaturePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -466,16 +436,13 @@ export const SysOpenAccessApiFactory = function (configuration?: Configuration, 
         },
         /**
          * 
-         * @summary 获取生成的签名
-         * @param {string} appSecret 密钥
-         * @param {string} accessKey 身份标识
-         * @param {string} url 请求接口地址
-         * @param {HttpMethodEnum} [method] 请求方法
+         * @summary 生成签名
+         * @param {GenerateSignatureInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
-            return SysOpenAccessApiFp(configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options).then((request) => request(axios, basePath));
+        async apiSysOpenAccessGenerateSignaturePost(body?: GenerateSignatureInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
+            return SysOpenAccessApiFp(configuration).apiSysOpenAccessGenerateSignaturePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -540,17 +507,14 @@ export class SysOpenAccessApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取生成的签名
-     * @param {string} appSecret 密钥
-     * @param {string} accessKey 身份标识
-     * @param {string} url 请求接口地址
-     * @param {HttpMethodEnum} [method] 请求方法
+     * @summary 生成签名
+     * @param {GenerateSignatureInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysOpenAccessApi
      */
-    public async apiSysOpenAccessGenerateSignatureGet(appSecret: string, accessKey: string, url: string, method?: HttpMethodEnum, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
-        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessGenerateSignatureGet(appSecret, accessKey, url, method, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysOpenAccessGenerateSignaturePost(body?: GenerateSignatureInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
+        return SysOpenAccessApiFp(this.configuration).apiSysOpenAccessGenerateSignaturePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
