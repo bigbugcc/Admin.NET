@@ -70,13 +70,13 @@ public class GenerateSignatureInput
     /// </summary>
     [Required(ErrorMessage = "请求接口地址不能为空")]
     public string Url { get; set; }
-    
+
     /// <summary>
     /// 时间戳
     /// </summary>
     [Required(ErrorMessage = "时间戳不能为空")]
     public long Timestamp { get; set; }
-    
+
     /// <summary>
     /// 随机数
     /// </summary>
