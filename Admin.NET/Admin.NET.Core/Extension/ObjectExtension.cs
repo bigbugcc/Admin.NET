@@ -254,7 +254,7 @@ public static partial class ObjectExtension
     }
 
     /// <summary>
-    /// 将string 时间日期格式转换成字符串 如 {yyyy} => 2024
+    /// 将 string 时间日期格式转换成字符串 如 {yyyy} => 2024
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>

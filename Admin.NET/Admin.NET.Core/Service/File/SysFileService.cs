@@ -264,9 +264,6 @@ public class SysFileService : IDynamicApiController, ITransient
             if (sysFile != null) return sysFile;
         }
 
-        var path = savePath.ParseToDateTimeForRep();
-       
-
         // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
             throw Oops.Oh(ErrorCodeEnum.D8001);
@@ -294,6 +291,7 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
             throw Oops.Oh(ErrorCodeEnum.D8001);
 
+        var path = savePath.ParseToDateTimeForRep();
         var newFile = new SysFile
         {
             Id = YitIdHelper.NextId(),
