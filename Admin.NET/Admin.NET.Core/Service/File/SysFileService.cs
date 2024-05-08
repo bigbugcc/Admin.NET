@@ -264,18 +264,8 @@ public class SysFileService : IDynamicApiController, ITransient
             if (sysFile != null) return sysFile;
         }
 
-        var path = savePath;
-        if (string.IsNullOrWhiteSpace(savePath))
-        {
-            path = _uploadOptions.Path;
-            var reg = new Regex(@"(\{.+?})");
-            var match = reg.Matches(path);
-            match.ToList().ForEach(a =>
-            {
-                var str = DateTime.Now.ToString(a.ToString().Substring(1, a.Length - 2)); // 每天一个目录
-                path = path.Replace(a.ToString(), str);
-            });
-        }
+        var path = savePath.ParseToDateTimeForRep();
+       
 
         // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
