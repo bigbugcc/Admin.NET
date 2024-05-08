@@ -362,7 +362,7 @@
   handleQuery();
 </script>
 <style scoped>
-:deep(.el-ipnut),
+:deep(.el-input),
 :deep(.el-select),
 :deep(.el-input-number) {
 	width: 100%;
