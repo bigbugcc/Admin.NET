@@ -261,16 +261,16 @@ public static partial class ObjectExtension
     public static string ParseToDateTimeForRep(this string str)
     {
         if (string.IsNullOrWhiteSpace(str))
+            str = $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
+
+        var date = DateTime.Now;
+        var reg = new Regex(@"(\{.+?})");
+        var match = reg.Matches(str);
+        match.ToList().ForEach(u =>
         {
-            var date = DateTime.Now;
-            var reg = new Regex(@"(\{.+?})");
-            var match = reg.Matches(str);
-            match.ToList().ForEach(a =>
-            {
-                var str = date.ToString(a.ToString().Substring(1, a.Length - 2));
-                str = str.Replace(a.ToString(), str);
-            });
-        }
+            var temp = date.ToString(u.ToString().Substring(1, u.Length - 2));
+            str = str.Replace(u.ToString(), temp);
+        });
         return str;
     }
 

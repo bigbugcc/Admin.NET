@@ -291,7 +291,8 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
             throw Oops.Oh(ErrorCodeEnum.D8001);
 
-        var path = savePath.ParseToDateTimeForRep();
+        var path = string.IsNullOrWhiteSpace(savePath) ? _uploadOptions.Path : savePath;
+        path = path.ParseToDateTimeForRep();
         var newFile = new SysFile
         {
             Id = YitIdHelper.NextId(),
