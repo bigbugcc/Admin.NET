@@ -30,8 +30,9 @@ namespace Admin.NET.Web.Core
         /// 自动刷新Token
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="httpContext"></param>
         /// <returns></returns>
-        public override async Task HandleAsync(AuthorizationHandlerContext context)
+        public override async Task HandleAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
         {
             // var serviceProvider = context.GetCurrentHttpContext().RequestServices;
             using var serviceScope = _serviceProvider.CreateScope();

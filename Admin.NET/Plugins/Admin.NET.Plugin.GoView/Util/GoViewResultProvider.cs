@@ -13,6 +13,17 @@ namespace Admin.NET.Plugin.GoView;
 public class GoViewResultProvider : IUnifyResultProvider
 {
     /// <summary>
+    /// JWT 授权异常返回值
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="metadata"></param>
+    /// <returns></returns>
+    public IActionResult OnAuthorizeException(DefaultHttpContext context, ExceptionMetadata metadata)
+    {
+        return new JsonResult(RESTfulResult(metadata.StatusCode, data: metadata.Data, errors: metadata.Errors));
+    }
+
+    /// <summary>
     /// 异常返回值
     /// </summary>
     /// <param name="context"></param>
