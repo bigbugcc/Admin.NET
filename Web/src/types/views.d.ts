@@ -311,7 +311,7 @@ declare type TableSearchType = {
 	prop: string;
 	placeholder: string;
 	required: boolean;
-	type: string;
+	type: 'input' | 'date' | 'daterange' | 'monthrange' | 'select' | 'cascader'; // vxe-next-admin 原定义是 string
 	options?: SelectOptionType[];
 	cascaderData?: object[];
 	cascaderProps?: object;
