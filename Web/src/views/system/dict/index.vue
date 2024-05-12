@@ -166,7 +166,7 @@ const editDictTypeRef = ref<InstanceType<typeof EditDictType>>();
 const editDictDataRef = ref<InstanceType<typeof EditDictData>>();
 const state = reactive({
 	loading: false,
-	typeLoading:false,
+	typeLoading: false,
 	dictTypeData: [] as Array<SysDictType>,
 	dictDataData: [] as Array<SysDictData>,
 	queryDictTypeParams: {
