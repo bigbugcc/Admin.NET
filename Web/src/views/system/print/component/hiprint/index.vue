@@ -28,7 +28,7 @@
 					</template>
 				</el-popover>
 			</el-button-group>
-			<el-input-number style="margin-right: 8px" :value="state.scaleValue" :precision="2" :step="0.1" :min="state.scaleMin" :max="state.scaleMax" @change="changeScale"></el-input-number>
+			<el-input-number style="margin-right: 8px" v-model="state.scaleValue" :precision="2" :step="0.1" :min="state.scaleMin" :max="state.scaleMax" @change="changeScale"></el-input-number>
 
 			<el-button-group>
 				<el-tooltip content="左对齐" placement="bottom">
@@ -241,10 +241,8 @@ const changeScale = (currentValue: number, oldValue: number) => {
 
 	let scaleVal = state.scaleValue;
 	if (big) {
-		scaleVal += 0.1;
 		if (scaleVal > state.scaleMax) scaleVal = 5;
 	} else {
-		scaleVal -= 0.1;
 		if (scaleVal < state.scaleMin) scaleVal = 0.5;
 	}
 	if (hiprintTemplate.value) {
