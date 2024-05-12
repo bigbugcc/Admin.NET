@@ -40,8 +40,8 @@ public class SysLogVisService : IDynamicApiController, ITransient
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
     [DisplayName("清空访问日志")]
-    public async Task<bool> Clear()
+    public void Clear()
     {
-        return await _sysLogVisRep.DeleteAsync(u => u.Id > 0);
+        _sysLogVisRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogVis>();
     }
 }

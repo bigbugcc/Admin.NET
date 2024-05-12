@@ -313,6 +313,11 @@ public class SysUserService : IDynamicApiController, ITransient
         var password = await _sysConfigService.GetConfigValue<string>(CommonConst.SysPassword);
         user.Password = CryptogramUtil.Encrypt(password);
         await _sysUserRep.AsUpdateable(user).UpdateColumns(u => u.Password).ExecuteCommandAsync();
+
+        // 清空密码错误次数
+        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{user.Account}";
+        _sysCacheService.Remove(keyErrorPasswordCount);
+
         return password;
     }
 
@@ -326,8 +331,8 @@ public class SysUserService : IDynamicApiController, ITransient
     {
         var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
 
-        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{user.Account}";
         // 清空密码错误次数
+        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{user.Account}";
         _sysCacheService.Remove(keyErrorPasswordCount);
     }
 

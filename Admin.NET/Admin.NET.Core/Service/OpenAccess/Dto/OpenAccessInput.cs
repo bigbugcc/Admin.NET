@@ -49,16 +49,16 @@ public class DeleteOpenAccessInput : BaseIdInput
 public class GenerateSignatureInput
 {
     /// <summary>
-    /// 密钥
-    /// </summary>
-    [Required(ErrorMessage = "密钥不能为空")]
-    public string AppSecret { get; set; }
-
-    /// <summary>
     /// 身份标识
     /// </summary>
     [Required(ErrorMessage = "身份标识不能为空")]
     public string AccessKey { get; set; }
+
+    /// <summary>
+    /// 密钥
+    /// </summary>
+    [Required(ErrorMessage = "密钥不能为空")]
+    public string AccessSecret { get; set; }
 
     /// <summary>
     /// 请求方法
@@ -70,4 +70,16 @@ public class GenerateSignatureInput
     /// </summary>
     [Required(ErrorMessage = "请求接口地址不能为空")]
     public string Url { get; set; }
+
+    /// <summary>
+    /// 时间戳
+    /// </summary>
+    [Required(ErrorMessage = "时间戳不能为空")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// 随机数
+    /// </summary>
+    [Required(ErrorMessage = "随机数不能为空")]
+    public string Nonce { get; set; }
 }

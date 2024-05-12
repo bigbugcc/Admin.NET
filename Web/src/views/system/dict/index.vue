@@ -24,7 +24,7 @@
 						</el-form-item>
 					</el-form>
 
-					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.loading" @row-click="handleDictType" highlight-current-row border>
+					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading" @row-click="handleDictType" highlight-current-row border>
 						<el-table-column type="index" label="序号" width="55" align="center" />
 						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center" show-overflow-tooltip />
 						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center" show-overflow-tooltip />
@@ -166,6 +166,7 @@ const editDictTypeRef = ref<InstanceType<typeof EditDictType>>();
 const editDictDataRef = ref<InstanceType<typeof EditDictData>>();
 const state = reactive({
 	loading: false,
+	typeLoading: false,
 	dictTypeData: [] as Array<SysDictType>,
 	dictDataData: [] as Array<SysDictData>,
 	queryDictTypeParams: {
@@ -198,12 +199,12 @@ onMounted(async () => {
 
 // 查询字典操作
 const handleDictTypeQuery = async () => {
-	state.loading = true;
+	state.typeLoading = true;
 	let params = Object.assign(state.queryDictTypeParams, state.tableDictTypeParams);
 	var res = await getAPI(SysDictTypeApi).apiSysDictTypePagePost(params);
 	state.dictTypeData = res.data.result?.items ?? [];
 	state.tableDictTypeParams.total = res.data.result?.total;
-	state.loading = false;
+	state.typeLoading = false;
 };
 
 // 查询字典值操作

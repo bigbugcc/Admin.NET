@@ -264,19 +264,6 @@ public class SysFileService : IDynamicApiController, ITransient
             if (sysFile != null) return sysFile;
         }
 
-        var path = savePath;
-        if (string.IsNullOrWhiteSpace(savePath))
-        {
-            path = _uploadOptions.Path;
-            var reg = new Regex(@"(\{.+?})");
-            var match = reg.Matches(path);
-            match.ToList().ForEach(a =>
-            {
-                var str = DateTime.Now.ToString(a.ToString().Substring(1, a.Length - 2)); // 每天一个目录
-                path = path.Replace(a.ToString(), str);
-            });
-        }
-
         // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
             throw Oops.Oh(ErrorCodeEnum.D8001);
@@ -304,6 +291,8 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
             throw Oops.Oh(ErrorCodeEnum.D8001);
 
+        var path = string.IsNullOrWhiteSpace(savePath) ? _uploadOptions.Path : savePath;
+        path = path.ParseToDateTimeForRep();
         var newFile = new SysFile
         {
             Id = YitIdHelper.NextId(),

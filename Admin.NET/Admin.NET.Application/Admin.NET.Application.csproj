@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <NoWarn>1701;1702;1591;8632</NoWarn>
     <DocumentationFile></DocumentationFile>
+    <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>disable</Nullable>
     <Copyright>© Admin.NET</Copyright>
@@ -25,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Admin.NET.Core\Admin.NET.Core.csproj" />
+    <ProjectReference Include="..\Plugins\Admin.NET.Plugin.ApprovalFlow\Admin.NET.Plugin.ApprovalFlow.csproj" />
     <ProjectReference Include="..\Plugins\Admin.NET.Plugin.DingTalk\Admin.NET.Plugin.DingTalk.csproj" />
     <ProjectReference Include="..\Plugins\Admin.NET.Plugin.GoView\Admin.NET.Plugin.GoView.csproj" />
     <ProjectReference Include="..\Plugins\Admin.NET.Plugin.ReZero\Admin.NET.Plugin.ReZero.csproj" />

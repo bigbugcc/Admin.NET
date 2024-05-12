@@ -1,0 +1,13 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "[openapi:审批流程]": {
+    "Group": "审批流程",
+    "Title": "审批流程",
+    "Description": "对业务实体数据的增删改操作进行流程审批。",
+    "Version": "1.0.0",
+    "Order": 100
+  },
+  "ApprovalFlow": {
+  }
+}

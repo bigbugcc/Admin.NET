@@ -136,6 +136,11 @@ onMounted(() => {
 		width: 50%;
 		float: right;
 		background: var(--el-color-white);
+		background-image: url('../../assets/bg.svg');
+		background-size: 100% auto;
+		background-position: 50% calc(50% - 15px);
+		background-attachment: fixed;
+		background-repeat: no-repeat;
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
 			border-radius: 3px;
@@ -254,6 +259,24 @@ onMounted(() => {
 					}
 				}
 			}
+		}
+		/* 在这里可以添加一个伪元素来覆盖原内容，实现磨砂效果 */
+		.login-right-warp::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(255, 255, 255, 1);
+			filter: blur(4px); /* 调整模糊半径以改变磨砂效果强度 */
+			z-index: 1;
+		}
+
+		/* 保持原有内容可见，放置在伪元素下方 */
+		.login-right-warp > * {
+			position: relative;
+			z-index: 2;
 		}
 	}
 }

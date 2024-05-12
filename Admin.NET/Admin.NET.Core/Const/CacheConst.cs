@@ -11,16 +11,6 @@ namespace Admin.NET.Core;
 /// </summary>
 public class CacheConst
 {
-    ///// <summary>
-    ///// 用户缓存
-    ///// </summary>
-    //public const string KeyUser = "sys_user:";
-
-    ///// <summary>
-    ///// 用户菜单缓存
-    ///// </summary>
-    //public const string KeyUserMenu = "sys_user_menu:";
-
     /// <summary>
     /// 用户权限缓存（按钮集合）
     /// </summary>
@@ -87,7 +77,7 @@ public class CacheConst
     public const string KeyOpenAccessNonce = "sys_open_access_nonce:";
 
     /// <summary>
-    /// 黑名单
+    /// 登录黑名单
     /// </summary>
     public const string KeyBlacklist = "sys_blacklist:";
 }

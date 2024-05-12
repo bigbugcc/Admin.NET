@@ -23,7 +23,7 @@ public class AppEventSubscriber : IEventSubscriber, ISingleton, IDisposable
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    [EventSubscribe("Add:ExLog")]
+    [EventSubscribe(CommonConst.AddExLog)]
     public async Task CreateExLog(EventHandlerExecutingContext context)
     {
         var rep = _serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogEx>>();
@@ -35,7 +35,7 @@ public class AppEventSubscriber : IEventSubscriber, ISingleton, IDisposable
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    [EventSubscribe("Send:ErrorMail")]
+    [EventSubscribe(CommonConst.SendErrorMail)]
     public async Task SendOrderErrorMail(EventHandlerExecutingContext context)
     {
         //var mailTempPath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Temp\\ErrorMail.tp");

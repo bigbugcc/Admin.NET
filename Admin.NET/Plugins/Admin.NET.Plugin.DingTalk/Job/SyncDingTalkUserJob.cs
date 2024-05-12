@@ -26,7 +26,7 @@ public class SyncDingTalkUserJob : IJob
     {
         _scopeFactory = scopeFactory;
         _dingTalkApi = dingTalkApi;
-        _logger = loggerFactory.CreateLogger("System.Logging.LoggingMonitor");
+        _logger = loggerFactory.CreateLogger(CommonConst.SysLogCategoryName);
     }
 
     public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)

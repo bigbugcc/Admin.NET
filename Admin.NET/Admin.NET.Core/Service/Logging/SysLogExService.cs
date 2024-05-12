@@ -41,9 +41,9 @@ public class SysLogExService : IDynamicApiController, ITransient
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
     [DisplayName("清空异常日志")]
-    public async Task<bool> Clear()
+    public void Clear()
     {
-        return await _sysLogExRep.DeleteAsync(u => u.Id > 0);
+        _sysLogExRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogEx>();
     }
 
     /// <summary>

@@ -1,10 +1,10 @@
 <template>
 	<div class="table-search-container" v-if="props.search.length > 0">
-		<el-form ref="tableSearchRef" :model="searchModel" label-width="100px" class="table-form">
+		<el-form ref="tableSearchRef" :model="state.innerModelValue" label-width="100px" class="table-form">
 			<el-row :gutter="20">
 				<!-- <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4" class="mb20"></el-col> -->
 				<el-col :xs="12" :sm="5" :md="5" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key < 3 || state.isToggle">
-					<template v-if="val.type !== ''">
+					<template v-if="val.type">
 						<el-form-item
 							label-width="auto"
 							:label="val.label"
@@ -12,7 +12,7 @@
 							:rules="[{ required: val.required, message: `${val.label}不能为空`, trigger: val.type === 'input' ? 'blur' : 'change' }]"
 						>
 							<el-input
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 								v-bind="val.comProps"
 								:placeholder="val.placeholder"
 								:clearable="!val.required"
@@ -22,7 +22,7 @@
 								class="w100"
 							/>
 							<el-date-picker
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 								v-bind="val.comProps"
 								type="date"
 								:placeholder="val.placeholder"
@@ -32,7 +32,7 @@
 								class="w100"
 							/>
 							<el-date-picker
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 								v-bind="val.comProps"
 								type="monthrange"
 								value-format="YYYY/MM/DD"
@@ -43,18 +43,22 @@
 								class="w100"
 							/>
 							<el-date-picker
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 								v-bind="val.comProps"
 								type="daterange"
 								value-format="YYYY/MM/DD"
-								:placeholder="val.placeholder"
+								range-separator="至"
+								start-placeholder="开始日期"
+								end-placeholder="结束日期"
 								:clearable="!val.required"
+								:shortcuts="shortcuts"
+								:default-time="defaultTime"
 								v-else-if="val.type === 'daterange'"
 								@change="val.change"
 								class="w100"
 							/>
 							<el-select
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 								v-bind="val.comProps"
 								:clearable="!val.required"
 								:placeholder="val.placeholder"
@@ -74,7 +78,7 @@
 								@change="val.change"
 								class="w100"
 								v-bind="val.comProps"
-								v-model="searchModel[val.prop]"
+								v-model="state.innerModelValue[val.prop]"
 							>
 							</el-cascader>
 						</el-form-item>
@@ -105,9 +109,9 @@
 </template>
 
 <script setup lang="ts" name="makeTableDemoSearch">
-import { reactive, ref, toRefs } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
-import { saulVModel } from '/@/utils/saulVModel';
+import { dayjs } from 'element-plus';
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -116,10 +120,6 @@ const props = defineProps({
 	search: {
 		type: Array<TableSearchType>,
 		default: () => [],
-	},
-	reset: {
-		type: Object,
-		default: () => ({}),
 	},
 	modelValue: {
 		type: Object,
@@ -130,28 +130,39 @@ const props = defineProps({
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['search', 'reset', 'update:modelValue']);
 
-// 将 props中的值转为 ref
-const refProps = toRefs(props);
-const searchModel = refProps.modelValue;
-
 // 定义变量内容
 const tableSearchRef = ref<FormInstance>();
 const state = reactive({
 	isToggle: false,
 	cascaderProps: { checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' },
+	/** 内部 modelValue */
+	innerModelValue: {} as EmptyObjectType,
 });
 
-const model = saulVModel(props, 'modelValue', emit).value;
+/** 监听 props.modelValue 变化 */
+watch(
+	() => props.modelValue,
+	(val) => {
+		state.innerModelValue = val;
+	}
+);
+
+/** 监听 state.innerModelValue 变化 */
+watch(
+	() => state.innerModelValue,
+	(val) => {
+		emit('update:modelValue', val);
+	},
+	{ deep: true }
+);
 
 // 查询
 const onSearch = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
-	formEl.validate((valid: boolean) => {
-		if (valid) {
-			emit('search', model);
-		} else {
-			return false;
-		}
+	formEl.validate((isValid: boolean): void => {
+		if (!isValid) return;
+
+		emit('search', state.innerModelValue);
 	});
 };
 
@@ -159,8 +170,38 @@ const onSearch = (formEl: FormInstance | undefined) => {
 const onReset = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.resetFields();
-	emit('reset', model);
+	emit('reset', state.innerModelValue);
 };
+
+/** 时间范围默认时间 */
+const defaultTime = ref<[Date, Date]>([new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 2, 1, 23, 59, 59)]);
+/** 时间范围快捷选择 */
+const shortcuts = [
+	{
+		text: '7天内',
+		value: () => {
+			const end = dayjs().endOf('day').toDate();
+			const start = dayjs().startOf('day').add(-7, 'day').toDate();
+			return [start, end];
+		},
+	},
+	{
+		text: '1个月内',
+		value: () => {
+			const end = dayjs().endOf('day').toDate();
+			const start = dayjs().startOf('day').add(-1, 'month').toDate();
+			return [start, end];
+		},
+	},
+	{
+		text: '3个月内',
+		value: () => {
+			const end = dayjs().endOf('day').toDate();
+			const start = dayjs().startOf('day').add(-3, 'month').toDate();
+			return [start, end];
+		},
+	},
+];
 </script>
 
 <style scoped lang="scss">

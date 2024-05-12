@@ -40,8 +40,8 @@ public class SysLogDiffService : IDynamicApiController, ITransient
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
     [DisplayName("清空差异日志")]
-    public async Task<bool> Clear()
+    public void Clear()
     {
-        return await _sysLogDiffRep.DeleteAsync(u => u.Id > 0);
+        _sysLogDiffRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogDiff>();
     }
 }
