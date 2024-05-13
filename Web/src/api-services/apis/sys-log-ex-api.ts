@@ -17,7 +17,6 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AdminResultBoolean } from '../models';
 import { AdminResultSqlSugarPagedListSysLogEx } from '../models';
 import { LogInput } from '../models';
 import { PageLogInput } from '../models';
@@ -181,7 +180,7 @@ export const SysLogExApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogExClearPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultBoolean>>> {
+        async apiSysLogExClearPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysLogExApiAxiosParamCreator(configuration).apiSysLogExClearPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -231,7 +230,7 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogExClearPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultBoolean>> {
+        async apiSysLogExClearPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return SysLogExApiFp(configuration).apiSysLogExClearPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -271,7 +270,7 @@ export class SysLogExApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysLogExApi
      */
-    public async apiSysLogExClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultBoolean>> {
+    public async apiSysLogExClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysLogExApiFp(this.configuration).apiSysLogExClearPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**

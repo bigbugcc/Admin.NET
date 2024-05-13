@@ -20,6 +20,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AddDictTypeInput } from '../models';
 import { AdminResultListSysDictData } from '../models';
 import { AdminResultListSysDictType } from '../models';
+import { AdminResultObject } from '../models';
 import { AdminResultSqlSugarPagedListSysDictType } from '../models';
 import { AdminResultSysDictType } from '../models';
 import { DeleteDictTypeInput } from '../models';
@@ -497,7 +498,7 @@ export const SysDictTypeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysDictType>>> {
+        async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
             const localVarAxiosArgs = await SysDictTypeApiAxiosParamCreator(configuration).apiSysDictTypeAllDictListGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -627,7 +628,7 @@ export const SysDictTypeApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysDictType>> {
+        async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
             return SysDictTypeApiFp(configuration).apiSysDictTypeAllDictListGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -728,7 +729,7 @@ export class SysDictTypeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysDictTypeApi
      */
-    public async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysDictType>> {
+    public async apiSysDictTypeAllDictListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
         return SysDictTypeApiFp(this.configuration).apiSysDictTypeAllDictListGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**

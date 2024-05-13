@@ -17,7 +17,6 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AdminResultBoolean } from '../models';
 import { AdminResultSqlSugarPagedListSysLogDiff } from '../models';
 import { PageLogInput } from '../models';
 /**
@@ -132,7 +131,7 @@ export const SysLogDiffApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogDiffClearPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultBoolean>>> {
+        async apiSysLogDiffClearPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysLogDiffApiAxiosParamCreator(configuration).apiSysLogDiffClearPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -168,7 +167,7 @@ export const SysLogDiffApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogDiffClearPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultBoolean>> {
+        async apiSysLogDiffClearPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return SysLogDiffApiFp(configuration).apiSysLogDiffClearPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -198,7 +197,7 @@ export class SysLogDiffApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysLogDiffApi
      */
-    public async apiSysLogDiffClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultBoolean>> {
+    public async apiSysLogDiffClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysLogDiffApiFp(this.configuration).apiSysLogDiffClearPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
