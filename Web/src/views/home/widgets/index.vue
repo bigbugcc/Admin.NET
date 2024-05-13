@@ -106,7 +106,6 @@
 </template>
 
 <script>
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import draggable from 'vuedraggable';
 import allComps from './components';
 import tool from './tool';
@@ -120,9 +119,9 @@ export default {
 			allComps: allComps,
 			selectLayout: [],
 			defaultGrid: {
-				//默认分栏数量和宽度 例如 [24] [18,6] [8,8,8] [6,12,6]
+				// 默认分栏数量和宽度 例如 [24] [18,6] [8,8,8] [6,12,6]
 				layout: [12, 6, 6],
-				//小组件分布，com取值:views/home/components 文件名
+				// 小组件分布，com取值:views/home/components 文件名
 				copmsList: [['welcome'], ['about', 'ver'], ['time', 'progress']],
 			},
 			grid: [],
@@ -153,8 +152,7 @@ export default {
 					return item === comp.key;
 				});
 				if (_item) {
-					//如果界面有，则右边不可选
-					comp.disabled = true;
+					comp.disabled = true; // 如果界面有，则右边不可选
 				}
 			}
 			return allCompsList;
@@ -171,7 +169,7 @@ export default {
 		},
 	},
 	methods: {
-		//开启自定义
+		// 开启自定义
 		custom() {
 			this.customizing = true;
 			const oldWidth = this.$refs.widgets.offsetWidth;
@@ -180,7 +178,7 @@ export default {
 				this.$refs.widgets.style.setProperty('transform', `scale(${scale})`);
 			});
 		},
-		//设置布局
+		// 设置布局
 		setLayout(layout) {
 			this.grid.layout = layout;
 			if (layout.join(',') == '24') {
@@ -189,12 +187,12 @@ export default {
 				this.grid.copmsList[2] = [];
 			}
 		},
-		//追加
+		// 追加
 		push(item) {
 			let target = this.grid.copmsList[0];
 			target.push(item.key);
 		},
-		//隐藏组件
+		// 隐藏组件
 		remove(item) {
 			var newCopmsList = this.grid.copmsList;
 			newCopmsList.forEach((obj, index) => {
@@ -202,20 +200,20 @@ export default {
 				newCopmsList[index] = newObj;
 			});
 		},
-		//保存
+		// 保存
 		save() {
 			this.customizing = false;
 			this.$refs.widgets.style.removeProperty('transform');
 			tool.data.set('grid', this.grid);
 		},
-		//恢复默认
+		// 恢复默认
 		backDefaul() {
 			this.customizing = false;
 			this.$refs.widgets.style.removeProperty('transform');
 			this.grid = JSON.parse(JSON.stringify(this.defaultGrid));
 			tool.data.remove('grid');
 		},
-		//关闭
+		// 关闭
 		close() {
 			this.customizing = false;
 			this.$refs.widgets.style.removeProperty('transform');
@@ -345,8 +343,6 @@ export default {
 	background: var(--el-button-hover-color);
 }
 
-.widgets-list {
-}
 .widgets-list-item {
 	display: flex;
 	flex-direction: row;

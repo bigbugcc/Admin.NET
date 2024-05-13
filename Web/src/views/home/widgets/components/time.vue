@@ -9,6 +9,7 @@
 
 <script>
 import tool from '../tool';
+
 export default {
 	title: '时钟',
 	icon: 'el-icon-clock',

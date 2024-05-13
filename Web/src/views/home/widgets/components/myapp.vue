@@ -54,6 +54,7 @@
 import draggable from 'vuedraggable';
 import tool from '../tool';
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
+
 export default {
 	title: '快捷入口',
 	icon: 'el-icon-monitor',
@@ -113,7 +114,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .myMods {
 	list-style: none;
 	margin: -10px;

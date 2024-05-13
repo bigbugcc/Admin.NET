@@ -2,20 +2,26 @@
 	<el-card shadow="hover" header="欢迎">
 		<div class="welcome">
 			<div class="logo">
-				<img src="/@/assets/logo.png">
-				<h2>欢迎体验myhomepage</h2>
+				<!-- <img src="/@/assets/logo.png" style="height: 150px;"/> -->
+				<h2>欢迎使用 Admin.NET</h2>
 			</div>
 			<div class="tips">
 				<div class="tips-item">
-					<div class="tips-item-icon"><el-icon><el-icon-menu /></el-icon></div>
+					<div class="tips-item-icon">
+						<el-icon><el-icon-menu /></el-icon>
+					</div>
 					<div class="tips-item-message">这里是项目控制台，你可以点击右上方的“自定义”按钮来添加移除或者移动部件。</div>
 				</div>
 				<div class="tips-item">
-					<div class="tips-item-icon"><el-icon><el-icon-promotion /></el-icon></div>
+					<div class="tips-item-icon">
+						<el-icon><el-icon-promotion /></el-icon>
+					</div>
 					<div class="tips-item-message">在提高前端算力、减少带宽请求和代码执行力上多次优化，并且持续着。</div>
 				</div>
 				<div class="tips-item">
-					<div class="tips-item-icon"><el-icon><el-icon-milk-tea /></el-icon></div>
+					<div class="tips-item-icon">
+						<el-icon><el-icon-milk-tea /></el-icon>
+					</div>
 					<div class="tips-item-message">项目目的：让前端工作更快乐</div>
 				</div>
 			</div>
@@ -28,25 +34,21 @@
 
 <script>
 export default {
-	title: "欢迎",
-	icon: "el-icon-present",
-	description: "项目特色以及文档链接",
+	title: '欢迎',
+	icon: 'el-icon-present',
+	description: '项目特色以及文档链接',
 	data() {
-		return {
-
-		}
+		return {};
 	},
 	methods: {
 		godoc() {
-			window.open("https://gitee.com/pi3b/Admin.NET.git")
-		}
-	}
-}
+			window.open('https://gitee.com/zuohuaijun/Admin.NET.git');
+		},
+	},
+};
 </script>
 
 <style scoped>
-.welcome {}
-
 .welcome .logo {
 	text-align: center;
 }
