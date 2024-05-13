@@ -84,11 +84,11 @@ export function formatTwoStageRoutes(arr: any) {
 			// 路径：/@/layout/routerView/parent.vue
 			if (newArr[0].meta.isKeepAlive && v.meta.isKeepAlive) {
 				cacheList.push(v.name);
-				const stores = useKeepALiveNames(pinia);
-				stores.setCacheKeepAlive(cacheList);
 			}
 		}
 	});
+	const stores = useKeepALiveNames(pinia);
+	stores.setCacheKeepAlive(cacheList);
 	return newArr;
 }
 

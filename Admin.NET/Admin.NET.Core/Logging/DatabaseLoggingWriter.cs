@@ -51,6 +51,9 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             return;
         }
 
+        var loggingMonitor1 = JSON.Deserialize<JObject>(jsonStr);
+        // 不记录数据校验日志
+        if (loggingMonitor1["validation"] != null) return;
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
         // 不记录数据校验日志
         if (loggingMonitor.validation != null) return;
