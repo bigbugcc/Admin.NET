@@ -144,6 +144,7 @@ export * from './enum-type-output';
 export * from './file-input';
 export * from './gen-auth-url-input';
 export * from './gender-enum';
+export * from './generate-signature-input';
 export * from './http-method-enum';
 export * from './iaction-result';
 export * from './jtoken';

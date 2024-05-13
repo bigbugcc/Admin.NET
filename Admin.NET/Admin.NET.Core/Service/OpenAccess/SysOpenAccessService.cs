@@ -29,24 +29,18 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取生成的签名
+    /// 生成签名
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [DisplayName("获取生成的签名")]
-    public string GetGenerateSignature([FromQuery] GenerateSignatureInput input)
+    [DisplayName("生成签名")]
+    public string GenerateSignature(GenerateSignatureInput input)
     {
         // 密钥
-        var appSecretByte = Encoding.UTF8.GetBytes(input.AppSecret);
-        // 时间戳，精确到秒
-        DateTimeOffset currentTime = DateTimeOffset.UtcNow;
-        var timestamp = currentTime.ToUnixTimeSeconds();
-        // 唯一随机数，可以使用guid或者雪花id，以下是sqlsugar提供获取雪花id的方法
-        var nonce = YitIdHelper.NextId();
-        //// 请求方式
-        //var sMethod = method.ToString();
+        var appSecretByte = Encoding.UTF8.GetBytes(input.AccessSecret);
+
         // 拼接参数
-        var parameter = $"{input.Method}&{input.Url}&{input.AccessKey}&{timestamp}&{nonce}";
+        var parameter = $"{input.Method.ToString().ToUpper()}&{input.Url}&{input.AccessKey}&{input.Timestamp}&{input.Nonce}";
         // 使用 HMAC-SHA256 协议创建基于哈希的消息身份验证代码 (HMAC)，以appSecretByte 作为密钥，对上面拼接的参数进行计算签名，所得签名进行 Base-64 编码
         using HMAC hmac = new HMACSHA256();
         hmac.Key = appSecretByte;
@@ -173,7 +167,7 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "开发接口身份验证");
+                    logger.LogError(ex, "开放接口身份验证");
                     return Task.FromResult("");
                 }
             },

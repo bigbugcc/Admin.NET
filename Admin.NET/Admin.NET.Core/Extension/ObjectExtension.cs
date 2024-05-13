@@ -254,6 +254,27 @@ public static partial class ObjectExtension
     }
 
     /// <summary>
+    /// 将 string 时间日期格式转换成字符串 如 {yyyy} => 2024
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public static string ParseToDateTimeForRep(this string str)
+    {
+        if (string.IsNullOrWhiteSpace(str))
+            str = $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
+
+        var date = DateTime.Now;
+        var reg = new Regex(@"(\{.+?})");
+        var match = reg.Matches(str);
+        match.ToList().ForEach(u =>
+        {
+            var temp = date.ToString(u.ToString().Substring(1, u.Length - 2));
+            str = str.Replace(u.ToString(), temp);
+        });
+        return str;
+    }
+
+    /// <summary>
     /// 是否有值
     /// </summary>
     /// <param name="obj"></param>

@@ -41,9 +41,9 @@ public class SysLogOpService : IDynamicApiController, ITransient
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Clear"), HttpPost]
     [DisplayName("清空操作日志")]
-    public async Task<bool> Clear()
+    public void Clear()
     {
-        return await _sysLogOpRep.DeleteAsync(u => u.Id > 0);
+        _sysLogOpRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogOp>();
     }
 
     /// <summary>

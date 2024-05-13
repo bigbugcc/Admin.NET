@@ -147,7 +147,7 @@ defineExpose({ openDialog });
 			display: none !important;
 		}
 		.el-dialog__body {
-			max-height: calc(100vh - 45px) !important;
+			max-height: calc(100vh - 80px) !important;
 		}
 	}
 }

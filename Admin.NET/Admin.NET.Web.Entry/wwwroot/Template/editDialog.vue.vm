@@ -1,9 +1,9 @@
-﻿@{Dictionary<string, int> definedObjects = new Dictionary<string, int>();}
+@{Dictionary<string, int> definedObjects = new Dictionary<string, int>();}
 @{var pkField = Model.TableField.Where(c => c.ColumnKey == "True").FirstOrDefault();}
 @{string pkFieldName = LowerFirstLetter(pkField.PropertyName);}
 <template>
 	<div class="@(@Model.LowerClassName)-container">
-		<el-dialog v-model="isShowDialog" :width="800" draggable="">
+		<el-dialog v-model="isShowDialog" :width="800" draggable="" :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<!--<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>-->

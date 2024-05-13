@@ -38,6 +38,19 @@ services:
     volumes:
       - ./mysql/mysql:/var/lib/mysql
       - ./mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+  redis:
+    image: 'redis:latest' # 使用最新版本的 Redis 镜像，也可以指定特定版本如 'redis:6.2.7'
+    container_name: my-redis # 自定义容器名称
+    ports:
+      - '6379:6379' # 映射宿主机的 6379 端口到容器的 6379 端口
+    volumes: # 持久化数据
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data:rw
+      - ./redis/logs:/logs
+    #command: ['redis-server', '--appendonly', 'yes'] # 启用AOF持久化
+    command: ['redis-server','/usr/local/etc/redis/redis.conf']
+    environment: # 设置环境变量，例如密码
+      - REDIS_PASSWORD=123456
   adminNet:
     image: mcr.microsoft.com/dotnet/aspnet:6.0
     ports:
@@ -50,4 +63,5 @@ services:
     command: ["/app/wait-for-it.sh", "mysql:3306", "-t", "120", "--","dotnet", "Admin.NET.Web.Entry.dll"]
     depends_on:
       - mysql
+      - redis
 

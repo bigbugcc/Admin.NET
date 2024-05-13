@@ -3,7 +3,17 @@
 		<div class="layout-padding-auto layout-padding-view">
 			<div class="w100" v-for="v in setIframeList" :key="v.path" v-loading="v.meta.loading" element-loading-background="white">
 				<transition-group :name="name">
-					<iframe :src="`${v.meta.isLink}&token=${getToken()}`" :key="v.path" frameborder="0" height="100%" width="100%" style="position: absolute" :data-url="v.path" v-show="getRoutePath === v.path" ref="iframeRef" />
+					<iframe
+						:src="`${v.meta.isLink}${v.meta.isLink.indexOf('?') > 0 ? '&' : '?'}token=${getToken()}`"
+						:key="v.path"
+						frameborder="0"
+						height="100%"
+						width="100%"
+						style="position: absolute"
+						:data-url="v.path"
+						v-show="getRoutePath === v.path"
+						ref="iframeRef"
+					/>
 				</transition-group>
 			</div>
 		</div>

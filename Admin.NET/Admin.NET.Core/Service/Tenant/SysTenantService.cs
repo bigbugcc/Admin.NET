@@ -314,11 +314,12 @@ public class SysTenantService : IDynamicApiController, ITransient
     [DisplayName("授权租户管理员角色菜单")]
     public async Task GrantMenu(RoleMenuInput input)
     {
-        var tenantAdminUser = await _sysUserRep.GetFirstAsync(u => u.TenantId == input.Id && u.AccountType == AccountTypeEnum.SysAdmin);
-        if (tenantAdminUser == null) return;
+        // 获取租户管理员角色【sys_admin】
+        var adminRole = await _sysRoleRep.AsQueryable().ClearFilter()
+            .FirstAsync(u => u.Code == CommonConst.SysAdminRole && u.TenantId == input.Id && u.IsDelete == false);
+        if (adminRole == null) return;
 
-        var roleIds = await _sysUserRoleService.GetUserRoleIdList(tenantAdminUser.Id);
-        input.Id = roleIds[0]; // 重置租户管理员角色Id
+        input.Id = adminRole.Id; // 重置租户管理员角色Id
         await _sysRoleMenuService.GrantRoleMenu(input);
     }
 

@@ -27,14 +27,13 @@ public class DbJobPersistence : IJobPersistence
     public async Task<IEnumerable<SchedulerBuilder>> PreloadAsync(CancellationToken stoppingToken)
     {
         using var scope = _serviceScopeFactory.CreateScope();
-        var jobDetailRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobDetail>>();
-        var jobTriggerRep = scope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysJobTrigger>>();
+        var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
         var dynamicJobCompiler = scope.ServiceProvider.GetRequiredService<DynamicJobCompiler>();
 
         // 获取所有定义的作业
         var allJobs = App.EffectiveTypes.ScanToBuilders().ToList();
         // 若数据库不存在任何作业，则直接返回
-        if (!jobDetailRep.IsAny(u => true)) return allJobs;
+        if (!db.Queryable<SysJobDetail>().Any(u => true)) return allJobs;
 
         // 遍历所有定义的作业
         foreach (var schedulerBuilder in allJobs)
@@ -43,14 +42,14 @@ public class DbJobPersistence : IJobPersistence
             var jobBuilder = schedulerBuilder.GetJobBuilder();
 
             // 加载数据库数据
-            var dbDetail = await jobDetailRep.GetFirstAsync(u => u.JobId == jobBuilder.JobId);
+            var dbDetail = await db.Queryable<SysJobDetail>().FirstAsync(u => u.JobId == jobBuilder.JobId);
             if (dbDetail == null) continue;
 
             // 同步数据库数据
             jobBuilder.LoadFrom(dbDetail);
 
             // 获取作业的所有数据库的触发器
-            var dbTriggers = await jobTriggerRep.GetListAsync(u => u.JobId == jobBuilder.JobId);
+            var dbTriggers = await db.Queryable<SysJobTrigger>().Where(u => u.JobId == jobBuilder.JobId).ToListAsync();
             // 遍历所有作业触发器
             foreach (var (_, triggerBuilder) in schedulerBuilder.GetEnumerable())
             {
@@ -74,7 +73,7 @@ public class DbJobPersistence : IJobPersistence
         }
 
         // 获取数据库所有通过脚本创建的作业
-        var allDbScriptJobs = await jobDetailRep.GetListAsync(u => u.CreateType != JobCreateTypeEnum.BuiltIn);
+        var allDbScriptJobs = await db.Queryable<SysJobDetail>().Where(u => u.CreateType != JobCreateTypeEnum.BuiltIn).ToListAsync();
         foreach (var dbDetail in allDbScriptJobs)
         {
             // 动态创建作业
@@ -101,7 +100,7 @@ public class DbJobPersistence : IJobPersistence
             jobBuilder.SetIncludeAnnotations(false);
 
             // 获取作业的所有数据库的触发器加入到作业中
-            var dbTriggers = await jobTriggerRep.GetListAsync(u => u.JobId == jobBuilder.JobId);
+            var dbTriggers = await db.Queryable<SysJobTrigger>().Where(u => u.JobId == jobBuilder.JobId).ToListAsync();
             var triggerBuilders = dbTriggers.Select(u => TriggerBuilder.Create(u.TriggerId).LoadFrom(u).Updated());
             var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggerBuilders.ToArray());
 

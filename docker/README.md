@@ -12,6 +12,7 @@
 2.  *app/Configuration/App.json* 主要配置了api端口5050，如果你的端口也是这个可以覆盖
 2.  *Web/.env.production* 文件配置接口地址配置为 VITE\_API\_URL = '/prod-api'
 3.  nginx，mysql配置文件无需修改
+4.  redis/redis.conf 中配置密码，如果不设密码REDIS_PASSWORD置空，app/Configuration/Cache.json中server=redis:6379，password没有的话置空
 
 ***
 
