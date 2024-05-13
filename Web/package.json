@@ -22,13 +22,14 @@
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",
 		"animate.css": "^4.1.1",
+		"async-validator": "^4.2.5",
 		"axios": "^1.6.8",
 		"countup.js": "^2.8.0",
 		"cropperjs": "^1.6.2",
 		"echarts": "^5.5.0",
 		"echarts-gl": "^2.0.9",
 		"echarts-wordcloud": "^2.1.0",
-		"element-plus": "^2.7.2",
+		"element-plus": "^2.7.3",
 		"js-cookie": "^3.0.5",
 		"js-table2excel": "^1.1.2",
 		"jsplumb": "^2.15.6",
@@ -58,8 +59,7 @@
 		"vue-router": "^4.3.2",
 		"vue-signature-pad": "^3.0.2",
 		"vue3-tree-org": "^4.2.2",
-		"xlsx-js-style": "^1.2.0",
-		"async-validator": "^4.2.5"
+		"xlsx-js-style": "^1.2.0"
 	},
 	"devDependencies": {
 		"@plugin-web-update-notification/vite": "^1.7.1",

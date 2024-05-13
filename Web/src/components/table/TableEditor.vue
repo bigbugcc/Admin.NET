@@ -38,11 +38,13 @@
 		</table>
 	</div>
 </template>
+
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import { ElMessage, dayjs } from 'element-plus';
-import AsyncValidator from 'async-validator'; 
+import AsyncValidator from 'async-validator';
 import { isDate, isString } from 'lodash-es';
+
 const props = defineProps({
 	value: {
 		type: Array<any>,
@@ -76,11 +78,13 @@ function renderComponentProp(item: any) {
 
 	return propsData;
 }
+
 function del(record: any, index: number) {
 	vm.value.splice(index, 1);
 	emit('update:value', vm.value);
 	emit('delete', { value: vm.value, record });
 }
+
 async function add() {
 	let msgs: string[] = [];
 
@@ -88,13 +92,12 @@ async function add() {
 		let rule = props.rules[field];
 
 		let val = vm.formData[field];
-		if(val){
-			if(isDate(val) ){
-				val=dayjs(val).format(props.columns.filter(m=>m.field==field)[0]
-				.format|| 'YYYY-MM-DD'); 
-				vm.formData[field]=val;
-			}else if (!isString(val)) {
-				val= val.toString();
+		if (val) {
+			if (isDate(val)) {
+				val = dayjs(val).format(props.columns.filter((m) => m.field == field)[0].format || 'YYYY-MM-DD');
+				vm.formData[field] = val;
+			} else if (!isString(val)) {
+				val = val.toString();
 			}
 		}
 		const validator = new AsyncValidator({

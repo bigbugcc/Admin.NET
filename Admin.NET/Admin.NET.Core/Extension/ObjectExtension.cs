@@ -338,12 +338,12 @@ public static partial class ObjectExtension
     }
 
     /// <summary>
-    /// 将字符串转为值类型，如果没有得到或者错误返回为空
+    /// 将字符串转为值类型，若没有得到或者错误返回为空
     /// </summary>
     /// <typeparam name="T">指定值类型</typeparam>
     /// <param name="str">传入字符串</param>
     /// <returns>可空值</returns>
-    public static Nullable<T> ParseTo<T>(this string str) where T : struct
+    public static T? ParseTo<T>(this string str) where T : struct
     {
         try
         {
@@ -364,9 +364,8 @@ public static partial class ObjectExtension
     }
 
     /// <summary>
-    /// 将字符串转为值类型，如果没有得到或者错误返回为空
+    /// 将字符串转为值类型，若没有得到或者错误返回为空
     /// </summary>
-    /// <typeparam name="T">指定值类型</typeparam>
     /// <param name="str">传入字符串</param>
     /// <param name="type">目标类型</param>
     /// <returns>可空值</returns>
@@ -375,21 +374,17 @@ public static partial class ObjectExtension
         try
         {
             if (type.Name == "String")
-            {
                 return str;
-            }
+
             if (!string.IsNullOrWhiteSpace(str))
             {
                 var _type = type;
                 if (type.Name.StartsWith("Nullable"))
-                {
                     _type = type.GetGenericArguments()[0];
-                }
+
                 MethodInfo method = _type.GetMethod("Parse", new Type[] { typeof(string) });
                 if (method != null)
-                {
                     return method.Invoke(null, new string[] { str });
-                }
             }
         }
         catch
@@ -398,9 +393,8 @@ public static partial class ObjectExtension
         return null;
     }
 
-
     /// <summary>
-    /// 将一个的对象属性值赋给另一个制定的对象属性, 只复制相同属性的
+    /// 将一个对象属性值赋给另一个指定对象属性, 只复制相同属性的
     /// </summary>
     /// <param name="src">原数据对象</param>
     /// <param name="target">目标数据对象</param>
@@ -427,14 +421,10 @@ public static partial class ObjectExtension
                 var srcProperty = SourceType.GetProperty(item.Key);
                 if (srcProperty != null)
                 {
-                    var sourceVal = srcProperty
-                        .GetValue(src, null);
+                    var sourceVal = srcProperty.GetValue(src, null);
 
                     var tarProperty = TargetType.GetProperty(item.Value);
-                    if (tarProperty != null)
-                    {
-                        tarProperty.SetValue(target, sourceVal, null);
-                    }
+                    tarProperty?.SetValue(target, sourceVal, null);
                 }
             }
         }
@@ -447,14 +437,10 @@ public static partial class ObjectExtension
                     var srcProperty = SourceType.GetProperty(item.Key);
                     if (srcProperty != null)
                     {
-                        var sourceVal = srcProperty
-                            .GetValue(src, null);
+                        var sourceVal = srcProperty.GetValue(src, null);
 
                         var tarProperty = TargetType.GetProperty(item.Value);
-                        if (tarProperty != null)
-                        {
-                            tarProperty.SetValue(target, sourceVal, null);
-                        }
+                        tarProperty?.SetValue(target, sourceVal, null);
                     }
                 }
             }

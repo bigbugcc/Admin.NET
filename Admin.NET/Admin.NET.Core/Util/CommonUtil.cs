@@ -104,12 +104,12 @@ public static class CommonUtil
     /// 导出模板Excel
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelTemplate<T>() where T : class,new()
-    { 
+    public static async Task<IActionResult> ExportExcelTemplate<T>() where T : class, new()
+    {
         IImporter importer = new ExcelImporter();
-        var res=await importer.GenerateTemplateBytes<T>();  
+        var res = await importer.GenerateTemplateBytes<T>();
 
-        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name+".xlsx" };
+        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name + ".xlsx" };
     }
 
     /// <summary>
@@ -128,10 +128,10 @@ public static class CommonUtil
     /// 导出数据excel,包括字典转换
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelData<TSource, TTarget>(ISugarQueryable<TSource> query, Func<TSource, TTarget, TTarget> action = null) 
-        where TSource : class, new() where TTarget : class, new ()
+    public static async Task<IActionResult> ExportExcelData<TSource, TTarget>(ISugarQueryable<TSource> query, Func<TSource, TTarget, TTarget> action = null)
+        where TSource : class, new() where TTarget : class, new()
     {
-        var PropMappings = GetExportPropertMap< TSource, TTarget >(); 
+        var PropMappings = GetExportPropertMap<TSource, TTarget>();
         var data = query.ToList();
         //相同属性复制值，字典值转换
         var result = new List<TTarget>();
@@ -173,9 +173,9 @@ public static class CommonUtil
                 {
                     newData = action(item, newData);
                 }
-            } 
+            }
             result.Add(newData);
-        } 
+        }
         var export = new ExcelExporter();
         var res = await export.ExportAsByteArray(result);
 
@@ -185,13 +185,13 @@ public static class CommonUtil
     /// <summary>
     /// 导入数据Excel
     /// </summary>
-    /// <param name="file"></param> 
+    /// <param name="file"></param>
     /// <returns></returns>
     public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file) where T : class, new()
-    {  
+    {
         IImporter importer = new ExcelImporter();
         var res = await importer.Import<T>(file.OpenReadStream());
-        string message = string.Empty;
+        var message = string.Empty;
         if (res.HasError)
         {
             if (res.Exception != null)
@@ -203,13 +203,12 @@ public static class CommonUtil
                     message += $"\r\n{item.Key}：{item.Value}（文件第{drErrorInfo.RowIndex}行）";
             }
             message += "字段缺失：" + string.Join("，", res.TemplateErrors.Select(m => m.RequireColumnName).ToList());
-
             throw Oops.Oh("导入异常:" + message);
         }
         return res.Data;
     }
 
-    //例：List<Dm_ApplyDemo> ls = CommonUtil.ParseList<Dm_ApplyDemoInport, Dm_ApplyDemo>(importResult.Data);
+    // 例：List<Dm_ApplyDemo> ls = CommonUtil.ParseList<Dm_ApplyDemoInport, Dm_ApplyDemo>(importResult.Data);
     /// <summary>
     /// 对象转换 含字典转换
     /// </summary>
@@ -218,15 +217,15 @@ public static class CommonUtil
     /// <param name="data"></param>
     /// <param name="action"></param>
     /// <returns></returns>
-    public static List<TTarget> ParseList<TSource, TTarget>(IEnumerable<TSource> data, Func<TSource, TTarget, TTarget> action=null) where TTarget : new()
+    public static List<TTarget> ParseList<TSource, TTarget>(IEnumerable<TSource> data, Func<TSource, TTarget, TTarget> action = null) where TTarget : new()
     {
-        Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>> PropMappings = GetImportPropertMap<TSource, TTarget>();
-        //相同属性复制值，字典值转换
+        var propMappings = GetImportPropertMap<TSource, TTarget>();
+        // 相同属性复制值，字典值转换
         var result = new List<TTarget>();
         foreach (var item in data)
         {
             var newData = new TTarget();
-            foreach (var dict in PropMappings)
+            foreach (var dict in propMappings)
             {
                 var targeProp = dict.Value.Item3;
                 if (targeProp != null)
@@ -234,9 +233,7 @@ public static class CommonUtil
                     var propertyInfo = dict.Value.Item2;
                     var sourceVal = propertyInfo.GetValue(item, null);
                     if (sourceVal == null)
-                    {
                         continue;
-                    }
 
                     var map = dict.Value.Item1;
                     if (map != null && map.ContainsKey(sourceVal.ToString()))
@@ -259,40 +256,35 @@ public static class CommonUtil
                 }
             }
             if (action != null)
-            {
                 newData = action(item, newData);
-            }
+
             if (newData != null)
                 result.Add(newData);
         }
         return result;
     }
 
-
     /// <summary>
-    /// 获取导入属性映射       
+    /// 获取导入属性映射
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <typeparam name="TTarget"></typeparam>
     /// <returns>整理导入对象的 属性名称， 字典数据，原属性信息，目标属性信息 </returns>
     private static Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>> GetImportPropertMap<TSource, TTarget>() where TTarget : new()
     {
+        // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
+        var propMappings = new Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>>();
+
         var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
-        //整理导入对象的 属性名称，<字典数据，原属性信息，目标属性信息>
-        Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>> PropMappings =
-        new Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>>();
-
-        var TSourceProps = typeof(TSource).GetProperties().ToList();
-        var TTargetProps = typeof(TTarget).GetProperties().ToDictionary(m => m.Name);
-
-        foreach (var propertyInfo in TSourceProps)
+        var tSourceProps = typeof(TSource).GetProperties().ToList();
+        var tTargetProps = typeof(TTarget).GetProperties().ToDictionary(m => m.Name);
+        foreach (var propertyInfo in tSourceProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
-                var targetProp = TTargetProps[attrs.TargetPropName];
-
-                var MappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
+                var targetProp = tTargetProps[attrs.TargetPropName];
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
                     new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
                     .Where(a => a.Code == attrs.TypeCode)
                     .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
@@ -302,47 +294,39 @@ public static class CommonUtil
                         Value = b.Code
                     }).ToList()
                     .ToDictionary(m => m.Label, m => m.Value.ParseTo(targetProp.PropertyType));
-                PropMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(
-                    MappingValues, propertyInfo, targetProp
-                    ));
+                propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(mappingValues, propertyInfo, targetProp));
             }
             else
             {
-                PropMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(
-                    null, propertyInfo, TTargetProps.ContainsKey(propertyInfo.Name) ? TTargetProps[propertyInfo.Name] : null
-                    ));
+                propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(
+                    null, propertyInfo, tTargetProps.ContainsKey(propertyInfo.Name) ? tTargetProps[propertyInfo.Name] : null));
             }
         }
 
-        return PropMappings;
+        return propMappings;
     }
 
-
-
     /// <summary>
-    /// 获取导出属性映射       
+    /// 获取导出属性映射
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <typeparam name="TTarget"></typeparam>
     /// <returns>整理导入对象的 属性名称， 字典数据，原属性信息，目标属性信息 </returns>
-    private static Dictionary<string, Tuple<Dictionary<object,string>, PropertyInfo, PropertyInfo>> GetExportPropertMap<TSource, TTarget>() where TTarget : new()
+    private static Dictionary<string, Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>> GetExportPropertMap<TSource, TTarget>() where TTarget : new()
     {
+        // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
+        var propMappings = new Dictionary<string, Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>>();
+
         var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
-        //整理导入对象的 属性名称，<字典数据，原属性信息，目标属性信息>
-        Dictionary<string, Tuple<Dictionary<object,string>, PropertyInfo, PropertyInfo>> PropMappings =
-        new Dictionary<string, Tuple<Dictionary<object,string>, PropertyInfo, PropertyInfo>>();
-
-        var TargetProps = typeof(TTarget).GetProperties().ToList();
-        var SourceProps = typeof(TSource).GetProperties().ToDictionary(m => m.Name);
-
-        foreach (var propertyInfo in TargetProps)
+        var targetProps = typeof(TTarget).GetProperties().ToList();
+        var sourceProps = typeof(TSource).GetProperties().ToDictionary(m => m.Name);
+        foreach (var propertyInfo in targetProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
-                var targetProp = SourceProps[attrs.TargetPropName];
-
-                var MappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
+                var targetProp = sourceProps[attrs.TargetPropName];
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
                     new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
                     .Where(a => a.Code == attrs.TypeCode)
                     .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
@@ -352,43 +336,37 @@ public static class CommonUtil
                         Value = b.Code
                     }).ToList()
                     .ToDictionary(m => m.Value.ParseTo(targetProp.PropertyType), m => m.Label);
-                PropMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object,string>, PropertyInfo, PropertyInfo>(
-                    MappingValues, targetProp, propertyInfo
-                    ));
+                propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>(mappingValues, targetProp, propertyInfo));
             }
             else
             {
-                PropMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object,string>, PropertyInfo, PropertyInfo>(
-                    null, SourceProps.ContainsKey(propertyInfo.Name) ? SourceProps[propertyInfo.Name] : null, propertyInfo
-                    ));
+                propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>(
+                    null, sourceProps.ContainsKey(propertyInfo.Name) ? sourceProps[propertyInfo.Name] : null, propertyInfo));
             }
         }
 
-        return PropMappings;
+        return propMappings;
     }
 
-
     /// <summary>
-    /// 获取属性映射       
+    /// 获取属性映射
     /// </summary>
-    /// <typeparam name="TSource"></typeparam>
     /// <typeparam name="TTarget"></typeparam>
     /// <returns>整理导入对象的 属性名称， 字典数据，原属性信息，目标属性信息 </returns>
-    private static Dictionary<string, Tuple<string, string>> GetExportDicttMap<  TTarget>() where TTarget : new()
+    private static Dictionary<string, Tuple<string, string>> GetExportDicttMap<TTarget>() where TTarget : new()
     {
-        var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
-        //整理导入对象的 属性名称，目标属性名，字典Code
-        Dictionary<string, Tuple<string, string>> PropMappings = new Dictionary<string, Tuple<string, string>>(); 
-        var TTargetProps = typeof(TTarget).GetProperties(); 
-        foreach (var propertyInfo in TTargetProps)
+        // 整理导入对象的属性名称，目标属性名，字典Code
+        var propMappings = new Dictionary<string, Tuple<string, string>>();
+        var tTargetProps = typeof(TTarget).GetProperties();
+        foreach (var propertyInfo in tTargetProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
-            { 
-                PropMappings.Add(propertyInfo.Name, new Tuple<string, string>(  attrs.TargetPropName,attrs.TypeCode  )); 
-            } 
+            {
+                propMappings.Add(propertyInfo.Name, new Tuple<string, string>(attrs.TargetPropName, attrs.TypeCode));
+            }
         }
 
-        return PropMappings;
+        return propMappings;
     }
 }

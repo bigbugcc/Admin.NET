@@ -147,7 +147,6 @@ public class SysDictTypeService : IDynamicApiController, ITransient
         await _sysDictTypeRep.UpdateAsync(dictType);
     }
 
-
     /// <summary>
     /// 获取所有字典集合 🔖
     /// </summary>
@@ -157,13 +156,10 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     public async Task<dynamic> GetAllDictList()
     {
         var ds = await _sysDictTypeRep.AsQueryable()
-            .InnerJoin<SysDictData>((m, n) => m.Id == n.DictTypeId)
-            .Where((m, n) => m.IsDelete == false && n.IsDelete == false && n.Status == StatusEnum.Enable)
-            .Select((m, n) => new { TypeCode = m.Code,  n.Code, n.Value, n.Remark, n.OrderNo,n.TagType })
+            .InnerJoin<SysDictData>((u, a) => u.Id == a.DictTypeId)
+            .Where((u, a) => u.IsDelete == false && a.IsDelete == false && a.Status == StatusEnum.Enable)
+            .Select((u, a) => new { TypeCode = u.Code, a.Code, a.Value, a.Remark, a.OrderNo, a.TagType })
             .ToListAsync();
-        return ds
-            .OrderBy(s => s.OrderNo).GroupBy(m => m.TypeCode)
-            .ToDictionary(m => m.Key, m => m);
+        return ds.OrderBy(u => u.OrderNo).GroupBy(u => u.TypeCode).ToDictionary(u => u.Key, u => u);
     }
-
 }
