@@ -58,7 +58,8 @@
 		"vue-router": "^4.3.2",
 		"vue-signature-pad": "^3.0.2",
 		"vue3-tree-org": "^4.2.2",
-		"xlsx-js-style": "^1.2.0"
+		"xlsx-js-style": "^1.2.0",
+		"async-validator": "^4.2.5"
 	},
 	"devDependencies": {
 		"@plugin-web-update-notification/vite": "^1.7.1",

@@ -37,3 +37,4 @@ node_modules/
 .vs
 .idea
 .DS_Store
+/Web/npminstall-debug.log

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance,AxiosRequestConfig } from 'axios';
 import { ElMessage } from 'element-plus';
 import { Local, Session } from '/@/utils/storage';
 
@@ -205,6 +205,29 @@ export function decryptJWT(token: string): any {
 export function getJWTDate(timestamp: number): Date {
 	return new Date(timestamp * 1000);
 }
-
+/**
+ * Ajax请求，如果成功返回result字段，如果不成功提示错误信息
+ * @description Ajax请求
+ * @config AxiosRequestConfig 请求参数
+ * @returns 返回对象
+ */
+export function request2(config: AxiosRequestConfig<any>): any { 
+	return new Promise((resolve, reject) => {
+		service(config)
+			.then((res) => {
+				if (res.data.type == 'success') {
+					resolve(res.data.result);
+				} else {
+					console.log('res', res);
+					ElMessage.success(res.data.message);
+				}
+			})
+			.catch((res) => {
+				console.log('res', res);
+				ElMessage.error(res);
+				reject(res);
+			});
+	});
+}
 // 导出 axios 实例
 export default service;

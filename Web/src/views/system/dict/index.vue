@@ -330,10 +330,10 @@ const handleDictDataCurrentChange = (val: number) => {
 
 // 更新前端字典缓存
 const updateDictSession = async () => {
-	if (Session.get('dictList')) {
-		const dictList = await useUserInfo().getAllDictList();
-		Session.set('dictList', dictList);
-	}
+	// if (Session.get('dictList')) {
+	// 	const dictList = await useUserInfo().getAllDictList();
+	// 	Session.set('dictList', dictList);
+	// }
 	await useUserInfo().setDictList();
 };
 </script>

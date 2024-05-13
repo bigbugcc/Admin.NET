@@ -336,4 +336,128 @@ public static partial class ObjectExtension
         var masks = mask.ToString().PadLeft(4, mask);
         return email.Replace(@"^([^\.]+)\.?", $"$1{masks}$2");
     }
+
+    /// <summary>
+    /// 将字符串转为值类型，如果没有得到或者错误返回为空
+    /// </summary>
+    /// <typeparam name="T">指定值类型</typeparam>
+    /// <param name="str">传入字符串</param>
+    /// <returns>可空值</returns>
+    public static Nullable<T> ParseTo<T>(this string str) where T : struct
+    {
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                MethodInfo method = typeof(T).GetMethod("Parse", new Type[] { typeof(string) });
+                if (method != null)
+                {
+                    T result = (T)method.Invoke(null, new string[] { str });
+                    return result;
+                }
+            }
+        }
+        catch
+        {
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 将字符串转为值类型，如果没有得到或者错误返回为空
+    /// </summary>
+    /// <typeparam name="T">指定值类型</typeparam>
+    /// <param name="str">传入字符串</param>
+    /// <param name="type">目标类型</param>
+    /// <returns>可空值</returns>
+    public static object ParseTo(this string str, Type type)
+    {
+        try
+        {
+            if (type.Name == "String")
+            {
+                return str;
+            }
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                var _type = type;
+                if (type.Name.StartsWith("Nullable"))
+                {
+                    _type = type.GetGenericArguments()[0];
+                }
+                MethodInfo method = _type.GetMethod("Parse", new Type[] { typeof(string) });
+                if (method != null)
+                {
+                    return method.Invoke(null, new string[] { str });
+                }
+            }
+        }
+        catch
+        {
+        }
+        return null;
+    }
+
+
+    /// <summary>
+    /// 将一个的对象属性值赋给另一个制定的对象属性, 只复制相同属性的
+    /// </summary>
+    /// <param name="src">原数据对象</param>
+    /// <param name="target">目标数据对象</param>
+    /// <param name="changeProperties">属性集，键为原属性，值为目标属性</param>
+    /// <param name="unChangeProperties">属性集，目标不修改的属性</param>
+    public static void CopyTo(object src, object target, Dictionary<string, string> changeProperties = null, string[] unChangeProperties = null)
+    {
+        if (src == null || target == null)
+            throw new ArgumentException("src == null || target == null ");
+
+        var SourceType = src.GetType();
+        var TargetType = target.GetType();
+
+        if (changeProperties == null || changeProperties.Count == 0)
+        {
+            var fields = TargetType.GetProperties();
+            changeProperties = fields.Select(m => m.Name).ToDictionary(m => m);
+        }
+
+        if (unChangeProperties == null || unChangeProperties.Length == 0)
+        {
+            foreach (var item in changeProperties)
+            {
+                var srcProperty = SourceType.GetProperty(item.Key);
+                if (srcProperty != null)
+                {
+                    var sourceVal = srcProperty
+                        .GetValue(src, null);
+
+                    var tarProperty = TargetType.GetProperty(item.Value);
+                    if (tarProperty != null)
+                    {
+                        tarProperty.SetValue(target, sourceVal, null);
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach (var item in changeProperties)
+            {
+                if (!unChangeProperties.Any(m => m == item.Value))
+                {
+                    var srcProperty = SourceType.GetProperty(item.Key);
+                    if (srcProperty != null)
+                    {
+                        var sourceVal = srcProperty
+                            .GetValue(src, null);
+
+                        var tarProperty = TargetType.GetProperty(item.Value);
+                        if (tarProperty != null)
+                        {
+                            tarProperty.SetValue(target, sourceVal, null);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -14,7 +14,8 @@ export const useUserInfo = defineStore('userInfo', {
 	state: (): UserInfosState => ({
 		userInfos: {} as any,
 		constList: [] as any,
-		dictList: [] as any,
+		dictList: {} as any,
+		dictListInt: {} as any,
 	}),
 	getters: {
 		// // 获取系统常量列表
@@ -46,13 +47,15 @@ export const useUserInfo = defineStore('userInfo', {
 		},
 		async setDictList() {
 			// 存储字典信息到浏览器缓存
-			if (Session.get('dictList')) {
-				this.dictList = Session.get('dictList');
-			} else {
-				const dictList = <any[]>await this.getAllDictList();
-				Session.set('dictList', dictList);
-				this.dictList = dictList;
-			}
+			var res = await getAPI(SysDictTypeApi).apiSysDictTypeAllDictListGet();
+			this.dictList = res.data.result;
+			// if (Session.get('dictList')) {
+			// 	this.dictList = Session.get('dictList');
+			// } else {
+			//	const dictList = <any[]>await this.getAllDictList();
+			//	Session.set('dictList', dictList);
+			//	this.dictList = dictList;
+			// }
 		},
 		// 获取当前用户信息
 		getApiUserInfo() {
@@ -115,12 +118,67 @@ export const useUserInfo = defineStore('userInfo', {
 		// 获取字典集合
 		getAllDictList() {
 			return new Promise((resolve) => {
-				getAPI(SysDictTypeApi)
-					.apiSysDictTypeAllDictListGet()
-					.then(async (res: any) => {
-						resolve(res.data.result ?? []);
-					});
+				if (this.dictList) {
+					resolve(this.dictList);
+				} else {
+					getAPI(SysDictTypeApi)
+						.apiSysDictTypeAllDictListGet()
+						.then((res: any) => {
+							resolve(res.data.result ?? []);
+						});
+				}
 			});
+		},
+
+		//根据字典类型和值取字典项
+		getDictItemByVal(typePCode: string, val: string) {
+			if(val){
+				const _val = val.toString();
+				const ds = this.getDictDatasByCode(typePCode);
+				for (let index = 0; index < ds.length; index++) {
+					const element = ds[index];
+					if (element.code == _val) {
+						return element;
+					}
+				}
+			}
+			return {};
+		},
+
+		//根据字典类型和值取描述
+		getDictLabelByVal(typePCode: string, val: string) {
+			return this.getDictItemByVal(typePCode, val).value;
+		},
+		//根据字典类型和描述取值
+		getDictValByLabel(typePCode: string, label: string) {
+			if(!label) return ''
+			const ds = this.getDictDatasByCode(typePCode);
+			for (let index = 0; index < ds.length; index++) {
+				const element = ds[index];
+				if (element.value == label) {
+					return element.code;
+				}
+			}
+		},
+		//根据字典类型字典数据
+		getDictDatasByCode(dictTypeCode: string) {
+			return this.dictList[dictTypeCode] || [];
+		},
+
+		//根据字典类型字典数据,值转为数字类型
+		getDictIntDatasByCode(dictTypeCode: string) {
+			var ds = this.dictListInt[dictTypeCode];
+			if (ds) {
+				return ds;
+			} else {
+				ds = this.dictList[dictTypeCode].map((element: { code: any }) => {
+					var d={...element};
+					d.code = element.code - 0;
+					return d;
+				});
+				this.dictListInt[dictTypeCode] = ds;
+				return ds;
+			}
 		},
 	},
 });

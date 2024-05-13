@@ -35,7 +35,7 @@
 
 #### 🚧 安装 cnpm、yarn
 
-- 复制代码(桌面 cmd 运行) `npm install -g pnpm --registry=https://registry.npm.taobao.org`
+- 复制代码(桌面 cmd 运行) `npm install -g pnpm --registry=https://registry.npmmirror.com`
 
 #### 🏭 环境支持
 
