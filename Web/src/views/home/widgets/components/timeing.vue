@@ -11,33 +11,32 @@
 export default {
 	title: '时钟',
 	icon: 'ele-Timer',
-	description: '时钟原子组件演示'
-}
+	description: '时钟原子组件演示',
+};
 </script>
 
 <script setup lang="ts" name="timeing">
-import { formatDate } from '/@/utils/formatTime'
-import { ref, onMounted, onUnmounted } from 'vue'
-const time = ref<string>('')
-const day = ref<string>('')
-const timer = ref<any>(null)
+import { formatDate } from '/@/utils/formatTime';
+import { ref, onMounted, onUnmounted } from 'vue';
+const time = ref<string>('');
+const day = ref<string>('');
+const timer = ref<any>(null);
 
 onMounted(() => {
-	showTime()
-	timer.value =setInterval(() => {
-		showTime()
-	}, 1000)
-})
+	showTime();
+	timer.value = setInterval(() => {
+		showTime();
+	}, 1000);
+});
 
 onUnmounted(() => {
-	clearInterval(timer.value)
-})
+	clearInterval(timer.value);
+});
 
 const showTime = () => {
-	time.value = formatDate(new Date(), 'HH:MM:SS')
-	day.value = formatDate(new Date(), 'YYYY年mm月dd日')
-}
-
+	time.value = formatDate(new Date(), 'HH:MM:SS');
+	day.value = formatDate(new Date(), 'YYYY年mm月dd日');
+};
 </script>
 
 <style scoped>

@@ -36,16 +36,14 @@
 export default {
 	title: '欢迎',
 	icon: 'ele-Present',
-	description: '项目特色以及文档链接'
-}
+	description: '项目特色以及文档链接',
+};
 </script>
 
 <script setup lang="ts" name="welcome">
-
 const godoc = () => {
-	window.open('https://gitee.com/zuohuaijun/Admin.NET.git')
-}
-
+	window.open('https://gitee.com/zuohuaijun/Admin.NET.git');
+};
 </script>
 
 <style scoped>

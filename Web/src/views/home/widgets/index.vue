@@ -1,216 +1,215 @@
 <template>
-  <div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
-    <div class="widgets-content">
-      <div class="widgets-top">
-        <div class="widgets-top-title">控制台</div>
-        <div class="widgets-top-actions">
-          <el-button v-if="customizing" type="primary" icon="ele-Check" round @click="save">完成</el-button>
-          <el-button v-else type="primary" icon="ele-Edit" round @click="custom">自定义</el-button>
-        </div>
-      </div>
-      <div class="widgets" ref="widgetsRef">
-        <div class="widgets-wrapper">
-          <div v-if="nowCompsList.length <= 0" class="no-widgets">
-            <el-empty description="没有部件啦" :image-size="300"></el-empty>
-          </div>
-          <el-row :gutter="15">
-            <el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
-              <draggable
-                v-model="grid.copmsList[index]"
-                animation="200"
-                handle=".customize-overlay"
-                group="people"
-                item-key="com"
-                drag-class="aaaaa"
-                force-fallback
-                fallback-on-body
-                class="draggable-box"
-              >
-                <template #item="{ element }">
-                  <div class="widgets-item mb15">
-                    <component :is="allComps[element]"></component>
-                    <div v-if="customizing" class="customize-overlay">
-                      <el-button class="close" type="danger" plain icon="ele-Close" @click="remove(element)"></el-button>
-                      <label>
-                        <el-icon><component :is="allComps[element].icon" /></el-icon>{{ allComps[element].title }}
-                      </label>
-                    </div>
-                  </div>
-                </template>
-              </draggable>
-            </el-col>
-          </el-row>
-        </div>
-      </div>
-    </div>
-    <div v-if="customizing" class="widgets-aside">
-      <el-container>
-        <el-header>
-          <div class="widgets-aside-title">
-            <el-icon><ele-CirclePlusFilled /></el-icon>添加部件
-          </div>
-          <div class="widgets-aside-close" @click="close">
-            <el-icon><ele-Close /></el-icon>
-          </div>
-        </el-header>
-        <el-header style="height: auto">
-          <div class="selectLayout">
-            <div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '12,6,6' }" @click="setLayout([12, 6, 6])">
-              <el-row :gutter="2">
-                <el-col :span="12"><span></span></el-col>
-                <el-col :span="6"><span></span></el-col>
-                <el-col :span="6"><span></span></el-col>
-              </el-row>
-            </div>
-            <div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,16,8' }" @click="setLayout([24, 16, 8])">
-              <el-row :gutter="2">
-                <el-col :span="24"><span></span></el-col>
-                <el-col :span="16"><span></span></el-col>
-                <el-col :span="8"><span></span></el-col>
-              </el-row>
-            </div>
-            <div class="selectLayout-item item03" :class="{ active: grid.layout.join(',') === '24' }" @click="setLayout([24])">
-              <el-row :gutter="2">
-                <el-col :span="24"><span></span></el-col>
-                <el-col :span="24"><span></span></el-col>
-                <el-col :span="24"><span></span></el-col>
-              </el-row>
-            </div>
-          </div>
-        </el-header>
-        <el-main class="nopadding">
-          <div class="widgets-list">
-            <div v-if="myCompsList.length <= 0" class="widgets-list-nodata">
-              <el-empty description="没有部件啦" :image-size="60"></el-empty>
-            </div>
-            <div v-for="item in myCompsList" :key="item.title" class="widgets-list-item">
-              <div class="item-logo">
-                <el-icon><component :is="item.icon" /></el-icon>
-              </div>
-              <div class="item-info">
-                <h2>{{ item.title }}</h2>
-                <p>{{ item.description }}</p>
-              </div>
-              <div class="item-actions">
-                <el-button type="primary" icon="ele-Plus" @click="push(item)"></el-button>
-              </div>
-            </div>
-          </div>
-        </el-main>
-        <el-footer style="height: 51px">
-          <el-button @click="backDefault">恢复默认</el-button>
-        </el-footer>
-      </el-container>
-    </div>
-  </div>
+	<div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
+		<div class="widgets-content">
+			<div class="widgets-top">
+				<div class="widgets-top-title">控制台</div>
+				<div class="widgets-top-actions">
+					<el-button v-if="customizing" type="primary" icon="ele-Check" round @click="save">完成</el-button>
+					<el-button v-else type="primary" icon="ele-Edit" round @click="custom">自定义</el-button>
+				</div>
+			</div>
+			<div class="widgets" ref="widgetsRef">
+				<div class="widgets-wrapper">
+					<div v-if="nowCompsList.length <= 0" class="no-widgets">
+						<el-empty description="没有部件啦" :image-size="300"></el-empty>
+					</div>
+					<el-row :gutter="15">
+						<el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
+							<draggable
+								v-model="grid.copmsList[index]"
+								animation="200"
+								handle=".customize-overlay"
+								group="people"
+								item-key="com"
+								drag-class="aaaaa"
+								force-fallback
+								fallback-on-body
+								class="draggable-box"
+							>
+								<template #item="{ element }">
+									<div class="widgets-item mb15">
+										<component :is="allComps[element]"></component>
+										<div v-if="customizing" class="customize-overlay">
+											<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(element)"></el-button>
+											<label>
+												<el-icon><component :is="allComps[element].icon" /></el-icon>{{ allComps[element].title }}
+											</label>
+										</div>
+									</div>
+								</template>
+							</draggable>
+						</el-col>
+					</el-row>
+				</div>
+			</div>
+		</div>
+		<div v-if="customizing" class="widgets-aside">
+			<el-container>
+				<el-header>
+					<div class="widgets-aside-title">
+						<el-icon><ele-CirclePlusFilled /></el-icon>添加部件
+					</div>
+					<div class="widgets-aside-close" @click="close">
+						<el-icon><ele-Close /></el-icon>
+					</div>
+				</el-header>
+				<el-header style="height: auto">
+					<div class="selectLayout">
+						<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '12,6,6' }" @click="setLayout([12, 6, 6])">
+							<el-row :gutter="2">
+								<el-col :span="12"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+							</el-row>
+						</div>
+						<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,16,8' }" @click="setLayout([24, 16, 8])">
+							<el-row :gutter="2">
+								<el-col :span="24"><span></span></el-col>
+								<el-col :span="16"><span></span></el-col>
+								<el-col :span="8"><span></span></el-col>
+							</el-row>
+						</div>
+						<div class="selectLayout-item item03" :class="{ active: grid.layout.join(',') === '24' }" @click="setLayout([24])">
+							<el-row :gutter="2">
+								<el-col :span="24"><span></span></el-col>
+								<el-col :span="24"><span></span></el-col>
+								<el-col :span="24"><span></span></el-col>
+							</el-row>
+						</div>
+					</div>
+				</el-header>
+				<el-main class="nopadding">
+					<div class="widgets-list">
+						<div v-if="myCompsList.length <= 0" class="widgets-list-nodata">
+							<el-empty description="没有部件啦" :image-size="60"></el-empty>
+						</div>
+						<div v-for="item in myCompsList" :key="item.title" class="widgets-list-item">
+							<div class="item-logo">
+								<el-icon><component :is="item.icon" /></el-icon>
+							</div>
+							<div class="item-info">
+								<h2>{{ item.title }}</h2>
+								<p>{{ item.description }}</p>
+							</div>
+							<div class="item-actions">
+								<el-button type="primary" icon="ele-Plus" @click="push(item)"></el-button>
+							</div>
+						</div>
+					</div>
+				</el-main>
+				<el-footer style="height: 51px">
+					<el-button @click="backDefault">恢复默认</el-button>
+				</el-footer>
+			</el-container>
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, nextTick } from 'vue'
-import draggable from 'vuedraggable'
-import allComps from './components/index'
-import { Local } from '/@/utils/storage'
+import { ref, reactive, computed, onMounted, nextTick } from 'vue';
+import draggable from 'vuedraggable';
+import allComps from './components/index';
+import { Local } from '/@/utils/storage';
 
 interface Grid {
-  layout: number[]
-  copmsList: string[][]
+	layout: number[];
+	copmsList: string[][];
 }
 const defaultGrid = reactive<Grid>({
-  layout: [12, 6, 6],
-  copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']]
-})
+	layout: [12, 6, 6],
+	copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']],
+});
 
-const customizing = ref<boolean>(false)
-const allCompsList = ref(allComps)
-const widgetsRef = ref<HTMLElement | null>(null)
-const grid = ref<Grid>(defaultGrid)
-  
+const customizing = ref<boolean>(false);
+const allCompsList = ref(allComps);
+const widgetsRef = ref<HTMLElement | null>(null);
+const grid = ref<Grid>(defaultGrid);
 
 onMounted(() => {
-  const savedGrid = Local.get('grid')
-  if (savedGrid) {
-    grid.value = savedGrid
-  }
-})
+	const savedGrid = Local.get('grid');
+	if (savedGrid) {
+		grid.value = savedGrid;
+	}
+});
 
 const availableCompsList = computed(() => {
-  const compsList = []
-  for (const key in allCompsList.value) {
-    const comp = allCompsList.value[key]
-    compsList.push({
-      key,
-      title: comp.title,
-      icon: comp.icon,
-      description: comp.description,
-    })
-  }
-  const activeComps = grid.value.copmsList.flat()
-  return compsList.map(comp => ({
-    ...comp,
-    disabled: activeComps.includes(comp.key),
-  }))
-})
+	const compsList = [];
+	for (const key in allCompsList.value) {
+		const comp = allCompsList.value[key];
+		compsList.push({
+			key,
+			title: comp.title,
+			icon: comp.icon,
+			description: comp.description,
+		});
+	}
+	const activeComps = grid.value.copmsList.flat();
+	return compsList.map((comp) => ({
+		...comp,
+		disabled: activeComps.includes(comp.key),
+	}));
+});
 
 const myCompsList = computed(() => {
-  const myGrid = Local.get('DASHBOARDGRID') || ['welcome', 'myapp', 'ver', 'timeing', 'progressing', 'echarts', 'about']
-  return availableCompsList.value.filter(comp => !comp.disabled && myGrid.includes(comp.key))
-})
+	const myGrid = Local.get('DASHBOARDGRID') || ['welcome', 'myapp', 'ver', 'timeing', 'progressing', 'echarts', 'about'];
+	return availableCompsList.value.filter((comp) => !comp.disabled && myGrid.includes(comp.key));
+});
 
-const nowCompsList = computed(() => grid.value.copmsList.flat())
+const nowCompsList = computed(() => grid.value.copmsList.flat());
 
 // 开启自定义
 const custom = () => {
-  customizing.value = true
-  const oldWidth = widgetsRef.value?.offsetWidth || 0
-  nextTick(() => {
-    if (widgetsRef.value) {
-      const scale = widgetsRef.value.offsetWidth / oldWidth;
-      widgetsRef.value.style.setProperty('transform', `scale(${scale})`)
-    }
-  })
-}
+	customizing.value = true;
+	const oldWidth = widgetsRef.value?.offsetWidth || 0;
+	nextTick(() => {
+		if (widgetsRef.value) {
+			const scale = widgetsRef.value.offsetWidth / oldWidth;
+			widgetsRef.value.style.setProperty('transform', `scale(${scale})`);
+		}
+	});
+};
 
 // 设置布局
 const setLayout = (layout: number[]) => {
-  grid.value.layout = layout;
-  if (layout.join(',') === '24') {
-    grid.value.copmsList[0] = [...grid.value.copmsList[0], ...grid.value.copmsList[1], ...grid.value.copmsList[2]]
-    grid.value.copmsList[1] = []
-    grid.value.copmsList[2] = []
-  }
-}
+	grid.value.layout = layout;
+	if (layout.join(',') === '24') {
+		grid.value.copmsList[0] = [...grid.value.copmsList[0], ...grid.value.copmsList[1], ...grid.value.copmsList[2]];
+		grid.value.copmsList[1] = [];
+		grid.value.copmsList[2] = [];
+	}
+};
 
 // 追加
 const push = (item: any) => {
-  grid.value.copmsList[0].push(item.key)
-}
+	grid.value.copmsList[0].push(item.key);
+};
 
 // 隐藏组件
 const remove = (item: string) => {
-  grid.value.copmsList = grid.value.copmsList.map(list => list.filter(comp => comp !== item));
-}
+	grid.value.copmsList = grid.value.copmsList.map((list) => list.filter((comp) => comp !== item));
+};
 
 // 保存
 const save = () => {
-  customizing.value = false
-  widgetsRef.value?.style.removeProperty('transform')
-  Local.set('grid', grid.value)
-}
+	customizing.value = false;
+	widgetsRef.value?.style.removeProperty('transform');
+	Local.set('grid', grid.value);
+};
 
 // 恢复默认
 const backDefault = () => {
-  customizing.value = false
-  widgetsRef.value?.style.removeProperty('transform')
-  grid.value = JSON.parse(JSON.stringify(defaultGrid))
-  Local.remove('grid')
-}
+	customizing.value = false;
+	widgetsRef.value?.style.removeProperty('transform');
+	grid.value = JSON.parse(JSON.stringify(defaultGrid));
+	Local.remove('grid');
+};
 
 // 关闭
 const close = () => {
-  customizing.value = false
-  widgetsRef.value?.style.removeProperty('transform')
-  grid.value = Local.get('grid')
-}
+	customizing.value = false;
+	widgetsRef.value?.style.removeProperty('transform');
+	grid.value = Local.get('grid');
+};
 </script>
 
 <style scoped lang="scss">

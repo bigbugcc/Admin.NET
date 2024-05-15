@@ -15,12 +15,11 @@
 export default {
 	title: '进度环',
 	icon: 'ele-Odometer',
-	description: '进度环原子组件演示'
-}
+	description: '进度环原子组件演示',
+};
 </script>
 
-<script setup lang="ts" name="progressing">
-</script>
+<script setup lang="ts" name="progressing"></script>
 
 <style scoped>
 .progress {

@@ -16,14 +16,12 @@
 
 <script lang="ts">
 export default {
-  title: '关于项目',
+	title: '关于项目',
 	icon: 'ele-Setting',
-	description: '点个星星支持一下'
-}
+	description: '点个星星支持一下',
+};
 </script>
-<script setup lang="ts" name="about">
-
-</script>
+<script setup lang="ts" name="about"></script>
 
 <style scoped>
 .item-background p {
