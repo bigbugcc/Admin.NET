@@ -13,7 +13,7 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 	var data = new Array();
 	var wpxArr = new Array(); //列宽度
 	const borderStyle = {
-		//边框样式
+		// 边框样式
 		top: {
 			style: 'thin',
 			color: {
@@ -42,17 +42,17 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 	let headerDepth = getMaxDepth(header);
 	let headerColumns = getTotalColumns(header);
 
-	//创建表头二维数组
+	// 创建表头二维数组
 	let headerArr = new Array(headerDepth);
 	for (let i = 0; i < headerArr.length; i++) {
 		headerArr[i] = new Array(headerColumns);
 	}
-	//计算列索引
+	// 计算列索引
 	let colIndex = 0;
 	for (let i = 0; i < header.length; i++) {
 		let col = header[i];
 
-		//获取列对应的长度
+		// 获取列对应的长度
 		let colNum = getTotalColumns([col]);
 		let colDepth = getMaxDepth([col]);
 		for (let y = 0; y < colNum; y++) {
@@ -65,7 +65,7 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 		colIndex++;
 	}
 
-	//填充表头列为空的列，为空的列要和本列上一行保持一致，通过一致的单元格，来合并单元格
+	// 填充表头列为空的列，为空的列要和本列上一行保持一致，通过一致的单元格，来合并单元格
 	for (let i = 0; i < headerArr.length; i++) {
 		let row = headerArr[i];
 		for (let j = 0; j < row.length; j++) {
@@ -75,7 +75,7 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 		}
 	}
 
-	//递归header
+	// 递归header
 	function headerRec(rowindex: number, colindex: number, childrenindex: number, col: any, arr: any) {
 		if (rowindex > 0) {
 			if (col.children) {
@@ -108,16 +108,15 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 				},
 			});
 		}
-		data.push(headrow); //写入标题
+		data.push(headrow); // 写入标题
 	}
 
 	// 计算合并单元格信息
 	var mergedCells = [];
-
 	var mergedflg = false;
 	var mergedcell = { s: { r: 0, c: 0 }, e: { r: 0, c: 0 } };
 
-	//列合并
+	// 列合并
 	for (let i = 0; i < headerColumns; i++) {
 		let rowcol = headerArr[0][i];
 		for (let j = 0; j < headerDepth; j++) {
@@ -158,8 +157,8 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 		}
 	}
 
-	//行合并
-    mergedflg = false;
+	// 行合并
+	mergedflg = false;
 	for (let i = 0; i < headerDepth; i++) {
 		let rowcol = headerArr[i][0];
 		for (let j = 0; j < headerColumns; j++) {
@@ -202,20 +201,20 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 
 	jsonarr.forEach((json) => {
 		var row = new Array();
-		headerArr[headerArr.length - 1].forEach((item) => {
+		headerArr[headerArr.length - 1].forEach((item: any) => {
 			if (json.hasOwnProperty(item.prop) || getProperty(json, item.prop)) {
 				let val = '';
 				if (json[item.prop] != null) {
 					if (item.formatter) {
 						var itemf = item.formatter(json);
-						val = formatterRec(itemf); //递归获取formatter信息
+						val = formatterRec(itemf); // 递归获取formatter信息
 					} else {
 						val = json[item.prop];
 					}
 				} else if (getProperty(json, item.prop)) {
 					if (item.formatter) {
 						var itemf = item.formatter(json);
-						val = formatterRec(itemf); //递归获取formatter信息
+						val = formatterRec(itemf); // 递归获取formatter信息
 					} else {
 						val = getProperty(json, item.prop);
 					}
@@ -240,7 +239,8 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 	/* generate file and send to client */
 	XLSXS.writeFile(wb, name + '.xlsx');
 }
-//递归formatter
+
+// 递归formatter
 function formatterRec(itemf: any) {
 	let r = '';
 	if (itemf.children) {
@@ -256,47 +256,45 @@ function formatterRec(itemf: any) {
 	}
 	return r;
 }
-//获取深度
+
+// 获取深度
 function getMaxDepth(data: any) {
 	let maxDepth = 1;
-
-	function traverse(obj, depth) {
+	function traverse(obj: any, depth: any) {
 		if (obj.children && obj.children.length > 0) {
 			depth++;
 			if (depth > maxDepth) {
 				maxDepth = depth;
 			}
-			obj.children.forEach((child) => traverse(child, depth));
+			obj.children.forEach((child: any) => traverse(child, depth));
 		}
 	}
 
-	data.forEach((obj) => traverse(obj, 1));
-
+	data.forEach((obj: any) => traverse(obj, 1));
 	return maxDepth;
 }
-//获取总列数
+
+// 获取总列数
 function getTotalColumns(data: any) {
 	let totalColumns = 0;
-
-	function traverse(obj) {
+	function traverse(obj: any) {
 		if (obj.children && obj.children.length > 0) {
-			obj.children.forEach((child) => traverse(child));
+			obj.children.forEach((child: any) => traverse(child));
 		} else {
 			totalColumns++;
 		}
 	}
 
-	data.forEach((obj) => traverse(obj));
-
+	data.forEach((obj: any) => traverse(obj));
 	return totalColumns;
 }
-//获取子对象
-const getProperty = (obj, property) => {
+
+// 获取子对象
+const getProperty = (obj: any, property: any) => {
 	const keys = property.split('.');
 	let value = obj;
 	for (const key of keys) {
 		value = value[key];
 	}
-
 	return value;
 };
