@@ -159,6 +159,7 @@ export function exportExcel(jsonarr: Array<EmptyObjectType>, name: string, heade
 	}
 
 	//行合并
+    mergedflg = false;
 	for (let i = 0; i < headerDepth; i++) {
 		let rowcol = headerArr[i][0];
 		for (let j = 0; j < headerColumns; j++) {
