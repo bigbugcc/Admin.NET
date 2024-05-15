@@ -11,15 +11,15 @@
 	</el-card>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 	title: '进度环',
-	icon: 'el-icon-odometer',
-	description: '进度环原子组件演示',
-	data() {
-		return {};
-	},
-};
+	icon: 'ele-Odometer',
+	description: '进度环原子组件演示'
+}
+</script>
+
+<script setup lang="ts" name="progressing">
 </script>
 
 <style scoped>
