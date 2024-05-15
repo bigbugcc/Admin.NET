@@ -77,7 +77,12 @@ public class SysConstService : IDynamicApiController, ITransient
     /// <returns></returns>
     private List<Type> GetConstAttributeList()
     {
+#if NET6_0
         return AppDomain.CurrentDomain.GetAssemblies().SelectMany(u => u.GetTypes())
             .Where(u => u.CustomAttributes.Any(c => c.AttributeType == typeof(ConstAttribute))).ToList();
+#else
+        return AppDomain.CurrentDomain.GetAssemblies().SelectMany(u => u.GetExportedTypes())
+            .Where(u => u.CustomAttributes.Any(c => c.AttributeType == typeof(ConstAttribute))).ToList();
+#endif
     }
 }

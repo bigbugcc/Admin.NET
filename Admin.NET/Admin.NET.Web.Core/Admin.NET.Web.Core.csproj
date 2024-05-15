@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <NoWarn>1701;1702;1591</NoWarn>
     <DocumentationFile></DocumentationFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Copyright>© Admin.NET</Copyright>
+    <Copyright>Admin.NET</Copyright>
     <Description>Admin.NET 通用权限开发平台</Description>
   </PropertyGroup>
 
