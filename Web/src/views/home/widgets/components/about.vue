@@ -14,15 +14,15 @@
 	</el-card>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-	title: '关于项目',
-	icon: 'el-icon-setting',
-	description: '点个星星支持一下',
-	data() {
-		return {};
-	},
-};
+  title: '关于项目',
+	icon: 'ele-Setting',
+	description: '点个星星支持一下'
+}
+</script>
+<script setup lang="ts" name="about">
+
 </script>
 
 <style scoped>

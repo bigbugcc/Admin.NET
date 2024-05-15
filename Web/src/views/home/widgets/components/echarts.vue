@@ -9,7 +9,7 @@ import scEcharts from '/@/components/scEcharts/index.vue';
 
 export default {
 	title: '实时收入',
-	icon: 'el-icon-data-line',
+	icon: 'ele-DataLine',
 	description: 'Echarts组件演示',
 	components: {
 		scEcharts,

@@ -1,7 +1,7 @@
 <template>
 	<el-card shadow="hover" header="版本信息">
 		<div style="height: 210px; text-align: center">
-			<img src="/@/assets/img/ver.svg" style="height: 140px" />
+			<img :src="verSvg" style="height: 140px" />
 			<h2 style="margin-top: 15px">Admin.Net</h2>
 			<p style="margin-top: 5px">最新版本 {{ ver }}</p>
 		</div>
@@ -12,31 +12,34 @@
 	</el-card>
 </template>
 
-<script>
-// import demo from '@/api/model/demo.js'
+<script lang="ts">
 export default {
 	title: '版本信息',
-	icon: 'el-icon-monitor',
-	description: '当前项目版本信息',
-	data() {
-		return {
-			ver: 'loading...',
-		};
-	},
-	mounted() {
-		this.getVer();
-	},
-	methods: {
-		async getVer() {
-			// const ver = await demo.ver.get()
-			this.ver = '11';
-		},
-		golog() {
-			window.open('https://gitee.com/zuohuaijun/Admin.NET/issues');
-		},
-		gogit() {
-			window.open('https://gitee.com/zuohuaijun/Admin.NET.git');
-		},
-	},
-};
+	icon: 'ele-Monitor',
+	description: '版本信息原子组件演示'
+}
+</script>
+
+<script setup lang="ts" name="ver">
+import { ref, onMounted } from 'vue'
+import verSvg from '/@/assets/img/ver.svg'
+
+const ver = ref<string>('loading...')
+
+onMounted(() => {
+	ver.value = '11'
+})
+
+const getVer = () => {
+	ver.value = '11'
+}
+
+const golog = () => {
+	window.open('https://gitee.com/zuohuaijun/Admin.NET/issues')
+}
+
+const gogit = () => {
+	window.open('https://gitee.com/zuohuaijun/Admin.NET.git')
+}
+
 </script>

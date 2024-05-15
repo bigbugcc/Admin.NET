@@ -8,44 +8,44 @@
 			<div class="tips">
 				<div class="tips-item">
 					<div class="tips-item-icon">
-						<el-icon><el-icon-menu /></el-icon>
+						<el-icon><ele-Menu /></el-icon>
 					</div>
 					<div class="tips-item-message">这里是项目控制台，你可以点击右上方的“自定义”按钮来添加移除或者移动部件。</div>
 				</div>
 				<div class="tips-item">
 					<div class="tips-item-icon">
-						<el-icon><el-icon-promotion /></el-icon>
+						<el-icon><ele-Promotion /></el-icon>
 					</div>
 					<div class="tips-item-message">在提高前端算力、减少带宽请求和代码执行力上多次优化，并且持续着。</div>
 				</div>
 				<div class="tips-item">
 					<div class="tips-item-icon">
-						<el-icon><el-icon-milk-tea /></el-icon>
+						<el-icon><ele-MilkTea /></el-icon>
 					</div>
 					<div class="tips-item-message">项目目的：让前端工作更快乐</div>
 				</div>
 			</div>
 			<div class="actions">
-				<el-button type="primary" icon="el-icon-check" size="large" @click="godoc">文档</el-button>
+				<el-button type="primary" icon="ele-Check" size="large" @click="godoc">文档</el-button>
 			</div>
 		</div>
 	</el-card>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 	title: '欢迎',
-	icon: 'el-icon-present',
-	description: '项目特色以及文档链接',
-	data() {
-		return {};
-	},
-	methods: {
-		godoc() {
-			window.open('https://gitee.com/zuohuaijun/Admin.NET.git');
-		},
-	},
-};
+	icon: 'ele-Present',
+	description: '项目特色以及文档链接'
+}
+</script>
+
+<script setup lang="ts" name="welcome">
+
+const godoc = () => {
+	window.open('https://gitee.com/zuohuaijun/Admin.NET.git')
+}
+
 </script>
 
 <style scoped>
