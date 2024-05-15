@@ -55,7 +55,7 @@ export const axiosInstance: AxiosInstance = globalAxios;
 axiosInstance.interceptors.request.use(
 	(conf) => {
 		// 获取本地的 token或session中的token
-		const accessToken = Local.get(accessTokenKey)?Local.get(accessTokenKey):Session.get('token');
+		const accessToken = Local.get(accessTokenKey) ? Local.get(accessTokenKey) : Session.get('token');
 		if (accessToken) {
 			// 将 token 添加到请求报文头中
 			conf.headers!['Authorization'] = `Bearer ${accessToken}`;
