@@ -264,7 +264,7 @@ const close = () => {
 	align-items: center;
 }
 .widgets-top-title {
-	font-size: 18px;
+	// font-size: 18px;
 	// font-weight: bold;
 	color: #999
 }
