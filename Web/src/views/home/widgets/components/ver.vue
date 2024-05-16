@@ -6,7 +6,7 @@
 		</template>
 		<div style="height: 210px; text-align: center">
 			<img :src="verSvg" style="height: 140px" />
-			<h2 style="margin-top: 15px">Admin.Net</h2>
+			<h2 style="margin-top: 15px">Admin.NET</h2>
 			<p style="margin-top: 5px">最新版本 {{ ver }}</p>
 		</div>
 		<div style="margin-top: 20px">
