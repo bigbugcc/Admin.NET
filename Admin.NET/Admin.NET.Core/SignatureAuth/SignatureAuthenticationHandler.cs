@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -16,6 +16,7 @@ namespace Admin.NET.Core;
 /// </summary>
 public sealed class SignatureAuthenticationHandler : AuthenticationHandler<SignatureAuthenticationOptions>
 {
+#if NET6_0
     public SignatureAuthenticationHandler(IOptionsMonitor<SignatureAuthenticationOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder,
@@ -23,6 +24,14 @@ public sealed class SignatureAuthenticationHandler : AuthenticationHandler<Signa
         : base(options, logger, encoder, clock)
     {
     }
+#else
+    public SignatureAuthenticationHandler(IOptionsMonitor<SignatureAuthenticationOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder)
+        : base(options, logger, encoder)
+    {
+    }
+#endif
 
     private new SignatureAuthenticationEvent Events
     {
@@ -57,8 +66,13 @@ public sealed class SignatureAuthenticationHandler : AuthenticationHandler<Signa
             return await AuthenticateResultFailAsync("timestamp 值不合法");
 
         var requestDate = DateTimeUtil.ToLocalTimeDateBySeconds(timestamp);
+#if NET6_0
         if (requestDate > Clock.UtcNow.Add(Options.AllowedDateDrift).LocalDateTime || requestDate < Clock.UtcNow.Subtract(Options.AllowedDateDrift).LocalDateTime)
             return await AuthenticateResultFailAsync("timestamp 值已超过允许的偏差范围");
+#else
+        if (requestDate > TimeProvider.GetUtcNow().Add(Options.AllowedDateDrift).LocalDateTime || requestDate < TimeProvider.GetUtcNow().Subtract(Options.AllowedDateDrift).LocalDateTime)
+            return await AuthenticateResultFailAsync("timestamp 值已超过允许的偏差范围");
+#endif
 
         // 获取 accessSecret
         var getAccessSecretContext = new GetAccessSecretContext(Context, Scheme, Options) { AccessKey = accessKey };
