@@ -31,7 +31,7 @@ import verSvg from '/@/assets/img/ver.svg';
 const ver = ref<string>('loading...');
 
 onMounted(() => {
-	ver.value = '11';
+	ver.value = 'v2.0.0';
 });
 
 const getVer = () => {
