@@ -17,6 +17,7 @@ namespace Admin.NET.Core;
 public sealed class SignatureAuthenticationHandler : AuthenticationHandler<SignatureAuthenticationOptions>
 {
 #if NET6_0
+
     public SignatureAuthenticationHandler(IOptionsMonitor<SignatureAuthenticationOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder,
@@ -24,6 +25,7 @@ public sealed class SignatureAuthenticationHandler : AuthenticationHandler<Signa
         : base(options, logger, encoder, clock)
     {
     }
+
 #else
     public SignatureAuthenticationHandler(IOptionsMonitor<SignatureAuthenticationOptions> options,
         ILoggerFactory logger,

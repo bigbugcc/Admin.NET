@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Content Include="Configuration\**\*">
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		  <PackageCopyToOutput>true</PackageCopyToOutput>
-	  </Content>
+    <Content Include="Configuration\**\*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
