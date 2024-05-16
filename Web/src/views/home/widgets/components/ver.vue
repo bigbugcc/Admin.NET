@@ -35,7 +35,7 @@ onMounted(() => {
 });
 
 const getVer = () => {
-	ver.value = '11';
+	ver.value = 'v2.0.0';
 };
 
 const golog = () => {
