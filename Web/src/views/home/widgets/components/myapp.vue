@@ -1,5 +1,9 @@
 <template>
 	<el-card shadow="hover" header="快捷入口">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Guide /> </el-icon>
+			<span style=""> 快捷入口 </span>
+		</template>
 		<ul class="myMods">
 			<!-- <li v-for="mod in myMods" :key="mod.path" :style="{ background:mod.meta.color||'#eeeeee'}"> -->
 			<li v-for="mod in myMods" :key="mod.path">
@@ -19,7 +23,7 @@
 			</li>
 		</ul>
 
-		<el-drawer title="添加应用" v-model="modsDrawer" :size="520" destroy-on-close :before-close="beforeClose">
+		<el-drawer title="添加应用" v-model="modsDrawer" size="20%" destroy-on-close :before-close="beforeClose">
 			<div class="setMods mt15">
 				<h4>我的常用 ( {{ myMods.length }} )</h4>
 				<draggable tag="ul" v-model="myMods" animation="200" item-key="path" group="app" class="draggable-box" force-fallback fallback-on-body>
@@ -43,8 +47,10 @@
 				</draggable>
 			</div>
 			<template #footer>
-				<el-button @click="beforeClose">取消</el-button>
-				<el-button type="primary" @click="saveMods">保存</el-button>
+				<div style="margin-bottom: 20px; margin-right: 20px">
+					<el-button @click="beforeClose">取消</el-button>
+					<el-button type="primary" @click="saveMods">保存</el-button>
+				</div>
 			</template>
 		</el-drawer>
 	</el-card>

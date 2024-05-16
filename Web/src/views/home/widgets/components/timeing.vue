@@ -1,5 +1,9 @@
 <template>
-	<el-card shadow="hover" header="时钟" class="item-background">
+	<el-card shadow="hover" header="当前时钟" class="item-background">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Clock /> </el-icon>
+			<span style=""> 当前时钟 </span>
+		</template>
 		<div class="time">
 			<h2>{{ time }}</h2>
 			<p>{{ day }}</p>
@@ -41,7 +45,7 @@ const showTime = () => {
 
 <style scoped>
 .item-background {
-	background: linear-gradient(to right, #8e54e9, #4776e6);
+	background: var(--el-color-primary);
 	color: #fff;
 }
 .time h2 {

@@ -1,5 +1,9 @@
 <template>
 	<el-card shadow="hover" header="欢迎">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Promotion /> </el-icon>
+			<span style=""> 欢迎 </span>
+		</template>
 		<div class="welcome">
 			<div class="logo">
 				<!-- <img src="/@/assets/logo.png" style="height: 150px;"/> -->
@@ -26,7 +30,7 @@
 				</div>
 			</div>
 			<div class="actions">
-				<el-button type="primary" icon="ele-Check" size="large" @click="godoc">文档</el-button>
+				<el-button type="primary" icon="ele-Check" size="large" @click="godoc">文档教程</el-button>
 			</div>
 		</div>
 	</el-card>

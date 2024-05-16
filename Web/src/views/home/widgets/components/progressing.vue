@@ -1,7 +1,11 @@
 <template>
-	<el-card shadow="hover" header="进度环">
+	<el-card shadow="hover" header="项目进度">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Odometer /> </el-icon>
+			<span style=""> 项目进度 </span>
+		</template>
 		<div class="progress">
-			<el-progress type="dashboard" :percentage="85.5" :width="160">
+			<el-progress type="dashboard" :percentage="85.5" :width="160" color="var(--el-color-primary)">
 				<template #default="{ percentage }">
 					<div class="percentage-value">{{ percentage }}%</div>
 					<div class="percentage-label">当前进度</div>

@@ -223,7 +223,7 @@ const close = () => {
 	flex: 1;
 	overflow: auto;
 	overflow-x: hidden;
-	padding: 15px;
+	padding: 10px;
 }
 .widgets-aside {
 	width: 360px;
@@ -231,6 +231,7 @@ const close = () => {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	position: relative;
 	overflow: auto;
+	padding-top: 20px;
 }
 .widgets-aside-title {
 	font-size: 14px;

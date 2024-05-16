@@ -29,13 +29,14 @@ public class EnumToDictJob : IJob
         var db = serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
         var enumTypeList = sysEnumService.GetEnumTypeList();
-        var enumCodeList = enumTypeList.Select(x => x.TypeName);
-        var sysDictTypeCodeList = await db.Queryable<SysDictType>().Where(x => enumCodeList.Contains(x.Code)).Select(x => x.Code).ToListAsync(stoppingToken);
-        // 更新的
-        var uEnumType = enumTypeList.Where(x => sysDictTypeCodeList.Contains(x.TypeName)).ToList();
-        var waitUpdateSysDictType = await db.Queryable<SysDictType>().Where(x => uEnumType.Any(y => y.TypeName == x.Code)).ToListAsync(stoppingToken);
-        var waitUpdateSysDictTypeDict = waitUpdateSysDictType.ToDictionary(x => x.Code, x => x);
-        var waitUpdateSysDictData = await db.Queryable<SysDictData>().Where(x => uEnumType.Any(y => y.TypeName == x.DictType.Code)).ToListAsync(stoppingToken);
+        var enumCodeList = enumTypeList.Select(u => u.TypeName);
+        var sysDictTypeCodeList = await db.Queryable<SysDictType>().Where(u => enumCodeList.Contains(u.Code)).Select(u => u.Code).ToListAsync(stoppingToken);
+
+        // 更新的枚举转换字典
+        var uEnumType = enumTypeList.Where(u => sysDictTypeCodeList.Contains(u.TypeName)).ToList();
+        var waitUpdateSysDictType = await db.Queryable<SysDictType>().Where(u => uEnumType.Any(a => a.TypeName == u.Code)).ToListAsync(stoppingToken);
+        var waitUpdateSysDictTypeDict = waitUpdateSysDictType.ToDictionary(u => u.Code, u => u);
+        var waitUpdateSysDictData = await db.Queryable<SysDictData>().Where(u => uEnumType.Any(a => a.TypeName == u.DictType.Code)).ToListAsync(stoppingToken);
         var uSysDictType = new List<SysDictType>();
         var uSysDictData = new List<SysDictData>();
         if (uEnumType.Count > 0)
@@ -47,73 +48,70 @@ public class EnumToDictJob : IJob
                     var uDictType = value;
                     uDictType.Name = e.TypeDescribe;
                     uDictType.Remark = e.TypeRemark;
-                    var uDictData = waitUpdateSysDictData.Where(x => x.DictTypeId == uDictType.Id).ToList();
+                    var uDictData = waitUpdateSysDictData.Where(u => u.DictTypeId == uDictType.Id).ToList();
                     if (uDictData.Count > 0)
                     {
-                        uDictData.ForEach(d =>
+                        uDictData.ForEach(dictData =>
                         {
-                            var enumData = e.EnumEntities.Where(x => d.Code == x.Name).FirstOrDefault();
+                            var enumData = e.EnumEntities.Where(u => dictData.Code == u.Name).FirstOrDefault();
                             if (enumData != null)
                             {
-                                d.Value = enumData.Value.ToString();
-                                d.Code = enumData.Name;
-                                uSysDictData.Add(d);
+                                dictData.Value = enumData.Value.ToString();
+                                dictData.Code = enumData.Name;
+                                dictData.OrderNo = enumData.Value + 10;
+                                uSysDictData.Add(dictData);
                             }
                         });
                     }
-                    if (!uSysDictType.Any(x => x.Id == uDictType.Id))
-                    {
+                    if (!uSysDictType.Any(u => u.Id == uDictType.Id))
                         uSysDictType.Add(uDictType);
-                    }
                 }
             });
             try
             {
                 db.Ado.BeginTran();
+
                 if (uSysDictType.Count > 0)
-                {
                     await db.Updateable(uSysDictType).ExecuteCommandAsync(stoppingToken);
-                }
+
                 if (uSysDictData.Count > 0)
-                {
                     await db.Updateable(uSysDictData).ExecuteCommandAsync(stoppingToken);
-                }
+
                 db.Ado.CommitTran();
             }
             catch (Exception error)
             {
                 db.Ado.RollbackTran();
-                Log.Error($"{context.Trigger.Description}错误：" + _jsonSerializer.Serialize(error));
-                throw new Exception($"{context.Trigger.Description}错误");
+                Log.Error($"{context.Trigger.Description}更新枚举转换字典入库错误：" + _jsonSerializer.Serialize(error));
+                throw new Exception($"{context.Trigger.Description}更新枚举转换字典入库错误");
             }
         }
-        // 添加的
-        var iEnumType = enumTypeList.Where(x => !sysDictTypeCodeList.Contains(x.TypeName)).ToList();
+
+        // 新增的枚举转换字典
+        var iEnumType = enumTypeList.Where(u => !sysDictTypeCodeList.Contains(u.TypeName)).ToList();
         if (iEnumType.Count > 0)
         {
-            // 需要新增的字典类型
-            var iDictType = iEnumType.Select(x => new SysDictType
+            // 新增字典类型
+            var iDictType = iEnumType.Select(u => new SysDictType
             {
                 Id = YitIdHelper.NextId(),
-                Code = x.TypeName,
-                Name = x.TypeDescribe,
-                Remark = x.TypeRemark,
-                Status = StatusEnum.Enable,
-                OrderNo = 100
+                Code = u.TypeName,
+                Name = u.TypeDescribe,
+                Remark = u.TypeRemark,
+                Status = StatusEnum.Enable
             }).ToList();
-            // 需要新增的字典数据
+            // 新增字典数据
             var dictData = iEnumType.Join(iDictType, t1 => t1.TypeName, t2 => t2.Code, (t1, t2) => new
             {
-                data = t1.EnumEntities.Select(x => new SysDictData
+                data = t1.EnumEntities.Select(u => new SysDictData
                 {
-                    // 性能优化，使用BulkCopyAsync必须手动获取Id
-                    Id = YitIdHelper.NextId(),
+                    Id = YitIdHelper.NextId(), // 性能优化，使用BulkCopyAsync必须手动获取Id
                     DictTypeId = t2.Id,
-                    Name = x.Describe,
-                    Value = x.Value.ToString(),
-                    Code = x.Name,
+                    Name = u.Describe,
+                    Value = u.Value.ToString(),
+                    Code = u.Name,
                     Remark = t2.Remark,
-                    OrderNo = 100,
+                    OrderNo = u.Value + 10,
                     TagType = "info"
                 }).ToList()
             }).ToList();
@@ -125,21 +123,20 @@ public class EnumToDictJob : IJob
             try
             {
                 db.Ado.BeginTran();
+
                 if (iDictType.Count > 0)
-                {
                     await db.Insertable(iDictType).ExecuteCommandAsync(stoppingToken);
-                }
+
                 if (iDictData.Count > 0)
-                {
                     await db.Insertable(iDictData).ExecuteCommandAsync(stoppingToken);
-                }
+
                 db.Ado.CommitTran();
             }
             catch (Exception error)
             {
                 db.Ado.RollbackTran();
-                Log.Error($"{context.Trigger.Description}错误：" + _jsonSerializer.Serialize(error));
-                throw new Exception($"{context.Trigger.Description}错误");
+                Log.Error($"{context.Trigger.Description}新增枚举转换字典入库错误：" + _jsonSerializer.Serialize(error));
+                throw new Exception($"{context.Trigger.Description}新增枚举转换字典入库错误");
             }
         }
 

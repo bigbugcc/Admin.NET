@@ -1,5 +1,9 @@
 <template>
 	<el-card shadow="hover" header="版本信息">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-InfoFilled /> </el-icon>
+			<span style=""> 版本信息 </span>
+		</template>
 		<div style="height: 210px; text-align: center">
 			<img :src="verSvg" style="height: 140px" />
 			<h2 style="margin-top: 15px">Admin.Net</h2>
