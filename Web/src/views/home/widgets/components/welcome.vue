@@ -26,7 +26,7 @@
 					<div class="tips-item-icon">
 						<el-icon><ele-MilkTea /></el-icon>
 					</div>
-					<div class="tips-item-message">项目目的：让前端工作更快乐</div>
+					<div class="tips-item-message">让开发更简单、更通用、更流行！</div>
 				</div>
 			</div>
 			<div class="actions">

@@ -65,6 +65,7 @@ public class SysTenantService : IDynamicApiController, ITransient
             .LeftJoin<SysOrg>((u, a, b) => u.OrgId == b.Id)
             .WhereIF(!string.IsNullOrWhiteSpace(input.Phone), (u, a) => a.Phone.Contains(input.Phone.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), (u, a, b) => b.Name.Contains(input.Name.Trim()))
+            .Where(u => u.Id.ToString() != SqlSugarConst.MainConfigId) // 排除默认主库/主租户
             .OrderBy(u => u.OrderNo)
             .Select((u, a, b) => new TenantOutput
             {
@@ -122,16 +123,18 @@ public class SysTenantService : IDynamicApiController, ITransient
 
         switch (input.TenantType)
         {
+            // Id隔离时设置与主库一致
             case TenantTypeEnum.Id:
-                // ID隔离时设置与主库一致
                 var config = _sysTenantRep.AsSugarClient().CurrentConnectionConfig;
                 input.DbType = config.DbType;
                 input.Connection = config.ConnectionString;
                 break;
+
             case TenantTypeEnum.Db:
                 if (string.IsNullOrWhiteSpace(input.Connection))
                     throw Oops.Oh(ErrorCodeEnum.Z1004);
                 break;
+
             default:
                 throw Oops.Oh(ErrorCodeEnum.D3004);
         }
@@ -297,18 +300,21 @@ public class SysTenantService : IDynamicApiController, ITransient
         isExist = await _sysUserRep.IsAnyAsync(u => u.Account == input.AdminAccount && u.Id != input.UserId);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D1301);
+
+        // Id隔离时设置与主库一致
         switch (input.TenantType)
         {
             case TenantTypeEnum.Id:
-                // ID隔离时设置与主库一致
                 var config = _sysTenantRep.AsSugarClient().CurrentConnectionConfig;
                 input.DbType = config.DbType;
                 input.Connection = config.ConnectionString;
                 break;
+
             case TenantTypeEnum.Db:
                 if (string.IsNullOrWhiteSpace(input.Connection))
                     throw Oops.Oh(ErrorCodeEnum.Z1004);
                 break;
+
             default:
                 throw Oops.Oh(ErrorCodeEnum.D3004);
         }

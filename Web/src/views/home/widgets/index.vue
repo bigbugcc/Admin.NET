@@ -266,7 +266,7 @@ const close = () => {
 .widgets-top-title {
 	// font-size: 18px;
 	// font-weight: bold;
-	color: #999
+	color: #999;
 }
 
 .widgets {
