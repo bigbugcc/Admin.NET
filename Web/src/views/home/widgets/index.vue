@@ -208,7 +208,7 @@ const backDefault = () => {
 const close = () => {
 	customizing.value = false;
 	widgetsRef.value?.style.removeProperty('transform');
-	grid.value = Local.get('grid');
+	grid.value = Local.get('grid') ? Local.get('grid') : defaultGrid;
 };
 </script>
 
