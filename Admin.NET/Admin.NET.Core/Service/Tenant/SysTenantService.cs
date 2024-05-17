@@ -120,12 +120,20 @@ public class SysTenantService : IDynamicApiController, ITransient
         if (!string.IsNullOrWhiteSpace(input.SlaveConnections) && !JSON.IsValid(input.SlaveConnections))
             throw Oops.Oh(ErrorCodeEnum.D1302);
 
-        // ID隔离时设置与主库一致
-        if (input.TenantType == TenantTypeEnum.Id)
+        switch (input.TenantType)
         {
-            var config = _sysTenantRep.AsSugarClient().CurrentConnectionConfig;
-            input.DbType = config.DbType;
-            input.Connection = config.ConnectionString;
+            case TenantTypeEnum.Id:
+                // ID隔离时设置与主库一致
+                var config = _sysTenantRep.AsSugarClient().CurrentConnectionConfig;
+                input.DbType = config.DbType;
+                input.Connection = config.ConnectionString;
+                break;
+            case TenantTypeEnum.Db:
+                if (string.IsNullOrWhiteSpace(input.Connection))
+                    throw Oops.Oh(ErrorCodeEnum.Z1004);
+                break;
+            default:
+                throw Oops.Oh(ErrorCodeEnum.D3004);
         }
 
         var tenant = input.Adapt<TenantOutput>();
@@ -289,7 +297,21 @@ public class SysTenantService : IDynamicApiController, ITransient
         isExist = await _sysUserRep.IsAnyAsync(u => u.Account == input.AdminAccount && u.Id != input.UserId);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D1301);
-
+        switch (input.TenantType)
+        {
+            case TenantTypeEnum.Id:
+                // ID隔离时设置与主库一致
+                var config = _sysTenantRep.AsSugarClient().CurrentConnectionConfig;
+                input.DbType = config.DbType;
+                input.Connection = config.ConnectionString;
+                break;
+            case TenantTypeEnum.Db:
+                if (string.IsNullOrWhiteSpace(input.Connection))
+                    throw Oops.Oh(ErrorCodeEnum.Z1004);
+                break;
+            default:
+                throw Oops.Oh(ErrorCodeEnum.D3004);
+        }
         // 从库配置判断
         if (!string.IsNullOrWhiteSpace(input.SlaveConnections) && !JSON.IsValid(input.SlaveConnections))
             throw Oops.Oh(ErrorCodeEnum.D1302);
@@ -365,7 +387,8 @@ public class SysTenantService : IDynamicApiController, ITransient
         // 对租户库连接进行SM2加密
         foreach (var tenant in tenantList)
         {
-            tenant.Connection = CryptogramUtil.SM2Encrypt(tenant.Connection);
+            if (!string.IsNullOrWhiteSpace(tenant.Connection))
+                tenant.Connection = CryptogramUtil.SM2Encrypt(tenant.Connection);
         }
         _sysCacheService.Set(CacheConst.KeyTenant, tenantList);
     }
