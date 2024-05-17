@@ -237,7 +237,7 @@
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 								<el-form-item label="联系人地址">
-									<el-input v-model="state.ruleForm.emergencyAddress" placeholder="紧急联系人" clearable type="textarea" />
+									<el-input v-model="state.ruleForm.emergencyAddress" placeholder="联系人地址" clearable type="textarea" />
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
