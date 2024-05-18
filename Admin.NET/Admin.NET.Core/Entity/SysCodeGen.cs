@@ -86,10 +86,16 @@ public partial class SysCodeGen : EntityBase
     public string? BusName { get; set; }
 
     /// <summary>
+    /// 是否生成菜单
+    /// </summary>
+    [SugarColumn(ColumnDescription = "是否生成菜单")]
+    public bool GenerateMenu { get; set; } = true;
+
+    /// <summary>
     /// 菜单编码
     /// </summary>
     [SugarColumn(ColumnDescription = "菜单编码")]
-    public long MenuPid { get; set; }
+    public long? MenuPid { get; set; }
 
     /// <summary>
     /// 支持打印类型

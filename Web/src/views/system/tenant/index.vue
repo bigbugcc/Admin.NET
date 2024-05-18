@@ -56,6 +56,15 @@
 						<el-tag v-else-if="scope.row.dbType === 12"> HG </el-tag>
 						<el-tag v-else-if="scope.row.dbType === 13"> ClickHouse </el-tag>
 						<el-tag v-else-if="scope.row.dbType === 14"> GBase </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 15"> Odbc </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 16"> OceanBaseForOracle </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 17"> TDengine </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 18"> GaussDB </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 19"> OceanBase </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 20"> Tidb </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 21"> Vastbase </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 22"> PolarDB </el-tag>
+						<el-tag v-else-if="scope.row.dbType === 23"> Doris </el-tag>
 						<el-tag v-else-if="scope.row.dbType === 900"> Custom </el-tag>
 					</template>
 				</el-table-column>

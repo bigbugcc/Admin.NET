@@ -77,9 +77,14 @@ public class CodeGenInput : BasePageInput
     public virtual string MenuApplication { get; set; }
 
     /// <summary>
+    /// 是否生成菜单
+    /// </summary>
+    public virtual bool GenerateMenu { get; set; }
+
+    /// <summary>
     /// 菜单父级
     /// </summary>
-    public virtual long MenuPid { get; set; }
+    public virtual long? MenuPid { get; set; }
 
     /// <summary>
     /// 支持打印类型
@@ -143,10 +148,10 @@ public class AddCodeGenInput : CodeGenInput
     //public override string TableComment { get; set; }
 
     /// <summary>
-    /// 菜单父级
+    /// 是否生成菜单
     /// </summary>
-    [Required(ErrorMessage = "菜单父级不能为空")]
-    public override long MenuPid { get; set; }
+    [Required(ErrorMessage = "是否生成菜单不能为空")]
+    public override bool GenerateMenu { get; set; }
 }
 
 public class DeleteCodeGenInput
