@@ -14,6 +14,7 @@ using IGeekFan.AspNetCore.Knife4jUI;
 using IPTools.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -187,7 +188,7 @@ public class Startup : AppStartup
 
         app.Use(async (context, next) =>
         {
-            context.Response.Headers.Add("Admin.NET", "Admin.NET");
+            context.Response.Headers.Append("Admin.NET", "Admin.NET");
             await next();
         });
 
