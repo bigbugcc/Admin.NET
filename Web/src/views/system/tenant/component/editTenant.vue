@@ -65,6 +65,15 @@
 								<el-option label="HG" :value="12" />
 								<el-option label="ClickHouse" :value="13" />
 								<el-option label="GBase" :value="14" />
+								<el-option label="Odbc" :value="'15'" />
+								<el-option label="OceanBaseForOracle" :value="'16'" />
+								<el-option label="TDengine" :value="'17'" />
+								<el-option label="GaussDB" :value="'18'" />
+								<el-option label="OceanBase" :value="'19'" />
+								<el-option label="Tidb" :value="'20'" />
+								<el-option label="Vastbase" :value="'21'" />
+								<el-option label="PolarDB" :value="'22'" />
+								<el-option label="Doris" :value="'23'" />
 								<el-option label="Custom" :value="900" />
 							</el-select>
 						</el-form-item>

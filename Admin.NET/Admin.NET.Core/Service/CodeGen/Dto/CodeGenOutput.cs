@@ -62,9 +62,14 @@ public class CodeGenOutput
     public string MenuApplication { get; set; }
 
     /// <summary>
+    /// 是否生成菜单
+    /// </summary>
+    public bool GenerateMenu { get; set; }
+
+    /// <summary>
     /// 菜单父级
     /// </summary>
-    public long MenuPid { get; set; }
+    public long? MenuPid { get; set; }
 
     /// <summary>
     /// 支持打印类型

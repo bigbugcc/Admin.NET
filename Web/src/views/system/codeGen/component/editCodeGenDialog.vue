@@ -34,6 +34,15 @@
 								<el-option label="HG" :value="'12'" />
 								<el-option label="ClickHouse" :value="'13'" />
 								<el-option label="GBase" :value="'14'" />
+								<el-option label="Odbc" :value="'15'" />
+								<el-option label="OceanBaseForOracle" :value="'16'" />
+								<el-option label="TDengine" :value="'17'" />
+								<el-option label="GaussDB" :value="'18'" />
+								<el-option label="OceanBase" :value="'19'" />
+								<el-option label="Tidb" :value="'20'" />
+								<el-option label="Vastbase" :value="'21'" />
+								<el-option label="PolarDB" :value="'22'" />
+								<el-option label="Doris" :value="'23'" />
 								<el-option label="Custom" :value="'900'" />
 							</el-select>
 						</el-form-item>
@@ -56,11 +65,20 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="生成菜单" prop="generateMenu">
+							<el-radio-group v-model="state.ruleForm.generateMenu">
+								<el-radio :value="true">是</el-radio>
+								<el-radio :value="false">否</el-radio>
+							</el-radio-group>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="父级菜单" prop="menuPid">
 							<el-cascader
 								:options="state.menuData"
 								:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'title' }"
 								placeholder="请选择上级菜单"
+								:disabled="!state.ruleForm.generateMenu"
 								clearable
 								class="w100"
 								v-model="state.ruleForm.menuPid"
@@ -214,3 +232,9 @@ const submit = () => {
 // 导出对象
 defineExpose({ openDialog });
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-dialog__body) {
+	min-height: 450px;
+}
+</style>

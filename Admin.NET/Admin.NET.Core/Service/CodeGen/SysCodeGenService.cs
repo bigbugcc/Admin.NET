@@ -360,8 +360,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
                 Directory.CreateDirectory(dirPath);
             File.WriteAllText(targetPathList[i], tResult, Encoding.UTF8);
         }
-
-        await AddMenu(input.TableName, input.BusName, input.MenuPid, tableFieldList);
+        if (input.GenerateMenu)
+            await AddMenu(input.TableName, input.BusName, input.MenuPid ?? 0, tableFieldList);
         // 非ZIP压缩返回空
         if (!input.GenerateType.StartsWith('1'))
             return null;
