@@ -225,4 +225,7 @@ const beforeClose = () => {
 .setMods li.sortable-ghost {
 	opacity: 0.3;
 }
+a {
+  text-decoration: none;
+}
 </style>
