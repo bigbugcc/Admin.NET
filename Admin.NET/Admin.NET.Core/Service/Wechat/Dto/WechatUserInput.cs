@@ -16,7 +16,7 @@ public class WechatUserInput : BasePageInput
     /// <summary>
     /// 手机号码
     /// </summary>
-    public string PhoneNumber { get; set; }
+    public string Mobile { get; set; }
 }
 
 public class DeleteWechatUserInput : BaseIdInput
