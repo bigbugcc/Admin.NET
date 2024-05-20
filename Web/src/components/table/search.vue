@@ -86,14 +86,6 @@
 				</el-col>
 				<el-col :xs="12" :sm="9" :md="9" :lg="6" :xl="4" class="mb20">
 					<el-form-item class="table-form-btn" label-width="auto">
-						<template #label>
-							<div v-if="search.length > 3">
-								<div class="table-form-btn-toggle" @click="state.isToggle = !state.isToggle">
-									<span>{{ state.isToggle ? '收起' : '展开' }}</span>
-									<SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
-								</div>
-							</div>
-						</template>
 						<div>
 							<!-- 使用el-button-group会导致具有type属性的按钮的右边框无法显示 -->
 							<!-- <el-button-group> -->
@@ -104,6 +96,11 @@
 					</el-form-item>
 				</el-col>
 			</el-row>
+           <el-divider style="margin-top: 5px;" v-if="search.length > 3">
+				<el-button :icon="state.isToggle ? 'ele-ArrowUpBold' : 'ele-ArrowDownBold'" class="divider-btn"
+					@click="state.isToggle = !state.isToggle">
+				</el-button>
+			</el-divider>
 		</el-form>
 	</div>
 </template>
@@ -219,5 +216,10 @@ const shortcuts = [
 			color: var(--el-color-primary);
 		}
 	}
+}
+
+.divider-btn{
+   height: 20px;
+   border-radius: 10px;
 }
 </style>
