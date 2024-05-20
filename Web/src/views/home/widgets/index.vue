@@ -44,15 +44,17 @@
 			</div>
 		</div>
 		<div v-if="customizing" class="widgets-aside">
-			<el-container>
-				<el-header>
-					<div class="widgets-aside-title">
-						<el-icon><ele-CirclePlusFilled /></el-icon>添加部件
-					</div>
+			<div class="widgets-top">
+				<div class="widgets-aside-title">
+					<el-icon><ele-CirclePlusFilled /></el-icon>添加部件
+				</div>
+				<div class="widgets-top-actions">
 					<div class="widgets-aside-close" @click="close">
 						<el-icon><ele-Close /></el-icon>
 					</div>
-				</el-header>
+				</div>
+			</div>
+			<el-container>
 				<el-header style="height: auto">
 					<div class="selectLayout">
 						<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '12,6,6' }" @click="setLayout([12, 6, 6])">
@@ -234,6 +236,8 @@ const close = () => {
 	padding-top: 20px;
 }
 .widgets-aside-title {
+	margin-top: 10px;
+	margin-left: 10px;
 	font-size: 14px;
 	display: flex;
 	align-items: center;
