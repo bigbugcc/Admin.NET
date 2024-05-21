@@ -148,7 +148,10 @@ axiosInstance.interceptors.response.use(
 			} else {
 				message = serve.message;
 			}
-			ElMessage.error(message);
+			// 用户自定义处理异常
+			if (!res.config?.customCatch) {
+			    ElMessage.error(message);
+			}
 			throw new Error(message);
 		}
 
@@ -162,8 +165,11 @@ axiosInstance.interceptors.response.use(
 			}
 		}
 
-		// 响应错误代码及自定义处理
-		ElMessage.error(error);
+		// 用户自定义处理异常
+		if (!error.config?.customCatch) {
+		    // 响应错误代码及自定义处理
+			ElMessage.error(error);
+		}
 
 		return Promise.reject(error);
 	}
