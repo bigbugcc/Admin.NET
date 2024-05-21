@@ -110,6 +110,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, nextTick } from 'vue';
 import draggable from 'vuedraggable';
+import { clone } from '/@/utils/arrayOperation';
 import allComps from './components/index';
 import { Local } from '/@/utils/storage';
 
@@ -125,7 +126,7 @@ const defaultGrid = ({
 const customizing = ref<boolean>(false);
 const allCompsList = ref(allComps);
 const widgetsRef = ref<HTMLElement | null>(null);
-const grid = ref<Grid>({ ...defaultGrid });
+const grid = ref<Grid>(clone(defaultGrid));
 
 onMounted(() => {
 	const savedGrid = Local.get('grid');
@@ -202,7 +203,7 @@ const save = () => {
 const backDefault = () => {
 	customizing.value = false;
 	widgetsRef.value?.style.removeProperty('transform');
-	grid.value = JSON.parse(JSON.stringify(defaultGrid));
+	grid.value = clone(defaultGrid);
 	Local.remove('grid');
 };
 
