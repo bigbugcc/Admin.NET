@@ -117,7 +117,7 @@ interface Grid {
 	layout: number[];
 	copmsList: string[][];
 }
-const defaultGrid = reactive<Grid>({
+const defaultGrid = ({
 	layout: [12, 6, 6],
 	copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']],
 });
@@ -125,7 +125,7 @@ const defaultGrid = reactive<Grid>({
 const customizing = ref<boolean>(false);
 const allCompsList = ref(allComps);
 const widgetsRef = ref<HTMLElement | null>(null);
-const grid = ref<Grid>(defaultGrid);
+const grid = ref<Grid>({ ...defaultGrid });
 
 onMounted(() => {
 	const savedGrid = Local.get('grid');
