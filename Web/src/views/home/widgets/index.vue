@@ -199,16 +199,16 @@ const custom = () => {
 // 设置布局
 const setLayout = (layout: number[]) => {
 	grid.value.layout = layout;
-	if (grid.value.copmsList.length != layout.length && layout.length != 1) {
-		while(grid.value.copmsList.length > layout.length) {
-			if (grid.value.copmsList[grid.value.copmsList.length - 1].length > 0)
-				grid.value.copmsList[grid.value.copmsList.length - 2] = [...grid.value.copmsList[grid.value.copmsList.length - 2], ...grid.value.copmsList[grid.value.copmsList.length - 1]];
-			grid.value.copmsList.pop();
-		}
-		while(grid.value.copmsList.length < layout.length) {
-			grid.value.copmsList.push([]);
-		}
-	}
+	if (grid.value.layout.length < grid.value.copmsList.length) {
+    for (let i = grid.value.layout.length; i < grid.value.copmsList.length; i++) {
+      grid.value.copmsList[grid.value.layout.length - 1] = grid.value.copmsList[grid.value.layout.length - 1].concat(grid.value.copmsList[i])
+    }
+    grid.value.copmsList = grid.value.copmsList.slice(0, grid.value.layout.length)
+  } else if (grid.value.layout.length > grid.value.copmsList.length) {
+    for (let i = grid.value.copmsList.length; i < grid.value.layout.length; i++) {
+      grid.value.copmsList[i] = []
+    }
+  }
 };
 
 // 追加
