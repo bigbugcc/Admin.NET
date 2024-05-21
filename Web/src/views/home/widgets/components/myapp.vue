@@ -28,7 +28,7 @@
 			</div>
 			<div class="setMods">
 				<h4>全部应用 ( {{ filterMods.length }} )</h4>
-				<draggable tag="ul" v-model="filterMods" animation="200" item-key="id" group="app" class="draggable-box" force-fallback fallback-on-body>
+				<draggable tag="ul" v-model="filterMods" animation="200" item-key="id" group="app" class="draggable-box-all" force-fallback fallback-on-body>
 					<template #item="{ element }">
 						<li :style="{ background: element.meta.color || '#909399' }">
 							<SvgIcon :name="element.meta.icon" style="font-size: 18px" />
@@ -188,6 +188,17 @@ const beforeClose = () => {
 .draggable-box {
 	border: 1px dashed var(--el-color-primary);
 	padding: 15px;
+}
+
+.draggable-box-all {
+	border: 1px dashed var(--el-color-primary);
+	padding: 15px;
+	height: calc(100vh - 330px);
+	overflow-y:scroll;
+}
+
+.draggable-box-all::-webkit-scrollbar {
+	display: none;
 }
 
 .setMods {
