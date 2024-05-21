@@ -78,6 +78,30 @@
 								<el-col :span="24"><span></span></el-col>
 							</el-row>
 						</div>
+						<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '6,12,6' }" @click="setLayout([6, 12, 6])">
+							<el-row :gutter="2">
+								<el-col :span="6"><span></span></el-col>
+								<el-col :span="12"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+							</el-row>
+						</div>
+						<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,6,12,6' }" @click="setLayout([24, 6, 12, 6])">
+							<el-row :gutter="2"> 
+								<el-col :span="24"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+								<el-col :span="12"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+							</el-row>
+						</div>
+						<div class="selectLayout-item item05" :class="{ active: grid.layout.join(',') === '24,6,12,6,24' }" @click="setLayout([24, 6, 12, 6, 24])">
+							<el-row :gutter="2"> 
+								<el-col :span="24"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+								<el-col :span="12"><span></span></el-col>
+								<el-col :span="6"><span></span></el-col>
+								<el-col :span="24"><span></span></el-col>
+							</el-row>
+						</div>
 					</div>
 				</el-header>
 				<el-main class="nopadding">
@@ -175,10 +199,15 @@ const custom = () => {
 // 设置布局
 const setLayout = (layout: number[]) => {
 	grid.value.layout = layout;
-	if (layout.join(',') === '24') {
-		grid.value.copmsList[0] = [...grid.value.copmsList[0], ...grid.value.copmsList[1], ...grid.value.copmsList[2]];
-		grid.value.copmsList[1] = [];
-		grid.value.copmsList[2] = [];
+	if (grid.value.copmsList.length != layout.length && layout.length != 1) {
+		while(grid.value.copmsList.length > layout.length) {
+			if (grid.value.copmsList[grid.value.copmsList.length - 1].length > 0)
+				grid.value.copmsList[grid.value.copmsList.length - 2] = [...grid.value.copmsList[grid.value.copmsList.length - 2], ...grid.value.copmsList[grid.value.copmsList.length - 1]];
+			grid.value.copmsList.pop();
+		}
+		while(grid.value.copmsList.length < layout.length) {
+			grid.value.copmsList.push([]);
+		}
 	}
 };
 
@@ -332,6 +361,9 @@ const close = () => {
 }
 .customize-overlay .close {
 	position: absolute;
+	padding-right: 6px;
+	width: 30px;
+	height: 30px;
 	top: 15px;
 	right: 15px;
 }
@@ -379,11 +411,18 @@ const close = () => {
 	opacity: 0.5;
 }
 
+.layout-list {
+	height: 120px;
+}
+
 .selectLayout {
 	width: 100%;
+	height: auto;
 	display: flex;
+	flex-wrap: wrap;
 }
 .selectLayout-item {
+	margin: 5px;
 	width: 60px;
 	height: 60px;
 	border: 2px solid var(--el-border-color-light);
@@ -406,6 +445,17 @@ const close = () => {
 .selectLayout-item.item03 span {
 	height: 14px;
 	margin-bottom: 2px;
+}
+.selectLayout-item.item05 span {
+	height: 15px;
+}
+.selectLayout-item.item05 .el-col:first-child span {
+	height: 14px;
+	margin-bottom: 2px;
+}
+.selectLayout-item.item05 .el-col:last-child span {
+	height: 14px;
+	margin-top: 2px;
 }
 .selectLayout-item:hover {
 	border-color: var(--el-color-primary);
