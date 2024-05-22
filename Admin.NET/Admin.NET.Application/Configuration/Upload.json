@@ -17,5 +17,12 @@
     "IsEnableHttps": false, // 是否启用HTTPS
     "IsEnableCache": true, // 是否启用缓存
     "Bucket": "admin.net"
+  },
+  "SSHProvider": {
+    "IsEnable": false, 
+    "Host": "127.0.0.1",
+    "Port": 8222,
+    "Username": "sshuser",
+    "Password": "Password.1"
   }
 }

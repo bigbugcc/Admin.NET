@@ -380,7 +380,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileUploadFilePostForm: async (file?: Blob, path?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileUploadFilePostForm: async (file?: Blob, path?: string, filetype?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/uploadFile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -409,6 +409,10 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
 
             if (file !== undefined) { 
                 localVarFormParams.append('file', file as any);
+            }
+
+            if (filetype !== undefined) { 
+                localVarFormParams.append('filetype', filetype);
             }
 
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -649,8 +653,8 @@ export const SysFileApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, path?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, path, options);
+        async apiSysFileUploadFilePostForm(file?: Blob, path?: string, filetype?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, path,filetype, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -768,11 +772,12 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
          * @summary 上传文件 🔖
          * @param {Blob} [file] 
          * @param {string} [path] 
+         * @param {string} [filetype] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, path?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
-            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, path, options).then((request) => request(axios, basePath));
+        async apiSysFileUploadFilePostForm(file?: Blob, path?: string,filetype?:string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, path,filetype, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -890,8 +895,8 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFilePostForm(file?: Blob, path?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
-        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, path, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysFileUploadFilePostForm(file?: Blob, path?: string, filetype?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, path,filetype, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
