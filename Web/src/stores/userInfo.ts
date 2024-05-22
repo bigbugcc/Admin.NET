@@ -162,7 +162,7 @@ export const useUserInfo = defineStore('userInfo', {
 			for (let index = 0; index < ds.length; index++) {
 				const element = ds[index];
 				if (element.value == label) {
-					return element.code;
+					return element;
 				}
 			}
 		},
