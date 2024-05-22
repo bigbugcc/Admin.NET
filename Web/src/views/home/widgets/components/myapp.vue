@@ -1,50 +1,50 @@
 <template>
-	<el-card shadow="hover" header="快捷入口">
-		<ul class="myMods">
-			<li v-for="mod in myMods" :key="mod.path!">
-				<router-link :to="{ path: mod.path! }">
-					<SvgIcon :name="mod.meta?.icon" style="font-size: 18px" />
-					<p>{{ mod.meta?.title }}</p>
-				</router-link>
-			</li>
-			<li class="modItem-add" @click="addMods">
-				<a>
-					<el-icon><ele-Plus :style="{ color: '#fff' }" /></el-icon>
-				</a>
-			</li>
-		</ul>
+  <el-card shadow="hover" header="快捷入口">
+    <ul class="myMods">
+      <li v-for="mod in myMods" :key="mod.path!">
+        <router-link :to="{ path: mod.path! }">
+          <SvgIcon :name="mod.meta?.icon" style="font-size: 18px" />
+          <p>{{ mod.meta?.title }}</p>
+        </router-link>
+      </li>
+      <li class="modItem-add" @click="addMods">
+        <a>
+          <el-icon><ele-Plus :style="{ color: '#fff' }" /></el-icon>
+        </a>
+      </li>
+    </ul>
 
-		<el-drawer title="添加应用" v-model="modsDrawer" :size="520" destroy-on-close :before-close="beforeClose">
-			<div class="setMods mt15">
-				<h4>我的常用 ( {{ myMods.length }} )</h4>
-				<draggable tag="ul" v-model="myMods" animation="200" item-key="id" group="app" class="draggable-box" force-fallback fallback-on-body>
-					<template #item="{ element }">
-						<li>
-							<SvgIcon :name="element.meta.icon" style="font-size: 18px" />
-							<p>{{ element.meta.title }}</p>
-						</li>
-					</template>
-				</draggable>
-			</div>
-			<div class="setMods">
-				<h4>全部应用 ( {{ filterMods.length }} )</h4>
-				<draggable tag="ul" v-model="filterMods" animation="200" item-key="id" group="app" class="draggable-box-all" force-fallback fallback-on-body>
-					<template #item="{ element }">
-						<li :style="{ background: element.meta.color || '#909399' }">
-							<SvgIcon :name="element.meta.icon" style="font-size: 18px" />
-							<p>{{ element.meta.title }}</p>
-						</li>
-					</template>
-				</draggable>
-			</div>
-			<template #footer>
-				<div style="margin: 0 20px 20px 0">
-					<el-button @click="beforeClose">取消</el-button>
-					<el-button type="primary" @click="saveMods">保存</el-button>
-				</div>
-			</template>
-		</el-drawer>
-	</el-card>
+    <el-drawer title="添加应用" v-model="modsDrawer" :size="520" destroy-on-close :before-close="beforeClose">
+      <div class="setMods mt15">
+        <h4>我的常用 ( {{ myMods.length }} )</h4>
+        <draggable tag="ul" v-model="myMods" animation="200" item-key="id" group="app" class="draggable-box" force-fallback fallback-on-body>
+          <template #item="{ element }">
+            <li>
+              <SvgIcon :name="element.meta.icon" style="font-size: 18px" />
+              <p>{{ element.meta.title }}</p>
+            </li>
+          </template>
+        </draggable>
+      </div>
+      <div class="setMods">
+        <h4>全部应用 ( {{ filterMods.length }} )</h4>
+        <draggable tag="ul" v-model="filterMods" animation="200" item-key="id" group="app" class="draggable-box-all" force-fallback fallback-on-body>
+          <template #item="{ element }">
+            <li :style="{ background: element.meta.color || '#909399' }">
+              <SvgIcon :name="element.meta.icon" style="font-size: 18px" />
+              <p>{{ element.meta.title }}</p>
+            </li>
+          </template>
+        </draggable>
+      </div>
+      <template #footer>
+        <div style="margin: 0 20px 20px 0">
+          <el-button @click="beforeClose">取消</el-button>
+          <el-button type="primary" @click="saveMods">保存</el-button>
+        </div>
+      </template>
+    </el-drawer>
+  </el-card>
 </template>
 
 <script lang="ts">
@@ -57,34 +57,59 @@ export default {
 
 <script setup lang="ts" name="myapp">
 import draggable from 'vuedraggable';
-import { onMounted, ref } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import { Local } from '/@/utils/storage';
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
 import { MenuOutput } from '/@/api-services/models';
 import { ElMessage } from 'element-plus';
+import { storeToRefs } from 'pinia';
+import { useUserInfo } from '/@/stores/userInfo';
+import { getAPI } from '/@/utils/axios-utils';
+import { SysUserFavoritesApi } from '/@/api-services/api';
+import { useRouter } from 'vue-router';
 
 const mods = ref<MenuOutput[]>([]); // 所有应用
 const myMods = ref<MenuOutput[]>([]); // 我的常用
 const myModsName = ref<Array<string | null | undefined>>([]); // 我的常用
 const filterMods = ref<MenuOutput[]>([]); // 过滤我的常用后的应用
 const modsDrawer = ref<boolean>(false);
+const myFavoriteMods = ref<Array<number | null | undefined>>([]); // 我的常用
+
+const navScrollbar = ref();
+
+const router = useRouter();
+const { userInfos } = storeToRefs(useUserInfo());
+
+const state = reactive({
+	navError: '',
+	navData: [],
+});
 
 onMounted(() => {
 	getMods();
 });
 
+// 请求已收藏菜单列表
+const getFavoriteMenuList = async () => {
+	try {
+		const res = await getAPI(SysUserFavoritesApi).apiSysUserFavoritesUserRoleListUserIdGet(userInfos.value.id);
+		return res.data.result || [];
+	} catch (error) {
+		return [];
+	}
+};
+
 const addMods = () => {
 	modsDrawer.value = true;
 };
 
-const getMods = () => {
-	myModsName.value = Local.get('my-mods') || [];
+const getMods = async () => {
 	var menuTree = (useRequestOldRoutes().requestOldRoutes as MenuOutput[]) || [];
 	filterMenu(menuTree);
-	myMods.value = mods.value.filter((item: MenuOutput) => {
-		return myModsName.value.includes(item.name);
-	});
 
+	myMods.value = await getFavoriteMenuList();
+
+	myModsName.value = myMods.value.map((v: MenuOutput) => v.name);
 	filterMods.value = mods.value.filter((item: MenuOutput) => {
 		return !myModsName.value.includes(item.name);
 	});
@@ -108,19 +133,19 @@ const filterMenu = (map: MenuOutput[]) => {
 };
 
 // 保存我的常用
-const saveMods = () => {
-	const myModsName = myMods.value.map((v: MenuOutput) => v.name);
-	Local.set('my-mods', myModsName);
+const saveMods = async () => {
+	const myFavoriteMods = myMods.value.map((v: MenuOutput) => v.id);
+
+	const param = { userId: userInfos.value.id, menuIdList: myFavoriteMods };
+	await getAPI(SysUserFavoritesApi).apiSysUserFavoritesGrantUserFavoritesPost(param);
 	ElMessage.success('设置常用成功');
 	modsDrawer.value = false;
 };
 
 // 取消
-const beforeClose = () => {
-	myModsName.value = Local.get('my-mods') || [];
-	myMods.value = mods.value.filter((item: MenuOutput) => {
-		return myModsName.value.includes(item.name);
-	});
+const beforeClose = async () => {
+	myMods.value = await getFavoriteMenuList();
+	myModsName.value = myMods.value.map((v: MenuOutput) => v.name);
 	filterMods.value = mods.value.filter((item: MenuOutput) => {
 		return !myModsName.value.includes(item.name);
 	});
@@ -194,7 +219,7 @@ const beforeClose = () => {
 	border: 1px dashed var(--el-color-primary);
 	padding: 15px;
 	height: calc(100vh - 330px);
-	overflow-y:scroll;
+	overflow-y: scroll;
 }
 
 .draggable-box-all::-webkit-scrollbar {
@@ -237,6 +262,6 @@ const beforeClose = () => {
 	opacity: 0.3;
 }
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 </style>
