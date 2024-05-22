@@ -125,6 +125,14 @@ export interface AddCodeGenInput {
     menuApplication?: string | null;
 
     /**
+     * 菜单父级
+     *
+     * @type {number}
+     * @memberof AddCodeGenInput
+     */
+    menuPid?: number | null;
+
+    /**
      * 支持打印类型
      *
      * @type {string}
@@ -181,10 +189,10 @@ export interface AddCodeGenInput {
     generateType: string;
 
     /**
-     * 菜单父级
+     * 是否生成菜单
      *
-     * @type {number}
+     * @type {boolean}
      * @memberof AddCodeGenInput
      */
-    menuPid: number;
+    generateMenu: boolean;
 }

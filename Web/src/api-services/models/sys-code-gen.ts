@@ -165,12 +165,20 @@ export interface SysCodeGen {
     busName?: string | null;
 
     /**
+     * 是否生成菜单
+     *
+     * @type {boolean}
+     * @memberof SysCodeGen
+     */
+    generateMenu?: boolean;
+
+    /**
      * 菜单编码
      *
      * @type {number}
      * @memberof SysCodeGen
      */
-    menuPid?: number;
+    menuPid?: number | null;
 
     /**
      * 支持打印类型

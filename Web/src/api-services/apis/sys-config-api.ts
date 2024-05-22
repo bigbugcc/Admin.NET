@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * 所有接口
+ * Admin.NET 通用权限开发平台
  * 让 .NET 开发更简单、更通用、更流行。整合最新技术，模块插件式开发，前后端分离，开箱即用。<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import globalAxios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
@@ -51,6 +52,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -74,7 +82,7 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取后端配置
+         * @summary 获取后台配置
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -91,6 +99,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -128,6 +143,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -169,6 +191,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -214,6 +243,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['Id'] = id;
@@ -254,6 +290,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -290,6 +333,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -327,6 +377,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -368,6 +425,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -408,6 +472,13 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -450,7 +521,7 @@ export const SysConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取后端配置
+         * @summary 获取后台配置
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -591,7 +662,7 @@ export const SysConfigApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取后端配置
+         * @summary 获取后台配置
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -698,7 +769,7 @@ export class SysConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取后端配置
+     * @summary 获取后台配置
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysConfigApi

@@ -165,12 +165,20 @@ export interface CodeGenInput {
     menuApplication?: string | null;
 
     /**
+     * 是否生成菜单
+     *
+     * @type {boolean}
+     * @memberof CodeGenInput
+     */
+    generateMenu?: boolean;
+
+    /**
      * 菜单父级
      *
      * @type {number}
      * @memberof CodeGenInput
      */
-    menuPid?: number;
+    menuPid?: number | null;
 
     /**
      * 支持打印类型

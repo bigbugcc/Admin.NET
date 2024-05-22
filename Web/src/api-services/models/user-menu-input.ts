@@ -13,50 +13,26 @@
  */
 
  /**
- * 
+ * 系统用户菜单快捷导航输入
  *
  * @export
- * @interface UploadFileFromBase64Input
+ * @interface UserMenuInput
  */
-export interface UploadFileFromBase64Input {
+export interface UserMenuInput {
 
     /**
-     * 文件内容
+     * 用户Id
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {number}
+     * @memberof UserMenuInput
      */
-    fileDataBase64?: string | null;
+    userId?: number;
 
     /**
-     * 文件类型( \"image/jpeg\",)
+     * 收藏菜单Id集合
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {Array<number>}
+     * @memberof UserMenuInput
      */
-    contentType?: string | null;
-
-    /**
-     * 文件名称
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    fileName?: string | null;
-
-    /**
-     * 保存路径
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    path?: string | null;
-
-    /**
-     * 文件类型
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    fileType?: string | null;
+    menuIdList?: Array<number> | null;
 }

@@ -12,51 +12,60 @@
  * Do not edit the class manually.
  */
 
+import { FileOutput } from './file-output';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface UploadFileFromBase64Input
+ * @interface AdminResultListFileOutput
  */
-export interface UploadFileFromBase64Input {
+export interface AdminResultListFileOutput {
 
     /**
-     * 文件内容
+     * 状态码
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {number}
+     * @memberof AdminResultListFileOutput
      */
-    fileDataBase64?: string | null;
+    code?: number;
 
     /**
-     * 文件类型( \"image/jpeg\",)
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof AdminResultListFileOutput
      */
-    contentType?: string | null;
+    type?: string | null;
 
     /**
-     * 文件名称
+     * 错误信息
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof AdminResultListFileOutput
      */
-    fileName?: string | null;
+    message?: string | null;
 
     /**
-     * 保存路径
+     * 数据
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {Array<FileOutput>}
+     * @memberof AdminResultListFileOutput
      */
-    path?: string | null;
+    result?: Array<FileOutput> | null;
 
     /**
-     * 文件类型
+     * 附加数据
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {any}
+     * @memberof AdminResultListFileOutput
      */
-    fileType?: string | null;
+    extras?: any | null;
+
+    /**
+     * 时间
+     *
+     * @type {Date}
+     * @memberof AdminResultListFileOutput
+     */
+    time?: Date;
 }

@@ -56,30 +56,24 @@ export default {
 </script>
 
 <script setup lang="ts" name="myapp">
-import draggable from 'vuedraggable';
 import { reactive, onMounted, ref } from 'vue';
-import { Local } from '/@/utils/storage';
-import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
-import { MenuOutput } from '/@/api-services/models';
 import { ElMessage } from 'element-plus';
+import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
 import { storeToRefs } from 'pinia';
+import draggable from 'vuedraggable';
 import { useUserInfo } from '/@/stores/userInfo';
+
 import { getAPI } from '/@/utils/axios-utils';
-import { SysUserFavoritesApi } from '/@/api-services/api';
-import { useRouter } from 'vue-router';
+import { SysUserMenuApi } from '/@/api-services/api';
+import { MenuOutput } from '/@/api-services/models';
 
 const mods = ref<MenuOutput[]>([]); // 所有应用
 const myMods = ref<MenuOutput[]>([]); // 我的常用
 const myModsName = ref<Array<string | null | undefined>>([]); // 我的常用
 const filterMods = ref<MenuOutput[]>([]); // 过滤我的常用后的应用
 const modsDrawer = ref<boolean>(false);
-const myFavoriteMods = ref<Array<number | null | undefined>>([]); // 我的常用
 
-const navScrollbar = ref();
-
-const router = useRouter();
 const { userInfos } = storeToRefs(useUserInfo());
-
 const state = reactive({
 	navError: '',
 	navData: [],
@@ -92,7 +86,7 @@ onMounted(() => {
 // 请求已收藏菜单列表
 const getFavoriteMenuList = async () => {
 	try {
-		const res = await getAPI(SysUserFavoritesApi).apiSysUserFavoritesUserRoleListUserIdGet(userInfos.value.id);
+		const res = await getAPI(SysUserMenuApi).apiSysUserMenuUserMenuListUserIdGet(userInfos.value.id);
 		return res.data.result || [];
 	} catch (error) {
 		return [];
@@ -134,10 +128,9 @@ const filterMenu = (map: MenuOutput[]) => {
 
 // 保存我的常用
 const saveMods = async () => {
-	const myFavoriteMods = myMods.value.map((v: MenuOutput) => v.id);
-
+	const myFavoriteMods = myMods.value.map((v: MenuOutput) => v.id) as any;
 	const param = { userId: userInfos.value.id, menuIdList: myFavoriteMods };
-	await getAPI(SysUserFavoritesApi).apiSysUserFavoritesGrantUserFavoritesPost(param);
+	await getAPI(SysUserMenuApi).apiSysUserMenuAddPost(param);
 	ElMessage.success('设置常用成功');
 	modsDrawer.value = false;
 };

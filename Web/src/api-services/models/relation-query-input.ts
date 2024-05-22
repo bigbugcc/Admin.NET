@@ -13,50 +13,42 @@
  */
 
  /**
- * 
+ * 查询关联查询输入
  *
  * @export
- * @interface UploadFileFromBase64Input
+ * @interface RelationQueryInput
  */
-export interface UploadFileFromBase64Input {
+export interface RelationQueryInput {
 
     /**
-     * 文件内容
+     * 关联对象名称
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof RelationQueryInput
      */
-    fileDataBase64?: string | null;
+    relationName?: string | null;
 
     /**
-     * 文件类型( \"image/jpeg\",)
+     * 关联对象Id
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {number}
+     * @memberof RelationQueryInput
      */
-    contentType?: string | null;
+    relationId?: number | null;
 
     /**
-     * 文件名称
+     * 文件，多个以\",\"分割
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof RelationQueryInput
      */
-    fileName?: string | null;
+    fileTypes?: string | null;
 
     /**
-     * 保存路径
+     * 所属Id
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {number}
+     * @memberof RelationQueryInput
      */
-    path?: string | null;
-
-    /**
-     * 文件类型
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    fileType?: string | null;
+    belongId?: number | null;
 }

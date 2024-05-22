@@ -21,8 +21,26 @@
 export interface SysFileUploadFileBody {
 
     /**
+     * 文件
+     *
      * @type {Blob}
      * @memberof SysFileUploadFileBody
      */
     file: Blob;
+
+    /**
+     * 文件类型
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    fileType?: string;
+
+    /**
+     * 文件路径
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    path?: string;
 }

@@ -74,5 +74,5 @@ export interface WechatUserInput {
      * @type {string}
      * @memberof WechatUserInput
      */
-    phoneNumber?: string | null;
+    mobile?: string | null;
 }
