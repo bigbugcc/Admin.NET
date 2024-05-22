@@ -12,11 +12,12 @@ public class FileInput : BaseIdInput
     /// 文件名称
     /// </summary>
     public string FileName { get; set; }
+
     /// <summary>
     /// 文件类型
     /// </summary>
     public string FileType { get; set; }
-    
+
     /// <summary>
     /// 文件Url
     /// </summary>
@@ -44,7 +45,6 @@ public class PageFileInput : BasePageInput
 public class DeleteFileInput : BaseIdInput
 {
 }
- 
 
 public class UploadFileFromBase64Input
 {
@@ -67,11 +67,11 @@ public class UploadFileFromBase64Input
     /// 保存路径
     /// </summary>
     public string Path { get; set; }
+
     /// <summary>
     /// 文件类型
     /// </summary>
     public string FileType { get; set; }
-
 }
 
 /// <summary>
@@ -79,9 +79,20 @@ public class UploadFileFromBase64Input
 /// </summary>
 public class FileUploadInput
 {
+    /// <summary>
+    /// 文件
+    /// </summary>
     [Required]
     public IFormFile File { get; set; }
+
+    /// <summary>
+    /// 文件类型
+    /// </summary>
     public string FileType { get; set; }
+
+    /// <summary>
+    /// 文件路径
+    /// </summary>
     public string Path { get; set; }
 }
 
@@ -94,31 +105,39 @@ public class RelationQueryInput
     /// 关联对象名称
     /// </summary>
     public string RelationName { get; set; }
+
     /// <summary>
     /// 关联对象Id
     /// </summary>
     public long? RelationId { get; set; }
-    /// <summary>
-    /// 文件，多个以“,”分割
-    /// </summary>
-    public string FileTypes { get; set; } 
 
     /// <summary>
-    /// 所属ID
+    /// 文件，多个以","分割
     /// </summary>
-    public long? BelongId { get; set; } 
+    public string FileTypes { get; set; }
 
+    /// <summary>
+    /// 所属Id
+    /// </summary>
+    public long? BelongId { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
     public string[] GetFileTypeBS()
     {
         return FileTypes.Split(',');
     }
 }
+
 public class FileOutput
 {
     /// <summary>
     /// Id
     /// </summary>
-    public long Id { get; set; } 
+    public long Id { get; set; }
+
     /// <summary>
     /// 名称
     /// </summary>
@@ -158,17 +177,19 @@ public class FileOutput
     /// 上传时间
     /// </summary>
     public DateTime? CreateTime { get; set; }
+
     /// <summary>
     /// 关联对象名称
     /// </summary>
     public string RelationName { get; set; }
+
     /// <summary>
     /// 关联对象Id
     /// </summary>
-    public long? RelationId { get; set; } 
+    public long? RelationId { get; set; }
+
     /// <summary>
-    /// 所属ID
+    /// 所属Id
     /// </summary>
     public long? BelongId { get; set; }
-
 }

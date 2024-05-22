@@ -86,7 +86,7 @@
 							</el-row>
 						</div>
 						<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,6,12,6' }" @click="setLayout([24, 6, 12, 6])">
-							<el-row :gutter="2"> 
+							<el-row :gutter="2">
 								<el-col :span="24"><span></span></el-col>
 								<el-col :span="6"><span></span></el-col>
 								<el-col :span="12"><span></span></el-col>
@@ -94,7 +94,7 @@
 							</el-row>
 						</div>
 						<div class="selectLayout-item item05" :class="{ active: grid.layout.join(',') === '24,6,12,6,24' }" @click="setLayout([24, 6, 12, 6, 24])">
-							<el-row :gutter="2"> 
+							<el-row :gutter="2">
 								<el-col :span="24"><span></span></el-col>
 								<el-col :span="6"><span></span></el-col>
 								<el-col :span="12"><span></span></el-col>
@@ -142,10 +142,10 @@ interface Grid {
 	layout: number[];
 	copmsList: string[][];
 }
-const defaultGrid = ({
+const defaultGrid = {
 	layout: [12, 6, 6],
 	copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']],
-});
+};
 
 const customizing = ref<boolean>(false);
 const allCompsList = ref(allComps);
@@ -200,15 +200,15 @@ const custom = () => {
 const setLayout = (layout: number[]) => {
 	grid.value.layout = layout;
 	if (grid.value.layout.length < grid.value.copmsList.length) {
-    for (let i = grid.value.layout.length; i < grid.value.copmsList.length; i++) {
-      grid.value.copmsList[grid.value.layout.length - 1] = grid.value.copmsList[grid.value.layout.length - 1].concat(grid.value.copmsList[i])
-    }
-    grid.value.copmsList = grid.value.copmsList.slice(0, grid.value.layout.length)
-  } else if (grid.value.layout.length > grid.value.copmsList.length) {
-    for (let i = grid.value.copmsList.length; i < grid.value.layout.length; i++) {
-      grid.value.copmsList[i] = []
-    }
-  }
+		for (let i = grid.value.layout.length; i < grid.value.copmsList.length; i++) {
+			grid.value.copmsList[grid.value.layout.length - 1] = grid.value.copmsList[grid.value.layout.length - 1].concat(grid.value.copmsList[i]);
+		}
+		grid.value.copmsList = grid.value.copmsList.slice(0, grid.value.layout.length);
+	} else if (grid.value.layout.length > grid.value.copmsList.length) {
+		for (let i = grid.value.copmsList.length; i < grid.value.layout.length; i++) {
+			grid.value.copmsList[i] = [];
+		}
+	}
 };
 
 // 追加

@@ -2,14 +2,6 @@ import { defineStore } from 'pinia';
 import { SysConfigApi } from '/@/api-services';
 import { getAPI } from '/@/utils/axios-utils';
 
-/**
- * 布局配置
- * 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I567R1，感谢@lanbao123
- * 2020.05.28 by lyt 优化。开发时配置不生效问题
- * 修改配置时：
- * 1、需要每次都清理 `window.localStorage` 浏览器永久缓存
- * 2、或者点击布局配置最底部 `一键恢复默认` 按钮即可看到效果
- */
 export const useThemeConfig = defineStore('themeConfig', {
 	state: (): ThemeConfigState => ({
 		themeConfig: {
@@ -145,7 +137,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 网站副标题（登录页顶部文字）
 			globalViceTitleMsg: '站在巨人肩膀上的 .NET 通用权限开发框架',
 			// 版权和备案文字
-			copyright: 'Copyright © 2021-2014 Admin.NET All rights reserved.',
+			copyright: 'Copyright © 2021-present Admin.NET All rights reserved.',
 			// 默认初始语言，可选值"<zh-cn|en|zh-tw>"，默认 zh-cn
 			globalI18n: 'zh-cn',
 			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'
@@ -158,27 +150,27 @@ export const useThemeConfig = defineStore('themeConfig', {
 		},
 
 		async setWebConfig() {
-		    var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
+			var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
 			var webConfig = res.data.result;
 			for (let index = 0; index < webConfig.length; index++) {
 				const element = webConfig[index];
-				if (element.code == "title") {
+				if (element.code == 'title') {
 					document.title = element.value;
 					this.themeConfig.globalTitle = element.value;
 				}
-				if (element.code == "watermark_text") {
+				if (element.code == 'watermark_text') {
 					this.themeConfig.globalTitle = element.value;
 				}
-				if (element.code == "vice_title") {
+				if (element.code == 'vice_title') {
 					this.themeConfig.globalViceTitle = element.value;
 				}
-				if (element.code == "vice_title_msg") {
+				if (element.code == 'vice_title_msg') {
 					this.themeConfig.globalViceTitleMsg = element.value;
 				}
-				if (element.code == "web_copyright") {
-					this.themeConfig.copyright = 'Copyright © ' + element.value + ' ' + this.themeConfig.globalTitle + ' All rights reserved.'
+				if (element.code == 'web_copyright') {
+					this.themeConfig.copyright = 'Copyright © ' + element.value + ' ' + this.themeConfig.globalTitle + ' All rights reserved.';
 				}
 			}
-		}
+		},
 	},
 });

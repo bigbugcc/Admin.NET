@@ -96,10 +96,8 @@
 					</el-form-item>
 				</el-col>
 			</el-row>
-           <el-divider style="margin-top: 5px;" v-if="search.length > 3">
-				<el-button :icon="state.isToggle ? 'ele-ArrowUpBold' : 'ele-ArrowDownBold'" class="divider-btn"
-					@click="state.isToggle = !state.isToggle">
-				</el-button>
+			<el-divider style="margin-top: 5px" v-if="search.length > 3">
+				<el-button :icon="state.isToggle ? 'ele-ArrowUpBold' : 'ele-ArrowDownBold'" class="divider-btn" @click="state.isToggle = !state.isToggle"> </el-button>
 			</el-divider>
 		</el-form>
 	</div>
@@ -218,8 +216,8 @@ const shortcuts = [
 	}
 }
 
-.divider-btn{
-   height: 20px;
-   border-radius: 10px;
+.divider-btn {
+	height: 20px;
+	border-radius: 10px;
 }
 </style>

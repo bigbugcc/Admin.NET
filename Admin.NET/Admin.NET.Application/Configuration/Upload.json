@@ -19,7 +19,7 @@
     "Bucket": "admin.net"
   },
   "SSHProvider": {
-    "IsEnable": false, 
+    "IsEnable": false,
     "Host": "127.0.0.1",
     "Port": 8222,
     "Username": "sshuser",

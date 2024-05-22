@@ -63,15 +63,16 @@ export function removeDuplicate(arr: EmptyArrayType, attr?: string) {
 		}
 	}
 }
+
 /* 数组、对象深拷贝
  * @param value 需要拷贝内容
  * @returns
  */
 export const clone = <T>(value: T): T => {
-	if (!value) return value
+	if (!value) return value;
 
 	// 数组
-	if (Array.isArray(value)) return value.map((item) => clone(item)) as unknown as T
+	if (Array.isArray(value)) return value.map((item) => clone(item)) as unknown as T;
 
 	// 普通对象
 	if (typeof value === 'object') {
@@ -79,8 +80,8 @@ export const clone = <T>(value: T): T => {
 			Object.entries(value).map(([k, v]: [string, any]) => {
 				return [k, clone(v)];
 			})
-		) as unknown as T
+		) as unknown as T;
 	}
 	// 基本类型
-	return value
-}
+	return value;
+};

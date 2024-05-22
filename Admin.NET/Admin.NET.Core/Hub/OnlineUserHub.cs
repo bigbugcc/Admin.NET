@@ -64,9 +64,12 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         await _sysOnlineUerRep.InsertAsync(user);
 
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin)) {
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        {
             _sysCacheService.Set(CacheConst.KeyUserOnline + user.UserId, user);
-        } else {
+        }
+        else
+        {
             var device = (client.UA.Family + client.UA.Major + client.OS.Family + client.OS.Major).Trim();
             _sysCacheService.Set(CacheConst.KeyUserOnline + user.UserId + device, user);
         }
@@ -93,7 +96,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
     public override async Task OnDisconnectedAsync(Exception exception)
     {
         if (string.IsNullOrEmpty(Context.ConnectionId)) return;
-        
+
         var httpContext = Context.GetHttpContext();
         var client = Parser.GetDefault().Parse(httpContext.Request.Headers["User-Agent"]);
 
@@ -103,9 +106,12 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         await _sysOnlineUerRep.DeleteAsync(u => u.Id == user.Id);
 
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin)) {
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        {
             _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId);
-        } else {
+        }
+        else
+        {
             var device = (client.UA.Family + client.UA.Major + client.OS.Family + client.OS.Major).Trim();
             _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId + device);
         }

@@ -29,7 +29,7 @@
 				<el-table-column prop="fileType" label="文件类型" min-width="150" header-align="center" show-overflow-tooltip />
 				<el-table-column type="relationName" label="关联对象名称" align="center" />
 				<el-table-column type="relationtId" label="关联对象ID" align="center" />
-				<el-table-column type="belongId" label="所属ID" align="center" /> 
+				<el-table-column type="belongId" label="所属ID" align="center" />
 				<el-table-column prop="fileName" label="名称" min-width="150" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="suffix" label="后缀" align="center" show-overflow-tooltip>
 					<template #default="scope">
@@ -91,12 +91,12 @@
 				</div>
 			</template>
 			<div>
-				<div> 
+				<div>
 					<el-select v-model="state.fileType" placeholder="请选择文件类型">
-						 <el-option label="相关文件" value="相关文件" />
-						  <el-option label="归档文件" value="归档文件" />
-						 </el-select>
-				 </div>
+						<el-option label="相关文件" value="相关文件" />
+						<el-option label="归档文件" value="归档文件" />
+					</el-select>
+				</div>
 				<el-upload ref="uploadRef" drag :auto-upload="false" :limit="1" :file-list="state.fileList" action="" :on-change="handleChange" accept=".jpg,.png,.bmp,.gif,.txt,.pdf,.xlsx,.docx">
 					<el-icon class="el-icon--upload">
 						<ele-UploadFilled />
@@ -173,7 +173,7 @@ const state = reactive({
 	excelUrl: '',
 	pdfUrl: '',
 	fileName: '',
-	fileType:'',
+	fileType: '',
 	previewList: [] as string[],
 });
 
@@ -216,7 +216,7 @@ const handleChange = (file: any, fileList: []) => {
 // 上传
 const uploadFile = async () => {
 	if (state.fileList.length < 1) return;
-	await getAPI(SysFileApi).apiSysFileUploadFilePostForm(state.fileList[0].raw,undefined,state.fileType);
+	await getAPI(SysFileApi).apiSysFileUploadFilePostForm(state.fileList[0].raw, undefined, state.fileType);
 	handleQuery();
 	ElMessage.success('上传成功');
 	state.dialogUploadVisible = false;

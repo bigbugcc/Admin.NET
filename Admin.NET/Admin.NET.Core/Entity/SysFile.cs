@@ -77,32 +77,29 @@ public partial class SysFile : EntityBase
     [MaxLength(128)]
     public string? FileMd5 { get; set; }
 
-    
     /// <summary>
     /// 关联对象名称（如子对象）
     /// </summary>
-    [SugarColumn(ColumnDescription = "关联对象名称", Length = 100)]
-    [MaxLength(100)]
-    public string RelationName { get; set; }
-
+    [SugarColumn(ColumnDescription = "关联对象名称", Length = 128)]
+    [MaxLength(128)]
+    public string? RelationName { get; set; }
 
     /// <summary>
-    /// 关联对象ID
-    /// </summary> 
-    [SugarColumn(ColumnDescription = "关联对象ID" )] 
+    /// 关联对象Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "关联对象Id")]
     public long? RelationId { get; set; }
- 
 
     /// <summary>
-    /// 所属ID（如主对象）
-    /// </summary> 
-    [SugarColumn(ColumnDescription = "所属ID" )] 
+    /// 所属Id（如主对象）
+    /// </summary>
+    [SugarColumn(ColumnDescription = "所属Id")]
     public long? BelongId { get; set; }
 
     /// <summary>
     /// 文件类别
     /// </summary>
-    [SugarColumn(ColumnDescription = "文件类别", Length = 100)]
-    [MaxLength(100)]
-    public string FileType { get; set; } 
+    [SugarColumn(ColumnDescription = "文件类别", Length = 128)]
+    [MaxLength(128)]
+    public string? FileType { get; set; }
 }

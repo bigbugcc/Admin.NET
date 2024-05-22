@@ -1,44 +1,57 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+//
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
+//
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
+
 using Renci.SshNet;
 
 namespace Admin.NET.Core
 {
     /// <summary>
-    /// SSH / Sftp Helper
+    /// SSH/Sftp 工具类
     /// </summary>
     public class SSHHelper : IDisposable
     {
-        private SftpClient sftp;
+        private readonly SftpClient _sftp;
+
         public SSHHelper(string host, int port, string user, string password)
         {
-            sftp = new SftpClient(host, port, user, password);
-        }
-        public bool Exists(string ftpFileName)
-        {
-            Connect();
-            return sftp.Exists(ftpFileName);
-
-        }
-
-        private void Connect()
-        {
-            if (!sftp.IsConnected)
-            {
-                sftp.Connect();
-            }
+            _sftp = new SftpClient(host, port, user, password);
         }
 
         /// <summary>
-        /// 删除
+        /// 连接
+        /// </summary>
+        private void Connect()
+        {
+            if (!_sftp.IsConnected)
+                _sftp.Connect();
+        }
+
+        /// <summary>
+        /// 是否存在同名文件
+        /// </summary>
+        /// <param name="ftpFileName"></param>
+        /// <returns></returns>
+        public bool Exists(string ftpFileName)
+        {
+            Connect();
+
+            return _sftp.Exists(ftpFileName);
+        }
+
+        /// <summary>
+        /// 删除文件
         /// </summary>
         /// <param name="ftpFileName"></param>
         public void DeleteFile(string ftpFileName)
-        { 
+        {
             Connect();
-            sftp.DeleteFile(ftpFileName);
 
+            _sftp.DeleteFile(ftpFileName);
         }
+
         /// <summary>
         /// 下载到指定目录
         /// </summary>
@@ -47,9 +60,10 @@ namespace Admin.NET.Core
         public void DownloadFile(string ftpFileName, string localFileName)
         {
             Connect();
+
             using (Stream fileStream = File.OpenWrite(localFileName))
             {
-                sftp.DownloadFile(ftpFileName, fileStream);
+                _sftp.DownloadFile(ftpFileName, fileStream);
             }
         }
 
@@ -61,8 +75,10 @@ namespace Admin.NET.Core
         public byte[] ReadAllBytes(string ftpFileName)
         {
             Connect();
-            return sftp.ReadAllBytes(ftpFileName);
+
+            return _sftp.ReadAllBytes(ftpFileName);
         }
+
         /// <summary>
         /// 读取流
         /// </summary>
@@ -70,7 +86,7 @@ namespace Admin.NET.Core
         /// <returns></returns>
         public Stream OpenRead(string path)
         {
-            return sftp.Open(path, FileMode.Open, FileAccess.Read);
+            return _sftp.Open(path, FileMode.Open, FileAccess.Read);
         }
 
         /// <summary>
@@ -82,6 +98,7 @@ namespace Admin.NET.Core
         {
             DownloadFile(ftpFileName, localFileName);
         }
+
         /// <summary>
         /// 重命名
         /// </summary>
@@ -89,7 +106,7 @@ namespace Admin.NET.Core
         /// <param name="newPath"></param>
         public void RenameFile(string oldPath, string newPath)
         {
-            sftp.RenameFile(oldPath, newPath);
+            _sftp.RenameFile(oldPath, newPath);
         }
 
         /// <summary>
@@ -100,21 +117,18 @@ namespace Admin.NET.Core
         /// <returns></returns>
         public List<string> GetFileList(string folder, IEnumerable<string> filters)
         {
-            var files = new List<string>();
             Connect();
 
-            var sftpFiles = sftp.ListDirectory(folder);
-
+            var files = new List<string>();
+            var sftpFiles = _sftp.ListDirectory(folder);
             foreach (var file in sftpFiles)
             {
                 if (file.IsRegularFile && filters.Any(f => file.Name.EndsWith(f)))
-                {
                     files.Add(file.Name);
-                }
             }
-
             return files;
         }
+
         /// <summary>
         /// 上传指定目录文件
         /// </summary>
@@ -123,13 +137,15 @@ namespace Admin.NET.Core
         public void UploadFile(string localFileName, string ftpFileName)
         {
             Connect();
+
             var dir = Path.GetDirectoryName(ftpFileName);
-            CreateDir(sftp, dir);
+            CreateDir(_sftp, dir);
             using (var fileStream = new FileStream(localFileName, FileMode.Open))
             {
-                sftp.UploadFile(fileStream, ftpFileName);
+                _sftp.UploadFile(fileStream, ftpFileName);
             }
         }
+
         /// <summary>
         /// 上传字节
         /// </summary>
@@ -137,12 +153,11 @@ namespace Admin.NET.Core
         /// <param name="ftpFileName"></param>
         public void UploadFile(byte[] bs, string ftpFileName)
         {
-
             Connect();
-            var dir = Path.GetDirectoryName(ftpFileName);
-            CreateDir(sftp, dir);
 
-            sftp.WriteAllBytes(ftpFileName, bs);
+            var dir = Path.GetDirectoryName(ftpFileName);
+            CreateDir(_sftp, dir);
+            _sftp.WriteAllBytes(ftpFileName, bs);
         }
 
         /// <summary>
@@ -153,12 +168,13 @@ namespace Admin.NET.Core
         public void UploadFile(Stream fileStream, string ftpFileName)
         {
             Connect();
-            var dir = Path.GetDirectoryName(ftpFileName);
-            CreateDir(sftp, dir);
-            sftp.UploadFile(fileStream, ftpFileName);
-            fileStream.Dispose();
 
+            var dir = Path.GetDirectoryName(ftpFileName);
+            CreateDir(_sftp, dir);
+            _sftp.UploadFile(fileStream, ftpFileName);
+            fileStream.Dispose();
         }
+
         /// <summary>
         /// 创建目录
         /// </summary>
@@ -167,33 +183,30 @@ namespace Admin.NET.Core
         /// <exception cref="ArgumentNullException"></exception>
         private void CreateDir(SftpClient sftp, string dir)
         {
-            if (dir is null)
+            ArgumentNullException.ThrowIfNull(dir);
+
+            if (sftp.Exists(dir)) return;
+
+            var index = dir.LastIndexOfAny(['/', '\\']);
+            if (index > 0)
             {
-                throw new ArgumentNullException(nameof(dir));
-            }
-            if (!sftp.Exists(dir))
-            {
-                var index = dir.LastIndexOfAny(new char[] { '/', '\\' });
-                if (index > 0)
-                {
-                    var p = dir.Substring(0, index);
-                    if (!sftp.Exists(p))
-                    {
-                        CreateDir(sftp, p);
-                    }
-                    sftp.CreateDirectory(dir);
-                }
+                var p = dir[..index];
+                if (!sftp.Exists(p))
+                    CreateDir(sftp, p);
+                sftp.CreateDirectory(dir);
             }
         }
 
+        /// <summary>
+        /// 释放对象
+        /// </summary>
         public void Dispose()
         {
-            if (sftp != null)
-            {
-                if (sftp.IsConnected)
-                    sftp.Disconnect();
-                sftp.Dispose();
-            }
+            if (_sftp == null) return;
+
+            if (_sftp.IsConnected)
+                _sftp.Disconnect();
+            _sftp.Dispose();
         }
     }
 }

@@ -200,11 +200,11 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取后端配置
+    /// 获取后台配置
     /// </summary>
     /// <returns></returns>
     [AllowAnonymous]
-    [DisplayName("获取后端配置")]
+    [DisplayName("获取后台配置")]
     public async Task<dynamic> GetBackendConfig()
     {
         return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "Backend").Select(u => new { u.Code, u.Value }).ToListAsync();

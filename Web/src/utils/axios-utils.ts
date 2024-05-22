@@ -150,7 +150,7 @@ axiosInstance.interceptors.response.use(
 			}
 			// 用户自定义处理异常
 			if (!res.config?.customCatch) {
-			    ElMessage.error(message);
+				ElMessage.error(message);
 			}
 			throw new Error(message);
 		}
@@ -167,7 +167,7 @@ axiosInstance.interceptors.response.use(
 
 		// 用户自定义处理异常
 		if (!error.config?.customCatch) {
-		    // 响应错误代码及自定义处理
+			// 响应错误代码及自定义处理
 			ElMessage.error(error);
 		}
 
