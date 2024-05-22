@@ -55,8 +55,8 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "DeleteUserMenuByUserId"), HttpPost]
-    public async Task DeleteUserMenuByUserId(long userId)
+    [ApiDescriptionSettings(Name = "DeleteByUserId"), HttpPost]
+    public async Task DeleteByUserId(long userId)
     {
         await _sysUserMenuRep.DeleteAsync(u => u.UserId == userId);
     }

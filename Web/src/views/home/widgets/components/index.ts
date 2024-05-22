@@ -6,7 +6,7 @@ const resultComps: Record<string, Component> = {};
 
 // 使用 import.meta.glob 动态导入当前目录中的所有 .vue 文件，急切导入
 const requireComponent = import.meta.glob('./*.vue', { eager: true });
-console.log(requireComponent);
+// console.log(requireComponent);
 
 Object.keys(requireComponent).forEach((fileName: string) => {
 	// 处理文件名，去掉开头的 './' 和结尾的文件扩展名
