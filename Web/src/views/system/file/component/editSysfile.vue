@@ -15,6 +15,13 @@
 						</el-form-item>
 					</el-col>
 				</el-row>
+				<el-row>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="文件类型" prop="fileType" :rules="[{ required: true, message: '文件类型不能为空', trigger: 'blur' }]">
+							<el-input v-model="state.ruleForm.fileType" placeholder="文件名称" clearable />
+						</el-form-item>
+					</el-col>
+				</el-row>
 			</el-form>
 			<template #footer>
 				<span class="dialog-footer">
