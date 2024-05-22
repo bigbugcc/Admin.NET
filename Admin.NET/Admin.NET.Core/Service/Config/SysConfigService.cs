@@ -187,4 +187,26 @@ public class SysConfigService : IDynamicApiController, ITransient
         _ = int.TryParse(refreshTokenExpireStr, out var refreshTokenExpire);
         return refreshTokenExpire == 0 ? 40 : refreshTokenExpire;
     }
+
+    /// <summary>
+    /// 获取前端配置
+    /// </summary>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("获取前端配置")]
+    public async Task<dynamic> GetWebConfig()
+    {
+        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "Web").Select(u => new { u.Code, u.Value }).ToListAsync();
+    }
+
+    /// <summary>
+    /// 获取后端配置
+    /// </summary>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("获取后端配置")]
+    public async Task<dynamic> GetBackendConfig()
+    {
+        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "Backend").Select(u => new { u.Code, u.Value }).ToListAsync();
+    }
 }

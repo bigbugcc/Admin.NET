@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { SysConfigApi } from '/@/api-services';
+import { getAPI } from '/@/utils/axios-utils';
 
 /**
  * 布局配置
@@ -154,5 +156,29 @@ export const useThemeConfig = defineStore('themeConfig', {
 		setThemeConfig(data: ThemeConfigState) {
 			this.themeConfig = data.themeConfig;
 		},
+
+		async setWebConfig() {
+		    var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
+			var webConfig = res.data.result;
+			for (let index = 0; index < webConfig.length; index++) {
+				const element = webConfig[index];
+				if (element.code == "title") {
+					document.title = element.value;
+					this.themeConfig.globalTitle = element.value;
+				}
+				if (element.code == "watermark_text") {
+					this.themeConfig.globalTitle = element.value;
+				}
+				if (element.code == "vice_title") {
+					this.themeConfig.globalViceTitle = element.value;
+				}
+				if (element.code == "vice_title_msg") {
+					this.themeConfig.globalViceTitleMsg = element.value;
+				}
+				if (element.code == "web_copyright") {
+					this.themeConfig.copyright = 'Copyright © ' + element.value + ' ' + this.themeConfig.globalTitle + ' All rights reserved.'
+				}
+			}
+		}
 	},
 });
