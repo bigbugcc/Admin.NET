@@ -497,7 +497,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="belongId"></param>
     /// <returns></returns>  
     [NonAction]
-    public async Task<int> UpdateFileObject(List<long> ids, string relationName, long relationId, long belongId = 0)
+    public async Task<int> UpdateRelation(List<long> ids, string relationName, long relationId, long belongId = 0)
     {
         if (ids == null || ids.Count == 0)
             return 0; 
