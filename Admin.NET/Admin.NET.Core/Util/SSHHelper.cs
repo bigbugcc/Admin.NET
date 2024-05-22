@@ -187,7 +187,7 @@ namespace Admin.NET.Core
 
             if (sftp.Exists(dir)) return;
 
-            var index = dir.LastIndexOfAny(['/', '\\']);
+            var index = dir.LastIndexOfAny(new char[] { '/', '\\' });
             if (index > 0)
             {
                 var p = dir[..index];

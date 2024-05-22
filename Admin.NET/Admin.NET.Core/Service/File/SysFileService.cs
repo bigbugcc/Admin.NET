@@ -61,7 +61,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件")]
     public async Task<SysFile> UploadFile([FromForm] FileUploadInput input)
     {
-        return await HandleUploadFile(input.File, input.Path, filetype: input.FileType);
+        return await HandleUploadFile(input.File, input.Path, fileType: input.FileType);
     }
 
     /// <summary>
@@ -302,8 +302,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="file">文件</param>
     /// <param name="savePath">路径</param>
     /// <param name="allowSuffix">允许格式：.jpg.png.gif.tif.bmp</param>
+    /// <param name="fileType">类型</param>
     /// <returns></returns>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string filetype = "")
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "")
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -366,7 +367,7 @@ public class SysFileService : IDynamicApiController, ITransient
             SizeKb = sizeKb.ToString(),
             FilePath = path,
             FileMd5 = fileMd5,
-            FileType = filetype
+            FileType = fileType
         };
 
         var finalName = newFile.Id + suffix; // 文件最终名称
