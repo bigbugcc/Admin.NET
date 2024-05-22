@@ -1,6 +1,6 @@
 <template>
 	<div class="table-container">
-		<div class="table-header mb15">
+		<div v-if="!hideTool" class="table-header mb15">
 			<div>
 				<slot name="command"></slot>
 			</div>
@@ -58,6 +58,9 @@
 			<el-table-column type="selection" :reserve-selection="true" :width="30" v-if="config.isSelection && config.showSelection" />
 			<el-table-column type="index" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
 			<el-table-column v-for="(item, index) in setHeader" :key="index" v-bind="item">
+				<template #header v-if="!item.children && $slots[item.prop]">
+					<slot :name="`${item.prop}header`" />
+				</template>
 				<!-- 自定义列插槽，插槽名为columns属性的prop -->
 				<template #default="scope" v-if="!item.children && $slots[item.prop]">
 					<formatter v-if="item.formatter" :fn="item.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
@@ -200,6 +203,10 @@ const state = reactive({
 	selectlist: [] as EmptyObjectType[],
 	checkListAll: true,
 	checkListIndeterminate: false,
+});
+
+const hideTool = computed(() => {
+	return props.config.hideTool ?? false;
 });
 
 const getProperty = (obj, property) => {
@@ -417,7 +424,7 @@ onMounted(() => {
 		state.page.field = props.defaultSort.prop;
 		state.page.order = props.defaultSort.order;
 	}
-	state.page.pageSize = props.config.pageSize;
+	state.page.pageSize = props.config.pageSize ?? 10;
 	handleList();
 });
 
