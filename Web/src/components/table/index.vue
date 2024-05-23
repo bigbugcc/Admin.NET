@@ -10,8 +10,8 @@
 					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item @click="onImportTable">导出本页数据</el-dropdown-item>
-							<el-dropdown-item @click="onImportTableAll">导出全部数据</el-dropdown-item>
+							<el-dropdown-item @click="onExportTable">导出本页数据</el-dropdown-item>
+							<el-dropdown-item @click="onExportTableAll">导出全部数据</el-dropdown-item>
 						</el-dropdown-menu>
 					</template>
 				</el-dropdown>
@@ -276,12 +276,12 @@ const pageReset = () => {
 	handleList();
 };
 // 导出当前页
-const onImportTable = () => {
+const onExportTable = () => {
 	if (setHeader.value.length <= 0) return ElMessage.error('没有勾选要导出的列');
 	exportData(state.data);
 };
 // 全部导出
-const onImportTableAll = async () => {
+const onExportTableAll = async () => {
 	if (setHeader.value.length <= 0) return ElMessage.error('没有勾选要导出的列');
 	state.exportLoading = true;
 	const param = Object.assign({}, props.param, { page: 1, pageSize: 9999999 });
