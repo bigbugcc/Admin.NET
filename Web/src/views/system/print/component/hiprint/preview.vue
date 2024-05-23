@@ -17,14 +17,14 @@ const state = reactive({
 	waitShowPrinter: false,
 	width: 0, // 纸张宽 mm
 	printData: {}, // 打印数据
-	printType: 1, //默认浏览器打印
+	printType: 1, // 默认浏览器打印
 	printParam: {
-		printer: '', //打印机名称
-		title: '', //打印任务名称
+		printer: '', // 打印机名称
+		title: '', // 打印任务名称
 		color: false, // 是否打印颜色 默认 true
-		copies: 1, //打印份数 默认 1
+		copies: 1, // 打印份数 默认 1
 	},
-	//打印参数
+	// 打印参数
 	hiprintTemplate: {} as any,
 });
 
@@ -56,7 +56,7 @@ const print = () => {
 		// 获取打印机列表
 		const printerList = state.hiprintTemplate.getPrinterList();
 
-		let sfcz = printerList.some((item) => {
+		let sfcz = printerList.some((item: any) => {
 			return item.name == state.printParam.printer;
 		});
 		if (!sfcz) {
@@ -66,11 +66,11 @@ const print = () => {
 			state.hiprintTemplate.print2(state.printData, state.printParam);
 
 			// 发送任务到打印机成功
-			state.hiprintTemplate.on('printSuccess', function (e) {
+			state.hiprintTemplate.on('printSuccess', function (e: any) {
 				state.waitShowPrinter = false;
 			});
 			// 发送任务到打印机失败
-			state.hiprintTemplate.on('printError', function (e) {
+			state.hiprintTemplate.on('printError', function (e: any) {
 				state.waitShowPrinter = false;
 				alert('打印失败：' + e);
 			});
