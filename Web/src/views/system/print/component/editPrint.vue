@@ -34,6 +34,7 @@
 							<el-input v-model="state.ruleForm.name" placeholder="模板名称" clearable />
 						</el-form-item>
 					</el-col>
+
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="排序">
 							<el-input-number v-model="state.ruleForm.orderNo" placeholder="排序" class="w100" />
@@ -45,6 +46,24 @@
 								<el-radio :value="1">启用</el-radio>
 								<el-radio :value="2">禁用</el-radio>
 							</el-radio-group>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="打印类型">
+							<el-radio-group v-model="state.ruleForm.printType">
+								<el-radio :value="1">浏览器打印</el-radio>
+								<el-radio :value="2">客户端打印</el-radio>
+							</el-radio-group>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="客户端服务地址"  >
+							<el-input v-model="state.ruleForm.clientServiceAddress" placeholder="客户端服务地址" clearable />
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="打印参数">
+							<el-input v-model="state.ruleForm.printParam" placeholder="请输入打印参数" clearable type="textarea" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -116,6 +135,7 @@ const submit = async () => {
 	state.showDialog2 = true;
 	if (state.ruleForm.orderNo == undefined) state.ruleForm.orderNo = 100;
 	if (state.ruleForm.status == undefined) state.ruleForm.status = 1;
+	if (state.ruleForm.printType == undefined) state.ruleForm.printType = 1;
 };
 
 // 模板设置取消
