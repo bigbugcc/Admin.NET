@@ -33,7 +33,7 @@ public class SysConfigSeedData : ISqlSugarEntitySeedData<SysConfig>
             new SysConfig{ Id=1300000000221, Name="系统副标题", Code="sys_web_viceTitle", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="系统副标题", OrderNo=120, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000231, Name="系统描述", Code="sys_web_viceDesc", Value="站在巨人肩膀上的 .NET 通用权限开发框架", SysFlag=YesNoEnum.Y, Remark="系统描述", OrderNo=130, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000241, Name="水印内容", Code="sys_web_watermark", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="水印内容", OrderNo=140, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000251, Name="版权说明", Code="sys_web_copyright", Value="Copyright © 2021-2014 Admin.NET All rights reserved.", SysFlag=YesNoEnum.Y, Remark="版权说明", OrderNo=150, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000251, Name="版权说明", Code="sys_web_copyright", Value="Copyright © 2021-present Admin.NET All rights reserved.", SysFlag=YesNoEnum.Y, Remark="版权说明", OrderNo=150, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
     };
     }
 }
