@@ -26,10 +26,10 @@
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.fileData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
-				<el-table-column prop="fileType" label="文件类型" min-width="150" header-align="center" show-overflow-tooltip />
-				<el-table-column type="relationName" label="关联对象名称" align="center" />
-				<el-table-column type="relationtId" label="关联对象ID" align="center" />
-				<el-table-column type="belongId" label="所属ID" align="center" />
+				<el-table-column prop="fileType" label="文件类型" min-width="100" header-align="center" show-overflow-tooltip />
+				<el-table-column type="relationName" label="关联对象名称" min-width="150" align="center" />
+				<el-table-column type="relationId" label="关联对象Id" align="center" />
+				<el-table-column type="belongId" label="所属Id" align="center" />
 				<el-table-column prop="fileName" label="名称" min-width="150" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="suffix" label="后缀" align="center" show-overflow-tooltip>
 					<template #default="scope">
