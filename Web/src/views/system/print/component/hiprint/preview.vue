@@ -17,16 +17,27 @@ const state = reactive({
 	waitShowPrinter: false,
 	width: 0, // 纸张宽 mm
 	printData: {}, // 打印数据
+	printType:1,//默认浏览器打印
+	printParam:{
+		printer:'',//打印机名称
+		title:'',//打印任务名称
+		color:false,// 是否打印颜色 默认 true
+		copies:1,//打印份数 默认 1
+	},
+	//打印参数
 	hiprintTemplate: {} as any,
 });
 
 const previewContentRef = ref();
 
-const showDialog = (hiprintTemplate: any, printData: {}, width = 210) => {
+const showDialog = (hiprintTemplate: any, printData: {}, width = 210,printType=1,printParam:{printer:'',title:'',color:false,copies:1}) => {
+
 	state.dialogVisible = true;
 	state.width = width;
 	state.hiprintTemplate = hiprintTemplate;
 	state.printData = printData;
+	state.printParam = printParam;
+	state.printType=printType;
 	nextTick(() => {
 		while (previewContentRef.value?.firstChild) {
 			previewContentRef.value.removeChild(previewContentRef.value.firstChild);
@@ -38,15 +49,45 @@ const showDialog = (hiprintTemplate: any, printData: {}, width = 210) => {
 
 const print = () => {
 	state.waitShowPrinter = true;
-	state.hiprintTemplate.print(
-		state.printData,
-		{},
-		{
-			callback: () => {
-				state.waitShowPrinter = false;
-			},
+	debugger
+	// 判断是否已成功连接
+	if (state.printType==2) {
+		// 注意：连接是异步的
+		// 已连接
+		// 获取打印机列表
+		const printerList = state.hiprintTemplate.getPrinterList();
+
+		let sfcz= printerList.some((item)=>{
+			return item.name==state.printParam.printer;
+		})
+		if(!sfcz){
+			alert('打印机不存在');
+		}else{
+			// 直接打印 将使用系统设置的 默认打印机
+			state.hiprintTemplate.print2(state.printData,state.printParam);
+
+			// 发送任务到打印机成功
+			state.hiprintTemplate.on('printSuccess', function (e) {
+				state.waitShowPrinter=false;
+			})
+			// 发送任务到打印机失败
+			state.hiprintTemplate.on('printError', function (e) {
+				state.waitShowPrinter=false;
+				alert('打印失败：'+e);
+			})
 		}
-	);
+		
+	} else {
+		state.hiprintTemplate.print(
+			state.printData,
+			{},
+			{
+				callback: () => {
+					state.waitShowPrinter = false;
+				},
+			}
+		);
+	}
 };
 
 const toPdf = () => {
