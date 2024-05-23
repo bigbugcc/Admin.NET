@@ -57,7 +57,7 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-form-item label="客户端服务地址"  >
+						<el-form-item label="客户端服务地址">
 							<el-input v-model="state.ruleForm.clientServiceAddress" placeholder="客户端服务地址" clearable />
 						</el-form-item>
 					</el-col>
