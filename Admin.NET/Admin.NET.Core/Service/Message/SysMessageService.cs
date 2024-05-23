@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -16,12 +16,15 @@ public class SysMessageService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _chatHubContext;
+    private readonly SysConfigService _sysConfigService;
 
     public SysMessageService(SysCacheService sysCacheService,
-        IHubContext<OnlineUserHub, IOnlineUserHub> chatHubContext)
+        IHubContext<OnlineUserHub, IOnlineUserHub> chatHubContext,
+        SysConfigService sysConfigService)
     {
         _sysCacheService = sysCacheService;
         _chatHubContext = chatHubContext;
+        _sysConfigService = sysConfigService;
     }
 
     /// <summary>
@@ -43,10 +46,21 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给除了发送人的其他人")]
     public async Task SendOtherUser(MessageInput input)
     {
-        var user = _sysCacheService.Get<SysOnlineUser>(CacheConst.KeyUserOnline + input.UserId);
-        if (user != null)
+        var cacheKey = CacheConst.KeyUserOnline + input.UserId;
+        // 是否开启单用户登录
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin)) 
         {
+            var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
+            if (user == null) return;
             await _chatHubContext.Clients.AllExcept(user.ConnectionId).ReceiveMessage(input);
+        } else {
+            var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
+            foreach (var _cacheKey in _cacheKeys)
+            {
+                var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
+                if (user == null) return;
+                await _chatHubContext.Clients.AllExcept(user.ConnectionId).ReceiveMessage(input);
+            }
         }
     }
 
@@ -58,11 +72,24 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给某个人")]
     public async Task SendUser(MessageInput input)
     {
-        var user = _sysCacheService.Get<SysOnlineUser>(CacheConst.KeyUserOnline + input.UserId);
-        if (user == null) return;
-        await _chatHubContext.Clients.Client(user.ConnectionId).ReceiveMessage(input);
-        // 可以直接通过用户Id发消息
-        //await _chatHubContext.Clients.User(user.UserId.ToString()).ReceiveMessage(input);
+        var cacheKey = CacheConst.KeyUserOnline + input.UserId;
+        // 是否开启单用户登录
+        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin)) 
+        {
+            var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
+            if (user == null) return;
+            await _chatHubContext.Clients.Client(user.ConnectionId).ReceiveMessage(input);
+        } 
+        else 
+        {
+            var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
+            foreach (var _cacheKey in _cacheKeys)
+            {
+                var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
+                if (user == null) return;
+                await _chatHubContext.Clients.Client(user.ConnectionId).ReceiveMessage(input);
+            }
+        }
     }
 
     /// <summary>
@@ -73,12 +100,26 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给某些人")]
     public async Task SendUsers(MessageInput input)
     {
-        var userlist = new List<string>();
-        foreach (var userid in input.UserIds)
+        var userList = new List<string>();
+        foreach (var userId in input.UserIds)
         {
-            var user = _sysCacheService.Get<SysOnlineUser>(CacheConst.KeyUserOnline + userid);
-            if (user != null) userlist.Add(user.ConnectionId);
+            var cacheKey = CacheConst.KeyUserOnline + userId;
+            // 是否开启单用户登录
+            if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin)) 
+            {
+                var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
+                if (user != null) userList.Add(user.ConnectionId);
+            }
+            else 
+            {
+                var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
+                foreach (var _cacheKey in _cacheKeys)
+                {
+                    var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
+                    if (user != null) userList.Add(user.ConnectionId);
+                }
+            }
         }
-        await _chatHubContext.Clients.Clients(userlist).ReceiveMessage(input);
+        await _chatHubContext.Clients.Clients(userList).ReceiveMessage(input);
     }
 }
