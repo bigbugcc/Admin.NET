@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia';
-import { SysConfigApi } from '/@/api-services';
-import { getAPI } from '/@/utils/axios-utils';
 
 export const useThemeConfig = defineStore('themeConfig', {
 	state: (): ThemeConfigState => ({
@@ -12,7 +10,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 全局主题
 			 */
 			// 默认 primary 主题颜色
-			primary: '#0F59A4', //胭脂红:#F03F24 //飞燕草蓝:#0F59A4 //薄荷绿:#207F4C
+			primary: '#F03F24', //胭脂红:#F03F24 //飞燕草蓝:#0F59A4 //薄荷绿:#207F4C
 			// 是否开启深色模式
 			isIsDark: false,
 
@@ -147,30 +145,6 @@ export const useThemeConfig = defineStore('themeConfig', {
 	actions: {
 		setThemeConfig(data: ThemeConfigState) {
 			this.themeConfig = data.themeConfig;
-		},
-
-		async setWebConfig() {
-			var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
-			var webConfig = res.data.result;
-			for (let index = 0; index < webConfig.length; index++) {
-				const element = webConfig[index];
-				if (element.code == 'title') {
-					document.title = element.value;
-					this.themeConfig.globalTitle = element.value;
-				}
-				if (element.code == 'watermark_text') {
-					this.themeConfig.globalTitle = element.value;
-				}
-				if (element.code == 'vice_title') {
-					this.themeConfig.globalViceTitle = element.value;
-				}
-				if (element.code == 'vice_title_msg') {
-					this.themeConfig.globalViceTitleMsg = element.value;
-				}
-				if (element.code == 'web_copyright') {
-					this.themeConfig.copyright = 'Copyright © ' + element.value + ' ' + this.themeConfig.globalTitle + ' All rights reserved.';
-				}
-			}
 		},
 	},
 });

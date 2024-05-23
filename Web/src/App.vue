@@ -20,7 +20,9 @@ import other from '/@/utils/other';
 import { Local, Session } from '/@/utils/storage';
 import mittBus from '/@/utils/mitt';
 import setIntroduction from '/@/utils/setIconfont';
-// import checkUpdate from '/@/utils/auto-update';
+import Watermark from '/@/utils/watermark';
+import { SysConfigApi } from '/@/api-services';
+import { getAPI } from '/@/utils/axios-utils';
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'));
@@ -82,8 +84,9 @@ onMounted(() => {
 		});
 		// 获取缓存中的布局配置
 		if (Local.get('themeConfig')) {
-			storesThemeConfig.setThemeConfig({ themeConfig: Local.get('themeConfig') });
-			storesThemeConfig.setWebConfig();
+			var themeConfig = Local.get('themeConfig');
+			setWebConfig(themeConfig);
+			storesThemeConfig.setThemeConfig({ themeConfig: themeConfig });
 			document.documentElement.style.cssText = Local.get('themeConfigStyle');
 		}
 		// 获取缓存中的全屏配置
@@ -106,6 +109,38 @@ watch(
 		deep: true,
 	}
 );
+
+// 获取系统配置
+const setWebConfig = async (themeConfig: any) => {
+	var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
+	var webConfig = res.data.result;
+	for (let index = 0; index < webConfig.length; index++) {
+		const element = webConfig[index];
+		if (element.code == 'sys_web_title') {
+			document.title = element.value;
+			themeConfig.globalTitle = element.value;
+		}
+		if (element.code == 'sys_web_watermark') {
+			if (element.value == 'False') {
+				themeConfig.isWatermark = false;
+				Watermark.del();
+			} else {
+				themeConfig.isWatermark = true;
+				themeConfig.watermarkText = element.value;
+				Watermark.set(element.value);
+			}
+		}
+		if (element.code == 'sys_web_viceTitle') {
+			themeConfig.globalViceTitle = element.value;
+		}
+		if (element.code == 'sys_web_viceDesc') {
+			themeConfig.globalViceTitleMsg = element.value;
+		}
+		if (element.code == 'sys_web_copyright') {
+			themeConfig.copyright = element.value;
+		}
+	}
+};
 </script>
 
 <style lang="scss">

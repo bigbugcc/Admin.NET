@@ -19,7 +19,7 @@
 				</template>
 				<template #action="scope">
 					<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditConfig(scope.row)" v-auth="'sysConfig:update'"> 编辑 </el-button>
-					<el-button icon="ele-Delete" size="small" text type="danger" @click="delConfig(scope.row)" v-auth="'sysConfig:delete'"> 删除 </el-button>
+					<el-button icon="ele-Delete" size="small" text type="danger" @click="delConfig(scope.row)" v-auth="'sysConfig:delete'" :disabled="scope.row.sysFlag === 1"> 删除 </el-button>
 				</template>
 			</Table>
 		</el-card>

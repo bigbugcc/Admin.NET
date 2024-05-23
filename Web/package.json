@@ -42,7 +42,7 @@
 		"push.js": "^1.0.12",
 		"qrcodejs2-fixes": "^0.0.2",
 		"qs": "^6.12.1",
-		"relation-graph": "^2.2.0",
+		"relation-graph": "^2.2.1",
 		"screenfull": "^6.0.2",
 		"sm-crypto-v2": "^1.9.0",
 		"sortablejs": "^1.15.2",
@@ -84,7 +84,7 @@
 		"typescript": "^5.4.5",
 		"vite": "^5.2.11",
 		"vite-plugin-cdn-import": "^1.0.1",
-		"vite-plugin-compression2": "^1.1.0",
+		"vite-plugin-compression2": "^1.1.1",
 		"vite-plugin-vue-setup-extend-plus": "^0.1.0",
 		"vue-eslint-parser": "^9.4.2"
 	},

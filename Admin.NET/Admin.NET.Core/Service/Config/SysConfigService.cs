@@ -196,17 +196,6 @@ public class SysConfigService : IDynamicApiController, ITransient
     [DisplayName("获取前端配置")]
     public async Task<dynamic> GetWebConfig()
     {
-        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "Web").Select(u => new { u.Code, u.Value }).ToListAsync();
-    }
-
-    /// <summary>
-    /// 获取后台配置
-    /// </summary>
-    /// <returns></returns>
-    [AllowAnonymous]
-    [DisplayName("获取后台配置")]
-    public async Task<dynamic> GetBackendConfig()
-    {
-        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "Backend").Select(u => new { u.Code, u.Value }).ToListAsync();
+        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "WebConfig").Select(u => new { u.Code, u.Value }).ToListAsync();
     }
 }

@@ -19,17 +19,21 @@ public class SysConfigSeedData : ISqlSugarEntitySeedData<SysConfig>
     {
         return new[]
         {
-            new SysConfig{ Id=1300000000101, Name="演示环境", Code="sys_demo", Value="False", SysFlag=YesNoEnum.Y, Remark="演示环境", OrderNo=1, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000102, Name="默认密码", Code="sys_password", Value="123456", SysFlag=YesNoEnum.Y, Remark="默认密码", OrderNo=2, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000103, Name="记录操作日志", Code="sys_oplog", Value="True", SysFlag=YesNoEnum.Y, Remark="是否记录操作日志", OrderNo=3, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000104, Name="开启单设备登录", Code="sys_single_login", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启单设备登录", OrderNo=4, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000105, Name="开启登录二次验证", Code="sys_second_ver", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启登录二次验证", OrderNo=5, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000106, Name="开启图形验证码", Code="sys_captcha", Value="True", SysFlag=YesNoEnum.Y, Remark="是否开启图形验证码", OrderNo=6, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000107, Name="开启水印", Code="sys_watermark", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启水印", OrderNo=7, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000108, Name="Token过期时间", Code="sys_token_expire", Value="10080", SysFlag=YesNoEnum.Y, Remark="Token过期时间（分钟）", OrderNo=8, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000109, Name="刷新Token过期时间", Code="sys_refresh_token_expire", Value="20160", SysFlag=YesNoEnum.Y, Remark="刷新Token过期时间（分钟）（一般 refresh_token 的有效时间 > 2 * access_token 的有效时间）", OrderNo=9, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000110, Name="发送异常日志邮件", Code="sys_error_mail", Value="True", SysFlag=YesNoEnum.Y, Remark="是否发送异常日志邮件", OrderNo=10, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-            new SysConfig{ Id=1300000000111, Name="开启域登录验证", Code="sys_domain_login", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启域登录验证", OrderNo=11, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
-        };
+            new SysConfig{ Id=1300000000101, Name="演示环境", Code="sys_demo", Value="False", SysFlag=YesNoEnum.Y, Remark="演示环境", OrderNo=10, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000111, Name="默认密码", Code="sys_password", Value="123456", SysFlag=YesNoEnum.Y, Remark="默认密码", OrderNo=20, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000121, Name="记录操作日志", Code="sys_oplog", Value="True", SysFlag=YesNoEnum.Y, Remark="是否记录操作日志", OrderNo=30, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000131, Name="开启单设备登录", Code="sys_single_login", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启单设备登录", OrderNo=40, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000141, Name="开启登录二次验证", Code="sys_second_ver", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启登录二次验证", OrderNo=50, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000151, Name="开启图形验证码", Code="sys_captcha", Value="True", SysFlag=YesNoEnum.Y, Remark="是否开启图形验证码", OrderNo=60, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000161, Name="Token过期时间", Code="sys_token_expire", Value="10080", SysFlag=YesNoEnum.Y, Remark="Token过期时间（分钟）", OrderNo=70, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000171, Name="刷新Token过期时间", Code="sys_refresh_token_expire", Value="20160", SysFlag=YesNoEnum.Y, Remark="刷新Token过期时间（分钟）（一般 refresh_token 的有效时间 > 2 * access_token 的有效时间）", OrderNo=80, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000181, Name="发送异常日志邮件", Code="sys_error_mail", Value="True", SysFlag=YesNoEnum.Y, Remark="是否发送异常日志邮件", OrderNo=90, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000191, Name="开启域登录验证", Code="sys_domain_login", Value="False", SysFlag=YesNoEnum.Y, Remark="是否开启域登录验证", OrderNo=100, GroupCode="Default", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000211, Name="系统主标题", Code="sys_web_title", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="系统主标题", OrderNo=110, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000221, Name="系统副标题", Code="sys_web_viceTitle", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="系统副标题", OrderNo=120, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000231, Name="系统描述", Code="sys_web_viceDesc", Value="站在巨人肩膀上的 .NET 通用权限开发框架", SysFlag=YesNoEnum.Y, Remark="系统描述", OrderNo=130, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000241, Name="水印内容", Code="sys_web_watermark", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="水印内容", OrderNo=140, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000251, Name="版权说明", Code="sys_web_copyright", Value="Copyright © 2021-2014 Admin.NET All rights reserved.", SysFlag=YesNoEnum.Y, Remark="版权说明", OrderNo=150, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+    };
     }
 }
