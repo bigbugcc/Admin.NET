@@ -4,7 +4,7 @@
 			<div>
 				<slot name="command"></slot>
 			</div>
-			<div v-loading="state.importLoading" class="table-footer-tool">
+			<div v-loading="state.exportLoading" class="table-footer-tool">
 				<SvgIcon v-if="!config.hideRefresh" name="iconfont icon-shuaxin" :size="22" title="刷新" @click="onRefreshTable" />
 				<el-dropdown v-if="!config.hideExport" trigger="click">
 					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
