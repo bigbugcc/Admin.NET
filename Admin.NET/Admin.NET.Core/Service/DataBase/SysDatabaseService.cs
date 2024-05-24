@@ -332,6 +332,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             entityType = item.Type;
             break;
         }
+        if (entityType == null) return;
 
         input.EntityName = entityType.Name;
         input.SeedDataName = entityType.Name + "SeedData";
