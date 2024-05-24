@@ -198,17 +198,16 @@ const custom = () => {
 
 // 设置布局
 const setLayout = (layout: number[]) => {
-	grid.value.layout = layout;
-	if (grid.value.layout.length < grid.value.copmsList.length) {
-		for (let i = grid.value.layout.length; i < grid.value.copmsList.length; i++) {
-			grid.value.copmsList[grid.value.layout.length - 1] = grid.value.copmsList[grid.value.layout.length - 1].concat(grid.value.copmsList[i]);
-		}
-		grid.value.copmsList = grid.value.copmsList.slice(0, grid.value.layout.length);
-	} else if (grid.value.layout.length > grid.value.copmsList.length) {
-		for (let i = grid.value.copmsList.length; i < grid.value.layout.length; i++) {
-			grid.value.copmsList[i] = [];
-		}
-	}
+  grid.value.layout = layout;
+  const diff = grid.value.layout.length - grid.value.copmsList.length;
+  if (diff < 0) {
+    grid.value.copmsList = [
+      ...grid.value.copmsList.slice(0, grid.value.layout.length - 1),
+      grid.value.copmsList.slice(grid.value.layout.length - 1).flat(),
+    ];
+  } else if (diff > 0) {
+    grid.value.copmsList = grid.value.copmsList.concat(Array.from({length: diff}, () => []));
+  };
 };
 
 // 追加
