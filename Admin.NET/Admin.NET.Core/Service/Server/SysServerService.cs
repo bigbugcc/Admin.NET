@@ -46,7 +46,7 @@ public class SysServerService : IDynamicApiController, ITransient
             ProcessorCount = Environment.ProcessorCount + " 核", // CPU核心数
             SysRunTime = ComputerUtil.GetRunTime(), // 系统运行时间
             RemoteIp = ComputerUtil.GetIpFromOnline(), // 外网地址
-            LocalIp = App.HttpContext?.Connection?.LocalIpAddress.ToString(), // 本地地址
+            LocalIp = App.HttpContext?.Connection?.LocalIpAddress.MapToIPv4().ToString(), // 本地地址
             RuntimeInformation.FrameworkDescription, // NET框架
             Environment = App.HostEnvironment.IsDevelopment() ? "Development" : "Production",
             Wwwroot = App.WebHostEnvironment.WebRootPath, // 网站根目录
