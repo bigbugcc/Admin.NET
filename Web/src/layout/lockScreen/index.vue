@@ -193,6 +193,13 @@ const setLocalThemeConfig = () => {
 const onLockScreenSubmit = async () => {
 	if (state.lockScreenPassword) {
 		try {
+			// 用户信息不存在时直接解锁（清理缓存后）
+			if (userInfos.account === void 0) {
+				themeConfig.value.isLockScreen = false;
+				themeConfig.value.lockScreenTime = 30;
+				setLocalThemeConfig();
+				return;
+			}
 			// SM2加密密码
 			const publicKey = window.__env__.VITE_SM_PUBLIC_KEY;
 			const password = sm2.doEncrypt(state.lockScreenPassword, publicKey, 1);
