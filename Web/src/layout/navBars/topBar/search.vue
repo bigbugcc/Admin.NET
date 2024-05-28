@@ -104,7 +104,7 @@ defineExpose({
 	:deep(.el-dialog) {
 		background-color: transparent;
 		box-shadow: none;
-		
+
 		.el-dialog__header,
 		.el-dialog__body {
 			display: none;
