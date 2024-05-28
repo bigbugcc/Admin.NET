@@ -91,12 +91,11 @@
 				</div>
 			</template>
 			<div>
-				<div>
-					<el-select v-model="state.fileType" placeholder="请选择文件类型">
-						<el-option label="相关文件" value="相关文件" />
-						<el-option label="归档文件" value="归档文件" />
-					</el-select>
-				</div>
+				<el-select v-model="state.fileType" placeholder="请选择文件类型" style="margin-bottom: 10px">
+					<el-option label="相关文件" value="相关文件" />
+					<el-option label="归档文件" value="归档文件" />
+				</el-select>
+
 				<el-upload ref="uploadRef" drag :auto-upload="false" :limit="1" :file-list="state.fileList" action="" :on-change="handleChange" accept=".jpg,.png,.bmp,.gif,.txt,.pdf,.xlsx,.docx">
 					<el-icon class="el-icon--upload">
 						<ele-UploadFilled />
