@@ -52,9 +52,8 @@ public partial class SysFile : EntityBase
     /// <summary>
     /// 文件大小KB
     /// </summary>
-    [SugarColumn(ColumnDescription = "文件大小KB", Length = 16)]
-    [MaxLength(16)]
-    public string? SizeKb { get; set; }
+    [SugarColumn(ColumnDescription = "文件大小KB")]
+    public long SizeKb { get; set; }
 
     /// <summary>
     /// 文件大小信息-计算后的

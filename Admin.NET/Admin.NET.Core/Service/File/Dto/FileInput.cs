@@ -151,7 +151,7 @@ public class FileOutput
     /// <summary>
     /// 大小
     /// </summary>
-    public string SizeKb { get; set; }
+    public long SizeKb { get; set; }
 
     /// <summary>
     /// 后缀
