@@ -203,7 +203,7 @@ export function feature<T, U = Error>(promise: Promise<T>, errorExt?: object): P
  * @param axiosObject axios 实例
  * @returns 服务API 实例
  */
-export function getAPI<T extends BaseAPI>(
+export function getAPI<T>(
 	// eslint-disable-next-line no-unused-vars
 	apiType: new (configuration?: Configuration, basePath?: string, axiosInstance?: AxiosInstance) => T,
 	configuration: Configuration = serveConfig,
