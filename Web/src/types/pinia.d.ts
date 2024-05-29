@@ -92,5 +92,6 @@ declare interface ThemeConfigState {
 		copyright: string;
 		globalI18n: string;
 		globalComponentSize: string;
+		logoUrl: string; // 系统 Logo 地址
 	};
 }

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { PrintTypeEnum } from './print-type-enum';
 import { StatusEnum } from './status-enum';
  /**
  * 系统打印模板表
@@ -108,6 +109,28 @@ export interface SysPrint {
      * @memberof SysPrint
      */
     template: string;
+
+    /**
+     * @type {PrintTypeEnum}
+     * @memberof SysPrint
+     */
+    printType: PrintTypeEnum;
+
+    /**
+     * 客户端服务地址
+     *
+     * @type {string}
+     * @memberof SysPrint
+     */
+    clientServiceAddress?: string | null;
+
+    /**
+     * 打印参数
+     *
+     * @type {string}
+     * @memberof SysPrint
+     */
+    printParam?: string | null;
 
     /**
      * 排序

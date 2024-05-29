@@ -31,6 +31,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<SysConfig>> Page(PageConfigInput input)
     {
         return await _sysConfigRep.AsQueryable()
+            .Where(u => u.GroupCode != "WebConfig"/*不显示 WebConfig 分组*/)
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name?.Trim()), u => u.Name.Contains(input.Name))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrWhiteSpace(input.GroupCode?.Trim()), u => u.GroupCode.Equals(input.GroupCode))
@@ -155,13 +156,107 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 更新参数配置值
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task UpdateConfigValue(string code, string value)
+    {
+        var config = await _sysConfigRep.GetFirstAsync(u => u.Code == code);
+        if (config == null) return;
+
+        config.Value = value;
+        await _sysConfigRep.AsUpdateable(config).ExecuteCommandAsync();
+
+        _sysCacheService.Remove(config.Code);
+    }
+
+    /// <summary>
     /// 获取分组列表 🔖
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取分组列表")]
     public async Task<List<string>> GetGroupList()
     {
-        return await _sysConfigRep.AsQueryable().GroupBy(u => u.GroupCode).Select(u => u.GroupCode).ToListAsync();
+        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode != "WebConfig"/*不显示 WebConfig 分组*/).GroupBy(u => u.GroupCode).Select(u => u.GroupCode).ToListAsync();
+    }
+
+
+    /// <summary>
+    /// 获取系统信息
+    /// </summary>
+    /// <returns></returns>
+    [SuppressMonitor]
+    [DisplayName("获取系统信息")]
+    [AllowAnonymous]
+    public async Task<dynamic> GetSysInfo()
+    {
+        var sysLogo = await GetConfigValue<string>("sys_web_logo");
+        var sysTitle = await GetConfigValue<string>("sys_web_title");
+        var sysViceTitle = await GetConfigValue<string>("sys_web_viceTitle");
+        var sysViceDesc = await GetConfigValue<string>("sys_web_viceDesc");
+        var sysWatermark = await GetConfigValue<string>("sys_web_watermark");
+        var sysCopyright = await GetConfigValue<string>("sys_web_copyright");
+        return new
+        {
+            SysLogo = sysLogo,
+            SysTitle = sysTitle,
+            SysViceTitle = sysViceTitle,
+            SysViceDesc = sysViceDesc,
+            SysWatermark = sysWatermark,
+            SysCopyright = sysCopyright,
+        };
+    }
+
+    /// <summary>
+    /// 保存系统信息
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("保存系统信息")]
+    public async Task SaveSysInfo(InfoSaveInput input)
+    {
+        //不为空才保存 SysLogo
+        if (!string.IsNullOrEmpty(input.SysLogoBase64))
+        {
+            //旧图标文件相对路径
+            var oldSysLogoRelativeFilePath = await GetConfigValue<string>("sys_web_logo") ?? "";
+            var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath);
+
+            var groups = Regex.Match(input.SysLogoBase64, @"data:image/(?<type>.+?);base64,(?<data>.+)").Groups;
+            var type = groups["type"].Value;
+            var base64Data = groups["data"].Value;
+            var binData = Convert.FromBase64String(base64Data);
+
+            //本地保存图标路径
+            var path = "Upload/Logo";
+
+            //文件路径
+            var relativeUrl = $"{path}/logo.{type}";
+            var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo.{type}");
+
+            //删除已存在文件
+            if (File.Exists(oldSysLogoAbsoluteFilePath))
+                File.Delete(oldSysLogoAbsoluteFilePath);
+
+            //创建文件夹
+            var absoluteFileDir = Path.GetDirectoryName(absoluteFilePath);
+            if (!Directory.Exists(absoluteFileDir))
+                Directory.CreateDirectory(absoluteFileDir);
+
+            //保存文件
+            await File.WriteAllBytesAsync(absoluteFilePath, binData);
+
+            //保存图标配置
+            await UpdateConfigValue("sys_web_logo", relativeUrl);
+        }
+
+        await UpdateConfigValue("sys_web_title", input.SysTitle);
+        await UpdateConfigValue("sys_web_viceTitle", input.SysViceTitle);
+        await UpdateConfigValue("sys_web_viceDesc", input.SysViceDesc);
+        await UpdateConfigValue("sys_web_watermark", input.SysWatermark);
+        await UpdateConfigValue("sys_web_copyright", input.SysCopyright);
     }
 
     /// <summary>
@@ -186,16 +281,5 @@ public class SysConfigService : IDynamicApiController, ITransient
         var refreshTokenExpireStr = await GetConfigValue<string>(CommonConst.SysRefreshTokenExpire);
         _ = int.TryParse(refreshTokenExpireStr, out var refreshTokenExpire);
         return refreshTokenExpire == 0 ? 40 : refreshTokenExpire;
-    }
-
-    /// <summary>
-    /// 获取前端配置
-    /// </summary>
-    /// <returns></returns>
-    [AllowAnonymous]
-    [DisplayName("获取前端配置")]
-    public async Task<dynamic> GetWebConfig()
-    {
-        return await _sysConfigRep.AsQueryable().Where(u => u.GroupCode == "WebConfig").Select(u => new { u.Code, u.Value }).ToListAsync();
     }
 }

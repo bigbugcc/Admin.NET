@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-columns-aside">
-		<div class="layout-logo"><img :src="logoMini" class="layout-logo-medium-img" /></div>
+		<div class="layout-logo"><img :src="themeConfig.logoUrl" class="layout-logo-medium-img" /></div>
 		<el-scrollbar>
 			<ul @mouseleave="onColumnsAsideMenuMouseleave()">
 				<li
@@ -44,7 +44,7 @@ import { storeToRefs } from 'pinia';
 import { useRoutesList } from '/@/stores/routesList';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import mittBus from '/@/utils/mitt';
-import logoMini from '/@/assets/logo-mini.svg';
+// import logoMini from '/@/assets/logo-mini.svg';
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<RefType>([]);
