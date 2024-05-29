@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { PrintTypeEnum } from './print-type-enum';
 import { StatusEnum } from './status-enum';
  /**
  * 
@@ -100,6 +101,28 @@ export interface AddPrintInput {
      * @memberof AddPrintInput
      */
     template: string;
+
+    /**
+     * @type {PrintTypeEnum}
+     * @memberof AddPrintInput
+     */
+    printType: PrintTypeEnum;
+
+    /**
+     * 客户端服务地址
+     *
+     * @type {string}
+     * @memberof AddPrintInput
+     */
+    clientServiceAddress?: string | null;
+
+    /**
+     * 打印参数
+     *
+     * @type {string}
+     * @memberof AddPrintInput
+     */
+    printParam?: string | null;
 
     /**
      * 排序

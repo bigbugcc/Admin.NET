@@ -2,7 +2,7 @@
 	<div class="login-container flex">
 		<div class="login-left flex-margin">
 			<div class="login-left-logo">
-				<img :src="logoMini" />
+				<img :src="getThemeConfig.logoUrl" />
 				<div class="login-left-logo-text">
 					<span>{{ getThemeConfig.globalViceTitle }}</span>
 					<span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span>
@@ -55,7 +55,7 @@ import { defineAsyncComponent, onMounted, reactive, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { NextLoading } from '/@/utils/loading';
-import logoMini from '/@/assets/logo-mini.svg';
+// import logoMini from '/@/assets/logo-mini.svg';
 import loginIconTwo from '/@/assets/login-icon-two.svg';
 import loginIconTwo1 from '/@/assets/login-icon-two1.svg';
 import loginIconTwo2 from '/@/assets/login-icon-two2.svg';

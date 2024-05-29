@@ -87,10 +87,15 @@ import { sm2 } from 'sm-crypto-v2';
 
 import { accessTokenKey, clearTokens, feature, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi } from '/@/api-services/api';
+import { useThemeConfig } from '/@/stores/themeConfig';
+import { storeToRefs } from 'pinia';
 
 // 旋转图片滑块组件
-import verifyImg from '/@/assets/logo-mini.svg';
+// import verifyImg from '/@/assets/logo-mini.svg';
 const DragVerifyImgRotate = defineAsyncComponent(() => import('/@/components/dragVerify/dragVerifyImgRotate.vue'));
+
+const storesThemeConfig = useThemeConfig();
+const { themeConfig } = storeToRefs(storesThemeConfig);
 
 const { t } = useI18n();
 const route = useRoute();
@@ -120,7 +125,8 @@ const state = reactive({
 	},
 	captchaImage: '',
 	rotateVerifyVisible: false,
-	rotateVerifyImg: verifyImg,
+	// rotateVerifyImg: verifyImg,
+	rotateVerifyImg: themeConfig.value.logoUrl,
 	secondVerEnabled: false,
 	captchaEnabled: false,
 	isPassRotate: false,

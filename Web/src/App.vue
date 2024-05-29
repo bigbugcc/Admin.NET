@@ -85,7 +85,6 @@ onMounted(() => {
 		// 获取缓存中的布局配置
 		if (Local.get('themeConfig')) {
 			var themeConfig = Local.get('themeConfig');
-			setWebConfig(themeConfig);
 			storesThemeConfig.setThemeConfig({ themeConfig: themeConfig });
 			document.documentElement.style.cssText = Local.get('themeConfigStyle');
 		}
@@ -110,37 +109,49 @@ watch(
 	}
 );
 
-// 获取系统配置
-const setWebConfig = async (themeConfig: any) => {
-	var res = await getAPI(SysConfigApi).apiSysConfigWebConfigGet();
-	var webConfig = res.data.result;
-	for (let index = 0; index < webConfig.length; index++) {
-		const element = webConfig[index];
-		if (element.code == 'sys_web_title') {
-			document.title = element.value;
-			themeConfig.globalTitle = element.value;
-		}
-		if (element.code == 'sys_web_watermark') {
-			if (element.value == 'False') {
-				themeConfig.isWatermark = false;
-				Watermark.del();
-			} else {
-				themeConfig.isWatermark = true;
-				themeConfig.watermarkText = element.value;
-				Watermark.set(element.value);
-			}
-		}
-		if (element.code == 'sys_web_viceTitle') {
-			themeConfig.globalViceTitle = element.value;
-		}
-		if (element.code == 'sys_web_viceDesc') {
-			themeConfig.globalViceTitleMsg = element.value;
-		}
-		if (element.code == 'sys_web_copyright') {
-			themeConfig.copyright = element.value;
-		}
-	}
+/** 加载系统信息 */
+const loadSysInfo = () => {
+	getAPI(SysConfigApi)
+		.apiSysConfigSysInfoGet()
+		.then((res) => {
+			if (res.data.type != 'success') return;
+
+			const data = res.data.result;
+
+			themeConfig.value.logoUrl = data.sysLogo;
+			themeConfig.value.globalTitle = data.sysTitle;
+			themeConfig.value.globalViceTitle = data.sysViceTitle;
+			themeConfig.value.globalViceTitleMsg = data.sysViceDesc;
+			// 水印
+			themeConfig.value.watermarkText = data.sysWatermark;
+			// 版权说明
+			themeConfig.value.copyright = data.sysCopyright;
+
+			// 更新 favicon
+			updateFavicon(data.sysLogo);
+
+			// 保存配置
+			Local.remove('themeConfig');
+			Local.set('themeConfig', storesThemeConfig.themeConfig);
+		})
+		.catch(() => {
+			// 置空 Logo 地址
+			themeConfig.value.logoUrl = '';
+			// 保存配置
+			Local.remove('themeConfig');
+			Local.set('themeConfig', storesThemeConfig.themeConfig);
+			return;
+		});
 };
+
+/** 更新 favicon */
+const updateFavicon = (url: string): void => {
+	const favicon = document.getElementById('favicon') as HTMLAnchorElement;
+	favicon!.href = url ? url : 'data:;base64,=';
+};
+
+// 加载系统信息
+loadSysInfo();
 </script>
 
 <style lang="scss">
