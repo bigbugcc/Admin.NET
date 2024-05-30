@@ -89,7 +89,7 @@ const print = () => {
 };
 
 const toPdf = () => {
-	state.hiprintTemplate.toPdf({}, 'PDF文件');
+	state.hiprintTemplate.toPdf(state.printData, 'PDF文件');
 };
 
 const hideDialog = () => {
