@@ -223,7 +223,7 @@ if(@column.EffectType == "Upload"){
     @:public async Task<SysFile> Upload@(@column.PropertyName)([Required] IFormFile file)
     @:{
             @:var service = App.GetRequiredService<SysFileService>();
-            @:return await service.UploadFile(file, "upload/@(@column.PropertyName)"); 
+            @:return await service.UploadFile(new FileUploadInput { File = file, Path = "upload/@(@column.PropertyName)" }); 
     @:} 
 }
 }
