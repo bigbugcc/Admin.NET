@@ -198,10 +198,22 @@ public class SysWechatService : IDynamicApiController, ITransient
     /// </summary>
     private async Task<string> GetCgibinToken()
     {
-        var reqCgibinToken = new CgibinTokenRequest();
-        var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
-        if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
-            throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
-        return resCgibinToken.AccessToken;
+        //先从缓存中取AccessToken
+        var WXMP_AccessToken = _sysCacheService.Get<string>("WXMP_AccessToken");
+        if (!string.IsNullOrEmpty(WXMP_AccessToken))
+        {
+            return WXMP_AccessToken;
+        }
+        //没有取到，就从微信公众号获取AccessToken
+        else
+        {
+            var reqCgibinToken = new CgibinTokenRequest();
+            var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
+            if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
+                throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
+            //缓存AccessToken
+            _sysCacheService.Set("WXMP_AccessToken", resCgibinToken.AccessToken, TimeSpan.FromSeconds(resCgibinToken.ExpiresIn));
+            return resCgibinToken.AccessToken;
+        }
     }
 }
