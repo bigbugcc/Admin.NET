@@ -28,7 +28,7 @@ bin-release/
 /Admin.NET/Admin.NET.Web.Entry/Properties/PublishProfiles
 /Admin.NET/Admin.NET.Web.Entry/publish
 /Admin.NET/Admin.NET.Web.Entry/logs
-/Admin.NET/Admin.NET.Web.Entry/*.db
+/Admin.NET/Admin.NET.Web.Entry/Admin.NET.db
 
 # folders
 dist/
