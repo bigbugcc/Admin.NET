@@ -16,15 +16,18 @@ public class SysWechatService : IDynamicApiController, ITransient
     private readonly SysConfigService _sysConfigService;
     private readonly WechatApiClientFactory _wechatApiClientFactory;
     private readonly WechatApiClient _wechatApiClient;
+    private readonly SysCacheService _sysCacheService;
 
     public SysWechatService(SqlSugarRepository<SysWechatUser> sysWechatUserRep,
         SysConfigService sysConfigService,
-        WechatApiClientFactory wechatApiClientFactory)
+        WechatApiClientFactory wechatApiClientFactory,
+        SysCacheService sysCacheService)
     {
         _sysWechatUserRep = sysWechatUserRep;
         _sysConfigService = sysConfigService;
         _wechatApiClientFactory = wechatApiClientFactory;
         _wechatApiClient = wechatApiClientFactory.CreateWechatClient();
+        _sysCacheService = sysCacheService;
     }
 
     /// <summary>
@@ -198,22 +201,20 @@ public class SysWechatService : IDynamicApiController, ITransient
     /// </summary>
     private async Task<string> GetCgibinToken()
     {
-        //先从缓存中取AccessToken
-        var WXMP_AccessToken = _sysCacheService.Get<string>("WXMP_AccessToken");
-        if (!string.IsNullOrEmpty(WXMP_AccessToken))
+        // 先从缓存中取 AccessToken
+        var wx_accessToken = _sysCacheService.Get<string>("sys_wx_accessToken");
+        if (!string.IsNullOrWhiteSpace(wx_accessToken))
         {
-            return WXMP_AccessToken;
+            return wx_accessToken;
         }
-        //没有取到，就从微信公众号获取AccessToken
-        else
-        {
-            var reqCgibinToken = new CgibinTokenRequest();
-            var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
-            if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
-                throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
-            //缓存AccessToken
-            _sysCacheService.Set("WXMP_AccessToken", resCgibinToken.AccessToken, TimeSpan.FromSeconds(resCgibinToken.ExpiresIn));
-            return resCgibinToken.AccessToken;
-        }
+
+        // 若缓存没有则从微信公众号重新获取 AccessToken
+        var reqCgibinToken = new CgibinTokenRequest();
+        var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
+        if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
+            throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
+
+        _sysCacheService.Set("sys_wx_accessToken", resCgibinToken.AccessToken, TimeSpan.FromSeconds(resCgibinToken.ExpiresIn)); // 缓存 AccessToken
+        return resCgibinToken.AccessToken;
     }
 }
