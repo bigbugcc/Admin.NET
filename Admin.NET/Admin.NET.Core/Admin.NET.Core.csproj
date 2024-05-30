@@ -18,9 +18,9 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.13.15" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.3.13" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.3.13" />
-    <PackageReference Include="Furion.Pure" Version="4.9.3.13" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.3.14" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.3.14" />
+    <PackageReference Include="Furion.Pure" Version="4.9.3.14" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
     <PackageReference Include="IPTools.International" Version="1.6.0" />
     <PackageReference Include="Magicodes.IE.Excel" Version="2.7.5.1" />
@@ -45,9 +45,9 @@
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="6.0.15" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="6.0.15" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.30" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.30" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.30" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.31" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
   </ItemGroup>
 
@@ -55,9 +55,9 @@
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="8.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="8.0.0" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.6" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
   </ItemGroup>
 

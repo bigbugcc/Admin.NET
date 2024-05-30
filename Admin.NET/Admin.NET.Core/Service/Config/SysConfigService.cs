@@ -255,11 +255,8 @@ public class SysConfigService : IDynamicApiController, ITransient
             var base64Data = groups["data"].Value;
             var binData = Convert.FromBase64String(base64Data);
 
-            // 本地保存图标路径
+            // 本地图标保存路径
             var path = "Upload";
-
-            // 文件路径
-            var relativeUrl = $"{path}/logo.{type}";
             var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo.{type}");
 
             // 删除已存在文件
@@ -271,10 +268,11 @@ public class SysConfigService : IDynamicApiController, ITransient
             //if (!Directory.Exists(absoluteFileDir))
             //    Directory.CreateDirectory(absoluteFileDir);
 
-            // 保存文件
+            // 保存图标文件
             await File.WriteAllBytesAsync(absoluteFilePath, binData);
 
             // 保存图标配置
+            var relativeUrl = $"/{path}/logo.{type}";
             await UpdateConfigValue("sys_web_logo", relativeUrl);
         }
 
