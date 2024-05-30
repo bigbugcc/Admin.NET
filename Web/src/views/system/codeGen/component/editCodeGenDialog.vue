@@ -73,6 +73,11 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="菜单图标" prop="menuIcon">
+							<IconSelector v-model="state.ruleForm.menuIcon" :size="getGlobalComponentSize" placeholder="菜单图标" type="all" />
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="父级菜单" prop="menuPid">
 							<el-cascader
 								:options="state.menuData"
@@ -112,7 +117,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="支持打印" prop="printType">
-							<el-select v-model="state.ruleForm.printType" filterable class="w100">
+							<el-select v-model="state.ruleForm.printType" filterable class="w100" @change="printTypeChanged" >
 								<el-option v-for="item in state.printTypeList" :key="item.value" :label="item.value" :value="item.code" />
 							</el-select>
 						</el-form-item>
@@ -137,7 +142,9 @@
 </template>
 
 <script lang="ts" setup name="sysEditCodeGen">
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
+import IconSelector from '/@/components/iconSelector/index.vue';
+import other from '/@/utils/other';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenApi, SysDictDataApi, SysMenuApi, SysPrintApi } from '/@/api-services/api';
@@ -197,6 +204,17 @@ const tableChanged = (item: any) => {
 	state.ruleForm.tableName = item.entityName;
 	state.ruleForm.busName = item.tableComment;
 };
+
+// print改变
+const printTypeChanged = () => {
+	if (state.ruleForm.printType === '') return;
+	if (state.ruleForm.printType == 'off') state.ruleForm.printName = '';
+};
+
+// 获取全局组件大小
+const getGlobalComponentSize = computed(() => {
+	return other.globalComponentSize();
+});
 
 // 打开弹窗
 const openDialog = (row: any) => {
