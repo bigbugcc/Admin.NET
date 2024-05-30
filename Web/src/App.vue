@@ -46,6 +46,7 @@ const setLockScreen = computed(() => {
 	// https://gitee.com/lyt-top/vue-next-admin/issues/I6AF8P
 	return themeConfig.value.isLockScreen ? themeConfig.value.lockScreenTime > 1 : themeConfig.value.lockScreenTime >= 0;
 });
+
 // // 获取版本号
 // const getVersion = computed(() => {
 // 	let isVersion = false;
@@ -84,8 +85,7 @@ onMounted(() => {
 		});
 		// 获取缓存中的布局配置
 		if (Local.get('themeConfig')) {
-			var themeConfig = Local.get('themeConfig');
-			storesThemeConfig.setThemeConfig({ themeConfig: themeConfig });
+			storesThemeConfig.setThemeConfig({ themeConfig: Local.get('themeConfig') });
 			document.documentElement.style.cssText = Local.get('themeConfigStyle');
 		}
 		// 获取缓存中的全屏配置
@@ -109,7 +109,7 @@ watch(
 	}
 );
 
-/** 加载系统信息 */
+// 加载系统信息
 const loadSysInfo = () => {
 	getAPI(SysConfigApi)
 		.apiSysConfigSysInfoGet()
@@ -117,7 +117,6 @@ const loadSysInfo = () => {
 			if (res.data.type != 'success') return;
 
 			const data = res.data.result;
-
 			themeConfig.value.logoUrl = data.sysLogo;
 			themeConfig.value.globalTitle = data.sysTitle;
 			themeConfig.value.globalViceTitle = data.sysViceTitle;
@@ -135,7 +134,7 @@ const loadSysInfo = () => {
 			Local.set('themeConfig', storesThemeConfig.themeConfig);
 		})
 		.catch(() => {
-			// 置空 Logo 地址
+			// 置空 logo 地址
 			themeConfig.value.logoUrl = '';
 			// 保存配置
 			Local.remove('themeConfig');
@@ -144,7 +143,7 @@ const loadSysInfo = () => {
 		});
 };
 
-/** 更新 favicon */
+// 更新 favicon
 const updateFavicon = (url: string): void => {
 	const favicon = document.getElementById('favicon') as HTMLAnchorElement;
 	favicon!.href = url ? url : 'data:;base64,=';

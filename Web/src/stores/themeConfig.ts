@@ -140,7 +140,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			globalI18n: 'zh-cn',
 			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'
 			globalComponentSize: 'small',
-			// 系统 Logo 地址
+			// 系统 logo 地址
 			logoUrl: '',
 		},
 	}),

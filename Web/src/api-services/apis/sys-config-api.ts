@@ -365,7 +365,7 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 保存系统信息
+         * @summary 保存系统信息 🔖
          * @param {InfoSaveInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,7 +413,7 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary 获取系统信息
+         * @summary 获取系统信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -609,7 +609,7 @@ export const SysConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 保存系统信息
+         * @summary 保存系统信息 🔖
          * @param {InfoSaveInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -623,7 +623,7 @@ export const SysConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取系统信息
+         * @summary 获取系统信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -727,7 +727,7 @@ export const SysConfigApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 保存系统信息
+         * @summary 保存系统信息 🔖
          * @param {InfoSaveInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -737,7 +737,7 @@ export const SysConfigApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取系统信息
+         * @summary 获取系统信息 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -841,7 +841,7 @@ export class SysConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 保存系统信息
+     * @summary 保存系统信息 🔖
      * @param {InfoSaveInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -852,7 +852,7 @@ export class SysConfigApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取系统信息
+     * @summary 获取系统信息 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysConfigApi

@@ -47,10 +47,10 @@ export interface FileOutput {
     /**
      * 大小
      *
-     * @type {string}
+     * @type {number}
      * @memberof FileOutput
      */
-    sizeKb?: string | null;
+    sizeKb?: number;
 
     /**
      * 后缀

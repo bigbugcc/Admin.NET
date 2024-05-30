@@ -2,7 +2,15 @@
 	<div>
 		<el-card shadow="hover" v-loading="state.isLoading">
 			<el-descriptions title="系统信息配置" :column="2" :border="true">
+				<template #title>
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Setting /> </el-icon> 系统信息配置
+				</template>
 				<el-descriptions-item label="系统图标" :span="2">
+					<!-- <template #label>
+						<div class="cell-item">
+							<el-icon><ele-PictureRounded /></el-icon> 系统图标
+						</div>
+					</template> -->
 					<el-upload class="avatar-uploader" :showFileList="false" :autoUpload="false" accept=".jpg,.png,.svg" action="" :limit="1" :onChange="handleUploadChange">
 						<img v-if="state.formData.sysLogo" :src="state.formData.sysLogo" class="avatar" />
 						<SvgIcon v-else class="avatar-uploader-icon" name="ele-Plus" :size="28" />
@@ -24,12 +32,13 @@
 					<el-input v-model="state.formData.sysCopyright" />
 				</el-descriptions-item>
 				<template #extra>
-					<el-button type="primary" @click="onSave">保存</el-button>
+					<el-button type="primary" icon="ele-SuccessFilled" @click="onSave">保存</el-button>
 				</template>
 			</el-descriptions>
 		</el-card>
 	</div>
 </template>
+
 <script setup lang="ts" name="sysInfoSetting">
 import { nextTick, reactive } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
@@ -58,7 +67,7 @@ const handleUploadChange = (file: any) => {
 	state.formData.sysLogo = URL.createObjectURL(state.file.raw);
 };
 
-/** 保存 */
+// 保存
 const onSave = async () => {
 	// 如果有选择图标，则转换为 base64
 	let sysLogoBase64 = '';
@@ -89,7 +98,7 @@ const onSave = async () => {
 	}
 };
 
-/** 加载数据 */
+// 加载数据
 const loadData = async () => {
 	try {
 		state.isLoading = true;
@@ -106,6 +115,8 @@ const loadData = async () => {
 			sysWatermark: result.sysWatermark,
 			sysCopyright: result.sysCopyright,
 		};
+
+		console.log(state.formData.sysLogo)
 	} finally {
 		nextTick(() => {
 			state.isLoading = false;
@@ -115,6 +126,7 @@ const loadData = async () => {
 
 loadData();
 </script>
+
 <style lang="scss" scoped>
 .avatar-uploader .avatar {
 	width: 100px;

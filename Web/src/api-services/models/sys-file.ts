@@ -127,10 +127,10 @@ export interface SysFile {
     /**
      * 文件大小KB
      *
-     * @type {string}
+     * @type {number}
      * @memberof SysFile
      */
-    sizeKb?: string | null;
+    sizeKb?: number;
 
     /**
      * 文件大小信息-计算后的

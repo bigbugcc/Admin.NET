@@ -117,7 +117,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="支持打印" prop="printType">
-							<el-select v-model="state.ruleForm.printType" filterable class="w100" @change="printTypeChanged" >
+							<el-select v-model="state.ruleForm.printType" filterable class="w100" @change="printTypeChanged">
 								<el-option v-for="item in state.printTypeList" :key="item.value" :label="item.value" :value="item.code" />
 							</el-select>
 						</el-form-item>

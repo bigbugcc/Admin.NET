@@ -47,16 +47,15 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="wwwroot\Upload\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Admin.NET.Web.Core\Admin.NET.Web.Core.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Content Update="wwwroot\Upload\Logo\sys_logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>

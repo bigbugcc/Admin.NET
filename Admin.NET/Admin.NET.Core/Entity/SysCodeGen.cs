@@ -95,7 +95,7 @@ public partial class SysCodeGen : EntityBase
     /// 菜单图标
     /// </summary>
     [SugarColumn(ColumnDescription = "菜单图标", Length = 32)]
-    public string MenuIcon { get; set; } = "ele-Menu";
+    public string? MenuIcon { get; set; } = "ele-Menu";
 
     /// <summary>
     /// 菜单编码
