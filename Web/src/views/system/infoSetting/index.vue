@@ -60,7 +60,7 @@ const state = reactive({
 	},
 });
 
-// 通过onChanne方法获得文件列表
+// 通过onChange方法获得文件列表
 const handleUploadChange = (file: any) => {
 	state.file = file;
 	// 改变 sysLogo，显示预览
