@@ -263,10 +263,10 @@ public class SysConfigService : IDynamicApiController, ITransient
             if (File.Exists(oldSysLogoAbsoluteFilePath))
                 File.Delete(oldSysLogoAbsoluteFilePath);
 
-            //// 创建文件夹
-            //var absoluteFileDir = Path.GetDirectoryName(absoluteFilePath);
-            //if (!Directory.Exists(absoluteFileDir))
-            //    Directory.CreateDirectory(absoluteFileDir);
+            // 创建文件夹
+            var absoluteFileDir = Path.GetDirectoryName(absoluteFilePath);
+            if (!Directory.Exists(absoluteFileDir))
+                Directory.CreateDirectory(absoluteFileDir);
 
             // 保存图标文件
             await File.WriteAllBytesAsync(absoluteFilePath, binData);
