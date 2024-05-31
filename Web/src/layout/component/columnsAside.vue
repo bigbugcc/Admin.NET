@@ -303,7 +303,7 @@ watch(
 	justify-content: center;
 	animation: logoAnimation 0.3s ease-in-out;
 	&-medium-img {
-		width: 80%;
+		width: auto;
 		height: 80%;
 	}
 	&:hover {
