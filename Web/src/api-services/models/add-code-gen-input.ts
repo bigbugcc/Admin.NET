@@ -131,6 +131,13 @@ export interface AddCodeGenInput {
      * @memberof AddCodeGenInput
      */
     menuPid?: number | null;
+    
+    /**
+     * 页面目录
+     * @type {string}
+     * @memberof AddCodeGenInput
+     */
+    pagePath?: string | null;
 
     /**
      * 支持打印类型

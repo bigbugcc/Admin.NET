@@ -179,6 +179,13 @@ export interface SysCodeGen {
      * @memberof SysCodeGen
      */
     menuPid?: number | null;
+    
+    /**
+     * 页面目录
+     * @type {string}
+     * @memberof SysCodeGen
+     */
+    pagePath?: string | null;
 
     /**
      * 支持打印类型

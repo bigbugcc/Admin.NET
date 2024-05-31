@@ -179,6 +179,13 @@ export interface CodeGenInput {
      * @memberof CodeGenInput
      */
     menuPid?: number | null;
+    
+    /**
+     * 页面目录
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    pagePath?: string | null;
 
     /**
      * 支持打印类型

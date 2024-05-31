@@ -104,6 +104,12 @@ public partial class SysCodeGen : EntityBase
     public long? MenuPid { get; set; }
 
     /// <summary>
+    /// 页面目录
+    /// </summary>
+    [SugarColumn(ColumnDescription = "页面目录", Length = 32)]
+    public string PagePath { get; set; }
+
+    /// <summary>
     /// 支持打印类型
     /// </summary>
     [SugarColumn(ColumnDescription = "支持打印类型", Length = 32)]
