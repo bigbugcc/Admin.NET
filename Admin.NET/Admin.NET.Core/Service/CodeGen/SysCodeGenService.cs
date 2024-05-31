@@ -547,10 +547,10 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 按钮-import
         var menuTypeImport = new SysMenu
         {
-            Pid = pid1,
+            Pid = menuPid,
             Title = "导入",
             Type = MenuTypeEnum.Btn,
-            Permission = lowerEntityName + ":import",
+            Permission = className[..1].ToLower() + className[1..] + ":import",
             OrderNo = menuOrder
         };
         menuOrder += 10;
@@ -558,10 +558,10 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 按钮-export
         var menuTypeExport = new SysMenu
         {
-            Pid = pid1,
+            Pid = menuPid,
             Title = "导出",
             Type = MenuTypeEnum.Btn,
-            Permission = lowerEntityName + ":export",
+            Permission = className[..1].ToLower() + className[1..] + ":export",
             OrderNo = menuOrder
         };
         menuOrder += 10;
@@ -572,7 +572,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         var fkTableList = tableFieldList.Where(u => u.EffectType == "fk" && (u.WhetherAddUpdate == "Y" || u.QueryWhether == "Y")).ToList();
         foreach (var @column in fkTableList)
         {
-            var menuType = new SysMenu
+            var menuType1 = new SysMenu
             {
                 Pid = menuPid,
                 Title = "外键" + @column.ColumnName,
@@ -581,12 +581,12 @@ public class SysCodeGenService : IDynamicApiController, ITransient
                 OrderNo = menuOrder
             };
             menuOrder += 10;
-            menuList.Add(menuType);
+            menuList.Add(menuType1);
         }
         var treeSelectTableList = tableFieldList.Where(u => u.EffectType == "ApiTreeSelect").ToList();
         foreach (var @column in treeSelectTableList)
         {
-            var menuType = new SysMenu
+            var menuType1 = new SysMenu
             {
                 Pid = menuPid,
                 Title = "树型" + @column.ColumnName,
@@ -595,12 +595,12 @@ public class SysCodeGenService : IDynamicApiController, ITransient
                 OrderNo = menuOrder
             };
             menuOrder += 10;
-            menuList.Add(menuType);
+            menuList.Add(menuType1);
         }
         var uploadTableList = tableFieldList.Where(u => u.EffectType == "Upload").ToList();
         foreach (var @column in uploadTableList)
         {
-            var menuType = new SysMenu
+            var menuType1 = new SysMenu
             {
                 Pid = menuPid,
                 Title = "上传" + @column.ColumnName,
@@ -609,7 +609,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
                 OrderNo = menuOrder
             };
             menuOrder += 10;
-            menuList.Add(menuType);
+            menuList.Add(menuType1);
         }
         await _db.Insertable(menuList).ExecuteCommandAsync();
     }

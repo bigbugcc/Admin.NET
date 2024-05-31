@@ -107,7 +107,7 @@ public partial class SysCodeGen : EntityBase
     /// 页面目录
     /// </summary>
     [SugarColumn(ColumnDescription = "页面目录", Length = 32)]
-    public string PagePath { get; set; }
+    public string? PagePath { get; set; }
 
     /// <summary>
     /// 支持打印类型
