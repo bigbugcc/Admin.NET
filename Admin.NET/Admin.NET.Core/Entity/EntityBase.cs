@@ -27,13 +27,13 @@ public abstract class EntityBase : EntityBaseId, IDeletedFilter
     /// <summary>
     /// 创建时间
     /// </summary>
-    [SugarColumn(ColumnDescription = "创建时间", IsOnlyIgnoreUpdate = true)]
-    public virtual DateTime? CreateTime { get; set; }
+    [SugarColumn(ColumnDescription = "创建时间", IsOnlyIgnoreUpdate = true, InsertServerTime = true)]
+    public virtual DateTime CreateTime { get; set; }
 
     /// <summary>
     /// 更新时间
     /// </summary>
-    [SugarColumn(ColumnDescription = "更新时间")]
+    [SugarColumn(ColumnDescription = "更新时间", IsOnlyIgnoreInsert = true, UpdateServerTime = true)]
     public virtual DateTime? UpdateTime { get; set; }
 
     /// <summary>
