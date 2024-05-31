@@ -34,7 +34,7 @@ export interface SysWechatPay {
      * @type {Date}
      * @memberof SysWechatPay
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

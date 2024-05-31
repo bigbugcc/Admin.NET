@@ -35,7 +35,7 @@ export interface SysWechatUser {
      * @type {Date}
      * @memberof SysWechatUser
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

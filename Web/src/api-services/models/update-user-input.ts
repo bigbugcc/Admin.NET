@@ -41,7 +41,7 @@ export interface UpdateUserInput {
      * @type {Date}
      * @memberof UpdateUserInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -35,7 +35,7 @@ export interface SysLogEx {
      * @type {Date}
      * @memberof SysLogEx
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

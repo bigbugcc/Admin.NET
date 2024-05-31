@@ -36,7 +36,7 @@ export interface UpdateOrgInput {
      * @type {Date}
      * @memberof UpdateOrgInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

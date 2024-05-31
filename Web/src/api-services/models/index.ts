@@ -238,7 +238,6 @@ export * from './platform-type-enum';
 export * from './print-type-enum';
 export * from './property-attributes';
 export * from './property-info';
-export * from './relation-query-input';
 export * from './reset-pwd-user-input';
 export * from './role-input';
 export * from './role-menu-input';

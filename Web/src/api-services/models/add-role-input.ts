@@ -36,7 +36,7 @@ export interface AddRoleInput {
      * @type {Date}
      * @memberof AddRoleInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

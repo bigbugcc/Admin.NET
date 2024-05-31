@@ -34,7 +34,7 @@ export interface AddOpenAccessInput {
      * @type {Date}
      * @memberof AddOpenAccessInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

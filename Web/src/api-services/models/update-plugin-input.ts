@@ -35,7 +35,7 @@ export interface UpdatePluginInput {
      * @type {Date}
      * @memberof UpdatePluginInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

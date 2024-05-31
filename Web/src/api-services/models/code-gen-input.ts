@@ -179,9 +179,10 @@ export interface CodeGenInput {
      * @memberof CodeGenInput
      */
     menuPid?: number | null;
-    
+
     /**
      * 页面目录
+     *
      * @type {string}
      * @memberof CodeGenInput
      */

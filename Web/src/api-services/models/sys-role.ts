@@ -36,7 +36,7 @@ export interface SysRole {
      * @type {Date}
      * @memberof SysRole
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

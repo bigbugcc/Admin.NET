@@ -36,7 +36,7 @@ export interface SysDictType {
      * @type {Date}
      * @memberof SysDictType
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

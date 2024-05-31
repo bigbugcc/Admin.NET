@@ -36,7 +36,7 @@ export interface SysPrint {
      * @type {Date}
      * @memberof SysPrint
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

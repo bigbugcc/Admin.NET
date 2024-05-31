@@ -35,7 +35,7 @@ export interface SysConfig {
      * @type {Date}
      * @memberof SysConfig
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

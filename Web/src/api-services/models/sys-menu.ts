@@ -37,7 +37,7 @@ export interface SysMenu {
      * @type {Date}
      * @memberof SysMenu
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

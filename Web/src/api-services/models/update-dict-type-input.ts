@@ -36,7 +36,7 @@ export interface UpdateDictTypeInput {
      * @type {Date}
      * @memberof UpdateDictTypeInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

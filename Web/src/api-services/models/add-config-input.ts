@@ -35,7 +35,7 @@ export interface AddConfigInput {
      * @type {Date}
      * @memberof AddConfigInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

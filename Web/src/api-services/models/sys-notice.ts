@@ -36,7 +36,7 @@ export interface SysNotice {
      * @type {Date}
      * @memberof SysNotice
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

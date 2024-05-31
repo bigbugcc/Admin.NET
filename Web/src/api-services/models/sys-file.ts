@@ -34,7 +34,7 @@ export interface SysFile {
      * @type {Date}
      * @memberof SysFile
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

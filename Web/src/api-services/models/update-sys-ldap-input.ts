@@ -35,7 +35,7 @@ export interface UpdateSysLdapInput {
      * @type {Date}
      * @memberof UpdateSysLdapInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

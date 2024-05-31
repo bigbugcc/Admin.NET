@@ -35,7 +35,7 @@ export interface SysPlugin {
      * @type {Date}
      * @memberof SysPlugin
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

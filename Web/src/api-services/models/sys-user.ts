@@ -40,7 +40,7 @@ export interface SysUser {
      * @type {Date}
      * @memberof SysUser
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -34,7 +34,7 @@ export interface SysLogDiff {
      * @type {Date}
      * @memberof SysLogDiff
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

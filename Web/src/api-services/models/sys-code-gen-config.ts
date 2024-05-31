@@ -34,7 +34,7 @@ export interface SysCodeGenConfig {
      * @type {Date}
      * @memberof SysCodeGenConfig
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

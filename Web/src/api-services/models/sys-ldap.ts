@@ -35,7 +35,7 @@ export interface SysLdap {
      * @type {Date}
      * @memberof SysLdap
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

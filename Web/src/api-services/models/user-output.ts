@@ -40,7 +40,7 @@ export interface UserOutput {
      * @type {Date}
      * @memberof UserOutput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

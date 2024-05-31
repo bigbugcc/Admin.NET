@@ -37,7 +37,7 @@ export interface UpdateTenantInput {
      * @type {Date}
      * @memberof UpdateTenantInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -36,7 +36,7 @@ export interface UpdateNoticeInput {
      * @type {Date}
      * @memberof UpdateNoticeInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

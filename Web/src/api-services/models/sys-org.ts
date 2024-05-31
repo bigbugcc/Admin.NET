@@ -36,7 +36,7 @@ export interface SysOrg {
      * @type {Date}
      * @memberof SysOrg
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

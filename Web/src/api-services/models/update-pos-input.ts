@@ -35,7 +35,7 @@ export interface UpdatePosInput {
      * @type {Date}
      * @memberof UpdatePosInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

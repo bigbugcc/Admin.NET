@@ -36,7 +36,7 @@ export interface UpdatePrintInput {
      * @type {Date}
      * @memberof UpdatePrintInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -36,7 +36,7 @@ export interface AddPrintInput {
      * @type {Date}
      * @memberof AddPrintInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

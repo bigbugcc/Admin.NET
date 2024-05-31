@@ -35,7 +35,7 @@ export interface SysLogVis {
      * @type {Date}
      * @memberof SysLogVis
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -37,7 +37,7 @@ export interface UpdateMenuInput {
      * @type {Date}
      * @memberof UpdateMenuInput
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间

@@ -26,7 +26,6 @@ import { AdminResultSysFile } from '../models';
 import { DeleteFileInput } from '../models';
 import { FileInput } from '../models';
 import { PageFileInput } from '../models';
-import { RelationQueryInput } from '../models';
 import { UploadFileFromBase64Input } from '../models';
 /**
  * SysFileApi - axios parameter creator
@@ -278,11 +277,14 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary 根据关联查询附件
-         * @param {RelationQueryInput} [body] 
+         * @param {string} [relationName] 关联对象名称
+         * @param {number} [relationId] 关联对象Id
+         * @param {string} [fileTypes] 文件，多个以\&quot;,\&quot;分割
+         * @param {number} [belongId] 所属Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileRelationFilesGet: async (body?: RelationQueryInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileRelationFilesGet: async (relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/relationFiles`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -303,7 +305,21 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+            if (relationName !== undefined) {
+                localVarQueryParameter['RelationName'] = relationName;
+            }
+
+            if (relationId !== undefined) {
+                localVarQueryParameter['RelationId'] = relationId;
+            }
+
+            if (fileTypes !== undefined) {
+                localVarQueryParameter['FileTypes'] = fileTypes;
+            }
+
+            if (belongId !== undefined) {
+                localVarQueryParameter['BelongId'] = belongId;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -315,8 +331,6 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -720,12 +734,15 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 根据关联查询附件
-         * @param {RelationQueryInput} [body] 
+         * @param {string} [relationName] 关联对象名称
+         * @param {number} [relationId] 关联对象Id
+         * @param {string} [fileTypes] 文件，多个以\&quot;,\&quot;分割
+         * @param {number} [belongId] 所属Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileRelationFilesGet(body?: RelationQueryInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListFileOutput>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileRelationFilesGet(body, options);
+        async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListFileOutput>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -879,12 +896,15 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary 根据关联查询附件
-         * @param {RelationQueryInput} [body] 
+         * @param {string} [relationName] 关联对象名称
+         * @param {number} [relationId] 关联对象Id
+         * @param {string} [fileTypes] 文件，多个以\&quot;,\&quot;分割
+         * @param {number} [belongId] 所属Id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileRelationFilesGet(body?: RelationQueryInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListFileOutput>> {
-            return SysFileApiFp(configuration).apiSysFileRelationFilesGet(body, options).then((request) => request(axios, basePath));
+        async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListFileOutput>> {
+            return SysFileApiFp(configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1016,13 +1036,16 @@ export class SysFileApi extends BaseAPI {
     /**
      * 
      * @summary 根据关联查询附件
-     * @param {RelationQueryInput} [body] 
+     * @param {string} [relationName] 关联对象名称
+     * @param {number} [relationId] 关联对象Id
+     * @param {string} [fileTypes] 文件，多个以\&quot;,\&quot;分割
+     * @param {number} [belongId] 所属Id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileRelationFilesGet(body?: RelationQueryInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListFileOutput>> {
-        return SysFileApiFp(this.configuration).apiSysFileRelationFilesGet(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListFileOutput>> {
+        return SysFileApiFp(this.configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

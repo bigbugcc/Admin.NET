@@ -34,7 +34,7 @@ export interface SysCodeGen {
      * @type {Date}
      * @memberof SysCodeGen
      */
-    createTime?: Date | null;
+    createTime?: Date;
 
     /**
      * 更新时间
@@ -173,15 +173,24 @@ export interface SysCodeGen {
     generateMenu?: boolean;
 
     /**
+     * 菜单图标
+     *
+     * @type {string}
+     * @memberof SysCodeGen
+     */
+    menuIcon?: string | null;
+
+    /**
      * 菜单编码
      *
      * @type {number}
      * @memberof SysCodeGen
      */
     menuPid?: number | null;
-    
+
     /**
      * 页面目录
+     *
      * @type {string}
      * @memberof SysCodeGen
      */
