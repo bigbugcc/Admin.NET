@@ -505,7 +505,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<FileOutput>> GetRelationFiles(RelationQueryInput input)
+    public async Task<List<FileOutput>> GetRelationFiles([FromQuery]RelationQueryInput input)
     {
         return await _sysFileRep.AsQueryable()
            .Where(m => !m.IsDelete)
