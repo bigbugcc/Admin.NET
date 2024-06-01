@@ -91,4 +91,8 @@ public class CommonConst
     /// 事件-发送异常邮件
     /// </summary>
     public const string SendErrorMail = "Send:ErrorMail";
+    /// <summary>
+    /// 默认租户ID
+    /// </summary>
+    public static long DefaultTenantId = 1300000000001;
 }
