@@ -9,6 +9,7 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 系统用户表种子数据
 /// </summary>
+[IgnoreUpdateSeed]
 public class SysUserSeedData : ISqlSugarEntitySeedData<SysUser>
 {
     /// <summary>
