@@ -7,7 +7,7 @@
 namespace Admin.NET.Core;
 
 /// <summary>
-/// 忽略更新种子列特性,标记在实体属性中忽略更新
+/// 忽略更新种子列特性（标记在实体属性）
 /// </summary>
 [SuppressSniffer]
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
