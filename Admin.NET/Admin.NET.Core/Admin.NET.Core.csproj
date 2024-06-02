@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
@@ -34,7 +34,7 @@
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.2" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.2.0" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.4.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.4.157" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.158-preview09" />
     <PackageReference Include="SSH.NET" Version="2024.0.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.0" />
     <PackageReference Include="UAParser" Version="3.1.47" />
