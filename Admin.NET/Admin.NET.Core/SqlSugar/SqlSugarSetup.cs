@@ -306,6 +306,7 @@ public static class SqlSugarSetup
         if (config.TableSettings.EnableInitTable)
         {
             var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false))
+                .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
                 .WhereIF(config.TableSettings.EnableIncreTable, u => u.IsDefined(typeof(IncreTableAttribute), false)).ToList();
 
             if (config.ConfigId.ToString() == SqlSugarConst.MainConfigId) // 默认库（有系统表特性、没有日志表和租户表特性）
@@ -360,7 +361,8 @@ public static class SqlSugarSetup
                     // 按主键进行批量增加和更新
                     var storage = dbProvider.StorageableByObject(seedData.ToList()).ToStorage();
                     storage.AsInsertable.ExecuteCommand();
-                    storage.AsUpdateable.ExecuteCommand();
+                    if (seedType.GetCustomAttribute<IgnoreUpdateSeedAttribute>() == null)//有忽略更新种子特性时不进行更新
+                        storage.AsUpdateable.IgnoreColumns(entityInfo.Columns.Where(c => c.PropertyInfo.GetCustomAttribute<IgnoreUpdateSeedColumnAttribute>() != null).Select(c => c.PropertyName).ToArray()).ExecuteCommand();
                 }
                 else
                 {
