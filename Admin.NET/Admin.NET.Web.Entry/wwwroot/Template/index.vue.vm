@@ -71,7 +71,7 @@
             }else if(@column.EffectType == "DatePicker"){
             @:<el-form-item label="@column.ColumnComment">
               if(@column.QueryType == "~"){
-              @:<el-date-picker placeholder="请选择@(@column.ColumnComment)" value-format="YYYY/MM/DD" type="daterange" v-model="queryParams.@(@column.LowerPropertyName)Range" />
+              @:<el-date-picker type="daterange" v-model="queryParams.@(@column.LowerPropertyName)Range"  value-format="YYYY-MM-DD HH:mm:ss" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="[new Date('1 00:00:00'), new Date('1 23:59:59')]" />
               }else
               {
               @:<el-date-picker placeholder="请选择@(@column.ColumnComment)" value-format="YYYY/MM/DD"  v-model="queryParams.@(@column.LowerPropertyName)" />
