@@ -80,7 +80,7 @@ const getBreadcrumbList = (arr: RouteItems) => {
 // 当前路由字符串切割成数组，并删除第一项空内容
 const initRouteSplit = (toRoute: RouteLocationNormalized) => {
 	if (!themeConfig.value.isBreadcrumb) return false;
-	state.breadcrumbList = [routesList.value[0]];
+	state.breadcrumbList = [];
 	state.routeSplit = toRoute.path.split('/');
 	state.routeSplit.shift();
 	state.routeSplitFirst = `/${state.routeSplit[0]}`;
