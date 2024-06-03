@@ -56,6 +56,7 @@ if (@column.QueryWhether == "Y"){
     }else if(@column.NetType?.TrimEnd('?') == "int" || @column.NetType?.TrimEnd('?') == "long"){
             @:.WhereIF(input.@column.PropertyName>0, u => u.@(@column.PropertyName) @column.QueryType input.@(@column.PropertyName))
     }else if(@column.NetType?.TrimEnd('?') == "DateTime" && @column.QueryType == "~"){
+            @:.WhereIF(input.@(@column.PropertyName)Range != null && input.@(@column.PropertyName)Range.Length == 2, u => u.@(@column.PropertyName) >= input.@(@column.PropertyName)Range[0] && u.@(@column.PropertyName) <= input.@(@column.PropertyName)Range[1])
     }else if(@column.NetType?.TrimEnd('?').EndsWith("Enum") == true) {
             @:.WhereIF(input.@(@column.PropertyName).HasValue, u => u.@(@column.PropertyName) @column.QueryType input.@(@column.PropertyName))
     }
@@ -98,22 +99,6 @@ if (@column.QueryWhether == "Y"){
 }
 } else {
             @:.Select<@(@Model.ClassName)Output>();
-}
-@foreach (var column in Model.TableField){
-if (@column.QueryWhether == "Y"){
-    if(@column.NetType?.TrimEnd('?') == "DateTime" && @column.QueryType == "~"){
-        @:if(input.@(@column.PropertyName)Range != null && input.@(@column.PropertyName)Range.Count >0)
-        @:{
-            @:DateTime? start= input.@(@column.PropertyName)Range[0]; 
-            @:query = query.WhereIF(start.HasValue, u => u.@column.PropertyName > start);
-            @:if (input.@(@column.PropertyName)Range.Count >1 && input.@(@column.PropertyName)Range[1].HasValue)
-            @:{
-                @:var end = input.@(@column.PropertyName)Range[1].Value.AddDays(1);
-                @:query = query.Where(u => u.@(@column.PropertyName) < end);
-            @:}
-        @:} 
-    }
-}
 }
         return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }

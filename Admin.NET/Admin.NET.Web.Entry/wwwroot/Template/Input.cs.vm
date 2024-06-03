@@ -47,7 +47,7 @@ if (@column.ColumnKey != "True"){
         @:/// <summary>
         @: /// @(@column.ColumnComment)范围
         @: /// </summary>
-        @: public List<DateTime?> @(@column.PropertyName)Range { get; set; } 
+        @: public DateTime?[] @(@column.PropertyName)Range { get; set; } 
 
 }
 
