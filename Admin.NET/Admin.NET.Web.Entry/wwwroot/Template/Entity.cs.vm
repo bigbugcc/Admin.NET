@@ -7,6 +7,7 @@ namespace @Model.NameSpace;
 /// @(@Model.Description)
 /// </summary>
 [SugarTable("@(@Model.TableName)","@(@Model.Description)")]
+[Tenant("@(@Model.ConfigId)")]
 public class @(@Model.EntityName) @Model.BaseClassName
 {
 @foreach (var column in Model.TableField){
