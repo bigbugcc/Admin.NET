@@ -117,9 +117,13 @@ const loadSysInfo = () => {
 			if (res.data.type != 'success') return;
 
 			const data = res.data.result;
+			// 系统logo
 			themeConfig.value.logoUrl = data.sysLogo;
+			// 主标题
 			themeConfig.value.globalTitle = data.sysTitle;
+			// 副标题
 			themeConfig.value.globalViceTitle = data.sysViceTitle;
+			// 系统说明
 			themeConfig.value.globalViceTitleMsg = data.sysViceDesc;
 			// Icp备案信息
 			themeConfig.value.icp = data.sysIcp;
