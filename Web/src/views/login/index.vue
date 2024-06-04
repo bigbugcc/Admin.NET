@@ -46,7 +46,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="copyright mt5">{{ getThemeConfig.copyright }}</div>
+		<div class="copyright" :class="[getThemeConfig.icp ? 'mb25' : 'mt5']">{{ getThemeConfig.copyright }}</div>
+		<div v-if="getThemeConfig.icp" class="icp mt5">
+			<el-link :href="getThemeConfig.icpUrl" target="_blank">{{ getThemeConfig.icp }}</el-link>
+		</div>
 	</div>
 </template>
 
@@ -280,7 +283,8 @@ onMounted(() => {
 		}
 	}
 }
-.copyright {
+.copyright,
+.icp {
 	position: absolute;
 	bottom: 2%;
 	transform: translateX(-50%);
@@ -290,21 +294,39 @@ onMounted(() => {
 	.login-right-warp {
 		width: 500px;
 	}
-	.copyright {
+	.copyright,
+	.icp {
 		left: 75%;
 		color: var(--el-text-color-secondary);
 	}
+	.icp {
+		.el-link {
+			color: var(--el-text-color-secondary);
+		}
+	}
 }
 @media screen and (max-width: 1200px) {
-	.copyright {
+	.copyright,
+	.icp {
 		left: 50%;
 		color: var(--el-color-white);
 	}
+	.icp {
+		.el-link {
+			color: var(--el-color-white);
+		}
+	}
 }
 @media screen and (max-width: 580px) {
-	.copyright {
+	.copyright,
+	.icp {
 		left: 50%;
 		color: var(--el-text-color-secondary);
+	}
+	.icp {
+		.el-link {
+			color: var(--el-text-color-secondary);
+		}
 	}
 }
 </style>

@@ -40,4 +40,14 @@ public class InfoSaveInput
     /// 版权说明
     /// </summary>
     public string SysCopyright { get; set; }
+
+    /// <summary>
+    /// ICP备案号
+    /// </summary>
+    public string SysIcp { get; set; }
+
+    /// <summary>
+    /// ICP地址
+    /// </summary>
+    public string SysIcpUrl { get; set; }
 }

@@ -225,6 +225,8 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysViceDesc = await GetConfigValue<string>("sys_web_viceDesc");
         var sysWatermark = await GetConfigValue<string>("sys_web_watermark");
         var sysCopyright = await GetConfigValue<string>("sys_web_copyright");
+        var sysIcp = await GetConfigValue<string>("sys_web_icp");
+        var sysIcpUrl = await GetConfigValue<string>("sys_web_icpUrl");
         return new
         {
             SysLogo = sysLogo,
@@ -233,6 +235,8 @@ public class SysConfigService : IDynamicApiController, ITransient
             SysViceDesc = sysViceDesc,
             SysWatermark = sysWatermark,
             SysCopyright = sysCopyright,
+            SysIcp = sysIcp,
+            SysIcpUrl = sysIcpUrl
         };
     }
 
@@ -281,5 +285,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         await UpdateConfigValue("sys_web_viceDesc", input.SysViceDesc);
         await UpdateConfigValue("sys_web_watermark", input.SysWatermark);
         await UpdateConfigValue("sys_web_copyright", input.SysCopyright);
+        await UpdateConfigValue("sys_web_icp", input.SysIcp);
+        await UpdateConfigValue("sys_web_icpUrl", input.SysIcpUrl);
     }
 }
