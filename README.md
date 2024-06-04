@@ -24,6 +24,7 @@
 3.  QQ交流群1：[87333204](https://jq.qq.com/?_wv=1027&k=1t8iqf0G)  QQ交流群2：[252381476](https://jq.qq.com/?_wv=1027&k=IkzihDcL)  
 4.  演示环境1：http://101.43.53.74:5005/dist/index.html
 5. [GitHub 镜像地址](https://github.com/zuohuaijun/Admin.NET.git)  [Gitee 镜像地址](https://gitee.com/zuohuaijun/Admin.NET.git)
+6.  在线文档 [http://101.43.53.74:5050/](http://101.43.53.74:5050/)
 
 ## 📙开发流程
 ```bash
