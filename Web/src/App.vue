@@ -121,6 +121,9 @@ const loadSysInfo = () => {
 			themeConfig.value.globalTitle = data.sysTitle;
 			themeConfig.value.globalViceTitle = data.sysViceTitle;
 			themeConfig.value.globalViceTitleMsg = data.sysViceDesc;
+			// Icp备案信息
+			themeConfig.value.icp = data.sysIcp;
+			themeConfig.value.icpUrl = data.sysIcpUrl;
 			// 水印
 			themeConfig.value.isWatermark = data.sysWatermark != null;
 			themeConfig.value.watermarkText = data.sysWatermark;

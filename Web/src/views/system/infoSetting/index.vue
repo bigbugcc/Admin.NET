@@ -31,6 +31,12 @@
 				<el-descriptions-item label="版权说明" :span="2">
 					<el-input v-model="state.formData.sysCopyright" />
 				</el-descriptions-item>
+				<el-descriptions-item label="ICP备案号">
+					<el-input v-model="state.formData.sysIcp" />
+				</el-descriptions-item>
+				<el-descriptions-item label="ICP地址">
+					<el-input v-model="state.formData.sysIcpUrl" />
+				</el-descriptions-item>
 				<template #extra>
 					<el-button type="primary" icon="ele-SuccessFilled" @click="onSave">保存</el-button>
 				</template>
@@ -57,6 +63,8 @@ const state = reactive({
 		sysViceDesc: '',
 		sysWatermark: '',
 		sysCopyright: '',
+		sysIcp: '',
+		sysIcpUrl: '',
 	},
 });
 
@@ -84,6 +92,8 @@ const onSave = async () => {
 			sysViceDesc: state.formData.sysViceDesc,
 			sysWatermark: state.formData.sysWatermark,
 			sysCopyright: state.formData.sysCopyright,
+			sysIcp: state.formData.sysIcp,
+			sysIcpUrl: state.formData.sysIcpUrl,
 		});
 		if (res.data!.type !== 'success') return;
 
@@ -114,9 +124,9 @@ const loadData = async () => {
 			sysViceDesc: result.sysViceDesc,
 			sysWatermark: result.sysWatermark,
 			sysCopyright: result.sysCopyright,
+			sysIcp: result.sysIcp,
+			sysIcpUrl: result.sysIcpUrl,
 		};
-
-		console.log(state.formData.sysLogo)
 	} finally {
 		nextTick(() => {
 			state.isLoading = false;

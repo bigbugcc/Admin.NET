@@ -142,6 +142,10 @@ export const useThemeConfig = defineStore('themeConfig', {
 			globalComponentSize: 'small',
 			// 系统 logo 地址
 			logoUrl: '',
+			// Icp备案号
+			icp: '',
+			// Icp地址
+			icpUrl: '',
 		},
 	}),
 	actions: {

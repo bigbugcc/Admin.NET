@@ -35,6 +35,8 @@ public class SysConfigSeedData : ISqlSugarEntitySeedData<SysConfig>
             new SysConfig{ Id=1300000000241, Name="水印内容", Code="sys_web_watermark", Value="Admin.NET", SysFlag=YesNoEnum.Y, Remark="水印内容", OrderNo=140, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000251, Name="版权说明", Code="sys_web_copyright", Value="Copyright © 2021-present Admin.NET All rights reserved.", SysFlag=YesNoEnum.Y, Remark="版权说明", OrderNo=150, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysConfig{ Id=1300000000261, Name="系统图标", Code="sys_web_logo", Value="/Upload/logo.png", SysFlag=YesNoEnum.Y, Remark="系统图标", OrderNo=160, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000271, Name="ICP备案号", Code="sys_web_icp", Value="省ICP备12345678号", SysFlag=YesNoEnum.Y, Remark="ICP备案号", OrderNo=170, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
+            new SysConfig{ Id=1300000000281, Name="ICP地址", Code="sys_web_icpUrl", Value="https://beian.miit.gov.cn", SysFlag=YesNoEnum.Y, Remark="ICP地址", OrderNo=180, GroupCode="WebConfig", CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
         };
     }
 }
