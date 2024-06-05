@@ -410,7 +410,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbSeting">
-import { nextTick, onUnmounted, onMounted, computed, reactive, ref } from 'vue';
+import { nextTick, onUnmounted, onMounted, computed, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
