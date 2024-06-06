@@ -12,16 +12,25 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 440)]
 public class SysConfigService : IDynamicApiController, ITransient
 {
-    private readonly SqlSugarRepository<SysConfig> _sysConfigRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysConfig> sysConfigRep_ = null;
     private readonly SysCacheService _sysCacheService;
 
-    public SysConfigService(SqlSugarRepository<SysConfig> sysConfigRep,
+    public SysConfigService(ISqlSugarClient db,
         SysCacheService sysCacheService)
     {
-        _sysConfigRep = sysConfigRep;
+        _db = db;
         _sysCacheService = sysCacheService;
     }
-
+    public SimpleClient<SysConfig> _sysConfigRep
+    {
+        get
+        {
+            if (sysConfigRep_ == null)
+                sysConfigRep_ = _db.GetSimpleClient<SysConfig>();
+            return sysConfigRep_;
+        }
+    }
     /// <summary>
     /// 获取参数配置分页列表 🔖
     /// </summary>

@@ -11,16 +11,25 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysUserRoleService : ITransient
 {
-    private readonly SqlSugarRepository<SysUserRole> _sysUserRoleRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysUserRole> sysUserRoleRep_ = null;
     private readonly SysCacheService _sysCacheService;
 
-    public SysUserRoleService(SqlSugarRepository<SysUserRole> sysUserRoleRep,
+    public SysUserRoleService(ISqlSugarClient db,
         SysCacheService sysCacheService)
     {
-        _sysUserRoleRep = sysUserRoleRep;
+        _db = db;
         _sysCacheService = sysCacheService;
     }
-
+    public SimpleClient<SysUserRole> _sysUserRoleRep
+    {
+        get
+        {
+            if (sysUserRoleRep_ == null)
+                sysUserRoleRep_ = _db.GetSimpleClient<SysUserRole>();
+            return sysUserRoleRep_;
+        }
+    }
     /// <summary>
     /// 授权用户角色
     /// </summary>
