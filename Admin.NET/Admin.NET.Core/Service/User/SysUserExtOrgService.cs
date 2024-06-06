@@ -11,13 +11,22 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysUserExtOrgService : ITransient
 {
-    private readonly SqlSugarRepository<SysUserExtOrg> _sysUserExtOrgRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysUserExtOrg> sysUserExtOrgRep_ = null;
 
-    public SysUserExtOrgService(SqlSugarRepository<SysUserExtOrg> sysUserExtOrgRep)
+    public SysUserExtOrgService(ISqlSugarClient db)
     {
-        _sysUserExtOrgRep = sysUserExtOrgRep;
+        _db = db;
     }
-
+    public SimpleClient<SysUserExtOrg> _sysUserExtOrgRep
+    {
+        get
+        {
+            if (sysUserExtOrgRep_ == null)
+                sysUserExtOrgRep_ = _db.GetSimpleClient<SysUserExtOrg>();
+            return sysUserExtOrgRep_;
+        }
+    }
     /// <summary>
     /// 获取用户扩展机构集合
     /// </summary>

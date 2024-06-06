@@ -14,19 +14,28 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 300)]
 public class SysOnlineUserService : IDynamicApiController, ITransient
 {
-    private readonly SqlSugarRepository<SysOnlineUser> _sysOnlineUerRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysOnlineUser> sysOnlineUerRep_ = null;
     private readonly SysConfigService _sysConfigService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
 
-    public SysOnlineUserService(SqlSugarRepository<SysOnlineUser> sysOnlineUerRep,
+    public SysOnlineUserService(ISqlSugarClient db,
         SysConfigService sysConfigService,
         IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext)
     {
-        _sysOnlineUerRep = sysOnlineUerRep;
+        _db = db;
         _sysConfigService = sysConfigService;
         _onlineUserHubContext = onlineUserHubContext;
     }
-
+    public SimpleClient<SysOnlineUser> _sysOnlineUerRep
+    {
+        get
+        {
+            if (sysOnlineUerRep_ == null)
+                sysOnlineUerRep_ = _db.GetSimpleClient<SysOnlineUser>();
+            return sysOnlineUerRep_;
+        }
+    }
     /// <summary>
     /// 获取在线用户分页列表 🔖
     /// </summary>

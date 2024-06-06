@@ -11,13 +11,22 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysUserLdapService : ITransient
 {
-    private readonly SqlSugarRepository<SysUserLdap> _sysUserLdapRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysUserLdap> sysUserLdapRep_ = null;
 
-    public SysUserLdapService(SqlSugarRepository<SysUserLdap> sysUserLdapRep)
+    public SysUserLdapService(ISqlSugarClient db)
     {
-        _sysUserLdapRep = sysUserLdapRep;
+        _db = db;
     }
-
+    public SimpleClient<SysUserLdap> _sysUserLdapRep
+    {
+        get
+        {
+            if (sysUserLdapRep_ == null)
+                sysUserLdapRep_ = _db.GetSimpleClient<SysUserLdap>();
+            return sysUserLdapRep_;
+        }
+    }
     /// <summary>
     /// 批量插入域账号
     /// </summary>

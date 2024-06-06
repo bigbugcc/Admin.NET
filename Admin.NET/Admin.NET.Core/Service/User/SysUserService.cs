@@ -13,7 +13,8 @@ namespace Admin.NET.Core.Service;
 public class SysUserService : IDynamicApiController, ITransient
 {
     private readonly UserManager _userManager;
-    private readonly SqlSugarRepository<SysUser> _sysUserRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysUser> sysUserRep_ = null;
     private readonly SysOrgService _sysOrgService;
     private readonly SysUserExtOrgService _sysUserExtOrgService;
     private readonly SysUserRoleService _sysUserRoleService;
@@ -23,7 +24,7 @@ public class SysUserService : IDynamicApiController, ITransient
     private readonly SysUserLdapService _sysUserLdapService;
 
     public SysUserService(UserManager userManager,
-        SqlSugarRepository<SysUser> sysUserRep,
+        ISqlSugarClient db,
         SysOrgService sysOrgService,
         SysUserExtOrgService sysUserExtOrgService,
         SysUserRoleService sysUserRoleService,
@@ -33,7 +34,7 @@ public class SysUserService : IDynamicApiController, ITransient
         SysUserLdapService sysUserLdapService)
     {
         _userManager = userManager;
-        _sysUserRep = sysUserRep;
+        _db = db;
         _sysOrgService = sysOrgService;
         _sysUserExtOrgService = sysUserExtOrgService;
         _sysUserRoleService = sysUserRoleService;
@@ -41,6 +42,15 @@ public class SysUserService : IDynamicApiController, ITransient
         _sysOnlineUserService = sysOnlineUserService;
         _sysCacheService = sysCacheService;
         _sysUserLdapService = sysUserLdapService;
+    }
+    public SimpleClient<SysUser> _sysUserRep
+    {
+        get
+        {
+            if (sysUserRep_ == null)
+                sysUserRep_ = _db.GetSimpleClient<SysUser>();
+            return sysUserRep_;
+        }
     }
 
     /// <summary>

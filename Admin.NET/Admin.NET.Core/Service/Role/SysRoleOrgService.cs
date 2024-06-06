@@ -11,13 +11,22 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysRoleOrgService : ITransient
 {
-    private readonly SqlSugarRepository<SysRoleOrg> _sysRoleOrgRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysRoleOrg> sysRoleOrgRep_ = null;
 
-    public SysRoleOrgService(SqlSugarRepository<SysRoleOrg> sysRoleOrgRep)
+    public SysRoleOrgService(ISqlSugarClient db)
     {
-        _sysRoleOrgRep = sysRoleOrgRep;
+        _db = db;
     }
-
+    public SimpleClient<SysRoleOrg> _sysRoleOrgRep
+    {
+        get
+        {
+            if (sysRoleOrgRep_ == null)
+                sysRoleOrgRep_ = _db.GetSimpleClient<SysRoleOrg>();
+            return sysRoleOrgRep_;
+        }
+    }
     /// <summary>
     /// 授权角色机构
     /// </summary>

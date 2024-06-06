@@ -13,27 +13,36 @@ namespace Admin.NET.Core.Service;
 public class SysOrgService : IDynamicApiController, ITransient
 {
     private readonly UserManager _userManager;
-    private readonly SqlSugarRepository<SysOrg> _sysOrgRep;
+    private readonly ISqlSugarClient _db;
+    private SimpleClient<SysOrg> sysOrgRep_ = null;
     private readonly SysCacheService _sysCacheService;
     private readonly SysUserExtOrgService _sysUserExtOrgService;
     private readonly SysUserRoleService _sysUserRoleService;
     private readonly SysRoleOrgService _sysRoleOrgService;
 
     public SysOrgService(UserManager userManager,
-        SqlSugarRepository<SysOrg> sysOrgRep,
+        ISqlSugarClient db,
         SysCacheService sysCacheService,
         SysUserExtOrgService sysUserExtOrgService,
         SysUserRoleService sysUserRoleService,
         SysRoleOrgService sysRoleOrgService)
     {
-        _sysOrgRep = sysOrgRep;
+        _db = db;
         _userManager = userManager;
         _sysCacheService = sysCacheService;
         _sysUserExtOrgService = sysUserExtOrgService;
         _sysUserRoleService = sysUserRoleService;
         _sysRoleOrgService = sysRoleOrgService;
     }
-
+    public SimpleClient<SysOrg> _sysOrgRep
+    {
+        get
+        {
+            if (sysOrgRep_ == null)
+                sysOrgRep_ = _db.GetSimpleClient<SysOrg>();
+            return sysOrgRep_;
+        }
+    }
     /// <summary>
     /// 获取机构列表 🔖
     /// </summary>
