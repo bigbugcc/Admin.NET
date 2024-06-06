@@ -38,6 +38,13 @@ export default function () {
 	const scale2Format = (value: string = '0') => {
 		return Number.parseFloat(value).toFixed(2);
 	};
+    // 千分符，默认保留两位小数
+	const groupSeparator = (value: number, minimumFractionDigits: number = 2) => {
+		return value.toLocaleString('en-US', {
+			minimumFractionDigits: minimumFractionDigits,
+			maximumFractionDigits: 2,
+		});
+	};
 	// 点击复制文本
 	const copyText = (text: string) => {
 		return new Promise((resolve, reject) => {
@@ -75,6 +82,7 @@ export default function () {
 		dateFormatHMS,
 		scaleFormat,
 		scale2Format,
+        groupSeparator,
 		copyText,
 		removeHtmlSub,
 		removeHtml,
