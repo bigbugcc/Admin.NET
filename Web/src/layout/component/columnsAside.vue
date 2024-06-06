@@ -218,7 +218,7 @@ watch(
 
 <style scoped lang="scss">
 .layout-columns-aside {
-	width: 70px;
+	width: var(--el-columnsMenuWidth);
 	height: 100%;
 	background: var(--next-bg-columnsMenuBar);
 	ul {
@@ -237,7 +237,7 @@ watch(
 		li {
 			color: var(--next-bg-columnsMenuBarColor);
 			width: 100%;
-			height: 50px;
+			height: var(--el-columnsMenuHeight);
 			text-align: center;
 			display: flex;
 			cursor: pointer;
@@ -254,7 +254,7 @@ watch(
 			}
 			.columns-horizontal {
 				display: flex;
-				height: 50px;
+				height: var(--el-columnsMenuHeight);
 				width: 100%;
 				align-items: center;
 				padding: 0 5px;
@@ -279,8 +279,8 @@ watch(
 			position: absolute;
 			left: 50%;
 			top: 2px;
-			height: 44px;
-			width: 65px;
+			height: var(--el-columnsMenuRoundHeight);
+			width: var(--el-columnsMenuRoundWidth);
 			transform: translateX(-50%);
 			z-index: 0;
 			transition: 0.3s ease-in-out;
@@ -289,7 +289,7 @@ watch(
 		.columns-card {
 			@extend .columns-round;
 			top: 0;
-			height: 50px;
+			height: var(--el-columnsMenuHeight);
 			width: 100%;
 			border-radius: 0;
 		}
@@ -297,7 +297,7 @@ watch(
 }
 
 .layout-logo {
-	height: 50px;
+	height: var(--el-columnsLogoHeight);
 	display: flex;
 	align-items: center;
 	justify-content: center;
