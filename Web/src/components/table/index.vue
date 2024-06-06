@@ -440,7 +440,7 @@ defineExpose({
 
 <style scoped lang="scss">
 .table-container {
-	display: flex;
+	display: flex !important;
 	flex-direction: column;
 	height: 100%;
 
