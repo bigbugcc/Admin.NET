@@ -118,6 +118,7 @@ const loadSysInfo = () => {
 
 			const data = res.data.result;
 			// 系统logo
+			data.sysLogo = window.__env__.VITE_API_URL + data.sysLogo;
 			themeConfig.value.logoUrl = data.sysLogo;
 			// 主标题
 			themeConfig.value.globalTitle = data.sysTitle;

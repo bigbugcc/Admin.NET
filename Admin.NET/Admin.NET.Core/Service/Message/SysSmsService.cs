@@ -5,6 +5,9 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using AlibabaCloud.SDK.Dysmsapi20170525.Models;
+using TencentCloud.Common;
+using TencentCloud.Common.Profile;
+using TencentCloud.Sms.V20190711;
 
 namespace Admin.NET.Core.Service;
 
@@ -34,6 +37,21 @@ public class SysSmsService : IDynamicApiController, ITransient
     [DisplayName("发送短信")]
     public async Task SendSms([Required] string phoneNumber)
     {
+        if (!string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeyId) && !string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeySecret))
+            await AliyunSendSms(phoneNumber);
+        else
+            await TencentSendSms(phoneNumber);
+    }
+
+    /// <summary>
+    /// 阿里云发送短信 📨
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("阿里云发送短信")]
+    public async Task AliyunSendSms([Required] string phoneNumber)
+    {
         if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid)
             throw Oops.Oh("请正确填写手机号码");
 
@@ -46,7 +64,7 @@ public class SysSmsService : IDynamicApiController, ITransient
             code = verifyCode
         });
 
-        var client = CreateClient();
+        var client = CreateAliyunClient();
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
@@ -70,10 +88,54 @@ public class SysSmsService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 腾讯云发送短信 📨
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("腾讯云发送短信")]
+    public async Task TencentSendSms([Required] string phoneNumber)
+    {
+        if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid)
+            throw Oops.Oh("请正确填写手机号码");
+
+        // 生成随机验证码
+        var random = new Random();
+        var verifyCode = random.Next(100000, 999999);
+
+        // 实例化要请求产品的client对象，clientProfile是可选的
+        var client = new SmsClient(CreateTencentClient(), "ap-guangzhou", new ClientProfile() { HttpProfile = new HttpProfile() { Endpoint = ("sms.tencentcloudapi.com") } });
+        // 实例化一个请求对象,每个接口都会对应一个request对象
+        var req = new TencentCloud.Sms.V20190711.Models.SendSmsRequest
+        {
+            PhoneNumberSet = new string[] { "+86" + phoneNumber.Trim(',') },
+            SmsSdkAppid = _smsOptions.Tencentyun.SdkAppId,
+            Sign = _smsOptions.Tencentyun.SignName,
+            TemplateID = _smsOptions.Tencentyun.TemplateCode,
+            TemplateParamSet = new string[] { verifyCode.ToString() }
+        };
+
+        // 返回的resp是一个SendSmsResponse的实例，与请求对象对应
+        TencentCloud.Sms.V20190711.Models.SendSmsResponse resp = client.SendSmsSync(req);
+
+        if (resp.SendStatusSet[0].Code == "Ok" && resp.SendStatusSet[0].Message == "send success")
+        {
+            // var bizId = sendSmsResponse.Body.BizId;
+            _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(60));
+        }
+        else
+        {
+            throw Oops.Oh($"短信发送失败：{resp.SendStatusSet[0].Code}-{resp.SendStatusSet[0].Message}");
+        }
+
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
     /// 阿里云短信配置
     /// </summary>
     /// <returns></returns>
-    private AlibabaCloud.SDK.Dysmsapi20170525.Client CreateClient()
+    private AlibabaCloud.SDK.Dysmsapi20170525.Client CreateAliyunClient()
     {
         var config = new AlibabaCloud.OpenApiClient.Models.Config
         {
@@ -82,5 +144,20 @@ public class SysSmsService : IDynamicApiController, ITransient
             Endpoint = "dysmsapi.aliyuncs.com"
         };
         return new AlibabaCloud.SDK.Dysmsapi20170525.Client(config);
+    }
+
+    /// <summary>
+    /// 腾讯云短信配置
+    /// </summary>
+    /// <returns></returns>
+    private Credential CreateTencentClient()
+    {
+        var cred = new Credential
+        {
+            SecretId = _smsOptions.Tencentyun.AccessKeyId,
+            SecretKey = _smsOptions.Tencentyun.AccessKeySecret
+        };
+
+        return cred;
     }
 }

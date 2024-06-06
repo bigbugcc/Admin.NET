@@ -5,7 +5,14 @@
     "Aliyun": {
       "AccessKeyId": "",
       "AccessKeySecret": "",
-      "SignName": "AdminNET平台", // 短信签名
+      "SignName": "AdminNET 平台", // 短信签名
+      "TemplateCode": "" // 短信模板
+    },
+    "Tencentyun": {
+      "SdkAppId": "",
+      "AccessKeyId": "",
+      "AccessKeySecret": "",
+      "SignName": "AdminNET 平台", // 短信签名
       "TemplateCode": "" // 短信模板
     }
   }

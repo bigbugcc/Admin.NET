@@ -15,10 +15,20 @@ public sealed class SMSOptions : IConfigurableOptions
     /// Aliyun
     /// </summary>
     public SMSSettings Aliyun { get; set; }
+
+    /// <summary>
+    /// Tencentyun
+    /// </summary>
+    public SMSSettings Tencentyun { get; set; }
 }
 
 public sealed class SMSSettings
 {
+    /// <summary>
+    /// SdkAppId
+    /// </summary>
+    public string SdkAppId { get; set; }
+
     /// <summary>
     /// AccessKey ID
     /// </summary>

@@ -67,4 +67,20 @@ export interface InfoSaveInput {
      * @memberof InfoSaveInput
      */
     sysCopyright?: string | null;
+
+    /**
+     * ICP备案号
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    sysIcp?: string | null;
+
+    /**
+     * ICP地址
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    sysIcpUrl?: string | null;
 }
