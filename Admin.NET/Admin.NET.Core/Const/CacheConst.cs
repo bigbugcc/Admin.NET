@@ -80,4 +80,9 @@ public class CacheConst
     /// 登录黑名单
     /// </summary>
     public const string KeyBlacklist = "sys_blacklist:";
+
+    /// <summary>
+    /// 系统配置缓存
+    /// </summary>
+    public const string KeyConfig = "sys_config:";
 }

@@ -81,7 +81,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         var config = input.Adapt<SysConfig>();
         await _sysConfigRep.AsUpdateable(config).IgnoreColumns(true).ExecuteCommandAsync();
 
-        _sysCacheService.Remove(config.Code);
+        _sysCacheService.Remove($"{CacheConst.KeyConfig}{config.Code}");
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class SysConfigService : IDynamicApiController, ITransient
 
         await _sysConfigRep.DeleteAsync(config);
 
-        _sysCacheService.Remove(config.Code);
+        _sysCacheService.Remove($"{CacheConst.KeyConfig}{config.Code}");
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class SysConfigService : IDynamicApiController, ITransient
 
             await _sysConfigRep.DeleteAsync(config);
 
-            _sysCacheService.Remove(config.Code);
+            _sysCacheService.Remove($"{CacheConst.KeyConfig}{config.Code}");
         }
     }
 
@@ -144,12 +144,12 @@ public class SysConfigService : IDynamicApiController, ITransient
     {
         if (string.IsNullOrWhiteSpace(code)) return default;
 
-        var value = _sysCacheService.Get<string>(code);
+        var value = _sysCacheService.Get<string>($"{CacheConst.KeyConfig}{code}");
         if (string.IsNullOrEmpty(value))
         {
             var config = await _sysConfigRep.GetFirstAsync(u => u.Code == code);
             value = config != null ? config.Value : default;
-            _sysCacheService.Set(code, value);
+            _sysCacheService.Set($"{CacheConst.KeyConfig}{code}", value);
         }
         if (string.IsNullOrWhiteSpace(value)) return default;
         return (T)Convert.ChangeType(value, typeof(T));
@@ -170,7 +170,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         config.Value = value;
         await _sysConfigRep.AsUpdateable(config).ExecuteCommandAsync();
 
-        _sysCacheService.Remove(config.Code);
+        _sysCacheService.Remove($"{CacheConst.KeyConfig}{config.Code}");
     }
 
     /// <summary>
