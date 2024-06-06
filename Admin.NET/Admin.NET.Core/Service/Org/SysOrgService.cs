@@ -267,7 +267,7 @@ public class SysOrgService : IDynamicApiController, ITransient
             {
                 var userOrgs = _sysCacheService.Get<List<long>>(userOrgKey);
                 var userId = long.Parse(userOrgKey.Substring(CacheConst.KeyUserOrg));
-                if (userOrgs.Contains(orgId) || userOrgs.Contains(orgPid))
+                if (userOrgs != null&&(userOrgs.Contains(orgId) || userOrgs.Contains(orgPid)))
                 {
                     SqlSugarFilter.DeleteUserOrgCache(userId, _sysOrgRep.Context.CurrentConnectionConfig.ConfigId.ToString());
                 }
