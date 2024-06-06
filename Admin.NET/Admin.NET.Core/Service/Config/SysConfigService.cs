@@ -252,7 +252,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         {
             // 旧图标文件相对路径
             var oldSysLogoRelativeFilePath = await GetConfigValue<string>("sys_web_logo") ?? "";
-            var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath);
+            var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath.TrimStart('/'));
 
             var groups = Regex.Match(input.SysLogoBase64, @"data:image/(?<type>.+?);base64,(?<data>.+)").Groups;
             var type = groups["type"].Value;
