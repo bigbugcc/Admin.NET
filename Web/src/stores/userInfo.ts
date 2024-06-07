@@ -119,8 +119,8 @@ export const useUserInfo = defineStore('userInfo', {
 			});
 		},
 
-		// 根据字典类型和值取字典项
-		getDictItemByVal(typePCode: string, val: string) {
+		// 根据字典类型和代码取字典项
+		getDictItemByCode(typePCode: string, val: string) {
 			if (val) {
 				const _val = val.toString();
 				const ds = this.getDictDatasByCode(typePCode);
