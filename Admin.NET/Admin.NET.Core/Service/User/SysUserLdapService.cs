@@ -12,18 +12,18 @@ namespace Admin.NET.Core.Service;
 public class SysUserLdapService : ITransient
 {
     private readonly ISqlSugarClient _db;
-    private SimpleClient<SysUserLdap> sysUserLdapRep = null;
+    private SqlSugarRepository<SysUserLdap> sysUserLdapRep = null;
 
     public SysUserLdapService(ISqlSugarClient db)
     {
         _db = db;
     }
 
-    public SimpleClient<SysUserLdap> SysUserLdapRep
+    public SqlSugarRepository<SysUserLdap> SysUserLdapRep
     {
         get
         {
-            sysUserLdapRep ??= _db.GetSimpleClient<SysUserLdap>();
+            sysUserLdapRep ??= _db.GetRepository<SqlSugarRepository<SysUserLdap>>();
             return sysUserLdapRep;
         }
     }

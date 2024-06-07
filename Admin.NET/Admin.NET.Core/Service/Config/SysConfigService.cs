@@ -14,7 +14,7 @@ public class SysConfigService : IDynamicApiController, ITransient
 {
     private readonly ISqlSugarClient _db;
     private readonly SysCacheService _sysCacheService;
-    private SimpleClient<SysConfig> sysConfigRep = null;
+    private SqlSugarRepository<SysConfig> sysConfigRep = null;
 
     public SysConfigService(ISqlSugarClient db,
         SysCacheService sysCacheService)
@@ -23,11 +23,11 @@ public class SysConfigService : IDynamicApiController, ITransient
         _sysCacheService = sysCacheService;
     }
 
-    public SimpleClient<SysConfig> SysConfigRep
+    public SqlSugarRepository<SysConfig> SysConfigRep
     {
         get
         {
-            sysConfigRep ??= _db.GetSimpleClient<SysConfig>();
+            sysConfigRep ??= _db.GetRepository<SqlSugarRepository<SysConfig>>();
             return sysConfigRep;
         }
     }

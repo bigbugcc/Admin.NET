@@ -18,7 +18,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     private readonly SysUserExtOrgService _sysUserExtOrgService;
     private readonly SysUserRoleService _sysUserRoleService;
     private readonly SysRoleOrgService _sysRoleOrgService;
-    private SimpleClient<SysOrg> sysOrgRep = null;
+    private SqlSugarRepository<SysOrg> sysOrgRep = null;
 
     public SysOrgService(UserManager userManager,
         ISqlSugarClient db,
@@ -35,11 +35,11 @@ public class SysOrgService : IDynamicApiController, ITransient
         _sysRoleOrgService = sysRoleOrgService;
     }
 
-    public SimpleClient<SysOrg> SysOrgRep
+    public SqlSugarRepository<SysOrg> SysOrgRep
     {
         get
         {
-            sysOrgRep ??= _db.GetSimpleClient<SysOrg>();
+            sysOrgRep ??= _db.GetRepository<SqlSugarRepository<SysOrg>>();
             return sysOrgRep;
         }
     }

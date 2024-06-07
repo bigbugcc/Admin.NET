@@ -12,18 +12,18 @@ namespace Admin.NET.Core.Service;
 public class SysUserExtOrgService : ITransient
 {
     private readonly ISqlSugarClient _db;
-    private SimpleClient<SysUserExtOrg> sysUserExtOrgRep = null;
+    private SqlSugarRepository<SysUserExtOrg> sysUserExtOrgRep = null;
 
     public SysUserExtOrgService(ISqlSugarClient db)
     {
         _db = db;
     }
 
-    public SimpleClient<SysUserExtOrg> SysUserExtOrgRep
+    public SqlSugarRepository<SysUserExtOrg> SysUserExtOrgRep
     {
         get
         {
-            sysUserExtOrgRep ??= _db.GetSimpleClient<SysUserExtOrg>();
+            sysUserExtOrgRep ??= _db.GetRepository<SqlSugarRepository<SysUserExtOrg>>();
             return sysUserExtOrgRep;
         }
     }

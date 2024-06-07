@@ -13,7 +13,7 @@ public class SysUserRoleService : ITransient
 {
     private readonly ISqlSugarClient _db;
     private readonly SysCacheService _sysCacheService;
-    private SimpleClient<SysUserRole> sysUserRoleRep = null;
+    private SqlSugarRepository<SysUserRole> sysUserRoleRep = null;
 
     public SysUserRoleService(ISqlSugarClient db,
         SysCacheService sysCacheService)
@@ -22,11 +22,11 @@ public class SysUserRoleService : ITransient
         _sysCacheService = sysCacheService;
     }
 
-    public SimpleClient<SysUserRole> SysUserRoleRep
+    public SqlSugarRepository<SysUserRole> SysUserRoleRep
     {
         get
         {
-            sysUserRoleRep ??= _db.GetSimpleClient<SysUserRole>();
+            sysUserRoleRep ??= _db.GetRepository<SqlSugarRepository<SysUserRole>>();
             return sysUserRoleRep;
         }
     }

@@ -21,7 +21,7 @@ public class SysUserService : IDynamicApiController, ITransient
     private readonly SysOnlineUserService _sysOnlineUserService;
     private readonly SysCacheService _sysCacheService;
     private readonly SysUserLdapService _sysUserLdapService;
-    private SimpleClient<SysUser> sysUserRep = null;
+    private SqlSugarRepository<SysUser> sysUserRep = null;
 
     public SysUserService(UserManager userManager,
         ISqlSugarClient db,
@@ -44,11 +44,11 @@ public class SysUserService : IDynamicApiController, ITransient
         _sysUserLdapService = sysUserLdapService;
     }
 
-    public SimpleClient<SysUser> SysUserRep
+    public SqlSugarRepository<SysUser> SysUserRep
     {
         get
         {
-            sysUserRep ??= _db.GetSimpleClient<SysUser>();
+            sysUserRep ??= _db.GetRepository<SqlSugarRepository<SysUser>>();
             return sysUserRep;
         }
     }

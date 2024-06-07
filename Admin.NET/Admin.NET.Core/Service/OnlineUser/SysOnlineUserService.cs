@@ -17,7 +17,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     private readonly ISqlSugarClient _db;
     private readonly SysConfigService _sysConfigService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
-    private SimpleClient<SysOnlineUser> sysOnlineUerRep = null;
+    private SqlSugarRepository<SysOnlineUser> sysOnlineUerRep = null;
 
     public SysOnlineUserService(ISqlSugarClient db,
         SysConfigService sysConfigService,
@@ -28,11 +28,11 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
         _onlineUserHubContext = onlineUserHubContext;
     }
 
-    public SimpleClient<SysOnlineUser> SysOnlineUerRep
+    public SqlSugarRepository<SysOnlineUser> SysOnlineUerRep
     {
         get
         {
-            sysOnlineUerRep ??= _db.GetSimpleClient<SysOnlineUser>();
+            sysOnlineUerRep ??= _db.GetRepository<SqlSugarRepository<SysOnlineUser>>();
             return sysOnlineUerRep;
         }
     }
