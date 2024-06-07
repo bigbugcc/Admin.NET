@@ -294,7 +294,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据用户Id获取机构Id集合
+    /// 获取当前登录用户Id获取机构Id集合
     /// </summary>
     /// <returns></returns>
     [NonAction]
@@ -302,8 +302,15 @@ public class SysOrgService : IDynamicApiController, ITransient
     {
         if (_userManager.SuperAdmin)
             return new List<long>();
-
-        var userId = _userManager.UserId;
+        return await GetUserOrgIdList(_userManager.UserId, _userManager.OrgId);
+    }
+    /// <summary>
+    /// 根据指定用户Id获取机构Id集合
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<List<long>> GetUserOrgIdList(long userId, long userOrgId)
+    {
         var orgIdList = _sysCacheService.Get<List<long>>($"{CacheConst.KeyUserOrg}{userId}"); // 取缓存
         if (orgIdList == null || orgIdList.Count < 1)
         {
@@ -312,12 +319,12 @@ public class SysOrgService : IDynamicApiController, ITransient
             // 扩展机构集合
             var orgList1 = await _sysUserExtOrgService.GetUserExtOrgList(userId);
             // 角色机构集合
-            var orgList2 = await GetUserRoleOrgIdList(userId);
+            var orgList2 = await GetUserRoleOrgIdList(userId, userOrgId);
             // 机构并集
             orgIdList = orgList1.Select(u => u.OrgId).Union(orgList2).Union(orgList0).ToList();
             // 当前所属机构
-            if (!orgIdList.Contains(_userManager.OrgId))
-                orgIdList.Add(_userManager.OrgId);
+            if (!orgIdList.Contains(userOrgId))
+                orgIdList.Add(userOrgId);
             _sysCacheService.Set($"{CacheConst.KeyUserOrg}{userId}", orgIdList, TimeSpan.FromDays(7)); // 存缓存
         }
         return orgIdList;
@@ -327,22 +334,25 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// 获取用户角色机构Id集合
     /// </summary>
     /// <param name="userId"></param>
+    /// <param name="userOrgId">用户的机构ID</param>
     /// <returns></returns>
-    private async Task<List<long>> GetUserRoleOrgIdList(long userId)
+    private async Task<List<long>> GetUserRoleOrgIdList(long userId, long userOrgId)
     {
         var roleList = await _sysUserRoleService.GetUserRoleList(userId);
         if (roleList.Count < 1)
             return new List<long>(); // 空机构Id集合
 
-        return await GetUserOrgIdList(roleList);
+        return await GetUserOrgIdList(roleList, userId, userOrgId);
     }
 
     /// <summary>
     /// 根据角色Id集合获取机构Id集合
     /// </summary>
     /// <param name="roleList"></param>
+    /// <param name="userId"></param>
+    /// <param name="userOrgId">用户的机构ID</param>
     /// <returns></returns>
-    private async Task<List<long>> GetUserOrgIdList(List<SysRole> roleList)
+    private async Task<List<long>> GetUserOrgIdList(List<SysRole> roleList, long userId, long userOrgId)
     {
         // 按最大范围策略设定(若同时拥有ALL和SELF权限，则结果ALL)
         int strongerDataScopeType = (int)DataScopeEnum.Self;
@@ -366,14 +376,14 @@ public class SysOrgService : IDynamicApiController, ITransient
                 {
                     strongerDataScopeType = (int)u.DataScope;
                     // 根据数据范围获取机构集合
-                    var orgIds = GetOrgIdListByDataScope(strongerDataScopeType).GetAwaiter().GetResult();
+                    var orgIds = GetOrgIdListByDataScope(userOrgId, strongerDataScopeType).GetAwaiter().GetResult();
                     dataScopeOrgIdList = dataScopeOrgIdList.Union(orgIds).ToList();
                 }
             });
         }
 
         // 缓存当前用户最大角色数据范围
-        _sysCacheService.Set(CacheConst.KeyRoleMaxDataScope + _userManager.UserId, strongerDataScopeType, TimeSpan.FromDays(7));
+        _sysCacheService.Set(CacheConst.KeyRoleMaxDataScope + userId, strongerDataScopeType, TimeSpan.FromDays(7));
 
         // 根据角色集合获取机构集合
         var roleOrgIdList = await _sysRoleOrgService.GetRoleOrgIdList(customDataScopeRoleIdList);
@@ -385,11 +395,12 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// <summary>
     /// 根据数据范围获取机构Id集合
     /// </summary>
+    /// <param name="userOrgId">用户的机构ID</param>
     /// <param name="dataScope"></param>
     /// <returns></returns>
-    private async Task<List<long>> GetOrgIdListByDataScope(int dataScope)
+    private async Task<List<long>> GetOrgIdListByDataScope(long userOrgId, int dataScope)
     {
-        var orgId = _userManager.OrgId;
+        var orgId = userOrgId;//var orgId = _userManager.OrgId;
         var orgIdList = new List<long>();
         // 若数据范围是全部，则获取所有机构Id集合
         if (dataScope == (int)DataScopeEnum.All)
