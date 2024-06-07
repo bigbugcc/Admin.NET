@@ -294,7 +294,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取当前登录用户Id获取机构Id集合
+    /// 获取当前用户机构Id集合
     /// </summary>
     /// <returns></returns>
     [NonAction]
@@ -304,6 +304,7 @@ public class SysOrgService : IDynamicApiController, ITransient
             return new List<long>();
         return await GetUserOrgIdList(_userManager.UserId, _userManager.OrgId);
     }
+
     /// <summary>
     /// 根据指定用户Id获取机构Id集合
     /// </summary>
@@ -334,7 +335,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// 获取用户角色机构Id集合
     /// </summary>
     /// <param name="userId"></param>
-    /// <param name="userOrgId">用户的机构ID</param>
+    /// <param name="userOrgId">用户的机构Id</param>
     /// <returns></returns>
     private async Task<List<long>> GetUserRoleOrgIdList(long userId, long userOrgId)
     {
@@ -350,7 +351,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="roleList"></param>
     /// <param name="userId"></param>
-    /// <param name="userOrgId">用户的机构ID</param>
+    /// <param name="userOrgId">用户的机构Id</param>
     /// <returns></returns>
     private async Task<List<long>> GetUserOrgIdList(List<SysRole> roleList, long userId, long userOrgId)
     {
@@ -395,7 +396,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// <summary>
     /// 根据数据范围获取机构Id集合
     /// </summary>
-    /// <param name="userOrgId">用户的机构ID</param>
+    /// <param name="userOrgId">用户的机构Id</param>
     /// <param name="dataScope"></param>
     /// <returns></returns>
     private async Task<List<long>> GetOrgIdListByDataScope(long userOrgId, int dataScope)

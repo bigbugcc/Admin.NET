@@ -238,8 +238,7 @@ export function verifyPassword(val: string) {
  */
 export function verifyPasswordPowerful(val: string) {
 	// false: 强密码不正确
-	if (!/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val))
-		return false;
+	if (!/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) return false;
 	// true: 强密码正确
 	else return true;
 }
@@ -259,8 +258,7 @@ export function verifyPasswordStrength(val: string) {
 	// 中：字母+数字，字母+特殊字符，数字+特殊字符
 	if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) v = '中';
 	// 强：字母+数字+特殊字符
-	if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val))
-		v = '强';
+	if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) v = '强';
 	// 返回结果
 	return v;
 }
@@ -272,12 +270,7 @@ export function verifyPasswordStrength(val: string) {
  */
 export function verifyIPAddress(val: string) {
 	// false: IP地址不正确
-	if (
-		!/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(
-			val
-		)
-	)
-		return false;
+	if (!/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(val)) return false;
 	// true: IP地址正确
 	else return true;
 }
@@ -289,12 +282,7 @@ export function verifyIPAddress(val: string) {
  */
 export function verifyEmail(val: string) {
 	// false: 邮箱不正确
-	if (
-		!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-			val
-		)
-	)
-		return false;
+	if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(val)) return false;
 	// true: 邮箱正确
 	else return true;
 }
@@ -367,4 +355,20 @@ export function verifyCarNum(val: string) {
 		return false;
 	// true：车牌号正确
 	else return true;
+}
+
+/**
+ * 解析身份证
+ */
+export function judgementIdCard(idCard: string) {
+	let entity = {} as any;
+	let currentDate = new Date();
+	let yearNow = currentDate.getFullYear();
+	let birthDateCode = idCard.substring(6, 14);
+	let genderCode = parseInt(idCard.substring(16, 17), 10);
+
+	entity.sex = genderCode % 2 === 0 ? 2 : 1;
+	entity.age = yearNow - parseInt(birthDateCode.substring(0, 4));
+	entity.birthday = `${birthDateCode.substring(0, 4)}-${birthDateCode.substring(4, 6)}-${birthDateCode.substring(6, 8)}`;
+	return entity;
 }

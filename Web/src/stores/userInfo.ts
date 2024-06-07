@@ -144,7 +144,7 @@ export const useUserInfo = defineStore('userInfo', {
 					if (element.value == _val) {
 						return element;
 					}
-				}                
+				}
 			}
 			return {};
 		},
@@ -161,12 +161,12 @@ export const useUserInfo = defineStore('userInfo', {
 			}
 		},
 
-		// 根据字典类型字典数据
+		// 根据字典类型获取字典数据
 		getDictDatasByCode(dictTypeCode: string) {
 			return this.dictList[dictTypeCode] || [];
 		},
 
-		// 根据字典类型字典数据,值转为数字类型
+		// 根据字典类型获取字典数据（值转为数字类型）
 		getDictIntDatasByCode(dictTypeCode: string) {
 			var ds = this.dictListInt[dictTypeCode];
 			if (ds) {

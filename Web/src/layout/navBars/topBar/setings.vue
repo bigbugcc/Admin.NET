@@ -96,21 +96,45 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt11">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoColumnsLogoHeight') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-input-number v-model="getThemeConfig.columnsLogoHeight" controls-position="right" :min="1" :max="9999" @change="onColumnsLogoHeightChange" size="small" style="width: 90px; margin-right: 1px">
+						<el-input-number
+							v-model="getThemeConfig.columnsLogoHeight"
+							controls-position="right"
+							:min="1"
+							:max="9999"
+							@change="onColumnsLogoHeightChange"
+							size="small"
+							style="width: 90px; margin-right: 1px"
+						>
 						</el-input-number>
 					</div>
 				</div>
 				<div class="layout-breadcrumb-seting-bar-flex mt11">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoColumnsMenuWidth') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-input-number v-model="getThemeConfig.columnsMenuWidth" controls-position="right" :min="1" :max="9999" @change="onColumnsMenuWidthChange" size="small" style="width: 90px; margin-right: 1px">
+						<el-input-number
+							v-model="getThemeConfig.columnsMenuWidth"
+							controls-position="right"
+							:min="1"
+							:max="9999"
+							@change="onColumnsMenuWidthChange"
+							size="small"
+							style="width: 90px; margin-right: 1px"
+						>
 						</el-input-number>
 					</div>
 				</div>
 				<div class="layout-breadcrumb-seting-bar-flex mt11">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoColumnsMenuHeight') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-input-number v-model="getThemeConfig.columnsMenuHeight" controls-position="right" :min="1" :max="9999" @change="onColumnsMenuHeightChange" size="small" style="width: 90px; margin-right: 1px">
+						<el-input-number
+							v-model="getThemeConfig.columnsMenuHeight"
+							controls-position="right"
+							:min="1"
+							:max="9999"
+							@change="onColumnsMenuHeightChange"
+							size="small"
+							style="width: 90px; margin-right: 1px"
+						>
 						</el-input-number>
 					</div>
 				</div>
@@ -637,7 +661,7 @@ const onCopyConfigClick = () => {
 // 一键恢复默认
 const onResetConfigClick = () => {
 	Local.clear();
-    Session.clear();
+	Session.clear();
 	window.location.reload();
 	// @ts-ignore
 	Local.set('version', __NEXT_VERSION__);
