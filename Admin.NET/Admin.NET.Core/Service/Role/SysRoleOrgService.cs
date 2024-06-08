@@ -11,19 +11,17 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysRoleOrgService : ITransient
 {
-    private readonly ISqlSugarClient _db;
     private SqlSugarRepository<SysRoleOrg> sysRoleOrgRep = null;
 
-    public SysRoleOrgService(ISqlSugarClient db)
+    public SysRoleOrgService()
     {
-        _db = db;
     }
 
     public SqlSugarRepository<SysRoleOrg> SysRoleOrgRep
     {
         get
         {
-            sysRoleOrgRep ??= _db.GetRepository<SqlSugarRepository<SysRoleOrg>>();
+            sysRoleOrgRep ??= App.GetRequiredService<SqlSugarRepository<SysRoleOrg>>();
             return sysRoleOrgRep;
         }
     }

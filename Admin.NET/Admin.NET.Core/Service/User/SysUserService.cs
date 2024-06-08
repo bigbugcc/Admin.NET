@@ -13,7 +13,6 @@ namespace Admin.NET.Core.Service;
 public class SysUserService : IDynamicApiController, ITransient
 {
     private readonly UserManager _userManager;
-    private readonly ISqlSugarClient _db;
     private readonly SysOrgService _sysOrgService;
     private readonly SysUserExtOrgService _sysUserExtOrgService;
     private readonly SysUserRoleService _sysUserRoleService;
@@ -24,7 +23,6 @@ public class SysUserService : IDynamicApiController, ITransient
     private SqlSugarRepository<SysUser> sysUserRep = null;
 
     public SysUserService(UserManager userManager,
-        ISqlSugarClient db,
         SysOrgService sysOrgService,
         SysUserExtOrgService sysUserExtOrgService,
         SysUserRoleService sysUserRoleService,
@@ -34,7 +32,6 @@ public class SysUserService : IDynamicApiController, ITransient
         SysUserLdapService sysUserLdapService)
     {
         _userManager = userManager;
-        _db = db;
         _sysOrgService = sysOrgService;
         _sysUserExtOrgService = sysUserExtOrgService;
         _sysUserRoleService = sysUserRoleService;
@@ -48,7 +45,7 @@ public class SysUserService : IDynamicApiController, ITransient
     {
         get
         {
-            sysUserRep ??= _db.GetRepository<SqlSugarRepository<SysUser>>();
+            sysUserRep ??= App.GetRequiredService<SqlSugarRepository<SysUser>>();
             return sysUserRep;
         }
     }

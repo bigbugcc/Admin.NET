@@ -14,16 +14,13 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 300)]
 public class SysOnlineUserService : IDynamicApiController, ITransient
 {
-    private readonly ISqlSugarClient _db;
     private readonly SysConfigService _sysConfigService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
     private SqlSugarRepository<SysOnlineUser> sysOnlineUerRep = null;
 
-    public SysOnlineUserService(ISqlSugarClient db,
-        SysConfigService sysConfigService,
+    public SysOnlineUserService(SysConfigService sysConfigService,
         IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext)
     {
-        _db = db;
         _sysConfigService = sysConfigService;
         _onlineUserHubContext = onlineUserHubContext;
     }
@@ -32,7 +29,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     {
         get
         {
-            sysOnlineUerRep ??= _db.GetRepository<SqlSugarRepository<SysOnlineUser>>();
+            sysOnlineUerRep ??= App.GetRequiredService<SqlSugarRepository<SysOnlineUser>>();
             return sysOnlineUerRep;
         }
     }

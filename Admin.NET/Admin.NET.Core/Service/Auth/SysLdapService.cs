@@ -14,19 +14,17 @@ namespace Admin.NET.Core;
 [ApiDescriptionSettings(Order = 496)]
 public class SysLdapService : IDynamicApiController, ITransient
 {
-    private readonly ISqlSugarClient _db;
     private SqlSugarRepository<SysLdap> sysLdapRep = null;
 
-    public SysLdapService(ISqlSugarClient db)
+    public SysLdapService()
     {
-        _db = db;
     }
 
     public SqlSugarRepository<SysLdap> SysLdapRep
     {
         get
         {
-            sysLdapRep ??= _db.GetRepository<SqlSugarRepository<SysLdap>>();
+            sysLdapRep ??= App.GetRequiredService<SqlSugarRepository<SysLdap>>();
             return sysLdapRep;
         }
     }

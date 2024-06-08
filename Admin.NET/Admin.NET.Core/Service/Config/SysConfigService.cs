@@ -12,14 +12,11 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 440)]
 public class SysConfigService : IDynamicApiController, ITransient
 {
-    private readonly ISqlSugarClient _db;
     private readonly SysCacheService _sysCacheService;
     private SqlSugarRepository<SysConfig> sysConfigRep = null;
 
-    public SysConfigService(ISqlSugarClient db,
-        SysCacheService sysCacheService)
+    public SysConfigService(SysCacheService sysCacheService)
     {
-        _db = db;
         _sysCacheService = sysCacheService;
     }
 
@@ -27,7 +24,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     {
         get
         {
-            sysConfigRep ??= _db.GetRepository<SqlSugarRepository<SysConfig>>();
+            sysConfigRep ??= App.GetRequiredService<SqlSugarRepository<SysConfig>>();
             return sysConfigRep;
         }
     }

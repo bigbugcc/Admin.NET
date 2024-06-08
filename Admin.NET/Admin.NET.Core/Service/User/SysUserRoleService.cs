@@ -11,14 +11,11 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysUserRoleService : ITransient
 {
-    private readonly ISqlSugarClient _db;
     private readonly SysCacheService _sysCacheService;
     private SqlSugarRepository<SysUserRole> sysUserRoleRep = null;
 
-    public SysUserRoleService(ISqlSugarClient db,
-        SysCacheService sysCacheService)
+    public SysUserRoleService(SysCacheService sysCacheService)
     {
-        _db = db;
         _sysCacheService = sysCacheService;
     }
 
@@ -26,7 +23,7 @@ public class SysUserRoleService : ITransient
     {
         get
         {
-            sysUserRoleRep ??= _db.GetRepository<SqlSugarRepository<SysUserRole>>();
+            sysUserRoleRep ??= App.GetRequiredService<SqlSugarRepository<SysUserRole>>();
             return sysUserRoleRep;
         }
     }

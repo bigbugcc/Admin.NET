@@ -13,7 +13,6 @@ namespace Admin.NET.Core.Service;
 public class SysOrgService : IDynamicApiController, ITransient
 {
     private readonly UserManager _userManager;
-    private readonly ISqlSugarClient _db;
     private readonly SysCacheService _sysCacheService;
     private readonly SysUserExtOrgService _sysUserExtOrgService;
     private readonly SysUserRoleService _sysUserRoleService;
@@ -21,13 +20,11 @@ public class SysOrgService : IDynamicApiController, ITransient
     private SqlSugarRepository<SysOrg> sysOrgRep = null;
 
     public SysOrgService(UserManager userManager,
-        ISqlSugarClient db,
         SysCacheService sysCacheService,
         SysUserExtOrgService sysUserExtOrgService,
         SysUserRoleService sysUserRoleService,
         SysRoleOrgService sysRoleOrgService)
     {
-        _db = db;
         _userManager = userManager;
         _sysCacheService = sysCacheService;
         _sysUserExtOrgService = sysUserExtOrgService;
@@ -39,7 +36,7 @@ public class SysOrgService : IDynamicApiController, ITransient
     {
         get
         {
-            sysOrgRep ??= _db.GetRepository<SqlSugarRepository<SysOrg>>();
+            sysOrgRep ??= App.GetRequiredService<SqlSugarRepository<SysOrg>>();
             return sysOrgRep;
         }
     }
