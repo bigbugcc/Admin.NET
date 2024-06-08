@@ -33,13 +33,16 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
     [ApiDescriptionSettings(Name = "Page")]
     public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(@(@Model.ClassName)Input input)
     {
+@if (haveLikeCdt) {
+		@:input.SearchKey = input.SearchKey?.Trim();
+}
         var query = _rep.AsQueryable()
 @{string conditionFlag = "";}
 @if (haveLikeCdt) {
-            @:.WhereIF(!string.IsNullOrWhiteSpace(input.SearchKey), u =>
+            @:.WhereIF(!string.IsNullOrEmpty(input.SearchKey), u =>
     @foreach (var column in Model.TableField){
         if (@column.QueryWhether == "Y" && column.QueryType == "like"){
-                @:@(conditionFlag)u.@(@column.PropertyName).Contains(input.SearchKey.Trim())
+                @:@(conditionFlag)u.@(@column.PropertyName).Contains(input.SearchKey)
             conditionFlag="|| ";
         }
     }
