@@ -311,7 +311,6 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             input.GenerateType = "200";
 
         // 先删除该表已生成的菜单列表
-        var templatePathList = GetTemplatePathList(input);
         List<string> targetPathList;
         var zipPath = Path.Combine(App.WebHostEnvironment.WebRootPath, "CodeGen", input.TableName);
         if (input.GenerateType.StartsWith('1'))
@@ -344,11 +343,15 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             PrintType = input.PrintType,
             PrintName = input.PrintName,
         };
+        //模板目录
+        var templatePathList = GetTemplatePathList(input);
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
 
         for (var i = 0; i < templatePathList.Count; i++)
         {
-            if (!File.Exists(templatePathList[i])) continue;
-            var tContent = File.ReadAllText(templatePathList[i]);
+            var templateFilePath = Path.Combine(templatePath, templatePathList[i]);
+            if (!File.Exists(templateFilePath)) continue;
+            var tContent = File.ReadAllText(templateFilePath);
             var tResult = await _viewEngine.RunCompileFromCachedAsync(tContent, data, builderAction: builder =>
             {
                 builder.AddAssemblyReferenceByName("System.Linq");
@@ -375,6 +378,58 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             ZipFile.CreateFromDirectory(zipPath, downloadPath);
             return new { url = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Host.Value}/CodeGen/{input.TableName}.zip" };
         }
+    }
+
+    /// <summary>
+    /// 获取代码生成预览 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取代码生成预览")]
+    public async Task<Dictionary<string, string>> Preview(SysCodeGen input)
+    {
+        var tableFieldList = await _codeGenConfigService.GetList(new CodeGenConfig() { CodeGenId = input.Id }); // 字段集合
+        var queryWhetherList = tableFieldList.Where(u => u.QueryWhether == YesNoEnum.Y.ToString()).ToList(); // 前端查询集合
+        var joinTableList = tableFieldList.Where(u => u.EffectType == "Upload" || u.EffectType == "fk" || u.EffectType == "ApiTreeSelect").ToList(); // 需要连表查询的字段
+        (string joinTableNames, string lowerJoinTableNames) = GetJoinTableStr(joinTableList); // 获取连表的实体名和别名
+
+        var data = new CustomViewEngine(_db)
+        {
+            ConfigId = input.ConfigId,
+            AuthorName = input.AuthorName,
+            BusName = input.BusName,
+            NameSpace = input.NameSpace,
+            ClassName = input.TableName,
+            PagePath = input.PagePath,
+            ProjectLastName = input.NameSpace.Split('.').Last(),
+            QueryWhetherList = queryWhetherList,
+            TableField = tableFieldList,
+            IsJoinTable = joinTableList.Count > 0,
+            IsUpload = joinTableList.Where(u => u.EffectType == "Upload").Any(),
+            PrintType = input.PrintType,
+            PrintName = input.PrintName,
+        };
+
+        //模板目录
+        var templatePathList = GetTemplatePathList(input);
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+
+        var result = new Dictionary<string, string>();
+        for (var i = 0; i < templatePathList.Count; i++)
+        {
+            var templateFilePath = Path.Combine(templatePath, templatePathList[i]);
+            if (!File.Exists(templateFilePath)) continue;
+            var tContent = File.ReadAllText(templateFilePath);
+            var tResult = await _viewEngine.RunCompileFromCachedAsync(tContent, data, builderAction: builder =>
+            {
+                builder.AddAssemblyReferenceByName("System.Linq");
+                builder.AddAssemblyReferenceByName("System.Collections");
+                builder.AddUsing("System.Collections.Generic");
+                builder.AddUsing("System.Linq");
+            });
+            result.Add(templatePathList[i]?.TrimEnd(".vm"), tResult);
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -621,38 +676,17 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// <returns></returns>
     private static List<string> GetTemplatePathList(SysCodeGen input)
     {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
         if (input.GenerateType.Substring(1, 1).Contains('1'))
         {
-            return new List<string>()
-            {
-                Path.Combine(templatePath , "index.vue.vm"),
-                Path.Combine(templatePath , "editDialog.vue.vm"),
-                Path.Combine(templatePath , "manage.js.vm"),
-            };
+            return new List<string>() { "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
         }
         else if (input.GenerateType.Substring(1, 1).Contains('2'))
         {
-            return new List<string>()
-            {
-                Path.Combine(templatePath , "Service.cs.vm"),
-                Path.Combine(templatePath , "Input.cs.vm"),
-                Path.Combine(templatePath , "Output.cs.vm"),
-                Path.Combine(templatePath , "Dto.cs.vm"),
-            };
+            return new List<string>() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm" };
         }
         else
         {
-            return new List<string>()
-            {
-                Path.Combine(templatePath , "Service.cs.vm"),
-                Path.Combine(templatePath , "Input.cs.vm"),
-                Path.Combine(templatePath , "Output.cs.vm"),
-                Path.Combine(templatePath , "Dto.cs.vm"),
-                Path.Combine(templatePath , "index.vue.vm"),
-                Path.Combine(templatePath , "editDialog.vue.vm"),
-                Path.Combine(templatePath , "manage.js.vm"),
-            };
+            return new List<string>() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm", "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
         }
     }
 
