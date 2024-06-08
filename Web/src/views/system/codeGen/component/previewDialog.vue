@@ -7,12 +7,12 @@
 					<span> {{ props.title }} </span>
 				</div>
 			</template>
-			<div :class="[state.current?.endsWith('cs') ? 'cs-style' : state.current?.endsWith('vue') ? 'vue-style' : 'js-style']">
+			<div :class="[state.current?.endsWith('.cs') ? 'cs-style' : state.current?.endsWith('.vue') ? 'vue-style' : 'js-style']">
 				<el-segmented v-model="state.current" :options="state.options" block @change="handleChange">
 					<template #default="{ item }">
 						<div class="pd4">
 							<SvgIcon :name="item.icon" class="mb4" />
-							<div>{{ item.label }}</div>
+							<div>{{ item.value }}</div>
 						</div>
 					</template>
 				</el-segmented>
@@ -89,13 +89,10 @@ const openDialog = async (row: any) => {
 	state.isShowDialog = true;
 	const { data } = await getAPI(SysCodeGenApi).apiSysCodeGenPreviewPost(row);
 	state.codes = data.result ?? [];
-	state.options = Object.keys(data.result).map((e) => {
-		let temp = { value: e, label: e };
-		if (['Service.cs', 'Input.cs', 'Output.cs', 'Dto.cs'].includes(e)) temp.icon = 'fa fa-hashtag';
-		else if (['index.vue', 'editDialog.vue'].includes(e)) temp.icon = 'fa fa-vimeo';
-		else temp.icon = 'fa fa-file-code-o';
-		return temp;
-	});
+	state.options = Object.keys(data.result).map((fileName: string) => ({
+		value: fileName,
+		icon: fileName?.endsWith('.cs') ? 'fa fa-hashtag' : fileName?.endsWith('.vue') ? 'fa fa-vimeo' : 'fa fa-file-code-o',
+	}));
 	state.current = state.options?.[0]?.value ?? '';
 	if (monacoEditor == null) initMonacoEditor();
 	// 防止取不到
