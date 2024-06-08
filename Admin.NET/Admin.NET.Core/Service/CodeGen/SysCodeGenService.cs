@@ -410,7 +410,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         };
 
         //模板目录
-        var templatePathList = GetTemplatePathList(input);
+        var templatePathList = GetTemplatePathList();
         var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
 
         var result = new Dictionary<string, string>();
@@ -678,15 +678,15 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     {
         if (input.GenerateType.Substring(1, 1).Contains('1'))
         {
-            return new List<string>() { "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
+            return new() { "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
         }
         else if (input.GenerateType.Substring(1, 1).Contains('2'))
         {
-            return new List<string>() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm" };
+            return new() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm" };
         }
         else
         {
-            return new List<string>() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm", "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
+            return new() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm", "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
         }
     }
 
@@ -694,20 +694,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// 获取模板文件路径集合
     /// </summary>
     /// <returns></returns>
-    private static List<string> GetTemplatePathList()
-    {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
-        return new List<string>()
-        {
-            Path.Combine(templatePath , "Service.cs.vm"),
-            Path.Combine(templatePath , "Input.cs.vm"),
-            Path.Combine(templatePath , "Output.cs.vm"),
-            Path.Combine(templatePath , "Dto.cs.vm"),
-            Path.Combine(templatePath , "index.vue.vm"),
-            Path.Combine(templatePath , "editDialog.vue.vm"),
-            Path.Combine(templatePath , "manage.js.vm"),
-        };
-    }
+    private static List<string> GetTemplatePathList() => new() { "Service.cs.vm", "Input.cs.vm", "Output.cs.vm", "Dto.cs.vm", "index.vue.vm", "editDialog.vue.vm", "manage.js.vm" };
 
     /// <summary>
     /// 设置生成文件路径
