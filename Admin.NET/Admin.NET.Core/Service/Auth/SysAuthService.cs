@@ -6,6 +6,7 @@
 
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
+using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -370,7 +371,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     {
         try
         {
-            _sysCacheService.Set(CommonConst.SysCaptcha, false);
+            _sysCacheService.Set($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}", false);
 
             await Login(new LoginInput
             {
@@ -378,7 +379,7 @@ public class SysAuthService : IDynamicApiController, ITransient
                 Password = CryptogramUtil.SM2Encrypt(auth.Password),
             });
 
-            _sysCacheService.Remove(CommonConst.SysCaptcha);
+            _sysCacheService.Remove($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}");
 
             return 200;
         }

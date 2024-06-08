@@ -38,7 +38,7 @@
 						<el-tag type="danger" v-else> 生成到本项目 </el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="200" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="240" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button size="small" text type="primary" @click="handleGenerate(scope.row)">开始生成</el-button>
 						<el-button size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
@@ -198,7 +198,7 @@ const handleGenerate = (row: any) => {
 
 // 预览代码
 const handlePreview = (row: any) => {
-	state.editMenuTitle = '预览';
+	state.editMenuTitle = '预览代码';
 	PreviewRef.value?.openDialog(row);
 };
 </script>

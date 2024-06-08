@@ -1,6 +1,6 @@
 {
 	"name": "admin.net",
-    "type": "module",
+	"type": "module",
 	"version": "2.4.33",
 	"description": "Admin.NET 站在巨人肩膀上的 .NET 通用权限开发框架",
 	"author": "zuohuaijun",

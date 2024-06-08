@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-codeGenPreview-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="90vw">
+		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -45,9 +45,9 @@ const props = defineProps({
 const monacoEditorRef = ref();
 const state = reactive({
 	isShowDialog: false,
-	options: [], //分段器的选项
+	options: [] as any, //分段器的选项
 	current: '', // 选中的分段
-	codes: [], //预览的代码
+	codes: [] as any, //预览的代码
 });
 
 // 防止 monaco 报黄

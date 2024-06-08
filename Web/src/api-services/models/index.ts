@@ -21,6 +21,7 @@ export * from './add-user-input';
 export * from './admin-result-boolean';
 export * from './admin-result-data-set';
 export * from './admin-result-data-table';
+export * from './admin-result-dictionary-string-string';
 export * from './admin-result-iaction-result';
 export * from './admin-result-int32';
 export * from './admin-result-int64';
