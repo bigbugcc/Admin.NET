@@ -41,6 +41,7 @@
 				<el-table-column label="操作" width="200" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button size="small" text type="primary" @click="handleGenerate(scope.row)">开始生成</el-button>
+						<el-button size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
 						<el-button size="small" text type="primary" @click="openConfigDialog(scope.row)">配置</el-button>
 						<el-button size="small" text type="primary" @click="openEditDialog(scope.row)">编辑</el-button>
 						<el-button size="small" text type="primary" @click="deleConfig(scope.row)">删除</el-button>
@@ -62,11 +63,12 @@
 
 		<EditCodeGenDialog :title="state.editMenuTitle" ref="EditCodeGenRef" @handleQuery="handleQuery" :application-namespaces="state.applicationNamespaces" />
 		<CodeConfigDialog ref="CodeConfigRef" @handleQuery="handleQuery" />
+		<PreviewDialog :title="state.editMenuTitle" ref="PreviewRef" />
 	</div>
 </template>
 
 <script lang="ts" setup name="sysCodeGen">
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, defineAsyncComponent } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import EditCodeGenDialog from './component/editCodeGenDialog.vue';
 import CodeConfigDialog from './component/genConfigDialog.vue';
@@ -76,8 +78,11 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenApi } from '/@/api-services/api';
 import { SysCodeGen } from '/@/api-services/models';
 
+const PreviewDialog = defineAsyncComponent(() => import('./component/previewDialog.vue'));
+
 const EditCodeGenRef = ref<InstanceType<typeof EditCodeGenDialog>>();
 const CodeConfigRef = ref<InstanceType<typeof CodeConfigDialog>>();
+const PreviewRef = ref<InstanceType<typeof PreviewDialog>>();
 const state = reactive({
 	loading: false,
 	loading1: false,
@@ -189,5 +194,11 @@ const handleGenerate = (row: any) => {
 			ElMessage.success('操作成功');
 		})
 		.catch(() => {});
+};
+
+// 预览代码
+const handlePreview = (row: any) => {
+	state.editMenuTitle = '预览';
+	PreviewRef.value?.openDialog(row);
 };
 </script>
