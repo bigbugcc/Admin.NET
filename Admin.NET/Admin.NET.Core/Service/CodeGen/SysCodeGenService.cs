@@ -409,7 +409,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             PrintName = input.PrintName,
         };
 
-        //模板目录
+        // 获取模板文件并替换
         var templatePathList = GetTemplatePathList();
         var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
 

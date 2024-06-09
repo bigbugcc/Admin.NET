@@ -25,8 +25,8 @@
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="configId" label="库定位器" align="center" show-overflow-tooltip />
 				<el-table-column prop="tableName" label="表名称" align="center" show-overflow-tooltip />
-				<el-table-column prop="busName" label="业务名" header-align="center" show-overflow-tooltip />
-				<el-table-column prop="nameSpace" label="命名空间" header-align="center" show-overflow-tooltip />
+				<el-table-column prop="busName" label="业务名" align="center" show-overflow-tooltip />
+				<el-table-column prop="nameSpace" label="命名空间" align="center" show-overflow-tooltip />
 				<el-table-column prop="authorName" label="作者姓名" align="center" show-overflow-tooltip />
 				<el-table-column prop="generateType" label="生成方式" align="center" show-overflow-tooltip>
 					<template #default="scope">
@@ -38,13 +38,13 @@
 						<el-tag type="danger" v-else> 生成到本项目 </el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="240" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="350" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button size="small" text type="primary" @click="handleGenerate(scope.row)">开始生成</el-button>
-						<el-button size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
-						<el-button size="small" text type="primary" @click="openConfigDialog(scope.row)">配置</el-button>
-						<el-button size="small" text type="primary" @click="openEditDialog(scope.row)">编辑</el-button>
-						<el-button size="small" text type="primary" @click="deleConfig(scope.row)">删除</el-button>
+						<el-button icon="ele-Position" size="small" text type="primary" @click="handleGenerate(scope.row)">开始生成</el-button>
+						<el-button icon="ele-View" con="ele-View" size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
+						<el-button icon="ele-Setting" size="small" text type="primary" @click="openConfigDialog(scope.row)">配置</el-button>
+						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDialog(scope.row)">编辑</el-button>
+						<el-button icon="ele-Delete" size="small" text type="danger" @click="deleConfig(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>

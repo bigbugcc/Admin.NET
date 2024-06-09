@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-codeGenPreview-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false">
+		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="70%">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -45,9 +45,9 @@ const props = defineProps({
 const monacoEditorRef = ref();
 const state = reactive({
 	isShowDialog: false,
-	options: [] as any, //分段器的选项
+	options: [] as any, // 分段器的选项
 	current: '', // 选中的分段
-	codes: [] as any, //预览的代码
+	codes: [] as any, // 预览的代码
 });
 
 // 防止 monaco 报黄
@@ -63,7 +63,7 @@ const initMonacoEditor = () => {
 		value: '', // 默认显示的值
 		language: 'csharp',
 		formatOnPaste: true,
-		wordWrap: 'on', //自动换行，注意大小写
+		wordWrap: 'on', // 自动换行，注意大小写
 		wrappingIndent: 'indent',
 		folding: true, // 是否折叠
 		foldingHighlight: true, // 折叠等高线
@@ -80,7 +80,7 @@ const initMonacoEditor = () => {
 		lineNumbers: 'on', // 行号 取值： "on" | "off" | "relative" | "interval" | function
 		lineNumbersMinChars: 5, // 行号最小字符   number
 		//enableSplitViewResizing: false,
-		readOnly: false, //是否只读  取值 true | false
+		readOnly: false, // 是否只读  取值 true | false
 	});
 };
 
