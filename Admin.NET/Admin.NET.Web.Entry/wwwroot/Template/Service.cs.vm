@@ -18,17 +18,17 @@ namespace @Model.NameSpace;
 [ApiDescriptionSettings(@(@Model.ProjectLastName)Const.GroupName, Order = 100)]
 public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
 {
-    private SqlSugarRepository<@(@Model.EntityName)> @(@Model.LowerClassName)Rep = null;
+    private SqlSugarRepository<@(@Model.ClassName)> @(@Model.LowerClassName)Rep = null;
     public @(@Model.ClassName)Service()
     {
     }
 
-    public SqlSugarRepository<@(@Model.EntityName)> @(@Model.EntityName)Rep
+    public SqlSugarRepository<@(@Model.ClassName)> @(@Model.ClassName)Rep
     {
         get
         {
-            @(@Model.LowerEntityName)Rep ??= App.GetRequiredService<SqlSugarRepository<@(@Model.EntityName)>>();
-            return @(@Model.LowerEntityName)Rep;
+            @(@Model.LowerClassName)Rep ??= App.GetRequiredService<SqlSugarRepository<@(@Model.ClassName)>>();
+            return @(@Model.LowerClassName)Rep;
         }
     }
 
