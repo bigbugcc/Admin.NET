@@ -17,7 +17,7 @@
 					</template>
 				</el-segmented>
 			</div>
-			<div ref="monacoEditorRef" style="width: 100%; height: 660px; margin-top: 6px"></div>
+			<div ref="monacoEditorRef" style="width: 100%; height: 700px;"></div>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button icon="ele-Close" @click="cancel">关 闭</el-button>

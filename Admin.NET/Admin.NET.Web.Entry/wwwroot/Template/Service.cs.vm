@@ -244,4 +244,3 @@ if(@column.EffectType == "ApiTreeSelect" && !definedObjects.ContainsKey("@(@colu
 }
 
 }
-
