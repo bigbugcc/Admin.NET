@@ -18,14 +18,14 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="表定位器" prop="tableName" :rules="[{ required: true, message: '表定位器不能为空', trigger: 'blur' }]">
-							<el-select v-model="state.ruleForm.tableName" @change="tableChanged" value-key="value" filterable clearable class="w100">
-								<el-option v-for="item in state.tableData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item" />
+							<el-select v-model="state.ruleForm.tableName" value-key="value" filterable clearable class="w100">
+								<el-option v-for="item in state.tableData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item.name" />
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="操作" prop="typeName" :rules="[{ required: true, message: '操作不能为空', trigger: 'blur' }]">
-							<el-select v-model="state.ruleForm.typeName" @change="typeChanged" value-key="value" filterable clearable class="w100">
+							<el-select v-model="state.ruleForm.typeName" value-key="value" filterable clearable class="w100">
 								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' ( ' + item.value + ' )' + ' [ ' + item.description + ' ]'" :value="item.value" />
 							</el-select>
 						</el-form-item>
@@ -109,6 +109,8 @@ const openDialog = (row: ApprovalFlowOutput) => {
 	state.ruleSource = row as UpdateApprovalFlowInput;
 	state.ruleForm = row.formJson ? JSON.parse(row.formJson) : {};
 	state.isShowDialog = true;
+
+	dbChanged();
 };
 
 const closeDialog = () => {
@@ -132,16 +134,6 @@ const dbChanged = async () => {
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.ruleForm.configId);
 	state.tableData = res.data.result ?? [];
-};
-
-// table改变
-const tableChanged = (item: any) => {
-	state.ruleForm.tableName = item.name;
-};
-
-// type改变
-const typeChanged = (value: string) => {
-	//state.ruleForm.typeName = value;
 };
 
 defineExpose({ openDialog });
