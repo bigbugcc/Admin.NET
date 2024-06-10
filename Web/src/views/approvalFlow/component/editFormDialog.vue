@@ -26,7 +26,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="操作" prop="typeName" :rules="[{ required: true, message: '操作不能为空', trigger: 'blur' }]">
 							<el-select v-model="state.ruleForm.typeName" @change="typeChanged" value-key="value" filterable clearable class="w100">
-								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item.name" />
+								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' ( ' + item.value + ' )' + ' [ ' + item.description + ' ]'" :value="item.value" />
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -71,27 +71,27 @@ const state = reactive({
 	tableData: [] as Array<DbTableInfo>,
 	typeData: [
 		{
-			name: 'add',
+			name: 'Add',
 			value: 'add',
 			description: '新增',
 		},
 		{
-			name: 'update',
+			name: 'Update',
 			value: 'update',
 			description: '更新',
 		},
 		{
-			name: 'delete',
+			name: 'Delete',
 			value: 'delete',
 			description: '删除',
 		},
 		{
-			name: 'select',
+			name: 'Select',
 			value: 'select',
 			description: '查询',
 		},
 		{
-			name: 'export',
+			name: 'Export',
 			value: 'export',
 			description: '导出',
 		},
@@ -120,7 +120,7 @@ const cancel = () => {
 	state.isShowDialog = false;
 };
 
-const submit = () => {
+const submit = async () => {
 	state.ruleSource.formJson = JSON.stringify(state.ruleForm);
 	await getAPI(ApprovalFlowApi).apiApprovalFlowUpdatePost(state.ruleSource);
 	closeDialog();
@@ -140,8 +140,8 @@ const tableChanged = (item: any) => {
 };
 
 // type改变
-const typeChanged = (item: any) => {
-	state.ruleForm.typeName = item.name;
+const typeChanged = (value: string) => {
+	//state.ruleForm.typeName = value;
 };
 
 defineExpose({ openDialog });
