@@ -46,8 +46,7 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    [ApiDescriptionSettings(Name = "Page")]
+    [ApiDescriptionSettings(Name = "Page"), HttpPost]
     [DisplayName("分页查询@(@Model.BusName)")]
     public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(@(@Model.ClassName)Input input)
     {
@@ -129,8 +128,7 @@ if (@column.QueryWhether == "Y"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    [ApiDescriptionSettings(Name = "Add")]
+    [ApiDescriptionSettings(Name = "Add"), HttpPost]
     [DisplayName("增加@(@Model.BusName)")]
     public async Task<long> Add(Add@(@Model.ClassName)Input input)
     {
@@ -144,8 +142,7 @@ if (@column.QueryWhether == "Y"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    [ApiDescriptionSettings(Name = "Delete")]
+    [ApiDescriptionSettings(Name = "Delete"), HttpPost]
     [DisplayName("删除@(@Model.BusName)")]
     public async Task Delete(Delete@(@Model.ClassName)Input input)
     {
@@ -163,8 +160,7 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    [ApiDescriptionSettings(Name = "Update")]
+    [ApiDescriptionSettings(Name = "Update"), HttpPost]
     [DisplayName("更新@(@Model.BusName)")]
     public async Task Update(Update@(@Model.ClassName)Input input)
     {
@@ -177,8 +173,7 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpGet]
-    [ApiDescriptionSettings(Name = "Detail")]
+    [ApiDescriptionSettings(Name = "Detail"), HttpGet]
     [DisplayName("获取@(@Model.BusName)")]
     public async Task<@(@Model.ClassName)> Detail([FromQuery] QueryById@(@Model.ClassName)Input input)
     {
@@ -194,8 +189,7 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpGet]
-    [ApiDescriptionSettings(Name = "List")]
+    [ApiDescriptionSettings(Name = "List"), HttpGet]
     [DisplayName("获取@(@Model.BusName)列表")]
     public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] @(@Model.ClassName)Input input)
     {
@@ -209,8 +203,7 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// </summary>
     @:/// <param name="input"></param>
     @:/// <returns></returns>
-    @:[HttpGet]
-    @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown")]
+    @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
     @:[DisplayName("获取@(@Model.ColumnComment)列表")]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
     @:{
@@ -232,8 +225,7 @@ if(@column.EffectType == "Upload"){
     @:/// </summary>
     @:/// <param name="file"></param>
     @:/// <returns></returns>
-    @:[HttpPost]
-    @:[ApiDescriptionSettings(Name = "Upload@(@column.PropertyName)")]
+    @:[ApiDescriptionSettings(Name = "Upload@(@column.PropertyName)"), HttpPost]
     @:[DisplayName("上传@(@Model.ColumnComment)")]
     @:public async Task<SysFile> Upload@(@column.PropertyName)([Required] IFormFile file)
     @:{
