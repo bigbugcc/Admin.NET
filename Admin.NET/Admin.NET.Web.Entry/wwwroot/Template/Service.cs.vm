@@ -204,7 +204,7 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// <param name="input"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
-    @:[DisplayName("获取@(@Model.ColumnComment)列表")]
+    @:[DisplayName("获取@(@column.ColumnComment)列表")]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
     @:{
         @:return await @(@Model.ClassName)Rep.Context.Queryable<@(@column.FkEntityName)>()
@@ -226,7 +226,7 @@ if(@column.EffectType == "Upload"){
     @:/// <param name="file"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "Upload@(@column.PropertyName)"), HttpPost]
-    @:[DisplayName("上传@(@Model.ColumnComment)")]
+    @:[DisplayName("上传@(@column.ColumnComment)")]
     @:public async Task<SysFile> Upload@(@column.PropertyName)([Required] IFormFile file)
     @:{
             @:var service = App.GetRequiredService<SysFileService>();
