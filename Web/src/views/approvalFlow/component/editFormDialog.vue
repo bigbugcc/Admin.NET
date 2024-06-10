@@ -1,16 +1,16 @@
 <template lang="">
 	<div class="flow-container">
-		<el-dialog v-model="state.isShowDialog" :width="800" draggable="" :close-on-click-modal="false">
+		<el-dialog v-model="state.isShowDialog" :width="800" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
-					<!--<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>-->
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
 			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="库定位器" prop="configId">
+						<el-form-item label="库定位器" prop="configId" :rules="[{ required: true, message: '库定位器不能为空', trigger: 'blur' }]">
 							<el-select v-model="state.ruleForm.configId" placeholder="库名" filterable @change="dbChanged()" class="w100">
 								<el-option v-for="item in state.dbData" :key="item.configId" :label="item.configId" :value="item.configId" />
 							</el-select>
@@ -18,15 +18,15 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="表定位器" prop="tableName" :rules="[{ required: true, message: '表定位器不能为空', trigger: 'blur' }]">
-							<el-select v-model="state.ruleForm.tableName" @change="tableChanged" value-key="value" filterable clearable class="w100">
-								<el-option v-for="item in state.tableData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item" />
+							<el-select v-model="state.ruleForm.tableName" value-key="value" filterable clearable class="w100">
+								<el-option v-for="item in state.tableData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item.name" />
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="操作" prop="typeName" :rules="[{ required: true, message: '操作不能为空', trigger: 'blur' }]">
-							<el-select v-model="state.ruleForm.typeName" @change="typeChanged" value-key="value" filterable clearable class="w100">
-								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item" />
+							<el-select v-model="state.ruleForm.typeName" value-key="value" filterable clearable class="w100">
+								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' ( ' + item.value + ' )' + ' [ ' + item.description + ' ]'" :value="item.value" />
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -71,27 +71,27 @@ const state = reactive({
 	tableData: [] as Array<DbTableInfo>,
 	typeData: [
 		{
-			name: 'add',
+			name: 'Add',
 			value: 'add',
 			description: '新增',
 		},
 		{
-			name: 'update',
+			name: 'Update',
 			value: 'update',
 			description: '更新',
 		},
 		{
-			name: 'delete',
+			name: 'Delete',
 			value: 'delete',
 			description: '删除',
 		},
 		{
-			name: 'select',
+			name: 'Select',
 			value: 'select',
 			description: '查询',
 		},
 		{
-			name: 'export',
+			name: 'Export',
 			value: 'export',
 			description: '导出',
 		},
@@ -109,6 +109,8 @@ const openDialog = (row: ApprovalFlowOutput) => {
 	state.ruleSource = row as UpdateApprovalFlowInput;
 	state.ruleForm = row.formJson ? JSON.parse(row.formJson) : {};
 	state.isShowDialog = true;
+
+	dbChanged();
 };
 
 const closeDialog = () => {
@@ -120,8 +122,9 @@ const cancel = () => {
 	state.isShowDialog = false;
 };
 
-const submit = () => {
+const submit = async () => {
 	state.ruleSource.formJson = JSON.stringify(state.ruleForm);
+	await getAPI(ApprovalFlowApi).apiApprovalFlowUpdatePost(state.ruleSource);
 	closeDialog();
 };
 
@@ -131,16 +134,6 @@ const dbChanged = async () => {
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.ruleForm.configId);
 	state.tableData = res.data.result ?? [];
-};
-
-// table改变
-const tableChanged = (item: any) => {
-	state.ruleForm.tableName = item.name;
-};
-
-// type改变
-const typeChanged = (item: any) => {
-	state.ruleForm.typeName = item.name;
 };
 
 defineExpose({ openDialog });

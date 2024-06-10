@@ -1,9 +1,9 @@
 <template lang="">
 	<div class="flow-container">
-		<el-dialog v-model="state.isShowDialog" :width="800" draggable="" :close-on-click-modal="false">
+		<el-dialog v-model="state.isShowDialog" :width="800" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
-					<!--<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>-->
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
@@ -19,7 +19,7 @@
 					:timestamp="activity.timestamp"
 					placement="top"
 				>
-					<el-card>
+					<el-card shadow="hover">
 						<h4>{{ activity.content }}</h4>
 						<br />
 						<div class="demo-type">
@@ -28,11 +28,11 @@
 					</el-card>
 				</el-timeline-item>
 			</el-timeline>
-			<template #footer>
+			<!-- <template #footer>
 				<span class="dialog-footer">
 					<el-button @click="cancel">取 消</el-button>
 				</span>
-			</template>
+			</template> -->
 		</el-dialog>
 	</div>
 </template>
