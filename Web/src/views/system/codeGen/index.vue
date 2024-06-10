@@ -41,7 +41,7 @@
 				<el-table-column label="操作" width="350" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button icon="ele-Position" size="small" text type="primary" @click="handleGenerate(scope.row)">开始生成</el-button>
-						<el-button icon="ele-View" con="ele-View" size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
+						<el-button icon="ele-View" size="small" text type="primary" @click="handlePreview(scope.row)">预览</el-button>
 						<el-button icon="ele-Setting" size="small" text type="primary" @click="openConfigDialog(scope.row)">配置</el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDialog(scope.row)">编辑</el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="deleConfig(scope.row)">删除</el-button>
