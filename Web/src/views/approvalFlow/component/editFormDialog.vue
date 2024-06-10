@@ -10,7 +10,7 @@
 			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="库定位器" prop="configId">
+						<el-form-item label="库定位器" prop="configId" :rules="[{ required: true, message: '库定位器不能为空', trigger: 'blur' }]">
 							<el-select v-model="state.ruleForm.configId" placeholder="库名" filterable @change="dbChanged()" class="w100">
 								<el-option v-for="item in state.dbData" :key="item.configId" :label="item.configId" :value="item.configId" />
 							</el-select>
@@ -26,7 +26,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="操作" prop="typeName" :rules="[{ required: true, message: '操作不能为空', trigger: 'blur' }]">
 							<el-select v-model="state.ruleForm.typeName" @change="typeChanged" value-key="value" filterable clearable class="w100">
-								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item" />
+								<el-option v-for="item in state.typeData" :key="item.name" :label="item.name + ' [ ' + item.description + ' ]'" :value="item.name" />
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -122,6 +122,7 @@ const cancel = () => {
 
 const submit = () => {
 	state.ruleSource.formJson = JSON.stringify(state.ruleForm);
+	await getAPI(ApprovalFlowApi).apiApprovalFlowUpdatePost(state.ruleSource);
 	closeDialog();
 };
 
