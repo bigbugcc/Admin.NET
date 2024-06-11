@@ -14,19 +14,11 @@ namespace Admin.NET.Core;
 [ApiDescriptionSettings(Order = 496)]
 public class SysLdapService : IDynamicApiController, ITransient
 {
-    private SqlSugarRepository<SysLdap> sysLdapRep = null;
+    private readonly SqlSugarRepository<SysLdap> _sysLdapRep;
 
-    public SysLdapService()
+    public SysLdapService(SqlSugarRepository<SysLdap> sysLdapRep)
     {
-    }
-
-    public SqlSugarRepository<SysLdap> SysLdapRep
-    {
-        get
-        {
-            sysLdapRep ??= App.GetRequiredService<SqlSugarRepository<SysLdap>>();
-            return sysLdapRep;
-        }
+        _sysLdapRep = sysLdapRep;
     }
 
     /// <summary>
@@ -37,7 +29,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("获取系统域登录配置分页列表")]
     public async Task<SqlSugarPagedList<SysLdap>> Page(SysLdapInput input)
     {
-        return await SysLdapRep.AsQueryable()
+        return await _sysLdapRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.SearchKey), u => u.Host.Contains(input.SearchKey.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Host), u => u.Host.Contains(input.Host.Trim()))
             .OrderBy(u => u.CreateTime, OrderByType.Desc)
@@ -55,7 +47,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     {
         var entity = input.Adapt<SysLdap>();
         entity.BindPass = CryptogramUtil.Encrypt(input.BindPass);
-        await SysLdapRep.InsertAsync(entity);
+        await _sysLdapRep.InsertAsync(entity);
         return entity.Id;
     }
 
@@ -74,7 +66,7 @@ public class SysLdapService : IDynamicApiController, ITransient
             entity.BindPass = CryptogramUtil.Encrypt(input.BindPass); // 加密
         }
 
-        await SysLdapRep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
+        await _sysLdapRep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -86,8 +78,8 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("删除系统域登录配置")]
     public async Task Delete(DeleteSysLdapInput input)
     {
-        var entity = await SysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        await SysLdapRep.FakeDeleteAsync(entity); // 假删除
+        var entity = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        await _sysLdapRep.FakeDeleteAsync(entity); // 假删除
         //await _rep.DeleteAsync(entity); // 真删除
     }
 
@@ -99,7 +91,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("获取系统域登录配置详情")]
     public async Task<SysLdap> GetDetail([FromQuery] DetailSysLdapInput input)
     {
-        return await SysLdapRep.GetFirstAsync(u => u.Id == input.Id);
+        return await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id);
     }
 
     /// <summary>
@@ -109,7 +101,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("获取系统域登录配置列表")]
     public async Task<List<SysLdap>> GetList()
     {
-        return await SysLdapRep.AsQueryable().Select<SysLdap>().ToListAsync();
+        return await _sysLdapRep.AsQueryable().Select<SysLdap>().ToListAsync();
     }
 
     /// <summary>
@@ -122,7 +114,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [NonAction]
     public async Task<bool> AuthAccount(long tenantId, string account, string password)
     {
-        var sysLdap = await SysLdapRep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var sysLdap = await _sysLdapRep.GetFirstAsync(u => u.TenantId == tenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
         var ldapConn = new LdapConnection();
         try
         {
@@ -170,7 +162,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("同步域用户")]
     public async Task SyncUser(SyncSysLdapInput input)
     {
-        var sysLdap = await SysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var sysLdap = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
         var ldapConn = new LdapConnection();
         try
         {
@@ -302,7 +294,7 @@ public class SysLdapService : IDynamicApiController, ITransient
     [DisplayName("同步域组织")]
     public async Task SyncDept(SyncSysLdapInput input)
     {
-        var sysLdap = await SysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var sysLdap = await _sysLdapRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
         var ldapConn = new LdapConnection();
         try
         {

@@ -11,19 +11,11 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class SysUserLdapService : ITransient
 {
-    private SqlSugarRepository<SysUserLdap> sysUserLdapRep = null;
+    private readonly SqlSugarRepository<SysUserLdap> _sysUserLdapRep;
 
-    public SysUserLdapService()
+    public SysUserLdapService(SqlSugarRepository<SysUserLdap> sysUserLdapRep)
     {
-    }
-
-    public SqlSugarRepository<SysUserLdap> SysUserLdapRep
-    {
-        get
-        {
-            sysUserLdapRep ??= App.GetRequiredService<SqlSugarRepository<SysUserLdap>>();
-            return sysUserLdapRep;
-        }
+        _sysUserLdapRep = sysUserLdapRep;
     }
 
     /// <summary>
@@ -34,11 +26,11 @@ public class SysUserLdapService : ITransient
     /// <returns></returns>
     public async Task InsertUserLdaps(long tenantId, List<SysUserLdap> sysUserLdaps)
     {
-        await SysUserLdapRep.DeleteAsync(u => u.TenantId == tenantId);
+        await _sysUserLdapRep.DeleteAsync(u => u.TenantId == tenantId);
 
-        await SysUserLdapRep.InsertRangeAsync(sysUserLdaps);
+        await _sysUserLdapRep.InsertRangeAsync(sysUserLdaps);
 
-        await SysUserLdapRep.AsUpdateable()
+        await _sysUserLdapRep.AsUpdateable()
             .InnerJoin<SysUser>((l, u) => l.EmployeeId == u.Account && u.Status == StatusEnum.Enable && u.IsDelete == false && l.IsDelete == false)
             .SetColumns((l, u) => new SysUserLdap { UserId = u.Id })
             .ExecuteCommandAsync();
@@ -54,12 +46,12 @@ public class SysUserLdapService : ITransient
     /// <returns></returns>
     public async Task AddUserLdap(long tenantId, long userId, string account, string domainAccount)
     {
-        var userLdap = await SysUserLdapRep.GetFirstAsync(u => u.TenantId == tenantId && u.IsDelete == false && (u.Account == account || u.UserId == userId || u.EmployeeId == domainAccount));
+        var userLdap = await _sysUserLdapRep.GetFirstAsync(u => u.TenantId == tenantId && u.IsDelete == false && (u.Account == account || u.UserId == userId || u.EmployeeId == domainAccount));
         if (userLdap != null)
-            await SysUserLdapRep.DeleteByIdAsync(userLdap.Id);
+            await _sysUserLdapRep.DeleteByIdAsync(userLdap.Id);
 
         if (!string.IsNullOrWhiteSpace(domainAccount))
-            await SysUserLdapRep.InsertAsync(new SysUserLdap { EmployeeId = account, TenantId = tenantId, UserId = userId, Account = domainAccount });
+            await _sysUserLdapRep.InsertAsync(new SysUserLdap { EmployeeId = account, TenantId = tenantId, UserId = userId, Account = domainAccount });
     }
 
     /// <summary>
@@ -69,6 +61,6 @@ public class SysUserLdapService : ITransient
     /// <returns></returns>
     public async Task DeleteUserLdapByUserId(long userId)
     {
-        await SysUserLdapRep.DeleteAsync(u => u.UserId == userId);
+        await _sysUserLdapRep.DeleteAsync(u => u.UserId == userId);
     }
 }

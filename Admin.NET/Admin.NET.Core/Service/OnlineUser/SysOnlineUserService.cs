@@ -16,22 +16,15 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
 {
     private readonly SysConfigService _sysConfigService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
-    private SqlSugarRepository<SysOnlineUser> sysOnlineUerRep = null;
+    private readonly SqlSugarRepository<SysOnlineUser> _sysOnlineUerRep;
 
     public SysOnlineUserService(SysConfigService sysConfigService,
-        IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext)
+        IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext,
+        SqlSugarRepository<SysOnlineUser> sysOnlineUerRep)
     {
         _sysConfigService = sysConfigService;
         _onlineUserHubContext = onlineUserHubContext;
-    }
-
-    public SqlSugarRepository<SysOnlineUser> SysOnlineUerRep
-    {
-        get
-        {
-            sysOnlineUerRep ??= App.GetRequiredService<SqlSugarRepository<SysOnlineUser>>();
-            return sysOnlineUerRep;
-        }
+        _sysOnlineUerRep = sysOnlineUerRep;
     }
 
     /// <summary>
@@ -41,7 +34,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     [DisplayName("获取在线用户分页列表")]
     public async Task<SqlSugarPagedList<SysOnlineUser>> Page(PageOnlineUserInput input)
     {
-        return await SysOnlineUerRep.AsQueryable()
+        return await _sysOnlineUerRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.UserName), u => u.UserName.Contains(input.UserName))
             .WhereIF(!string.IsNullOrWhiteSpace(input.RealName), u => u.RealName.Contains(input.RealName))
             .ToPagedListAsync(input.Page, input.PageSize);
@@ -57,7 +50,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     public async Task ForceOffline(SysOnlineUser user)
     {
         await _onlineUserHubContext.Clients.Client(user.ConnectionId).ForceOffline("强制下线");
-        await SysOnlineUerRep.DeleteAsync(user);
+        await _sysOnlineUerRep.DeleteAsync(user);
     }
 
     /// <summary>
@@ -69,7 +62,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     [NonAction]
     public async Task PublicNotice(SysNotice notice, List<long> userIds)
     {
-        var userList = await SysOnlineUerRep.GetListAsync(u => userIds.Contains(u.UserId));
+        var userList = await _sysOnlineUerRep.GetListAsync(u => userIds.Contains(u.UserId));
         if (userList.Count == 0) return;
 
         foreach (var item in userList)
@@ -87,7 +80,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     {
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
         {
-            var users = await SysOnlineUerRep.GetListAsync(u => u.UserId == userId);
+            var users = await _sysOnlineUerRep.GetListAsync(u => u.UserId == userId);
             foreach (var user in users)
             {
                 await ForceOffline(user);
@@ -103,7 +96,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     [NonAction]
     public async Task ForceOffline(long userId)
     {
-        var users = await SysOnlineUerRep.GetListAsync(u => u.UserId == userId);
+        var users = await _sysOnlineUerRep.GetListAsync(u => u.UserId == userId);
         foreach (var user in users)
         {
             await ForceOffline(user);

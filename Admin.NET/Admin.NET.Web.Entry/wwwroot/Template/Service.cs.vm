@@ -1,9 +1,3 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
-//
-// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
-//
-// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
-
 using Admin.NET.Core.Service;
 using @(@Model.NameSpace).Entity;
 using Microsoft.AspNetCore.Http;
@@ -18,27 +12,16 @@ using Microsoft.AspNetCore.Http;
     }
 }
 namespace @Model.NameSpace;
-
 /// <summary>
 /// @(@Model.BusName)服务
 /// </summary>
 [ApiDescriptionSettings(@(@Model.ProjectLastName)Const.GroupName, Order = 100)]
-[DisplayName("@(@Model.BusName)服务")]
 public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
 {
-    private SqlSugarRepository<@(@Model.ClassName)> @(@Model.LowerClassName)Rep = null;
-
-    public @(@Model.ClassName)Service()
+    private readonly SqlSugarRepository<@(@Model.ClassName)> _rep;
+    public @(@Model.ClassName)Service(SqlSugarRepository<@(@Model.ClassName)> rep)
     {
-    }
-
-    public SqlSugarRepository<@(@Model.ClassName)> @(@Model.ClassName)Rep
-    {
-        get
-        {
-            @(@Model.LowerClassName)Rep ??= App.GetRequiredService<SqlSugarRepository<@(@Model.ClassName)>>();
-            return @(@Model.LowerClassName)Rep;
-        }
+        _rep = rep;
     }
 
     /// <summary>
@@ -46,14 +29,14 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Page"), HttpPost]
-    [DisplayName("分页查询@(@Model.BusName)")]
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "Page")]
     public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(@(@Model.ClassName)Input input)
     {
 @if (haveLikeCdt) {
 		@:input.SearchKey = input.SearchKey?.Trim();
 }
-        var query = @(@Model.ClassName)Rep.AsQueryable()
+        var query = _rep.AsQueryable()
 @{string conditionFlag = "";}
 @if (haveLikeCdt) {
             @:.WhereIF(!string.IsNullOrEmpty(input.SearchKey), u =>
@@ -128,12 +111,12 @@ if (@column.QueryWhether == "Y"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Add"), HttpPost]
-    [DisplayName("增加@(@Model.BusName)")]
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "Add")]
     public async Task<long> Add(Add@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
-        await @(@Model.ClassName)Rep.InsertAsync(entity);
+        await _rep.InsertAsync(entity);
         return entity.Id;
     }
 
@@ -142,17 +125,17 @@ if (@column.QueryWhether == "Y"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Delete"), HttpPost]
-    [DisplayName("删除@(@Model.BusName)")]
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "Delete")]
     public async Task Delete(Delete@(@Model.ClassName)Input input)
     {
 @foreach (var column in Model.TableField){
 if (@column.ColumnKey == "True"){
-        @:var entity = await @(@Model.ClassName)Rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName)) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        @:var entity = await _rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName)) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
 }
 }
-        await @(@Model.ClassName)Rep.FakeDeleteAsync(entity);   //假删除
-        //await @(@Model.ClassName)Rep.DeleteAsync(entity);   //真删除
+        await _rep.FakeDeleteAsync(entity);   //假删除
+        //await _rep.DeleteAsync(entity);   //真删除
     }
 
     /// <summary>
@@ -160,12 +143,12 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Update"), HttpPost]
-    [DisplayName("更新@(@Model.BusName)")]
+    [HttpPost]
+    [ApiDescriptionSettings(Name = "Update")]
     public async Task Update(Update@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
-        await @(@Model.ClassName)Rep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
+        await _rep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -173,13 +156,13 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Detail"), HttpGet]
-    [DisplayName("获取@(@Model.BusName)")]
+    [HttpGet]
+    [ApiDescriptionSettings(Name = "Detail")]
     public async Task<@(@Model.ClassName)> Detail([FromQuery] QueryById@(@Model.ClassName)Input input)
     {
 @foreach (var column in Model.TableField){
 if (@column.ColumnKey == "True"){
-        @:return await @(@Model.ClassName)Rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName));
+        @:return await _rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName));
 }   
 }            
     }
@@ -189,11 +172,11 @@ if (@column.ColumnKey == "True"){
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [ApiDescriptionSettings(Name = "List"), HttpGet]
-    [DisplayName("获取@(@Model.BusName)列表")]
+    [HttpGet]
+    [ApiDescriptionSettings(Name = "List")]
     public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] @(@Model.ClassName)Input input)
     {
-        return await @(@Model.ClassName)Rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
+        return await _rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
     }
 
 @foreach (var column in Model.TableField){
@@ -204,10 +187,9 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// <param name="input"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
-    @:[DisplayName("获取@(@column.ColumnComment)列表")]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
     @:{
-        @:return await @(@Model.ClassName)Rep.Context.Queryable<@(@column.FkEntityName)>()
+        @:return await _rep.Context.Queryable<@(@column.FkEntityName)>()
                 @:.Select(u => new
                 @:{
                     @:Label = u.@(@column.FkColumnName),
@@ -226,7 +208,6 @@ if(@column.EffectType == "Upload"){
     @:/// <param name="file"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "Upload@(@column.PropertyName)"), HttpPost]
-    @:[DisplayName("上传@(@column.ColumnComment)")]
     @:public async Task<SysFile> Upload@(@column.PropertyName)([Required] IFormFile file)
     @:{
             @:var service = App.GetRequiredService<SysFileService>();
@@ -242,7 +223,7 @@ if(@column.EffectType == "ApiTreeSelect" && !definedObjects.ContainsKey("@(@colu
     @:[HttpGet("@(@column.FkEntityName)Tree")]
     @:public async Task<dynamic> @(@column.FkEntityName)Tree()
     @:{
-        @:return await @(@Model.ClassName)Rep.Context.Queryable<@(@column.FkEntityName)>().ToTreeAsync(u => u.Children, u => u.@(@column.PidColumn), 0);
+        @:return await _rep.Context.Queryable<@(@column.FkEntityName)>().ToTreeAsync(u => u.Children, u => u.@(@column.PidColumn), 0);
     @:}
 }
 }
