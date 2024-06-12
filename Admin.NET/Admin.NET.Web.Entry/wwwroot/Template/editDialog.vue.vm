@@ -135,7 +135,7 @@
 					@:<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						@:<el-form-item label="@column.ColumnComment" prop="@(@column.LowerPropertyName)">
 							@:<el-select clearable v-model="ruleForm.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-								@:<el-option v-for="(item,index) in  getEnum@(@column.PropertyName)Data" :key="index" :value="item.value" :label="`[${item.value}] ${item.describe}`"></el-option>
+								@:<el-option v-for="(item,index) in dl('@(@column.PropertyName)Enum')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}]`"></el-option>
 								@:
 							</el-select>
 							@:
@@ -172,14 +172,23 @@
 	import type { FormRules } from "element-plus";
 @if(@Model.TableField.Any(x=>x.EffectType == "ConstSelector")){
 	@:import { getConstType } from "/@@/utils/constHelper";
-	}
+}
+@if(@Model.TableField.Any(x=>x.EffectType == "Select")){
+	@:import { getDictDataItem as di, getDictDataList as dl } from '/@@/utils/dict-utils';
+}
+@if(@Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
+	@:import { getDictLabelByVal as dv } from '/@@/utils/dict-utils';
+}
+@if(@Model.TableField.Any(x=>x.EffectType == "DatePicker")){
+  	@:import { formatDate } from '/@@/utils/formatTime';
+}
 @if(@Model.TableField.Any(x=>x.EffectType == "Upload")){
     @:import { Plus } from "@@element-plus/icons-vue";
     @:import { UploadRequestOptions } from "element-plus";
     @:import {@string.Join(",",Model.TableField.Where(x=>x.EffectType == "Upload").Select(x=>"upload"+x.PropertyName).ToList())} from '/@@/api/@(@Model.PagePath)/@(@Model.LowerClassName)';
 }
 	import { add@(@Model.ClassName), update@(@Model.ClassName), detail@(@Model.ClassName) } from "/@@/api/@(@Model.PagePath)/@(@Model.LowerClassName)";
-	@foreach (var column in Model.TableField){
+@foreach (var column in Model.TableField){
 	if(@column.EffectType == "ApiTreeSelect" && !definedObjects.ContainsKey("import__@(@column.FkEntityName)Tree")){
 	@{definedObjects.Add("import__@(@column.FkEntityName)Tree", 1);}
 	@:import { get@(@column.FkEntityName)Tree } from '/@@/api/@(@Model.PagePath)/@(@Model.LowerClassName)';
@@ -187,17 +196,12 @@
 	if(@column.EffectType == "fk" && @column.WhetherAddUpdate == "Y"){
 	@:import { get@(@column.FkEntityName)@(@column.PropertyName)Dropdown } from '/@@/api/@(@Model.PagePath)/@(@Model.LowerClassName)';
 	}
-	}
-	@if(@Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
+}
+@if(@Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
 	@:import { getAPI } from '/@@/utils/axios-utils';
 	@:import { SysEnumApi } from '/@@/api-services/api';
-	}
+}
 
-	@foreach (var column in Model.TableField){
-	if(@column.EffectType == "EnumSelector"){
-	@:const getEnum@(@column.PropertyName)Data = ref<any>([]);
-	}
-	}
 	//父级传递来的参数
 	var props = defineProps({
 		title: {
@@ -220,7 +224,12 @@
 		@:@column.LowerPropertyName: [{required: true, message: '请选择@(@column.ColumnComment)！', trigger: 'change',},],
 		}
     }
-  }
+}
+	});
+
+	// 页面加载时
+	onMounted(() => {
+
 	});
 
 	// 打开弹窗
@@ -311,16 +320,6 @@
 	@:};
 		}
 	}
-
-
-	// 页面加载时
-	onMounted(async () => {
-		@foreach (var column in Model.TableField){
-		if(@column.EffectType == "EnumSelector"){
-			@:getEnum@(@column.PropertyName)Data.value = (await getAPI(SysEnumApi).apiSysEnumEnumDataListGet('@(@column.DictTypeCode)')).data.result ?? [];
-		}
-		}
-	});
 
 	//将属性或者函数暴露给父组件
 	defineExpose({ openDialog });
