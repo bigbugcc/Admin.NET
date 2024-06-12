@@ -147,7 +147,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         var value = _sysCacheService.Get<string>($"{CacheConst.KeyConfig}{code}");
         if (string.IsNullOrEmpty(value))
         {
-            var config = await _sysConfigRep.GetFirstAsync(u => u.Code == code);
+            var config = await _sysConfigRep.CopyNew().GetFirstAsync(u => u.Code == code);
             value = config != null ? config.Value : default;
             _sysCacheService.Set($"{CacheConst.KeyConfig}{code}", value);
         }
