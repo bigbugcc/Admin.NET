@@ -44,9 +44,11 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取参数配置列表")]
-    public async Task<List<SysConfig>> GetList()
+    public async Task<List<SysConfig>> List(PageConfigInput input)
     {
-        return await _sysConfigRep.GetListAsync();
+        return await _sysConfigRep.AsQueryable()
+            .WhereIF(!string.IsNullOrWhiteSpace(input.GroupCode?.Trim()), u => u.GroupCode.Equals(input.GroupCode))
+            .ToListAsync();
     }
 
     /// <summary>
@@ -208,6 +210,22 @@ public class SysConfigService : IDynamicApiController, ITransient
         var refreshTokenExpireStr = await GetConfigValue<string>(CommonConst.SysRefreshTokenExpire);
         _ = int.TryParse(refreshTokenExpireStr, out var refreshTokenExpire);
         return refreshTokenExpire == 0 ? 40 : refreshTokenExpire;
+    }
+
+    /// <summary>
+    /// 批量更新参数配置值
+    /// </summary>
+    /// <param name="configBatchInputs"></param>    
+    /// <returns></returns>
+    [ApiDescriptionSettings(Name = "BatchUpdate"), HttpPost]
+    [DisplayName("批量更新参数配置值")]
+    public async Task BatchUpdateConfig(List<ConfigBatchInput> configBatchInputs)
+    {
+        foreach (var input in configBatchInputs)
+        {
+            await _sysConfigRep.AsUpdateable().SetColumns(u => u.Value == input.Value).Where(u => u.Code == input.Code).ExecuteCommandAsync();
+            _sysCacheService.Remove($"{CacheConst.KeyConfig}{input.Code}");
+        }
     }
 
     /// <summary>
