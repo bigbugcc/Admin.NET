@@ -250,12 +250,6 @@
   @:import commonFunction from '/@@/utils/commonFunction';
 	}
 
-  @foreach (var column in Model.QueryWhetherList){
-  if(@column.EffectType == "EnumSelector"){
-  @:const getEnum@(@column.PropertyName)Data_Index = ref<any>([]);
-  }
-  }
-
   @if(haveLikeCdt){
   @:const showAdvanceQueryUI = ref(false);
   }else {
