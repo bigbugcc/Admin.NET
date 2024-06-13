@@ -135,7 +135,7 @@
 					@:<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						@:<el-form-item label="@column.ColumnComment" prop="@(@column.LowerPropertyName)">
 							@:<el-select clearable v-model="ruleForm.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-								@:<el-option v-for="(item,index) in dl('@(@column.PropertyName)Enum')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}]`"></el-option>
+								@:<el-option v-for="(item,index) in dl('@(@column.PropertyName)Enum')" :key="index" :value="@(@column.NetType == "string?" ? "item.value" : "Number(item.value)")" :label="`${item.name} (${item.code}) [${item.value}]`"></el-option>
 								@:
 							</el-select>
 							@:
