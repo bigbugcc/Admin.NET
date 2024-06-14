@@ -41,3 +41,4 @@ node_modules/
 .idea
 .DS_Store
 /Admin.NET/Admin.NET.Web.Entry/Admin.NET.db-journal
+mynote/
