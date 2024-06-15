@@ -31,7 +31,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			vue(),
 			vueJsx(),
 			webUpdateNotice({
-                versionType: 'build_timestamp',
+				versionType: 'build_timestamp',
 				notificationConfig: {
 					placement: 'topLeft',
 				},

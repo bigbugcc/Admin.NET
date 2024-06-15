@@ -99,10 +99,10 @@ public class SysSmsService : IDynamicApiController, ITransient
     {
         if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid)
             throw Oops.Oh("请正确填写手机号码");
+
         if (string.IsNullOrWhiteSpace(templateParam.ToString()))
-        {
             throw Oops.Oh("短信内容不能为空");
-        }
+
         var client = CreateAliyunClient();
         var sendSmsRequest = new SendSmsRequest
         {
