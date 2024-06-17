@@ -242,7 +242,7 @@ public static class CodeGenUtil
             "bit" => "bool",
             "money" or "smallmoney" or "numeric" or "decimal" => "decimal",
             "real" => "Single",
-            "datetime" or "smalldatetime" => "DateTime",
+            "datetime" or "datetime2" or "smalldatetime" => "DateTime",
             "float" or "double" => "double",
             "image" or "binary" or "varbinary" => "byte[]",
             "uniqueidentifier" => "Guid",
