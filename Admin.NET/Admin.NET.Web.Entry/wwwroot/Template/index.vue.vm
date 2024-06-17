@@ -219,7 +219,7 @@
   @if(@Model.TableField.Any(x=>x.EffectType == "ConstSelector")){
   @:import { codeToName, getConstType } from "/@@/utils/constHelper";
   } 
-  @if(@Model.TableField.Any(x=>x.EffectType == "Select")){
+  @if(@Model.TableField.Any(x=>x.EffectType == "Select") || @Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
   @:import { getDictDataItem as di, getDictDataList as dl } from '/@@/utils/dict-utils';
   }
   @if(@Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
