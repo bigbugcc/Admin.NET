@@ -1,5 +1,5 @@
 <template>
-	<el-dialog v-model="state.dialogVisible" draggable :close-on-click-modal="false" :width="state.width + 8 + 'mm'">
+	<el-dialog v-model="state.dialogVisible" draggable :close-on-click-modal="false" :width="(Number(state.width) + Number(8)) + 'mm'">
 		<div id="preview_content" ref="previewContentRef"></div>
 		<template #footer>
 			<el-button :loading="state.waitShowPrinter" type="primary" icon="ele-Printer" @click.stop="print">直接打印</el-button>
