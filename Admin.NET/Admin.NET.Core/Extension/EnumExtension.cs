@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -166,6 +166,18 @@ public static class EnumExtension
             ?.GetCustomAttribute<DescriptionAttribute>()?.Description;
     }
 
+   /// <summary>
+   /// 获取枚举的Theme
+   /// </summary>
+   /// <param name="value"></param>
+   /// <returns></returns>
+   public static string GetTheme(this object value)
+   {
+       return value.GetType().GetMember(value.ToString() ?? string.Empty).FirstOrDefault()
+           ?.GetCustomAttribute<ThemeAttribute>()?.Theme;
+   }
+
+
     /// <summary>
     /// 将枚举转成枚举信息集合
     /// </summary>
@@ -183,6 +195,7 @@ public static class EnumExtension
             {
                 Name = item.ToString(),
                 Describe = item.GetDescription() ?? item.ToString(),
+                Theme= item.GetTheme()?? string.Empty,
                 Value = item.GetHashCode()
             };
         }).ToList();
@@ -212,6 +225,11 @@ public class EnumEntity
     /// 枚举的描述
     /// </summary>
     public string Describe { set; get; }
+
+    /// <summary>
+    /// 枚举的样式
+    /// </summary>
+    public string Theme { set; get; }
 
     /// <summary>
     /// 枚举名称
