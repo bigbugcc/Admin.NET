@@ -166,17 +166,16 @@ public static class EnumExtension
             ?.GetCustomAttribute<DescriptionAttribute>()?.Description;
     }
 
-   /// <summary>
-   /// 获取枚举的Theme
-   /// </summary>
-   /// <param name="value"></param>
-   /// <returns></returns>
-   public static string GetTheme(this object value)
-   {
-       return value.GetType().GetMember(value.ToString() ?? string.Empty).FirstOrDefault()
-           ?.GetCustomAttribute<ThemeAttribute>()?.Theme;
-   }
-
+    /// <summary>
+    /// 获取枚举的Theme
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string GetTheme(this object value)
+    {
+        return value.GetType().GetMember(value.ToString() ?? string.Empty).FirstOrDefault()
+            ?.GetCustomAttribute<ThemeAttribute>()?.Theme;
+    }
 
     /// <summary>
     /// 将枚举转成枚举信息集合
@@ -195,7 +194,7 @@ public static class EnumExtension
             {
                 Name = item.ToString(),
                 Describe = item.GetDescription() ?? item.ToString(),
-                Theme= item.GetTheme()?? string.Empty,
+                Theme = item.GetTheme() ?? string.Empty,
                 Value = item.GetHashCode()
             };
         }).ToList();
