@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rezero.Api" Version="1.7.0" />
-  </ItemGroup>  
+    <PackageReference Include="Rezero.Api" Version="1.7.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Admin.NET.Core\Admin.NET.Core.csproj" />
