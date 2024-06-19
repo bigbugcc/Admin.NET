@@ -104,24 +104,24 @@ public static class CommonUtil
     /// 导出模板Excel
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelTemplate<T>() where T : class, new()
+    public static async Task<IActionResult> ExportExcelTemplate<T>(string fileName = null) where T : class, new()
     {
         IImporter importer = new ExcelImporter();
         var res = await importer.GenerateTemplateBytes<T>();
 
-        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name + ".xlsx" };
+        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
     /// <summary>
     /// 导出数据excel
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelData<T>(ICollection<T> data) where T : class, new()
+    public static async Task<IActionResult> ExportExcelData<T>(ICollection<T> data, string fileName = null) where T : class, new()
     {
         var export = new ExcelExporter();
         var res = await export.ExportAsByteArray<T>(data);
 
-        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name + ".xlsx" };
+        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
     /// <summary>
