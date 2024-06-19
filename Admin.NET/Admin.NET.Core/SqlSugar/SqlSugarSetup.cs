@@ -323,7 +323,8 @@ public static class SqlSugarSetup
         if (config.SeedSettings.EnableInitSeed)
         {
             var seedDataTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarEntitySeedData<>))))
-                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false)).ToList();
+                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false))
+                .OrderBy(u => u.GetCustomAttributes(typeof(SeedDataAttribute), false).Length > 0 ? (u.GetCustomAttributes(typeof(SeedDataAttribute), false)[0] as SeedDataAttribute).Order : 0).ToList();
 
             foreach (var seedType in seedDataTypes)
             {
