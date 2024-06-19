@@ -39,7 +39,7 @@
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-show="!isEdit && !isHttpCreateType">
-								<el-form-item prop="includeAnnotations">
+								<el-form-item prop="includeAnnotation">
 									<template v-slot:label>
 										<div>
 											扫描触发器
