@@ -48,7 +48,7 @@
 											</el-tooltip>
 										</div>
 									</template>
-									<el-radio-group v-model="state.ruleForm.includeAnnotations">
+									<el-radio-group v-model="state.ruleForm.includeAnnotation">
 										<el-radio :value="true">是</el-radio>
 										<el-radio :value="false">否</el-radio>
 									</el-radio-group>
