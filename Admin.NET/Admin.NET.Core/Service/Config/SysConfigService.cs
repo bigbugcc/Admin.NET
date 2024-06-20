@@ -215,16 +215,16 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// <summary>
     /// 批量更新参数配置值
     /// </summary>
-    /// <param name="configBatchInputs"></param>    
+    /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "BatchUpdate"), HttpPost]
     [DisplayName("批量更新参数配置值")]
-    public async Task BatchUpdateConfig(List<ConfigBatchInput> configBatchInputs)
+    public async Task BatchUpdateConfig(List<BatchConfigInput> input)
     {
-        foreach (var input in configBatchInputs)
+        foreach (var Config in input)
         {
-            await _sysConfigRep.AsUpdateable().SetColumns(u => u.Value == input.Value).Where(u => u.Code == input.Code).ExecuteCommandAsync();
-            _sysCacheService.Remove($"{CacheConst.KeyConfig}{input.Code}");
+            await _sysConfigRep.AsUpdateable().SetColumns(u => u.Value == Config.Value).Where(u => u.Code == Config.Code).ExecuteCommandAsync();
+            _sysCacheService.Remove($"{CacheConst.KeyConfig}{Config.Code}");
         }
     }
 

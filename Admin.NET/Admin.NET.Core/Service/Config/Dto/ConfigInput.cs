@@ -39,3 +39,19 @@ public class UpdateConfigInput : AddConfigInput
 public class DeleteConfigInput : BaseIdInput
 {
 }
+
+/// <summary>
+/// 批量配置参数输入
+/// </summary>
+public class BatchConfigInput
+{
+    /// <summary>
+    /// 编码
+    /// </summary>
+    public string Code { get; set; }
+
+    /// <summary>
+    /// 属性值
+    /// </summary>
+    public string Value { get; set; }
+}

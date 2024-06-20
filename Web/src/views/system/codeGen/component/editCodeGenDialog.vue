@@ -87,6 +87,7 @@
 								clearable
 								class="w100"
 								v-model="state.ruleForm.menuPid"
+								@change="menuChange"
 							>
 								<template #default="{ node, data }">
 									<span>{{ data.title }}</span>
@@ -208,6 +209,11 @@ const dbChanged = async () => {
 const tableChanged = (item: any) => {
 	state.ruleForm.tableName = item.entityName;
 	state.ruleForm.busName = item.tableComment;
+};
+
+// 菜单改变
+const menuChange = (menu: any) => {
+	state.ruleForm.pagePath = state.menuData.find((x) => x.id == menu)?.name;
 };
 
 // print改变

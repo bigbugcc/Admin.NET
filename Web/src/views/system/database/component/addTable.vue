@@ -300,13 +300,13 @@ function handleColDown(record: EditRecordRow, index: number) {
 }
 
 function ChangeExForArray(index1: number, index2: number, array: Array<EditRecordRow>) {
-	let maxIndex = state.tableData.length - 1;//最大索引
-    if (index2 > maxIndex) {
-        index2 = 0;
-    };
-    if (index2 < 0) {
-        index2 = maxIndex;
-    }
+	let maxIndex = state.tableData.length - 1; //最大索引
+	if (index2 > maxIndex) {
+		index2 = 0;
+	}
+	if (index2 < 0) {
+		index2 = maxIndex;
+	}
 	let temp = array[index1];
 	array[index1] = array[index2];
 	array[index2] = temp;

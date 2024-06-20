@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -34,7 +34,7 @@ public class GoViewSysService : IDynamicApiController
     [DisplayName("GoView 登录")]
     public async Task<GoViewLoginOutput> Login(GoViewLoginInput input)
     {
-        _sysCacheService.Set(CommonConst.SysCaptcha, false);
+        _sysCacheService.Set($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}", false);
 
         input.Password = CryptogramUtil.SM2Encrypt(input.Password);
         var loginResult = await _sysAuthService.Login(new LoginInput()
@@ -43,7 +43,7 @@ public class GoViewSysService : IDynamicApiController
             Password = input.Password,
         });
 
-        _sysCacheService.Remove(CommonConst.SysCaptcha);
+        _sysCacheService.Remove($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}");
 
         var sysUser = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(u => u.Account.Equals(input.Username));
         return new GoViewLoginOutput()
@@ -77,7 +77,7 @@ public class GoViewSysService : IDynamicApiController
     [AllowAnonymous]
     [ApiDescriptionSettings(Name = "GetOssInfo")]
     [DisplayName("获取 OSS 上传接口")]
-    public static Task<GoViewOssUrlOutput> GetOssInfo()
+    public Task<GoViewOssUrlOutput> GetOssInfo()
     {
         return Task.FromResult(new GoViewOssUrlOutput { BucketURL = "" });
     }

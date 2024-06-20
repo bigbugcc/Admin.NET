@@ -59,7 +59,11 @@ public class EnumToDictJob : IJob
                                 dictData.Value = enumData.Value.ToString();
                                 dictData.Code = enumData.Name;
                                 dictData.OrderNo = enumData.Value + 10;
+<<<<<<< HEAD
 								dictData.Name = enumData.Describe;
+=======
+                                dictData.Name = enumData.Describe;
+>>>>>>> upstream/next
                                 uSysDictData.Add(dictData);
                             }
                         });

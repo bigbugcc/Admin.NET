@@ -323,7 +323,8 @@ public static class SqlSugarSetup
         if (config.SeedSettings.EnableInitSeed)
         {
             var seedDataTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarEntitySeedData<>))))
-                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false)).ToList();
+                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false))
+                .OrderBy(u => u.GetCustomAttributes(typeof(SeedDataAttribute), false).Length > 0 ? (u.GetCustomAttributes(typeof(SeedDataAttribute), false)[0] as SeedDataAttribute).Order : 0).ToList();
 
             foreach (var seedType in seedDataTypes)
             {
@@ -383,7 +384,9 @@ public static class SqlSugarSetup
         db.DbMaintenance.CreateDatabase();
 
         // 获取所有业务表-初始化租户库表结构（排除系统表、日志表、特定库表）
-        var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) &&
+        var entityTypes = App.EffectiveTypes
+            .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
+            .Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) &&
             !u.IsDefined(typeof(SysTableAttribute), false) && !u.IsDefined(typeof(LogTableAttribute), false) && !u.IsDefined(typeof(TenantAttribute), false)).ToList();
         if (!entityTypes.Any()) return;
 
