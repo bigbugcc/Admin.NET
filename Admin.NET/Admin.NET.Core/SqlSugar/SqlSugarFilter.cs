@@ -53,14 +53,13 @@ public static class SqlSugarFilter
                 var services = scope.ServiceProvider;
                 orgIds = services.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
             });
-            if (orgIds.IsNullOrEmpty()) return;
+            if (orgIds == null || orgIds.Count == 0) return;
 
             // 获取业务实体数据表
             var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass
                 && u.IsSubclassOf(typeof(EntityBaseData)));
             if (!entityTypes.Any()) return;
 
-            List<string> properties;
             orgFilter = new ConcurrentDictionary<Type, LambdaExpression>();
             foreach (var entityType in entityTypes)
             {
@@ -69,11 +68,8 @@ public static class SqlSugarFilter
                 if ((tAtt != null && db.CurrentConnectionConfig.ConfigId.ToString() != tAtt.configId.ToString()))
                     continue;
 
-                properties = entityType.GetPropertyNames<OwnerOrgAttribute>();
-                if (properties.IsNullOrEmpty()) continue;
-
-                var lambda = entityType.GetConditionExpression(orgIds, properties);
-
+                var lambda = DynamicExpressionParser.ParseLambda(new[] {
+                    Expression.Parameter(entityType, "u") }, typeof(bool), $"@0.Contains(u.{nameof(EntityBaseData.CreateOrgId)}??{default(long)})", orgIds);
                 db.QueryFilter.AddTableFilter(entityType, lambda);
                 orgFilter.TryAdd(entityType, lambda);
             }
@@ -110,7 +106,6 @@ public static class SqlSugarFilter
                 && u.IsSubclassOf(typeof(EntityBaseData)));
             if (!entityTypes.Any()) return maxDataScope;
 
-            List<string> properties;
             dataScopeFilter = new ConcurrentDictionary<Type, LambdaExpression>();
             foreach (var entityType in entityTypes)
             {
@@ -119,11 +114,8 @@ public static class SqlSugarFilter
                 if ((tAtt != null && db.CurrentConnectionConfig.ConfigId.ToString() != tAtt.configId.ToString()))
                     continue;
 
-                properties = entityType.GetPropertyNames<OwnerUserAttribute>();
-                if (properties.IsNullOrEmpty()) continue;
-
-                var lambda = entityType.GetConditionExpression(userId, properties);
-
+                var lambda = DynamicExpressionParser.ParseLambda(new[] {
+                    Expression.Parameter(entityType, "u") }, typeof(bool), $"u.{nameof(EntityBaseData.CreateUserId)}=@0", userId);
                 db.QueryFilter.AddTableFilter(entityType, lambda);
                 dataScopeFilter.TryAdd(entityType, lambda);
             }
