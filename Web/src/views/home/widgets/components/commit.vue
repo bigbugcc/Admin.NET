@@ -1,5 +1,9 @@
 <template>
 	<el-card shadow="hover" header="更新记录">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Refresh /> </el-icon>
+			<span style=""> 更新记录 </span>
+		</template>
 		<div class="commit">
 			<el-timeline style="max-width: 600px" v-if="state.list.length > 0">
 				<el-timeline-item v-for="(item, index) in state.list" :key="index" :timestamp="item.commit.committer.date">
@@ -20,10 +24,13 @@ export default {
 </script>
 
 <script setup lang="ts" name="commit">
+// import axios from 'axios';
 import { reactive, onMounted } from 'vue';
+
 const state = reactive({
-	list: [],
+	list: [] as any,
 });
+
 onMounted(() => {
 	axios({
 		method: 'get',
@@ -32,7 +39,7 @@ onMounted(() => {
 			page: 1,
 			per_page: 10,
 		},
-	}).then((res) => {
+	}).then((res: any) => {
 		state.list = res.data;
 	});
 });

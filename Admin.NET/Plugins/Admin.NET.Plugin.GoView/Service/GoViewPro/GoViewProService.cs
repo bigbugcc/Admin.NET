@@ -256,17 +256,17 @@ public class GoViewProService : IDynamicApiController
     [DisplayName("上传背景图")]
     public async Task<GoViewProUploadOutput> UploadBackGround(IFormFile @object)
     {
-        //文件名格式示例 13414795568325_index_preview.png
+        // 文件名格式示例 13414795568325_index_preview.png
         var fileNameSplit = @object.FileName.Split('_');
         var idStr = fileNameSplit[0];
         if (!long.TryParse(idStr, out var id)) return new GoViewProUploadOutput();
 
-        //将预览图转换成 Base64
+        // 将预览图转换成 Base64
         var ms = new MemoryStream();
         await @object.CopyToAsync(ms);
         var base64Image = Convert.ToBase64String(ms.ToArray());
 
-        //保存
+        // 保存
         if (await _goViewProDataRep.IsAnyAsync(u => u.Id == id))
         {
             await _goViewProDataRep.AsUpdateable()

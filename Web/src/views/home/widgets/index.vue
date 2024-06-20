@@ -144,7 +144,11 @@ interface Grid {
 }
 const defaultGrid = {
 	layout: [12, 6, 6],
-	copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']],
+	copmsList: [
+		['welcome', 'commit'],
+		['about', 'ver'],
+		['timeing', 'progressing'],
+	],
 };
 
 const customizing = ref<boolean>(false);
