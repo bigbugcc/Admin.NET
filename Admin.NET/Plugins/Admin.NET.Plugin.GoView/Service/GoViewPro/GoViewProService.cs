@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -247,6 +247,77 @@ public class GoViewProService : IDynamicApiController
             return new NoContentResult();
 
         var bytes = Convert.FromBase64String(projectData.IndexImageData);
+        return new FileStreamResult(new MemoryStream(bytes), "image/png");
+    }
+
+    /// <summary>
+    /// 上传背景图
+    /// </summary>
+    [DisplayName("上传背景图")]
+    public async Task<GoViewProUploadOutput> UploadBackGround(IFormFile @object)
+    {
+        //文件名格式示例 13414795568325_index_preview.png
+        var fileNameSplit = @object.FileName.Split('_');
+        var idStr = fileNameSplit[0];
+        if (!long.TryParse(idStr, out var id)) return new GoViewProUploadOutput();
+
+        //将预览图转换成 Base64
+        var ms = new MemoryStream();
+        await @object.CopyToAsync(ms);
+        var base64Image = Convert.ToBase64String(ms.ToArray());
+
+        //保存
+        if (await _goViewProDataRep.IsAnyAsync(u => u.Id == id))
+        {
+            await _goViewProDataRep.AsUpdateable()
+                .SetColumns(u => new GoViewProData
+                {
+                    BackGroundImageData = base64Image
+                })
+                .Where(u => u.Id == id)
+                .ExecuteCommandAsync();
+        }
+        else
+        {
+            await _goViewProDataRep.InsertAsync(new GoViewProData
+            {
+                Id = id,
+                BackGroundImageData = base64Image,
+            });
+        }
+
+        var output = new GoViewProUploadOutput
+        {
+            Id = id,
+            BucketName = null,
+            CreateTime = null,
+            CreateUserId = null,
+            FileName = null,
+            FileSize = 0,
+            FileSuffix = "png",
+            FileUrl = $"api/goview/project/getBackGroundImage/{id}",
+            UpdateTime = null,
+            UpdateUserId = null
+        };
+
+        return output;
+    }
+
+    /// <summary>
+    /// 获取背景图
+    /// </summary>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [NonUnify]
+    [ApiDescriptionSettings(Name = "GetBackGroundImage")]
+    [DisplayName("获取背景图")]
+    public async Task<IActionResult> GetBackGroundImage(long id)
+    {
+        var projectData = await _goViewProDataRep.AsQueryable().IgnoreColumns(u => u.Content).FirstAsync(u => u.Id == id);
+        if (projectData?.BackGroundImageData == null)
+            return new NoContentResult();
+
+        var bytes = Convert.FromBase64String(projectData.BackGroundImageData);
         return new FileStreamResult(new MemoryStream(bytes), "image/png");
     }
 }
