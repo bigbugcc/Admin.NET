@@ -63,7 +63,7 @@
             }else if(@column.EffectType == "EnumSelector"){
             @:<el-form-item label="@column.ColumnComment">
               @:<el-select clearable="" v-model="queryParams.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-                @:<el-option v-for="(item,index) in dl('@(@column.PropertyName)Enum')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}] `" />
+                @:<el-option v-for="(item,index) in dl('@(@column.DictTypeCode)')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}] `" />
                 @:
               </el-select>
               @:
@@ -165,7 +165,7 @@
         else if(@column.EffectType == "EnumSelector"){
           @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
             @:<template #default="scope">
-              @:<el-tag :type="dv('@(@column.PropertyName)Enum', scope.row.@(@column.LowerPropertyName))?.tagType"> {{dv('@(@column.PropertyName)Enum', scope.row.@column.LowerPropertyName)?.name}}</el-tag>
+              @:<el-tag :type="dv('@(@column.DictTypeCode)', scope.row.@(@column.LowerPropertyName))?.tagType"> {{dv('@(@column.DictTypeCode)', scope.row.@column.LowerPropertyName)?.name}}</el-tag>
             @:</template>
           @:</el-table-column>
         }
