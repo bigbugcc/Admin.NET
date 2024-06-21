@@ -134,7 +134,13 @@ const handleQueryTable = async () => {
 	state.loading = true;
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.configId);
-	state.tableData = res.data.result ?? [];
+	let tableData = res.data.result ?? [];
+	tableData.forEach((element: any) => {
+		//排除zero_开头的表
+		if (!element.name.startsWith('zero_')) {
+			state.tableData.push(element);
+		}
+	});
 	state.loading = false;
 };
 
