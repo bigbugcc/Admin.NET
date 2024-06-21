@@ -83,9 +83,9 @@
             } 
       }
           @<el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="4" class="mb10">
-            @<el-form-item>
+            @<el-form-item @(Model.QueryWhetherList.Count > 0?"":"label-width=\"0px\"")>
               @<el-button-group style="display: flex; align-items: center;">
-                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> 查询 </el-button>
+                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> @(Model.QueryWhetherList.Count > 0?"查询":"刷新") </el-button>
                    @if(Model.QueryWhetherList.Count > 0){
                       @:<el-button icon="ele-Refresh" @@click="() => queryParams = {}"> 重置 </el-button>
                         @if(haveLikeCdt){

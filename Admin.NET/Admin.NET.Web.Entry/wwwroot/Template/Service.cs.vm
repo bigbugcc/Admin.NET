@@ -109,7 +109,11 @@ if (@column.QueryWhether == "Y"){
 } else {
             @:.Select<@(@Model.ClassName)Output>();
 }
-        return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
+      @if(@Model.TableField.Any(x=>x.EffectType == "fk")){
+        @:return await query.OrderBuilder(input,"[u].","[@(PKName)]").ToPagedListAsync(input.Page, input.PageSize);
+      }else{
+		@:return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
+      }
     }
 
     /// <summary>
@@ -190,7 +194,6 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// <summary>
     @:/// 获取@(@column.ColumnComment)列表
     @:/// </summary>
-    @:/// <param name="input"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
