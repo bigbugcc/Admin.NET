@@ -128,6 +128,7 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划Scheduler的JobDetail变化时
     /// </summary>
     /// <param name="context"></param>
+    /// <returns></returns>
     public async Task OnChangedAsync(PersistenceContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
@@ -156,6 +157,7 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划Scheduler的触发器Trigger变化时
     /// </summary>
     /// <param name="context"></param>
+    /// <returns></returns>
     public async Task OnTriggerChangedAsync(PersistenceTriggerContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
@@ -183,14 +185,15 @@ public class DbJobPersistence : IJobPersistence
     /// <summary>
     /// 作业触发器运行记录
     /// </summary>
-    /// <param name="timeline"></param>
-    public async Task OnExecutionRecordAsync(TriggerTimeline timeline)
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public async Task OnExecutionRecordAsync(PersistenceExecutionRecordContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
-            var jobTriggerRecord = timeline.Adapt<SysJobTriggerRecord>();
+            var jobTriggerRecord = context.Timeline.Adapt<SysJobTriggerRecord>();
             await db.Insertable(jobTriggerRecord).ExecuteCommandAsync();
         }
     }
