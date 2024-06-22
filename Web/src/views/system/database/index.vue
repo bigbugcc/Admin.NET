@@ -150,6 +150,7 @@ const handleQueryColumn = async () => {
 	if (state.tableName == '' || typeof state.tableName == 'undefined') return;
 
 	state.loading1 = true;
+	state.tableData=[];
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseColumnListTableNameConfigIdGet(state.tableName, state.configId);
 	state.columnData = res.data.result ?? [];
 	state.loading1 = false;
