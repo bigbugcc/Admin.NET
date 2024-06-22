@@ -254,12 +254,8 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         {
             if (db.DbMaintenance.IsAnyTableRemark(input.TableName))
                 db.DbMaintenance.DeleteTableRemark(input.TableName);
-                //从新添加备注
-				if (!string.IsNullOrWhiteSpace(input.Description))
-				{
-				    db.DbMaintenance.AddTableRemark(input.TableName, input.Description);
-				}
-            else
+
+            if (!string.IsNullOrWhiteSpace(input.Description))
                 db.DbMaintenance.AddTableRemark(input.TableName, input.Description);
         }
         catch (NotSupportedException ex)
