@@ -147,7 +147,7 @@ const handleQueryTable = async () => {
 // 列查询操作
 const handleQueryColumn = async () => {
 	state.columnData = [];
-	if (state.tableName == '') return;
+	if (state.tableName == '' || typeof state.tableName == 'undefined') return;
 
 	state.loading1 = true;
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseColumnListTableNameConfigIdGet(state.tableName, state.configId);
