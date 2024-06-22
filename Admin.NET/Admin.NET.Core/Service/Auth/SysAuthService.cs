@@ -6,7 +6,6 @@
 
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
-using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -236,6 +235,19 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // Swagger Knife4UI-AfterScript登录脚本
         // ke.global.setAllHeader('Authorization', 'Bearer ' + ke.response.headers['access-token']);
+
+        // 更新用户登录信息
+        string remoteIPv4 = App.HttpContext.GetRemoteIpAddressToIPv4();
+        (string ipLocation, double? longitude, double? latitude) = DatabaseLoggingWriter.GetIpAddress(remoteIPv4);
+        user.LastLoginIp = remoteIPv4;
+        user.LastLoginAddress = ipLocation;
+        user.LastLoginTime = DateTime.Now;
+        await _sysUserRep.AsUpdateable(user).UpdateColumns(it => new
+        {
+            it.LastLoginIp,
+            it.LastLoginAddress,
+            it.LastLoginTime,
+        }).ExecuteCommandAsync();
 
         return new LoginOutput
         {
