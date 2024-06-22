@@ -92,7 +92,8 @@ namespace Admin.NET.Web.Core
                 ? httpContext.Request.Path.Value[5..].Replace("/", ":")
                 : httpContext.Request.Path.Value[1..].Replace("/", ":");
 
-            var sysMenuService = App.GetRequiredService<SysMenuService>();
+            var serviceScope = httpContext.RequestServices.CreateScope();
+            var sysMenuService = serviceScope.ServiceProvider.GetRequiredService<SysMenuService>();
             // 获取用户拥有按钮权限集合
             var ownBtnPermList = await sysMenuService.GetOwnBtnPermList();
             // 获取系统所有按钮权限集合
