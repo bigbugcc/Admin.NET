@@ -41,18 +41,15 @@ public class Startup : AppStartup
         // JWT
         services.AddJwt<JwtHandler>(enableGlobalAuthorize: true, jwtBearerConfigure: options =>
         {
-            // 实现 JWT 身份验证过程控制，添加读取 Token 的方式
+            // 实现 JWT 身份验证过程控制
             options.Events = new JwtBearerEvents
             {
                 OnMessageReceived = context =>
                 {
                     var httpContext = context.HttpContext;
-
-                    // 判断请求是否包含 token 参数，如果有就设置给 Token
+                    // 若请求 Url 包含 token 参数，则设置 Token 值
                     if (httpContext.Request.Query.ContainsKey("token"))
-                    {
                         context.Token = httpContext.Request.Query["token"];
-                    }
                     return Task.CompletedTask;
                 }
             };
@@ -60,7 +57,6 @@ public class Startup : AppStartup
             {
                 options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
             });
-
 
         // 允许跨域
         services.AddCorsAccessor();

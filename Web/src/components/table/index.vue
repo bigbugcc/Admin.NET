@@ -7,7 +7,7 @@
 			<div v-loading="state.exportLoading" class="table-footer-tool">
 				<SvgIcon v-if="!config.hideRefresh" name="iconfont icon-shuaxin" :size="22" title="刷新" @click="onRefreshTable" />
 				<el-tooltip effect="light" :content="state.switchFixedContent" placement="bottom-start" :show-after="200" v-if="state.haveFixed">
-					<el-icon :style="{color: state.fixedIconColor}" @click="switchFixed"><ele-Switch /></el-icon>
+					<el-icon :style="{ color: state.fixedIconColor }" @click="switchFixed"><ele-Switch /></el-icon>
 				</el-tooltip>
 				<el-dropdown v-if="!config.hideExport" trigger="click">
 					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
@@ -431,7 +431,7 @@ const setTableData = (data: Array<EmptyObjectType>, add: boolean = false) => {
 
 const clearFixed = () => {
 	for (let item of state.columns) {
-		delete item['fixed']
+		delete item['fixed'];
 	}
 };
 
