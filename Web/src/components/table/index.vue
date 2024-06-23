@@ -6,6 +6,9 @@
 			</div>
 			<div v-loading="state.exportLoading" class="table-footer-tool">
 				<SvgIcon v-if="!config.hideRefresh" name="iconfont icon-shuaxin" :size="22" title="刷新" @click="onRefreshTable" />
+				<el-tooltip effect="light" :content="state.switchFixedContent" placement="bottom-start" :show-after="200" v-if="state.haveFixed">
+					<el-icon :style="{color: state.fixedIconColor}" @click="switchFixed"><ele-Switch /></el-icon>
+				</el-tooltip>
 				<el-dropdown v-if="!config.hideExport" trigger="click">
 					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
 					<template #dropdown>
@@ -56,7 +59,7 @@
 			@sort-change="sortChange"
 		>
 			<el-table-column type="selection" :reserve-selection="true" :width="30" v-if="config.isSelection && config.showSelection" />
-			<el-table-column type="index" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
+			<el-table-column type="index" :fixed="state.currentFixed && state.serialNoFixed" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
 			<el-table-column v-for="(item, index) in setHeader" :key="index" v-bind="item">
 				<template #header v-if="!item.children && $slots[item.prop]">
 					<slot :name="`${item.prop}header`" />
@@ -203,13 +206,20 @@ const state = reactive({
 	selectlist: [] as EmptyObjectType[],
 	checkListAll: true,
 	checkListIndeterminate: false,
+	oldColumns: [] as EmptyObjectType[],
+	columns: [] as EmptyObjectType[],
+	haveFixed: false,
+	currentFixed: false,
+	serialNoFixed: false,
+	switchFixedContent: '取消固定列',
+	fixedIconColor: themeConfig.value.primary,
 });
 
 const hideTool = computed(() => {
 	return props.config.hideTool ?? false;
 });
 
-const getProperty = (obj, property) => {
+const getProperty = (obj: any, property: any) => {
 	const keys = property.split('.');
 	let value = obj;
 	for (const key of keys) {
@@ -232,19 +242,19 @@ const getConfig = computed(() => {
 });
 // 设置 tool header 数据
 const setHeader = computed(() => {
-	return props.columns.filter((v) => v.isCheck);
+	return state.columns.filter((v) => v.isCheck);
 });
 // tool 列显示全选改变时
 const onCheckAllChange = <T,>(val: T) => {
-	if (val) props.columns.forEach((v) => (v.isCheck = true));
-	else props.columns.forEach((v) => (v.isCheck = false));
+	if (val) state.columns.forEach((v) => (v.isCheck = true));
+	else state.columns.forEach((v) => (v.isCheck = false));
 	state.checkListIndeterminate = false;
 };
 // tool 列显示当前项改变时
 const onCheckChange = () => {
-	const headers = props.columns.filter((v) => v.isCheck).length;
-	state.checkListAll = headers === props.columns.length;
-	state.checkListIndeterminate = headers > 0 && headers < props.columns.length;
+	const headers = state.columns.filter((v) => v.isCheck).length;
+	state.checkListAll = headers === state.columns.length;
+	state.checkListIndeterminate = headers > 0 && headers < state.columns.length;
 };
 // 表格多选改变时
 const onSelectionChange = (val: EmptyObjectType[]) => {
@@ -362,7 +372,7 @@ const onSetTable = () => {
 			onEnd: () => {
 				const headerList: EmptyObjectType[] = [];
 				sortable.toArray().forEach((val: any) => {
-					props.columns.forEach((v) => {
+					state.columns.forEach((v) => {
 						if (v.prop === val) headerList.push({ ...v });
 					});
 				});
@@ -419,12 +429,42 @@ const setTableData = (data: Array<EmptyObjectType>, add: boolean = false) => {
 	}
 };
 
+const clearFixed = () => {
+	for (let item of state.columns) {
+		delete item['fixed']
+	}
+};
+
+const switchFixed = () => {
+	state.currentFixed = !state.currentFixed;
+	state.switchFixedContent = state.currentFixed ? '取消固定列' : '启用固定列';
+	if (state.currentFixed) {
+		state.fixedIconColor = themeConfig.value.primary;
+		state.columns = JSON.parse(JSON.stringify(state.oldColumns));
+	} else {
+		state.fixedIconColor = '';
+		clearFixed();
+	}
+};
+
 onMounted(() => {
 	if (props.defaultSort) {
 		state.page.field = props.defaultSort.prop;
 		state.page.order = props.defaultSort.order;
 	}
 	state.page.pageSize = props.config.pageSize ?? 10;
+	state.oldColumns = JSON.parse(JSON.stringify(props.columns));
+	state.columns = props.columns;
+	for (let item of state.columns) {
+		if (item.fixed !== undefined) {
+			state.haveFixed = true;
+			state.currentFixed = true;
+			if (item.fixed == 'left') {
+				state.serialNoFixed = true;
+				break;
+			}
+		}
+	}
 	handleList();
 });
 
@@ -435,6 +475,7 @@ defineExpose({
 	toggleSelection,
 	getTableData,
 	setTableData,
+	switchFixed,
 });
 </script>
 
