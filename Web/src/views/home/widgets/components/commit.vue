@@ -6,7 +6,7 @@
 		</template>
 		<div class="commit">
 			<el-timeline style="max-width: 600px" v-if="state.list.length > 0">
-				<el-timeline-item v-for="(item, index) in state.list" :key="index" :timestamp="item.commit.committer.date">
+				<el-timeline-item v-for="(item, index) in state.list" :key="index" :timestamp="item.commit.committer.date.replace(/[T+]/g, ' ')">
 					<el-link :href="item.html_url" target="_blank"> {{ item.commit.message }}</el-link>
 				</el-timeline-item>
 			</el-timeline>
