@@ -14,6 +14,7 @@ public class UserInput : BaseIdInput
     /// <summary>
     /// 状态
     /// </summary>
+    [Dict("StatusEnum")]
     public StatusEnum Status { get; set; }
 }
 

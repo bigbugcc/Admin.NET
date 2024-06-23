@@ -47,7 +47,7 @@ public partial class SysOrg : EntityTenant
     /// </summary>
     [SugarColumn(ColumnDescription = "机构类型", Length = 64)]
     [MaxLength(64)]
-    public string? Type { get; set; }
+    public virtual string? Type { get; set; }
 
     /// <summary>
     /// 负责人Id
