@@ -54,9 +54,9 @@ public class Startup : AppStartup
                 }
             };
         }).AddSignatureAuthentication(options =>  // 添加 Signature 身份验证
-            {
-                options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
-            });
+        {
+            options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
+        });
 
         // 允许跨域
         services.AddCorsAccessor();
