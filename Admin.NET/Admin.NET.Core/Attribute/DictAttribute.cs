@@ -40,19 +40,13 @@ public class DictAttribute : ValidationAttribute, ITransient
         // 是否忽略空字符串
         if (AllowEmptyStrings && string.IsNullOrEmpty(valueAsString)) return ValidationResult.Success;
 
-        // 查询缓存中是否存在
-        var cacheServiceProvider = validationContext.GetRequiredService<SysCacheService>();
         var sysDictDataServiceProvider = validationContext.GetRequiredService<SysDictDataService>();
+        var dictDataList = sysDictDataServiceProvider.GetDataList(DictTypeCode).Result;
 
-        string cacheKey = $"{CacheConst.KeyDict}{DictTypeCode}";
-        var dictDataList = cacheServiceProvider.Get<HashSet<SysDictData>>(cacheKey);
-        if (dictDataList == null)
-        {
-            dictDataList = sysDictDataServiceProvider.GetDataList(DictTypeCode).Result.ToHashSet();
-            cacheServiceProvider.Set(cacheKey, dictDataList);
-        }
+        // 使用HashSet来提高查找效率
+        var dictCodes = new HashSet<string>(dictDataList.Select(u => u.Code));
 
-        if (!dictDataList.Select(u => u.Code).ToHashSet().Contains(valueAsString))
+        if (!dictCodes.Contains(valueAsString))
             return new ValidationResult($"提示：{ErrorMessage}|字典【{DictTypeCode}】不包含【{valueAsString}】！");
         else
             return ValidationResult.Success;
