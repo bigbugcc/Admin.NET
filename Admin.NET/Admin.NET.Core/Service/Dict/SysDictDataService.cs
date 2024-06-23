@@ -173,11 +173,17 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("根据字典类型编码获取字典值集合")]
     public async Task<List<SysDictData>> GetDataList(string code)
     {
-        return await _sysDictDataRep.Context.Queryable<SysDictType>()
-            .LeftJoin<SysDictData>((u, a) => u.Id == a.DictTypeId)
-            .Where((u, a) => u.Code == code && u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
-            .OrderBy((u, a) => new { a.OrderNo, a.Code })
-            .Select((u, a) => a).ToListAsync();
+        var dictDataList = _sysCacheService.Get<List<SysDictData>>($"{CacheConst.KeyDict}{code}");
+        if (dictDataList == null)
+        {
+            dictDataList = await _sysDictDataRep.Context.Queryable<SysDictType>()
+                .LeftJoin<SysDictData>((u, a) => u.Id == a.DictTypeId)
+                .Where((u, a) => u.Code == code && u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
+                .OrderBy((u, a) => new { a.OrderNo, a.Code })
+                .Select((u, a) => a).ToListAsync();
+            _sysCacheService.Set($"{CacheConst.KeyDict}{code}", dictDataList);
+        }
+        return dictDataList;
     }
 
     /// <summary>
