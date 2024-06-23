@@ -12,6 +12,7 @@ using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
 using IPTools.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,7 @@ using Newtonsoft.Json;
 using OnceMi.AspNetCore.OSS;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 
 namespace Admin.NET.Web.Core;
 
@@ -37,12 +39,29 @@ public class Startup : AppStartup
         // SqlSugar
         services.AddSqlSugar();
         // JWT
-        services.AddJwt<JwtHandler>(enableGlobalAuthorize: true)
-            // 添加 Signature 身份验证
-            .AddSignatureAuthentication(options =>
+        services.AddJwt<JwtHandler>(enableGlobalAuthorize: true, jwtBearerConfigure: options =>
+        {
+            // 实现 JWT 身份验证过程控制，添加读取 Token 的方式
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var httpContext = context.HttpContext;
+
+                    // 判断请求是否包含 token 参数，如果有就设置给 Token
+                    if (httpContext.Request.Query.ContainsKey("token"))
+                    {
+                        context.Token = httpContext.Request.Query["token"];
+                    }
+                    return Task.CompletedTask;
+                }
+            };
+        }).AddSignatureAuthentication(options =>  // 添加 Signature 身份验证
             {
                 options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
             });
+
+
         // 允许跨域
         services.AddCorsAccessor();
         // 远程请求
