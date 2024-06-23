@@ -64,7 +64,7 @@ public class DictAttribute : ValidationAttribute, ITransient
     public string DictTypeCode { get; set; }
 
     /// <summary>
-    ///是否允许空字符串
+    /// 是否允许空字符串
     /// </summary>
     public bool AllowEmptyStrings { get; set; } = false;
 
