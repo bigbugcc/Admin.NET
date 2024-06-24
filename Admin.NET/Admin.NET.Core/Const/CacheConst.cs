@@ -44,7 +44,7 @@ public class CacheConst
     /// <summary>
     /// 密码错误次数缓存
     /// </summary>
-    public const string KeyErrorPasswordCount = "sys_errorPasswordCount:";
+    public const string KeyPasswordErrorTimes = "sys_password_error_times:";
 
     /// <summary>
     /// 租户缓存

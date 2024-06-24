@@ -63,10 +63,10 @@ public class SysAuthService : IDynamicApiController, ITransient
         //var host = _httpContextAccessor.HttpContext.Request.Host;
 
         // 判断密码错误次数（缓存30分钟）
-        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{input.Account}";
-        var errorPasswordCount = _sysCacheService.Get<int>(keyErrorPasswordCount);
-        var maxPasswdErrTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysMaxPasswdErrTimes);
-        if (errorPasswordCount >= maxPasswdErrTimes)
+        var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
+        var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
+        var passwdMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysPasswdMaxErrorTimes);
+        if (passwordErrorTimes >= passwdMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
@@ -106,19 +106,19 @@ public class SysAuthService : IDynamicApiController, ITransient
             var userLdap = await _sysUserLdap.GetFirstAsync(u => u.UserId == user.Id && u.TenantId == tenant.Id);
             if (userLdap == null)
             {
-                VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
+                VerifyPassword(input, keyPasswordErrorTimes, passwordErrorTimes, user);
             }
             else if (!await _sysLdapService.AuthAccount(tenant.Id, userLdap.Account, input.Password))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
         else
-            VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
+            VerifyPassword(input, keyPasswordErrorTimes, passwordErrorTimes, user);
 
         // 登录成功则清空密码错误次数
-        _sysCacheService.Remove(keyErrorPasswordCount);
+        _sysCacheService.Remove(keyPasswordErrorTimes);
 
         return await CreateToken(user);
     }
@@ -127,16 +127,16 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// 验证用户密码
     /// </summary>
     /// <param name="input"></param>
-    /// <param name="keyErrorPasswordCount"></param>
-    /// <param name="errorPasswordCount"></param>
+    /// <param name="keyPasswordErrorTims"></param>
+    /// <param name="passwordErrorTimes"></param>
     /// <param name="user"></param>
-    private void VerifyPassword(LoginInput input, string keyErrorPasswordCount, int errorPasswordCount, SysUser user)
+    private void VerifyPassword(LoginInput input, string keyPasswordErrorTims, int passwordErrorTimes, SysUser user)
     {
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (!user.Password.Equals(MD5Encryption.Encrypt(input.Password)))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTims, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
@@ -144,7 +144,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         {
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTims, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }

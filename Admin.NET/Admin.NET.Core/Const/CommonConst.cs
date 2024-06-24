@@ -25,7 +25,7 @@ public class CommonConst
     /// <summary>
     /// 密码最大错误次数
     /// </summary>
-    public const string SysMaxPasswdErrTimes = "sys_max_passwd_err_times";
+    public const string SysPasswdMaxErrorTimes = "sys_passwd_max_error_times";
 
     /// <summary>
     /// 登录二次验证

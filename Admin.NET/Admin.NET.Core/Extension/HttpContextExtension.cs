@@ -15,7 +15,7 @@ namespace Admin.NET.Core;
 public static partial class HttpContextExtension
 {
     /// <summary>
-    /// 获取客户端真实IP地址
+    /// 获取客户端真实 IP 地址
     /// </summary>
     /// <returns>bool</returns>
     public static string GetRemoteIp(this HttpContext httpContext)
@@ -23,14 +23,13 @@ public static partial class HttpContextExtension
         var ip = string.Empty;
         try
         {
-            // 尝试从X-Forwarded-For头获取
+            // 从 X-Forwarded-For 头获取 IP
             ip = httpContext.Request.Headers["X-Forwarded-For"];
             if (string.IsNullOrEmpty(ip))
             {
-                // 直接从连接获取
                 ip = httpContext.GetRemoteIpAddressToIPv4();
             }
-            // 验证IP地址的有效性
+            // 验证 IP 地址有效性
             if (!IPAddress.TryParse(ip, out _))
             {
                 ip = null;

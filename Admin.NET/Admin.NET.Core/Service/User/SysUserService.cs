@@ -315,7 +315,7 @@ public class SysUserService : IDynamicApiController, ITransient
         await _sysUserRep.AsUpdateable(user).UpdateColumns(u => u.Password).ExecuteCommandAsync();
 
         // 清空密码错误次数
-        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{user.Account}";
+        var keyErrorPasswordCount = $"{CacheConst.KeyPasswordErrorTimes}{user.Account}";
         _sysCacheService.Remove(keyErrorPasswordCount);
 
         return password;
@@ -332,8 +332,8 @@ public class SysUserService : IDynamicApiController, ITransient
         var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
 
         // 清空密码错误次数
-        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{user.Account}";
-        _sysCacheService.Remove(keyErrorPasswordCount);
+        var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{user.Account}";
+        _sysCacheService.Remove(keyPasswordErrorTimes);
     }
 
     /// <summary>
