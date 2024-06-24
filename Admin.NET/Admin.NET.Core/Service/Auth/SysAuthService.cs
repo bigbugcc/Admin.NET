@@ -62,10 +62,11 @@ public class SysAuthService : IDynamicApiController, ITransient
         //// 可以根据域名获取具体租户
         //var host = _httpContextAccessor.HttpContext.Request.Host;
 
-        // 判断密码错误次数（默认5次，缓存30分钟）
+        // 判断密码错误次数（缓存30分钟）
         var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{input.Account}";
         var errorPasswordCount = _sysCacheService.Get<int>(keyErrorPasswordCount);
-        if (errorPasswordCount >= 5)
+        var maxPasswdErrTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysMaxPasswdErrTimes);
+        if (errorPasswordCount >= maxPasswdErrTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码

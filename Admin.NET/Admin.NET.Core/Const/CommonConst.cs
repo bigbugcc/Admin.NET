@@ -23,6 +23,11 @@ public class CommonConst
     public const string SysPassword = "sys_password";
 
     /// <summary>
+    /// 密码最大错误次数
+    /// </summary>
+    public const string SysMaxPasswdErrTimes = "sys_max_passwd_err_times";
+
+    /// <summary>
     /// 登录二次验证
     /// </summary>
     public const string SysSecondVer = "sys_second_ver";
