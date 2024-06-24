@@ -78,6 +78,11 @@ public class CommonConst
     public const string SysDomainLogin = "sys_domain_login";
 
     /// <summary>
+    /// 开启记录数据校验日志
+    /// </summary>
+    public const string SysValidationLog = "sys_validation_log"; 
+
+    /// <summary>
     /// 日志分组名称
     /// </summary>
     public const string SysLogCategoryName = "System.Logging.LoggingMonitor";

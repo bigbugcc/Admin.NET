@@ -52,8 +52,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         }
 
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
-        // 不记录数据校验日志
-        if (loggingMonitor.validation != null) return;
+        // 记录数据校验日志
+        if (loggingMonitor.validation != null && !await _sysConfigService.GetConfigValue<bool>(CommonConst.SysValidationLog)) return;
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
