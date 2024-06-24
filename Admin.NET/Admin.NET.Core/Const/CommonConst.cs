@@ -80,7 +80,7 @@ public class CommonConst
     /// <summary>
     /// 开启记录数据校验日志
     /// </summary>
-    public const string SysValidationLog = "sys_validation_log"; 
+    public const string SysValidationLog = "sys_validation_log";
 
     /// <summary>
     /// 日志分组名称

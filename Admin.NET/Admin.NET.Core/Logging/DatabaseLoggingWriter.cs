@@ -73,8 +73,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         }
 
         // 优先获取 X-Forwarded-For 头部信息携带的IP地址（如nginx代理配置转发）
-        string? remoteIPv4 = ((JArray)loggingMonitor.requestHeaders)
-            .OfType<JObject>()
+        var remoteIPv4 = ((JArray)loggingMonitor.requestHeaders).OfType<JObject>()
             .FirstOrDefault(header => (string)header["key"] == "X-Forwarded-For")?["value"]?.ToString();
 
         if (string.IsNullOrEmpty(remoteIPv4))
