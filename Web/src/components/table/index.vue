@@ -447,12 +447,7 @@ const switchFixed = () => {
 	}
 };
 
-onMounted(() => {
-	if (props.defaultSort) {
-		state.page.field = props.defaultSort.prop;
-		state.page.order = props.defaultSort.order;
-	}
-	state.page.pageSize = props.config.pageSize ?? 10;
+const refreshColumns = () => {
 	state.oldColumns = JSON.parse(JSON.stringify(props.columns));
 	state.columns = props.columns;
 	for (let item of state.columns) {
@@ -465,6 +460,15 @@ onMounted(() => {
 			}
 		}
 	}
+};
+
+onMounted(() => {
+	if (props.defaultSort) {
+		state.page.field = props.defaultSort.prop;
+		state.page.order = props.defaultSort.order;
+	}
+	state.page.pageSize = props.config.pageSize ?? 10;
+	refreshColumns();
 	handleList();
 });
 
@@ -475,7 +479,7 @@ defineExpose({
 	toggleSelection,
 	getTableData,
 	setTableData,
-	switchFixed,
+	refreshColumns,
 });
 </script>
 
