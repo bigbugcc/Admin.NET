@@ -14,12 +14,18 @@ public class SysConfigService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
     private readonly SqlSugarRepository<SysConfig> _sysConfigRep;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly UserManager _userManager;
 
     public SysConfigService(SysCacheService sysCacheService,
-        SqlSugarRepository<SysConfig> sysConfigRep)
+        SqlSugarRepository<SysConfig> sysConfigRep,
+        IHttpContextAccessor httpContextAccessor,
+        UserManager userManager)
     {
         _sysCacheService = sysCacheService;
         _sysConfigRep = sysConfigRep;
+        _httpContextAccessor = httpContextAccessor;
+        _userManager = userManager;
     }
 
     /// <summary>
@@ -245,13 +251,17 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysCopyright = await GetConfigValue<string>("sys_web_copyright");
         var sysIcp = await GetConfigValue<string>("sys_web_icp");
         var sysIcpUrl = await GetConfigValue<string>("sys_web_icpUrl");
+
+        string ip = _httpContextAccessor.HttpContext.GetRemoteIp();
+        string watermark = $"{sysWatermark}-{DateTime.Now}-{ip}-{_userManager.RealName}";
+
         return new
         {
             SysLogo = sysLogo,
             SysTitle = sysTitle,
             SysViceTitle = sysViceTitle,
             SysViceDesc = sysViceDesc,
-            SysWatermark = sysWatermark,
+            SysWatermark = watermark,
             SysCopyright = sysCopyright,
             SysIcp = sysIcp,
             SysIcpUrl = sysIcpUrl
