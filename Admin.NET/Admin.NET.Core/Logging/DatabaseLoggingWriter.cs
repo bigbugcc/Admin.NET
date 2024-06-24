@@ -52,8 +52,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         }
 
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
-        // 不记录数据校验日志
-        if (loggingMonitor.validation != null) return;
+        // 记录数据校验日志
+        if (loggingMonitor.validation != null && !await _sysConfigService.GetConfigValue<bool>(CommonConst.SysValidationLog)) return;
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
@@ -72,7 +72,14 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             }
         }
 
-        string remoteIPv4 = loggingMonitor.remoteIPv4;
+        // 优先获取 X-Forwarded-For 头部信息携带的IP地址（如nginx代理配置转发）
+        string? remoteIPv4 = ((JArray)loggingMonitor.requestHeaders)
+            .OfType<JObject>()
+            .FirstOrDefault(header => (string)header["key"] == "X-Forwarded-For")?["value"]?.ToString();
+
+        if (string.IsNullOrEmpty(remoteIPv4))
+            remoteIPv4 = loggingMonitor.remoteIPv4;
+
         (string ipLocation, double? longitude, double? latitude) = GetIpAddress(remoteIPv4);
 
         var browser = "";
