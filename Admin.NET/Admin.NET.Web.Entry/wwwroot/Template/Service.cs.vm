@@ -109,11 +109,7 @@ if (@column.QueryWhether == "Y"){
 } else {
             @:.Select<@(@Model.ClassName)Output>();
 }
-      @if(@Model.TableField.Any(x=>x.EffectType == "fk")){
-        @:return await query.OrderBuilder(input,"[u].","[@(PKName)]").ToPagedListAsync(input.Page, input.PageSize);
-      }else{
 		@:return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
-      }
     }
 
     /// <summary>
