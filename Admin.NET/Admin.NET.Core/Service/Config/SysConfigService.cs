@@ -252,9 +252,6 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysIcp = await GetConfigValue<string>("sys_web_icp");
         var sysIcpUrl = await GetConfigValue<string>("sys_web_icpUrl");
 
-        //var ip = _httpContextAccessor.HttpContext.GetRemoteIp();
-        //var watermark = $"{sysWatermark}-{DateTime.Now}-{ip}-{_userManager.RealName}";
-
         return new
         {
             SysLogo = sysLogo,
