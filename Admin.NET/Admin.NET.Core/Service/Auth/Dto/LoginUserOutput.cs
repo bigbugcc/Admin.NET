@@ -95,4 +95,9 @@ public class LoginUserOutput
     /// 角色集合
     /// </summary>
     public List<long> RoleIds { get; set; }
+
+    /// <summary>
+    /// 水印文字
+    /// </summary>
+    public string WatermarkText { get; set; }
 }

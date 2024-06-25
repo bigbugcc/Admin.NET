@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Elastic.Clients.Elasticsearch.Xpack;
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
 
@@ -274,7 +275,9 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 获取角色集合
         var roleIds = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysUserRole>>().AsQueryable()
             .Where(u => u.UserId == user.Id).Select(u => u.RoleId).ToListAsync();
-
+        // 获取水印文字
+        var watermarkText = await _sysConfigService.GetConfigValue<string>("sys_web_watermark");
+        watermarkText += $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIp()}-{DateTime.Now}";
         return new LoginUserOutput
         {
             Id = user.Id,
@@ -292,7 +295,8 @@ public class SysAuthService : IDynamicApiController, ITransient
             OrgType = org?.Type,
             PosName = pos?.Name,
             Buttons = buttons,
-            RoleIds = roleIds
+            RoleIds = roleIds,
+            WatermarkText = watermarkText
         };
     }
 

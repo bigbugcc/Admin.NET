@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia';
-import { Session } from '/@/utils/storage';
+import { Local, Session } from '/@/utils/storage';
+import Watermark from '/@/utils/watermark';
+import { useThemeConfig } from '/@/stores/themeConfig';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysConstApi, SysDictTypeApi } from '/@/api-services/api';
+import watermark from '../utils/watermark';
 
 /**
  * 用户信息
@@ -66,6 +69,7 @@ export const useUserInfo = defineStore('userInfo', {
 					.then(async (res: any) => {
 						if (res.data.result == null) return;
 						var d = res.data.result;
+						console.log('用户信息：', d	);
 						const userInfos = {
 							id: d.id,
 							account: d.account,
@@ -87,6 +91,15 @@ export const useUserInfo = defineStore('userInfo', {
 						// vue-next-admin 提交Id：225bce7 提交消息：admin-23.03.26:发布v2.4.32版本
 						// 增加了下面代码，引起当前会话的用户信息不会刷新，如：重新提交的头像不更新，需要新开一个页面才能正确显示
 						// Session.set('userInfo', userInfos);
+
+						const storesThemeConfig = useThemeConfig();
+						storesThemeConfig.themeConfig.watermarkText = d.watermarkText ?? '';
+						console.log('用户信息：', d.watermarkText	);
+						if (storesThemeConfig.themeConfig.isWatermark) Watermark.set(storesThemeConfig.themeConfig.watermarkText);
+						else Watermark.del();
+
+						Local.remove('themeConfig');
+						Local.set('themeConfig', storesThemeConfig.themeConfig);
 
 						resolve(userInfos);
 					});
