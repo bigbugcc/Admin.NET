@@ -9,6 +9,11 @@
         //"ConfigId": "1300000000001", // 默认库标识-禁止修改
         "DbType": "Sqlite", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
         "ConnectionString": "DataSource=./Admin.NET.db", // 库连接字符串
+        //"ConnectionString": "server=localhost;port=3306;database=admin.net;uid=admin.net;pwd=admin.net;SslMode=None;", // mysql 库连接字符串
+        //"ConnectionString": "User Id=xxx; Password=xxx; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)))", // Oracle 库连接字符串
+        //"ConnectionString": "Server=myServerAddress;Database=myDataBase;User Id=xxx;Password=xxx;", // SqlServer 库连接字符串
+        //其他数据库连接字符串请可以参考：https://www.connectionstrings.com/
+
         //"SlaveConnectionConfigs": [ // 读写分离/主从
         //	{
         //		"HitRate": 10,
