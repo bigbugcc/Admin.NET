@@ -5,7 +5,6 @@ import { useThemeConfig } from '/@/stores/themeConfig';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysConstApi, SysDictTypeApi } from '/@/api-services/api';
-import watermark from '../utils/watermark';
 
 /**
  * 用户信息
@@ -91,6 +90,7 @@ export const useUserInfo = defineStore('userInfo', {
 						// 增加了下面代码，引起当前会话的用户信息不会刷新，如：重新提交的头像不更新，需要新开一个页面才能正确显示
 						// Session.set('userInfo', userInfos);
 
+						// 用户水印
 						const storesThemeConfig = useThemeConfig();
 						storesThemeConfig.themeConfig.watermarkText = d.watermarkText ?? '';
 						if (storesThemeConfig.themeConfig.isWatermark) Watermark.set(storesThemeConfig.themeConfig.watermarkText);

@@ -130,7 +130,7 @@ const loadSysInfo = () => {
 			themeConfig.value.icpUrl = data.sysIcpUrl;
 			// 水印
 			themeConfig.value.isWatermark = data.sysWatermark != null;
-			themeConfig.value.watermarkText = '';
+			themeConfig.value.watermarkText = data.sysWatermark;
 			// 版权说明
 			themeConfig.value.copyright = data.sysCopyright;
 

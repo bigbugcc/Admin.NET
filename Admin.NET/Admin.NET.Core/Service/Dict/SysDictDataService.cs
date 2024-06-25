@@ -15,14 +15,11 @@ public class SysDictDataService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
     private readonly SqlSugarRepository<SysDictData> _sysDictDataRep;
-    private readonly SqlSugarRepository<SysDictType> _sysDictTypeRep;
 
     public SysDictDataService(SqlSugarRepository<SysDictData> sysDictDataRep
-        , SqlSugarRepository<SysDictType> sysDictTypeRep
         , SysCacheService sysCacheService)
     {
         _sysDictDataRep = sysDictDataRep;
-        _sysDictTypeRep = sysDictTypeRep;
         _sysCacheService = sysCacheService;
     }
 
@@ -153,7 +150,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [NonAction]
     public async Task<List<SysDictData>> GetDictDataListByDictTypeId(long dictTypeId)
     {
-        var dictType = await _sysDictTypeRep.GetByIdAsync(dictTypeId);
+        var dictType = await _sysDictDataRep.ChangeRepository<SqlSugarRepository<SysDictType>>().GetByIdAsync(dictTypeId);
         var dictDataList = _sysCacheService.Get<List<SysDictData>>($"{CacheConst.KeyDict}{dictTypeId}");
 
         if (dictDataList == null)
