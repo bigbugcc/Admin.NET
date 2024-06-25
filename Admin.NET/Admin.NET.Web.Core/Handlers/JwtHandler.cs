@@ -94,15 +94,15 @@ namespace Admin.NET.Web.Core
 
             var serviceScope = httpContext.RequestServices.CreateScope();
             var sysMenuService = serviceScope.ServiceProvider.GetRequiredService<SysMenuService>();
+
             // 获取用户拥有按钮权限集合
             var ownBtnPermList = await sysMenuService.GetOwnBtnPermList();
+            if (ownBtnPermList.Exists(u => routeName.Equals(u, StringComparison.CurrentCultureIgnoreCase)))
+                return true;
+
             // 获取系统所有按钮权限集合
             var allBtnPermList = await sysMenuService.GetAllBtnPermList();
-
-            // 已拥有该按钮权限或者所有按钮集合里面不存在
-            var exist1 = ownBtnPermList.Exists(u => routeName.Equals(u, StringComparison.CurrentCultureIgnoreCase));
-            var exist2 = allBtnPermList.TrueForAll(u => !routeName.Equals(u, StringComparison.CurrentCultureIgnoreCase));
-            return exist1 || exist2;
+            return allBtnPermList.TrueForAll(u => !routeName.Equals(u, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
