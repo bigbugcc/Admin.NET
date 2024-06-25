@@ -4,7 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using Elastic.Clients.Elasticsearch.Xpack;
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
 
@@ -66,8 +65,8 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 判断密码错误次数（缓存30分钟）
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
         var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
-        var passwdMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysPasswdMaxErrorTimes);
-        if (passwordErrorTimes >= passwdMaxErrorTimes)
+        var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysPasswordMaxErrorTimes);
+        if (passwordErrorTimes >= passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
@@ -336,18 +335,6 @@ public class SysAuthService : IDynamicApiController, ITransient
         var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSecondVer);
         var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysCaptcha);
         return new { SecondVerEnabled = secondVerEnabled, CaptchaEnabled = captchaEnabled };
-    }
-
-    /// <summary>
-    /// 获取水印配置 🔖
-    /// </summary>
-    /// <returns></returns>
-    [SuppressMonitor]
-    [DisplayName("获取水印配置")]
-    public async Task<dynamic> GetWatermarkConfig()
-    {
-        var watermarkEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysWatermark);
-        return new { WatermarkEnabled = watermarkEnabled };
     }
 
     /// <summary>
