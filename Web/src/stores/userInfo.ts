@@ -69,7 +69,6 @@ export const useUserInfo = defineStore('userInfo', {
 					.then(async (res: any) => {
 						if (res.data.result == null) return;
 						var d = res.data.result;
-						console.log('用户信息：', d	);
 						const userInfos = {
 							id: d.id,
 							account: d.account,
@@ -94,7 +93,6 @@ export const useUserInfo = defineStore('userInfo', {
 
 						const storesThemeConfig = useThemeConfig();
 						storesThemeConfig.themeConfig.watermarkText = d.watermarkText ?? '';
-						console.log('用户信息：', d.watermarkText	);
 						if (storesThemeConfig.themeConfig.isWatermark) Watermark.set(storesThemeConfig.themeConfig.watermarkText);
 						else Watermark.del();
 
