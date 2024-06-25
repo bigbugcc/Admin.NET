@@ -127,16 +127,16 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// 验证用户密码
     /// </summary>
     /// <param name="input"></param>
-    /// <param name="keyPasswordErrorTims"></param>
+    /// <param name="keyPasswordErrorTimes"></param>
     /// <param name="passwordErrorTimes"></param>
     /// <param name="user"></param>
-    private void VerifyPassword(LoginInput input, string keyPasswordErrorTims, int passwordErrorTimes, SysUser user)
+    private void VerifyPassword(LoginInput input, string keyPasswordErrorTimes, int passwordErrorTimes, SysUser user)
     {
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (!user.Password.Equals(MD5Encryption.Encrypt(input.Password)))
             {
-                _sysCacheService.Set(keyPasswordErrorTims, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
@@ -144,7 +144,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         {
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
             {
-                _sysCacheService.Set(keyPasswordErrorTims, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
