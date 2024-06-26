@@ -21,7 +21,7 @@ public class SysFileService : IDynamicApiController, ITransient
     private readonly OSSProviderOptions _OSSProviderOptions;
     private readonly UploadOptions _uploadOptions;
     private readonly IOSSService _OSSService;
-    private readonly string _imageType = ".jpg.png.bmp.gif.tif";
+    private readonly string _imageType = ".jpeg.jpg.png.bmp.gif.tif";
 
     public SysFileService(UserManager userManager,
         SqlSugarRepository<SysFile> sysFileRep,
