@@ -79,7 +79,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         if (string.IsNullOrEmpty(remoteIPv4))
             remoteIPv4 = loggingMonitor.remoteIPv4;
 
-        (string ipLocation, double? longitude, double? latitude) = GetIpAddress(remoteIPv4);
+        (string ipLocation, double? longitude, double? latitude) = CommonUtil.GetIpAddress(remoteIPv4);
 
         var browser = "";
         var os = "";
@@ -199,26 +199,6 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         {
             _logger.LogError(ex, "操作日志入库");
         }
-    }
-
-    /// <summary>
-    /// 解析IP地址
-    /// </summary>
-    /// <param name="ip"></param>
-    /// <returns></returns>
-    internal static (string ipLocation, double? longitude, double? latitude) GetIpAddress(string ip)
-    {
-        try
-        {
-            var ipInfo = IpTool.SearchWithI18N(ip); // 国际化查询，默认中文 中文zh-CN、英文en
-            var addressList = new List<string>() { ipInfo.Country, ipInfo.Province, ipInfo.City, ipInfo.NetworkOperator };
-            return (string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()), ipInfo.Longitude, ipInfo.Latitude); // 去掉0及空并用空格连接
-        }
-        catch
-        {
-            // 不做处理
-        }
-        return ("未知", 0, 0);
     }
 
     /// <summary>
