@@ -185,33 +185,34 @@ public static class SqlSugarSetup
                 // 若当前用户非空（web线程时）
                 if (App.User != null)
                 {
+                    dynamic entityValue = entityInfo.EntityValue;
                     if (entityInfo.PropertyName == nameof(EntityTenantId.TenantId))
                     {
-                        var tenantId = ((dynamic)entityInfo.EntityValue).TenantId;
+                        var tenantId = entityValue.TenantId;
                         if (tenantId == null || tenantId == 0)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.TenantId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBase.CreateUserId))
                     {
-                        var createUserId = ((dynamic)entityInfo.EntityValue).CreateUserId;
+                        var createUserId = entityValue.CreateUserId;
                         if (createUserId == 0 || createUserId == null)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.UserId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBase.CreateUserName))
                     {
-                        var createUserName = ((dynamic)entityInfo.EntityValue).CreateUserName;
+                        var createUserName = entityValue.CreateUserName;
                         if (string.IsNullOrEmpty(createUserName))
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.RealName)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBaseData.CreateOrgId))
                     {
-                        var createOrgId = ((dynamic)entityInfo.EntityValue).CreateOrgId;
+                        var createOrgId = entityValue.CreateOrgId;
                         if (createOrgId == 0 || createOrgId == null)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBaseData.CreateOrgName))
                     {
-                        var createOrgName = ((dynamic)entityInfo.EntityValue).CreateOrgName;
+                        var createOrgName = entityValue.CreateOrgName;
                         if (string.IsNullOrEmpty(createOrgName))
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgName)?.Value);
                     }

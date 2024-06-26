@@ -63,7 +63,7 @@
             }else if(@column.EffectType == "EnumSelector"){
             @:<el-form-item label="@column.ColumnComment">
               @:<el-select clearable="" v-model="queryParams.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-                @:<el-option v-for="(item,index) in dl('@(@column.PropertyName)Enum')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}] `" />
+                @:<el-option v-for="(item,index) in dl('@(@column.DictTypeCode)')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}] `" />
                 @:
               </el-select>
               @:
@@ -83,9 +83,9 @@
             } 
       }
           @<el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="4" class="mb10">
-            @<el-form-item>
+            @<el-form-item @(Model.QueryWhetherList.Count > 0?"":"label-width=\"0px\"")>
               @<el-button-group style="display: flex; align-items: center;">
-                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> 查询 </el-button>
+                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> @(Model.QueryWhetherList.Count > 0?"查询":"刷新") </el-button>
                    @if(Model.QueryWhetherList.Count > 0){
                       @:<el-button icon="ele-Refresh" @@click="() => queryParams = {}"> 重置 </el-button>
                         @if(haveLikeCdt){
@@ -165,7 +165,7 @@
         else if(@column.EffectType == "EnumSelector"){
           @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
             @:<template #default="scope">
-              @:<el-tag :type="dv('@(@column.PropertyName)Enum', scope.row.@(@column.LowerPropertyName))?.tagType"> {{dv('@(@column.PropertyName)Enum', scope.row.@column.LowerPropertyName)?.name}}</el-tag>
+              @:<el-tag :type="dv('@(@column.DictTypeCode)', scope.row.@(@column.LowerPropertyName))?.tagType"> {{dv('@(@column.DictTypeCode)', scope.row.@column.LowerPropertyName)?.name}}</el-tag>
             @:</template>
           @:</el-table-column>
         }

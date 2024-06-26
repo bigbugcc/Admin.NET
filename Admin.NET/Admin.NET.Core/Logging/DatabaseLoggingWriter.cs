@@ -52,8 +52,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         }
 
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
-        // 不记录数据校验日志
-        if (loggingMonitor.validation != null) return;
+        // 记录数据校验日志
+        if (loggingMonitor.validation != null && !await _sysConfigService.GetConfigValue<bool>(CommonConst.SysValidationLog)) return;
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
@@ -72,8 +72,14 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             }
         }
 
-        string remoteIPv4 = loggingMonitor.remoteIPv4;
-        (string ipLocation, double? longitude, double? latitude) = GetIpAddress(remoteIPv4);
+        // 优先获取 X-Forwarded-For 头部信息携带的IP地址（如nginx代理配置转发）
+        var remoteIPv4 = ((JArray)loggingMonitor.requestHeaders).OfType<JObject>()
+            .FirstOrDefault(header => (string)header["key"] == "X-Forwarded-For")?["value"]?.ToString();
+
+        if (string.IsNullOrEmpty(remoteIPv4))
+            remoteIPv4 = loggingMonitor.remoteIPv4;
+
+        (string ipLocation, double? longitude, double? latitude) = CommonUtil.GetIpAddress(remoteIPv4);
 
         var browser = "";
         var os = "";
@@ -123,7 +129,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 // 将异常日志发送到邮件
                 if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail))
                 {
-                    await App.GetRequiredService<IEventPublisher>().PublishAsync(CommonConst.SendErrorMail, loggingMonitor.exception);
+                    await App.GetRequiredService<IEventPublisher>().PublishAsync(CommonConst.SendErrorMail, logMsg.Exception ?? loggingMonitor.exception);
                 }
 
                 return;
@@ -193,26 +199,6 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         {
             _logger.LogError(ex, "操作日志入库");
         }
-    }
-
-    /// <summary>
-    /// 解析IP地址
-    /// </summary>
-    /// <param name="ip"></param>
-    /// <returns></returns>
-    internal static (string ipLocation, double? longitude, double? latitude) GetIpAddress(string ip)
-    {
-        try
-        {
-            var ipInfo = IpTool.SearchWithI18N(ip); // 国际化查询，默认中文 中文zh-CN、英文en
-            var addressList = new List<string>() { ipInfo.Country, ipInfo.Province, ipInfo.City, ipInfo.NetworkOperator };
-            return (string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()), ipInfo.Longitude, ipInfo.Latitude); // 去掉0及空并用空格连接
-        }
-        catch
-        {
-            // 不做处理
-        }
-        return ("未知", 0, 0);
     }
 
     /// <summary>

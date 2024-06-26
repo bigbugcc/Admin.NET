@@ -144,7 +144,11 @@ interface Grid {
 }
 const defaultGrid = {
 	layout: [12, 6, 6],
-	copmsList: [['welcome'], ['about', 'ver'], ['timeing', 'progressing']],
+	copmsList: [
+		['welcome', 'commit'],
+		['about', 'ver'],
+		['timeing', 'progressing'],
+	],
 };
 
 const customizing = ref<boolean>(false);
@@ -178,7 +182,7 @@ const availableCompsList = computed(() => {
 });
 
 const myCompsList = computed(() => {
-	const myGrid = Local.get('DASHBOARDGRID') || ['welcome', 'myapp', 'ver', 'timeing', 'progressing', 'echarts', 'about'];
+	const myGrid = Local.get('DASHBOARDGRID') || ['welcome', 'myapp', 'ver', 'timeing', 'progressing', 'echarts', 'about', 'commit'];
 	return availableCompsList.value.filter((comp) => !comp.disabled && myGrid.includes(comp.key));
 });
 

@@ -245,6 +245,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysCopyright = await GetConfigValue<string>("sys_web_copyright");
         var sysIcp = await GetConfigValue<string>("sys_web_icp");
         var sysIcpUrl = await GetConfigValue<string>("sys_web_icpUrl");
+
         return new
         {
             SysLogo = sysLogo,

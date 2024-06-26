@@ -23,6 +23,11 @@ public class CommonConst
     public const string SysPassword = "sys_password";
 
     /// <summary>
+    /// 密码最大错误次数
+    /// </summary>
+    public const string SysPasswordMaxErrorTimes = "sys_password_max_error_times";
+
+    /// <summary>
     /// 登录二次验证
     /// </summary>
     public const string SysSecondVer = "sys_second_ver";
@@ -76,6 +81,11 @@ public class CommonConst
     /// 开启域登录验证
     /// </summary>
     public const string SysDomainLogin = "sys_domain_login";
+
+    /// <summary>
+    /// 开启记录数据校验日志
+    /// </summary>
+    public const string SysValidationLog = "sys_validation_log";
 
     /// <summary>
     /// 日志分组名称

@@ -44,7 +44,7 @@ public class CacheConst
     /// <summary>
     /// 密码错误次数缓存
     /// </summary>
-    public const string KeyErrorPasswordCount = "sys_errorPasswordCount:";
+    public const string KeyPasswordErrorTimes = "sys_password_error_times:";
 
     /// <summary>
     /// 租户缓存
@@ -85,4 +85,9 @@ public class CacheConst
     /// 系统配置缓存
     /// </summary>
     public const string KeyConfig = "sys_config:";
+
+    /// <summary>
+    /// 系统字典缓存
+    /// </summary>
+    public const string KeyDict = "sys_dict:";
 }

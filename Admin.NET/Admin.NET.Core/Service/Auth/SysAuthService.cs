@@ -6,7 +6,6 @@
 
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
-using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -63,10 +62,11 @@ public class SysAuthService : IDynamicApiController, ITransient
         //// 可以根据域名获取具体租户
         //var host = _httpContextAccessor.HttpContext.Request.Host;
 
-        // 判断密码错误次数（默认5次，缓存30分钟）
-        var keyErrorPasswordCount = $"{CacheConst.KeyErrorPasswordCount}{input.Account}";
-        var errorPasswordCount = _sysCacheService.Get<int>(keyErrorPasswordCount);
-        if (errorPasswordCount >= 5)
+        // 判断密码错误次数（缓存30分钟）
+        var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
+        var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
+        var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysPasswordMaxErrorTimes);
+        if (passwordErrorTimes >= passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
@@ -106,19 +106,19 @@ public class SysAuthService : IDynamicApiController, ITransient
             var userLdap = await _sysUserLdap.GetFirstAsync(u => u.UserId == user.Id && u.TenantId == tenant.Id);
             if (userLdap == null)
             {
-                VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
+                VerifyPassword(input, keyPasswordErrorTimes, passwordErrorTimes, user);
             }
             else if (!await _sysLdapService.AuthAccount(tenant.Id, userLdap.Account, input.Password))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
         else
-            VerifyPassword(input, keyErrorPasswordCount, errorPasswordCount, user);
+            VerifyPassword(input, keyPasswordErrorTimes, passwordErrorTimes, user);
 
         // 登录成功则清空密码错误次数
-        _sysCacheService.Remove(keyErrorPasswordCount);
+        _sysCacheService.Remove(keyPasswordErrorTimes);
 
         return await CreateToken(user);
     }
@@ -127,16 +127,16 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// 验证用户密码
     /// </summary>
     /// <param name="input"></param>
-    /// <param name="keyErrorPasswordCount"></param>
-    /// <param name="errorPasswordCount"></param>
+    /// <param name="keyPasswordErrorTimes"></param>
+    /// <param name="passwordErrorTimes"></param>
     /// <param name="user"></param>
-    private void VerifyPassword(LoginInput input, string keyErrorPasswordCount, int errorPasswordCount, SysUser user)
+    private void VerifyPassword(LoginInput input, string keyPasswordErrorTimes, int passwordErrorTimes, SysUser user)
     {
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (!user.Password.Equals(MD5Encryption.Encrypt(input.Password)))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
@@ -144,7 +144,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         {
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
             {
-                _sysCacheService.Set(keyErrorPasswordCount, ++errorPasswordCount, TimeSpan.FromMinutes(30));
+                _sysCacheService.Set(keyPasswordErrorTimes, ++passwordErrorTimes, TimeSpan.FromMinutes(30));
                 throw Oops.Oh(ErrorCodeEnum.D1000);
             }
         }
@@ -208,7 +208,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <param name="user"></param>
     /// <returns></returns>
     [NonAction]
-    public virtual async Task<LoginOutput> CreateToken(SysUser user)
+    internal virtual async Task<LoginOutput> CreateToken(SysUser user)
     {
         // 单用户登录
         await _sysOnlineUserService.SingleLogin(user.Id);
@@ -237,6 +237,19 @@ public class SysAuthService : IDynamicApiController, ITransient
         // Swagger Knife4UI-AfterScript登录脚本
         // ke.global.setAllHeader('Authorization', 'Bearer ' + ke.response.headers['access-token']);
 
+        // 更新用户登录信息
+        user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIp();
+        (user.LastLoginAddress, _, _) = CommonUtil.GetIpAddress(user.LastLoginIp);
+        user.LastLoginTime = DateTime.Now;
+        user.LastLoginDevice = CommonUtil.GetClientDeviceInfo(_httpContextAccessor.HttpContext?.Request?.Headers?.UserAgent);
+        await _sysUserRep.AsUpdateable(user).UpdateColumns(it => new
+        {
+            it.LastLoginIp,
+            it.LastLoginAddress,
+            it.LastLoginTime,
+            it.LastLoginDevice,
+        }).ExecuteCommandAsync();
+
         return new LoginOutput
         {
             AccessToken = accessToken,
@@ -261,7 +274,10 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 获取角色集合
         var roleIds = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysUserRole>>().AsQueryable()
             .Where(u => u.UserId == user.Id).Select(u => u.RoleId).ToListAsync();
-
+        // 获取水印文字（若系统水印为空则全局为空）
+        var watermarkText = await _sysConfigService.GetConfigValue<string>("sys_web_watermark");
+        if (!string.IsNullOrWhiteSpace(watermarkText))
+            watermarkText += $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIp()}-{DateTime.Now}";
         return new LoginUserOutput
         {
             Id = user.Id,
@@ -279,7 +295,8 @@ public class SysAuthService : IDynamicApiController, ITransient
             OrgType = org?.Type,
             PosName = pos?.Name,
             Buttons = buttons,
-            RoleIds = roleIds
+            RoleIds = roleIds,
+            WatermarkText = watermarkText
         };
     }
 
@@ -319,18 +336,6 @@ public class SysAuthService : IDynamicApiController, ITransient
         var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSecondVer);
         var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysCaptcha);
         return new { SecondVerEnabled = secondVerEnabled, CaptchaEnabled = captchaEnabled };
-    }
-
-    /// <summary>
-    /// 获取水印配置 🔖
-    /// </summary>
-    /// <returns></returns>
-    [SuppressMonitor]
-    [DisplayName("获取水印配置")]
-    public async Task<dynamic> GetWatermarkConfig()
-    {
-        var watermarkEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysWatermark);
-        return new { WatermarkEnabled = watermarkEnabled };
     }
 
     /// <summary>

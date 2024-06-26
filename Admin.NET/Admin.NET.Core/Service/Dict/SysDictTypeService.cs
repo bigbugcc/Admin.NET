@@ -15,12 +15,15 @@ public class SysDictTypeService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysDictType> _sysDictTypeRep;
     private readonly SysDictDataService _sysDictDataService;
+    private readonly SysCacheService _sysCacheService;
 
     public SysDictTypeService(SqlSugarRepository<SysDictType> sysDictTypeRep,
-        SysDictDataService sysDictDataService)
+        SysDictDataService sysDictDataService,
+        SysCacheService sysCacheService)
     {
         _sysDictTypeRep = sysDictTypeRep;
         _sysDictDataService = sysDictDataService;
+        _sysCacheService = sysCacheService;
     }
 
     /// <summary>
@@ -52,6 +55,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [AllowAnonymous]
     [DisplayName("获取字典类型-值列表")]
     public async Task<List<SysDictData>> GetDataList([FromQuery] GetDataDictTypeInput input)
@@ -84,6 +88,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [ApiDescriptionSettings(Name = "Update"), HttpPost]
     [DisplayName("更新字典类型")]
     public async Task UpdateDictType(UpdateDictTypeInput input)
@@ -96,6 +101,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D3001);
 
+        _sysCacheService.Remove($"{CacheConst.KeyDict}{input.Code}");
         await _sysDictTypeRep.UpdateAsync(input.Adapt<SysDictType>());
     }
 
@@ -104,6 +110,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [ApiDescriptionSettings(Name = "Delete"), HttpPost]
     [DisplayName("删除字典类型")]
     public async Task DeleteDictType(DeleteDictTypeInput input)
@@ -133,6 +140,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("修改字典类型状态")]
     public async Task SetStatus(DictTypeInput input)
     {
@@ -142,6 +150,8 @@ public class SysDictTypeService : IDynamicApiController, ITransient
 
         if (!Enum.IsDefined(typeof(StatusEnum), input.Status))
             throw Oops.Oh(ErrorCodeEnum.D3005);
+
+        _sysCacheService.Remove($"{CacheConst.KeyDict}{dictType.Code}");
 
         dictType.Status = input.Status;
         await _sysDictTypeRep.UpdateAsync(dictType);

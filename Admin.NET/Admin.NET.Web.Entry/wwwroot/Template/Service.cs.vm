@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
     }
 }
 namespace @Model.NameSpace;
+
 /// <summary>
 /// @(@Model.BusName)服务
 /// </summary>
@@ -109,7 +110,7 @@ if (@column.QueryWhether == "Y"){
 } else {
             @:.Select<@(@Model.ClassName)Output>();
 }
-        return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
+		return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }
 
     /// <summary>
@@ -190,7 +191,6 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// <summary>
     @:/// 获取@(@column.ColumnComment)列表
     @:/// </summary>
-    @:/// <param name="input"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
