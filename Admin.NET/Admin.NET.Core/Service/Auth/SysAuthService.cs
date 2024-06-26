@@ -239,15 +239,15 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // 更新用户登录信息
         user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIp();
-        (user.LastLoginAddress, _, _) = CommonUtil.GetIpAddress(user.LastLoginIp);
+        (user.LastLoginAddress, double? longitude, double? latitude) = CommonUtil.GetIpAddress(user.LastLoginIp);
         user.LastLoginTime = DateTime.Now;
         user.LastLoginDevice = CommonUtil.GetClientDeviceInfo(_httpContextAccessor.HttpContext?.Request?.Headers?.UserAgent);
-        await _sysUserRep.AsUpdateable(user).UpdateColumns(it => new
+        await _sysUserRep.AsUpdateable(user).UpdateColumns(u => new
         {
-            it.LastLoginIp,
-            it.LastLoginAddress,
-            it.LastLoginTime,
-            it.LastLoginDevice,
+            u.LastLoginIp,
+            u.LastLoginAddress,
+            u.LastLoginTime,
+            u.LastLoginDevice,
         }).ExecuteCommandAsync();
 
         return new LoginOutput
