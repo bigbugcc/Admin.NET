@@ -4,10 +4,12 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using IPTools.Core;
 using Magicodes.ExporterAndImporter.Core.Models;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using UAParser;
 
 namespace Admin.NET.Core;
 
@@ -368,5 +370,48 @@ public static class CommonUtil
         }
 
         return propMappings;
+    }
+
+    /// <summary>
+    /// 解析IP地址
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    public static (string ipLocation, double? longitude, double? latitude) GetIpAddress(string ip)
+    {
+        try
+        {
+            var ipInfo = IpTool.SearchWithI18N(ip); // 国际化查询，默认中文 中文zh-CN、英文en
+            var addressList = new List<string>() { ipInfo.Country, ipInfo.Province, ipInfo.City, ipInfo.NetworkOperator };
+            return (string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()), ipInfo.Longitude, ipInfo.Latitude); // 去掉0及空并用空格连接
+        }
+        catch
+        {
+            // 不做处理
+        }
+        return ("未知", 0, 0);
+    }
+
+    /// <summary>
+    /// 获取客户端设备信息（操作系统+浏览器）
+    /// </summary>
+    /// <param name="userAgent"></param>
+    /// <returns></returns>
+    public static string GetClientDeviceInfo(string userAgent)
+    {
+        try
+        {
+            if (userAgent != null)
+            {
+                var client = Parser.GetDefault().Parse(userAgent);
+                if (client.Device.IsSpider)
+                    return "爬虫";
+                return $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}" +
+                    $"|{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
+            }
+        }
+        catch
+        { }
+        return "未知";
     }
 }

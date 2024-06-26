@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
     }
 }
 namespace @Model.NameSpace;
+
 /// <summary>
 /// @(@Model.BusName)服务
 /// </summary>

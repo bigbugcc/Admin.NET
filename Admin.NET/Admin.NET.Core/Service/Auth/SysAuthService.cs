@@ -208,7 +208,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <param name="user"></param>
     /// <returns></returns>
     [NonAction]
-    public virtual async Task<LoginOutput> CreateToken(SysUser user)
+    internal virtual async Task<LoginOutput> CreateToken(SysUser user)
     {
         // 单用户登录
         await _sysOnlineUserService.SingleLogin(user.Id);
@@ -238,16 +238,16 @@ public class SysAuthService : IDynamicApiController, ITransient
         // ke.global.setAllHeader('Authorization', 'Bearer ' + ke.response.headers['access-token']);
 
         // 更新用户登录信息
-        string remoteIPv4 = App.HttpContext.GetRemoteIpAddressToIPv4();
-        (string ipLocation, double? longitude, double? latitude) = DatabaseLoggingWriter.GetIpAddress(remoteIPv4);
-        user.LastLoginIp = remoteIPv4;
-        user.LastLoginAddress = ipLocation;
+        user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIp();
+        (user.LastLoginAddress, _, _) = CommonUtil.GetIpAddress(user.LastLoginIp);
         user.LastLoginTime = DateTime.Now;
+        user.LastLoginDevice = CommonUtil.GetClientDeviceInfo(_httpContextAccessor.HttpContext?.Request?.Headers?.UserAgent);
         await _sysUserRep.AsUpdateable(user).UpdateColumns(it => new
         {
             it.LastLoginIp,
             it.LastLoginAddress,
             it.LastLoginTime,
+            it.LastLoginDevice,
         }).ExecuteCommandAsync();
 
         return new LoginOutput

@@ -14,18 +14,12 @@ public class SysConfigService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;
     private readonly SqlSugarRepository<SysConfig> _sysConfigRep;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly UserManager _userManager;
 
     public SysConfigService(SysCacheService sysCacheService,
-        SqlSugarRepository<SysConfig> sysConfigRep,
-        IHttpContextAccessor httpContextAccessor,
-        UserManager userManager)
+        SqlSugarRepository<SysConfig> sysConfigRep)
     {
         _sysCacheService = sysCacheService;
         _sysConfigRep = sysConfigRep;
-        _httpContextAccessor = httpContextAccessor;
-        _userManager = userManager;
     }
 
     /// <summary>
