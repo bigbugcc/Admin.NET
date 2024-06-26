@@ -36,6 +36,7 @@
 		"js-table2excel": "^1.1.2",
 		"jsplumb": "^2.15.6",
 		"lodash-es": "^4.17.21",
+		"mqtt": "4.3.7",
 		"mitt": "^3.0.1",
 		"monaco-editor": "^0.50.0",
 		"nprogress": "^0.2.0",
