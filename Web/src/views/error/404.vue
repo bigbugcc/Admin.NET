@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="right">
-					<img src="https://i.hd-r.cn/1a0d90a6c1e8b0184c7299dda713effd.png" />
+					<img :src="notFoundImage" />
 				</div>
 			</div>
 		</div>
@@ -22,6 +22,7 @@
 
 <script setup lang="ts" name="notFound">
 import { useRouter } from 'vue-router';
+import notFoundImage from '/@/assets/404.png';
 
 // 定义变量内容
 const router = useRouter();
