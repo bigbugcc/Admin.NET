@@ -28,4 +28,8 @@
 		max-height: 160px;
 		overflow: auto;
 	}
+	// 在小屏幕中，取消表单左边距
+	.el-form-item__label-wrap{
+		margin-left: 0px !important;
+	}
 }
