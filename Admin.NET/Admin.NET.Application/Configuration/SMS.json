@@ -5,15 +5,33 @@
     "Aliyun": {
       "AccessKeyId": "",
       "AccessKeySecret": "",
-      "SignName": "AdminNET 平台", // 短信签名
-      "TemplateCode": "" // 短信模板
+      "Templates": [
+        {
+          "Id": "0",
+          "SignName": "AdminNET 平台",
+          "TemplateCode": "SMS_291005708",
+          "Content": "您的验证码为：${code}，请勿泄露于他人！"
+        },
+        {
+          "Id": "1",
+          "SignName": "AdminNET 平台",
+          "TemplateCode": "SMS_462801755",
+          "Content": "注册成功，感谢您的注册，请妥善保管您的账户信息"
+        }
+      ]
     },
     "Tencentyun": {
       "SdkAppId": "",
       "AccessKeyId": "",
       "AccessKeySecret": "",
-      "SignName": "AdminNET 平台", // 短信签名
-      "TemplateCode": "" // 短信模板
+      "Templates": [
+        {
+          "Id": "0",
+          "SignName": "AdminNET 平台",
+          "TemplateCode": "",
+          "Content": ""
+        }
+      ]
     }
   }
 }
