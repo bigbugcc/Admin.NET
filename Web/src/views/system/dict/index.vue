@@ -4,30 +4,38 @@
 			<el-col :span="12" :xs="24" style="display: flex; height: 100%; flex: 1">
 				<el-card class="full-table" shadow="hover" :body-style="{ height: 'calc(100% - 51px)' }">
 					<template #header>
-						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
+						<el-icon size="16"
+							style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
 					</template>
-					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true">
+					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true" @submit.native.prevent>
 						<el-form-item label="名称">
-							<el-input v-model="state.queryDictTypeParams.name" placeholder="字典名称" clearable />
+							<el-input v-model="state.queryDictTypeParams.name" @keyup.enter.native="handleDictTypeQuery"
+								placeholder="字典名称" clearable />
 						</el-form-item>
 						<!-- <el-form-item label="字典编码">
 							<el-input v-model="state.queryDictTypeParams.code" placeholder="字典编码" clearable />
 						</el-form-item> -->
 						<el-form-item>
 							<el-button-group>
-								<el-button type="primary" icon="ele-Search" @click="handleDictTypeQuery" v-auth="'sysDictType:page'"> 查询 </el-button>
+								<el-button type="primary" icon="ele-Search" @click="handleDictTypeQuery"
+									v-auth="'sysDictType:page'"> 查询
+								</el-button>
 								<el-button icon="ele-Refresh" @click="resetDictTypeQuery"> 重置 </el-button>
 							</el-button-group>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" icon="ele-Plus" @click="openAddDictType" v-auth="'sysDictType:add'"> 新增 </el-button>
+							<el-button type="primary" icon="ele-Plus" @click="openAddDictType"
+								v-auth="'sysDictType:add'"> 新增 </el-button>
 						</el-form-item>
 					</el-form>
 
-					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading" @row-click="handleDictType" highlight-current-row border>
+					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading"
+						@row-click="handleDictType" highlight-current-row border>
 						<el-table-column type="index" label="序号" width="55" align="center" />
-						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center" show-overflow-tooltip />
-						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center" show-overflow-tooltip />
+						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center"
+							show-overflow-tooltip />
+						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center"
+							show-overflow-tooltip />
 						<el-table-column prop="status" label="状态" width="70" align="center" show-overflow-tooltip>
 							<template #default="scope">
 								<el-tag type="success" v-if="scope.row.status === 1">启用</el-tag>
@@ -43,46 +51,47 @@
 						<el-table-column label="操作" width="110" fixed="right" align="center">
 							<template #default="scope">
 								<el-tooltip content="字典值">
-									<el-button icon="ele-Memo" size="small" text type="primary" @click="openDictDataDialog(scope.row)" v-auth="'sysDictType:page'"> </el-button>
+									<el-button icon="ele-Memo" size="small" text type="primary"
+										@click="openDictDataDialog(scope.row)" v-auth="'sysDictType:page'"> </el-button>
 								</el-tooltip>
 								<el-tooltip content="编辑">
-									<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictType(scope.row)" v-auth="'sysDictType:update'"> </el-button>
+									<el-button icon="ele-Edit" size="small" text type="primary"
+										@click="openEditDictType(scope.row)" v-auth="'sysDictType:update'"> </el-button>
 								</el-tooltip>
 								<el-tooltip content="删除">
-									<el-button icon="ele-Delete" size="small" text type="danger" @click="delDictType(scope.row)" v-auth="'sysDictType:delete'"> </el-button>
+									<el-button icon="ele-Delete" size="small" text type="danger"
+										@click="delDictType(scope.row)" v-auth="'sysDictType:delete'"> </el-button>
 								</el-tooltip>
 							</template>
 						</el-table-column>
 					</el-table>
-					<el-pagination
-						v-model:currentPage="state.tableDictTypeParams.page"
-						v-model:page-size="state.tableDictTypeParams.pageSize"
-						:total="state.tableDictTypeParams.total"
-						:page-sizes="[10, 20, 50, 100]"
-						small
-						background
-						@size-change="handleDictTypeSizeChange"
+					<el-pagination v-model:currentPage="state.tableDictTypeParams.page"
+						v-model:page-size="state.tableDictTypeParams.pageSize" :total="state.tableDictTypeParams.total"
+						:page-sizes="[10, 20, 50, 100]" small background @size-change="handleDictTypeSizeChange"
 						@current-change="handleDictTypeCurrentChange"
-						layout="total, sizes, prev, pager, next, jumper"
-					/>
+						layout="total, sizes, prev, pager, next, jumper" />
 				</el-card>
 			</el-col>
 
 			<el-col :span="12" :xs="24" style="display: flex; height: 100%; flex: 1">
 				<el-card class="full-table" shadow="hover" :body-style="{ height: 'calc(100% - 51px)' }">
 					<template #header>
-						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
+						<el-icon size="16"
+							style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{
+								state.editDictTypeName }}】
 					</template>
-					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true">
+					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true" @submit.native.prevent>
 						<!-- <el-form-item label="字典值">
 							<el-input v-model="state.queryDictDataParams.value" placeholder="字典值" />
 						</el-form-item> -->
 						<el-form-item label="编码">
-							<el-input v-model="state.queryDictDataParams.code" placeholder="编码" />
+							<el-input v-model="state.queryDictDataParams.code" placeholder="编码"
+								@keyup.enter="handleDictDataQuery" />
 						</el-form-item>
 						<el-form-item>
 							<el-button-group>
-								<el-button type="primary" icon="ele-Search" @click="handleDictDataQuery"> 查询 </el-button>
+								<el-button type="primary" icon="ele-Search" @click="handleDictDataQuery"> 查询
+								</el-button>
 								<el-button icon="ele-Refresh" @click="resetDictDataQuery"> 重置 </el-button>
 							</el-button-group>
 						</el-form-item>
@@ -93,16 +102,21 @@
 
 					<el-table :data="state.dictDataData" style="width: 100%" v-loading="state.loading" border>
 						<el-table-column type="index" label="序号" width="55" align="center" />
-						<el-table-column prop="value" label="字典值" header-align="center" min-width="120" show-overflow-tooltip>
+						<el-table-column prop="value" label="字典值" header-align="center" min-width="120"
+							show-overflow-tooltip>
 							<template #default="scope">
-								<el-tag :type="scope.row.tagType" :style="scope.row.styleSetting" :class="scope.row.classSetting">{{ scope.row.value }}</el-tag>
+								<el-tag :type="scope.row.tagType" :style="scope.row.styleSetting"
+									:class="scope.row.classSetting">{{ scope.row.value }}</el-tag>
 							</template>
 						</el-table-column>
-						<el-table-column prop="code" label="编码" header-align="center" min-width="120" show-overflow-tooltip />
-						<el-table-column prop="name" label="名称" header-align="center" min-width="120" show-overflow-tooltip />
+						<el-table-column prop="code" label="编码" header-align="center" min-width="120"
+							show-overflow-tooltip />
+						<el-table-column prop="name" label="名称" header-align="center" min-width="120"
+							show-overflow-tooltip />
 						<el-table-column prop="extData" label="拓展数据" width="90" align="center">
 							<template #default="scope">
-								<el-tag type="warning" v-if="scope.row.extData == null || scope.row.extData == ''">空</el-tag>
+								<el-tag type="warning"
+									v-if="scope.row.extData == null || scope.row.extData == ''">空</el-tag>
 								<el-tag type="success" v-else>有值</el-tag>
 							</template>
 						</el-table-column>
@@ -121,31 +135,29 @@
 						<el-table-column label="操作" width="80" fixed="right" align="center" show-overflow-tooltip>
 							<template #default="scope">
 								<el-tooltip content="编辑">
-									<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictData(scope.row)"> </el-button>
+									<el-button icon="ele-Edit" size="small" text type="primary"
+										@click="openEditDictData(scope.row)"> </el-button>
 								</el-tooltip>
 								<el-tooltip content="删除">
-									<el-button icon="ele-Delete" size="small" text type="danger" @click="delDictData(scope.row)"> </el-button>
+									<el-button icon="ele-Delete" size="small" text type="danger"
+										@click="delDictData(scope.row)"> </el-button>
 								</el-tooltip>
 							</template>
 						</el-table-column>
 					</el-table>
-					<el-pagination
-						v-model:currentPage="state.tableDictDataParams.page"
-						v-model:page-size="state.tableDictDataParams.pageSize"
-						:total="state.tableDictDataParams.total"
-						:page-sizes="[10, 20, 50, 100]"
-						small
-						background
-						@size-change="handleDictDataSizeChange"
+					<el-pagination v-model:currentPage="state.tableDictDataParams.page"
+						v-model:page-size="state.tableDictDataParams.pageSize" :total="state.tableDictDataParams.total"
+						:page-sizes="[10, 20, 50, 100]" small background @size-change="handleDictDataSizeChange"
 						@current-change="handleDictDataCurrentChange"
-						layout="total, sizes, prev, pager, next, jumper"
-					/>
+						layout="total, sizes, prev, pager, next, jumper" />
 				</el-card>
 			</el-col>
 		</el-row>
 
-		<EditDictType ref="editDictTypeRef" :title="state.editDictTypeTitle" @handleQuery="handleDictTypeQuery" @handleUpdate="updateDictSession" />
-		<EditDictData ref="editDictDataRef" :title="state.editDictDataTitle" @handleQuery="handleDictDataQuery" @handleUpdate="updateDictSession" />
+		<EditDictType ref="editDictTypeRef" :title="state.editDictTypeTitle" @handleQuery="handleDictTypeQuery"
+			@handleUpdate="updateDictSession" />
+		<EditDictData ref="editDictDataRef" :title="state.editDictDataTitle" @handleQuery="handleDictDataQuery"
+			@handleUpdate="updateDictSession" />
 	</div>
 </template>
 
@@ -285,7 +297,7 @@ const delDictType = (row: any) => {
 			updateDictSession();
 			ElMessage.success('删除成功');
 		})
-		.catch(() => {});
+		.catch(() => { });
 };
 
 // 删除字典值
@@ -301,7 +313,7 @@ const delDictData = (row: any) => {
 			updateDictSession();
 			ElMessage.success('删除成功');
 		})
-		.catch(() => {});
+		.catch(() => { });
 };
 
 // 改变字典页面容量
