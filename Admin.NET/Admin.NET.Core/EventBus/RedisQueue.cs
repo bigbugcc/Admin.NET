@@ -13,72 +13,26 @@ namespace Admin.NET.Core;
 /// </summary>
 public static class RedisQueue
 {
-    private static readonly ICache _cache = App.GetRequiredService<ICache>();
+    private static ICacheProvider _cacheProvider = App.GetService<ICacheProvider>();
 
-    /// <summary>
-    /// 获取普通队列
-    /// </summary>
+    /// <summary>创建Redis消息队列。默认消费一次，指定消费者group时使用STREAM结构，支持多消费组共享消息</summary>
+    /// <remarks>
+    /// 使用队列时，可根据是否设置消费组来决定使用简单队列还是完整队列。 简单队列（如RedisQueue）可用作命令队列，Topic很多，但几乎没有消息。 完整队列（如RedisStream）可用作消息队列，Topic很少，但消息很多，并且支持多消费组。
+    /// </remarks>
     /// <typeparam name="T"></typeparam>
-    /// <param name="topic"></param>
+    /// <param name="topic">主题</param>
+    /// <param name="group">消费组。未指定消费组时使用简单队列（如RedisQueue），指定消费组时使用完整队列（如RedisStream）</param>
     /// <returns></returns>
-    public static IProducerConsumer<T> GetQueue<T>(string topic)
+    public static IProducerConsumer<T> GetQueue<T>(String topic, String group = null)
     {
-        var queue = (_cache as FullRedis).GetQueue<T>(topic);
+        // 队列需要单列
+        var key = $"myStream:{topic}";
+        if (_cacheProvider.InnerCache.TryGetValue<IProducerConsumer<T>>(key, out var queue)) return queue;
+
+        queue = _cacheProvider.GetQueue<T>(topic, group);
+        _cacheProvider.Cache.Set(key, queue);
+
         return queue;
-    }
-
-    /// <summary>
-    /// 发送一个数据到队列
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="topic"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public static int AddQueue<T>(string topic, T value)
-    {
-        var queue = GetQueue<T>(topic);
-        return queue.Add(value);
-    }
-
-    /// <summary>
-    /// 发送一个数据列表到队列
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <param name="value"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static int AddQueueList<T>(string topic, List<T> value)
-    {
-        var queue = GetQueue<T>(topic);
-        var count = queue.Count;
-        var result = queue.Add(value.ToArray());
-        return result - count;
-    }
-
-    /// <summary>
-    /// 获取一批队列消息
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="topic"></param>
-    /// <param name="count"></param>
-    /// <returns></returns>
-    public static List<T> Take<T>(string topic, int count = 1)
-    {
-        var queue = GetQueue<T>(topic);
-        var result = queue.Take(count).ToList();
-        return result;
-    }
-
-    /// <summary>
-    /// 获取一个队列消息
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="topic"></param>
-    /// <returns></returns>
-    public static async Task<T> TakeOneAsync<T>(string topic)
-    {
-        var queue = GetQueue<T>(topic);
-        return await queue.TakeOneAsync(1);
     }
 
     /// <summary>
@@ -89,7 +43,13 @@ public static class RedisQueue
     /// <returns></returns>
     public static RedisReliableQueue<T> GetRedisReliableQueue<T>(string topic)
     {
-        var queue = (_cache as FullRedis).GetReliableQueue<T>(topic);
+        // 队列需要单列
+        var key = $"myQueue:{topic}";
+        if (_cacheProvider.InnerCache.TryGetValue<RedisReliableQueue<T>>(key, out var queue)) return queue;
+
+        queue = (_cacheProvider.Cache as FullRedis).GetReliableQueue<T>(topic);
+        _cacheProvider.Cache.Set(key, queue);
+
         return queue;
     }
 
@@ -115,7 +75,7 @@ public static class RedisQueue
     /// <returns></returns>
     public static int AddReliableQueueList<T>(string topic, List<T> value)
     {
-        var queue = (_cache as FullRedis).GetReliableQueue<T>(topic);
+        var queue = GetRedisReliableQueue<T>(topic);
         var count = queue.Count;
         var result = queue.Add(value.ToArray());
         return result - count;
@@ -130,10 +90,57 @@ public static class RedisQueue
     /// <returns></returns>
     public static int AddReliableQueue<T>(string topic, T value)
     {
-        var queue = (_cache as FullRedis).GetReliableQueue<T>(topic);
+        var queue = GetRedisReliableQueue<T>(topic);
         var count = queue.Count;
         var result = queue.Add(value);
         return result - count;
+    }
+
+    /// <summary>
+    /// 获取延迟队列
+    /// </summary>
+    /// <param name="topic"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static RedisDelayQueue<T> GetDelayQueue<T>(string topic)
+    {
+        // 队列需要单列
+        var key = $"myDelay:{topic}";
+        if (_cacheProvider.InnerCache.TryGetValue<RedisDelayQueue<T>>(key, out var queue)) return queue;
+
+        queue = (_cacheProvider.Cache as FullRedis).GetDelayQueue<T>(topic);
+        _cacheProvider.Cache.Set(key, queue);
+
+        return queue;
+    }
+
+    /// <summary>
+    /// 发送一条数据到延迟队列
+    /// </summary>
+    /// <param name="topic"></param>
+    /// <param name="value"></param>
+    /// <param name="delay">延迟时间。单位秒</param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static int AddDelayQueue<T>(string topic, T value, int delay)
+    {
+        var queue = GetDelayQueue<T>(topic);
+        return queue.Add(value, delay);
+    }
+
+    /// <summary>
+    /// 发送数据列表到延迟队列
+    /// </summary>
+    /// <param name="topic"></param>
+    /// <param name="value"></param>
+    /// <param name="delay"></param>
+    /// <typeparam name="T">延迟时间。单位秒</typeparam>
+    /// <returns></returns>
+    public static int AddDelayQueue<T>(string topic, List<T> value, int delay)
+    {
+        var queue = GetDelayQueue<T>(topic);
+        queue.Delay = delay;
+        return queue.Add(value.ToArray());
     }
 
     /// <summary>
@@ -170,72 +177,6 @@ public static class RedisQueue
     public static List<T> ReliableTake<T>(string topic, int count)
     {
         var queue = GetRedisReliableQueue<T>(topic);
-        return queue.Take(count).ToList();
-    }
-
-    /// <summary>
-    /// 获取延迟队列
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static RedisDelayQueue<T> GetDelayQueue<T>(string topic)
-    {
-        var queue = (_cache as FullRedis).GetDelayQueue<T>(topic);
-        return queue;
-    }
-
-    /// <summary>
-    /// 发送一条数据到延迟队列
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <param name="value"></param>
-    /// <param name="delay">延迟时间。单位秒</param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static int AddDelayQueue<T>(string topic, T value, int delay)
-    {
-        var queue = GetDelayQueue<T>(topic);
-        return queue.Add(value, delay);
-    }
-
-    /// <summary>
-    /// 发送数据列表到延迟队列
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <param name="value"></param>
-    /// <param name="delay"></param>
-    /// <typeparam name="T">延迟时间。单位秒</typeparam>
-    /// <returns></returns>
-    public static int AddDelayQueue<T>(string topic, List<T> value, int delay)
-    {
-        var queue = GetDelayQueue<T>(topic);
-        queue.Delay = delay;
-        return queue.Add(value.ToArray());
-    }
-
-    /// <summary>
-    /// 异步在延迟队列获取一条数据
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static async Task<T> DelayTakeOne<T>(string topic)
-    {
-        var queue = GetDelayQueue<T>(topic);
-        return await queue.TakeOneAsync(1);
-    }
-
-    /// <summary>
-    /// 在延迟队列获取多条数据
-    /// </summary>
-    /// <param name="topic"></param>
-    /// <param name="count"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static List<T> DelayTake<T>(string topic, int count = 1)
-    {
-        var queue = GetDelayQueue<T>(topic);
         return queue.Take(count).ToList();
     }
 }

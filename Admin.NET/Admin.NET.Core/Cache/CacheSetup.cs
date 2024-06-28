@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using NewLife.Caching.Services;
+
 namespace Admin.NET.Core;
 
 public static class CacheSetup
@@ -14,20 +17,22 @@ public static class CacheSetup
     /// <param name="services"></param>
     public static void AddCache(this IServiceCollection services)
     {
-        ICache cache = Cache.Default;
-
         var cacheOptions = App.GetConfig<CacheOptions>("Cache", true);
         if (cacheOptions.CacheType == CacheTypeEnum.Redis.ToString())
         {
-            cache = new FullRedis(new RedisOptions
+            var redis = new FullRedis(new RedisOptions
             {
                 Configuration = cacheOptions.Redis.Configuration,
                 Prefix = cacheOptions.Redis.Prefix
             });
             if (cacheOptions.Redis.MaxMessageSize > 0)
-                ((FullRedis)cache).MaxMessageSize = cacheOptions.Redis.MaxMessageSize;
+                redis.MaxMessageSize = cacheOptions.Redis.MaxMessageSize;
+
+            // 注入 Redis 缓存提供者
+            services.AddSingleton<ICacheProvider>(p => new RedisCacheProvider(p) { Cache = redis });
         }
 
-        services.AddSingleton(cache);
+        // 内存缓存兜底。在没有配置Redis时，使用内存缓存，逻辑代码无需修改
+        services.TryAddSingleton<ICacheProvider, CacheProvider>();
     }
 }
