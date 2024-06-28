@@ -25,5 +25,7 @@ public class GetDingTalkCurrentEmployeesRosterListInput
     /// <summary>
     /// 应用的AgentId
     /// </summary>
+    [Newtonsoft.Json.JsonProperty("agentid")]
+    [System.Text.Json.Serialization.JsonPropertyName("agentid")]
     public string AgentId { get; set; }
 }

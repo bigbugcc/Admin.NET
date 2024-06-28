@@ -31,4 +31,17 @@ public class DingTalkConst
     /// 工号
     /// </summary>
     public const string JobNumberField = "sys00-jobNumber";
+
+    /// <summary>
+    /// 主部门Id
+    /// </summary>
+    public const string DeptId = "sys00-mainDeptId";
+    /// <summary>
+    /// 主部门
+    /// </summary>
+    public const string Dept = "sys00-mainDept";
+    /// <summary>
+    /// 职位
+    /// </summary>
+    public const string Position = "sys00-position";
 }
