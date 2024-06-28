@@ -16,7 +16,7 @@ public class WebComponent : IWebComponent
             return !new[] { "Microsoft.Hosting", "Microsoft.AspNetCore" }.Any(u => category.StartsWith(u)) && logLevel >= LogLevel.Information;
         });
 
-        // 设置接口超时时间和上传大小
+        // 设置接口超时时间和上传大小-Kestrel
         builder.WebHost.ConfigureKestrel(u =>
         {
             u.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
