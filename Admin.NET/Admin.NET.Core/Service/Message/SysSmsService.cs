@@ -8,6 +8,7 @@ using AlibabaCloud.SDK.Dysmsapi20170525.Models;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Sms.V20190711;
+using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -65,11 +66,12 @@ public class SysSmsService : IDynamicApiController, ITransient
         });
 
         var client = CreateAliyunClient();
+        var template = _smsOptions.Aliyun.GetTemplate();
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
-            SignName = _smsOptions.Aliyun.SignName, // 短信签名
-            TemplateCode = _smsOptions.Aliyun.TemplateCode, // 短信模板
+            SignName = template.SignName, // 短信签名
+            TemplateCode = template.TemplateCode, // 短信模板
             TemplateParam = templateParam.ToString(), // 模板中的变量替换JSON串
             OutId = YitIdHelper.NextId().ToString()
         };
@@ -104,11 +106,12 @@ public class SysSmsService : IDynamicApiController, ITransient
             throw Oops.Oh("短信内容不能为空");
 
         var client = CreateAliyunClient();
+        var template = _smsOptions.Aliyun.GetTemplate();
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
-            SignName = _smsOptions.Aliyun.SignName, // 短信签名
-            TemplateCode = _smsOptions.Aliyun.TemplateCode, // 短信模板
+            SignName = template.SignName, // 短信签名
+            TemplateCode = template.TemplateCode, // 短信模板
             TemplateParam = templateParam.ToString(), // 模板中的变量替换JSON串
             OutId = YitIdHelper.NextId().ToString()
         };
@@ -142,13 +145,14 @@ public class SysSmsService : IDynamicApiController, ITransient
 
         // 实例化要请求产品的client对象，clientProfile是可选的
         var client = new SmsClient(CreateTencentClient(), "ap-guangzhou", new ClientProfile() { HttpProfile = new HttpProfile() { Endpoint = ("sms.tencentcloudapi.com") } });
+        var template = _smsOptions.Tencentyun.GetTemplate();
         // 实例化一个请求对象,每个接口都会对应一个request对象
         var req = new TencentCloud.Sms.V20190711.Models.SendSmsRequest
         {
             PhoneNumberSet = new string[] { "+86" + phoneNumber.Trim(',') },
             SmsSdkAppid = _smsOptions.Tencentyun.SdkAppId,
-            Sign = _smsOptions.Tencentyun.SignName,
-            TemplateID = _smsOptions.Tencentyun.TemplateCode,
+            Sign = template.SignName,
+            TemplateID = template.TemplateCode,
             TemplateParamSet = new string[] { verifyCode.ToString() }
         };
 

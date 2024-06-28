@@ -95,6 +95,9 @@ public class SyncDingTalkUserJob : IJob
             Name = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.NameField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
             Mobile = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.MobileField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
             JobNumber = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.JobNumberField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            DeptId = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.DeptId).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Dept = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.Dept).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Position = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.Position).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
         }).ToList();
         if (iUser.Count > 0)
         {
@@ -109,6 +112,9 @@ public class SyncDingTalkUserJob : IJob
             Name = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.NameField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
             Mobile = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.MobileField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
             JobNumber = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.JobNumberField).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            DeptId = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.DeptId).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Dept = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.Dept).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
+            Position = res.FieldDataList.Where(u => u.FieldCode == DingTalkConst.Position).Select(u => u.FieldValueList.Select(m => m.Value).FirstOrDefault()).FirstOrDefault(),
         }).ToList();
         if (uUser.Count > 0)
         {
@@ -118,6 +124,9 @@ public class SyncDingTalkUserJob : IJob
                 u.Name,
                 u.Mobile,
                 u.JobNumber,
+                u.DeptId,
+                u.Dept,
+                u.Position,
                 u.UpdateTime,
                 u.UpdateUserName,
                 u.UpdateUserId,
@@ -137,7 +146,10 @@ public class SyncDingTalkUserJob : IJob
             {
                 u.Id,
                 u.JobNumber,
-                u.Mobile
+                u.Mobile,
+                u.DeptId,
+                u.Dept,
+                u.Position
             }).ToListAsync();
         var uSysDingTalkUser = sysDingTalkUser.Select(u => new DingTalkUser
         {

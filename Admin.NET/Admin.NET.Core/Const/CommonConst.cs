@@ -88,6 +88,11 @@ public class CommonConst
     public const string SysValidationLog = "sys_validation_log";
 
     /// <summary>
+    /// 日志保留天数
+    /// </summary>
+    public const string SysLogRetentionDays = "sys_log_retention_days";
+
+    /// <summary>
     /// 日志分组名称
     /// </summary>
     public const string SysLogCategoryName = "System.Logging.LoggingMonitor";

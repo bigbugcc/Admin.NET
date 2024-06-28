@@ -135,6 +135,7 @@ const handleQueryTable = async () => {
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.configId);
 	let tableData = res.data.result ?? [];
+	state.tableData = [];
 	tableData.forEach((element: any) => {
 		//排除zero_开头的表
 		if (!element.name.startsWith('zero_')) {
@@ -150,7 +151,6 @@ const handleQueryColumn = async () => {
 	if (state.tableName == '' || typeof state.tableName == 'undefined') return;
 
 	state.loading1 = true;
-	state.tableData = [];
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseColumnListTableNameConfigIdGet(state.tableName, state.configId);
 	state.columnData = res.data.result ?? [];
 	state.loading1 = false;

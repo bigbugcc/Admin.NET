@@ -40,12 +40,27 @@ public sealed class SMSSettings
     public string AccessKeySecret { get; set; }
 
     /// <summary>
-    /// 短信签名
+    /// Templates
     /// </summary>
-    public string SignName { get; set; }
+    public List<SmsTemplate> Templates { get; set; }
 
     /// <summary>
-    /// 短信模板
+    /// GetTemplate
     /// </summary>
+    public SmsTemplate GetTemplate(string id = "0")
+    {
+        foreach (var template in Templates)
+        {
+            if (template.Id == id) { return template; }
+        }
+        return null;
+    }
+}
+
+public class SmsTemplate
+{
+    public string Id { get; set; } = string.Empty;
+    public string SignName { get; set; }
     public string TemplateCode { get; set; }
+    public string Content { get; set; }
 }

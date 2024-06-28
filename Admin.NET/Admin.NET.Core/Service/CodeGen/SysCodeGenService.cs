@@ -248,10 +248,15 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         var types = new List<Type>();
         if (_codeGenOptions.EntityAssemblyNames != null)
         {
-            foreach (var assemblyName in _codeGenOptions.EntityAssemblyNames)
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
             {
-                Assembly asm = Assembly.Load(assemblyName);
-                types.AddRange(asm.GetExportedTypes().ToList());
+                var assemblyName = assembly.GetName().Name;
+                if (_codeGenOptions.EntityAssemblyNames.Contains(assemblyName) || _codeGenOptions.EntityAssemblyNames.Any(name => assemblyName.Contains(name)))
+                {
+                    Assembly asm = Assembly.Load(assemblyName);
+                    types.AddRange(asm.GetExportedTypes().ToList());
+                }
             }
         }
         bool IsMyAttribute(Attribute[] o)
@@ -343,7 +348,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             PrintType = input.PrintType,
             PrintName = input.PrintName,
         };
-        //模板目录
+        // 模板目录
         var templatePathList = GetTemplatePathList(input);
         var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
 
