@@ -45,7 +45,7 @@ public partial class SysPrint : EntityTenant
     /// <summary>
     /// 打印参数
     /// </summary>
-    [SugarColumn(ColumnDescription = "打印参数", ColumnDataType = "text")]
+    [SugarColumn(ColumnDescription = "打印参数", ColumnDataType = StaticConfig.CodeFirst_BigString)]
     public virtual string? PrintParam { get; set; }
 
     /// <summary>
