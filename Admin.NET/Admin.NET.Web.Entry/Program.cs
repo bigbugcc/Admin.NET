@@ -17,7 +17,7 @@ public class WebComponent : IWebComponent
         });
 
         // 设置接口超时时间和上传大小
-        builder.Configuration.Get<WebHostBuilder>().ConfigureKestrel(u =>
+        builder.WebHost.ConfigureKestrel(u =>
         {
             u.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
             u.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(30);
