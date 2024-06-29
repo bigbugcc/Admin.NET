@@ -129,9 +129,9 @@ public class Startup : AppStartup
             //// 替换事件源存储器
             //options.ReplaceStorer(serviceProvider =>
             //{
-            //    var redisCache = serviceProvider.GetRequiredService<ICache>();
+            //    var cacheProvider = serviceProvider.GetRequiredService<NewLife.Caching.ICacheProvider>();
             //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
-            //    return new RedisEventSourceStorer(redisCache, "adminnet", 3000);
+            //    return new RedisEventSourceStorer(cacheProvider, "adminnet", 3000);
             //});
 
             #endregion Redis消息队列
