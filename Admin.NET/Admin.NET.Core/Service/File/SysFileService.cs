@@ -335,7 +335,7 @@ public class SysFileService : IDynamicApiController, ITransient
 
         // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
-        if (string.IsNullOrWhiteSpace(suffix))
+        if (!string.IsNullOrWhiteSpace(suffix))
         {
             var contentTypeProvider = FS.GetFileExtensionContentTypeProvider();
             suffix = contentTypeProvider.Mappings.FirstOrDefault(u => u.Value == file.ContentType).Key;
