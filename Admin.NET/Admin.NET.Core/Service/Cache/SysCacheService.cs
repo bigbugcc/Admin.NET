@@ -14,12 +14,12 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 400)]
 public class SysCacheService : IDynamicApiController, ISingleton
 {
-    private readonly ICache _cache;
+    private static ICacheProvider _cacheProvider = App.GetService<ICacheProvider>();
     private readonly CacheOptions _cacheOptions;
 
-    public SysCacheService(ICache cache, IOptions<CacheOptions> cacheOptions)
+    public SysCacheService(ICacheProvider cacheProvider, IOptions<CacheOptions> cacheOptions)
     {
-        _cache = cache;
+        _cacheProvider = cacheProvider;
         _cacheOptions = cacheOptions.Value;
     }
 
@@ -30,9 +30,9 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("获取缓存键名集合")]
     public List<string> GetKeyList()
     {
-        return _cache == Cache.Default
-            ? _cache.Keys.Where(u => u.StartsWith(_cacheOptions.Prefix)).Select(u => u[_cacheOptions.Prefix.Length..]).OrderBy(u => u).ToList()
-            : ((FullRedis)_cache).Search($"{_cacheOptions.Prefix}*", int.MaxValue).Select(u => u[_cacheOptions.Prefix.Length..]).OrderBy(u => u).ToList();
+        return _cacheProvider.Cache == Cache.Default
+            ? _cacheProvider.Cache.Keys.Where(u => u.StartsWith(_cacheOptions.Prefix)).Select(u => u[_cacheOptions.Prefix.Length..]).OrderBy(u => u).ToList()
+            : ((FullRedis)_cacheProvider.Cache).Search($"{_cacheOptions.Prefix}*", int.MaxValue).Select(u => u[_cacheOptions.Prefix.Length..]).OrderBy(u => u).ToList();
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     public bool Set(string key, object value)
     {
         if (string.IsNullOrWhiteSpace(key)) return false;
-        return _cache.Set($"{_cacheOptions.Prefix}{key}", value);
+        return _cacheProvider.Cache.Set($"{_cacheOptions.Prefix}{key}", value);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     public bool Set(string key, object value, TimeSpan expire)
     {
         if (string.IsNullOrWhiteSpace(key)) return false;
-        return _cache.Set($"{_cacheOptions.Prefix}{key}", value, expire);
+        return _cacheProvider.Cache.Set($"{_cacheOptions.Prefix}{key}", value, expire);
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [NonAction]
     public T Get<T>(string key)
     {
-        return _cache.Get<T>($"{_cacheOptions.Prefix}{key}");
+        return _cacheProvider.Cache.Get<T>($"{_cacheOptions.Prefix}{key}");
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("删除缓存")]
     public int Remove(string key)
     {
-        return _cache.Remove($"{_cacheOptions.Prefix}{key}");
+        return _cacheProvider.Cache.Remove($"{_cacheOptions.Prefix}{key}");
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [NonAction]
     public bool ExistKey(string key)
     {
-        return _cache.ContainsKey($"{_cacheOptions.Prefix}{key}");
+        return _cacheProvider.Cache.ContainsKey($"{_cacheOptions.Prefix}{key}");
     }
 
     /// <summary>
@@ -106,10 +106,10 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("根据键名前缀删除缓存")]
     public int RemoveByPrefixKey(string prefixKey)
     {
-        var delKeys = _cache == Cache.Default
-            ? _cache.Keys.Where(u => u.StartsWith($"{_cacheOptions.Prefix}{prefixKey}")).ToArray()
-            : ((FullRedis)_cache).Search($"{_cacheOptions.Prefix}{prefixKey}*", int.MaxValue).ToArray();
-        return _cache.Remove(delKeys);
+        var delKeys = _cacheProvider.Cache == Cache.Default
+            ? _cacheProvider.Cache.Keys.Where(u => u.StartsWith($"{_cacheOptions.Prefix}{prefixKey}")).ToArray()
+            : ((FullRedis)_cacheProvider.Cache).Search($"{_cacheOptions.Prefix}{prefixKey}*", int.MaxValue).ToArray();
+        return _cacheProvider.Cache.Remove(delKeys);
     }
 
     /// <summary>
@@ -120,9 +120,9 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("根据键名前缀获取键名集合")]
     public List<string> GetKeysByPrefixKey(string prefixKey)
     {
-        return _cache == Cache.Default
-            ? _cache.Keys.Where(u => u.StartsWith($"{_cacheOptions.Prefix}{prefixKey}")).Select(u => u[_cacheOptions.Prefix.Length..]).ToList()
-            : ((FullRedis)_cache).Search($"{_cacheOptions.Prefix}{prefixKey}*", int.MaxValue).Select(u => u[_cacheOptions.Prefix.Length..]).ToList();
+        return _cacheProvider.Cache == Cache.Default
+            ? _cacheProvider.Cache.Keys.Where(u => u.StartsWith($"{_cacheOptions.Prefix}{prefixKey}")).Select(u => u[_cacheOptions.Prefix.Length..]).ToList()
+            : ((FullRedis)_cacheProvider.Cache).Search($"{_cacheOptions.Prefix}{prefixKey}*", int.MaxValue).Select(u => u[_cacheOptions.Prefix.Length..]).ToList();
     }
 
     /// <summary>
@@ -133,9 +133,9 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("获取缓存值")]
     public object GetValue(string key)
     {
-        return _cache == Cache.Default
-            ? _cache.Get<object>($"{_cacheOptions.Prefix}{key}")
-            : _cache.Get<string>($"{_cacheOptions.Prefix}{key}");
+        return _cacheProvider.Cache == Cache.Default
+            ? _cacheProvider.Cache.Get<object>($"{_cacheOptions.Prefix}{key}")
+            : _cacheProvider.Cache.Get<string>($"{_cacheOptions.Prefix}{key}");
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     public T GetOrAdd<T>(string key, Func<string, T> callback, int expire = -1)
     {
         if (string.IsNullOrWhiteSpace(key)) return default;
-        return _cache.GetOrAdd($"{_cacheOptions.Prefix}{key}", callback, expire);
+        return _cacheProvider.Cache.GetOrAdd($"{_cacheOptions.Prefix}{key}", callback, expire);
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [NonAction]
     public RedisHash<string, T> GetHashMap<T>(string key)
     {
-        return _cache.GetDictionary<T>(key) as RedisHash<string, T>;
+        return _cacheProvider.Cache.GetDictionary<T>(key) as RedisHash<string, T>;
     }
 
     /// <summary>
