@@ -14,7 +14,7 @@ namespace Admin.NET.Core.Service;
 [ApiDescriptionSettings(Order = 400)]
 public class SysCacheService : IDynamicApiController, ISingleton
 {
-    private static ICacheProvider _cacheProvider = App.GetService<ICacheProvider>();
+    private static ICacheProvider _cacheProvider;
     private readonly CacheOptions _cacheOptions;
 
     public SysCacheService(ICacheProvider cacheProvider, IOptions<CacheOptions> cacheOptions)
