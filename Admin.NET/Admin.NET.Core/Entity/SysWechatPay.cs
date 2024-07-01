@@ -11,6 +11,9 @@ namespace Admin.NET.Core;
 /// </summary>
 [SugarTable(null, "系统微信支付表")]
 [SysTable]
+[SugarIndex("idx_{table}_BusinessId", nameof(BusinessId), OrderByType.Asc)]
+[SugarIndex("idx_{table}_TradeState", nameof(TradeState), OrderByType.Asc)]
+[SugarIndex("idx_{table}_Tags", nameof(Tags), OrderByType.Asc)]
 public partial class SysWechatPay : EntityBase
 {
     /// <summary>
@@ -81,13 +84,13 @@ public partial class SysWechatPay : EntityBase
     /// 支付完成时间
     /// </summary>
     [SugarColumn(ColumnDescription = "支付完成时间")]
-    public DateTimeOffset? SuccessTime { get; set; }
+    public DateTime? SuccessTime { get; set; }
 
     /// <summary>
     /// 交易结束时间
     /// </summary>
     [SugarColumn(ColumnDescription = "交易结束时间")]
-    public DateTimeOffset? ExpireTime { get; set; }
+    public DateTime? ExpireTime { get; set; }
 
     /// <summary>
     /// 商品描述
@@ -136,6 +139,29 @@ public partial class SysWechatPay : EntityBase
     /// </summary>
     [SugarColumn(ColumnDescription = "微信OpenId标识")]
     public string? OpenId { get; set; }
+
+    /// <summary>
+    /// 业务标签，用来区分做什么业务
+    /// </summary>
+    /// <remarks>
+    /// Tags标识用来区分这个支付记录对应什么业务从而确定相关联的表名，
+    /// 再结合BusinessId保存了对应的业务数据的ID，就可以确定这个支付
+    /// 记录与哪一条业务数据相关联
+    /// </remarks>
+    [SugarColumn(ColumnDescription = "业务标签，用来区分做什么业务", Length = 64)]
+    public string? Tags { get; set; }
+
+    /// <summary>
+    /// 对应业务的主键
+    /// </summary>
+    [SugarColumn(ColumnDescription = "对应业务的主键")]
+    public long BusinessId { get; set; }
+
+    /// <summary>
+    /// 付款二维码内容
+    /// </summary>
+    [SugarColumn(ColumnDescription = "付款二维码内容")]
+    public string? QrcodeContent { get; set; }
 
     /// <summary>
     /// 关联微信用户

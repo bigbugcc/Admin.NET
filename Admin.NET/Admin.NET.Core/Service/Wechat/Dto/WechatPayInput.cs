@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+
 namespace Admin.NET.Core.Service;
 
 public class WechatPayTransactionInput
@@ -32,6 +33,25 @@ public class WechatPayTransactionInput
     /// 优惠标记
     /// </summary>
     public string GoodsTag { get; set; }
+
+    /// <summary>
+    /// 业务标签，用来区分做什么业务
+    /// </summary>
+    public string Tags { get; set; }
+
+    /// <summary>
+    /// 对应业务的主键
+    /// </summary>
+    public long BusinessId { get; set; }
+}
+
+public class WechatPayTransactionOutput
+{
+    public string PrepayId { get; set; }
+
+    public string OutTradeNumber { get; set; }
+
+    public WechatPayParaOutput SingInfo { get; set; }
 }
 
 public class WechatPayParaInput
@@ -40,4 +60,56 @@ public class WechatPayParaInput
     /// 订单Id
     /// </summary>
     public string PrepayId { get; set; }
+}
+
+public class WechatPayParaOutput
+{
+    public string AppId { get; set; }
+
+    public string TimeStamp { get; set; }
+
+    public string NonceStr { get; set; }
+
+    public string Package { get; set; }
+
+    public string SignType { get; set; }
+
+    public string PaySign { get; set; }
+}
+
+
+public class WechatPayRefundDomesticInput
+{
+    /// <summary>
+    /// 商户端生成的业务流水号
+    /// </summary>
+    [Required]
+    public string TradeId { get; set; }
+
+    /// <summary>
+    /// 退款原因
+    /// </summary>
+    public string Reason { get; set; }
+
+    /// <summary>
+    /// 退款金额
+    /// </summary>
+    [Required]
+    public int Refund { get; set; }
+
+    /// <summary>
+    /// 原订单金额
+    /// </summary>
+    [Required]
+    public int Total { get; set; }
+}
+
+public class WechatPayPageInput : BasePageInput
+{
+    public string SearchKey { get; set; }
+
+    /// <summary>
+    /// 添加时间范围
+    /// </summary>
+    public List<DateTime?> CreateTimeRange { get; set; }
 }
