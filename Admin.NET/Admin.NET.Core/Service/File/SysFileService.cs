@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -65,33 +65,6 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件Base64
-    /// </summary>
-    /// <param name="strBase64"></param>
-    /// <param name="fileName"></param>
-    /// <param name="contentType"></param>
-    /// <param name="path"></param>
-    /// <param name="fileType"></param>
-    /// <returns></returns>
-    private async Task<SysFile> UploadFileFromBase64(string strBase64, string fileName, string contentType, string? path, string? fileType)
-    {
-        byte[] fileData = Convert.FromBase64String(strBase64);
-        var ms = new MemoryStream();
-        ms.Write(fileData);
-        ms.Seek(0, SeekOrigin.Begin);
-        if (string.IsNullOrEmpty(fileName))
-            fileName = $"{YitIdHelper.NextId()}.jpg";
-        if (string.IsNullOrEmpty(contentType))
-            contentType = "image/jpg";
-        IFormFile formFile = new FormFile(ms, 0, fileData.Length, "file", fileName)
-        {
-            Headers = new HeaderDictionary(),
-            ContentType = contentType
-        };
-        return await UploadFile(new FileUploadInput { File = formFile, Path = path, FileType = fileType });
-    }
-
-    /// <summary>
     /// 上传文件Base64 🔖
     /// </summary>
     /// <param name="input"></param>
@@ -99,7 +72,20 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件Base64")]
     public async Task<SysFile> UploadFileFromBase64(UploadFileFromBase64Input input)
     {
-        return await UploadFileFromBase64(input.FileDataBase64, input.FileName, input.ContentType, input.Path, input.FileType);
+        byte[] fileData = Convert.FromBase64String(input.FileDataBase64);
+        var ms = new MemoryStream();
+        ms.Write(fileData);
+        ms.Seek(0, SeekOrigin.Begin);
+        if (string.IsNullOrEmpty(input.FileName))
+            input.FileName = $"{YitIdHelper.NextId()}.jpg";
+        if (string.IsNullOrEmpty(input.ContentType))
+            input.ContentType = "image/jpg";
+        IFormFile formFile = new FormFile(ms, 0, fileData.Length, "file", input.FileName)
+        {
+            Headers = new HeaderDictionary(),
+            ContentType = input.ContentType
+        };
+        return await UploadFile(new FileUploadInput { File = formFile, Path = input.Path, FileType = input.FileType });
     }
 
     /// <summary>

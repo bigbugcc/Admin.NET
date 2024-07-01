@@ -206,7 +206,7 @@
 				v-model:page-size="state.tableParams.pageSize"
 				:total="state.tableParams.total"
 				:page-sizes="[10, 20, 50, 100]"
-				small
+				size="small"
 				background
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
@@ -249,7 +249,7 @@
 					v-model:page-size="state.tableParams2.pageSize"
 					:total="state.tableParams2.total"
 					:page-sizes="[10, 20, 50, 100]"
-					small
+					size="small"
 					background
 					@size-change="handleSizeChange2"
 					@current-change="handleCurrentChange2"

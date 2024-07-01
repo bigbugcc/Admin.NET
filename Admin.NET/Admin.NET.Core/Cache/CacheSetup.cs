@@ -5,6 +5,7 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NewLife.Caching;
 using NewLife.Caching.Services;
 
 namespace Admin.NET.Core;
@@ -34,5 +35,12 @@ public static class CacheSetup
 
         // 内存缓存兜底。在没有配置Redis时，使用内存缓存，逻辑代码无需修改
         services.TryAddSingleton<ICacheProvider, CacheProvider>();
+
+        // 很多Service用到依赖注入方式获取ICache，没有处理完这些历史代码之前不要删除这句
+        /* 目前初步看到已在使有和的类型有：
+         * 官方版本有：JobClusterServer、SystemInitjob
+         * 已经发布的业务系统时也有可能用到了，这个要注意
+         * */
+        services.AddSingleton(Cache.Default);
     }
 }
