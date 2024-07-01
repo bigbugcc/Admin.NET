@@ -59,7 +59,7 @@
 						v-model:page-size="state.tableDictTypeParams.pageSize"
 						:total="state.tableDictTypeParams.total"
 						:page-sizes="[10, 20, 50, 100]"
-						small
+						size="small"
 						background
 						@size-change="handleDictTypeSizeChange"
 						@current-change="handleDictTypeCurrentChange"
@@ -134,7 +134,7 @@
 						v-model:page-size="state.tableDictDataParams.pageSize"
 						:total="state.tableDictDataParams.total"
 						:page-sizes="[10, 20, 50, 100]"
-						small
+						size="small"
 						background
 						@size-change="handleDictDataSizeChange"
 						@current-change="handleDictDataCurrentChange"
