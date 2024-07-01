@@ -79,7 +79,7 @@
 		"@vitejs/plugin-vue-jsx": "^4.0.0",
 		"@vue/compiler-sfc": "^3.4.31",
 		"code-inspector-plugin": "^0.14.2",
-		"eslint": "^9.5.0",
+		"eslint": "^9.6.0",
 		"eslint-plugin-vue": "^9.26.0",
 		"less": "^4.2.0",
 		"prettier": "^3.3.2",
@@ -89,7 +89,7 @@
 		"typescript": "^5.5.2",
 		"vite": "^5.3.2",
 		"vite-plugin-cdn-import": "^1.0.1",
-		"vite-plugin-compression2": "^1.1.1",
+		"vite-plugin-compression2": "^1.1.2",
 		"vite-plugin-vue-setup-extend": "^0.4.0",
 		"vue-eslint-parser": "^9.4.3"
 	},
