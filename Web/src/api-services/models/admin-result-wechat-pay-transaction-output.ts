@@ -12,67 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { WechatPayTransactionOutput } from './wechat-pay-transaction-output';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface AdminResultWechatPayTransactionOutput
  */
-export interface WechatPayTransactionInput {
+export interface AdminResultWechatPayTransactionOutput {
 
     /**
-     * OpenId
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    openId?: string | null;
-
-    /**
-     * 订单金额
+     * 状态码
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultWechatPayTransactionOutput
      */
-    total?: number;
+    code?: number;
 
     /**
-     * 商品描述
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultWechatPayTransactionOutput
      */
-    description?: string | null;
+    type?: string | null;
+
+    /**
+     * 错误信息
+     *
+     * @type {string}
+     * @memberof AdminResultWechatPayTransactionOutput
+     */
+    message?: string | null;
+
+    /**
+     * @type {WechatPayTransactionOutput}
+     * @memberof AdminResultWechatPayTransactionOutput
+     */
+    result?: WechatPayTransactionOutput;
 
     /**
      * 附加数据
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {any}
+     * @memberof AdminResultWechatPayTransactionOutput
      */
-    attachment?: string | null;
+    extras?: any | null;
 
     /**
-     * 优惠标记
+     * 时间
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {Date}
+     * @memberof AdminResultWechatPayTransactionOutput
      */
-    goodsTag?: string | null;
-
-    /**
-     * 业务标签，用来区分做什么业务
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    tags?: string | null;
-
-    /**
-     * 对应业务的主键
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
-     */
-    businessId?: number;
+    time?: Date;
 }

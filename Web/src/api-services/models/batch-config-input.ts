@@ -13,42 +13,26 @@
  */
 
  /**
- * 枚举实体
+ * 批量配置参数输入
  *
  * @export
- * @interface EnumEntity
+ * @interface BatchConfigInput
  */
-export interface EnumEntity {
+export interface BatchConfigInput {
 
     /**
-     * 枚举的描述
+     * 编码
      *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof BatchConfigInput
      */
-    describe?: string | null;
+    code?: string | null;
 
     /**
-     * 枚举的样式
+     * 属性值
      *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof BatchConfigInput
      */
-    theme?: string | null;
-
-    /**
-     * 枚举名称
-     *
-     * @type {string}
-     * @memberof EnumEntity
-     */
-    name?: string | null;
-
-    /**
-     * 枚举对象的值
-     *
-     * @type {number}
-     * @memberof EnumEntity
-     */
-    value?: number;
+    value?: string | null;
 }

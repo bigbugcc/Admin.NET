@@ -12,67 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { SysWechatRefund } from './sys-wechat-refund';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface AdminResultSysWechatRefund
  */
-export interface WechatPayTransactionInput {
+export interface AdminResultSysWechatRefund {
 
     /**
-     * OpenId
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    openId?: string | null;
-
-    /**
-     * 订单金额
+     * 状态码
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultSysWechatRefund
      */
-    total?: number;
+    code?: number;
 
     /**
-     * 商品描述
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultSysWechatRefund
      */
-    description?: string | null;
+    type?: string | null;
+
+    /**
+     * 错误信息
+     *
+     * @type {string}
+     * @memberof AdminResultSysWechatRefund
+     */
+    message?: string | null;
+
+    /**
+     * @type {SysWechatRefund}
+     * @memberof AdminResultSysWechatRefund
+     */
+    result?: SysWechatRefund;
 
     /**
      * 附加数据
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {any}
+     * @memberof AdminResultSysWechatRefund
      */
-    attachment?: string | null;
+    extras?: any | null;
 
     /**
-     * 优惠标记
+     * 时间
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {Date}
+     * @memberof AdminResultSysWechatRefund
      */
-    goodsTag?: string | null;
-
-    /**
-     * 业务标签，用来区分做什么业务
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    tags?: string | null;
-
-    /**
-     * 对应业务的主键
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
-     */
-    businessId?: number;
+    time?: Date;
 }

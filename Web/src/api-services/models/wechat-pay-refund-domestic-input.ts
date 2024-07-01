@@ -13,42 +13,42 @@
  */
 
  /**
- * 枚举实体
+ * 
  *
  * @export
- * @interface EnumEntity
+ * @interface WechatPayRefundDomesticInput
  */
-export interface EnumEntity {
+export interface WechatPayRefundDomesticInput {
 
     /**
-     * 枚举的描述
+     * 商户端生成的业务流水号
      *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof WechatPayRefundDomesticInput
      */
-    describe?: string | null;
+    tradeId: string;
 
     /**
-     * 枚举的样式
+     * 退款原因
      *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof WechatPayRefundDomesticInput
      */
-    theme?: string | null;
+    reason?: string | null;
 
     /**
-     * 枚举名称
-     *
-     * @type {string}
-     * @memberof EnumEntity
-     */
-    name?: string | null;
-
-    /**
-     * 枚举对象的值
+     * 退款金额
      *
      * @type {number}
-     * @memberof EnumEntity
+     * @memberof WechatPayRefundDomesticInput
      */
-    value?: number;
+    refund: number;
+
+    /**
+     * 原订单金额
+     *
+     * @type {number}
+     * @memberof WechatPayRefundDomesticInput
+     */
+    total: number;
 }

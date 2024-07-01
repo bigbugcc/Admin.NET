@@ -12,43 +12,30 @@
  * Do not edit the class manually.
  */
 
+import { WechatPayParaOutput } from './wechat-pay-para-output';
  /**
- * 枚举实体
+ * 
  *
  * @export
- * @interface EnumEntity
+ * @interface WechatPayTransactionOutput
  */
-export interface EnumEntity {
+export interface WechatPayTransactionOutput {
 
     /**
-     * 枚举的描述
-     *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof WechatPayTransactionOutput
      */
-    describe?: string | null;
+    prepayId?: string | null;
 
     /**
-     * 枚举的样式
-     *
      * @type {string}
-     * @memberof EnumEntity
+     * @memberof WechatPayTransactionOutput
      */
-    theme?: string | null;
+    outTradeNumber?: string | null;
 
     /**
-     * 枚举名称
-     *
-     * @type {string}
-     * @memberof EnumEntity
+     * @type {WechatPayParaOutput}
+     * @memberof WechatPayTransactionOutput
      */
-    name?: string | null;
-
-    /**
-     * 枚举对象的值
-     *
-     * @type {number}
-     * @memberof EnumEntity
-     */
-    value?: number;
+    singInfo?: WechatPayParaOutput;
 }

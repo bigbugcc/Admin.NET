@@ -16,63 +16,61 @@
  * 
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface WechatPayPageInput
  */
-export interface WechatPayTransactionInput {
+export interface WechatPayPageInput {
 
     /**
-     * OpenId
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    openId?: string | null;
-
-    /**
-     * 订单金额
+     * 当前页码
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayPageInput
      */
-    total?: number;
+    page?: number;
 
     /**
-     * 商品描述
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    description?: string | null;
-
-    /**
-     * 附加数据
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    attachment?: string | null;
-
-    /**
-     * 优惠标记
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    goodsTag?: string | null;
-
-    /**
-     * 业务标签，用来区分做什么业务
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    tags?: string | null;
-
-    /**
-     * 对应业务的主键
+     * 页码容量
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayPageInput
      */
-    businessId?: number;
+    pageSize?: number;
+
+    /**
+     * 排序字段
+     *
+     * @type {string}
+     * @memberof WechatPayPageInput
+     */
+    field?: string | null;
+
+    /**
+     * 排序方向
+     *
+     * @type {string}
+     * @memberof WechatPayPageInput
+     */
+    order?: string | null;
+
+    /**
+     * 降序排序
+     *
+     * @type {string}
+     * @memberof WechatPayPageInput
+     */
+    descStr?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof WechatPayPageInput
+     */
+    searchKey?: string | null;
+
+    /**
+     * 添加时间范围
+     *
+     * @type {Array<Date>}
+     * @memberof WechatPayPageInput
+     */
+    createTimeRange?: Array<Date> | null;
 }

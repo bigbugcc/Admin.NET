@@ -12,21 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { StatusEnum } from './status-enum';
-import { SysOrg } from './sys-org';
  /**
- * 
+ * 系统微信支付退款表
  *
  * @export
- * @interface UpdateOrgInput
+ * @interface SysWechatRefund
  */
-export interface UpdateOrgInput {
+export interface SysWechatRefund {
 
     /**
      * 雪花Id
      *
      * @type {number}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     id?: number;
 
@@ -34,7 +32,7 @@ export interface UpdateOrgInput {
      * 创建时间
      *
      * @type {Date}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     createTime?: Date;
 
@@ -42,7 +40,7 @@ export interface UpdateOrgInput {
      * 更新时间
      *
      * @type {Date}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     updateTime?: Date | null;
 
@@ -50,7 +48,7 @@ export interface UpdateOrgInput {
      * 创建者Id
      *
      * @type {number}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     createUserId?: number | null;
 
@@ -58,7 +56,7 @@ export interface UpdateOrgInput {
      * 创建者姓名
      *
      * @type {string}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     createUserName?: string | null;
 
@@ -66,7 +64,7 @@ export interface UpdateOrgInput {
      * 修改者Id
      *
      * @type {number}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     updateUserId?: number | null;
 
@@ -74,7 +72,7 @@ export interface UpdateOrgInput {
      * 修改者姓名
      *
      * @type {string}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     updateUserName?: string | null;
 
@@ -82,101 +80,103 @@ export interface UpdateOrgInput {
      * 软删除
      *
      * @type {boolean}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     isDelete?: boolean;
 
     /**
-     * 租户Id
+     * 定单主键
      *
      * @type {number}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
-    tenantId?: number | null;
+    wechatPayId?: number;
 
     /**
-     * 父Id
-     *
-     * @type {number}
-     * @memberof UpdateOrgInput
-     */
-    pid?: number;
-
-    /**
-     * 编码
+     * 商户退款号
      *
      * @type {string}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
-    code?: string | null;
+    outRefundNumber: string;
 
     /**
-     * 级别
+     * 退款订单号
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    transactionId: string;
+
+    /**
+     * 退款原因
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    reason?: string | null;
+
+    /**
+     * 退款渠道
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    channel?: string | null;
+
+    /**
+     * 退款入账账户
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    userReceivedAccount?: string | null;
+
+    /**
+     * 退款状态
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    tradeState?: string | null;
+
+    /**
+     * 交易状态描述
+     *
+     * @type {string}
+     * @memberof SysWechatRefund
+     */
+    tradeStateDescription?: string | null;
+
+    /**
+     * 订单总金额
      *
      * @type {number}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
-    level?: number | null;
+    refund?: number;
 
     /**
-     * 负责人Id
+     * 支完成时间
      *
-     * @type {number}
-     * @memberof UpdateOrgInput
+     * @type {Date}
+     * @memberof SysWechatRefund
      */
-    directorId?: number | null;
+    successTime?: Date | null;
 
     /**
-     * 排序
+     * 回调通知地址
      *
-     * @type {number}
-     * @memberof UpdateOrgInput
+     * @type {string}
+     * @memberof SysWechatRefund
      */
-    orderNo?: number;
-
-    /**
-     * @type {StatusEnum}
-     * @memberof UpdateOrgInput
-     */
-    status?: StatusEnum;
+    notifyUrl?: string | null;
 
     /**
      * 备注
      *
      * @type {string}
-     * @memberof UpdateOrgInput
+     * @memberof SysWechatRefund
      */
     remark?: string | null;
-
-    /**
-     * 机构子项
-     *
-     * @type {Array<SysOrg>}
-     * @memberof UpdateOrgInput
-     */
-    children?: Array<SysOrg> | null;
-
-    /**
-     * 是否禁止选中
-     *
-     * @type {boolean}
-     * @memberof UpdateOrgInput
-     */
-    disabled?: boolean;
-
-    /**
-     * 名称
-     *
-     * @type {string}
-     * @memberof UpdateOrgInput
-     */
-    name: string;
-
-    /**
-     * 机构类型
-     *
-     * @type {string}
-     * @memberof UpdateOrgInput
-     */
-    type?: string | null;
 }

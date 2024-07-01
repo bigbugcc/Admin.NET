@@ -6,11 +6,6 @@
 
 using Furion.Logging.Extensions;
 using Newtonsoft.Json;
-using SKIT.FlurlHttpClient.Wechat.TenpayV3;
-using System.Text.Json.Serialization;
-using System.Threading.Channels;
-using System.Transactions;
-using static SKIT.FlurlHttpClient.Wechat.Api.Models.ShopCouponGetResponse.Types.Result.Types.Coupon.Types.CouponDetail.Types.Discount.Types.DiscountCondidtion.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -59,6 +54,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
         };
         return new WechatTenpayClient(tenpayClientOptions);
     }
+
     /// <summary>
     /// 分页查询支付列表 🔖
     /// </summary>
@@ -74,6 +70,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             .WhereIF(input.CreateTimeRange != null && input.CreateTimeRange.Count > 1 && input.CreateTimeRange[1].HasValue, x => x.CreateTime < ((DateTime)input.CreateTimeRange[1]).AddDays(1));
         return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }
+
     /// <summary>
     /// 查询退款信息列表
     /// </summary>
@@ -81,10 +78,10 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     /// <returns></returns>
     [HttpPost]
     [DisplayName("根据支付id获取退款信息列表")]
-    public async Task<List<SysWechatRefund>> ListRefund([FromBody]string id)
+    public async Task<List<SysWechatRefund>> ListRefund([FromBody] string id)
     {
         var query = _sysWechatRefundRep.AsQueryable()
-            .Where(u => u.TransactionId == id);         
+            .Where(u => u.TransactionId == id);
         return await query.ToListAsync();
     }
 
@@ -173,7 +170,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
             Amount = new CreatePayTransactionNativeRequest.Types.Amount() { Total = input.Total },
             //Payer = new CreatePayTransactionNativeRequest.Types.Payer() { OpenId = input.OpenId }
-            Scene = new CreatePayTransactionNativeRequest.Types.Scene() { ClientIp = "127.0.0.1"}
+            Scene = new CreatePayTransactionNativeRequest.Types.Scene() { ClientIp = "127.0.0.1" }
         };
         var response = await _wechatTenpayClient.ExecuteCreatePayTransactionNativeAsync(request);
         if (!response.IsSuccessful())
@@ -193,7 +190,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             Total = input.Total,
             //OpenId = input.OpenId,
             TransactionId = "",
-            QrcodeContent= response.QrcodeUrl,
+            QrcodeContent = response.QrcodeUrl,
             Tags = input.Tags,
             BusinessId = input.BusinessId,
         };
@@ -246,7 +243,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             TransactionId = ""
         };
         await _sysWechatPayRep.InsertAsync(wechatPay);
-        
+
         return new
         {
             response.PrepayId,
@@ -326,12 +323,13 @@ public class SysWechatPayService : IDynamicApiController, ITransient
         // refund/domestic/refunds
         var request = new CreateRefundDomesticRefundRequest()
         {
-            Amount = new CreateRefundDomesticRefundRequest.Types.Amount() { 
+            Amount = new CreateRefundDomesticRefundRequest.Types.Amount()
+            {
                 Refund = input.Refund,
                 Total = input.Total,
                 Currency = "CNY"
             },
-            
+
             OutTradeNumber = input.TradeId,
             OutRefundNumber = "R" + DateTimeOffset.Now.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
@@ -387,7 +385,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             await _sysWechatRefundRep.AsUpdateable(wechatRefund).IgnoreColumns(true).ExecuteCommandAsync();
             // 有退款，刷新一下订单状态
             var wechatPay = await _sysWechatPayRep.GetFirstAsync(u => u.Id == wechatRefund.WechatPayId);
-            if (wechatPay!=null)
+            if (wechatPay != null)
                 GetPayInfoFromWechat(wechatPay.OutTradeNumber);
         }
         wechatRefund = new SysWechatRefund()
@@ -402,6 +400,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
         };
         return wechatRefund;
     }
+
     /// <summary>
     /// 微信支付成功回调(商户直连)
     /// </summary>
@@ -447,7 +446,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
                     GoodsTag = wechatPay.GoodsTag
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 "微信支付回调时出错：".LogError(ex);
             }
@@ -467,7 +466,6 @@ public class SysWechatPayService : IDynamicApiController, ITransient
                 await _sysWechatRefundRep.AsUpdateable(wechatRefund).IgnoreColumns(true).ExecuteCommandAsync();
                 // 有退款，刷新一下订单状态
                 GetPayInfoFromWechat(callbackRefundResource.OutTradeNumber);
-
             }
             catch (Exception ex)
             {

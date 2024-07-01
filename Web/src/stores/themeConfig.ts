@@ -10,7 +10,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 全局主题
 			 */
 			// 默认 primary 主题颜色
-			primary: '#F03F24', //胭脂红:#F03F24 //飞燕草蓝:#0F59A4 //薄荷绿:#207F4C
+			primary: '#0F59A4', //胭脂红:#F03F24 //飞燕草蓝:#0F59A4 //薄荷绿:#207F4C
 			// 是否开启深色模式
 			isIsDark: false,
 
@@ -84,15 +84,15 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 是否开启 Tagsview
 			isTagsview: true,
 			// 是否开启 Breadcrumb 图标
-			isBreadcrumbIcon: false,
+			isBreadcrumbIcon: true,
 			// 是否开启 Tagsview 图标
-			isTagsviewIcon: false,
+			isTagsviewIcon: true,
 			// 是否开启 TagsView 缓存
-			isCacheTagsView: false,
+			isCacheTagsView: true,
 			// 是否开启 TagsView 拖拽
 			isSortableTagsView: true,
-			// 是否开启 TagsView 共用
-			isShareTagsView: false,
+			// 是否开启 TagsView 共用 -- 共用详情界面：tagsView只会出现一个；非共用详情界面：tagsView会出现多个
+			isShareTagsView: true,
 			// 是否开启 Footer 底部版权信息
 			isFooter: true,
 			// 是否开启灰色模式
@@ -100,7 +100,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 是否开启色弱模式
 			isInvert: false,
 			// 是否开启水印
-			isWatermark: false,
+			isWatermark: true,
 			// 水印文案
 			watermarkText: 'Admin.NET',
 
@@ -123,7 +123,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
 			 */
 			// 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults
-			layout: 'columns',
+			layout: 'defaults',
 
 			/**
 			 * 后端控制路由

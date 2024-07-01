@@ -51,8 +51,7 @@ public class JobClusterServer : IJobClusterServer
 
             try
             {
-                //ICache _cache = App.GetRequiredService<ICache>(); //新代码已经取消了注册 ICache 所以最好避免使用这种方法调用
-                ICache _cache = Cache.Default;
+                ICache _cache = App.GetRequiredService<ICacheProvider>().Cache;
                 // 使用分布式锁
                 using (_cache.AcquireLock("lock:JobClusterServer:WaitingForAsync", 1000))
                 {

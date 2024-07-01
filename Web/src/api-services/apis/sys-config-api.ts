@@ -23,6 +23,7 @@ import { AdminResultListSysConfig } from '../models';
 import { AdminResultObject } from '../models';
 import { AdminResultSqlSugarPagedListSysConfig } from '../models';
 import { AdminResultSysConfig } from '../models';
+import { BatchConfigInput } from '../models';
 import { DeleteConfigInput } from '../models';
 import { InfoSaveInput } from '../models';
 import { PageConfigInput } from '../models';
@@ -90,6 +91,54 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
          */
         apiSysConfigBatchDeletePost: async (body?: Array<number>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysConfig/batchDelete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 批量更新参数配置值
+         * @param {Array<BatchConfigInput>} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysConfigBatchUpdatePost: async (body?: Array<BatchConfigInput>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysConfig/batchUpdate`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -275,10 +324,11 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary 获取参数配置列表 🔖
+         * @param {PageConfigInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysConfigListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysConfigListPost: async (body?: PageConfigInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysConfig/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -286,7 +336,7 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -299,6 +349,8 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -309,6 +361,8 @@ export const SysConfigApiAxiosParamCreator = function (configuration?: Configura
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -541,6 +595,20 @@ export const SysConfigApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 批量更新参数配置值
+         * @param {Array<BatchConfigInput>} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysConfigBatchUpdatePost(body?: Array<BatchConfigInput>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysConfigApiAxiosParamCreator(configuration).apiSysConfigBatchUpdatePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 删除参数配置 🔖
          * @param {DeleteConfigInput} [body] 
          * @param {*} [options] Override http request option.
@@ -583,11 +651,12 @@ export const SysConfigApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取参数配置列表 🔖
+         * @param {PageConfigInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysConfigListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysConfig>>> {
-            const localVarAxiosArgs = await SysConfigApiAxiosParamCreator(configuration).apiSysConfigListGet(options);
+        async apiSysConfigListPost(body?: PageConfigInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysConfig>>> {
+            const localVarAxiosArgs = await SysConfigApiAxiosParamCreator(configuration).apiSysConfigListPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -679,6 +748,16 @@ export const SysConfigApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary 批量更新参数配置值
+         * @param {Array<BatchConfigInput>} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysConfigBatchUpdatePost(body?: Array<BatchConfigInput>, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysConfigApiFp(configuration).apiSysConfigBatchUpdatePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 删除参数配置 🔖
          * @param {DeleteConfigInput} [body] 
          * @param {*} [options] Override http request option.
@@ -709,11 +788,12 @@ export const SysConfigApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary 获取参数配置列表 🔖
+         * @param {PageConfigInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysConfigListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysConfig>> {
-            return SysConfigApiFp(configuration).apiSysConfigListGet(options).then((request) => request(axios, basePath));
+        async apiSysConfigListPost(body?: PageConfigInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysConfig>> {
+            return SysConfigApiFp(configuration).apiSysConfigListPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -788,6 +868,17 @@ export class SysConfigApi extends BaseAPI {
     }
     /**
      * 
+     * @summary 批量更新参数配置值
+     * @param {Array<BatchConfigInput>} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysConfigApi
+     */
+    public async apiSysConfigBatchUpdatePost(body?: Array<BatchConfigInput>, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysConfigApiFp(this.configuration).apiSysConfigBatchUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary 删除参数配置 🔖
      * @param {DeleteConfigInput} [body] 
      * @param {*} [options] Override http request option.
@@ -821,12 +912,13 @@ export class SysConfigApi extends BaseAPI {
     /**
      * 
      * @summary 获取参数配置列表 🔖
+     * @param {PageConfigInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysConfigApi
      */
-    public async apiSysConfigListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysConfig>> {
-        return SysConfigApiFp(this.configuration).apiSysConfigListGet(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysConfigListPost(body?: PageConfigInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysConfig>> {
+        return SysConfigApiFp(this.configuration).apiSysConfigListPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

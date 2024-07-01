@@ -83,8 +83,6 @@ public partial class SysWechatRefund : EntityBase
     [SugarColumn(ColumnDescription = "完成时间")]
     public DateTime? SuccessTime { get; set; }
 
-
-
     /// <summary>
     /// 回调通知地址
     /// </summary>
@@ -96,5 +94,4 @@ public partial class SysWechatRefund : EntityBase
     /// </summary>
     [SugarColumn(ColumnDescription = "备注")]
     public string? Remark { get; set; }
-
 }

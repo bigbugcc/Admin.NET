@@ -17,10 +17,17 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { AdminResultListSysWechatRefund } from '../models';
 import { AdminResultObject } from '../models';
+import { AdminResultSqlSugarPagedListSysWechatPay } from '../models';
 import { AdminResultSysWechatPay } from '../models';
+import { AdminResultSysWechatRefund } from '../models';
 import { AdminResultWechatPayOutput } from '../models';
+import { AdminResultWechatPayParaOutput } from '../models';
+import { AdminResultWechatPayTransactionOutput } from '../models';
+import { WechatPayPageInput } from '../models';
 import { WechatPayParaInput } from '../models';
+import { WechatPayRefundDomesticInput } from '../models';
 import { WechatPayTransactionInput } from '../models';
 /**
  * SysWechatPayApi - axios parameter creator
@@ -78,7 +85,103 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 查询退款信息列表
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayListRefundPost: async (body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWechatPay/listRefund`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页查询支付列表 🔖
+         * @param {WechatPayPageInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayPagePost: async (body?: WechatPayPageInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWechatPay/page`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -121,7 +224,56 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情(微信接口) 🔖
+         * @param {string} tradeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayPayInfoFromWechatTradeIdGet: async (tradeId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tradeId' is not null or undefined
+            if (tradeId === null || tradeId === undefined) {
+                throw new RequiredError('tradeId','Required parameter tradeId was null or undefined when calling apiSysWechatPayPayInfoFromWechatTradeIdGet.');
+            }
+            const localVarPath = `/api/sysWechatPay/payInfoFromWechat/{tradeId}`
+                .replace(`{${"tradeId"}}`, encodeURIComponent(String(tradeId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取支付订单详情(本地库) 🔖
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -213,7 +365,7 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付下单(服务商模式) 🔖
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -261,7 +413,55 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付下单(商户直连)Native
+         * @param {WechatPayTransactionInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayPayTransactionNativePost: async (body?: WechatPayTransactionInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWechatPay/payTransactionNative`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 微信支付下单(商户直连) 🔖
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -307,6 +507,103 @@ export const SysWechatPayApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 退款申请
+         * @param {WechatPayRefundDomesticInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayRefundDomesticPost: async (body?: WechatPayRefundDomesticInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWechatPay/refundDomestic`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取退款订单详情(微信接口)
+         * @param {string} refundId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWechatPayRefundInfoFromWechatRefundIdGet: async (refundId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'refundId' is not null or undefined
+            if (refundId === null || refundId === undefined) {
+                throw new RequiredError('refundId','Required parameter refundId was null or undefined when calling apiSysWechatPayRefundInfoFromWechatRefundIdGet.');
+            }
+            const localVarPath = `/api/sysWechatPay/refundInfoFromWechat/{refundId}`
+                .replace(`{${"refundId"}}`, encodeURIComponent(String(refundId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -323,7 +620,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+        async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultWechatPayParaOutput>>> {
             const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayGenerateParametersForJsapiPayPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -332,7 +629,35 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 查询退款信息列表
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayListRefundPost(body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysWechatRefund>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayListRefundPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 分页查询支付列表 🔖
+         * @param {WechatPayPageInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPagePost(body?: WechatPayPageInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysWechatPay>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayPagePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -345,7 +670,21 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情(微信接口) 🔖
+         * @param {string} tradeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysWechatPay>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取支付订单详情(本地库) 🔖
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -372,7 +711,7 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付下单(服务商模式) 🔖
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -386,13 +725,55 @@ export const SysWechatPayApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付下单(商户直连)Native
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+        async apiSysWechatPayPayTransactionNativePost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayPayTransactionNativePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 微信支付下单(商户直连) 🔖
+         * @param {WechatPayTransactionInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultWechatPayTransactionOutput>>> {
             const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayPayTransactionPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 退款申请
+         * @param {WechatPayRefundDomesticInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayRefundDomesticPost(body?: WechatPayRefundDomesticInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayRefundDomesticPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取退款订单详情(微信接口)
+         * @param {string} refundId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysWechatRefund>>> {
+            const localVarAxiosArgs = await SysWechatPayApiAxiosParamCreator(configuration).apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -414,12 +795,32 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+        async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultWechatPayParaOutput>> {
             return SysWechatPayApiFp(configuration).apiSysWechatPayGenerateParametersForJsapiPayPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 微信支付成功回调(商户直连) 🔖
+         * @summary 查询退款信息列表
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayListRefundPost(body?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysWechatRefund>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayListRefundPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 分页查询支付列表 🔖
+         * @param {WechatPayPageInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPagePost(body?: WechatPayPageInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysWechatPay>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayPagePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 微信支付成功回调(商户直连)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -428,7 +829,17 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 获取支付订单详情 🔖
+         * @summary 获取支付订单详情(微信接口) 🔖
+         * @param {string} tradeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysWechatPay>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取支付订单详情(本地库) 🔖
          * @param {string} tradeId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -447,7 +858,7 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+         * @summary 微信支付下单(服务商模式) 🔖
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -457,13 +868,43 @@ export const SysWechatPayApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 微信支付统一下单获取Id(商户直连) 🔖
+         * @summary 微信支付下单(商户直连)Native
          * @param {WechatPayTransactionInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+        async apiSysWechatPayPayTransactionNativePost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayPayTransactionNativePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 微信支付下单(商户直连) 🔖
+         * @param {WechatPayTransactionInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultWechatPayTransactionOutput>> {
             return SysWechatPayApiFp(configuration).apiSysWechatPayPayTransactionPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 退款申请
+         * @param {WechatPayRefundDomesticInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayRefundDomesticPost(body?: WechatPayRefundDomesticInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayRefundDomesticPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取退款订单详情(微信接口)
+         * @param {string} refundId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysWechatRefund>> {
+            return SysWechatPayApiFp(configuration).apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -483,12 +924,34 @@ export class SysWechatPayApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysWechatPayApi
      */
-    public async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+    public async apiSysWechatPayGenerateParametersForJsapiPayPost(body?: WechatPayParaInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultWechatPayParaOutput>> {
         return SysWechatPayApiFp(this.configuration).apiSysWechatPayGenerateParametersForJsapiPayPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 微信支付成功回调(商户直连) 🔖
+     * @summary 查询退款信息列表
+     * @param {string} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayListRefundPost(body?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysWechatRefund>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayListRefundPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 分页查询支付列表 🔖
+     * @param {WechatPayPageInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayPagePost(body?: WechatPayPageInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysWechatPay>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayPagePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 微信支付成功回调(商户直连)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysWechatPayApi
@@ -498,7 +961,18 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取支付订单详情 🔖
+     * @summary 获取支付订单详情(微信接口) 🔖
+     * @param {string} tradeId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysWechatPay>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayPayInfoFromWechatTradeIdGet(tradeId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取支付订单详情(本地库) 🔖
      * @param {string} tradeId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -519,7 +993,7 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付统一下单获取Id(服务商模式) 🔖
+     * @summary 微信支付下单(服务商模式) 🔖
      * @param {WechatPayTransactionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -530,13 +1004,46 @@ export class SysWechatPayApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 微信支付统一下单获取Id(商户直连) 🔖
+     * @summary 微信支付下单(商户直连)Native
      * @param {WechatPayTransactionInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysWechatPayApi
      */
-    public async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+    public async apiSysWechatPayPayTransactionNativePost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayPayTransactionNativePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 微信支付下单(商户直连) 🔖
+     * @param {WechatPayTransactionInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayPayTransactionPost(body?: WechatPayTransactionInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultWechatPayTransactionOutput>> {
         return SysWechatPayApiFp(this.configuration).apiSysWechatPayPayTransactionPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 退款申请
+     * @param {WechatPayRefundDomesticInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayRefundDomesticPost(body?: WechatPayRefundDomesticInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayRefundDomesticPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取退款订单详情(微信接口)
+     * @param {string} refundId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWechatPayApi
+     */
+    public async apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysWechatRefund>> {
+        return SysWechatPayApiFp(this.configuration).apiSysWechatPayRefundInfoFromWechatRefundIdGet(refundId, options).then((request) => request(this.axios, this.basePath));
     }
 }

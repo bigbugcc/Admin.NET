@@ -12,67 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { WechatPayParaOutput } from './wechat-pay-para-output';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface AdminResultWechatPayParaOutput
  */
-export interface WechatPayTransactionInput {
+export interface AdminResultWechatPayParaOutput {
 
     /**
-     * OpenId
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    openId?: string | null;
-
-    /**
-     * 订单金额
+     * 状态码
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultWechatPayParaOutput
      */
-    total?: number;
+    code?: number;
 
     /**
-     * 商品描述
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultWechatPayParaOutput
      */
-    description?: string | null;
+    type?: string | null;
+
+    /**
+     * 错误信息
+     *
+     * @type {string}
+     * @memberof AdminResultWechatPayParaOutput
+     */
+    message?: string | null;
+
+    /**
+     * @type {WechatPayParaOutput}
+     * @memberof AdminResultWechatPayParaOutput
+     */
+    result?: WechatPayParaOutput;
 
     /**
      * 附加数据
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {any}
+     * @memberof AdminResultWechatPayParaOutput
      */
-    attachment?: string | null;
+    extras?: any | null;
 
     /**
-     * 优惠标记
+     * 时间
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {Date}
+     * @memberof AdminResultWechatPayParaOutput
      */
-    goodsTag?: string | null;
-
-    /**
-     * 业务标签，用来区分做什么业务
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    tags?: string | null;
-
-    /**
-     * 对应业务的主键
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
-     */
-    businessId?: number;
+    time?: Date;
 }

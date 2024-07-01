@@ -12,67 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { SqlSugarPagedListSysWechatPay } from './sql-sugar-paged-list-sys-wechat-pay';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface AdminResultSqlSugarPagedListSysWechatPay
  */
-export interface WechatPayTransactionInput {
+export interface AdminResultSqlSugarPagedListSysWechatPay {
 
     /**
-     * OpenId
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    openId?: string | null;
-
-    /**
-     * 订单金额
+     * 状态码
      *
      * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
      */
-    total?: number;
+    code?: number;
 
     /**
-     * 商品描述
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
      */
-    description?: string | null;
+    type?: string | null;
+
+    /**
+     * 错误信息
+     *
+     * @type {string}
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
+     */
+    message?: string | null;
+
+    /**
+     * @type {SqlSugarPagedListSysWechatPay}
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
+     */
+    result?: SqlSugarPagedListSysWechatPay;
 
     /**
      * 附加数据
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {any}
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
      */
-    attachment?: string | null;
+    extras?: any | null;
 
     /**
-     * 优惠标记
+     * 时间
      *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @type {Date}
+     * @memberof AdminResultSqlSugarPagedListSysWechatPay
      */
-    goodsTag?: string | null;
-
-    /**
-     * 业务标签，用来区分做什么业务
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionInput
-     */
-    tags?: string | null;
-
-    /**
-     * 对应业务的主键
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
-     */
-    businessId?: number;
+    time?: Date;
 }

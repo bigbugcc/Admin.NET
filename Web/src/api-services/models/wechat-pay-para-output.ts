@@ -16,63 +16,43 @@
  * 
  *
  * @export
- * @interface WechatPayTransactionInput
+ * @interface WechatPayParaOutput
  */
-export interface WechatPayTransactionInput {
+export interface WechatPayParaOutput {
 
     /**
-     * OpenId
-     *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayParaOutput
      */
-    openId?: string | null;
+    appId?: string | null;
 
     /**
-     * 订单金额
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
-     */
-    total?: number;
-
-    /**
-     * 商品描述
-     *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayParaOutput
      */
-    description?: string | null;
+    timeStamp?: string | null;
 
     /**
-     * 附加数据
-     *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayParaOutput
      */
-    attachment?: string | null;
+    nonceStr?: string | null;
 
     /**
-     * 优惠标记
-     *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayParaOutput
      */
-    goodsTag?: string | null;
+    _package?: string | null;
 
     /**
-     * 业务标签，用来区分做什么业务
-     *
      * @type {string}
-     * @memberof WechatPayTransactionInput
+     * @memberof WechatPayParaOutput
      */
-    tags?: string | null;
+    signType?: string | null;
 
     /**
-     * 对应业务的主键
-     *
-     * @type {number}
-     * @memberof WechatPayTransactionInput
+     * @type {string}
+     * @memberof WechatPayParaOutput
      */
-    businessId?: number;
+    paySign?: string | null;
 }
