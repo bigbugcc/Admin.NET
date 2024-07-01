@@ -10,6 +10,7 @@ namespace Admin.NET.Plugin.GoView;
 /// GoView 项目数据表
 /// </summary>
 [SugarTable(null, "GoView 项目数据表")]
+[SysTable]
 public class GoViewProData : EntityTenant
 {
     /// <summary>
