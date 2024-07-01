@@ -1,7 +1,5 @@
 <template>
     <div class="pcPhotos-container">
-      <el-row :gutter="8" style="width: 100%; flex: 1">
-        <el-col :span="20" :xs="24" style="display: flex; flex-direction: column">
           <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
             <el-form :model="queryParams" ref="queryForm" :inline="true">
               <el-form-item label="订单号">
@@ -16,10 +14,8 @@
                   <el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
                   <el-button icon="ele-Refresh" @click="() => queryParams = {}"> 重置 </el-button>
                   <el-button @click="openAddDialog">新增模拟数据</el-button>
-                </el-button-group>
-  
-              </el-form-item>
-  
+                </el-button-group>  
+              </el-form-item>  
             </el-form>
           </el-card>
           <el-card class="full-table" shadow="hover" style="margin-top: 8px;">
@@ -42,7 +38,7 @@
               <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
               <el-table-column prop="successTime" label="完成时间" width="150"></el-table-column>
               <el-table-column prop="businessId" label="业务ID" width="130"></el-table-column>
-              <el-table-column label="操作" width="140" align="center" fixed="right">
+              <el-table-column label="操作" align="center" fixed="right">
                 <template #default="scope">
                   <el-button size="small" text="" type="primary"
                     v-if="scope.row.qrcodeContent != null && scope.row.qrcodeContent != '' && (scope.row.tradeState === '' || (!scope.row.tradeState))"
@@ -59,9 +55,7 @@
             <el-pagination v-model:currentPage="tableParams.page" v-model:page-size="tableParams.pageSize"
               :total="tableParams.total" :page-sizes="[10, 20, 50, 100, 200]" background="" @size-change="handleSizeChange"
               @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
-          </el-card>
-        </el-col>
-      </el-row>
+        </el-card>
       <el-dialog v-model="showAddDialog" title="新增模拟数据">
         <el-form>
           <el-form-item label="商品">
