@@ -38,6 +38,7 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
     /// <returns></returns>
     [HttpPost]
     [ApiDescriptionSettings(Name = "Page")]
+    [DisplayName("分页查询@(@Model.BusName)")]
     public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(@(@Model.ClassName)Input input)
     {
 @if (haveLikeCdt) {
@@ -120,6 +121,7 @@ if (@column.QueryWhether == "Y"){
     /// <returns></returns>
     [HttpPost]
     [ApiDescriptionSettings(Name = "Add")]
+    [DisplayName("增加@(@Model.BusName)")]
     public async Task<long> Add(Add@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
@@ -134,6 +136,7 @@ if (@column.QueryWhether == "Y"){
     /// <returns></returns>
     [HttpPost]
     [ApiDescriptionSettings(Name = "Delete")]
+    [DisplayName("删除@(@Model.BusName)")]
     public async Task Delete(Delete@(@Model.ClassName)Input input)
     {
 @foreach (var column in Model.TableField){
@@ -152,6 +155,7 @@ if (@column.ColumnKey == "True"){
     /// <returns></returns>
     [HttpPost]
     [ApiDescriptionSettings(Name = "Update")]
+    [DisplayName("更新@(@Model.BusName)")]
     public async Task Update(Update@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
@@ -165,6 +169,7 @@ if (@column.ColumnKey == "True"){
     /// <returns></returns>
     [HttpGet]
     [ApiDescriptionSettings(Name = "Detail")]
+    [DisplayName("获取@(@Model.BusName)")]
     public async Task<@(@Model.ClassName)> Detail([FromQuery] QueryById@(@Model.ClassName)Input input)
     {
 @foreach (var column in Model.TableField){
@@ -181,6 +186,7 @@ if (@column.ColumnKey == "True"){
     /// <returns></returns>
     [HttpGet]
     [ApiDescriptionSettings(Name = "List")]
+    [DisplayName("获取@(@Model.BusName)列表")]
     public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] @(@Model.ClassName)Input input)
     {
         return await _rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
@@ -193,6 +199,7 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:/// </summary>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "@(@column.FkEntityName)@(@column.PropertyName)Dropdown"), HttpGet]
+    @:[DisplayName("获取@(@column.ColumnComment)列表")]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
     @:{
         @:return await _rep.Context.Queryable<@(@column.FkEntityName)>()
@@ -214,6 +221,7 @@ if(@column.EffectType == "Upload"){
     @:/// <param name="file"></param>
     @:/// <returns></returns>
     @:[ApiDescriptionSettings(Name = "Upload@(@column.PropertyName)"), HttpPost]
+    @:[DisplayName("上传@(@column.ColumnComment)")]
     @:public async Task<SysFile> Upload@(@column.PropertyName)([Required] IFormFile file)
     @:{
             @:var service = App.GetRequiredService<SysFileService>();
@@ -227,6 +235,7 @@ if(@column.EffectType == "Upload"){
 if(@column.EffectType == "ApiTreeSelect" && !definedObjects.ContainsKey("@(@column.FkEntityName)Tree")){
     @{definedObjects.Add("@(@column.FkEntityName)Tree", 1);}
     @:[HttpGet("@(@column.FkEntityName)Tree")]
+    @:[DisplayName("获取@(@column.FkEntityName)Tree")]
     @:public async Task<dynamic> @(@column.FkEntityName)Tree()
     @:{
         @:return await _rep.Context.Queryable<@(@column.FkEntityName)>().ToTreeAsync(u => u.Children, u => u.@(@column.PidColumn), 0);
