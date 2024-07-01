@@ -143,6 +143,11 @@ public partial class SysWechatPay : EntityBase
     /// <summary>
     /// 业务标签，用来区分做什么业务
     /// </summary>
+    /// <remarks>
+    /// Tags标识用来区分这个支付记录对应什么业务从而确定相关联的表名，
+    /// 再结合BusinessId保存了对应的业务数据的ID，就可以确定这个支付
+    /// 记录与哪一条业务数据相关联
+    /// </remarks>
     [SugarColumn(ColumnDescription = "业务标签，用来区分做什么业务", Length = 64)]
     public string? Tags { get; set; }
 
