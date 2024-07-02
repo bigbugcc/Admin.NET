@@ -238,7 +238,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // ke.global.setAllHeader('Authorization', 'Bearer ' + ke.response.headers['access-token']);
 
         // 更新用户登录信息
-        user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIp();
+        user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true);
         (user.LastLoginAddress, double? longitude, double? latitude) = CommonUtil.GetIpAddress(user.LastLoginIp);
         user.LastLoginTime = DateTime.Now;
         user.LastLoginDevice = CommonUtil.GetClientDeviceInfo(_httpContextAccessor.HttpContext?.Request?.Headers?.UserAgent);
@@ -277,7 +277,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 获取水印文字（若系统水印为空则全局为空）
         var watermarkText = await _sysConfigService.GetConfigValue<string>("sys_web_watermark");
         if (!string.IsNullOrWhiteSpace(watermarkText))
-            watermarkText += $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIp()}-{DateTime.Now}";
+            watermarkText += $"-{user.RealName}"; // $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true)}-{DateTime.Now}";
         return new LoginUserOutput
         {
             Id = user.Id,
