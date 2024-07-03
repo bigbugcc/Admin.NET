@@ -171,7 +171,7 @@ public static class SqlSugarSetup
             if (entityInfo.OperationType == DataFilterType.InsertByObject)
             {
                 // 若主键是长整型且空则赋值雪花Id
-                if (entityInfo.EntityColumnInfo.IsPrimarykey && entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
+                if (entityInfo.EntityColumnInfo.IsPrimarykey && !entityInfo.EntityColumnInfo.IsIdentity && entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
                 {
                     var id = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue);
                     if (id == null || (long)id == 0)
