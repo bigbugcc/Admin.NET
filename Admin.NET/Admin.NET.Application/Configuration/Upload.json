@@ -4,7 +4,7 @@
   "Upload": {
     "Path": "Upload/{yyyy}/{MM}/{dd}", // 文件上传目录
     "MaxSize": 51200, // 文件最大限制KB：1024*50
-    "ContentType": [ "image/jpg", "image/png", "image/jpeg", "image/gif", "image/bmp", "text/plain", "application/pdf", "application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "video/mp4", "application/wps-office.docx", "application/wps-office.xlsx", "application/wps-office.pptx" ],
+    "ContentType": [ "image/jpg", "image/png", "image/jpeg", "image/gif", "image/bmp", "text/plain", "application/pdf", "application/msword", "application/vnd.ms-excel", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "video/mp4", "application/wps-office.docx", "application/wps-office.xlsx", "application/wps-office.pptx" ],
     "EnableMd5": false // 启用文件MDF5验证-防止重复上传
   },
   "OSSProvider": {
