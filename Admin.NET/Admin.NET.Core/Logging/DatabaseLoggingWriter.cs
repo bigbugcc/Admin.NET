@@ -160,7 +160,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             }
 
             // 记录操作日志
-            if (!(await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog))) return;
+            if (!await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog)) return;
             await _db.Insertable(new SysLogOp
             {
                 ControllerName = loggingMonitor.controllerName,
