@@ -122,17 +122,14 @@ public class Startup : AppStartup
             options.UseUtcTimestamp = false;
             // 不启用事件日志
             options.LogEnabled = false;
-
             // 事件执行器（失败重试）
             options.AddExecutor<RetryEventHandlerExecutor>();
-
             // 事件执行器（重试后依然处理未处理异常的处理器）
             options.UnobservedTaskExceptionHandler = (obj, args) =>
             {
                 if (args.Exception?.Message != null)
                     Log.Error($"EeventBus 有未处理异常 ：{args.Exception?.Message} ", args.Exception);
             };
-
             // 事件执行器-监视器（每一次处理都会进入）
             options.AddMonitor<EventHandlerMonitor>();
 
