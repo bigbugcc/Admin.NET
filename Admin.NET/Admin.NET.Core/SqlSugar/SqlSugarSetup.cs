@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -133,10 +133,7 @@ public static class SqlSugarSetup
             {
                 if (ex.Parametres == null) return;
                 var log = $"【{DateTime.Now}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
-                var originColor = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(log);
-                Console.ForegroundColor = originColor;
+                Log.Error(log, ex);
                 App.PrintToMiniProfiler("SqlSugar", "Error", log);
             };
             db.Aop.OnLogExecuted = (sql, pars) =>
@@ -156,10 +153,7 @@ public static class SqlSugarSetup
                     var fileLine = db.Ado.SqlStackTrace.FirstLine; // 行号
                     var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
                     var log = $"【{DateTime.Now}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
-                    var originColor = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine(log);
-                    Console.ForegroundColor = originColor;
+                    Log.Warning(log);
                     App.PrintToMiniProfiler("SqlSugar", "Slow", log);
                 }
             };

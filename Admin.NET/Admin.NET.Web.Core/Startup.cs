@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -8,6 +8,9 @@ using Admin.NET.Core;
 using Admin.NET.Core.Service;
 using AspNetCoreRateLimit;
 using Furion;
+using Furion.EventBus;
+using Furion.Logging;
+using Furion.Logging.Extensions;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
@@ -121,8 +124,20 @@ public class Startup : AppStartup
             options.UseUtcTimestamp = false;
             // 不启用事件日志
             options.LogEnabled = false;
-            // 事件执行器（失败重试）
+
+            // 事件执行器（失败重试处理方式）
             options.AddExecutor<RetryEventHandlerExecutor>();
+
+            // 事件执行器,重试后依然处理未处理异常的处理器
+            options.UnobservedTaskExceptionHandler = (obj, args) => {
+                if (args.Exception?.Message != null)
+                {
+                    Log.Error($"EeventBus 有未处理异常 ：{args.Exception?.Message} ", args.Exception);
+                }
+            };
+
+            //事件执行器-监视器，每一次处理都会进入
+            options.AddMonitor<EventHandlerMonitor>();
 
             #region Redis消息队列
 

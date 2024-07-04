@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Furion.EventBus;
+using Furion.Logging.Extensions;
+
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -11,12 +14,37 @@ namespace Admin.NET.Core;
 /// </summary>
 public class RetryEventHandlerExecutor : IEventHandlerExecutor
 {
+    //private class Retry
+
     public async Task ExecuteAsync(EventHandlerExecutingContext context, Func<EventHandlerExecutingContext, Task> handler)
     {
-        // 如果执行失败，每隔 1s 重试，最多三次
+        var eventSubscribeAttribute = context.Attribute;
+        // 判断是否自定义了重试失败回调服务
+        var fallbackPolicyService = eventSubscribeAttribute?.FallbackPolicy == null
+            ? null
+            : App.GetService(eventSubscribeAttribute.FallbackPolicy) as IEventFallbackPolicy;
+
         await Retry.InvokeAsync(async () =>
         {
-            await handler(context);
-        }, 3, 1000);
+            try
+            {
+                await handler(context);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Invoke EventHandler {context.Source.EventId} Error", ex);
+                throw;
+            }
+        }
+        , eventSubscribeAttribute?.NumRetries ?? 0
+        , eventSubscribeAttribute?.RetryTimeout ?? 1000
+        , exceptionTypes: eventSubscribeAttribute?.ExceptionTypes
+        , fallbackPolicy: fallbackPolicyService == null ? null : async (Exception ex) => { await fallbackPolicyService.CallbackAsync(context, ex); }
+        , retryAction: (total, times) =>
+        {
+            // 输出重试日志
+            Log.Warning($"Retrying {times}/{total} times for  EventHandler {context.Source.EventId}");
+        }
+        );
     }
 }
