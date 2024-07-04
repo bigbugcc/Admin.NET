@@ -25,10 +25,10 @@ namespace @Model.NameSpace;
 [ApiDescriptionSettings(@(@Model.ProjectLastName)Const.GroupName, Order = 100)]
 public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
 {
-    private readonly SqlSugarRepository<@(@Model.ClassName)> _rep;
-    public @(@Model.ClassName)Service(SqlSugarRepository<@(@Model.ClassName)> rep)
+    private readonly SqlSugarRepository<@(@Model.ClassName)> _@(@Model.LowerClassName)Rep;
+    public @(@Model.ClassName)Service(SqlSugarRepository<@(@Model.ClassName)> @(@Model.LowerClassName)Rep)
     {
-        _rep = rep;
+        _@(@Model.LowerClassName)Rep = @(@Model.LowerClassName)Rep;
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
 @if (haveLikeCdt) {
 		@:input.SearchKey = input.SearchKey?.Trim();
 }
-        var query = _rep.AsQueryable()
+        var query = _@(@Model.LowerClassName)Rep.AsQueryable()
 @{string conditionFlag = "";}
 @if (haveLikeCdt) {
             @:.WhereIF(!string.IsNullOrEmpty(input.SearchKey), u =>
@@ -125,7 +125,7 @@ if (@column.QueryWhether == "Y"){
     public async Task<long> Add(Add@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
-        await _rep.InsertAsync(entity);
+        await _@(@Model.LowerClassName)Rep.InsertAsync(entity);
         return entity.Id;
     }
 
@@ -141,11 +141,11 @@ if (@column.QueryWhether == "Y"){
     {
 @foreach (var column in Model.TableField){
 if (@column.ColumnKey == "True"){
-        @:var entity = await _rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName)) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        @:var entity = await _@(@Model.LowerClassName)Rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName)) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
 }
 }
-        await _rep.FakeDeleteAsync(entity);   //假删除
-        //await _rep.DeleteAsync(entity);   //真删除
+        await _@(@Model.LowerClassName)Rep.FakeDeleteAsync(entity);   //假删除
+        //await _@(@Model.LowerClassName)Rep.DeleteAsync(entity);   //真删除
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ if (@column.ColumnKey == "True"){
     public async Task Update(Update@(@Model.ClassName)Input input)
     {
         var entity = input.Adapt<@(@Model.ClassName)>();
-        await _rep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
+        await _@(@Model.LowerClassName)Rep.AsUpdateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -174,7 +174,7 @@ if (@column.ColumnKey == "True"){
     {
 @foreach (var column in Model.TableField){
 if (@column.ColumnKey == "True"){
-        @:return await _rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName));
+        @:return await _@(@Model.LowerClassName)Rep.GetFirstAsync(u => u.@(@column.PropertyName) == input.@(@column.PropertyName));
 }   
 }            
     }
@@ -189,7 +189,7 @@ if (@column.ColumnKey == "True"){
     [DisplayName("获取@(@Model.BusName)列表")]
     public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] @(@Model.ClassName)Input input)
     {
-        return await _rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
+        return await _@(@Model.LowerClassName)Rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
     }
 
 @foreach (var column in Model.TableField){
@@ -202,7 +202,7 @@ if(@column.EffectType == "fk" && (@column.WhetherAddUpdate == "Y" || column.Quer
     @:[DisplayName("获取@(@column.ColumnComment)列表")]
     @:public async Task<dynamic> @(@column.FkEntityName)@(@column.PropertyName)Dropdown()
     @:{
-        @:return await _rep.Context.Queryable<@(@column.FkEntityName)>()
+        @:return await _@(@Model.LowerClassName)Rep.Context.Queryable<@(@column.FkEntityName)>()
                 @:.Select(u => new
                 @:{
                     @:Label = u.@(@column.FkColumnName),
@@ -238,7 +238,7 @@ if(@column.EffectType == "ApiTreeSelect" && !definedObjects.ContainsKey("@(@colu
     @:[DisplayName("获取@(@column.FkEntityName)Tree")]
     @:public async Task<dynamic> @(@column.FkEntityName)Tree()
     @:{
-        @:return await _rep.Context.Queryable<@(@column.FkEntityName)>().ToTreeAsync(u => u.Children, u => u.@(@column.PidColumn), 0);
+        @:return await _@(@Model.LowerClassName)Rep.Context.Queryable<@(@column.FkEntityName)>().ToTreeAsync(u => u.Children, u => u.@(@column.PidColumn), 0);
     @:}
 }
 }
