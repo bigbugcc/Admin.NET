@@ -169,9 +169,8 @@ public class SysUserService : IDynamicApiController, ITransient
             throw Oops.Oh(ErrorCodeEnum.D1014);
         if (user.Id == _userManager.UserId)
             throw Oops.Oh(ErrorCodeEnum.D1001);
-        // 若账号为租户默认账号禁止删除
-        var isTenantUser = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysTenant>>()
-            .IsAnyAsync(u => u.UserId == input.Id);
+        // 若账号为租户默认账号则禁止删除
+        var isTenantUser = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysTenant>>().IsAnyAsync(u => u.UserId == input.Id);
         if (isTenantUser)
             throw Oops.Oh(ErrorCodeEnum.D1029);
 
