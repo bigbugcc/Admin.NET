@@ -22,7 +22,11 @@
 					<el-button-group style="padding-left: 10px">
 						<el-button icon="ele-Plus" @click="openAddColumn"> 增加列 </el-button>
 						<el-button icon="ele-Plus" @click="openGenDialog"> 生成实体 </el-button>
-						<el-button icon="ele-Plus" @click="openGenSeedDataDialog"> 生成种子 </el-button>
+						<el-popover placement="bottom" title="温馨提示" :width="200" trigger="hover" content="如果是刚刚生成的实体，请重启服务后再生成种子">
+							<template #reference>
+								<el-button icon="ele-Plus" @click="openGenSeedDataDialog"> 生成种子 </el-button>
+							</template>
+						</el-popover>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
