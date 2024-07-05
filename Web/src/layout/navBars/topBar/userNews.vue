@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUserNews">
+import '@wangeditor/editor/dist/css/style.css';
 import { reactive } from 'vue';
 import router from '/@/router';
 import commonFunction from '/@/utils/commonFunction';
