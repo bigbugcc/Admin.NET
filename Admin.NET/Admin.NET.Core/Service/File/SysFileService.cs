@@ -337,7 +337,7 @@ public class SysFileService : IDynamicApiController, ITransient
         
         // 获取后缀名失败 并且 上传文件为 blob
         if (suffix == "" && file.FileName == "blob")
-            suffix = file.ContentType.Substring(file.ContentType.LastIndexOf('/') + 1); // file.ContentType.Split('/')[1]
+            suffix = "." + file.ContentType.Substring(file.ContentType.LastIndexOf('/') + 1); // file.ContentType.Split('/')[1]
 
         if (string.IsNullOrWhiteSpace(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
