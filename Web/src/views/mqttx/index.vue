@@ -4,7 +4,7 @@
 		<el-card :model="connection">
 			<h1>连接参数(Configuration)</h1>
 			<el-form label-position="top" :model="connection">
-				<el-row :gutter="20">
+				<el-row :gutter="6">
 					<el-col :span="8">
 						<el-form-item prop="host" label="协议|主机|端口">
 							<el-input v-model="connection.host" :disabled="connSuccess" type="password" show-password>
@@ -49,7 +49,6 @@
 						<el-button
 							type="primary"
 							:icon="Setting"
-							size="default"
 							class="sub-btn"
 							:disabled="client.connected"
 							@click="createConnection"
@@ -58,7 +57,7 @@
 						>
 							{{ client.connected ? '已连接(Connected)' : '连接(Connect)' }}
 						</el-button>
-						<el-button v-if="client.connected" type="warning" size="default" :icon="Discount" @click="destroyConnection" :loading="btnLoadingType === 'disconnect'"> 断开(Disconnect) </el-button>
+						<el-button v-if="client.connected" class="sub-btn" type="warning" :icon="Discount" @click="destroyConnection" :loading="btnLoadingType === 'disconnect'"> 断开(Disconnect) </el-button>
 					</el-col>
 				</el-row>
 			</el-form>
@@ -67,7 +66,7 @@
 		<el-card shadow="hover">
 			<h1>订阅(Subscribe)</h1>
 			<el-form label-position="top" :model="subscription">
-				<el-row :gutter="20">
+				<el-row :gutter="6">
 					<el-col :span="12">
 						<el-form-item prop="topic" label="订阅主题(Topic)">
 							<el-input v-model="connection.subTopics" :disabled="subscribedSuccess" type="password" show-password></el-input>
@@ -84,7 +83,6 @@
 						<el-button
 							type="primary"
 							:icon="Connection"
-							size="default"
 							class="sub-btn"
 							:style="{ display: subscribedSuccess ? 'none' : '' }"
 							:loading="btnLoadingType === 'subscribe'"
@@ -93,16 +91,7 @@
 						>
 							{{ subscribedSuccess ? '已订阅(Subscribed)' : '订阅(Subscribe)' }}
 						</el-button>
-						<el-button
-							v-if="subscribedSuccess"
-							type="warning"
-							:icon="Discount"
-							size="default"
-							class="sub-btn"
-							:loading="btnLoadingType === 'unsubscribe'"
-							:disabled="!client.connected"
-							@click="doUnSubscribe"
-						>
+						<el-button v-if="subscribedSuccess" type="warning" :icon="Discount" class="sub-btn" :loading="btnLoadingType === 'unsubscribe'" :disabled="!client.connected" @click="doUnSubscribe">
 							取消(Unsubscribe)
 						</el-button>
 					</el-col>
@@ -113,7 +102,7 @@
 		<el-card shadow="hover">
 			<h1>发布(Publish)</h1>
 			<el-form label-position="top" :model="publish">
-				<el-row :gutter="30">
+				<el-row :gutter="6">
 					<el-col :span="8">
 						<el-form-item prop="topic" label="发布主题(Topic)">
 							<el-input v-model="connection.pubTopic" type="password" show-password></el-input>
@@ -136,7 +125,7 @@
 					</el-col>
 				</el-row>
 
-				<el-row :gutter="30">
+				<el-row :gutter="6">
 					<el-col :span="16">
 						<el-form-item prop="payload" label="操作指令(Payload)">
 							<el-input v-model="publish.payload" clearable maxlength="64" show-word-limit>
@@ -158,15 +147,7 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="8" class="text-right">
-						<el-button
-							type="success"
-							:icon="Position"
-							size="default"
-							class="sub-btn"
-							:loading="btnLoadingType === 'publish'"
-							:disabled="!client.connected"
-							@click="doPublish(publish.payload, connection.pubTopic)"
-						>
+						<el-button type="success" :icon="Position" class="sub-btn" :loading="btnLoadingType === 'publish'" :disabled="!client.connected" @click="doPublish(publish.payload, connection.pubTopic)">
 							发布(Publish)
 						</el-button>
 					</el-col>
@@ -176,113 +157,104 @@
 
 		<el-card shadow="hover">
 			<h1>
-				<el-button @click="clsmsg" type="Success" size="default" :icon="Delete" title="点击清空历史记录">接收(Receive)</el-button>
-				<el-tag size="default" title="接收次数">收 {{ recvnum }}</el-tag>
-				<el-tag size="default" :title="dht_tm">{{ dht_wsd }}</el-tag>
-				<el-tag size="default" title="设备已工作时长">{{ parseInt(runSeconds) }} 秒</el-tag>
+				<el-button @click="clsmsg" type="success" :icon="Delete" title="点击清空历史记录">接收(Receive)</el-button>
+				<el-tag title="接收次数">收 {{ recvnum }}</el-tag>
+				<el-tag :title="dht_tm">{{ dht_wsd }}</el-tag>
+				<el-tag title="设备已工作时长">{{ parseInt(runSeconds) }} 秒</el-tag>
 				<el-button
 					type="success"
 					title="关闭一路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-if="connection.ch1_Status"
 					icon="ele-Check"
-					size="default"
 					id="ch1"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 01 00')"
 					>关闭</el-button
 				>
 				<el-button
 					type="warning"
 					title="打开一路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-else="!connection.ch1_Status"
 					icon="ele-CloseBold"
-					size="default"
 					id="ch1"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 01 01')"
 					>打开</el-button
 				>
 				<el-button
 					type="success"
 					title="关闭二路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-if="connection.ch2_Status"
 					icon="ele-Check"
-					size="default"
 					id="ch2"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 02 00')"
 					>关闭</el-button
 				>
 				<el-button
 					type="warning"
 					title="打开二路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-else="!connection.ch2_Status"
 					icon="ele-CloseBold"
-					size="default"
 					id="ch2"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 02 01')"
 					>打开</el-button
 				>
 				<el-button
 					type="success"
 					title="关闭三路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-if="connection.ch3_Status"
 					icon="ele-Check"
-					size="default"
 					id="ch3"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 03 00')"
 					>关闭</el-button
 				>
 				<el-button
 					type="warning"
 					title="打开三路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-else="!connection.ch3_Status"
 					icon="ele-CloseBold"
-					size="default"
 					id="ch3"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 03 01')"
 					>打开</el-button
 				>
 				<el-button
 					type="success"
 					title="关闭四路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-if="connection.ch4_Status"
 					icon="ele-Check"
-					size="default"
 					id="ch4"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 04 00')"
 					>关闭</el-button
 				>
 				<el-button
 					type="warning"
 					title="打开四路"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-else="!connection.ch4_Status"
 					icon="ele-CloseBold"
-					size="default"
 					id="ch4"
-					v-preventReClick="2000"
+					v-reclick="2000"
 					@click="switchLight('55 AA AA AA AA 81 04 01')"
 					>打开</el-button
 				>
 				<el-button
 					type="danger"
 					title="四路全部关闭"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-if="connection.all_Status"
 					icon="ele-SwitchButton"
-					size="default"
 					id="ch5"
 					@click="switchLight('55 AA AA AA AA 81 A4 00')"
 					>全关</el-button
@@ -290,16 +262,15 @@
 				<el-button
 					type="success"
 					title="四路全部打开"
-					:disabled="!connection.onlineStatus | !client.connected"
+					:disabled="!connection.onlineStatus || !client.connected"
 					v-else="!connection.all_Status"
 					icon="ele-Switch"
-					size="default"
 					id="ch5"
 					@click="switchLight('55 AA AA AA AA 81 A4 01')"
 					>全开</el-button
 				>
 
-				<el-alert v-if="!client.connected || !connection.onlineStatus" title="网络服务断开或设备离线!" center type="warning" effect="light" />
+				<el-alert v-if="!client.connected || !connection.onlineStatus" title="网络服务断开或设备离线!" center type="warning" effect="light" style="margin-top: 4px" />
 			</h1>
 			<!-- 绑定接收日志，只读 -->
 			<el-col :span="24">
@@ -347,7 +318,7 @@ const retryTimes = ref(0); //重连次数
  * ws -> 8083; wss -> 8084
  * By default, EMQX allows clients to connect without authentication.
  * https://docs.emqx.com/en/enterprise/v4.4/advanced/auth.html#anonymous-login
- 
+
  * for more options and details, please refer to https://github.com/mqttjs/MQTT.js#mqttclientstreambuilder-options
  */
 const connection = reactive({
@@ -748,20 +719,19 @@ const clsmsg = () => {
 <style lang="scss" scoped>
 .mqtt-box {
 	max-width: 100%;
-	padding: 4px;
-	margin: 10px auto 0 auto;
+	margin: 0 auto;
 }
 
 .header {
 	font-size: 24px;
 	font-weight: bold;
-	margin: -12px auto 8px auto;
+	margin: -6px auto 0px auto;
 }
 
 h1 {
 	font-size: 16px;
 	margin-top: 10px auto 20px auto;
-	padding: 5px 0px 5px 0;
+	padding: 6px 0px 6px 0;
 }
 
 .el-col {
@@ -772,7 +742,7 @@ h1 {
 	font-size: 13px;
 }
 .el-card {
-	margin-bottom: 12px;
+	margin-bottom: 6px;
 }
 .el-card__body {
 	padding: 24px;
