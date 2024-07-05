@@ -656,6 +656,12 @@ public enum ErrorCodeEnum
     db1002,
 
     /// <summary>
+    /// 实体文件不存在或匹配不到，如果是刚刚生成的实体，请重启服务后再试
+    /// </summary>
+    [ErrorCodeItemMetadata("实体文件不存在或匹配不到，如果是刚刚生成的实体，请重启服务后再试")]
+    db1003,
+
+    /// <summary>
     /// 父节点不存在
     /// </summary>
     [ErrorCodeItemMetadata("父节点不存在")]
