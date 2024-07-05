@@ -29,7 +29,7 @@
 				</div>
 			</el-tab-pane>
 		</el-tabs>
-		<el-dialog v-model="state.dialogVisible" title="消息详情" draggable width="769px">
+		<el-dialog v-model="state.dialogVisible" draggable width="769px">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Bell /> </el-icon>
