@@ -79,6 +79,7 @@ export function base64ToFile(dataURL: string, fileName: string, mimeType = null)
  * @param mimeType {String} 文件类型
  * @return {File}
  */
-export function blobToFile(blob: Blob, fileName: string, mimeType: any) {
+export function blobToFile(blob: Blob, fileName: string, mimeType?: string) {
+	if (mimeType == null) mimeType = blob.type;
 	return new File([blob], fileName, { type: mimeType });
 }

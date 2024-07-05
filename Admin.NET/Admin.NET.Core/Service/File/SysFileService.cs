@@ -5,7 +5,6 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Aliyun.OSS.Util;
-using Furion.VirtualFileServer;
 using OnceMi.AspNetCore.OSS;
 
 namespace Admin.NET.Core.Service;
@@ -112,8 +111,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("根据文件Id或Url下载")]
     public async Task<IActionResult> DownloadFile(FileInput input)
     {
-        var _sysFileRepNew = _sysFileRep.CopyNew(); // DownloadFile函数有可能在多线程下使用，所以这里要创建一个新连接
-        var file = input.Id > 0 ? await GetFile(input) : await _sysFileRepNew.GetFirstAsync(u => u.Url == input.Url);
+        var file = input.Id > 0 ? await GetFile(input) : await _sysFileRep.CopyNew().GetFirstAsync(u => u.Url == input.Url);
         var fileName = HttpUtility.UrlEncode(file.FileName, Encoding.GetEncoding("UTF-8"));
 
         if (_OSSProviderOptions.IsEnable)
@@ -182,7 +180,6 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("下载指定文件Base64格式")]
     public async Task<string> DownloadFileBase64([FromBody] string url)
     {
-        var _sysFileRepNew = _sysFileRep.CopyNew();// DownloadFileBase64函数有可能在多线程下使用，所以这里要创建一个新连接
         if (_OSSProviderOptions.IsEnable)
         {
             using var httpClient = new HttpClient();
@@ -200,7 +197,7 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         else if (App.Configuration["SSHProvider:IsEnable"].ToBoolean())
         {
-            var sysFile = await _sysFileRepNew.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
+            var sysFile = await _sysFileRep.CopyNew().GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
             using (SSHHelper helper = new SSHHelper(App.Configuration["SSHProvider:Host"],
                App.Configuration["SSHProvider:Port"].ToInt(), App.Configuration["SSHProvider:Username"], App.Configuration["SSHProvider:Password"]))
             {
@@ -209,7 +206,7 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         else
         {
-            var sysFile = await _sysFileRepNew.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
+            var sysFile = await _sysFileRep.CopyNew().GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
             var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, sysFile.FilePath);
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
@@ -283,7 +280,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <returns></returns>
     private async Task<SysFile> GetFile([FromQuery] FileInput input)
     {
-        var file = await _sysFileRep.GetFirstAsync(u => u.Id == input.Id);
+        var file = await _sysFileRep.CopyNew().GetFirstAsync(u => u.Id == input.Id);
         return file ?? throw Oops.Oh(ErrorCodeEnum.D8000);
     }
 
@@ -326,6 +323,8 @@ public class SysFileService : IDynamicApiController, ITransient
 
         // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
+        if (string.IsNullOrWhiteSpace(suffix))
+            suffix = string.Concat(".", file.ContentType.AsSpan(file.ContentType.LastIndexOf('/') + 1));
         if (!string.IsNullOrWhiteSpace(suffix))
         {
             //var contentTypeProvider = FS.GetFileExtensionContentTypeProvider();
@@ -334,11 +333,6 @@ public class SysFileService : IDynamicApiController, ITransient
             if (suffix == ".jpeg" || suffix == ".jpe")
                 suffix = ".jpg";
         }
-        
-        // 获取后缀名失败 并且 上传文件为 blob
-        if (suffix == "" && file.FileName == "blob")
-            suffix = "." + file.ContentType.Substring(file.ContentType.LastIndexOf('/') + 1); // file.ContentType.Split('/')[1]
-
         if (string.IsNullOrWhiteSpace(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
 
@@ -488,11 +482,11 @@ public class SysFileService : IDynamicApiController, ITransient
         if (ids == null || ids.Count == 0)
             return 0;
         return await _sysFileRep.AsUpdateable()
-              .SetColumns(m => m.RelationName == relationName)
-              .SetColumns(m => m.RelationId == relationId)
-              .SetColumns(m => m.BelongId == belongId)
-             .Where(m => ids.Contains(m.Id))
-             .ExecuteCommandAsync();
+            .SetColumns(m => m.RelationName == relationName)
+            .SetColumns(m => m.RelationId == relationId)
+            .SetColumns(m => m.BelongId == belongId)
+            .Where(m => ids.Contains(m.Id))
+            .ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -504,11 +498,11 @@ public class SysFileService : IDynamicApiController, ITransient
     public async Task<List<FileOutput>> GetRelationFiles([FromQuery] RelationQueryInput input)
     {
         return await _sysFileRep.AsQueryable()
-           .Where(m => !m.IsDelete)
-           .WhereIF(input.RelationId.HasValue && input.RelationId > 0, m => m.RelationId == input.RelationId)
-           .WhereIF(input.BelongId.HasValue && input.BelongId > 0, m => m.BelongId == input.BelongId.Value)
-           .WhereIF(!string.IsNullOrWhiteSpace(input.RelationName), m => m.RelationName == input.RelationName)
-           .WhereIF(!string.IsNullOrWhiteSpace(input.FileTypes), m => input.GetFileTypeBS().Contains(m.FileType))
+            .Where(m => !m.IsDelete)
+            .WhereIF(input.RelationId.HasValue && input.RelationId > 0, m => m.RelationId == input.RelationId)
+            .WhereIF(input.BelongId.HasValue && input.BelongId > 0, m => m.BelongId == input.BelongId.Value)
+            .WhereIF(!string.IsNullOrWhiteSpace(input.RelationName), m => m.RelationName == input.RelationName)
+            .WhereIF(!string.IsNullOrWhiteSpace(input.FileTypes), m => input.GetFileTypeBS().Contains(m.FileType))
             .Select(m => new FileOutput
             {
                 Id = m.Id,
