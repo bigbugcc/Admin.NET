@@ -30,7 +30,15 @@
 			</el-tab-pane>
 		</el-tabs>
 		<el-dialog v-model="state.dialogVisible" title="消息详情" draggable width="769px">
-			<p v-html="state.content"></p>
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Bell /> </el-icon>
+					<span> 消息详情 </span>
+				</div>
+			</template>
+			<div class="w-e-text-container">
+				<div v-html="state.content" data-slate-editor></div>
+			</div>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button type="primary" @click="state.dialogVisible = false">确认</el-button>
