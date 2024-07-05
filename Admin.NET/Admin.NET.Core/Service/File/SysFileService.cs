@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -112,7 +112,8 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("根据文件Id或Url下载")]
     public async Task<IActionResult> DownloadFile(FileInput input)
     {
-        var file = input.Id > 0 ? await GetFile(input) : await _sysFileRep.GetFirstAsync(u => u.Url == input.Url);
+        var _sysFileRepNew = _sysFileRep.CopyNew(); // DownloadFile函数有可能在多线程下使用，所以这里要创建一个新连接
+        var file = input.Id > 0 ? await GetFile(input) : await _sysFileRepNew.GetFirstAsync(u => u.Url == input.Url);
         var fileName = HttpUtility.UrlEncode(file.FileName, Encoding.GetEncoding("UTF-8"));
 
         if (_OSSProviderOptions.IsEnable)
@@ -181,6 +182,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("下载指定文件Base64格式")]
     public async Task<string> DownloadFileBase64([FromBody] string url)
     {
+        var _sysFileRepNew = _sysFileRep.CopyNew();// DownloadFileBase64函数有可能在多线程下使用，所以这里要创建一个新连接
         if (_OSSProviderOptions.IsEnable)
         {
             using var httpClient = new HttpClient();
@@ -198,7 +200,7 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         else if (App.Configuration["SSHProvider:IsEnable"].ToBoolean())
         {
-            var sysFile = await _sysFileRep.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
+            var sysFile = await _sysFileRepNew.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
             using (SSHHelper helper = new SSHHelper(App.Configuration["SSHProvider:Host"],
                App.Configuration["SSHProvider:Port"].ToInt(), App.Configuration["SSHProvider:Username"], App.Configuration["SSHProvider:Password"]))
             {
@@ -207,14 +209,17 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         else
         {
-            var sysFile = await _sysFileRep.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
+            var sysFile = await _sysFileRepNew.GetFirstAsync(u => u.Url == url) ?? throw Oops.Oh($"文件不存在");
             var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, sysFile.FilePath);
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
 
             var realFile = Path.Combine(filePath, $"{sysFile.Id}{sysFile.Suffix}");
             if (!File.Exists(realFile))
-                throw Oops.Oh($"文件[{realFile}]不在存");
+            {
+                Log.Error($"DownloadFileBase64:文件[{realFile}]不存在");
+                throw Oops.Oh($"文件[{sysFile.FilePath}]不存在");
+            }
             byte[] fileBytes = File.ReadAllBytes(realFile);
             return Convert.ToBase64String(fileBytes);
         }
