@@ -38,15 +38,15 @@ public partial class SysDictData : EntityBase
     /// <summary>
     /// 编码
     /// </summary>
-    [SugarColumn(ColumnDescription = "编码", Length = 128)]
-    [Required, MaxLength(128)]
+    [SugarColumn(ColumnDescription = "编码", Length = 256)]
+    [Required, MaxLength(256)]
     public virtual string Code { get; set; }
 
     /// <summary>
     /// 名称
     /// </summary>
-    [SugarColumn(ColumnDescription = "名称", Length = 128)]
-    [MaxLength(128)]
+    [SugarColumn(ColumnDescription = "名称", Length = 256)]
+    [MaxLength(256)]
     public virtual string? Name { get; set; }
 
     /// <summary>

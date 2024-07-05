@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using IPTools.Core;
 using Magicodes.ExporterAndImporter.Core.Models;
 using System.Xml;
 using System.Xml.Linq;
@@ -104,24 +105,24 @@ public static class CommonUtil
     /// 导出模板Excel
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelTemplate<T>() where T : class, new()
+    public static async Task<IActionResult> ExportExcelTemplate<T>(string fileName = null) where T : class, new()
     {
         IImporter importer = new ExcelImporter();
         var res = await importer.GenerateTemplateBytes<T>();
 
-        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name + ".xlsx" };
+        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
     /// <summary>
     /// 导出数据excel
     /// </summary>
     /// <returns></returns>
-    public static async Task<IActionResult> ExportExcelData<T>(ICollection<T> data) where T : class, new()
+    public static async Task<IActionResult> ExportExcelData<T>(ICollection<T> data, string fileName = null) where T : class, new()
     {
         var export = new ExcelExporter();
         var res = await export.ExportAsByteArray<T>(data);
 
-        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(T).Name + ".xlsx" };
+        return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
     /// <summary>
@@ -275,25 +276,25 @@ public static class CommonUtil
         // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
         var propMappings = new Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>>();
 
-        var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
+        var dictService = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
         var tSourceProps = typeof(TSource).GetProperties().ToList();
-        var tTargetProps = typeof(TTarget).GetProperties().ToDictionary(m => m.Name);
+        var tTargetProps = typeof(TTarget).GetProperties().ToDictionary(u => u.Name);
         foreach (var propertyInfo in tSourceProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
                 var targetProp = tTargetProps[attrs.TargetPropName];
-                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
-                    new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
-                    .Where(a => a.Code == attrs.TypeCode)
-                    .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
-                    .Select((a, b) => new
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((u, a) =>
+                    new JoinQueryInfos(JoinType.Inner, u.Id == a.DictTypeId))
+                    .Where(u => u.Code == attrs.TypeCode)
+                    .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
+                    .Select((u, a) => new
                     {
-                        Label = b.Value,
-                        Value = b.Code
+                        Label = a.Value,
+                        Value = a.Code
                     }).ToList()
-                    .ToDictionary(m => m.Label, m => m.Value.ParseTo(targetProp.PropertyType));
+                    .ToDictionary(u => u.Label, u => u.Value.ParseTo(targetProp.PropertyType));
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(mappingValues, propertyInfo, targetProp));
             }
             else
@@ -317,25 +318,25 @@ public static class CommonUtil
         // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
         var propMappings = new Dictionary<string, Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>>();
 
-        var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
+        var dictService = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
         var targetProps = typeof(TTarget).GetProperties().ToList();
-        var sourceProps = typeof(TSource).GetProperties().ToDictionary(m => m.Name);
+        var sourceProps = typeof(TSource).GetProperties().ToDictionary(u => u.Name);
         foreach (var propertyInfo in targetProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
                 var targetProp = sourceProps[attrs.TargetPropName];
-                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
-                    new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
-                    .Where(a => a.Code == attrs.TypeCode)
-                    .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
-                    .Select((a, b) => new
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((u, a) =>
+                    new JoinQueryInfos(JoinType.Inner, u.Id == a.DictTypeId))
+                    .Where(u => u.Code == attrs.TypeCode)
+                    .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
+                    .Select((u, a) => new
                     {
-                        Label = b.Value,
-                        Value = b.Code
+                        Label = a.Value,
+                        Value = a.Code
                     }).ToList()
-                    .ToDictionary(m => m.Value.ParseTo(targetProp.PropertyType), m => m.Label);
+                    .ToDictionary(u => u.Value.ParseTo(targetProp.PropertyType), u => u.Label);
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>(mappingValues, targetProp, propertyInfo));
             }
             else
@@ -368,5 +369,48 @@ public static class CommonUtil
         }
 
         return propMappings;
+    }
+
+    /// <summary>
+    /// 解析IP地址
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    public static (string ipLocation, double? longitude, double? latitude) GetIpAddress(string ip)
+    {
+        try
+        {
+            var ipInfo = IpTool.SearchWithI18N(ip); // 国际化查询，默认中文 中文zh-CN、英文en
+            var addressList = new List<string>() { ipInfo.Country, ipInfo.Province, ipInfo.City, ipInfo.NetworkOperator };
+            return (string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()), ipInfo.Longitude, ipInfo.Latitude); // 去掉0及空并用空格连接
+        }
+        catch
+        {
+            // 不做处理
+        }
+        return ("未知", 0, 0);
+    }
+
+    /// <summary>
+    /// 获取客户端设备信息（操作系统+浏览器）
+    /// </summary>
+    /// <param name="userAgent"></param>
+    /// <returns></returns>
+    public static string GetClientDeviceInfo(string userAgent)
+    {
+        try
+        {
+            if (userAgent != null)
+            {
+                var client = Parser.GetDefault().Parse(userAgent);
+                if (client.Device.IsSpider)
+                    return "爬虫";
+                return $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}" +
+                    $"|{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
+            }
+        }
+        catch
+        { }
+        return "未知";
     }
 }

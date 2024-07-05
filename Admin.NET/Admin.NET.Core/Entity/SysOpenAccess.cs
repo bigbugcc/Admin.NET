@@ -51,8 +51,6 @@ public partial class SysOpenAccess : EntityBase
     /// <summary>
     /// 绑定用户
     /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
-    [System.Text.Json.Serialization.JsonIgnore]
     [Navigate(NavigateType.OneToOne, nameof(BindUserId))]
     public SysUser BindUser { get; set; }
 }

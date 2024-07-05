@@ -168,7 +168,7 @@ public class SysWechatService : IDynamicApiController, ITransient
             Url = input.Url,
             MiniProgram = new CgibinMessageTemplateSendRequest.Types.MiniProgram
             {
-                AppId = _wechatApiClientFactory._wechatOptions.WechatAppId,
+                AppId = _wechatApiClientFactory._wechatOptions.WxOpenAppId,
                 PagePath = input.MiniProgramPagePath,
             },
             Data = messageData

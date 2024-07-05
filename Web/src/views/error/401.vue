@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="right">
-					<img src="https://i.hd-r.cn/2cf0d2e192660eec23eb9d0655753e7d.png" />
+					<img :src="unauthorizedImage" />
 				</div>
 			</div>
 		</div>
@@ -22,6 +22,7 @@
 
 <script setup lang="ts" name="noPower">
 import { Session } from '/@/utils/storage';
+import unauthorizedImage from '/@/assets/401.png';
 
 const onSetAuth = () => {
 	// https://gitee.com/lyt-top/vue-next-admin/issues/I5C3JS

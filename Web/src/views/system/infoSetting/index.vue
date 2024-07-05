@@ -116,8 +116,6 @@ const loadData = async () => {
 		if (res.data!.type !== 'success') return;
 
 		const result = res.data.result;
-		result.sysLogo = window.__env__.VITE_API_URL + result.sysLogo;
-
 		state.formData = {
 			sysLogoBlob: undefined,
 			sysLogo: result.sysLogo,

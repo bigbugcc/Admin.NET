@@ -16,7 +16,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysExlog:clear'"> 清空 </el-button>
-					<el-button icon="ele-FolderOpened" @click="exportLog" v-auth="'sysOplog:export'"> 导出 </el-button>
+					<el-button icon="ele-FolderOpened" @click="exportLog" v-auth="'sysExlog:export'"> 导出 </el-button>
 				</el-form-item>
 			</el-form>
 		</el-card>
@@ -72,7 +72,7 @@
 				v-model:page-size="state.tableParams.pageSize"
 				:total="state.tableParams.total"
 				:page-sizes="[10, 20, 50, 100]"
-				small
+				size="small"
 				background
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"

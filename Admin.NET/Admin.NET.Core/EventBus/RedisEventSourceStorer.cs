@@ -23,10 +23,11 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
     /// </summary>
     private readonly Channel<IEventSource> _channel;
 
-    /// <summary>
-    /// Redis 连接对象
-    /// </summary>
-    private readonly FullRedis _redis;
+    ///// <summary>
+    ///// Redis 连接对象
+    ///// </summary>
+    //private readonly FullRedis _redis;
+    private IProducerConsumer<ChannelEventSource> _queue;
 
     /// <summary>
     /// 路由键
@@ -36,10 +37,10 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="redis">Redis 连接对象</param>
+    /// <param name="cacheProvider">Redis 连接对象</param>
     /// <param name="routeKey">路由键</param>
     /// <param name="capacity">存储器最多能够处理多少消息，超过该容量进入等待写入</param>
-    public RedisEventSourceStorer(ICache redis, string routeKey, int capacity)
+    public RedisEventSourceStorer(ICacheProvider cacheProvider, string routeKey, int capacity)
     {
         // 配置通道，设置超出默认容量后进入等待
         var boundedChannelOptions = new BoundedChannelOptions(capacity)
@@ -50,11 +51,12 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
         // 创建有限容量通道
         _channel = Channel.CreateBounded<IEventSource>(boundedChannelOptions);
 
-        _redis = redis as FullRedis;
+        //_redis = redis as FullRedis;
         _routeKey = routeKey;
 
         // 创建消息订阅者
-        _eventConsumer = new EventConsumer<ChannelEventSource>(_redis, _routeKey);
+        _queue = cacheProvider.GetQueue<ChannelEventSource>(routeKey);
+        _eventConsumer = new EventConsumer<ChannelEventSource>(_queue);
 
         // 订阅消息写入 Channel
         _eventConsumer.Received += (send, cr) =>
@@ -63,10 +65,7 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
             //var eventSource = JsonConvert.DeserializeObject<ChannelEventSource>(cr);
 
             // 写入内存管道存储器
-            Task.Run(async () =>
-            {
-                await _channel.Writer.WriteAsync(cr);
-            });
+            _channel.Writer.WriteAsync(cr);
         };
 
         // 启动消费者
@@ -93,13 +92,14 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
             // 序列化消息
             //var data = JsonSerializer.Serialize(source);
 
-            // 获取一个订阅对象
-            var queue = _redis.GetQueue<ChannelEventSource>(_routeKey);
+            //// 获取一个订阅对象
+            //var queue = _redis.GetQueue<ChannelEventSource>(_routeKey);
 
             // 异步发布
             await Task.Factory.StartNew(() =>
             {
-                queue.Add(source);
+                //queue.Add(source);
+                _queue.Add(source);
             }, cancellationToken, TaskCreationOptions.LongRunning, System.Threading.Tasks.TaskScheduler.Default);
         }
         else

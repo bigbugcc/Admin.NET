@@ -119,14 +119,6 @@ export interface UpdateOrgInput {
     level?: number | null;
 
     /**
-     * 机构类型-数据字典
-     *
-     * @type {string}
-     * @memberof UpdateOrgInput
-     */
-    type?: string | null;
-
-    /**
      * 负责人Id
      *
      * @type {number}
@@ -179,4 +171,12 @@ export interface UpdateOrgInput {
      * @memberof UpdateOrgInput
      */
     name: string;
+
+    /**
+     * 机构类型
+     *
+     * @type {string}
+     * @memberof UpdateOrgInput
+     */
+    type?: string | null;
 }

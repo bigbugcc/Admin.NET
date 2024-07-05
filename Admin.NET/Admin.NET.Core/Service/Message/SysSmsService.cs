@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -8,6 +8,7 @@ using AlibabaCloud.SDK.Dysmsapi20170525.Models;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Sms.V20190711;
+using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 
@@ -65,19 +66,58 @@ public class SysSmsService : IDynamicApiController, ITransient
         });
 
         var client = CreateAliyunClient();
+        var template = _smsOptions.Aliyun.GetTemplate();
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
-            SignName = _smsOptions.Aliyun.SignName, // 短信签名
-            TemplateCode = _smsOptions.Aliyun.TemplateCode, // 短信模板
+            SignName = template.SignName, // 短信签名
+            TemplateCode = template.TemplateCode, // 短信模板
             TemplateParam = templateParam.ToString(), // 模板中的变量替换JSON串
             OutId = YitIdHelper.NextId().ToString()
         };
-        var sendSmsResponse = client.SendSms(sendSmsRequest);
+        var sendSmsResponse = await client.SendSmsAsync(sendSmsRequest);
         if (sendSmsResponse.Body.Code == "OK" && sendSmsResponse.Body.Message == "OK")
         {
             // var bizId = sendSmsResponse.Body.BizId;
             _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(60));
+        }
+        else
+        {
+            throw Oops.Oh($"短信发送失败：{sendSmsResponse.Body.Code}-{sendSmsResponse.Body.Message}");
+        }
+
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 发送短信模板
+    /// </summary>
+    /// <param name="phoneNumber"></param>
+    /// <param name="templateParam"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("发送短信模板")]
+    public async Task AliyunSendSmsTemplate([Required] string phoneNumber, [Required] dynamic templateParam)
+    {
+        if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid)
+            throw Oops.Oh("请正确填写手机号码");
+
+        if (string.IsNullOrWhiteSpace(templateParam.ToString()))
+            throw Oops.Oh("短信内容不能为空");
+
+        var client = CreateAliyunClient();
+        var template = _smsOptions.Aliyun.GetTemplate();
+        var sendSmsRequest = new SendSmsRequest
+        {
+            PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
+            SignName = template.SignName, // 短信签名
+            TemplateCode = template.TemplateCode, // 短信模板
+            TemplateParam = templateParam.ToString(), // 模板中的变量替换JSON串
+            OutId = YitIdHelper.NextId().ToString()
+        };
+        var sendSmsResponse = await client.SendSmsAsync(sendSmsRequest);
+        if (sendSmsResponse.Body.Code == "OK" && sendSmsResponse.Body.Message == "OK")
+        {
         }
         else
         {
@@ -105,13 +145,14 @@ public class SysSmsService : IDynamicApiController, ITransient
 
         // 实例化要请求产品的client对象，clientProfile是可选的
         var client = new SmsClient(CreateTencentClient(), "ap-guangzhou", new ClientProfile() { HttpProfile = new HttpProfile() { Endpoint = ("sms.tencentcloudapi.com") } });
+        var template = _smsOptions.Tencentyun.GetTemplate();
         // 实例化一个请求对象,每个接口都会对应一个request对象
         var req = new TencentCloud.Sms.V20190711.Models.SendSmsRequest
         {
             PhoneNumberSet = new string[] { "+86" + phoneNumber.Trim(',') },
             SmsSdkAppid = _smsOptions.Tencentyun.SdkAppId,
-            Sign = _smsOptions.Tencentyun.SignName,
-            TemplateID = _smsOptions.Tencentyun.TemplateCode,
+            Sign = template.SignName,
+            TemplateID = template.TemplateCode,
             TemplateParamSet = new string[] { verifyCode.ToString() }
         };
 

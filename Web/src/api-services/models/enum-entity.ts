@@ -29,6 +29,14 @@ export interface EnumEntity {
     describe?: string | null;
 
     /**
+     * 枚举的样式
+     *
+     * @type {string}
+     * @memberof EnumEntity
+     */
+    theme?: string | null;
+
+    /**
      * 枚举名称
      *
      * @type {string}

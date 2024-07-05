@@ -73,4 +73,23 @@ public class DingTalkUser : EntityBase
     [SugarColumn(ColumnDescription = "工号", Length = 16)]
     [MaxLength(16)]
     public string? JobNumber { get; set; }
+    /// <summary>
+    /// 主部门Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "主部门Id", Length = 16)]
+    [MaxLength(16)]
+    public string? DeptId { get; set; }
+    /// <summary>
+    /// 主部门
+    /// </summary>
+    [SugarColumn(ColumnDescription = "主部门", Length = 16)]
+    [MaxLength(16)]
+    public string? Dept { get; set; }
+    /// <summary>
+    /// 职位
+    /// </summary>
+    [SugarColumn(ColumnDescription = "职位", Length = 16)]
+    [MaxLength(16)]
+    public string? Position { get; set; }
+
 }

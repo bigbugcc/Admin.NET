@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -8,10 +8,12 @@ using Admin.NET.Core;
 using Admin.NET.Core.Service;
 using AspNetCoreRateLimit;
 using Furion;
+using Furion.Logging;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
 using IPTools.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +24,7 @@ using Newtonsoft.Json;
 using OnceMi.AspNetCore.OSS;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 
 namespace Admin.NET.Web.Core;
 
@@ -37,12 +40,25 @@ public class Startup : AppStartup
         // SqlSugar
         services.AddSqlSugar();
         // JWT
-        services.AddJwt<JwtHandler>(enableGlobalAuthorize: true)
-            // 添加 Signature 身份验证
-            .AddSignatureAuthentication(options =>
+        services.AddJwt<JwtHandler>(enableGlobalAuthorize: true, jwtBearerConfigure: options =>
+        {
+            // 实现 JWT 身份验证过程控制
+            options.Events = new JwtBearerEvents
             {
-                options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
-            });
+                OnMessageReceived = context =>
+                {
+                    var httpContext = context.HttpContext;
+                    // 若请求 Url 包含 token 参数，则设置 Token 值
+                    if (httpContext.Request.Query.ContainsKey("token"))
+                        context.Token = httpContext.Request.Query["token"];
+                    return Task.CompletedTask;
+                }
+            };
+        }).AddSignatureAuthentication(options =>  // 添加 Signature 身份验证
+        {
+            options.Events = SysOpenAccessService.GetSignatureAuthenticationEventImpl();
+        });
+
         // 允许跨域
         services.AddCorsAccessor();
         // 远程请求
@@ -108,15 +124,23 @@ public class Startup : AppStartup
             options.LogEnabled = false;
             // 事件执行器（失败重试）
             options.AddExecutor<RetryEventHandlerExecutor>();
+            // 事件执行器（重试后依然处理未处理异常的处理器）
+            options.UnobservedTaskExceptionHandler = (obj, args) =>
+            {
+                if (args.Exception?.Message != null)
+                    Log.Error($"EeventBus 有未处理异常 ：{args.Exception?.Message} ", args.Exception);
+            };
+            // 事件执行器-监视器（每一次处理都会进入）
+            options.AddMonitor<EventHandlerMonitor>();
 
             #region Redis消息队列
 
             //// 替换事件源存储器
             //options.ReplaceStorer(serviceProvider =>
             //{
-            //    var redisCache = serviceProvider.GetRequiredService<ICache>();
+            //    var cacheProvider = serviceProvider.GetRequiredService<NewLife.Caching.ICacheProvider>();
             //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
-            //    return new RedisEventSourceStorer(redisCache, "adminnet", 3000);
+            //    return new RedisEventSourceStorer(cacheProvider, "adminnet", 3000);
             //});
 
             #endregion Redis消息队列
@@ -153,8 +177,11 @@ public class Startup : AppStartup
         services.AddViewEngine();
 
         // 即时通讯
-        services.AddSignalR(SetNewtonsoftJsonSetting);
         //services.AddSingleton<IUserIdProvider, UserIdProvider>();
+        services.AddSignalR(options =>
+        {
+            options.KeepAliveInterval = TimeSpan.FromSeconds(5);
+        }).AddNewtonsoftJsonProtocol(options => SetNewtonsoftJsonSetting(options.PayloadSerializerSettings));
 
         // 系统日志
         services.AddLoggingSetup();

@@ -135,7 +135,7 @@
 					<span> Cron表达式生成器 </span>
 				</div>
 			</template>
-			<vcrontab @hide="state.showCronDialog = false" @fill="crontabFill" :expression="cronValue"></vcrontab>
+			<vcrontab id="vcrontab" @hide="state.showCronDialog = false" @fill="crontabFill" :expression="cronValue"></vcrontab>
 		</el-dialog>
 	</div>
 </template>
@@ -286,3 +286,11 @@ const macroDropDownCommand = (item: MacroData) => {
 // 导出对象
 defineExpose({ openDialog });
 </script>
+
+<style lang="scss" scoped>
+#vcrontab {
+	:deep(.el-select) {
+		min-width: 300px;
+	}
+}
+</style>

@@ -1,4 +1,4 @@
-// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -133,10 +133,7 @@ public static class SqlSugarSetup
             {
                 if (ex.Parametres == null) return;
                 var log = $"【{DateTime.Now}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
-                var originColor = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(log);
-                Console.ForegroundColor = originColor;
+                Log.Error(log, ex);
                 App.PrintToMiniProfiler("SqlSugar", "Error", log);
             };
             db.Aop.OnLogExecuted = (sql, pars) =>
@@ -156,10 +153,7 @@ public static class SqlSugarSetup
                     var fileLine = db.Ado.SqlStackTrace.FirstLine; // 行号
                     var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
                     var log = $"【{DateTime.Now}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
-                    var originColor = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine(log);
-                    Console.ForegroundColor = originColor;
+                    Log.Warning(log);
                     App.PrintToMiniProfiler("SqlSugar", "Slow", log);
                 }
             };
@@ -171,7 +165,7 @@ public static class SqlSugarSetup
             if (entityInfo.OperationType == DataFilterType.InsertByObject)
             {
                 // 若主键是长整型且空则赋值雪花Id
-                if (entityInfo.EntityColumnInfo.IsPrimarykey && entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
+                if (entityInfo.EntityColumnInfo.IsPrimarykey && !entityInfo.EntityColumnInfo.IsIdentity && entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
                 {
                     var id = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue);
                     if (id == null || (long)id == 0)
@@ -185,33 +179,34 @@ public static class SqlSugarSetup
                 // 若当前用户非空（web线程时）
                 if (App.User != null)
                 {
+                    dynamic entityValue = entityInfo.EntityValue;
                     if (entityInfo.PropertyName == nameof(EntityTenantId.TenantId))
                     {
-                        var tenantId = ((dynamic)entityInfo.EntityValue).TenantId;
+                        var tenantId = entityValue.TenantId;
                         if (tenantId == null || tenantId == 0)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.TenantId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBase.CreateUserId))
                     {
-                        var createUserId = ((dynamic)entityInfo.EntityValue).CreateUserId;
+                        var createUserId = entityValue.CreateUserId;
                         if (createUserId == 0 || createUserId == null)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.UserId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBase.CreateUserName))
                     {
-                        var createUserName = ((dynamic)entityInfo.EntityValue).CreateUserName;
+                        var createUserName = entityValue.CreateUserName;
                         if (string.IsNullOrEmpty(createUserName))
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.RealName)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBaseData.CreateOrgId))
                     {
-                        var createOrgId = ((dynamic)entityInfo.EntityValue).CreateOrgId;
+                        var createOrgId = entityValue.CreateOrgId;
                         if (createOrgId == 0 || createOrgId == null)
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgId)?.Value);
                     }
                     else if (entityInfo.PropertyName == nameof(EntityBaseData.CreateOrgName))
                     {
-                        var createOrgName = ((dynamic)entityInfo.EntityValue).CreateOrgName;
+                        var createOrgName = entityValue.CreateOrgName;
                         if (string.IsNullOrEmpty(createOrgName))
                             entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgName)?.Value);
                     }
@@ -323,7 +318,8 @@ public static class SqlSugarSetup
         if (config.SeedSettings.EnableInitSeed)
         {
             var seedDataTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarEntitySeedData<>))))
-                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false)).ToList();
+                .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false))
+                .OrderBy(u => u.GetCustomAttributes(typeof(SeedDataAttribute), false).Length > 0 ? (u.GetCustomAttributes(typeof(SeedDataAttribute), false)[0] as SeedDataAttribute).Order : 0).ToList();
 
             foreach (var seedType in seedDataTypes)
             {
@@ -383,7 +379,9 @@ public static class SqlSugarSetup
         db.DbMaintenance.CreateDatabase();
 
         // 获取所有业务表-初始化租户库表结构（排除系统表、日志表、特定库表）
-        var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) &&
+        var entityTypes = App.EffectiveTypes
+            .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
+            .Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) &&
             !u.IsDefined(typeof(SysTableAttribute), false) && !u.IsDefined(typeof(LogTableAttribute), false) && !u.IsDefined(typeof(TenantAttribute), false)).ToList();
         if (!entityTypes.Any()) return;
 

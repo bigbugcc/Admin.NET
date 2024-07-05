@@ -134,14 +134,21 @@ const handleQueryTable = async () => {
 	state.loading = true;
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.configId);
-	state.tableData = res.data.result ?? [];
+	let tableData = res.data.result ?? [];
+	state.tableData = [];
+	tableData.forEach((element: any) => {
+		//排除zero_开头的表
+		if (!element.name.startsWith('zero_')) {
+			state.tableData.push(element);
+		}
+	});
 	state.loading = false;
 };
 
 // 列查询操作
 const handleQueryColumn = async () => {
 	state.columnData = [];
-	if (state.tableName == '') return;
+	if (state.tableName == '' || typeof state.tableName == 'undefined') return;
 
 	state.loading1 = true;
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseColumnListTableNameConfigIdGet(state.tableName, state.configId);

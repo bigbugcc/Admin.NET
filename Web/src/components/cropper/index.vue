@@ -37,7 +37,7 @@
 						:auto-upload="false"
 						:on-change="selectPicture"
 						:on-exceed="selectPictureExceed"
-						style="display: inline-block; position: absolute; right: 172px"
+						style="display: inline-block; position: absolute; right: 182px"
 					>
 						<el-button icon="ele-Picture">选择图片</el-button>
 					</el-upload>

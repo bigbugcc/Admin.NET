@@ -12,18 +12,20 @@ namespace Admin.NET.Core;
 /// <typeparam name="T"></typeparam>
 public class EventConsumer<T> : IDisposable
 {
+    /// <summary>
+    ///
+    /// </summary>
     private Task _consumerTask;
+
+    /// <summary>
+    ///
+    /// </summary>
     private CancellationTokenSource _consumerCts;
 
     /// <summary>
     /// 消费者
     /// </summary>
     public IProducerConsumer<T> Consumer { get; }
-
-    /// <summary>
-    /// ConsumerBuilder
-    /// </summary>
-    public FullRedis Builder { get; set; }
 
     /// <summary>
     /// 消息回调
@@ -33,11 +35,8 @@ public class EventConsumer<T> : IDisposable
     /// <summary>
     /// 构造函数
     /// </summary>
-    public EventConsumer(FullRedis redis, string routeKey)
-    {
-        Builder = redis;
-        Consumer = Builder.GetQueue<T>(routeKey);
-    }
+    /// <param name="consumer"></param>
+    public EventConsumer(IProducerConsumer<T> consumer) => Consumer = consumer;
 
     /// <summary>
     /// 启动
@@ -106,7 +105,6 @@ public class EventConsumer<T> : IDisposable
             {
                 Stop().Wait();
             }
-            Builder.Dispose();
         }
     }
 }

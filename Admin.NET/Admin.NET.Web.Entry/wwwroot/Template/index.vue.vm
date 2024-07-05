@@ -1,4 +1,4 @@
-@{
+﻿@{
   var pkField = Model.TableField.Where(c => c.ColumnKey == "True").FirstOrDefault();
   string pkFieldName = null;
   if(pkField != null && !string.IsNullOrEmpty(pkField.PropertyName))
@@ -47,7 +47,7 @@
             }else if(@column.EffectType == "fk"){
             @:<el-form-item label="@column.ColumnComment">
               @:<el-select clearable="" filterable="" v-model="queryParams.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-                @:<el-option v-for="(item,index) in  @LowerFirstLetter(@column.FkEntityName)@(@column.PropertyName)DropdownList" :key="index" :value="item.value" :label="item.label" />
+                @:<el-option v-for="(item,index) in @LowerFirstLetter(@column.FkEntityName)@(@column.PropertyName)DropdownList" :key="index" :value="item.value" :label="item.label" />
                 @:
               </el-select>
               @:
@@ -63,7 +63,7 @@
             }else if(@column.EffectType == "EnumSelector"){
             @:<el-form-item label="@column.ColumnComment">
               @:<el-select clearable="" v-model="queryParams.@(@column.LowerPropertyName)" placeholder="请选择@(@column.ColumnComment)">
-                @:<el-option v-for="(item,index) in getEnum@(@column.PropertyName)Data_Index" :key="index" :value="item.value" :label="`[${item.value}] ${item.describe}`" />
+                @:<el-option v-for="(item,index) in dl('@(@column.DictTypeCode)')" :key="index" :value="item.value" :label="`${item.name} (${item.code}) [${item.value}] `" />
                 @:
               </el-select>
               @:
@@ -83,9 +83,9 @@
             } 
       }
           @<el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="4" class="mb10">
-            @<el-form-item>
+            @<el-form-item @(Model.QueryWhetherList.Count > 0?"":"label-width=\"0px\"")>
               @<el-button-group style="display: flex; align-items: center;">
-                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> 查询 </el-button>
+                @<el-button type="primary"  icon="ele-Search" @@click="handleQuery" v-auth="'@(@Model.LowerClassName):page'"> @(Model.QueryWhetherList.Count > 0?"查询":"刷新") </el-button>
                    @if(Model.QueryWhetherList.Count > 0){
                       @:<el-button icon="ele-Refresh" @@click="() => queryParams = {}"> 重置 </el-button>
                         @if(haveLikeCdt){
@@ -165,7 +165,7 @@
         else if(@column.EffectType == "EnumSelector"){
           @:<el-table-column prop="@column.LowerPropertyName" label="@column.ColumnComment" @(column.WhetherSortable == "Y" ? "sortable='custom'" : "") show-overflow-tooltip="" >
             @:<template #default="scope">
-              @:<el-tag>{{ getEnumDesc(scope.row.@column.LowerPropertyName, getEnum@(@column.PropertyName)Data_Index)}}</el-tag>
+              @:<el-tag :type="dv('@(@column.DictTypeCode)', scope.row.@(@column.LowerPropertyName))?.tagType"> {{dv('@(@column.DictTypeCode)', scope.row.@column.LowerPropertyName)?.name}}</el-tag>
             @:</template>
           @:</el-table-column>
         }
@@ -192,7 +192,7 @@
 				v-model:page-size="tableParams.pageSize"
 				:total="tableParams.total"
 				:page-sizes="[10, 20, 50, 100, 200, 500]"
-				small=""
+				size="small"
 				background=""
 				@@size-change="handleSizeChange"
 				@@current-change="handleCurrentChange"
@@ -215,11 +215,19 @@
   import { ref } from "vue";
   import { ElMessageBox, ElMessage } from "element-plus";
   import { auth } from '/@@/utils/authFunction';
+
   @if(@Model.TableField.Any(x=>x.EffectType == "ConstSelector")){
   @:import { codeToName, getConstType } from "/@@/utils/constHelper";
   } 
-  import { getDictDataItem as di, getDictDataList as dl } from '/@@/utils/dict-utils';
-  import { formatDate } from '/@@/utils/formatTime';
+  @if(@Model.TableField.Any(x=>x.EffectType == "Select") || @Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
+  @:import { getDictDataItem as di, getDictDataList as dl } from '/@@/utils/dict-utils';
+  }
+  @if(@Model.TableField.Any(x=>x.EffectType == "EnumSelector")){
+  @:import { getDictLabelByVal as dv } from '/@@/utils/dict-utils';
+  }
+  @if(@Model.TableField.Any(x=>x.EffectType == "DatePicker")){
+  @:import { formatDate } from '/@@/utils/formatTime';
+  }
 
   @if(@Model.PrintType == "custom"){
   @:// 推荐设置操作 width 为 200
@@ -242,15 +250,6 @@
   @:import commonFunction from '/@@/utils/commonFunction';
 	}
 
-  @foreach (var column in Model.QueryWhetherList){
-  if(@column.EffectType == "EnumSelector"){
-  @:const getEnum@(@column.PropertyName)Data_Index = ref<any>([]);
-  }
-  }
-
-  @if(@Model.QueryWhetherList.Any(x=>x.EffectType == "EnumSelector")){
-	@:const { getEnumDesc } = commonFunction();
-	}
   @if(haveLikeCdt){
   @:const showAdvanceQueryUI = ref(false);
   }else {
@@ -274,7 +273,6 @@
   const changeAdvanceQueryUI = () => {
     showAdvanceQueryUI.value = !showAdvanceQueryUI.value;
   }
-  
 
   // 查询操作
   const handleQuery = async () => {
@@ -283,11 +281,6 @@
     tableData.value = res.data.result?.items ?? [];
     tableParams.value.total = res.data.result?.total;
     loading.value = false;
-  @foreach (var column in Model.QueryWhetherList){
-  if(@column.EffectType == "EnumSelector"){
-    @:getEnum@(@column.PropertyName)Data_Index.value = (await getAPI(SysEnumApi).apiSysEnumEnumDataListGet('@(@column.DictTypeCode)')).data.result ?? [];
-  }
-  }
   };
 
   // 列排序

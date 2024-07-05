@@ -6,9 +6,9 @@
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
 					</template>
-					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true">
+					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true" @submit.native.prevent>
 						<el-form-item label="名称">
-							<el-input v-model="state.queryDictTypeParams.name" placeholder="字典名称" clearable />
+							<el-input v-model="state.queryDictTypeParams.name" @keyup.enter.native="handleDictTypeQuery" placeholder="字典名称" clearable />
 						</el-form-item>
 						<!-- <el-form-item label="字典编码">
 							<el-input v-model="state.queryDictTypeParams.code" placeholder="字典编码" clearable />
@@ -59,7 +59,7 @@
 						v-model:page-size="state.tableDictTypeParams.pageSize"
 						:total="state.tableDictTypeParams.total"
 						:page-sizes="[10, 20, 50, 100]"
-						small
+						size="small"
 						background
 						@size-change="handleDictTypeSizeChange"
 						@current-change="handleDictTypeCurrentChange"
@@ -73,12 +73,12 @@
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
 					</template>
-					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true">
+					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true" @submit.native.prevent>
 						<!-- <el-form-item label="字典值">
 							<el-input v-model="state.queryDictDataParams.value" placeholder="字典值" />
 						</el-form-item> -->
 						<el-form-item label="编码">
-							<el-input v-model="state.queryDictDataParams.code" placeholder="编码" />
+							<el-input v-model="state.queryDictDataParams.code" placeholder="编码" @keyup.enter="handleDictDataQuery" />
 						</el-form-item>
 						<el-form-item>
 							<el-button-group>
@@ -134,7 +134,7 @@
 						v-model:page-size="state.tableDictDataParams.pageSize"
 						:total="state.tableDictDataParams.total"
 						:page-sizes="[10, 20, 50, 100]"
-						small
+						size="small"
 						background
 						@size-change="handleDictDataSizeChange"
 						@current-change="handleDictDataCurrentChange"

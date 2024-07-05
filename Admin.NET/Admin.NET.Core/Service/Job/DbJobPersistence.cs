@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -27,7 +27,7 @@ public class DbJobPersistence : IJobPersistence
     public async Task<IEnumerable<SchedulerBuilder>> PreloadAsync(CancellationToken stoppingToken)
     {
         using var scope = _serviceScopeFactory.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+        var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
         var dynamicJobCompiler = scope.ServiceProvider.GetRequiredService<DynamicJobCompiler>();
 
         // 获取所有定义的作业
@@ -128,11 +128,12 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划Scheduler的JobDetail变化时
     /// </summary>
     /// <param name="context"></param>
+    /// <returns></returns>
     public async Task OnChangedAsync(PersistenceContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
             var jobDetail = context.JobDetail.Adapt<SysJobDetail>();
             switch (context.Behavior)
@@ -156,11 +157,12 @@ public class DbJobPersistence : IJobPersistence
     /// 作业计划Scheduler的触发器Trigger变化时
     /// </summary>
     /// <param name="context"></param>
+    /// <returns></returns>
     public async Task OnTriggerChangedAsync(PersistenceTriggerContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
             var jobTrigger = context.Trigger.Adapt<SysJobTrigger>();
             switch (context.Behavior)
@@ -183,14 +185,15 @@ public class DbJobPersistence : IJobPersistence
     /// <summary>
     /// 作业触发器运行记录
     /// </summary>
-    /// <param name="timeline"></param>
-    public async Task OnExecutionRecordAsync(TriggerTimeline timeline)
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public async Task OnExecutionRecordAsync(PersistenceExecutionRecordContext context)
     {
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+            var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
-            var jobTriggerRecord = timeline.Adapt<SysJobTriggerRecord>();
+            var jobTriggerRecord = context.Timeline.Adapt<SysJobTriggerRecord>();
             await db.Insertable(jobTriggerRecord).ExecuteCommandAsync();
         }
     }

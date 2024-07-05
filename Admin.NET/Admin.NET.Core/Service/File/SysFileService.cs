@@ -21,7 +21,7 @@ public class SysFileService : IDynamicApiController, ITransient
     private readonly OSSProviderOptions _OSSProviderOptions;
     private readonly UploadOptions _uploadOptions;
     private readonly IOSSService _OSSService;
-    private readonly string _imageType = ".jpg.png.bmp.gif.tif";
+    private readonly string _imageType = ".jpeg.jpg.png.bmp.gif.tif";
 
     public SysFileService(UserManager userManager,
         SqlSugarRepository<SysFile> sysFileRep,
@@ -65,33 +65,6 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 上传文件Base64
-    /// </summary>
-    /// <param name="strBase64"></param>
-    /// <param name="fileName"></param>
-    /// <param name="contentType"></param>
-    /// <param name="path"></param>
-    /// <param name="fileType"></param>
-    /// <returns></returns>
-    private async Task<SysFile> UploadFileFromBase64(string strBase64, string fileName, string contentType, string? path, string? fileType)
-    {
-        byte[] fileData = Convert.FromBase64String(strBase64);
-        var ms = new MemoryStream();
-        ms.Write(fileData);
-        ms.Seek(0, SeekOrigin.Begin);
-        if (string.IsNullOrEmpty(fileName))
-            fileName = $"{YitIdHelper.NextId()}.jpg";
-        if (string.IsNullOrEmpty(contentType))
-            contentType = "image/jpg";
-        IFormFile formFile = new FormFile(ms, 0, fileData.Length, "file", fileName)
-        {
-            Headers = new HeaderDictionary(),
-            ContentType = contentType
-        };
-        return await UploadFile(new FileUploadInput { File = formFile, Path = path, FileType = fileType });
-    }
-
-    /// <summary>
     /// 上传文件Base64 🔖
     /// </summary>
     /// <param name="input"></param>
@@ -99,7 +72,20 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件Base64")]
     public async Task<SysFile> UploadFileFromBase64(UploadFileFromBase64Input input)
     {
-        return await UploadFileFromBase64(input.FileDataBase64, input.FileName, input.ContentType, input.Path, input.FileType);
+        byte[] fileData = Convert.FromBase64String(input.FileDataBase64);
+        var ms = new MemoryStream();
+        ms.Write(fileData);
+        ms.Seek(0, SeekOrigin.Begin);
+        if (string.IsNullOrEmpty(input.FileName))
+            input.FileName = $"{YitIdHelper.NextId()}.jpg";
+        if (string.IsNullOrEmpty(input.ContentType))
+            input.ContentType = "image/jpg";
+        IFormFile formFile = new FormFile(ms, 0, fileData.Length, "file", input.FileName)
+        {
+            Headers = new HeaderDictionary(),
+            ContentType = input.ContentType
+        };
+        return await UploadFile(new FileUploadInput { File = formFile, Path = input.Path, FileType = input.FileType });
     }
 
     /// <summary>
@@ -335,10 +321,10 @@ public class SysFileService : IDynamicApiController, ITransient
 
         // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀
-        if (string.IsNullOrWhiteSpace(suffix))
+        if (!string.IsNullOrWhiteSpace(suffix))
         {
-            var contentTypeProvider = FS.GetFileExtensionContentTypeProvider();
-            suffix = contentTypeProvider.Mappings.FirstOrDefault(u => u.Value == file.ContentType).Key;
+            //var contentTypeProvider = FS.GetFileExtensionContentTypeProvider();
+            //suffix = contentTypeProvider.Mappings.FirstOrDefault(u => u.Value == file.ContentType).Key;
             // 修改 image/jpeg 类型返回的 .jpeg、jpe 后缀
             if (suffix == ".jpeg" || suffix == ".jpe")
                 suffix = ".jpg";

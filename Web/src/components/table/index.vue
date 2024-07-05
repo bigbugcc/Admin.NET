@@ -6,6 +6,9 @@
 			</div>
 			<div v-loading="state.exportLoading" class="table-footer-tool">
 				<SvgIcon v-if="!config.hideRefresh" name="iconfont icon-shuaxin" :size="22" title="刷新" @click="onRefreshTable" />
+				<el-tooltip effect="light" :content="state.switchFixedContent" placement="bottom-start" :show-after="200" v-if="state.haveFixed">
+					<el-icon :style="{ color: state.fixedIconColor }" @click="switchFixed"><ele-Switch /></el-icon>
+				</el-tooltip>
 				<el-dropdown v-if="!config.hideExport" trigger="click">
 					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
 					<template #dropdown>
@@ -31,7 +34,7 @@
 						</div>
 						<el-scrollbar>
 							<div ref="toolSetRef" class="tool-sortable">
-								<div class="tool-sortable-item" v-for="v in columns" :key="v.prop" v-show="!v.hideCheck && !v.fixed" :data-key="v.prop">
+								<div class="tool-sortable-item" v-for="v in columns" :key="v.prop" v-show="!v.hideCheck" :data-key="v.prop">
 									<i class="fa fa-arrows-alt handle cursor-pointer"></i>
 									<el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
 								</div>
@@ -56,7 +59,7 @@
 			@sort-change="sortChange"
 		>
 			<el-table-column type="selection" :reserve-selection="true" :width="30" v-if="config.isSelection && config.showSelection" />
-			<el-table-column type="index" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
+			<el-table-column type="index" :fixed="state.currentFixed && state.serialNoFixed" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
 			<el-table-column v-for="(item, index) in setHeader" :key="index" v-bind="item">
 				<template #header v-if="!item.children && $slots[item.prop]">
 					<slot :name="`${item.prop}header`" />
@@ -68,7 +71,6 @@
 				</template>
 				<template v-else-if="!item.children" v-slot="scope">
 					<formatter v-if="item.formatter" :fn="item.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
-					<!-- <span v-if="item.formatter">{{ item.formatter(scope.row,scope.column,scope.cellValue,scope.index)  }}</span> -->
 					<template v-else-if="item.type === 'image'">
 						<el-image
 							:style="{ width: `${item.width}px`, height: `${item.height}px` }"
@@ -87,12 +89,10 @@
 					<!-- 自定义列插槽，插槽名为columns属性的prop -->
 					<template #default="scope" v-if="$slots[childrenItem.prop]">
 						<formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
-						<!-- <span v-if="childrenItem.formatter">{{ childrenItem.formatter(scope.row,scope.column,scope.cellValue,scope.index) }}</span> -->
 						<slot v-else :name="childrenItem.prop" v-bind="scope"></slot>
 					</template>
 					<template v-else v-slot="scope">
 						<formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
-						<!-- <span v-if="childrenItem.formatter">{{ childrenItem.formatter(scope.row,scope.column,scope.cellValue,scope.index) }}</span> -->
 						<template v-else-if="childrenItem.type === 'image'">
 							<el-image
 								:style="{ width: `${childrenItem.width}px`, height: `${childrenItem.height}px` }"
@@ -117,7 +117,7 @@
 			<el-pagination
 				v-model:current-page="state.page.page"
 				v-model:page-size="state.page.pageSize"
-				small
+				size="small"
 				:pager-count="5"
 				:page-sizes="config.pageSizes"
 				:total="state.total"
@@ -203,13 +203,20 @@ const state = reactive({
 	selectlist: [] as EmptyObjectType[],
 	checkListAll: true,
 	checkListIndeterminate: false,
+	oldColumns: [] as EmptyObjectType[],
+	columns: [] as EmptyObjectType[],
+	haveFixed: false,
+	currentFixed: false,
+	serialNoFixed: false,
+	switchFixedContent: '取消固定列',
+	fixedIconColor: themeConfig.value.primary,
 });
 
 const hideTool = computed(() => {
 	return props.config.hideTool ?? false;
 });
 
-const getProperty = (obj, property) => {
+const getProperty = (obj: any, property: any) => {
 	const keys = property.split('.');
 	let value = obj;
 	for (const key of keys) {
@@ -232,19 +239,19 @@ const getConfig = computed(() => {
 });
 // 设置 tool header 数据
 const setHeader = computed(() => {
-	return props.columns.filter((v) => v.isCheck);
+	return state.columns.filter((v) => v.isCheck);
 });
 // tool 列显示全选改变时
 const onCheckAllChange = <T,>(val: T) => {
-	if (val) props.columns.forEach((v) => (v.isCheck = true));
-	else props.columns.forEach((v) => (v.isCheck = false));
+	if (val) state.columns.forEach((v) => (v.isCheck = true));
+	else state.columns.forEach((v) => (v.isCheck = false));
 	state.checkListIndeterminate = false;
 };
 // tool 列显示当前项改变时
 const onCheckChange = () => {
-	const headers = props.columns.filter((v) => v.isCheck).length;
-	state.checkListAll = headers === props.columns.length;
-	state.checkListIndeterminate = headers > 0 && headers < props.columns.length;
+	const headers = state.columns.filter((v) => v.isCheck).length;
+	state.checkListAll = headers === state.columns.length;
+	state.checkListIndeterminate = headers > 0 && headers < state.columns.length;
 };
 // 表格多选改变时
 const onSelectionChange = (val: EmptyObjectType[]) => {
@@ -362,7 +369,7 @@ const onSetTable = () => {
 			onEnd: () => {
 				const headerList: EmptyObjectType[] = [];
 				sortable.toArray().forEach((val: any) => {
-					props.columns.forEach((v) => {
+					state.columns.forEach((v) => {
 						if (v.prop === val) headerList.push({ ...v });
 					});
 				});
@@ -419,12 +426,46 @@ const setTableData = (data: Array<EmptyObjectType>, add: boolean = false) => {
 	}
 };
 
+const clearFixed = () => {
+	for (let item of state.columns) {
+		delete item['fixed'];
+	}
+};
+
+const switchFixed = () => {
+	state.currentFixed = !state.currentFixed;
+	state.switchFixedContent = state.currentFixed ? '取消固定列' : '启用固定列';
+	if (state.currentFixed) {
+		state.fixedIconColor = themeConfig.value.primary;
+		state.columns = JSON.parse(JSON.stringify(state.oldColumns));
+	} else {
+		state.fixedIconColor = '';
+		clearFixed();
+	}
+};
+
+const refreshColumns = () => {
+	state.oldColumns = JSON.parse(JSON.stringify(props.columns));
+	state.columns = props.columns;
+	for (let item of state.columns) {
+		if (item.fixed !== undefined) {
+			state.haveFixed = true;
+			state.currentFixed = true;
+			if (item.fixed == 'left') {
+				state.serialNoFixed = true;
+				break;
+			}
+		}
+	}
+};
+
 onMounted(() => {
 	if (props.defaultSort) {
 		state.page.field = props.defaultSort.prop;
 		state.page.order = props.defaultSort.order;
 	}
 	state.page.pageSize = props.config.pageSize ?? 10;
+	refreshColumns();
 	handleList();
 });
 
@@ -435,6 +476,7 @@ defineExpose({
 	toggleSelection,
 	getTableData,
 	setTableData,
+	refreshColumns,
 });
 </script>
 
