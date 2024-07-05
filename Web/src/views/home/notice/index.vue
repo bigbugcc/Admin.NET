@@ -60,8 +60,16 @@
 				layout="total, sizes, prev, pager, next, jumper"
 			/>
 		</el-card>
-		<el-dialog v-model="state.dialogVisible" title="消息详情" draggable width="769px">
-			<p v-html="state.content"></p>
+		<el-dialog v-model="state.dialogVisible" draggable width="769px">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Bell /> </el-icon>
+					<span> 消息详情 </span>
+				</div>
+			</template>
+			<div class="w-e-text-container">
+				<div v-html="state.content" data-slate-editor></div>
+			</div>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button type="primary" @click="state.dialogVisible = false">确认</el-button>
@@ -72,6 +80,7 @@
 </template>
 
 <script setup lang="ts" name="notice">
+import '@wangeditor/editor/dist/css/style.css';
 import { onMounted, reactive } from 'vue';
 import commonFunction from '/@/utils/commonFunction';
 
