@@ -199,7 +199,8 @@ public class SysWechatService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取Access_token
     /// </summary>
-    private async Task<string> GetCgibinToken()
+    [NonAction]
+    public async Task<string> GetCgibinToken()
     {
         // 先从缓存中取 AccessToken
         var wx_accessToken = _sysCacheService.Get<string>("sys_wx_accessToken");
