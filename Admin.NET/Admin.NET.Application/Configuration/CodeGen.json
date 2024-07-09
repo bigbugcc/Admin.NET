@@ -3,7 +3,7 @@
 
   // 代码生成配置项-程序集名称集合
   "CodeGen": {
-    "EntityAssemblyNames": [ "Admin." ],
+    "EntityAssemblyNames": [ "Admin.NET.Core", "Admin.NET.Application" ],
     "BaseEntityNames": [ "EntityTenantId", "EntityTenant", "EntityTenantBaseData", "EntityBaseData", "EntityBase", "EntityBaseId" ],
     "EntityBaseColumn": {
       "EntityTenantId": [ "Id", "TenantId" ],

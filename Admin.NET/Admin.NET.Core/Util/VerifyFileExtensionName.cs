@@ -61,11 +61,13 @@ public static class VerifyFileExtensionName
         // 压缩包
         dics_ext.Add("52617221", ".rar");
         dics_ext.Add("504B03040A000000", ".zip");
+        dics_ext.Add("504B030414000000", ".zip");
         dics_ext.Add("1F8B08", ".gz");
 
         // 程序文件
         dics_ext.Add("3C3F786D6C", ".xml");
         dics_ext.Add("68746D6C3E", ".html");
+		dics_ext.Add("04034b50", ".apk");
         //dics_ext.Add("7061636B", ".java");
         //dics_ext.Add("3C254020", ".jsp");
         //dics_ext.Add("4D5A9000", ".exe");

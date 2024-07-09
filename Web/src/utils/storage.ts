@@ -59,6 +59,8 @@ export const Session = {
 	// 移除全部临时缓存
 	clear() {
 		Cookies.remove('token');
+		Cookies.remove('userInfo');
+		Cookies.remove('constList');
 		window.sessionStorage.clear();
 	},
 };

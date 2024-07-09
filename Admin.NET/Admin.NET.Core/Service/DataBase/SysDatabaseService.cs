@@ -316,7 +316,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     [ApiDescriptionSettings(Name = "CreateSeedData"), HttpPost]
     [DisplayName("创建种子数据")]
-    public async void CreateSeedData(CreateSeedDataInput input)
+    public async Task CreateSeedData(CreateSeedDataInput input)
     {
         var config = App.GetOptions<DbConnectionOptions>().ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);
         input.Position = string.IsNullOrWhiteSpace(input.Position) ? "Admin.NET.Core" : input.Position;
@@ -333,7 +333,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             entityType = item.Type;
             break;
         }
-        if (entityType == null) return;
+        if (entityType == null) throw Oops.Oh(ErrorCodeEnum.db1003);
 
         input.EntityName = entityType.Name;
         input.SeedDataName = entityType.Name + "SeedData";

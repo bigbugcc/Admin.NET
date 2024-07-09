@@ -245,6 +245,30 @@ export interface SysWechatPay {
     openId?: string | null;
 
     /**
+     * 业务标签，用来区分做什么业务
+     *
+     * @type {string}
+     * @memberof SysWechatPay
+     */
+    tags?: string | null;
+
+    /**
+     * 对应业务的主键
+     *
+     * @type {number}
+     * @memberof SysWechatPay
+     */
+    businessId?: number;
+
+    /**
+     * 付款二维码内容
+     *
+     * @type {string}
+     * @memberof SysWechatPay
+     */
+    qrcodeContent?: string | null;
+
+    /**
      * 子商户号
      *
      * @type {string}

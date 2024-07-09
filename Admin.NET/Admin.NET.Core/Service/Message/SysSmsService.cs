@@ -8,7 +8,6 @@ using AlibabaCloud.SDK.Dysmsapi20170525.Models;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Sms.V20190711;
-using static SKIT.FlurlHttpClient.Wechat.Api.Models.ComponentTCBBatchCreateContainerServiceVersionRequest.Types;
 
 namespace Admin.NET.Core.Service;
 

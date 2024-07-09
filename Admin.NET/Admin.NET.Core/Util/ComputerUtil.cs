@@ -148,9 +148,16 @@ public static class ComputerUtil
     public static string GetIpFromOnline()
     {
         var url = "https://www.ip.cn/api/index?ip&type=0";
-        var str = url.GetAsStringAsync().GetAwaiter().GetResult();
-        var resp = JSON.Deserialize<IpCnResp>(str);
-        return resp.Ip + " " + resp.Address;
+        try
+        {
+            var str = url.GetAsStringAsync().GetAwaiter().GetResult();
+            var resp = JSON.Deserialize<IpCnResp>(str);
+            return resp.Ip + " " + resp.Address;
+        }
+        catch
+        {
+            return "";
+        }
     }
 
     public static bool IsUnix()

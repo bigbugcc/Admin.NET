@@ -76,7 +76,7 @@ export const useUserInfo = defineStore('userInfo', {
 							idCardNum: d.idCardNum,
 							email: d.email,
 							accountType: d.accountType,
-							avatar: d.avatar ?? '/favicon.ico',
+							avatar: d.avatar ?? '/Upload/logo.png',
 							address: d.address,
 							signature: d.signature,
 							orgId: d.orgId,
@@ -132,6 +132,7 @@ export const useUserInfo = defineStore('userInfo', {
 
 		// 根据字典类型和代码取字典项
 		getDictItemByCode(typePCode: string, val: string) {
+			val = val.toString();
 			if (val) {
 				const _val = val.toString();
 				const ds = this.getDictDatasByCode(typePCode);

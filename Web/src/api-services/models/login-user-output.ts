@@ -154,4 +154,12 @@ export interface LoginUserOutput {
      * @memberof LoginUserOutput
      */
     roleIds?: Array<number> | null;
+
+    /**
+     * 水印文字
+     *
+     * @type {string}
+     * @memberof LoginUserOutput
+     */
+    watermarkText?: string | null;
 }

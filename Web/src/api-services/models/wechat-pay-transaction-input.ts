@@ -59,4 +59,20 @@ export interface WechatPayTransactionInput {
      * @memberof WechatPayTransactionInput
      */
     goodsTag?: string | null;
+
+    /**
+     * 业务标签，用来区分做什么业务
+     *
+     * @type {string}
+     * @memberof WechatPayTransactionInput
+     */
+    tags?: string | null;
+
+    /**
+     * 对应业务的主键
+     *
+     * @type {number}
+     * @memberof WechatPayTransactionInput
+     */
+    businessId?: number;
 }

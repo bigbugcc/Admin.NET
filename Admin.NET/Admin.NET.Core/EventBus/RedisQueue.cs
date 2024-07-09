@@ -13,7 +13,7 @@ namespace Admin.NET.Core;
 /// </summary>
 public static class RedisQueue
 {
-    private static ICacheProvider _cacheProvider = App.GetService<ICacheProvider>();
+    private static ICacheProvider _cacheProvider = App.GetRequiredService<ICacheProvider>();
 
     /// <summary>创建Redis消息队列。默认消费一次，指定消费者group时使用STREAM结构，支持多消费组共享消息</summary>
     /// <remarks>

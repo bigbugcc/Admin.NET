@@ -9,7 +9,6 @@ using Magicodes.ExporterAndImporter.Core.Models;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using UAParser;
 
 namespace Admin.NET.Core;
 
@@ -277,25 +276,25 @@ public static class CommonUtil
         // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
         var propMappings = new Dictionary<string, Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>>();
 
-        var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
+        var dictService = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
         var tSourceProps = typeof(TSource).GetProperties().ToList();
-        var tTargetProps = typeof(TTarget).GetProperties().ToDictionary(m => m.Name);
+        var tTargetProps = typeof(TTarget).GetProperties().ToDictionary(u => u.Name);
         foreach (var propertyInfo in tSourceProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
                 var targetProp = tTargetProps[attrs.TargetPropName];
-                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
-                    new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
-                    .Where(a => a.Code == attrs.TypeCode)
-                    .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
-                    .Select((a, b) => new
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((u, a) =>
+                    new JoinQueryInfos(JoinType.Inner, u.Id == a.DictTypeId))
+                    .Where(u => u.Code == attrs.TypeCode)
+                    .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
+                    .Select((u, a) => new
                     {
-                        Label = b.Value,
-                        Value = b.Code
+                        Label = a.Value,
+                        Value = a.Code
                     }).ToList()
-                    .ToDictionary(m => m.Label, m => m.Value.ParseTo(targetProp.PropertyType));
+                    .ToDictionary(u => u.Label, u => u.Value.ParseTo(targetProp.PropertyType));
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(mappingValues, propertyInfo, targetProp));
             }
             else
@@ -319,25 +318,25 @@ public static class CommonUtil
         // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
         var propMappings = new Dictionary<string, Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>>();
 
-        var dictService = App.GetService<SqlSugarRepository<SysDictData>>();
+        var dictService = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
         var targetProps = typeof(TTarget).GetProperties().ToList();
-        var sourceProps = typeof(TSource).GetProperties().ToDictionary(m => m.Name);
+        var sourceProps = typeof(TSource).GetProperties().ToDictionary(u => u.Name);
         foreach (var propertyInfo in targetProps)
         {
             var attrs = propertyInfo.GetCustomAttribute<ImportDictAttribute>();
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
                 var targetProp = sourceProps[attrs.TargetPropName];
-                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((a, b) =>
-                    new JoinQueryInfos(JoinType.Inner, a.Id == b.DictTypeId))
-                    .Where(a => a.Code == attrs.TypeCode)
-                    .Where((a, b) => a.Status == StatusEnum.Enable && b.Status == StatusEnum.Enable)
-                    .Select((a, b) => new
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((u, a) =>
+                    new JoinQueryInfos(JoinType.Inner, u.Id == a.DictTypeId))
+                    .Where(u => u.Code == attrs.TypeCode)
+                    .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
+                    .Select((u, a) => new
                     {
-                        Label = b.Value,
-                        Value = b.Code
+                        Label = a.Value,
+                        Value = a.Code
                     }).ToList()
-                    .ToDictionary(m => m.Value.ParseTo(targetProp.PropertyType), m => m.Label);
+                    .ToDictionary(u => u.Value.ParseTo(targetProp.PropertyType), u => u.Label);
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>(mappingValues, targetProp, propertyInfo));
             }
             else

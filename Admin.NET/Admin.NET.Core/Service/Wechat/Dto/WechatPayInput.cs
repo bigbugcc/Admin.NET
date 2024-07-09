@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -32,6 +32,16 @@ public class WechatPayTransactionInput
     /// 优惠标记
     /// </summary>
     public string GoodsTag { get; set; }
+
+    /// <summary>
+    /// 业务标签，用来区分做什么业务
+    /// </summary>
+    public string Tags { get; set; }
+
+    /// <summary>
+    /// 对应业务的主键
+    /// </summary>
+    public long BusinessId { get; set; }
 }
 
 public class WechatPayParaInput
@@ -40,4 +50,40 @@ public class WechatPayParaInput
     /// 订单Id
     /// </summary>
     public string PrepayId { get; set; }
+}
+
+public class WechatPayRefundDomesticInput
+{
+    /// <summary>
+    /// 商户端生成的业务流水号
+    /// </summary>
+    [Required]
+    public string TradeId { get; set; }
+
+    /// <summary>
+    /// 退款原因
+    /// </summary>
+    public string Reason { get; set; }
+
+    /// <summary>
+    /// 退款金额
+    /// </summary>
+    [Required]
+    public int Refund { get; set; }
+
+    /// <summary>
+    /// 原订单金额
+    /// </summary>
+    [Required]
+    public int Total { get; set; }
+}
+
+public class WechatPayPageInput : BasePageInput
+{
+    public string SearchKey { get; set; }
+
+    /// <summary>
+    /// 添加时间范围
+    /// </summary>
+    public List<DateTime?> CreateTimeRange { get; set; }
 }
