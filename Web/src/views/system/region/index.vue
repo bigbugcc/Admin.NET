@@ -89,27 +89,27 @@ const state = reactive({
 	editRegionTitle: '',
 });
 
-onMounted(() => {
-	handleQuery();
+onMounted(async () => {
+	await handleQuery();
 });
 
 // 查询操作
 const handleQuery = async () => {
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
-	var res = await getAPI(SysRegionApi).apiSysRegionPagePost(params);
+	let res = await getAPI(SysRegionApi).apiSysRegionPagePost(params);
 	state.regionData = res.data.result?.items ?? [];
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
 };
 
 // 重置操作
-const resetQuery = () => {
+const resetQuery = async () => {
 	state.queryParams.id = -1;
 	state.queryParams.pid = undefined;
 	state.queryParams.name = undefined;
 	state.queryParams.code = undefined;
-	handleQuery();
+	await handleQuery();
 };
 
 // 打开新增页面
@@ -133,7 +133,7 @@ const delRegion = (row: any) => {
 	})
 		.then(async () => {
 			await getAPI(SysRegionApi).apiSysRegionDeletePost({ id: row.id });
-			handleQuery();
+			await handleQuery();
 			// 编辑删除后更新机构数据
 			regionTreeRef.value?.initTreeData();
 			ElMessage.success('删除成功');
@@ -146,7 +146,7 @@ const nodeClick = async (node: any) => {
 	state.queryParams.pid = node.id;
 	state.queryParams.name = undefined;
 	state.queryParams.code = undefined;
-	handleQuery();
+	await handleQuery();
 };
 
 // 同步国家统计局操作
@@ -169,14 +169,14 @@ const handlSync = async () => {
 };
 
 // 改变页面容量
-const handleSizeChange = (val: number) => {
+const handleSizeChange = async (val: number) => {
 	state.tableParams.pageSize = val;
-	handleQuery();
+	await handleQuery();
 };
 
 // 改变页码序号
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = async (val: number) => {
 	state.tableParams.page = val;
-	handleQuery();
+	await handleQuery();
 };
 </script>
