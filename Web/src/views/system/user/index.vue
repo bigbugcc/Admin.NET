@@ -144,14 +144,14 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	loadOrgData();
-	handleQuery();
+	await loadOrgData();
+	await handleQuery();
 });
 
 // 查询机构数据
 const loadOrgData = async () => {
 	state.loading = true;
-	var res = await getAPI(SysOrgApi).apiSysOrgListGet(0);
+	let res = await getAPI(SysOrgApi).apiSysOrgListGet(0);
 	state.orgTreeData = res.data.result ?? [];
 	state.loading = false;
 };
@@ -160,19 +160,19 @@ const loadOrgData = async () => {
 const handleQuery = async () => {
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
-	var res = await getAPI(SysUserApi).apiSysUserPagePost(params);
+	let res = await getAPI(SysUserApi).apiSysUserPagePost(params);
 	state.userData = res.data.result?.items ?? [];
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
 };
 
 // 重置操作
-const resetQuery = () => {
+const resetQuery = async () => {
 	state.queryParams.orgId = -1;
 	state.queryParams.account = undefined;
 	state.queryParams.realName = undefined;
 	state.queryParams.phone = undefined;
-	handleQuery();
+	await handleQuery();
 };
 
 // 打开新增页面
@@ -196,7 +196,7 @@ const delUser = (row: any) => {
 	})
 		.then(async () => {
 			await getAPI(SysUserApi).apiSysUserDeletePost({ id: row.id });
-			handleQuery();
+			await handleQuery();
 			ElMessage.success('删除成功');
 		})
 		.catch(() => {});
@@ -209,14 +209,14 @@ const handleSizeChange = (val: number) => {
 };
 
 // 改变页码序号
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = async (val: number) => {
 	state.tableParams.page = val;
-	handleQuery();
+	await handleQuery();
 };
 
 // 修改状态
-const changeStatus = (row: any) => {
-	getAPI(SysUserApi)
+const changeStatus = async (row: any) => {
+	await getAPI(SysUserApi)
 		.apiSysUserSetStatusPost({ id: row.id, status: row.status })
 		.then(() => {
 			ElMessage.success('账号状态设置成功');
@@ -266,6 +266,6 @@ const nodeClick = async (node: any) => {
 	state.queryParams.account = undefined;
 	state.queryParams.realName = undefined;
 	state.queryParams.phone = undefined;
-	handleQuery();
+	await handleQuery();
 };
 </script>
