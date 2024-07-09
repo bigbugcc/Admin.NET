@@ -102,24 +102,24 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	handleQuery();
+	await handleQuery();
 });
 
 // 查询操作
 const handleQuery = async () => {
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
-	var res = await getAPI(SysRoleApi).apiSysRolePagePost(params);
+	let res = await getAPI(SysRoleApi).apiSysRolePagePost(params);
 	state.roleData = res.data.result?.items ?? [];
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
 };
 
 // 重置操作
-const resetQuery = () => {
+const resetQuery = async () => {
 	state.queryParams.name = undefined;
 	state.queryParams.code = undefined;
-	handleQuery();
+	await handleQuery();
 };
 
 // 打开新增页面
@@ -148,21 +148,21 @@ const delRole = (row: any) => {
 	})
 		.then(async () => {
 			await getAPI(SysRoleApi).apiSysRoleDeletePost({ id: row.id });
-			handleQuery();
+			await handleQuery();
 			ElMessage.success('删除成功');
 		})
 		.catch(() => {});
 };
 
 // 改变页面容量
-const handleSizeChange = (val: number) => {
+const handleSizeChange = async (val: number) => {
 	state.tableParams.pageSize = val;
-	handleQuery();
+	await handleQuery();
 };
 
 // 改变页码序号
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = async (val: number) => {
 	state.tableParams.page = val;
-	handleQuery();
+	await handleQuery();
 };
 </script>
