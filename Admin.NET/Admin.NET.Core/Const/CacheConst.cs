@@ -90,4 +90,9 @@ public class CacheConst
     /// 系统字典缓存
     /// </summary>
     public const string KeyDict = "sys_dict:";
+
+    /// <summary>
+    /// Excel临时文件缓存
+    /// </summary>
+    public const string KeyExcelTemp = "sys_excel_temp:";
 }
