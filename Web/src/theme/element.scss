@@ -363,12 +363,14 @@
 /* Table 表格 element plus 2.2.0 版本
 ------------------------------- */
 .el-table {
+	// 表头背景色
+	--el-table-header-bg-color: var(--next-bg-main-color);
+}
+
+.el-table {
 	.el-button.is-text {
 		padding: 0;
 	}
-
-	// 表头背景色
-	--el-table-header-bg-color: var(--next-bg-main-color);
 
 	// 表头字体颜色
 	thead {
