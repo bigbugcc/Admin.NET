@@ -27,7 +27,7 @@
     <PackageReference Include="Magicodes.IE.Pdf" Version="2.7.5.1" />
     <PackageReference Include="Magicodes.IE.Word" Version="2.7.5.1" />
     <PackageReference Include="MailKit" Version="4.7.0" />
-    <PackageReference Include="NewLife.Redis" Version="5.7.2024.701" />
+    <PackageReference Include="NewLife.Redis" Version="5.7.2024.709" />
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
@@ -37,7 +37,7 @@
     <PackageReference Include="SqlSugarCore" Version="5.1.4.160" />
     <PackageReference Include="SSH.NET" Version="2024.1.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.3" />
-    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1041" />
+    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1044" />
     <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
   </ItemGroup>
@@ -49,16 +49,16 @@
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.31" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.31" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.31" />
-    <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
+    <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="8.1.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="8.1.0" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.7" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
   </ItemGroup>
 
