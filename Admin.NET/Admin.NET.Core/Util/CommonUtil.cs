@@ -203,7 +203,45 @@ public static class CommonUtil
                 foreach (var item in drErrorInfo.FieldErrors)
                     message += $"\r\n{item.Key}：{item.Value}（文件第{drErrorInfo.RowIndex}行）";
             }
-            message += "字段缺失：" + string.Join("，", res.TemplateErrors.Select(m => m.RequireColumnName).ToList());
+            message += "\r\n字段缺失：" + string.Join("，", res.TemplateErrors.Select(m => m.RequireColumnName).ToList());
+            throw Oops.Oh("导入异常:" + message);
+        }
+        return res.Data;
+    }
+
+
+    /// <summary>
+    /// 导入Excel数据并错误标记
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
+    {
+        IImporter importer = new ExcelImporter();
+        var resultStream = new MemoryStream();
+        var res = await importer.Import<T>(file.OpenReadStream(), resultStream, importResultCallback);
+        resultStream.Seek(0, SeekOrigin.Begin);
+        var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
+
+        App.GetRequiredService<SysCacheService>().Remove(CacheConst.KeyExcelTemp + userId);
+        App.GetRequiredService<SysCacheService>().Set(CacheConst.KeyExcelTemp + userId, resultStream, TimeSpan.FromMinutes(5));
+
+        var message = string.Empty;
+        if (res.HasError)
+        {
+            if (res.Exception != null)
+                message += $"\r\n{res.Exception.Message}";
+            foreach (DataRowErrorInfo drErrorInfo in res.RowErrors)
+            {
+                int rowNum = drErrorInfo.RowIndex;
+                foreach (var item in drErrorInfo.FieldErrors)
+                    message += $"\r\n{item.Key}：{item.Value}（文件第{drErrorInfo.RowIndex}行）";
+            }
+            if (res.TemplateErrors.Count > 0)
+                message += "\r\n字段缺失：" + string.Join("，", res.TemplateErrors.Select(m => m.RequireColumnName).ToList());
+
+            if (message.Length > 200)
+                message = message.Substring(0, 200) + "...\r\n异常过多，建议下载错误标记文件查看详细错误信息并重新导入。";
             throw Oops.Oh("导入异常:" + message);
         }
         return res.Data;

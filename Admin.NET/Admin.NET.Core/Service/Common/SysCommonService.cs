@@ -67,4 +67,23 @@ public class SysCommonService : IDynamicApiController, ITransient
         }
         return apiList;
     }
+
+    /// <summary>
+    /// 下载标记错误的临时Excel（全局）
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("下载标记错误的临时Excel（全局）")]
+    public async Task<IActionResult> DownloadErrorExcelTemp([FromQuery] string fileName = null)
+    {
+        var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
+        var resultStream = App.GetRequiredService<SysCacheService>().Get<MemoryStream>(CacheConst.KeyExcelTemp + userId);
+
+        if (resultStream == null)
+            throw Oops.Oh("错误标记文件已过期。");
+
+        return await Task.FromResult(new FileStreamResult(resultStream, "application/octet-stream")
+        {
+            FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? "错误标记＿" + DateTime.Now.ToString("yyyyMMddhhmmss") : fileName)}.xlsx"
+        });
+    }
 }
