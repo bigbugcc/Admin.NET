@@ -209,11 +209,12 @@ public static class CommonUtil
         return res.Data;
     }
 
-
     /// <summary>
     /// 导入Excel数据并错误标记
     /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <param name="file"></param>
+    /// <param name="importResultCallback"></param>
     /// <returns></returns>
     public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
     {

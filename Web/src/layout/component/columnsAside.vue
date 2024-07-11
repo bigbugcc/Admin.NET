@@ -79,8 +79,9 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
 		if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect));
 		else router.push(redirect);
 	} else {
-		if (!v.children) {
+		if (!v.children || v.children?.length === 0) {
 			router.push(path);
+			onColumnsAsideDown(v.k);
 		} else {
 			// 显示子级菜单
 			const resData: MittMenu = setSendChildren(path);
@@ -92,7 +93,7 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
 
 	// 一个路由设置自动收起菜单
 	// https://gitee.com/lyt-top/vue-next-admin/issues/I6HW7H
-	if (!v.children) themeConfig.value.isCollapse = true;
+	if (!v.children || v.children?.length === 0) themeConfig.value.isCollapse = true;
 	else if (v.children.length > 1) themeConfig.value.isCollapse = false;
 };
 // 鼠标移入时，显示当前的子级菜单
@@ -283,7 +284,7 @@ watch(
 			width: var(--el-columnsMenuRoundWidth);
 			transform: translateX(-50%);
 			z-index: 0;
-			transition: 0.3s ease-in-out;
+			transition: 0.5s ease-in-out;
 			border-radius: 5px;
 		}
 		.columns-card {
