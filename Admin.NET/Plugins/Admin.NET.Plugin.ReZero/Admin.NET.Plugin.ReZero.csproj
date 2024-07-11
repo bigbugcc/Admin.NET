@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rezero.Api" Version="1.7.8" />
+    <PackageReference Include="Rezero.Api" Version="1.7.9" />
   </ItemGroup>
 
   <ItemGroup>
