@@ -283,6 +283,8 @@ defineExpose({ saveTokenAndInitRoutes });
 <style lang="scss" scoped>
 .dialog-header {
 	:deep(.el-dialog) {
+        width: unset !important;
+        
 		.el-dialog__header {
 			display: none;
 		}
@@ -293,9 +295,7 @@ defineExpose({ saveTokenAndInitRoutes });
 
 		.v-modal {
 			position: absolute !important;
-		}
-
-		width: unset !important;
+		}		
 	}
 }
 
