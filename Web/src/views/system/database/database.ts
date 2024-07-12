@@ -104,4 +104,9 @@ export const dataTypeList = [
 		hasLength: false,
 		hasDecimalDigits: false,
 	},
+    {
+		value: 'boolean',
+		hasLength: false,
+		hasDecimalDigits: false,
+	},
 ];
