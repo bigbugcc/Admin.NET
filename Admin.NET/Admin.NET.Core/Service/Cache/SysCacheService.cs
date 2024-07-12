@@ -133,6 +133,10 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("获取缓存值")]
     public object GetValue(string key)
     {
+        if (key.Contains('%'))
+        {
+            key = HttpUtility.UrlDecode(key);
+        }
         return _cacheProvider.Cache == Cache.Default
             ? _cacheProvider.Cache.Get<object>($"{_cacheOptions.Prefix}{key}")
             : _cacheProvider.Cache.Get<string>($"{_cacheOptions.Prefix}{key}");
