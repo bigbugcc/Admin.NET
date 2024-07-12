@@ -68,8 +68,10 @@ public static class SqlSugarFilter
                 if ((tAtt != null && db.CurrentConnectionConfig.ConfigId.ToString() != tAtt.configId.ToString()))
                     continue;
 
-                var lambda = DynamicExpressionParser.ParseLambda(new[] {
-                    Expression.Parameter(entityType, "u") }, typeof(bool), $"@0.Contains(u.{nameof(EntityBaseData.CreateOrgId)}??{default(long)})", orgIds);
+                //var lambda = DynamicExpressionParser.ParseLambda(new[] {
+                //    Expression.Parameter(entityType, "u") }, typeof(bool), $"@0.Contains(u.{nameof(EntityBaseData.CreateOrgId)}??{default(long)})", orgIds);
+                var lambda = entityType.GetConditionExpression<OwnerOrgAttribute>(orgIds);
+
                 db.QueryFilter.AddTableFilter(entityType, lambda);
                 orgFilter.TryAdd(entityType, lambda);
             }
@@ -114,8 +116,10 @@ public static class SqlSugarFilter
                 if ((tAtt != null && db.CurrentConnectionConfig.ConfigId.ToString() != tAtt.configId.ToString()))
                     continue;
 
-                var lambda = DynamicExpressionParser.ParseLambda(new[] {
-                    Expression.Parameter(entityType, "u") }, typeof(bool), $"u.{nameof(EntityBaseData.CreateUserId)}=@0", userId);
+                //var lambda = DynamicExpressionParser.ParseLambda(new[] {
+                //    Expression.Parameter(entityType, "u") }, typeof(bool), $"u.{nameof(EntityBaseData.CreateUserId)}=@0", userId);
+                var lambda = entityType.GetConditionExpression<OwnerUserAttribute>(new List<long> { long.Parse(userId) });
+
                 db.QueryFilter.AddTableFilter(entityType, lambda);
                 dataScopeFilter.TryAdd(entityType, lambda);
             }
