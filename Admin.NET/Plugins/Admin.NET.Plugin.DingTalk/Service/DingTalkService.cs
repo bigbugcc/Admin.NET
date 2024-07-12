@@ -43,7 +43,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     /// <param name="access_token"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    [DisplayName("获取在职员工列表")]
+    [HttpPost, DisplayName("获取在职员工列表")]
     public async Task<DingTalkBaseResponse<GetDingTalkCurrentEmployeesListOutput>> GetDingTalkCurrentEmployeesList(string access_token, [Required] GetDingTalkCurrentEmployeesListInput input)
     {
         return await _dingTalkApi.GetDingTalkCurrentEmployeesList(access_token, input);
@@ -55,7 +55,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     /// <param name="access_token"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    [DisplayName("获取员工花名册字段信息")]
+    [HttpPost, DisplayName("获取员工花名册字段信息")]
     public async Task<DingTalkBaseResponse<List<DingTalkEmpRosterFieldVo>>> GetDingTalkCurrentEmployeesRosterList(string access_token, [Required] GetDingTalkCurrentEmployeesRosterListInput input)
     {
         return await _dingTalkApi.GetDingTalkCurrentEmployeesRosterList(access_token, input);
