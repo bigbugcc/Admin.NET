@@ -70,7 +70,7 @@ public class EnumToDictJob : IJob
             });
             try
             {
-                db.Ado.BeginTran();
+                db.BeginTran();
 
                 if (uSysDictType.Count > 0)
                     await db.Updateable(uSysDictType).ExecuteCommandAsync(stoppingToken);
@@ -78,11 +78,11 @@ public class EnumToDictJob : IJob
                 if (uSysDictData.Count > 0)
                     await db.Updateable(uSysDictData).ExecuteCommandAsync(stoppingToken);
 
-                db.Ado.CommitTran();
+                db.CommitTran();
             }
             catch (Exception error)
             {
-                db.Ado.RollbackTran();
+                db.RollbackTran();
                 Log.Error($"{context.Trigger.Description}更新枚举转换字典入库错误：" + _jsonSerializer.Serialize(error));
                 throw new Exception($"{context.Trigger.Description}更新枚举转换字典入库错误");
             }
@@ -123,7 +123,7 @@ public class EnumToDictJob : IJob
             });
             try
             {
-                db.Ado.BeginTran();
+                db.BeginTran();
 
                 if (iDictType.Count > 0)
                     await db.Insertable(iDictType).ExecuteCommandAsync(stoppingToken);
@@ -131,11 +131,11 @@ public class EnumToDictJob : IJob
                 if (iDictData.Count > 0)
                     await db.Insertable(iDictData).ExecuteCommandAsync(stoppingToken);
 
-                db.Ado.CommitTran();
+                db.CommitTran();
             }
             catch (Exception error)
             {
-                db.Ado.RollbackTran();
+                db.RollbackTran();
                 Log.Error($"{context.Trigger.Description}新增枚举转换字典入库错误：" + _jsonSerializer.Serialize(error));
                 throw new Exception($"{context.Trigger.Description}新增枚举转换字典入库错误");
             }
