@@ -7,26 +7,32 @@
 namespace Admin.NET.Core;
 
 /// <summary>
-/// 性别枚举
+/// 性别枚举（GB/T 2261.1-2003）
 /// </summary>
 [Description("性别枚举")]
 public enum GenderEnum
 {
     /// <summary>
-    /// 男
+    /// 未知的性别
     /// </summary>
-    [Description("男")]
+    [Description("未知的性别")]
+    Unknown = 0,
+
+    /// <summary>
+    /// 男性
+    /// </summary>
+    [Description("男性")]
     Male = 1,
 
     /// <summary>
-    /// 女
+    /// 女性
     /// </summary>
-    [Description("女")]
+    [Description("女性")]
     Female = 2,
 
     /// <summary>
-    /// 其他
+    /// 未说明的性别
     /// </summary>
-    [Description("其他")]
-    Other = 3
+    [Description("未说明的性别")]
+    Unspecified = 9
 }
