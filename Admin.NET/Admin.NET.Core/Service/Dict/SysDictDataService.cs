@@ -60,8 +60,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     public async Task AddDictData(AddDictDataInput input)
     {
         var isExist = await _sysDictDataRep.IsAnyAsync(u => u.Code == input.Code && u.DictTypeId == input.DictTypeId);
-        if (isExist)
-            throw Oops.Oh(ErrorCodeEnum.D3003);
+        if (isExist) throw Oops.Oh(ErrorCodeEnum.D3003);
 
         await _sysDictDataRep.InsertAsync(input.Adapt<SysDictData>());
     }
@@ -98,9 +97,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("删除字典值")]
     public async Task DeleteDictData(DeleteDictDataInput input)
     {
-        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id);
-        if (dictData == null)
-            throw Oops.Oh(ErrorCodeEnum.D3004);
+        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
 
         var dictTypeCode = await _sysDictDataRep.AsQueryable().Where(u => u.DictTypeId == dictData.Id).Select(u => u.DictType.Code).FirstAsync();
         _sysCacheService.Remove($"{CacheConst.KeyDict}{dictTypeCode}");
@@ -128,18 +125,13 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("修改字典值状态")]
     public async Task SetStatus(DictDataInput input)
     {
-        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id);
-        if (dictData == null)
-            throw Oops.Oh(ErrorCodeEnum.D3004);
-
-        if (!Enum.IsDefined(typeof(StatusEnum), input.Status))
-            throw Oops.Oh(ErrorCodeEnum.D3005);
+        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
 
         var dictTypeCode = await _sysDictDataRep.AsQueryable().Where(u => u.DictTypeId == dictData.Id).Select(u => u.DictType.Code).FirstAsync();
         _sysCacheService.Remove($"{CacheConst.KeyDict}{dictTypeCode}");
 
         dictData.Status = input.Status;
-        await _sysDictDataRep.UpdateAsync(dictData);
+        await _sysDictDataRep.AsUpdateable(dictData).UpdateColumns(u => new { u.Status }, true).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -156,13 +148,9 @@ public class SysDictDataService : IDynamicApiController, ITransient
         if (dictDataList == null)
         {
             dictDataList = await _sysDictDataRep.AsQueryable()
-                .Where(u => u.DictTypeId == dictTypeId)
-                .OrderBy(u => new { u.OrderNo, u.Code })
-                .ToListAsync();
-
+                .Where(u => u.DictTypeId == dictTypeId).OrderBy(u => new { u.OrderNo, u.Code }).ToListAsync();
             _sysCacheService.Set($"{CacheConst.KeyDict}{dictType.Code}", dictDataList);
         }
-
         return dictDataList;
     }
 
