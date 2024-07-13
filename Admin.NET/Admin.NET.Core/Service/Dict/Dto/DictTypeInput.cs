@@ -11,6 +11,7 @@ public class DictTypeInput : BaseIdInput
     /// <summary>
     /// 状态
     /// </summary>
+    [Dict("StatusEnum")]
     public StatusEnum Status { get; set; }
 }
 
