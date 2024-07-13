@@ -49,7 +49,7 @@ public class SysEnumService : IDynamicApiController, ITransient
     {
         string description = type.Name;
         var attrs = type.GetCustomAttributes(typeof(DescriptionAttribute), false);
-        if (attrs.Any())
+        if (attrs.Length != 0)
         {
             var att = ((DescriptionAttribute[])attrs)[0];
             description = att.Description;
