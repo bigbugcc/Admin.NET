@@ -6,7 +6,7 @@
 
 using Microsoft.AspNetCore.Authentication;
 
-namespace Admin.NET.Core.Service;
+namespace Admin.NET.Core;
 
 public static class HttpContextExtension
 {
@@ -28,5 +28,52 @@ public static class HttpContextExtension
         return (from scheme in await context.GetExternalProvidersAsync()
                 where string.Equals(scheme.Name, provider, StringComparison.OrdinalIgnoreCase)
                 select scheme).Any();
+    }
+
+    public static string GetClientDeviceInfo(this HttpContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        return CommonUtil.GetClientDeviceInfo(context.Request.Headers.UserAgent);
+    }
+
+    public static string GetClientBrowser(this HttpContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        string userAgent = context.Request.Headers.UserAgent;
+        try
+        {
+            if (userAgent != null)
+            {
+                var client = Parser.GetDefault().Parse(userAgent);
+                if (client.Device.IsSpider)
+                    return "爬虫";
+                return $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
+            }
+        }
+        catch
+        { }
+        return "未知";
+    }
+
+    public static string GetClientOs(this HttpContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        string userAgent = context.Request.Headers.UserAgent;
+        try
+        {
+            if (userAgent != null)
+            {
+                var client = Parser.GetDefault().Parse(userAgent);
+                if (client.Device.IsSpider)
+                    return "爬虫";
+                return $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}";
+            }
+        }
+        catch
+        { }
+        return "未知";
     }
 }

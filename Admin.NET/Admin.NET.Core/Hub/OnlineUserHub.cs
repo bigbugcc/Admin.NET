@@ -17,6 +17,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
 {
     private const string GROUP_ONLINE = "GROUP_ONLINE_"; // 租户分组前缀
 
+    private readonly UserManager _userManager;
     private readonly SqlSugarRepository<SysOnlineUser> _sysOnlineUerRep;
     private readonly SysMessageService _sysMessageService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
@@ -27,13 +28,15 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         SysMessageService sysMessageService,
         IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext,
         SysCacheService sysCacheService,
-        SysConfigService sysConfigService)
+        SysConfigService sysConfigService,
+        UserManager userManager)
     {
         _sysOnlineUerRep = sysOnlineUerRep;
         _sysMessageService = sysMessageService;
         _onlineUserHubContext = onlineUserHubContext;
         _sysCacheService = sysCacheService;
         _sysConfigService = sysConfigService;
+        _userManager = userManager;
     }
 
     /// <summary>
@@ -43,23 +46,17 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
     public override async Task OnConnectedAsync()
     {
         var httpContext = Context.GetHttpContext();
-        var token = httpContext.Request.Query["access_token"];
-        var claims = JWTEncryption.ReadJwtToken(token)?.Claims;
-        var client = Parser.GetDefault().Parse(httpContext.Request.Headers["User-Agent"]);
-
-        var userId = claims?.FirstOrDefault(u => u.Type == ClaimConst.UserId)?.Value;
-        var tenantId = claims?.FirstOrDefault(u => u.Type == ClaimConst.TenantId)?.Value;
         var user = new SysOnlineUser
         {
             ConnectionId = Context.ConnectionId,
-            UserId = string.IsNullOrWhiteSpace(userId) ? 0 : long.Parse(userId),
-            UserName = claims?.FirstOrDefault(u => u.Type == ClaimConst.Account)?.Value,
-            RealName = claims?.FirstOrDefault(u => u.Type == ClaimConst.RealName)?.Value,
+            UserId = _userManager.UserId,
+            UserName = _userManager.Account,
+            RealName = _userManager.RealName,
             Time = DateTime.Now,
-            Ip = httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString(),
-            Browser = client.UA.Family + client.UA.Major,
-            Os = client.OS.Family + client.OS.Major,
-            TenantId = string.IsNullOrWhiteSpace(tenantId) ? 0 : Convert.ToInt64(tenantId),
+            Ip = httpContext.GetRemoteIpAddressToIPv4(true),
+            Browser = httpContext.GetClientBrowser(),
+            Os = httpContext.GetClientOs(),
+            TenantId = _userManager.TenantId,
         };
         await _sysOnlineUerRep.InsertAsync(user);
 
@@ -70,7 +67,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         }
         else
         {
-            var device = (client.UA.Family + client.UA.Major + client.OS.Family + client.OS.Major).Trim();
+            var device = httpContext.GetClientDeviceInfo().Trim();
             _sysCacheService.Set(CacheConst.KeyUserOnline + user.UserId + device, user);
         }
 
@@ -98,7 +95,6 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         if (string.IsNullOrEmpty(Context.ConnectionId)) return;
 
         var httpContext = Context.GetHttpContext();
-        var client = Parser.GetDefault().Parse(httpContext.Request.Headers["User-Agent"]);
 
         var user = await _sysOnlineUerRep.AsQueryable().Filter("", true).FirstAsync(u => u.ConnectionId == Context.ConnectionId);
         if (user == null) return;
@@ -112,7 +108,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         }
         else
         {
-            var device = (client.UA.Family + client.UA.Major + client.OS.Family + client.OS.Major).Trim();
+            var device = httpContext.GetClientDeviceInfo().Trim();
             _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId + device);
         }
 
