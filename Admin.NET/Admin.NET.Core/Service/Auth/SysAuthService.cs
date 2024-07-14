@@ -275,7 +275,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         var roleIds = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysUserRole>>().AsQueryable()
             .Where(u => u.UserId == user.Id).Select(u => u.RoleId).ToListAsync();
         // 获取水印文字（若系统水印为空则全局为空）
-        var watermarkText = await _sysConfigService.GetConfigValue<string>("sys_web_watermark");
+        var watermarkText = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysWebWatermark);
         if (!string.IsNullOrWhiteSpace(watermarkText))
             watermarkText += $"-{user.RealName}"; // $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true)}-{DateTime.Now}";
         return new LoginUserOutput
