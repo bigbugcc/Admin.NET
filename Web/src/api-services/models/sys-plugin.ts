@@ -51,7 +51,7 @@ export interface SysPlugin {
      * @type {number}
      * @memberof SysPlugin
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

@@ -51,7 +51,7 @@ export interface SysLdap {
      * @type {number}
      * @memberof SysLdap
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

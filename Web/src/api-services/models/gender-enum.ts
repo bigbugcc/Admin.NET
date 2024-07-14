@@ -13,13 +13,14 @@
  */
 
 /**
- * 性别枚举<br />&nbsp;男 Male = 1<br />&nbsp;女 Female = 2<br />&nbsp;其他 Other = 3<br />
+ * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
  * @export
  * @enum {string}
  */
 export enum GenderEnum {
+    NUMBER_0 = 0,
     NUMBER_1 = 1,
     NUMBER_2 = 2,
-    NUMBER_3 = 3
+    NUMBER_9 = 9
 }
 

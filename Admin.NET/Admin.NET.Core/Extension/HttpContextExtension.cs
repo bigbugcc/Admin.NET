@@ -30,6 +30,11 @@ public static class HttpContextExtension
                 select scheme).Any();
     }
 
+    /// <summary>
+    /// 获取设备信息
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public static string GetClientDeviceInfo(this HttpContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
@@ -37,6 +42,11 @@ public static class HttpContextExtension
         return CommonUtil.GetClientDeviceInfo(context.Request.Headers.UserAgent);
     }
 
+    /// <summary>
+    /// 获取浏览器信息
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public static string GetClientBrowser(this HttpContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
@@ -57,6 +67,11 @@ public static class HttpContextExtension
         return "未知";
     }
 
+    /// <summary>
+    /// 获取操作系统信息
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public static string GetClientOs(this HttpContext context)
     {
         ArgumentNullException.ThrowIfNull(context);

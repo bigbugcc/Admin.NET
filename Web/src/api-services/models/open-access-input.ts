@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 开放接口身份输入参数
  *
@@ -19,6 +21,26 @@
  * @interface OpenAccessInput
  */
 export interface OpenAccessInput {
+
+    /**
+     * @type {Search}
+     * @memberof OpenAccessInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof OpenAccessInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof OpenAccessInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

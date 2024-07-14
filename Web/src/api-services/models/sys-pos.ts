@@ -51,7 +51,7 @@ export interface SysPos {
      * @type {number}
      * @memberof SysPos
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

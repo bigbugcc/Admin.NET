@@ -12,7 +12,9 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
 import { NoticeTypeEnum } from './notice-type-enum';
+import { Search } from './search';
  /**
  * 
  *
@@ -20,6 +22,26 @@ import { NoticeTypeEnum } from './notice-type-enum';
  * @interface PageNoticeInput
  */
 export interface PageNoticeInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageNoticeInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageNoticeInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageNoticeInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

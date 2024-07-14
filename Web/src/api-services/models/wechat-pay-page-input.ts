@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface WechatPayPageInput
  */
 export interface WechatPayPageInput {
+
+    /**
+     * @type {Search}
+     * @memberof WechatPayPageInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof WechatPayPageInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof WechatPayPageInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

@@ -52,7 +52,7 @@ export interface SysRole {
      * @type {number}
      * @memberof SysRole
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

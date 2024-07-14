@@ -11,7 +11,7 @@
 							<el-icon><ele-PictureRounded /></el-icon> 系统图标
 						</div>
 					</template> -->
-					<el-upload class="avatar-uploader" :showFileList="false" :autoUpload="false" accept=".jpg,.png,.svg" action="" :limit="1" :onChange="handleUploadChange">
+					<el-upload class="avatar-uploader" :name="sysfilename" :showFileList="false" :autoUpload="false" accept=".jpg,.png,.svg" action="" :limit="1" :onChange="handleUploadChange">
 						<img v-if="state.formData.sysLogo" :src="state.formData.sysLogo" class="avatar" />
 						<SvgIcon v-else class="avatar-uploader-icon" name="ele-Plus" :size="28" />
 					</el-upload>
@@ -47,10 +47,11 @@
 
 <script setup lang="ts" name="sysInfoSetting">
 import { nextTick, reactive } from 'vue';
-import { getAPI } from '/@/utils/axios-utils';
-import { SysConfigApi } from '/@/api-services';
 import { ElMessage } from 'element-plus';
 import { fileToBase64 } from '/@/utils/base64Conver';
+
+import { getAPI } from '/@/utils/axios-utils';
+import { SysConfigApi } from '/@/api-services';
 
 const state = reactive({
 	isLoading: false,
@@ -79,14 +80,17 @@ const handleUploadChange = (file: any) => {
 const onSave = async () => {
 	// 如果有选择图标，则转换为 base64
 	let sysLogoBase64 = '';
+	let sysLogoFileName = '';
 	if (state.file) {
 		sysLogoBase64 = (await fileToBase64(state.file.raw)) as string;
+		sysLogoFileName = state.file.raw.name;
 	}
 
 	try {
 		state.isLoading = true;
 		const res = await getAPI(SysConfigApi).apiSysConfigSaveSysInfoPost({
 			sysLogoBase64: sysLogoBase64,
+			SysLogFileName: sysLogoFileName,
 			sysTitle: state.formData.sysTitle,
 			sysViceTitle: state.formData.sysViceTitle,
 			sysViceDesc: state.formData.sysViceDesc,

@@ -17,6 +17,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { AdminResultIActionResult } from '../models';
 import { AdminResultListApiOutput } from '../models';
 import { AdminResultSmKeyPairOutput } from '../models';
 /**
@@ -50,6 +51,54 @@ export const SysCommonApiAxiosParamCreator = function (configuration?: Configura
                     ? await configuration.accessToken()
                     : await configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 下载标记错误的临时Excel（全局）
+         * @param {string} [fileName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysCommonDownloadErrorExcelTempPost: async (fileName?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysCommon/downloadErrorExcelTemp`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fileName !== undefined) {
+                localVarQueryParameter['fileName'] = fileName;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -135,6 +184,20 @@ export const SysCommonApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 下载标记错误的临时Excel（全局）
+         * @param {string} [fileName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCommonDownloadErrorExcelTempPost(fileName?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultIActionResult>>> {
+            const localVarAxiosArgs = await SysCommonApiAxiosParamCreator(configuration).apiSysCommonDownloadErrorExcelTempPost(fileName, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取国密公钥私钥对 🏆
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -166,6 +229,16 @@ export const SysCommonApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary 下载标记错误的临时Excel（全局）
+         * @param {string} [fileName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCommonDownloadErrorExcelTempPost(fileName?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultIActionResult>> {
+            return SysCommonApiFp(configuration).apiSysCommonDownloadErrorExcelTempPost(fileName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取国密公钥私钥对 🏆
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -192,6 +265,17 @@ export class SysCommonApi extends BaseAPI {
      */
     public async apiSysCommonApiListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListApiOutput>> {
         return SysCommonApiFp(this.configuration).apiSysCommonApiListGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 下载标记错误的临时Excel（全局）
+     * @param {string} [fileName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysCommonApi
+     */
+    public async apiSysCommonDownloadErrorExcelTempPost(fileName?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultIActionResult>> {
+        return SysCommonApiFp(this.configuration).apiSysCommonDownloadErrorExcelTempPost(fileName, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

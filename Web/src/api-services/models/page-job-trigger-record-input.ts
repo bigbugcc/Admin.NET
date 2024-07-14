@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface PageJobTriggerRecordInput
  */
 export interface PageJobTriggerRecordInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageJobTriggerRecordInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageJobTriggerRecordInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageJobTriggerRecordInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

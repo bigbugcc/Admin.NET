@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 获取用户分页列表输入参数
  *
@@ -19,6 +21,26 @@
  * @interface PageUserInput
  */
 export interface PageUserInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageUserInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageUserInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageUserInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

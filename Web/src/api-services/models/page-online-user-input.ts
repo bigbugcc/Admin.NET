@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface PageOnlineUserInput
  */
 export interface PageOnlineUserInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageOnlineUserInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageOnlineUserInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageOnlineUserInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

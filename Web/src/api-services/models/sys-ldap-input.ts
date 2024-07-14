@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 系统域登录信息配置输入参数
  *
@@ -19,6 +21,26 @@
  * @interface SysLdapInput
  */
 export interface SysLdapInput {
+
+    /**
+     * @type {Search}
+     * @memberof SysLdapInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof SysLdapInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof SysLdapInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

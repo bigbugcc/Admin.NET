@@ -51,7 +51,7 @@ export interface SysLogOp {
      * @type {number}
      * @memberof SysLogOp
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

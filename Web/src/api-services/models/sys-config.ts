@@ -51,7 +51,7 @@ export interface SysConfig {
      * @type {number}
      * @memberof SysConfig
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

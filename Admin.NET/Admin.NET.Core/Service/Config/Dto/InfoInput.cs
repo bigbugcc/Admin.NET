@@ -50,4 +50,9 @@ public class InfoSaveInput
     /// ICP地址
     /// </summary>
     public string SysIcpUrl { get; set; }
+
+    /// <summary>
+    /// 上传系统图标时的文件名
+    /// </summary>
+    public string SysLogFileName { get; set; }
 }

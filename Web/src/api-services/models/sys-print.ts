@@ -52,7 +52,7 @@ export interface SysPrint {
      * @type {number}
      * @memberof SysPrint
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名
