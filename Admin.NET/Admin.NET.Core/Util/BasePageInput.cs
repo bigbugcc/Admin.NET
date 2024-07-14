@@ -9,7 +9,7 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 全局分页查询输入参数
 /// </summary>
-public class BasePageInput
+public class BasePageInput:BaseFilter
 {
     /// <summary>
     /// 当前页码
