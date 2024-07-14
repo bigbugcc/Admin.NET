@@ -83,4 +83,11 @@ export interface InfoSaveInput {
      * @memberof InfoSaveInput
      */
     sysIcpUrl?: string | null;
+    /**
+     * 上传系统图标时的文件名
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    SysLogFileName?: string | null;
 }
