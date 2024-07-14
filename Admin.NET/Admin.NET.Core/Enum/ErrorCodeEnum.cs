@@ -680,6 +680,24 @@ public enum ErrorCodeEnum
     R2002,
 
     /// <summary>
+    /// 行政区代码只能为6、9或12位
+    /// </summary>
+    [ErrorCodeItemMetadata("行政区代码只能为6、9或12位")]
+    R2003,
+
+    /// <summary>
+    /// 父节点不能为自己的子节点
+    /// </summary>
+    [ErrorCodeItemMetadata("父节点不能为自己的子节点")]
+    R2004,
+
+    /// <summary>
+    /// 同步国家统计局数据异常,请稍后重试
+    /// </summary>
+    [ErrorCodeItemMetadata("同步国家统计局数据异常,请稍后重试")]
+    R2005,
+
+    /// <summary>
     /// 默认租户状态禁止修改
     /// </summary>
     [ErrorCodeItemMetadata("默认租户状态禁止修改")]
