@@ -51,7 +51,7 @@ public class SysMenuService : IDynamicApiController, ITransient
             var menuTree = await _sysMenuRep.AsQueryable()
                 .Where(u => u.Status == StatusEnum.Enable)
                 .OrderBy(u => new { u.OrderNo, u.Id }).ToTreeAsync(u => u.Children, u => u.Pid, 0, menuIdList.Select(d => (object)d).ToArray());
-            SysMenuService.DeleteBtnFromMenuTree(menuTree);
+            DeleteBtnFromMenuTree(menuTree);
             return menuTree.Adapt<List<MenuOutput>>();
         }
     }
@@ -68,7 +68,7 @@ public class SysMenuService : IDynamicApiController, ITransient
             if (menu.Type == MenuTypeEnum.Btn)
                 menuList.Remove(menu);
             else if (menu.Children.Count > 0)
-                SysMenuService.DeleteBtnFromMenuTree(menu.Children);
+                DeleteBtnFromMenuTree(menu.Children);
         }
     }
 
