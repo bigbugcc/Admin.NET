@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using AngleSharp;
+using AngleSharp.Html.Dom;
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -13,13 +16,15 @@ namespace Admin.NET.Core.Service;
 public class SysRegionService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysRegion> _sysRegionRep;
+    private readonly SysConfigService _sysConfigService;
 
-    //// Url地址-国家统计局行政区域2023年
-    //private readonly string _url = "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html";
+    // Url地址-国家统计局行政区域2023年
+    private readonly string _url = "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html";
 
-    public SysRegionService(SqlSugarRepository<SysRegion> sysRegionRep)
+    public SysRegionService(SqlSugarRepository<SysRegion> sysRegionRep, SysConfigService sysConfigService)
     {
         _sysRegionRep = sysRegionRep;
+        _sysConfigService = sysConfigService;
     }
 
     /// <summary>
@@ -59,7 +64,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     {
         input.Code = input.Code.Trim();
         if (input.Code.Length != 12 && input.Code.Length != 9 && input.Code.Length != 6)
-            throw Oops.Oh("行政区代码只能为6、9或12位");
+            throw Oops.Oh(ErrorCodeEnum.R2003);
 
         if (input.Pid != 0)
         {
@@ -90,7 +95,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     {
         input.Code = input.Code.Trim();
         if (input.Code.Length != 12 && input.Code.Length != 9 && input.Code.Length != 6)
-            throw Oops.Oh("行政区代码只能为6、9或12位");
+            throw Oops.Oh(ErrorCodeEnum.R2003);
 
         if (input.Pid != input.Pid && input.Pid != 0)
         {
@@ -103,7 +108,7 @@ public class SysRegionService : IDynamicApiController, ITransient
             var regionTreeList = await _sysRegionRep.AsQueryable().ToChildListAsync(u => u.Pid, input.Id, true);
             var childIdList = regionTreeList.Select(u => u.Id).ToList();
             if (childIdList.Contains(input.Pid))
-                throw Oops.Oh("父节点不能为自己的子节点");
+                throw Oops.Oh(ErrorCodeEnum.R2004);
         }
 
         if (input.Id == input.Pid)
@@ -144,93 +149,117 @@ public class SysRegionService : IDynamicApiController, ITransient
     [DisplayName("同步行政区域")]
     public async Task Sync()
     {
+        var syncLevel = await _sysConfigService.GetConfigValue<int>(CommonConst.SysRegionSyncLevel);
+        if (syncLevel < 1 || syncLevel > 5)
+            syncLevel = 3;//默认区县级
+        var context = BrowsingContext.New(AngleSharp.Configuration.Default.WithDefaultLoader());
+        var dom = await context.OpenAsync(_url);
+
+        // 省级
+        var itemList = dom.QuerySelectorAll("table.provincetable tr.provincetr td a");
+        if (itemList.Length == 0)
+            throw Oops.Oh(ErrorCodeEnum.R2005);
+
         await _sysRegionRep.DeleteAsync(u => u.Id > 0);
 
-        //var context = BrowsingContext.New(AngleSharp.Configuration.Default.WithDefaultLoader());
-        //var dom = await context.OpenAsync(_url);
+        foreach (IHtmlAnchorElement item in itemList)
+        {
+            var list = new List<SysRegion>();
 
-        //// 省级
-        //var itemList = dom.QuerySelectorAll("table.provincetable tr.provincetr td a");
-        //foreach (IHtmlAnchorElement item in itemList)
-        //{
-        //    var region = await _sysRegionRep.InsertReturnEntityAsync(new SysRegion
-        //    {
-        //        Pid = 0,
-        //        Name = item.TextContent,
-        //        Remark = item.Href,
-        //        Level = 1,
-        //    });
+            var region = new SysRegion
+            {
+                Id = YitIdHelper.NextId(),
+                Pid = 0,
+                Name = item.TextContent,
+                Remark = item.Href,
+                Level = 1,
+            };
+            list.Add(region);
 
-        //    // 市级
-        //    if (string.IsNullOrEmpty(item.Href))
-        //        continue;
-        //    var dom1 = await context.OpenAsync(item.Href);
-        //    var itemList1 = dom1.QuerySelectorAll("table.citytable tr.citytr td a");
-        //    for (var i1 = 0; i1 < itemList1.Length; i1 += 2)
-        //    {
-        //        var item1 = (IHtmlAnchorElement)itemList1[i1 + 1];
-        //        var region1 = await _sysRegionRep.InsertReturnEntityAsync(new SysRegion
-        //        {
-        //            Pid = region.Id,
-        //            Name = item1.TextContent,
-        //            Code = itemList1[i1].TextContent,
-        //            Remark = item1.Href,
-        //            Level = 2,
-        //        });
+            // 市级
+            if (!string.IsNullOrEmpty(item.Href) && syncLevel > 1)
+            {
+                var dom1 = await context.OpenAsync(item.Href);
+                var itemList1 = dom1.QuerySelectorAll("table.citytable tr.citytr td a");
+                for (var i1 = 0; i1 < itemList1.Length; i1 += 2)
+                {
+                    var item1 = (IHtmlAnchorElement)itemList1[i1 + 1];
+                    var region1 = new SysRegion
+                    {
+                        Id = YitIdHelper.NextId(),
+                        Pid = region.Id,
+                        Name = item1.TextContent,
+                        Code = itemList1[i1].TextContent,
+                        Remark = item1.Href,
+                        Level = 2,
+                    };
+                    list.Add(region1);
 
-        //        // 区县级
-        //        if (string.IsNullOrEmpty(item1.Href))
-        //            continue;
-        //        var dom2 = await context.OpenAsync(item1.Href);
-        //        var itemList2 = dom2.QuerySelectorAll("table.countytable tr.countytr td a");
-        //        for (var i2 = 0; i2 < itemList2.Length; i2 += 2)
-        //        {
-        //            var item2 = (IHtmlAnchorElement)itemList2[i2 + 1];
-        //            var region2 = await _sysRegionRep.InsertReturnEntityAsync(new SysRegion
-        //            {
-        //                Pid = region1.Id,
-        //                Name = item2.TextContent,
-        //                Code = itemList2[i2].TextContent,
-        //                Remark = item2.Href,
-        //                Level = 3,
-        //            });
+                    // 区县级
+                    if (!string.IsNullOrEmpty(item1.Href) && syncLevel > 2)
+                    {
+                        var dom2 = await context.OpenAsync(item1.Href);
+                        var itemList2 = dom2.QuerySelectorAll("table.countytable tr.countytr td a");
+                        for (var i2 = 0; i2 < itemList2.Length; i2 += 2)
+                        {
+                            var item2 = (IHtmlAnchorElement)itemList2[i2 + 1];
+                            var region2 = new SysRegion
+                            {
+                                Id = YitIdHelper.NextId(),
+                                Pid = region1.Id,
+                                Name = item2.TextContent,
+                                Code = itemList2[i2].TextContent,
+                                Remark = item2.Href,
+                                Level = 3,
+                            };
+                            list.Add(region2);
 
-        //            // 街道级
-        //            if (string.IsNullOrEmpty(item2.Href))
-        //                continue;
-        //            var dom3 = await context.OpenAsync(item2.Href);
-        //            var itemList3 = dom3.QuerySelectorAll("table.towntable tr.towntr td a");
-        //            for (var i3 = 0; i3 < itemList3.Length; i3 += 2)
-        //            {
-        //                var item3 = (IHtmlAnchorElement)itemList3[i3 + 1];
-        //                var region3 = await _sysRegionRep.InsertReturnEntityAsync(new SysRegion
-        //                {
-        //                    Pid = region2.Id,
-        //                    Name = item3.TextContent,
-        //                    Code = itemList3[i3].TextContent,
-        //                    Remark = item3.Href,
-        //                    Level = 4,
-        //                });
+                            // 街道级
+                            if (!string.IsNullOrEmpty(item2.Href) && syncLevel > 3)
+                            {
+                                var dom3 = await context.OpenAsync(item2.Href);
+                                var itemList3 = dom3.QuerySelectorAll("table.towntable tr.towntr td a");
+                                for (var i3 = 0; i3 < itemList3.Length; i3 += 2)
+                                {
+                                    var item3 = (IHtmlAnchorElement)itemList3[i3 + 1];
+                                    var region3 = new SysRegion
+                                    {
+                                        Id = YitIdHelper.NextId(),
+                                        Pid = region2.Id,
+                                        Name = item3.TextContent,
+                                        Code = itemList3[i3].TextContent,
+                                        Remark = item3.Href,
+                                        Level = 4,
+                                    };
+                                    list.Add(region3);
 
-        //                // 村级
-        //                if (string.IsNullOrEmpty(item3.Href))
-        //                    continue;
-        //                var dom4 = await context.OpenAsync(item3.Href);
-        //                var itemList4 = dom4.QuerySelectorAll("table.villagetable tr.villagetr td");
-        //                for (var i4 = 0; i4 < itemList4.Length; i4 += 3)
-        //                {
-        //                    await _sysRegionRep.InsertAsync(new SysRegion
-        //                    {
-        //                        Pid = region3.Id,
-        //                        Name = itemList4[i4 + 2].TextContent,
-        //                        Code = itemList4[i4].TextContent,
-        //                        CityCode = itemList4[i4 + 1].TextContent,
-        //                        Level = 5,
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+                                    // 村级
+                                    if (!string.IsNullOrEmpty(item3.Href) && syncLevel > 4)
+                                    {
+                                        var dom4 = await context.OpenAsync(item3.Href);
+                                        var itemList4 = dom4.QuerySelectorAll("table.villagetable tr.villagetr td");
+                                        for (var i4 = 0; i4 < itemList4.Length; i4 += 3)
+                                        {
+                                            list.Add(new SysRegion
+                                            {
+                                                Id = YitIdHelper.NextId(),
+                                                Pid = region3.Id,
+                                                Name = itemList4[i4 + 2].TextContent,
+                                                Code = itemList4[i4].TextContent,
+                                                CityCode = itemList4[i4 + 1].TextContent,
+                                                Level = 5,
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //按省份同步快速写入提升同步效率，全部一次性写入容易出现从统计局获取数据失败
+            _sysRegionRep.Context.Fastest<SysRegion>().BulkCopy(list);
+        }
     }
 }
