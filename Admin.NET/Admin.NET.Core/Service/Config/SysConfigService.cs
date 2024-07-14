@@ -296,7 +296,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             await File.WriteAllBytesAsync(absoluteFilePath, binData);
 
             // 保存图标配置
-            var relativeUrl = $"/{path}/logo.{type}";
+            var relativeUrl = $"/{path}/logo{ext}";
             await UpdateConfigValue(ConfigConst.SysWebLogo, relativeUrl);
         }
 
