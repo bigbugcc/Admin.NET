@@ -13,14 +13,19 @@
  */
 
 /**
- * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+ * 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
  * @export
  * @enum {string}
  */
-export enum GenderEnum {
+export enum FilterOperatorEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1,
     NUMBER_2 = 2,
-    NUMBER_9 = 9
+    NUMBER_3 = 3,
+    NUMBER_4 = 4,
+    NUMBER_5 = 5,
+    NUMBER_6 = 6,
+    NUMBER_7 = 7,
+    NUMBER_8 = 8
 }
 

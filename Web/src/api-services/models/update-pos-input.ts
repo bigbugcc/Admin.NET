@@ -51,7 +51,7 @@ export interface UpdatePosInput {
      * @type {number}
      * @memberof UpdatePosInput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

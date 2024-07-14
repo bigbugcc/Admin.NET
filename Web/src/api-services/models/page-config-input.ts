@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface PageConfigInput
  */
 export interface PageConfigInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageConfigInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageConfigInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageConfigInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

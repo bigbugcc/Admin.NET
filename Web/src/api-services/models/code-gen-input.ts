@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 代码生成参数类
  *
@@ -19,6 +21,26 @@
  * @interface CodeGenInput
  */
 export interface CodeGenInput {
+
+    /**
+     * @type {Search}
+     * @memberof CodeGenInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof CodeGenInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

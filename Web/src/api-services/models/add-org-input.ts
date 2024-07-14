@@ -52,7 +52,7 @@ export interface AddOrgInput {
      * @type {number}
      * @memberof AddOrgInput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

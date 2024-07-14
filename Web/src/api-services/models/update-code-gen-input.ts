@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface UpdateCodeGenInput
  */
 export interface UpdateCodeGenInput {
+
+    /**
+     * @type {Search}
+     * @memberof UpdateCodeGenInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof UpdateCodeGenInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

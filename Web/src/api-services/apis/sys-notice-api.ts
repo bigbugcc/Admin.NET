@@ -22,6 +22,9 @@ import { AdminResultListSysNotice } from '../models';
 import { AdminResultSqlSugarPagedListSysNotice } from '../models';
 import { AdminResultSqlSugarPagedListSysNoticeUser } from '../models';
 import { DeleteNoticeInput } from '../models';
+import { Filter } from '../models';
+import { FilterLogicEnum } from '../models';
+import { FilterOperatorEnum } from '../models';
 import { NoticeInput } from '../models';
 import { NoticeTypeEnum } from '../models';
 import { PageNoticeInput } from '../models';
@@ -186,10 +189,18 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} [field] 排序字段
          * @param {string} [order] 排序方向
          * @param {string} [descStr] 降序排序
+         * @param {Array<string>} [searchFields] 字段名称集合
+         * @param {string} [searchKeyword] 关键字
+         * @param {string} [keyword] 模糊查询关键字
+         * @param {FilterLogicEnum} [filterLogic] 过滤条件
+         * @param {Array<Filter>} [filterFilters] 筛选过滤条件子项
+         * @param {string} [filterField] 字段名称
+         * @param {FilterOperatorEnum} [filterOperator] 逻辑运算符
+         * @param {any} [filterValue] 字段值
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysNoticePageReceivedGet: async (title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysNoticePageReceivedGet: async (title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, searchFields?: Array<string>, searchKeyword?: string, keyword?: string, filterLogic?: FilterLogicEnum, filterFilters?: Array<Filter>, filterField?: string, filterOperator?: FilterOperatorEnum, filterValue?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysNotice/pageReceived`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -236,6 +247,38 @@ export const SysNoticeApiAxiosParamCreator = function (configuration?: Configura
 
             if (descStr !== undefined) {
                 localVarQueryParameter['DescStr'] = descStr;
+            }
+
+            if (searchFields) {
+                localVarQueryParameter['Search.Fields'] = searchFields;
+            }
+
+            if (searchKeyword !== undefined) {
+                localVarQueryParameter['Search.Keyword'] = searchKeyword;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['Keyword'] = keyword;
+            }
+
+            if (filterLogic !== undefined) {
+                localVarQueryParameter['Filter.Logic'] = filterLogic;
+            }
+
+            if (filterFilters) {
+                localVarQueryParameter['Filter.Filters'] = filterFilters;
+            }
+
+            if (filterField !== undefined) {
+                localVarQueryParameter['Filter.Field'] = filterField;
+            }
+
+            if (filterOperator !== undefined) {
+                localVarQueryParameter['Filter.Operator'] = filterOperator;
+            }
+
+            if (filterValue !== undefined) {
+                localVarQueryParameter['Filter.Value'] = filterValue;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -502,11 +545,19 @@ export const SysNoticeApiFp = function(configuration?: Configuration) {
          * @param {string} [field] 排序字段
          * @param {string} [order] 排序方向
          * @param {string} [descStr] 降序排序
+         * @param {Array<string>} [searchFields] 字段名称集合
+         * @param {string} [searchKeyword] 关键字
+         * @param {string} [keyword] 模糊查询关键字
+         * @param {FilterLogicEnum} [filterLogic] 过滤条件
+         * @param {Array<Filter>} [filterFilters] 筛选过滤条件子项
+         * @param {string} [filterField] 字段名称
+         * @param {FilterOperatorEnum} [filterOperator] 逻辑运算符
+         * @param {any} [filterValue] 字段值
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>>> {
-            const localVarAxiosArgs = await SysNoticeApiAxiosParamCreator(configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, options);
+        async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, searchFields?: Array<string>, searchKeyword?: string, keyword?: string, filterLogic?: FilterLogicEnum, filterFilters?: Array<Filter>, filterField?: string, filterOperator?: FilterOperatorEnum, filterValue?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>>> {
+            const localVarAxiosArgs = await SysNoticeApiAxiosParamCreator(configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, searchFields, searchKeyword, keyword, filterLogic, filterFilters, filterField, filterOperator, filterValue, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -616,11 +667,19 @@ export const SysNoticeApiFactory = function (configuration?: Configuration, base
          * @param {string} [field] 排序字段
          * @param {string} [order] 排序方向
          * @param {string} [descStr] 降序排序
+         * @param {Array<string>} [searchFields] 字段名称集合
+         * @param {string} [searchKeyword] 关键字
+         * @param {string} [keyword] 模糊查询关键字
+         * @param {FilterLogicEnum} [filterLogic] 过滤条件
+         * @param {Array<Filter>} [filterFilters] 筛选过滤条件子项
+         * @param {string} [filterField] 字段名称
+         * @param {FilterOperatorEnum} [filterOperator] 逻辑运算符
+         * @param {any} [filterValue] 字段值
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>> {
-            return SysNoticeApiFp(configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, options).then((request) => request(axios, basePath));
+        async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, searchFields?: Array<string>, searchKeyword?: string, keyword?: string, filterLogic?: FilterLogicEnum, filterFilters?: Array<Filter>, filterField?: string, filterOperator?: FilterOperatorEnum, filterValue?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>> {
+            return SysNoticeApiFp(configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, searchFields, searchKeyword, keyword, filterLogic, filterFilters, filterField, filterOperator, filterValue, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -714,12 +773,20 @@ export class SysNoticeApi extends BaseAPI {
      * @param {string} [field] 排序字段
      * @param {string} [order] 排序方向
      * @param {string} [descStr] 降序排序
+     * @param {Array<string>} [searchFields] 字段名称集合
+     * @param {string} [searchKeyword] 关键字
+     * @param {string} [keyword] 模糊查询关键字
+     * @param {FilterLogicEnum} [filterLogic] 过滤条件
+     * @param {Array<Filter>} [filterFilters] 筛选过滤条件子项
+     * @param {string} [filterField] 字段名称
+     * @param {FilterOperatorEnum} [filterOperator] 逻辑运算符
+     * @param {any} [filterValue] 字段值
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysNoticeApi
      */
-    public async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>> {
-        return SysNoticeApiFp(this.configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysNoticePageReceivedGet(title?: string, type?: NoticeTypeEnum, page?: number, pageSize?: number, field?: string, order?: string, descStr?: string, searchFields?: Array<string>, searchKeyword?: string, keyword?: string, filterLogic?: FilterLogicEnum, filterFilters?: Array<Filter>, filterField?: string, filterOperator?: FilterOperatorEnum, filterValue?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysNoticeUser>> {
+        return SysNoticeApiFp(this.configuration).apiSysNoticePageReceivedGet(title, type, page, pageSize, field, order, descStr, searchFields, searchKeyword, keyword, filterLogic, filterFilters, filterField, filterOperator, filterValue, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { SysUser } from './sys-user';
  /**
  * 
  *
@@ -50,7 +51,7 @@ export interface OpenAccessOutput {
      * @type {number}
      * @memberof OpenAccessOutput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名
@@ -115,6 +116,12 @@ export interface OpenAccessOutput {
      * @memberof OpenAccessOutput
      */
     bindUserId?: number;
+
+    /**
+     * @type {SysUser}
+     * @memberof OpenAccessOutput
+     */
+    bindUser?: SysUser;
 
     /**
      * 绑定用户账号

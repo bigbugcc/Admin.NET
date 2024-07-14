@@ -50,7 +50,7 @@ export interface SysCodeGenConfig {
      * @type {number}
      * @memberof SysCodeGenConfig
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

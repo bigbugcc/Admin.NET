@@ -51,7 +51,7 @@ export interface SysLogEx {
      * @type {number}
      * @memberof SysLogEx
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

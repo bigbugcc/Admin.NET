@@ -50,7 +50,7 @@ export interface SysLogDiff {
      * @type {number}
      * @memberof SysLogDiff
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

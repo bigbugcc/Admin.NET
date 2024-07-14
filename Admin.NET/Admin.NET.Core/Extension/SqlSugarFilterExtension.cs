@@ -52,5 +52,4 @@ public static class SqlSugarFilterExtension
         var finalExpression = Expression.Lambda(right, new ParameterExpression[] { parameter });
         return finalExpression;
     }
-
 }

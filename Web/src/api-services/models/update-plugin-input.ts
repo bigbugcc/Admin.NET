@@ -51,7 +51,7 @@ export interface UpdatePluginInput {
      * @type {number}
      * @memberof UpdatePluginInput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -19,6 +21,26 @@
  * @interface PageRoleInput
  */
 export interface PageRoleInput {
+
+    /**
+     * @type {Search}
+     * @memberof PageRoleInput
+     */
+    search?: Search;
+
+    /**
+     * 模糊查询关键字
+     *
+     * @type {string}
+     * @memberof PageRoleInput
+     */
+    keyword?: string | null;
+
+    /**
+     * @type {Filter}
+     * @memberof PageRoleInput
+     */
+    filter?: Filter;
 
     /**
      * 当前页码

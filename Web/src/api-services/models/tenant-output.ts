@@ -53,7 +53,7 @@ export interface TenantOutput {
      * @type {number}
      * @memberof TenantOutput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

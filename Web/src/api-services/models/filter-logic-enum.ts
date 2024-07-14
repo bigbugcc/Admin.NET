@@ -13,14 +13,13 @@
  */
 
 /**
- * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+ * 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
  * @export
  * @enum {string}
  */
-export enum GenderEnum {
+export enum FilterLogicEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1,
-    NUMBER_2 = 2,
-    NUMBER_9 = 9
+    NUMBER_2 = 2
 }
 

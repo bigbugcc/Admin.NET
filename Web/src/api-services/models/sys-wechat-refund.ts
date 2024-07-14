@@ -50,7 +50,7 @@ export interface SysWechatRefund {
      * @type {number}
      * @memberof SysWechatRefund
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

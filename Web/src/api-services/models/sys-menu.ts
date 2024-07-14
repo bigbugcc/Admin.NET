@@ -53,7 +53,7 @@ export interface SysMenu {
      * @type {number}
      * @memberof SysMenu
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

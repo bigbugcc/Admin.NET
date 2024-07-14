@@ -277,7 +277,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             var type = groups["type"].Value;
             var base64Data = groups["data"].Value;
             var binData = Convert.FromBase64String(base64Data);
-            //根据文件名取扩展名
+            // 根据文件名取扩展名
             var ext = Path.GetExtension(input.SysLogFileName);
             // 本地图标保存路径
             var path = "Upload";

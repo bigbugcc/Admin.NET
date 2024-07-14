@@ -12,15 +12,27 @@
  * Do not edit the class manually.
  */
 
-/**
- * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+ /**
+ * 模糊查询条件
+ *
  * @export
- * @enum {string}
+ * @interface Search
  */
-export enum GenderEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1,
-    NUMBER_2 = 2,
-    NUMBER_9 = 9
-}
+export interface Search {
 
+    /**
+     * 字段名称集合
+     *
+     * @type {Array<string>}
+     * @memberof Search
+     */
+    fields?: Array<string> | null;
+
+    /**
+     * 关键字
+     *
+     * @type {string}
+     * @memberof Search
+     */
+    keyword?: string | null;
+}

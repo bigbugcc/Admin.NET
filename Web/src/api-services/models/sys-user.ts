@@ -56,7 +56,7 @@ export interface SysUser {
      * @type {number}
      * @memberof SysUser
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

@@ -51,7 +51,7 @@ export interface AddConfigInput {
      * @type {number}
      * @memberof AddConfigInput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

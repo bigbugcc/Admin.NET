@@ -13,19 +13,19 @@ namespace Admin.NET.Core;
 /// </summary>
 public static class SqlSugarExtension
 {
-    public static ISugarQueryable<T> SearchBy<T>(this ISugarQueryable<T> queryable,BaseFilter filter)
+    public static ISugarQueryable<T> SearchBy<T>(this ISugarQueryable<T> queryable, BaseFilter filter)
     {
         return queryable.SearchByKeyword(filter.Keyword)
                 .AdvancedSearch(filter.Search)
-                .AdvancedFilter(filter.Filter);   
+                .AdvancedFilter(filter.Filter);
     }
 
-    public static ISugarQueryable<T> SearchByKeyword<T>(this ISugarQueryable<T> queryable,string keyword)
+    public static ISugarQueryable<T> SearchByKeyword<T>(this ISugarQueryable<T> queryable, string keyword)
     {
         return queryable.AdvancedSearch(new Search { Keyword = keyword });
     }
 
-    public static ISugarQueryable<T> AdvancedSearch<T>(this ISugarQueryable<T> queryable,Search search)
+    public static ISugarQueryable<T> AdvancedSearch<T>(this ISugarQueryable<T> queryable, Search search)
     {
         if (!string.IsNullOrWhiteSpace(search?.Keyword))
         {
@@ -69,9 +69,9 @@ public static class SqlSugarExtension
         return queryable;
     }
 
-    public static ISugarQueryable<T> AdvancedFilter<T>(this ISugarQueryable<T> queryable,Filter filter)
+    public static ISugarQueryable<T> AdvancedFilter<T>(this ISugarQueryable<T> queryable, Filter filter)
     {
-        if(filter is not null)
+        if (filter is not null)
         {
             var parameter = Expression.Parameter(typeof(T));
 
@@ -115,7 +115,6 @@ public static class SqlSugarExtension
         if (filter.Operator.IsNullOrEmpty()) throw new ArgumentException("The Operator attribute is required when declaring a filter");
         return filter;
     }
-
 
     private static Expression CreateFilterExpression(
         FilterLogicEnum filterLogic,
@@ -169,7 +168,7 @@ public static class SqlSugarExtension
             FilterOperatorEnum.LTE => Expression.LessThanOrEqual(memberExpression, constantExpression),
             FilterOperatorEnum.GT => Expression.GreaterThan(memberExpression, constantExpression),
             FilterOperatorEnum.GTE => Expression.GreaterThanOrEqual(memberExpression, constantExpression),
-            FilterOperatorEnum.Contains => Expression.Call(memberExpression,nameof(FilterOperatorEnum.Contains), null, constantExpression),
+            FilterOperatorEnum.Contains => Expression.Call(memberExpression, nameof(FilterOperatorEnum.Contains), null, constantExpression),
             FilterOperatorEnum.StartsWith => Expression.Call(memberExpression, nameof(FilterOperatorEnum.StartsWith), null, constantExpression),
             FilterOperatorEnum.EndsWith => Expression.Call(memberExpression, nameof(FilterOperatorEnum.EndsWith), null, constantExpression),
             _ => throw new ArgumentException("Filter Operator is not valid."),
@@ -182,7 +181,6 @@ public static class SqlSugarExtension
         if (value is string) return (string)value;
         return value?.ToString();
     }
-
 
     private static ConstantExpression GeValuetExpression(
           string field,
@@ -199,7 +197,7 @@ public static class SqlSugarExtension
 
             return Expression.Constant(valueparsed, propertyType);
         }
-        if(propertyType == typeof(long))
+        if (propertyType == typeof(long))
         {
             string? stringLong = GetStringFromJsonElement(value);
 

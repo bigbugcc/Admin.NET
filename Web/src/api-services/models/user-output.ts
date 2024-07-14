@@ -56,7 +56,7 @@ export interface UserOutput {
      * @type {number}
      * @memberof UserOutput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名

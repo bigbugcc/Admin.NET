@@ -52,7 +52,7 @@ export interface AddPrintInput {
      * @type {number}
      * @memberof AddPrintInput
      */
-    createUserId?: number | null;
+    createUserId?: number;
 
     /**
      * 创建者姓名
