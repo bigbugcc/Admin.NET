@@ -277,10 +277,11 @@ public class SysConfigService : IDynamicApiController, ITransient
             var type = groups["type"].Value;
             var base64Data = groups["data"].Value;
             var binData = Convert.FromBase64String(base64Data);
-
+            //根据文件名取扩展名
+            var ext = Path.GetExtension(input.SysLogFileName);
             // 本地图标保存路径
             var path = "Upload";
-            var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo.{type}");
+            var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo{ext}");
 
             // 删除已存在文件
             if (File.Exists(oldSysLogoAbsoluteFilePath))
@@ -295,7 +296,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             await File.WriteAllBytesAsync(absoluteFilePath, binData);
 
             // 保存图标配置
-            var relativeUrl = $"/{path}/logo.{type}";
+            var relativeUrl = $"/{path}/logo{ext}";
             await UpdateConfigValue("sys_web_logo", relativeUrl);
         }
 
