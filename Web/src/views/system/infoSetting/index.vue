@@ -11,7 +11,7 @@
 							<el-icon><ele-PictureRounded /></el-icon> 系统图标
 						</div>
 					</template> -->
-					<el-upload class="avatar-uploader" :name="sysfilename" :showFileList="false" :autoUpload="false" accept=".jpg,.png,.svg" action="" :limit="1" :onChange="handleUploadChange">
+					<el-upload ref="uploadRef" class="avatar-uploader" :showFileList="false" :autoUpload="false" accept=".jpg,.png,.svg" action="" :limit="1" :onChange="handleUploadChange">
 						<img v-if="state.formData.sysLogo" :src="state.formData.sysLogo" class="avatar" />
 						<SvgIcon v-else class="avatar-uploader-icon" name="ele-Plus" :size="28" />
 					</el-upload>
@@ -46,19 +46,21 @@
 </template>
 
 <script setup lang="ts" name="sysInfoSetting">
-import { nextTick, reactive } from 'vue';
-import { ElMessage } from 'element-plus';
+import { nextTick, reactive, ref } from 'vue';
+import { ElMessage, UploadInstance } from 'element-plus';
 import { fileToBase64 } from '/@/utils/base64Conver';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysConfigApi } from '/@/api-services';
 
+const uploadRef = ref<UploadInstance>();
 const state = reactive({
 	isLoading: false,
 	file: undefined as any,
 	formData: {
 		sysLogoBlob: undefined,
 		sysLogo: '',
+		sysLogoFileName: '',
 		sysTitle: '',
 		sysViceTitle: '',
 		sysViceDesc: '',
@@ -71,9 +73,10 @@ const state = reactive({
 
 // 通过onChange方法获得文件列表
 const handleUploadChange = (file: any) => {
+	uploadRef.value!.clearFiles();
+
 	state.file = file;
-	// 改变 sysLogo，显示预览
-	state.formData.sysLogo = URL.createObjectURL(state.file.raw);
+	state.formData.sysLogo = URL.createObjectURL(state.file.raw); // 显示预览logo
 };
 
 // 保存
@@ -90,7 +93,7 @@ const onSave = async () => {
 		state.isLoading = true;
 		const res = await getAPI(SysConfigApi).apiSysConfigSaveSysInfoPost({
 			sysLogoBase64: sysLogoBase64,
-			SysLogFileName: sysLogoFileName,
+			sysLogoFileName: sysLogoFileName,
 			sysTitle: state.formData.sysTitle,
 			sysViceTitle: state.formData.sysViceTitle,
 			sysViceDesc: state.formData.sysViceDesc,
@@ -123,6 +126,7 @@ const loadData = async () => {
 		state.formData = {
 			sysLogoBlob: undefined,
 			sysLogo: result.sysLogo,
+			sysLogoFileName: '',
 			sysTitle: result.sysTitle,
 			sysViceTitle: result.sysViceTitle,
 			sysViceDesc: result.sysViceDesc,
@@ -146,6 +150,7 @@ loadData();
 	width: 100px;
 	height: 100px;
 	display: block;
+	object-fit: contain;
 }
 
 :deep(.avatar-uploader) .el-upload {

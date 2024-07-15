@@ -29,6 +29,14 @@ export interface InfoSaveInput {
     sysLogoBase64?: string | null;
 
     /**
+     * 系统图标文件名
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    sysLogoFileName?: string | null;
+
+    /**
      * 系统主标题
      *
      * @type {string}
@@ -83,12 +91,4 @@ export interface InfoSaveInput {
      * @memberof InfoSaveInput
      */
     sysIcpUrl?: string | null;
-
-    /**
-     * 上传系统图标时的文件名
-     *
-     * @type {string}
-     * @memberof InfoSaveInput
-     */
-    sysLogFileName?: string | null;
 }

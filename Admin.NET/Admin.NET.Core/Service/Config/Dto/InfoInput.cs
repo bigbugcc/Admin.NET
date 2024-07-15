@@ -17,6 +17,11 @@ public class InfoSaveInput
     public string SysLogoBase64 { get; set; }
 
     /// <summary>
+    /// 系统图标文件名
+    /// </summary>
+    public string SysLogoFileName { get; set; }
+
+    /// <summary>
     /// 系统主标题
     /// </summary>
     public string SysTitle { get; set; }
@@ -50,9 +55,4 @@ public class InfoSaveInput
     /// ICP地址
     /// </summary>
     public string SysIcpUrl { get; set; }
-
-    /// <summary>
-    /// 上传系统图标时的文件名
-    /// </summary>
-    public string SysLogFileName { get; set; }
 }

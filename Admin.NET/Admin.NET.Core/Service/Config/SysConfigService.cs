@@ -279,7 +279,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             var base64Data = groups["data"].Value;
             var binData = Convert.FromBase64String(base64Data);
             // 根据文件名取扩展名
-            var ext = Path.GetExtension(input.SysLogFileName);
+            var ext = string.IsNullOrWhiteSpace(input.SysLogoFileName) ? ".png" : Path.GetExtension(input.SysLogoFileName);
             // 本地图标保存路径
             var path = "Upload";
             var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo{ext}");
