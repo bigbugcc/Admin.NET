@@ -16,10 +16,12 @@ namespace Admin.NET.Core.Service;
 public class SysEmailService : IDynamicApiController, ITransient
 {
     private readonly EmailOptions _emailOptions;
+    private readonly SysConfigService _sysConfigService;
 
-    public SysEmailService(IOptions<EmailOptions> emailOptions)
+    public SysEmailService(IOptions<EmailOptions> emailOptions, SysConfigService sysConfigService)
     {
         _emailOptions = emailOptions.Value;
+        _sysConfigService = sysConfigService;
     }
 
     /// <summary>
@@ -29,8 +31,10 @@ public class SysEmailService : IDynamicApiController, ITransient
     /// <param name="title"></param>
     /// <returns></returns>
     [DisplayName("发送邮件")]
-    public async Task SendEmail([Required] string content, string title = "Admin.NET 系统邮件")
+    public async Task SendEmail([Required] string content, string title = "")
     {
+        var webTitle = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysWebTitle);
+        title = string.IsNullOrWhiteSpace(title) ? $"{webTitle} 系统邮件" : title;
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(_emailOptions.DefaultFromEmail, _emailOptions.DefaultFromEmail));
         message.To.Add(new MailboxAddress(_emailOptions.DefaultToEmail, _emailOptions.DefaultToEmail));

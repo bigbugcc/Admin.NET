@@ -33,7 +33,7 @@ public class JobMonitor : IJobMonitor
         if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
         {
             var errorInfo = $"【{context.Trigger.Description}】定时任务错误：{context.Exception}";
-            await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo);
+            await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo, stoppingToken);
         }
     }
 }
