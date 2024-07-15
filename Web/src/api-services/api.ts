@@ -49,6 +49,7 @@ export * from './apis/sys-sms-api';
 export * from './apis/sys-tenant-api';
 export * from './apis/sys-user-api';
 export * from './apis/sys-user-menu-api';
+export * from './apis/sys-user-schedule-api';
 export * from './apis/sys-wechat-api';
 export * from './apis/sys-wechat-pay-api';
 export * from './apis/sys-wechat-user-api';
