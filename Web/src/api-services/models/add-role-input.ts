@@ -52,7 +52,7 @@ export interface AddRoleInput {
      * @type {number}
      * @memberof AddRoleInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

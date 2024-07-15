@@ -12,20 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { SysUserSchedule } from './sys-user-schedule';
+import { SysSchedule } from './sys-schedule';
  /**
  * 全局返回结果
  *
  * @export
- * @interface AdminResultSysUserSchedule
+ * @interface AdminResultSysSchedule
  */
-export interface AdminResultSysUserSchedule {
+export interface AdminResultSysSchedule {
 
     /**
      * 状态码
      *
      * @type {number}
-     * @memberof AdminResultSysUserSchedule
+     * @memberof AdminResultSysSchedule
      */
     code?: number;
 
@@ -33,7 +33,7 @@ export interface AdminResultSysUserSchedule {
      * 类型success、warning、error
      *
      * @type {string}
-     * @memberof AdminResultSysUserSchedule
+     * @memberof AdminResultSysSchedule
      */
     type?: string | null;
 
@@ -41,21 +41,21 @@ export interface AdminResultSysUserSchedule {
      * 错误信息
      *
      * @type {string}
-     * @memberof AdminResultSysUserSchedule
+     * @memberof AdminResultSysSchedule
      */
     message?: string | null;
 
     /**
-     * @type {SysUserSchedule}
-     * @memberof AdminResultSysUserSchedule
+     * @type {SysSchedule}
+     * @memberof AdminResultSysSchedule
      */
-    result?: SysUserSchedule;
+    result?: SysSchedule;
 
     /**
      * 附加数据
      *
      * @type {any}
-     * @memberof AdminResultSysUserSchedule
+     * @memberof AdminResultSysSchedule
      */
     extras?: any | null;
 
@@ -63,7 +63,7 @@ export interface AdminResultSysUserSchedule {
      * 时间
      *
      * @type {Date}
-     * @memberof AdminResultSysUserSchedule
+     * @memberof AdminResultSysSchedule
      */
     time?: Date;
 }

@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<script setup lang="ts" name="timeing">
+<script setup lang="ts" name="timer">
 import { formatDate } from '/@/utils/formatTime';
 import { ref, onMounted, onUnmounted } from 'vue';
 const time = ref<string>('');

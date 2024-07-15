@@ -52,7 +52,7 @@ export interface UpdateOrgInput {
      * @type {number}
      * @memberof UpdateOrgInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

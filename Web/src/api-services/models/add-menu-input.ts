@@ -53,7 +53,7 @@ export interface AddMenuInput {
      * @type {number}
      * @memberof AddMenuInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

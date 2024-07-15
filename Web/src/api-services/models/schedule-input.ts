@@ -16,19 +16,19 @@
  * 
  *
  * @export
- * @interface PageUserScheduleInput
+ * @interface ScheduleInput
  */
-export interface PageUserScheduleInput {
+export interface ScheduleInput {
 
     /**
      * @type {Date}
-     * @memberof PageUserScheduleInput
+     * @memberof ScheduleInput
      */
     startTime?: Date | null;
 
     /**
      * @type {Date}
-     * @memberof PageUserScheduleInput
+     * @memberof ScheduleInput
      */
     endTime?: Date | null;
 }

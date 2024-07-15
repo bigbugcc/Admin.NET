@@ -50,7 +50,7 @@ export interface SysFile {
      * @type {number}
      * @memberof SysFile
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

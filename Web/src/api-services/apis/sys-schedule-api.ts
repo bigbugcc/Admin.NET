@@ -17,28 +17,27 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AddUserScheduleInput } from '../models';
-import { AdminResultInt64 } from '../models';
-import { AdminResultListSysUserSchedule } from '../models';
-import { AdminResultSysUserSchedule } from '../models';
-import { DeleteUserScheduleInput } from '../models';
-import { PageUserScheduleInput } from '../models';
-import { UpdateUserScheduleInput } from '../models';
+import { AddScheduleInput } from '../models';
+import { AdminResultListSysSchedule } from '../models';
+import { AdminResultSysSchedule } from '../models';
+import { DeleteScheduleInput } from '../models';
+import { ScheduleInput } from '../models';
+import { UpdateScheduleInput } from '../models';
 /**
- * SysUserScheduleApi - axios parameter creator
+ * SysScheduleApi - axios parameter creator
  * @export
  */
-export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SysScheduleApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
          * @summary 增加日程
-         * @param {AddUserScheduleInput} [body] 
+         * @param {AddScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysUserScheduleAddPost: async (body?: AddUserScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysUserSchedule/add`;
+        apiSysScheduleAddPost: async (body?: AddScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysSchedule/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -81,12 +80,12 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @summary 删除日程
-         * @param {DeleteUserScheduleInput} [body] 
+         * @param {DeleteScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysUserScheduleDeletePost: async (body?: DeleteUserScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysUserSchedule/delete`;
+        apiSysScheduleDeletePost: async (body?: DeleteScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysSchedule/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -129,16 +128,17 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @summary 获取日程详情
-         * @param {number} id 主键Id
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysUserScheduleDetailGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysScheduleDetailIdGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysUserScheduleDetailGet.');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysScheduleDetailIdGet.');
             }
-            const localVarPath = `/api/sysUserSchedule/detail`;
+            const localVarPath = `/api/sysSchedule/detail/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -158,10 +158,6 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
-            if (id !== undefined) {
-                localVarQueryParameter['Id'] = id;
-            }
-
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -181,12 +177,12 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @summary 获取日程列表
-         * @param {PageUserScheduleInput} [body] 
+         * @param {ScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysUserSchedulePagePost: async (body?: PageUserScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysUserSchedule/page`;
+        apiSysSchedulePagePost: async (body?: ScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysSchedule/page`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -229,12 +225,12 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @summary 更新日程
-         * @param {UpdateUserScheduleInput} [body] 
+         * @param {UpdateScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysUserScheduleUpdatePost: async (body?: UpdateUserScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysUserSchedule/update`;
+        apiSysScheduleUpdatePost: async (body?: UpdateScheduleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysSchedule/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -278,20 +274,20 @@ export const SysUserScheduleApiAxiosParamCreator = function (configuration?: Con
 };
 
 /**
- * SysUserScheduleApi - functional programming interface
+ * SysScheduleApi - functional programming interface
  * @export
  */
-export const SysUserScheduleApiFp = function(configuration?: Configuration) {
+export const SysScheduleApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
          * @summary 增加日程
-         * @param {AddUserScheduleInput} [body] 
+         * @param {AddScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleAddPost(body?: AddUserScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultInt64>>> {
-            const localVarAxiosArgs = await SysUserScheduleApiAxiosParamCreator(configuration).apiSysUserScheduleAddPost(body, options);
+        async apiSysScheduleAddPost(body?: AddScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysScheduleApiAxiosParamCreator(configuration).apiSysScheduleAddPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -300,12 +296,12 @@ export const SysUserScheduleApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 删除日程
-         * @param {DeleteUserScheduleInput} [body] 
+         * @param {DeleteScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleDeletePost(body?: DeleteUserScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysUserScheduleApiAxiosParamCreator(configuration).apiSysUserScheduleDeletePost(body, options);
+        async apiSysScheduleDeletePost(body?: DeleteScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysScheduleApiAxiosParamCreator(configuration).apiSysScheduleDeletePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -314,12 +310,12 @@ export const SysUserScheduleApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取日程详情
-         * @param {number} id 主键Id
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleDetailGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysUserSchedule>>> {
-            const localVarAxiosArgs = await SysUserScheduleApiAxiosParamCreator(configuration).apiSysUserScheduleDetailGet(id, options);
+        async apiSysScheduleDetailIdGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysSchedule>>> {
+            const localVarAxiosArgs = await SysScheduleApiAxiosParamCreator(configuration).apiSysScheduleDetailIdGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -328,12 +324,12 @@ export const SysUserScheduleApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取日程列表
-         * @param {PageUserScheduleInput} [body] 
+         * @param {ScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserSchedulePagePost(body?: PageUserScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysUserSchedule>>> {
-            const localVarAxiosArgs = await SysUserScheduleApiAxiosParamCreator(configuration).apiSysUserSchedulePagePost(body, options);
+        async apiSysSchedulePagePost(body?: ScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysSchedule>>> {
+            const localVarAxiosArgs = await SysScheduleApiAxiosParamCreator(configuration).apiSysSchedulePagePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -342,12 +338,12 @@ export const SysUserScheduleApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 更新日程
-         * @param {UpdateUserScheduleInput} [body] 
+         * @param {UpdateScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleUpdatePost(body?: UpdateUserScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysUserScheduleApiAxiosParamCreator(configuration).apiSysUserScheduleUpdatePost(body, options);
+        async apiSysScheduleUpdatePost(body?: UpdateScheduleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysScheduleApiAxiosParamCreator(configuration).apiSysScheduleUpdatePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -357,124 +353,124 @@ export const SysUserScheduleApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * SysUserScheduleApi - factory interface
+ * SysScheduleApi - factory interface
  * @export
  */
-export const SysUserScheduleApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const SysScheduleApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
          * 
          * @summary 增加日程
-         * @param {AddUserScheduleInput} [body] 
+         * @param {AddScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleAddPost(body?: AddUserScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultInt64>> {
-            return SysUserScheduleApiFp(configuration).apiSysUserScheduleAddPost(body, options).then((request) => request(axios, basePath));
+        async apiSysScheduleAddPost(body?: AddScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysScheduleApiFp(configuration).apiSysScheduleAddPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 删除日程
-         * @param {DeleteUserScheduleInput} [body] 
+         * @param {DeleteScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleDeletePost(body?: DeleteUserScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysUserScheduleApiFp(configuration).apiSysUserScheduleDeletePost(body, options).then((request) => request(axios, basePath));
+        async apiSysScheduleDeletePost(body?: DeleteScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysScheduleApiFp(configuration).apiSysScheduleDeletePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 获取日程详情
-         * @param {number} id 主键Id
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleDetailGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysUserSchedule>> {
-            return SysUserScheduleApiFp(configuration).apiSysUserScheduleDetailGet(id, options).then((request) => request(axios, basePath));
+        async apiSysScheduleDetailIdGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysSchedule>> {
+            return SysScheduleApiFp(configuration).apiSysScheduleDetailIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 获取日程列表
-         * @param {PageUserScheduleInput} [body] 
+         * @param {ScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserSchedulePagePost(body?: PageUserScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysUserSchedule>> {
-            return SysUserScheduleApiFp(configuration).apiSysUserSchedulePagePost(body, options).then((request) => request(axios, basePath));
+        async apiSysSchedulePagePost(body?: ScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysSchedule>> {
+            return SysScheduleApiFp(configuration).apiSysSchedulePagePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 更新日程
-         * @param {UpdateUserScheduleInput} [body] 
+         * @param {UpdateScheduleInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserScheduleUpdatePost(body?: UpdateUserScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysUserScheduleApiFp(configuration).apiSysUserScheduleUpdatePost(body, options).then((request) => request(axios, basePath));
+        async apiSysScheduleUpdatePost(body?: UpdateScheduleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysScheduleApiFp(configuration).apiSysScheduleUpdatePost(body, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * SysUserScheduleApi - object-oriented interface
+ * SysScheduleApi - object-oriented interface
  * @export
- * @class SysUserScheduleApi
+ * @class SysScheduleApi
  * @extends {BaseAPI}
  */
-export class SysUserScheduleApi extends BaseAPI {
+export class SysScheduleApi extends BaseAPI {
     /**
      * 
      * @summary 增加日程
-     * @param {AddUserScheduleInput} [body] 
+     * @param {AddScheduleInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysUserScheduleApi
+     * @memberof SysScheduleApi
      */
-    public async apiSysUserScheduleAddPost(body?: AddUserScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultInt64>> {
-        return SysUserScheduleApiFp(this.configuration).apiSysUserScheduleAddPost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysScheduleAddPost(body?: AddScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysScheduleApiFp(this.configuration).apiSysScheduleAddPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 删除日程
-     * @param {DeleteUserScheduleInput} [body] 
+     * @param {DeleteScheduleInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysUserScheduleApi
+     * @memberof SysScheduleApi
      */
-    public async apiSysUserScheduleDeletePost(body?: DeleteUserScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysUserScheduleApiFp(this.configuration).apiSysUserScheduleDeletePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysScheduleDeletePost(body?: DeleteScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysScheduleApiFp(this.configuration).apiSysScheduleDeletePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 获取日程详情
-     * @param {number} id 主键Id
+     * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysUserScheduleApi
+     * @memberof SysScheduleApi
      */
-    public async apiSysUserScheduleDetailGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysUserSchedule>> {
-        return SysUserScheduleApiFp(this.configuration).apiSysUserScheduleDetailGet(id, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysScheduleDetailIdGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysSchedule>> {
+        return SysScheduleApiFp(this.configuration).apiSysScheduleDetailIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 获取日程列表
-     * @param {PageUserScheduleInput} [body] 
+     * @param {ScheduleInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysUserScheduleApi
+     * @memberof SysScheduleApi
      */
-    public async apiSysUserSchedulePagePost(body?: PageUserScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysUserSchedule>> {
-        return SysUserScheduleApiFp(this.configuration).apiSysUserSchedulePagePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysSchedulePagePost(body?: ScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysSchedule>> {
+        return SysScheduleApiFp(this.configuration).apiSysSchedulePagePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 更新日程
-     * @param {UpdateUserScheduleInput} [body] 
+     * @param {UpdateScheduleInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysUserScheduleApi
+     * @memberof SysScheduleApi
      */
-    public async apiSysUserScheduleUpdatePost(body?: UpdateUserScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysUserScheduleApiFp(this.configuration).apiSysUserScheduleUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysScheduleUpdatePost(body?: UpdateScheduleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysScheduleApiFp(this.configuration).apiSysScheduleUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

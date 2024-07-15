@@ -52,7 +52,7 @@ export interface SysDictType {
      * @type {number}
      * @memberof SysDictType
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

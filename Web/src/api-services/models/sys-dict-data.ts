@@ -51,7 +51,7 @@ export interface SysDictData {
      * @type {number}
      * @memberof SysDictData
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

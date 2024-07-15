@@ -51,7 +51,7 @@ export interface AddDictDataInput {
      * @type {number}
      * @memberof AddDictDataInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

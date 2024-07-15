@@ -4,32 +4,28 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-
 namespace Admin.NET.Core.Service;
 
-
-public class UserScheduleInput : BaseIdInput
-{
-}
-
-public class PageUserScheduleInput 
+public class ScheduleInput
 {
     public DateTime? StartTime { get; set; }
+
     public DateTime? EndTime { get; set; }
 }
 
-public class AddUserScheduleInput : SysUserSchedule
-{    /// <summary>
-     /// 日程内容
-     /// </summary>
+public class AddScheduleInput : SysSchedule
+{
+    /// <summary>
+    /// 日程内容
+    /// </summary>
     [Required(ErrorMessage = "日程内容不能为空")]
     public override string Content { get; set; }
 }
 
-public class UpdateUserScheduleInput : AddUserScheduleInput
+public class UpdateScheduleInput : AddScheduleInput
 {
 }
 
-public class DeleteUserScheduleInput : BaseIdInput
+public class DeleteScheduleInput : BaseIdInput
 {
 }

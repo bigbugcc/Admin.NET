@@ -1,7 +1,9 @@
 <template>
 	<el-card shadow="hover" header="更新记录">
 		<template #header>
-			<el-button type="primary" icon="ele-Refresh" round @click="refresh">更新记录</el-button>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-DocumentCopy /> </el-icon>
+			<span style=""> 更新记录 </span>
+			<el-button type="primary" icon="ele-Refresh" round plain @click="refresh" style="float: right">更新记录</el-button>
 		</template>
 		<div class="commit" v-loading="state.loading">
 			<el-timeline style="max-width: 600px" v-if="state.list.length > 0">

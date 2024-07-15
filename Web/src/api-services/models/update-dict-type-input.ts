@@ -52,7 +52,7 @@ export interface UpdateDictTypeInput {
      * @type {number}
      * @memberof UpdateDictTypeInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

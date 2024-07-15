@@ -32,5 +32,6 @@ export default {
 	color: #999;
 	margin-top: 10px;
 	line-height: 1.8;
+	/* height: 100px; */
 }
 </style>

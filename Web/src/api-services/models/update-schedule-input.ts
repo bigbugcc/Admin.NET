@@ -13,18 +13,18 @@
  */
 
  /**
- * 系统用户日程表
+ * 
  *
  * @export
- * @interface SysUserSchedule
+ * @interface UpdateScheduleInput
  */
-export interface SysUserSchedule {
+export interface UpdateScheduleInput {
 
     /**
      * 雪花Id
      *
      * @type {number}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     id?: number;
 
@@ -32,7 +32,7 @@ export interface SysUserSchedule {
      * 创建时间
      *
      * @type {Date}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     createTime?: Date;
 
@@ -40,7 +40,7 @@ export interface SysUserSchedule {
      * 更新时间
      *
      * @type {Date}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     updateTime?: Date | null;
 
@@ -48,15 +48,15 @@ export interface SysUserSchedule {
      * 创建者Id
      *
      * @type {number}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名
      *
      * @type {string}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     createUserName?: string | null;
 
@@ -64,7 +64,7 @@ export interface SysUserSchedule {
      * 修改者Id
      *
      * @type {number}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     updateUserId?: number | null;
 
@@ -72,7 +72,7 @@ export interface SysUserSchedule {
      * 修改者姓名
      *
      * @type {string}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     updateUserName?: string | null;
 
@@ -80,7 +80,7 @@ export interface SysUserSchedule {
      * 软删除
      *
      * @type {boolean}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     isDelete?: boolean;
 
@@ -88,7 +88,7 @@ export interface SysUserSchedule {
      * 租户Id
      *
      * @type {number}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     tenantId?: number | null;
 
@@ -96,7 +96,7 @@ export interface SysUserSchedule {
      * 用户Id
      *
      * @type {number}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     userId?: number;
 
@@ -104,7 +104,7 @@ export interface SysUserSchedule {
      * 日程时间
      *
      * @type {Date}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     scheduleTime?: Date | null;
 
@@ -112,7 +112,7 @@ export interface SysUserSchedule {
      * 日程内容
      *
      * @type {string}
-     * @memberof SysUserSchedule
+     * @memberof UpdateScheduleInput
      */
     content: string;
 }

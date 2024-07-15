@@ -52,7 +52,7 @@ export interface SysOrg {
      * @type {number}
      * @memberof SysOrg
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

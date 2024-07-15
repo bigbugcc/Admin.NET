@@ -52,7 +52,7 @@ export interface UpdatePrintInput {
      * @type {number}
      * @memberof UpdatePrintInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

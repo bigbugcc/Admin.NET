@@ -51,7 +51,7 @@ export interface AddPluginInput {
      * @type {number}
      * @memberof AddPluginInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

@@ -51,7 +51,7 @@ export interface UpdateDictDataInput {
      * @type {number}
      * @memberof UpdateDictDataInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

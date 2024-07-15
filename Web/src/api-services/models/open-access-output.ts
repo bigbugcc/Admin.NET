@@ -51,7 +51,7 @@ export interface OpenAccessOutput {
      * @type {number}
      * @memberof OpenAccessOutput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

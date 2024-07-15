@@ -26,13 +26,13 @@
     <PackageReference Include="Magicodes.IE.Excel" Version="2.7.5.1" />
     <PackageReference Include="Magicodes.IE.Pdf" Version="2.7.5.1" />
     <PackageReference Include="Magicodes.IE.Word" Version="2.7.5.1" />
-    <PackageReference Include="MailKit" Version="4.7.1" />
+    <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="NewLife.Redis" Version="5.7.2024.709" />
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.2" />
-    <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.3.0" />
+    <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.4.0" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.6.0" />
     <PackageReference Include="SqlSugarCore" Version="5.1.4.162" />
     <PackageReference Include="SSH.NET" Version="2024.1.0" />

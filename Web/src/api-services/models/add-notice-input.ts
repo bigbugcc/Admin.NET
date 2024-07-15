@@ -52,7 +52,7 @@ export interface AddNoticeInput {
      * @type {number}
      * @memberof AddNoticeInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

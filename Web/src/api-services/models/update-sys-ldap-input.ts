@@ -51,7 +51,7 @@ export interface UpdateSysLdapInput {
      * @type {number}
      * @memberof UpdateSysLdapInput
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

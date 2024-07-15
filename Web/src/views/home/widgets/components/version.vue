@@ -7,7 +7,7 @@
 		<div style="height: 210px; text-align: center">
 			<img :src="verSvg" style="height: 140px" />
 			<h2 style="margin-top: 15px">Admin.NET</h2>
-			<p style="margin-top: 5px">最新版本 {{ ver }}</p>
+			<p style="margin-top: 5px">最新版本 {{ version }}</p>
 		</div>
 		<div style="margin-top: 20px">
 			<el-button type="primary" plain round @click="golog">更新日志</el-button>
@@ -24,18 +24,18 @@ export default {
 };
 </script>
 
-<script setup lang="ts" name="ver">
+<script setup lang="ts" name="version">
 import { ref, onMounted } from 'vue';
 import verSvg from '/@/assets/img/ver.svg';
 
-const ver = ref<string>('loading...');
+const version = ref<string>('loading...');
 
 onMounted(() => {
-	ver.value = 'v2.0.0';
+	version.value = 'v2.0.0';
 });
 
 const getVer = () => {
-	ver.value = 'v2.0.0';
+	version.value = 'v2.0.0';
 };
 
 const golog = () => {

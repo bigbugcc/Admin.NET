@@ -50,7 +50,7 @@ export interface SysWechatPay {
      * @type {number}
      * @memberof SysWechatPay
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名

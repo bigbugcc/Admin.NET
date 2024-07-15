@@ -16,15 +16,15 @@
  * 
  *
  * @export
- * @interface DeleteUserScheduleInput
+ * @interface DeleteScheduleInput
  */
-export interface DeleteUserScheduleInput {
+export interface DeleteScheduleInput {
 
     /**
      * 主键Id
      *
      * @type {number}
-     * @memberof DeleteUserScheduleInput
+     * @memberof DeleteScheduleInput
      */
     id: number;
 }

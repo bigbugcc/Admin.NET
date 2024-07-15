@@ -51,7 +51,7 @@ export interface SysWechatUser {
      * @type {number}
      * @memberof SysWechatUser
      */
-    createUserId?: number;
+    createUserId?: number | null;
 
     /**
      * 创建者姓名
