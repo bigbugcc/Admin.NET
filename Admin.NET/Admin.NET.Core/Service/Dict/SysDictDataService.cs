@@ -13,11 +13,11 @@ namespace Admin.NET.Core.Service;
 [AllowAnonymous]
 public class SysDictDataService : IDynamicApiController, ITransient
 {
-    private readonly SysCacheService _sysCacheService;
     private readonly SqlSugarRepository<SysDictData> _sysDictDataRep;
+    private readonly SysCacheService _sysCacheService;
 
-    public SysDictDataService(SqlSugarRepository<SysDictData> sysDictDataRep
-        , SysCacheService sysCacheService)
+    public SysDictDataService(SqlSugarRepository<SysDictData> sysDictDataRep,
+        SysCacheService sysCacheService)
     {
         _sysDictDataRep = sysDictDataRep;
         _sysCacheService = sysCacheService;
@@ -61,6 +61,9 @@ public class SysDictDataService : IDynamicApiController, ITransient
     {
         var isExist = await _sysDictDataRep.IsAnyAsync(u => u.Code == input.Code && u.DictTypeId == input.DictTypeId);
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D3003);
+
+        var dictTypeCode = await _sysDictDataRep.AsQueryable().Where(u => u.DictTypeId == input.DictTypeId).Select(u => u.DictType.Code).FirstAsync();
+        _sysCacheService.Remove($"{CacheConst.KeyDict}{dictTypeCode}");
 
         await _sysDictDataRep.InsertAsync(input.Adapt<SysDictData>());
     }
