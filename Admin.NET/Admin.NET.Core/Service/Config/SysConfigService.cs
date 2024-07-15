@@ -31,7 +31,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<SysConfig>> Page(PageConfigInput input)
     {
         return await _sysConfigRep.AsQueryable()
-            .Where(u => u.GroupCode != "WebConfig") // 不显示 WebConfig 分组
+            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup) // 不显示 WebConfig 分组
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name?.Trim()), u => u.Name.Contains(input.Name))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrWhiteSpace(input.GroupCode?.Trim()), u => u.GroupCode.Equals(input.GroupCode))
@@ -183,7 +183,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     public async Task<List<string>> GetGroupList()
     {
         return await _sysConfigRep.AsQueryable()
-            .Where(u => u.GroupCode != "WebConfig") // 不显示 WebConfig 分组
+            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup) // 不显示 WebConfig 分组
             .GroupBy(u => u.GroupCode)
             .Select(u => u.GroupCode).ToListAsync();
     }
@@ -237,14 +237,14 @@ public class SysConfigService : IDynamicApiController, ITransient
     [DisplayName("获取系统信息")]
     public async Task<dynamic> GetSysInfo()
     {
-        var sysLogo = await GetConfigValue<string>("sys_web_logo");
-        var sysTitle = await GetConfigValue<string>("sys_web_title");
-        var sysViceTitle = await GetConfigValue<string>("sys_web_viceTitle");
-        var sysViceDesc = await GetConfigValue<string>("sys_web_viceDesc");
-        var sysWatermark = await GetConfigValue<string>("sys_web_watermark");
-        var sysCopyright = await GetConfigValue<string>("sys_web_copyright");
-        var sysIcp = await GetConfigValue<string>("sys_web_icp");
-        var sysIcpUrl = await GetConfigValue<string>("sys_web_icpUrl");
+        var sysLogo = await GetConfigValue<string>(ConfigConst.SysWebLogo);
+        var sysTitle = await GetConfigValue<string>(ConfigConst.SysWebTitle);
+        var sysViceTitle = await GetConfigValue<string>(ConfigConst.SysWebViceTitle);
+        var sysViceDesc = await GetConfigValue<string>(ConfigConst.SysWebViceDesc);
+        var sysWatermark = await GetConfigValue<string>(ConfigConst.SysWebWatermark);
+        var sysCopyright = await GetConfigValue<string>(ConfigConst.SysWebCopyright);
+        var sysIcp = await GetConfigValue<string>(ConfigConst.SysWebIcp);
+        var sysIcpUrl = await GetConfigValue<string>(ConfigConst.SysWebIcpUrl);
 
         return new
         {
@@ -263,6 +263,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// 保存系统信息 🔖
     /// </summary>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("保存系统信息")]
     public async Task SaveSysInfo(InfoSaveInput input)
     {
@@ -270,7 +271,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         if (!string.IsNullOrEmpty(input.SysLogoBase64))
         {
             // 旧图标文件相对路径
-            var oldSysLogoRelativeFilePath = await GetConfigValue<string>("sys_web_logo") ?? "";
+            var oldSysLogoRelativeFilePath = await GetConfigValue<string>(ConfigConst.SysWebLogo) ?? "";
             var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath.TrimStart('/'));
 
             var groups = Regex.Match(input.SysLogoBase64, @"data:image/(?<type>.+?);base64,(?<data>.+)").Groups;
@@ -297,15 +298,15 @@ public class SysConfigService : IDynamicApiController, ITransient
 
             // 保存图标配置
             var relativeUrl = $"/{path}/logo{ext}";
-            await UpdateConfigValue("sys_web_logo", relativeUrl);
+            await UpdateConfigValue(ConfigConst.SysWebLogo, relativeUrl);
         }
 
-        await UpdateConfigValue("sys_web_title", input.SysTitle);
-        await UpdateConfigValue("sys_web_viceTitle", input.SysViceTitle);
-        await UpdateConfigValue("sys_web_viceDesc", input.SysViceDesc);
-        await UpdateConfigValue("sys_web_watermark", input.SysWatermark);
-        await UpdateConfigValue("sys_web_copyright", input.SysCopyright);
-        await UpdateConfigValue("sys_web_icp", input.SysIcp);
-        await UpdateConfigValue("sys_web_icpUrl", input.SysIcpUrl);
+        await UpdateConfigValue(ConfigConst.SysWebTitle, input.SysTitle);
+        await UpdateConfigValue(ConfigConst.SysWebViceTitle, input.SysViceTitle);
+        await UpdateConfigValue(ConfigConst.SysWebViceDesc, input.SysViceDesc);
+        await UpdateConfigValue(ConfigConst.SysWebWatermark, input.SysWatermark);
+        await UpdateConfigValue(ConfigConst.SysWebCopyright, input.SysCopyright);
+        await UpdateConfigValue(ConfigConst.SysWebIcp, input.SysIcp);
+        await UpdateConfigValue(ConfigConst.SysWebIcpUrl, input.SysIcpUrl);
     }
 }
