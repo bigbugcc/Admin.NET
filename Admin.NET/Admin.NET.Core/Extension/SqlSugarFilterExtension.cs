@@ -38,13 +38,22 @@ public static class SqlSugarFilterExtension
 
         ParameterExpression parameter = Expression.Parameter(type, "c");
         Expression right = Expression.Constant(false);
-        fieldNames.ForEach(filedName =>
+        fieldNames.ForEach(fieldName =>
         {
             owners.ForEach(owner =>
             {
+                var property = type.GetProperty(fieldName);
+                Expression temp = Expression.Property(parameter, property);
+
+                // 如果属性是可为空的类型，则转换为其基础类型
+                var propertyType = property.PropertyType;
+                if (Nullable.GetUnderlyingType(propertyType) != null)
+                {
+                    temp = Expression.Convert(temp, Nullable.GetUnderlyingType(propertyType));
+                }
+
                 Expression left = Expression.Equal(
-                     Expression.Property(parameter, type.GetProperty(filedName)),
-                     Expression.Constant(owner)
+                    temp, Expression.Constant(owner)
                 );
                 right = Expression.Or(left, right);
             });
