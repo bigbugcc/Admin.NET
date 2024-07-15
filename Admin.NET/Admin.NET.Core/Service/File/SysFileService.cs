@@ -315,11 +315,11 @@ public class SysFileService : IDynamicApiController, ITransient
 
         // 验证文件类型
         if (!_uploadOptions.ContentType.Contains(file.ContentType))
-            throw Oops.Oh(ErrorCodeEnum.D8001);
+            throw Oops.Oh($"{ErrorCodeEnum.D8001}:{file.ContentType}");
 
         // 验证文件大小
         if (sizeKb > _uploadOptions.MaxSize)
-            throw Oops.Oh(ErrorCodeEnum.D8002);
+            throw Oops.Oh($"{ErrorCodeEnum.D8002}，允许最大：{_uploadOptions.MaxSize}KB");
 
         // 获取文件后缀
         var suffix = Path.GetExtension(file.FileName).ToLower(); // 后缀

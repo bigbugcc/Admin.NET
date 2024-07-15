@@ -9,9 +9,9 @@
 			<h2 style="margin-top: 15px">Admin.NET</h2>
 			<p style="margin-top: 5px">最新版本 {{ version }}</p>
 		</div>
-		<div style="margin-top: 20px">
-			<el-button type="primary" plain round @click="golog">更新日志</el-button>
-			<el-button type="primary" plain round @click="gogit">gitee</el-button>
+		<div style="margin-top: 20px; margin-bottom: 20px; float: right">
+			<el-button type="primary" icon="ele-DocumentCopy" plain round @click="golog">更新日志</el-button>
+			<el-button type="primary" icon="ele-Eleme" plain round @click="gogit">gitee</el-button>
 		</div>
 	</el-card>
 </template>
