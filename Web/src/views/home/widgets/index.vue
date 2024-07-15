@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div v-if="customizing" class="widgets-aside">
 			<div class="widgets-top">
 				<div class="widgets-aside-title">
