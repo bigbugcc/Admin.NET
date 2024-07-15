@@ -31,14 +31,14 @@ public class OnlineUserJob : IJob
         var rep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysOnlineUser>>();
         await rep.CopyNew().AsDeleteable().ExecuteCommandAsync(stoppingToken);
 
+        // 缓存租户列表
+        await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
+
         string msg = $"【{DateTime.Now}】清理在线用户成功！服务已重启...";
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(msg);
         Console.ForegroundColor = originColor;
-
-        // 缓存租户列表
-        await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
 
         // 自定义日志
         _logger.LogInformation(msg);

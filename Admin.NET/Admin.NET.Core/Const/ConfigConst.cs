@@ -39,7 +39,7 @@ public class ConfigConst
     /// <summary>
     /// 水印内容
     /// </summary>
-    public const string SysWebWatermark= "sys_web_watermark";
+    public const string SysWebWatermark = "sys_web_watermark";
 
     /// <summary>
     /// 版权说明

@@ -275,7 +275,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath.TrimStart('/'));
 
             var groups = Regex.Match(input.SysLogoBase64, @"data:image/(?<type>.+?);base64,(?<data>.+)").Groups;
-            var type = groups["type"].Value;
+            //var type = groups["type"].Value;
             var base64Data = groups["data"].Value;
             var binData = Convert.FromBase64String(base64Data);
             // 根据文件名取扩展名
