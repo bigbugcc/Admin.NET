@@ -36,12 +36,13 @@ public class LogJob : IJob
         await logOpRep.CopyNew().AsDeleteable().Where(u => (DateTime)u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除操作日志
         await logDiffRep.CopyNew().AsDeleteable().Where(u => (DateTime)u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除差异日志
 
+        string msg = $"【{DateTime.Now}】清理系统日志成功，删除 {daysAgo} 天前的日志数据！";
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"【{DateTime.Now}】清理系统日志（{daysAgo}天前）");
+        Console.WriteLine(msg);
         Console.ForegroundColor = originColor;
 
         // 自定义日志
-        _logger.LogInformation($"【{DateTime.Now}】清理系统日志...");
+        _logger.LogInformation(msg);
     }
 }
