@@ -52,7 +52,7 @@ public static class SqlSugarFilterExtension
                 }
 
                 Expression left = Expression.Equal(temp, Expression.Constant(owner));
-                right = Expression.Or(left, right);
+                right = Expression.OrElse(left, right);
             });
         });
         var finalExpression = Expression.Lambda(right, new ParameterExpression[] { parameter });

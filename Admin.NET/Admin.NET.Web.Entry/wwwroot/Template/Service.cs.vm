@@ -84,7 +84,6 @@ if (@column.QueryWhether == "Y"){
             @:.LeftJoin<@(@column.FkEntityName)>((@(@joinTableName)) => u.@(@column.PropertyName) == @(@column.PropertyName.ToLower()).@(@column.ValueColumn) )
         }
     }
-            @:.OrderBy(u => u.CreateTime)
             @:.Select((@(@joinTableName)) => new @(@Model.ClassName)Output
             @:{
 @foreach (var column in Model.TableField){
