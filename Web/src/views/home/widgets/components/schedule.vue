@@ -88,7 +88,7 @@ const handleQuery = async () => {
 // 按天查询
 const handleQueryByDate = async (date: any) => {
 	state.queryParams.startTime = FormatDateDelHMS(date);
-	state.queryParams.endTime = FormatDateDelHMS(date);
+	state.queryParams.endTime = FormatDateEndHMS(date);
 	let params = Object.assign(state.queryParams);
 	var res = await getAPI(SysScheduleApi).apiSysSchedulePagePost(params);
 	state.TodayScheduleData = res.data.result ?? [];
@@ -136,6 +136,14 @@ function FormatDateDelHMS(date: any) {
 	newDate.setHours(0);
 	newDate.setMinutes(0);
 	newDate.setSeconds(0);
+	return newDate;
+}
+
+function FormatDateEndHMS(date: any) {
+	var newDate = new Date(date);
+	newDate.setHours(23);
+	newDate.setMinutes(59);
+	newDate.setSeconds(59);
 	return newDate;
 }
 
