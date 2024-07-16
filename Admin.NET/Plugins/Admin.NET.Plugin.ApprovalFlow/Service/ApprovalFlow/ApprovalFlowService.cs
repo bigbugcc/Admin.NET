@@ -35,6 +35,7 @@ public class ApprovalFlowService : IDynamicApiController, ITransient
             .WhereIF(!string.IsNullOrWhiteSpace(input.Code), u => u.Code.Contains(input.Code.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), u => u.Name.Contains(input.Name.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Remark), u => u.Remark.Contains(input.Remark.Trim()))
+            .Where(u=>u.IsDelete==false)
             .Select<ApprovalFlowOutput>()
             .ToPagedListAsync(input.Page, input.PageSize);
     }
