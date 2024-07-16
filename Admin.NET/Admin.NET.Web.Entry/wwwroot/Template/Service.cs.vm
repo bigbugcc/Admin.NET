@@ -39,7 +39,7 @@ public class @(@Model.ClassName)Service : IDynamicApiController, ITransient
     [HttpPost]
     [ApiDescriptionSettings(Name = "Page")]
     [DisplayName("分页查询@(@Model.BusName)")]
-    public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(@(@Model.ClassName)Input input)
+    public async Task<SqlSugarPagedList<@(@Model.ClassName)Output>> Page(Page@(@Model.ClassName)Input input)
     {
 @if (haveLikeCdt) {
 		@:input.SearchKey = input.SearchKey?.Trim();
@@ -187,7 +187,7 @@ if (@column.ColumnKey == "True"){
     [HttpGet]
     [ApiDescriptionSettings(Name = "List")]
     [DisplayName("获取@(@Model.BusName)列表")]
-    public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] @(@Model.ClassName)Input input)
+    public async Task<List<@(@Model.ClassName)Output>> List([FromQuery] Page@(@Model.ClassName)Input input)
     {
         return await _@(@Model.LowerClassName)Rep.AsQueryable().Select<@(@Model.ClassName)Output>().ToListAsync();
     }
