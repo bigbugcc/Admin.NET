@@ -99,7 +99,7 @@ const remove = () => {
 		type: 'warning',
 	})
 		.then(async () => {
-		await getAPI(SysScheduleApi).apiSysScheduleDeletePost(state.ruleForm);
+			await getAPI(SysScheduleApi).apiSysScheduleDeletePost(state.ruleForm);
 			closeDialog();
 			ElMessage.success('操作成功');
 		})

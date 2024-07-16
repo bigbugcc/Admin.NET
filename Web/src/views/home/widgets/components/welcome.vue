@@ -7,7 +7,7 @@
 		<div class="welcome">
 			<div class="logo">
 				<!-- <img src="/@/assets/logo.png" style="height: 150px;"/> -->
-				<h2>欢迎使用 Admin.NET</h2>
+				<h2>欢迎使用 {{ themeConfig.globalTitle }}</h2>
 			</div>
 			<div class="tips">
 				<div class="tips-item">
@@ -37,6 +37,12 @@
 </template>
 
 <script lang="ts">
+import { storeToRefs } from 'pinia';
+import { useThemeConfig } from '/@/stores/themeConfig';
+
+const storesThemeConfig = useThemeConfig();
+const { themeConfig } = storeToRefs(storesThemeConfig);
+
 export default {
 	title: '欢迎',
 	icon: 'ele-Present',
@@ -46,7 +52,7 @@ export default {
 
 <script setup lang="ts" name="welcome">
 const godoc = () => {
-	window.open('https://gitee.com/zuohuaijun/Admin.NET.git');
+	window.open('http://101.43.53.74:5050/');
 };
 </script>
 
