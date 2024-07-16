@@ -83,7 +83,7 @@ public class SysCommonService : IDynamicApiController, ITransient
 
         return await Task.FromResult(new FileStreamResult(resultStream, "application/octet-stream")
         {
-            FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? "错误标记＿" + DateTime.Now.ToString("yyyyMMddhhmmss") : fileName)}.xlsx"
+            FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? "错误标记＿" + DateTime.UtcNow.ToString("yyyyMMddhhmmss") : fileName)}.xlsx"
         });
     }
 }

@@ -240,7 +240,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 更新用户登录信息
         user.LastLoginIp = _httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true);
         (user.LastLoginAddress, double? longitude, double? latitude) = CommonUtil.GetIpAddress(user.LastLoginIp);
-        user.LastLoginTime = DateTime.Now;
+        user.LastLoginTime = DateTime.UtcNow;
         user.LastLoginDevice = CommonUtil.GetClientDeviceInfo(_httpContextAccessor.HttpContext?.Request?.Headers?.UserAgent);
         await _sysUserRep.AsUpdateable(user).UpdateColumns(u => new
         {
@@ -277,7 +277,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 获取水印文字（若系统水印为空则全局为空）
         var watermarkText = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysWebWatermark);
         if (!string.IsNullOrWhiteSpace(watermarkText))
-            watermarkText += $"-{user.RealName}"; // $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true)}-{DateTime.Now}";
+            watermarkText += $"-{user.RealName}"; // $"-{user.RealName}-{_httpContextAccessor.HttpContext.GetRemoteIpAddressToIPv4(true)}-{DateTime.UtcNow}";
         return new LoginUserOutput
         {
             Id = user.Id,

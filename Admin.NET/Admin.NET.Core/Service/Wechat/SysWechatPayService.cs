@@ -113,12 +113,12 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     {
         var request = new CreatePayTransactionJsapiRequest()
         {
-            OutTradeNumber = DateTimeOffset.Now.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
+            OutTradeNumber = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
             AppId = _wechatPayOptions.AppId,
             Description = input.Description,
             Attachment = input.Attachment,
             GoodsTag = input.GoodsTag,
-            ExpireTime = DateTimeOffset.Now.AddMinutes(10),
+            ExpireTime = DateTimeOffset.UtcNow.AddMinutes(10),
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
             Amount = new CreatePayTransactionJsapiRequest.Types.Amount() { Total = input.Total },
             Payer = new CreatePayTransactionJsapiRequest.Types.Payer() { OpenId = input.OpenId }
@@ -161,12 +161,12 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     {
         var request = new CreatePayTransactionNativeRequest()
         {
-            OutTradeNumber = DateTimeOffset.Now.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
+            OutTradeNumber = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
             AppId = _wechatPayOptions.AppId,
             Description = input.Description,
             Attachment = input.Attachment,
             GoodsTag = input.GoodsTag,
-            ExpireTime = DateTimeOffset.Now.AddMinutes(10),
+            ExpireTime = DateTimeOffset.UtcNow.AddMinutes(10),
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
             Amount = new CreatePayTransactionNativeRequest.Types.Amount() { Total = input.Total },
             //Payer = new CreatePayTransactionNativeRequest.Types.Payer() { OpenId = input.OpenId }
@@ -210,7 +210,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     {
         var request = new CreatePayPartnerTransactionJsapiRequest()
         {
-            OutTradeNumber = DateTimeOffset.Now.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
+            OutTradeNumber = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
             AppId = _wechatPayOptions.AppId,
             MerchantId = _wechatPayOptions.MerchantId,
             SubAppId = _wechatPayOptions.AppId,
@@ -218,7 +218,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             Description = input.Description,
             Attachment = input.Attachment,
             GoodsTag = input.GoodsTag,
-            ExpireTime = DateTimeOffset.Now.AddMinutes(10),
+            ExpireTime = DateTimeOffset.UtcNow.AddMinutes(10),
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
             Amount = new CreatePayPartnerTransactionJsapiRequest.Types.Amount() { Total = input.Total },
             Payer = new CreatePayPartnerTransactionJsapiRequest.Types.Payer() { OpenId = input.OpenId }
@@ -331,7 +331,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             },
 
             OutTradeNumber = input.TradeId,
-            OutRefundNumber = "R" + DateTimeOffset.Now.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
+            OutRefundNumber = "R" + DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmssfff") + (new Random()).Next(100, 1000), // 订单号
             NotifyUrl = _payCallBackOptions.WechatPayUrl,
             Reason = input.Reason,
         };

@@ -62,6 +62,6 @@ public class SysLogOpService : IDynamicApiController, ITransient
 
         IExcelExporter excelExporter = new ExcelExporter();
         var res = await excelExporter.ExportAsByteArray(logOpList);
-        return new FileStreamResult(new MemoryStream(res), "application/octet-stream") { FileDownloadName = DateTime.Now.ToString("yyyyMMddHHmm") + "操作日志.xlsx" };
+        return new FileStreamResult(new MemoryStream(res), "application/octet-stream") { FileDownloadName = DateTime.UtcNow.ToString("yyyyMMddHHmm") + "操作日志.xlsx" };
     }
 }

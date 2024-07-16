@@ -52,7 +52,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
             UserId = _userManager.UserId,
             UserName = _userManager.Account,
             RealName = _userManager.RealName,
-            Time = DateTime.Now,
+            Time = DateTime.UtcNow,
             Ip = httpContext.GetRemoteIpAddressToIPv4(true),
             Browser = httpContext.GetClientBrowser(),
             Os = httpContext.GetClientOs(),

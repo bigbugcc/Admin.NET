@@ -117,9 +117,9 @@ public class ApprovalFlowService : IDynamicApiController, ITransient
     /// <returns></returns>
     private async Task<string> LastCode(string prefix)
     {
-        var today = DateTime.Now.Date;
+        var today = DateTime.UtcNow.Date;
         var count = await _approvalFlowRep.AsQueryable().Where(u => u.CreateTime >= today).CountAsync();
-        return prefix + DateTime.Now.ToString("yyMMdd") + string.Format("{0:d2}", count + 1);
+        return prefix + DateTime.UtcNow.ToString("yyMMdd") + string.Format("{0:d2}", count + 1);
     }
 
     /// <summary>

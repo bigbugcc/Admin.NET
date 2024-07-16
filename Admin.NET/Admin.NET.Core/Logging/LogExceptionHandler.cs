@@ -42,7 +42,7 @@
 //            Browser = context.HttpContext.Request.Headers["User-Agent"],
 //            TraceId = App.GetTraceId(),
 //            ThreadId = App.GetThreadId(),
-//            LogDateTime = DateTime.Now,
+//            LogDateTime = DateTime.UtcNow,
 //            LogLevel = LogLevel.Error
 //        };
 
