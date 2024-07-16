@@ -23,6 +23,7 @@
 			</el-form>
 			<template #footer>
 				<span class="dialog-footer">
+					<el-button v-if="state.showRemove" @click="remove">删除</el-button>
 					<el-button @click="cancel">取 消</el-button>
 					<el-button type="primary" @click="submit">确 定</el-button>
 				</span>
@@ -33,7 +34,7 @@
 
 <script lang="ts" setup name="editSchedule">
 import { onMounted, reactive, ref } from 'vue';
-import { dayjs, ElMessageBox, ElNotification } from 'element-plus';
+import { dayjs, ElMessageBox, ElMessage, ElNotification } from 'element-plus';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysScheduleApi } from '/@/api-services/api';
@@ -47,6 +48,7 @@ const emits = defineEmits(['handleQuery']);
 const ruleFormRef = ref();
 const state = reactive({
 	isShowDialog: false,
+	showRemove: false,
 	ruleForm: {} as any,
 });
 
@@ -54,8 +56,9 @@ const state = reactive({
 onMounted(async () => {});
 
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog = (row: any, showRemove: boolean = false) => {
 	ruleFormRef.value?.resetFields();
+	state.showRemove = showRemove;
 
 	state.ruleForm = JSON.parse(JSON.stringify(row));
 	state.ruleForm.scheduleTime = dayjs(state.ruleForm.scheduleTime ?? new Date()).format('YYYY-MM-DD HH:mm:ss');
@@ -86,6 +89,21 @@ const submit = () => {
 		}
 		closeDialog();
 	});
+};
+
+// 删除
+const remove = () => {
+	ElMessageBox.confirm(`确定删除吗?`, '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	})
+		.then(async () => {
+		await getAPI(SysScheduleApi).apiSysScheduleDeletePost(state.ruleForm);
+			closeDialog();
+			ElMessage.success('操作成功');
+		})
+		.catch(() => {});
 };
 
 // 导出对象
