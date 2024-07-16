@@ -5,28 +5,27 @@
 			<span style=""> 我的日程 </span>
 			<el-button type="primary" icon="ele-CirclePlus" round plain @click="openAddSchedule" style="float: right">添加日程</el-button>
 		</template>
+
 		<div class="custome-canlendar">
-			<div class="block">
-				<div class="data-analysis">
-					<el-calendar v-model="state.calendarValue">
-						<!--选中小红点-->
-						<template #date-cell="{ data }">
-							<div @click="handleClickDate(data)">
-								<div class="spandate">{{ data.day.split('-').slice(2).join('-') }}</div>
-								<div v-for="(item, key) in state.ScheduleData" :key="key">
-									<el-badge v-if="FormatDate(data.day) == FormatDate(item.scheduleTime)" is-dot class="item"></el-badge>
-								</div>
-							</div>
-						</template>
-					</el-calendar>
-				</div>
-				<div class="schedule-list">
-					<div class="item" v-for="(item, index) in state.TodayScheduleData" :key="index" @click="openEditSchedule(item)">
-						<!-- <span class="date">{{ item.start_time + '-' + item.end_time }}</span> -->
-						<el-icon style="display: inline; vertical-align: middle"> <ele-Calendar /> </el-icon>
-						<span class="content" style="padding-left: 10px">{{ item.content }}</span>
+			<el-calendar v-model="state.calendarValue">
+				<template #date-cell="{ data }">
+					<div @click="handleClickDate(data)">
+						<div class="spandate">{{ data.day.split('-').slice(2).join('-') }}</div>
+						<div v-for="(item, key) in state.ScheduleData" :key="key">
+							<el-badge v-if="FormatDate(data.day) == FormatDate(item.scheduleTime)" is-dot class="item"></el-badge>
+						</div>
 					</div>
-				</div>
+
+					<div style="font-size: 10px">
+						{{ solarDate2lunar(data.day) }}
+					</div>
+				</template>
+			</el-calendar>
+		</div>
+		<div class="schedule-list">
+			<div class="item" v-for="(item, index) in state.TodayScheduleData" :key="index" @click="openEditSchedule(item)">
+				<el-icon style="display: inline; vertical-align: middle"> <ele-Calendar /> </el-icon>
+				<span class="content" style="padding-left: 10px">{{ item.content }}</span>
 			</div>
 		</div>
 
@@ -45,6 +44,7 @@ export default {
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue';
 import { dayjs } from 'element-plus';
+import calendar from '/@/utils/calendar.js';
 
 import EditSchedule from '/@/views/home/widgets/components/scheduleEdit.vue';
 
@@ -83,6 +83,14 @@ const handleQuery = async () => {
 			return FormatDate(item.scheduleTime) == FormatDate(state.calendarValue);
 		});
 	}
+};
+
+// 农历转换
+const solarDate2lunar = (solarDate: any) => {
+	var solar = solarDate.split('-');
+	var lunar = calendar.solar2lunar(solar[0], solar[1], solar[2]);
+	// return solar[1] + '-' + solar[2] + '\n' + lunar.IMonthCn + lunar.IDayCn;
+	return lunar.IMonthCn + lunar.IDayCn;
 };
 
 // 按天查询
@@ -155,85 +163,21 @@ function FormatDate(date: any) {
 
 <style lang="scss" scoped>
 .custome-canlendar {
-	background: #fff;
-	.title {
-		padding: 13px 8px 12px 19px;
-		border-bottom: 1px solid #f2f2f2;
-		font-weight: 500;
-		color: #1a1a1a;
-		font-size: 16px;
-		position: relative;
-
-		&:before {
-			content: '';
-			display: inline-block;
-			height: calc(100% - 30px);
-			width: 3px;
-			margin-right: 0px;
-			background: #c70019;
-			/*margin-top: 10px;*/
-			border-radius: 5px;
-			/*margin-left: 10px;*/
-			position: absolute;
-			left: 10px;
-			top: calc(50% - 7px);
-		}
-		.rtbtn {
-			float: right;
-			:deep(span) {
-				font-size: 14px;
-			}
-		}
-	}
-}
-.block {
-	height: calc(100% - 10px);
-	overflow-y: auto;
-}
-/*日历样式修改*/
-.data-analysis {
 	position: relative;
+	text-align: center;
 
 	:deep(.el-calendar) {
 		.el-calendar-table .el-calendar-day {
 			width: 100%;
 			height: 100%;
 		}
-		.el-calendar__header {
-			padding: 6px 10px;
-			border: 0;
-			justify-content: space-between;
-			border-bottom: #666 1px solid;
-		}
-
-		.el-calendar__button-group .el-button-group > .el-button span {
-			font-size: 14px;
-		}
-		.el-calendar-table thead th {
-			padding: 6px 0;
-			font-weight: bold;
-		}
 
 		.el-calendar__body {
-			padding: 8px 0;
+			padding: 5px 0;
 		}
 
-		/*去掉原本背景颜色*/
-		.el-calendar-table td:hover {
-			background: transparent;
-		}
-		/*去掉选中背景颜色*/
-		.el-calendar-table td.is-selected {
-			background: transparent !important;
-		}
-		/*修改每一小格大小*/
 		.el-calendar-table .el-calendar-day {
 			position: relative;
-			padding: 6px 8px;
-			text-align: center;
-		}
-		.el-calendar-table .el-calendar-day:hover {
-			background: transparent;
 		}
 
 		td .spandate {
@@ -242,7 +186,6 @@ function FormatDate(date: any) {
 			height: 26px;
 			line-height: 26px;
 			border-radius: 50%;
-			// @include level3_fontsize();
 		}
 		td.is-selected .spandate {
 			width: 26px;
@@ -256,29 +199,16 @@ function FormatDate(date: any) {
 		.el-badge {
 			position: absolute;
 			left: 0;
-			bottom: -13px;
+			bottom: -8px;
 			width: 100%;
-		}
-		.el-badge__content {
-			background-color: var(--el-color-primary);
-
-			&.is-dot {
-				width: 7px;
-				height: 7px;
-			}
-		}
-		/*日历边框颜色*/
-		.el-calendar-table tr td:first-child,
-		.el-calendar-table tr:first-child td,
-		.el-calendar-table td {
-			border: 0;
 		}
 	}
 }
 
+// 日程列表
 .schedule-list {
 	padding: 0 20px 10px;
-	overflow-y: auto; /* 使div可滚动 */
+	overflow-y: auto;
 	height: 150px;
 	.item {
 		position: relative;
