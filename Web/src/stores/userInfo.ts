@@ -150,13 +150,16 @@ export const useUserInfo = defineStore('userInfo', {
 
 		// 根据字典类型和值取描述
 		getDictLabelByVal(typePCode: string, val: string) {
-			if (val) {
-				const _val = val.toString();
-				const ds = this.getDictDatasByCode(typePCode);
-				for (let index = 0; index < ds.length; index++) {
-					const element = ds[index];
-					if (element.value == _val) {
-						return element;
+			if (val != undefined) {
+				val = val.toString();
+				if (val) {
+					const _val = val.toString();
+					const ds = this.getDictDatasByCode(typePCode);
+					for (let index = 0; index < ds.length; index++) {
+						const element = ds[index];
+						if (element.value == _val) {
+							return element;
+						}
 					}
 				}
 			}
