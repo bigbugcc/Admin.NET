@@ -11,7 +11,7 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="日程时间" prop="scheduleTime" :rules="[{ required: true, message: '日程时间不能为空', trigger: 'blur' }]">
-							<el-date-picker v-model="state.ruleForm.scheduleTime" type="date" placeholder="请选择日程时间" format="YYYY-MM-DD" value-format="YYYY-MM-DD HH:mm:ss" class="w100" />
+							<el-date-picker v-model="state.ruleForm.scheduleTime" type="datetime" placeholder="请选择日程时间" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" class="w100" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">

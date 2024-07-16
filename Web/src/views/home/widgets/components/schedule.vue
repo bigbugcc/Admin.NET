@@ -25,7 +25,14 @@
 		<div class="schedule-list">
 			<div class="item" v-for="(item, index) in state.TodayScheduleData" :key="index" @click="openEditSchedule(item)">
 				<el-icon style="display: inline; vertical-align: middle"> <ele-Calendar /> </el-icon>
-				<span class="content" style="padding-left: 10px">{{ item.content }}</span>
+				<span class="content" style="padding-left: 10px">
+					<span>
+						{{ item.scheduleTime }}
+					</span>
+					<span style="padding-left: 15px; font-weight: 600; color: var(--el-color-primary)">
+						{{ item.content }}
+					</span>
+				</span>
 			</div>
 		</div>
 
@@ -207,7 +214,6 @@ function FormatDate(date: any) {
 
 // 日程列表
 .schedule-list {
-	padding: 0 20px 10px;
 	overflow-y: auto;
 	height: 150px;
 	.item {
