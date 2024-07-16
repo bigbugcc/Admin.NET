@@ -12,19 +12,19 @@ const requireComponent = import.meta.glob('./*.vue', { eager: true });
 // console.log(requireComponent);
 
 Object.keys(requireComponent).forEach((fileName: string) => {
-  // 处理文件名，去掉开头的 './' 和结尾的文件扩展名
-  const componentName = fileName.replace(/^\.\/(.*)\.\w+$/, '$1');
+	// 处理文件名，去掉开头的 './' 和结尾的文件扩展名
+	const componentName = fileName.replace(/^\.\/(.*)\.\w+$/, '$1');
 
-  // 如果组件名称在排除数组中，跳过导入
-  if (excludeComponents.includes(componentName)) {
-    return;
-  }
+	// 如果组件名称在排除数组中，跳过导入
+	if (excludeComponents.includes(componentName)) {
+		return;
+	}
 
-  // 确保模块导出存在并且是默认导出
-  const componentModule = requireComponent[fileName] as { default: Component };
+	// 确保模块导出存在并且是默认导出
+	const componentModule = requireComponent[fileName] as { default: Component };
 
-  // 将组件添加到 resultComps 中，使用处理后的文件名作为键
-  resultComps[componentName] = componentModule.default;
+	// 将组件添加到 resultComps 中，使用处理后的文件名作为键
+	resultComps[componentName] = componentModule.default;
 });
 
 // 标记 resultComps 为原始对象，避免其被设为响应式

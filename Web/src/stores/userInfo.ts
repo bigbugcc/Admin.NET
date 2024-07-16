@@ -181,7 +181,7 @@ export const useUserInfo = defineStore('userInfo', {
 			if (ds) {
 				return ds;
 			}
-		
+
 			const dictList = this.dictList[dictTypeCode];
 			if (dictList) {
 				ds = dictList.map((element: { code: any }) => {
@@ -189,7 +189,7 @@ export const useUserInfo = defineStore('userInfo', {
 				});
 				this.dictListInt[dictTypeCode] = ds;
 			}
-		
+
 			return ds;
 		},
 	},
