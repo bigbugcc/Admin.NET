@@ -132,16 +132,12 @@ export const useUserInfo = defineStore('userInfo', {
 
 		// 根据字典类型和代码取字典项
 		getDictItemByCode(typePCode: string, val: string) {
-			if (val != undefined) {
-				val = val.toString();
-				if (val) {
-					const _val = val.toString();
-					const ds = this.getDictDatasByCode(typePCode);
-					for (let index = 0; index < ds.length; index++) {
-						const element = ds[index];
-						if (element.code == _val) {
-							return element;
-						}
+			if (val != undefined && val !== '') {
+				const _val = val.toString();
+				const ds = this.getDictDatasByCode(typePCode);
+				for (const element of ds) {
+					if (element.value === _val) {
+						return element;
 					}
 				}
 			}
@@ -150,16 +146,12 @@ export const useUserInfo = defineStore('userInfo', {
 
 		// 根据字典类型和值取描述
 		getDictLabelByVal(typePCode: string, val: string) {
-			if (val != undefined) {
-				val = val.toString();
-				if (val) {
-					const _val = val.toString();
-					const ds = this.getDictDatasByCode(typePCode);
-					for (let index = 0; index < ds.length; index++) {
-						const element = ds[index];
-						if (element.value == _val) {
-							return element;
-						}
+			if (val != undefined && val !== '') {
+				const _val = val.toString();
+				const ds = this.getDictDatasByCode(typePCode);
+				for (const element of ds) {
+					if (element.code === _val) {
+						return element;
 					}
 				}
 			}
@@ -170,12 +162,12 @@ export const useUserInfo = defineStore('userInfo', {
 		getDictValByLabel(typePCode: string, label: string) {
 			if (!label) return '';
 			const ds = this.getDictDatasByCode(typePCode);
-			for (let index = 0; index < ds.length; index++) {
-				const element = ds[index];
-				if (element.name == label) {
+			for (const element of ds) {
+				if (element.name === label) {
 					return element;
 				}
 			}
+			return ''; // 明确返回空字符串
 		},
 
 		// 根据字典类型获取字典数据
@@ -185,18 +177,20 @@ export const useUserInfo = defineStore('userInfo', {
 
 		// 根据字典类型获取字典数据（值转为数字类型）
 		getDictIntDatasByCode(dictTypeCode: string) {
-			var ds = this.dictListInt[dictTypeCode];
+			let ds = this.dictListInt[dictTypeCode];
 			if (ds) {
 				return ds;
-			} else {
-				ds = this.dictList[dictTypeCode].map((element: { code: any }) => {
-					var d = { ...element };
-					d.code = element.code - 0;
-					return d;
+			}
+		
+			const dictList = this.dictList[dictTypeCode];
+			if (dictList) {
+				ds = dictList.map((element: { code: any }) => {
+					return { ...element, code: Number(element.code) };
 				});
 				this.dictListInt[dictTypeCode] = ds;
-				return ds;
 			}
+		
+			return ds;
 		},
 	},
 });
