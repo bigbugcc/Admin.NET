@@ -31,7 +31,7 @@
 										<component :is="allComps[element]"></component>
 										<div v-if="customizing" class="customize-overlay">
 											<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(element)"></el-button>
-											<label>
+											<label v-if="allComps[element]">
 												<el-icon> <component :is="allComps[element].icon" /> </el-icon>{{ allComps[element].title }}
 											</label>
 										</div>
