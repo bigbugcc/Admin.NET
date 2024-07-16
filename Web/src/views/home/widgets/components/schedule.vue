@@ -111,7 +111,7 @@ const openAddSchedule = () => {
 // 打开编辑页面
 const openEditSchedule = async (row: any) => {
 	state.editTitle = '编辑日程';
-	editScheduleRef.value?.openDialog(row);
+	editScheduleRef.value?.openDialog(row, true);
 };
 
 // 点击日历中的日期
