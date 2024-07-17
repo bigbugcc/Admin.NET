@@ -97,7 +97,13 @@ public class SysRegionService : IDynamicApiController, ITransient
         if (input.Code.Length != 12 && input.Code.Length != 9 && input.Code.Length != 6)
             throw Oops.Oh(ErrorCodeEnum.R2003);
 
-        if (input.Pid != input.Pid && input.Pid != 0)
+        var sysRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Id);
+        if (sysRegion == null)
+        {
+            throw Oops.Oh(ErrorCodeEnum.D1002);
+        }
+
+        if (sysRegion.Pid != input.Pid && input.Pid != 0)
         {
             var pRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Pid);
             pRegion ??= await _sysRegionRep.GetFirstAsync(u => u.Code == input.Pid.ToString());
@@ -114,7 +120,6 @@ public class SysRegionService : IDynamicApiController, ITransient
         if (input.Id == input.Pid)
             throw Oops.Oh(ErrorCodeEnum.R2001);
 
-        var sysRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Id);
         var isExist = await _sysRegionRep.IsAnyAsync(u => (u.Name == input.Name && u.Code == input.Code) && u.Id != sysRegion.Id);
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.R2002);
