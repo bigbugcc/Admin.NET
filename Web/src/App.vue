@@ -159,6 +159,12 @@ const updateFavicon = (url: string): void => {
 
 // 加载系统信息
 loadSysInfo();
+
+// 阻止火狐浏览器在拖动时打开新窗口
+document.body.ondrop = function (event) {
+	event.preventDefault();
+	event.stopPropagation();
+};
 </script>
 
 <style lang="scss">
