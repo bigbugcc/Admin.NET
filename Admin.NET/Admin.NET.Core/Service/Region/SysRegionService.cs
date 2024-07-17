@@ -99,9 +99,7 @@ public class SysRegionService : IDynamicApiController, ITransient
 
         var sysRegion = await _sysRegionRep.GetFirstAsync(u => u.Id == input.Id);
         if (sysRegion == null)
-        {
             throw Oops.Oh(ErrorCodeEnum.D1002);
-        }
 
         if (sysRegion.Pid != input.Pid && input.Pid != 0)
         {
