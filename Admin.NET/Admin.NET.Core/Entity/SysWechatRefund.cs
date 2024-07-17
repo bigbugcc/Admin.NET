@@ -11,7 +11,7 @@ namespace Admin.NET.Core;
 /// </summary>
 [SugarTable(null, "系统微信支付退款表")]
 [SysTable]
-[SugarIndex("idx_{table}_WechatPayId", nameof(WechatPayId), OrderByType.Asc)]
+[SugarIndex("index_{table}_W", nameof(WechatPayId), OrderByType.Asc)]
 public partial class SysWechatRefund : EntityBase
 {
     /// <summary>

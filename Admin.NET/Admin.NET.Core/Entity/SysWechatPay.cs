@@ -11,9 +11,9 @@ namespace Admin.NET.Core;
 /// </summary>
 [SugarTable(null, "系统微信支付表")]
 [SysTable]
-[SugarIndex("idx_{table}_BusinessId", nameof(BusinessId), OrderByType.Asc)]
-[SugarIndex("idx_{table}_TradeState", nameof(TradeState), OrderByType.Asc)]
-[SugarIndex("idx_{table}_Tags", nameof(Tags), OrderByType.Asc)]
+[SugarIndex("index_{table}_BU", nameof(BusinessId), OrderByType.Asc)]
+[SugarIndex("index_{table}_TR", nameof(TradeState), OrderByType.Asc)]
+[SugarIndex("index_{table}_TA", nameof(Tags), OrderByType.Asc)]
 public partial class SysWechatPay : EntityBase
 {
     /// <summary>
