@@ -135,17 +135,24 @@ public class Startup : AppStartup
 
             #region Redis消息队列
 
-            //// 替换事件源存储器
-            //options.ReplaceStorer(serviceProvider =>
-            //{
-            //    var cacheProvider = serviceProvider.GetRequiredService<NewLife.Caching.ICacheProvider>();
-            //    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
-            //    return new RedisEventSourceStorer(cacheProvider, "adminnet", 3000);
-            //});
+            //// 替换事件源存储器为Redis
+            var cacheOptions = App.GetConfig<CacheOptions>("Cache", true);
+            if (cacheOptions.CacheType == CacheTypeEnum.Redis.ToString())
+            {
+                options.ReplaceStorer(serviceProvider =>
+                {
+                    var cacheProvider = serviceProvider.GetRequiredService<NewLife.Caching.ICacheProvider>();
+                    // 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet_eventsource_queue
+                    return new RedisEventSourceStorer(cacheProvider, "adminnet_eventsource_queue", 3000);
+                });
+            }
 
             #endregion Redis消息队列
 
             #region RabbitMQ消息队列
+            // 不明白这里，这个框架大部份Cache、Signal分布处理等功能都是用了Redis功能实现的，为什么还要引用 RabbitMQ,而且RabbitMQ还并没有实现什么有价值的功能
+            // 只在EventBus的存储中加入RabbitMQ是不是有什么考虑，如果没什么作用，希望可以删除相关的冗余代码
+            // RabbitMQEventSourceStore.cs、EventBus.json、多余的代码
 
             //// 创建默认内存通道事件源对象，可自定义队列路由key，如：adminnet
             //var eventBusOpt = App.GetConfig<EventBusOptions>("EventBus", true);
