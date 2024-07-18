@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { FinishStatusEnum } from './finish-status-enum';
  /**
  * 
  *
@@ -101,12 +102,34 @@ export interface AddScheduleInput {
     userId?: number;
 
     /**
-     * 日程时间
+     * 日程日期
      *
      * @type {Date}
      * @memberof AddScheduleInput
      */
     scheduleTime?: Date | null;
+
+    /**
+     * 开始时间
+     *
+     * @type {string}
+     * @memberof AddScheduleInput
+     */
+    starTime?: string | null;
+
+    /**
+     * 结束时间
+     *
+     * @type {string}
+     * @memberof AddScheduleInput
+     */
+    endTime?: string | null;
+
+    /**
+     * @type {FinishStatusEnum}
+     * @memberof AddScheduleInput
+     */
+    status?: FinishStatusEnum;
 
     /**
      * 日程内容

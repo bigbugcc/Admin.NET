@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { FinishStatusEnum } from './finish-status-enum';
  /**
  * 系统日程表
  *
@@ -101,12 +102,28 @@ export interface SysSchedule {
     userId?: number;
 
     /**
-     * 日程时间
+     * 日程日期
      *
      * @type {Date}
      * @memberof SysSchedule
      */
     scheduleTime?: Date | null;
+
+    /**
+     * 开始时间
+     *
+     * @type {string}
+     * @memberof SysSchedule
+     */
+    starTime?: string | null;
+
+    /**
+     * 结束时间
+     *
+     * @type {string}
+     * @memberof SysSchedule
+     */
+    endTime?: string | null;
 
     /**
      * 日程内容
@@ -115,4 +132,10 @@ export interface SysSchedule {
      * @memberof SysSchedule
      */
     content: string;
+
+    /**
+     * @type {FinishStatusEnum}
+     * @memberof SysSchedule
+     */
+    status?: FinishStatusEnum;
 }

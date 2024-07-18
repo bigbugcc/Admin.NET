@@ -27,13 +27,13 @@ public class SysScheduleService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取日程列表")]
-    public async Task<List<SysSchedule>> Page(ScheduleInput input)
+    public async Task<List<SysSchedule>> Page(ListScheduleInput input)
     {
         return await _sysSchedule.AsQueryable()
             .Where(u => u.UserId == _userManager.UserId)
             .WhereIF(!string.IsNullOrWhiteSpace(input.StartTime.ToString()), u => u.ScheduleTime >= input.StartTime)
             .WhereIF(!string.IsNullOrWhiteSpace(input.EndTime.ToString()), u => u.ScheduleTime <= input.EndTime)
-            .OrderBy(u => u.CreateTime, OrderByType.Asc)
+            .OrderBy(u => u.StarTime, OrderByType.Asc)
             .ToListAsync();
     }
 
@@ -83,5 +83,21 @@ public class SysScheduleService : IDynamicApiController, ITransient
     public async Task DeleteUserSchedule(DeleteScheduleInput input)
     {
         await _sysSchedule.DeleteAsync(u => u.Id == input.Id);
+    }
+    /// <summary>
+    /// 设置日程状态
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [DisplayName("设置日程状态")]
+    public async Task<int> SetStatus(ScheduleInput input)
+    {
+        if (!Enum.IsDefined(typeof(FinishStatusEnum), input.Status))
+            throw Oops.Oh(ErrorCodeEnum.D3005);
+
+        return await _sysSchedule.AsUpdateable()
+            .SetColumns(u => u.Status == input.Status)
+            .Where(u => u.Id == input.Id)
+            .ExecuteCommandAsync();
     }
 }
