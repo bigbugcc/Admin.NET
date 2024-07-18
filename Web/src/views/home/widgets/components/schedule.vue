@@ -78,7 +78,6 @@ onMounted(async () => {
 
 // 查询操作
 const handleQuery = async () => {
-	debugger;
 	state.queryParams.startTime = GetMonthFirstDay(state.calendarValue);
 	state.queryParams.endTime = GetMonthLastDay(state.calendarValue);
 
