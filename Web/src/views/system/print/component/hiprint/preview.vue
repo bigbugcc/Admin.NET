@@ -48,7 +48,7 @@ const showDialog = (hiprintTemplate: any, printData: {}, width = 210, printType 
 
 const print = () => {
 	state.waitShowPrinter = true;
-	debugger;
+	// debugger;
 	// 判断是否已成功连接
 	if (state.printType == 2) {
 		// 注意：连接是异步的

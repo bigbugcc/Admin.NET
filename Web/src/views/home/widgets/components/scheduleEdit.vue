@@ -78,8 +78,6 @@ const cancel = () => {
 
 // 提交
 const submit = () => {
-	console.log(JSON.stringify(state.ruleForm));
-
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
