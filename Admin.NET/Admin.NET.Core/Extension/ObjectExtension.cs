@@ -261,9 +261,9 @@ public static partial class ObjectExtension
     public static string ParseToDateTimeForRep(this string str)
     {
         if (string.IsNullOrWhiteSpace(str))
-            str = $"{DateTime.UtcNow.Year}/{DateTime.UtcNow.Month}/{DateTime.UtcNow.Day}";
+            str = $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
 
-        var date = DateTime.UtcNow;
+        var date = DateTime.Now;
         var reg = new Regex(@"(\{.+?})");
         var match = reg.Matches(str);
         match.ToList().ForEach(u =>

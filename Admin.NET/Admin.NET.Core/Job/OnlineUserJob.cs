@@ -34,7 +34,7 @@ public class OnlineUserJob : IJob
         // 缓存租户列表
         await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
 
-        string msg = $"【{DateTime.UtcNow}】清理在线用户成功！服务已重启...";
+        string msg = $"【{DateTime.Now}】清理在线用户成功！服务已重启...";
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(msg);

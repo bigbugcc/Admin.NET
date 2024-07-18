@@ -31,7 +31,6 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
     /// </summary>
     private readonly Channel<IEventSource> _channel;
 
-
     private IProducerConsumer<ChannelEventSource> _queueSingle;
 
     private RedisStream<string> _queueBroadcast;
@@ -92,7 +91,7 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
 
     private void ConsumeChannelEventSource(ChannelEventSource ces)
     {
-        //一些测试的事件就输出一下
+        // 打印测试事件
         if (ces.EventId != null && ces.EventId.IndexOf(":Test") > 0)
         {
             var oriColor = Console.ForegroundColor;
@@ -113,9 +112,7 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
     {
         // 空检查
         if (eventSource == default)
-        {
             throw new ArgumentNullException(nameof(eventSource));
-        }
 
         // 这里判断是否是 ChannelEventSource 或者 自定义的 EventSource
         if (eventSource is ChannelEventSource source)
@@ -133,11 +130,10 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
                     _queueSingle.Add(source);
                 }
             }, cancellationToken, TaskCreationOptions.LongRunning, System.Threading.Tasks.TaskScheduler.Default);
-
         }
         else
         {
-            // 这里处理动态订阅问题
+            // 处理动态订阅问题
             await _channel.Writer.WriteAsync(eventSource, cancellationToken);
         }
     }

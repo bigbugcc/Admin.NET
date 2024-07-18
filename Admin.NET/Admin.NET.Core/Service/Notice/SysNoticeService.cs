@@ -101,7 +101,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
     public async Task Public(NoticeInput input)
     {
         // 更新发布状态和时间
-        await _sysNoticeRep.UpdateAsync(u => new SysNotice() { Status = NoticeStatusEnum.PUBLIC, PublicTime = DateTime.UtcNow }, u => u.Id == input.Id);
+        await _sysNoticeRep.UpdateAsync(u => new SysNotice() { Status = NoticeStatusEnum.PUBLIC, PublicTime = DateTime.Now }, u => u.Id == input.Id);
 
         var notice = await _sysNoticeRep.GetFirstAsync(u => u.Id == input.Id);
 
@@ -131,7 +131,7 @@ public class SysNoticeService : IDynamicApiController, ITransient
         await _sysNoticeUserRep.UpdateAsync(u => new SysNoticeUser
         {
             ReadStatus = NoticeUserStatusEnum.READ,
-            ReadTime = DateTime.UtcNow
+            ReadTime = DateTime.Now
         }, u => u.NoticeId == input.Id && u.UserId == _userManager.UserId);
     }
 

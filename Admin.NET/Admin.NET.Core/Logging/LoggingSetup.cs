@@ -44,7 +44,7 @@ public static class LoggingSetup
                 {
                     options.WithTraceId = true; // 显示线程Id
                     options.WithStackFrame = true; // 显示程序集
-                    options.FileNameRule = fileName => string.Format(fileName, DateTime.UtcNow, logLevel.ToString()); // 每天创建一个文件
+                    options.FileNameRule = fileName => string.Format(fileName, DateTime.Now, logLevel.ToString()); // 每天创建一个文件
                     options.WriteFilter = logMsg => logMsg.LogLevel == logLevel; // 日志级别
                     options.HandleWriteError = (writeError) => // 写入失败时启用备用文件
                     {

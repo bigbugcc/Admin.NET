@@ -167,7 +167,7 @@ public class SyncDingTalkUserJob : IJob
 
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("【" + DateTime.UtcNow + "】同步钉钉用户");
+        Console.WriteLine("【" + DateTime.Now + "】同步钉钉用户");
         Console.ForegroundColor = originColor;
     }
 }

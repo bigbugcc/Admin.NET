@@ -11,7 +11,7 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class JobClusterServer : IJobClusterServer
 {
-    private readonly Random rd = new(DateTime.UtcNow.Millisecond);
+    private readonly Random rd = new(DateTime.Now.Millisecond);
 
     public JobClusterServer()
     {

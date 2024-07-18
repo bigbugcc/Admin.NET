@@ -117,7 +117,7 @@ public static class SqlSugarSetup
                 //        par.Value = string.Concat(par.Value.ToString()[..100], "......");
                 //}
 
-                var log = $"【{DateTime.UtcNow}——执行SQL】\r\n{UtilMethods.GetNativeSql(sql, pars)}\r\n";
+                var log = $"【{DateTime.Now}——执行SQL】\r\n{UtilMethods.GetNativeSql(sql, pars)}\r\n";
                 var originColor = Console.ForegroundColor;
                 if (sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -132,7 +132,7 @@ public static class SqlSugarSetup
             db.Aop.OnError = ex =>
             {
                 if (ex.Parametres == null) return;
-                var log = $"【{DateTime.UtcNow}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
+                var log = $"【{DateTime.Now}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
                 Log.Error(log, ex);
                 App.PrintToMiniProfiler("SqlSugar", "Error", log);
             };
@@ -152,7 +152,7 @@ public static class SqlSugarSetup
                     var fileName = db.Ado.SqlStackTrace.FirstFileName; // 文件名
                     var fileLine = db.Ado.SqlStackTrace.FirstLine; // 行号
                     var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
-                    var log = $"【{DateTime.UtcNow}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
+                    var log = $"【{DateTime.Now}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
                     Log.Warning(log);
                     App.PrintToMiniProfiler("SqlSugar", "Slow", log);
                 }
@@ -172,9 +172,11 @@ public static class SqlSugarSetup
                         entityInfo.SetValue(YitIdHelper.NextId());
                 }
                 // 若创建时间为空则赋值当前时间
-                else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime) && entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue) == null)
+                else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime))
                 {
-                    entityInfo.SetValue(DateTime.UtcNow);
+                    var createTime = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue)!;
+                    if (createTime == null || createTime.Equals(DateTime.MinValue))
+                        entityInfo.SetValue(DateTime.Now);
                 }
                 // 若当前用户非空（web线程时）
                 if (App.User != null)
@@ -216,7 +218,7 @@ public static class SqlSugarSetup
             else if (entityInfo.OperationType == DataFilterType.UpdateByObject)
             {
                 if (entityInfo.PropertyName == nameof(EntityBase.UpdateTime))
-                    entityInfo.SetValue(DateTime.UtcNow);
+                    entityInfo.SetValue(DateTime.Now);
                 else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserId))
                     entityInfo.SetValue(App.User?.FindFirst(ClaimConst.UserId)?.Value);
                 else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserName))
@@ -271,7 +273,7 @@ public static class SqlSugarSetup
             var logDb = ITenant.IsAnyConnection(SqlSugarConst.LogConfigId) ? ITenant.GetConnectionScope(SqlSugarConst.LogConfigId) : db;
             await logDb.CopyNew().Insertable(logDiff).ExecuteCommandAsync();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(DateTime.UtcNow + $"\r\n*****开始差异日志*****\r\n{Environment.NewLine}{JSON.Serialize(logDiff)}{Environment.NewLine}*****结束差异日志*****\r\n");
+            Console.WriteLine(DateTime.Now + $"\r\n*****开始差异日志*****\r\n{Environment.NewLine}{JSON.Serialize(logDiff)}{Environment.NewLine}*****结束差异日志*****\r\n");
         };
     }
 
@@ -383,7 +385,7 @@ public static class SqlSugarSetup
             .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
             .Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) &&
             !u.IsDefined(typeof(SysTableAttribute), false) && !u.IsDefined(typeof(LogTableAttribute), false) && !u.IsDefined(typeof(TenantAttribute), false)).ToList();
-        if (!entityTypes.Any()) return;
+        if (entityTypes.Count == 0) return;
 
         foreach (var entityType in entityTypes)
         {

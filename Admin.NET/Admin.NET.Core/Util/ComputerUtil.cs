@@ -205,19 +205,19 @@ public static class ComputerUtil
             //返回：1705379131
             //使用date格式化即可
             string output = ShellUtil.Bash("date -r $(sysctl -n kern.boottime | awk '{print $4}' | tr -d ',') +\"%Y-%m-%d %H:%M:%S\"").Trim();
-            runTime = DateTimeUtil.FormatTime((DateTime.UtcNow - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+            runTime = DateTimeUtil.FormatTime((DateTime.Now - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
         }
         else if (IsUnix())
         {
             string output = ShellUtil.Bash("uptime -s").Trim();
-            runTime = DateTimeUtil.FormatTime((DateTime.UtcNow - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+            runTime = DateTimeUtil.FormatTime((DateTime.Now - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
         }
         else
         {
             string output = ShellUtil.Cmd("wmic", "OS get LastBootUpTime/Value");
             string[] outputArr = output.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
             if (outputArr.Length == 2)
-                runTime = DateTimeUtil.FormatTime((DateTime.UtcNow - outputArr[1].Split('.')[0].ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+                runTime = DateTimeUtil.FormatTime((DateTime.Now - outputArr[1].Split('.')[0].ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
         }
         return runTime;
     }

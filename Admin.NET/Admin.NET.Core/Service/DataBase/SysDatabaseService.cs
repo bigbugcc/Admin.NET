@@ -528,7 +528,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         Directory.CreateDirectory(backupDirectory);
 
         // 构建备份文件名
-        string backupFileName = $"backup_{DateTime.UtcNow:yyyyMMddHHmmss}.sql";
+        string backupFileName = $"backup_{DateTime.Now:yyyyMMddHHmmss}.sql";
         string backupFilePath = Path.Combine(backupDirectory, backupFileName);
 
         // 启动pg_dump进程进行备份

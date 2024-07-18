@@ -17,9 +17,9 @@ public class DateTimeUtil
     public static DateTime GetBeginTime(DateTime? dateTime, int days = 0)
     {
         if (dateTime == DateTime.MinValue || dateTime == null)
-            return DateTime.UtcNow.AddDays(days);
+            return DateTime.Now.AddDays(days);
 
-        return dateTime ?? DateTime.UtcNow;
+        return dateTime ?? DateTime.Now;
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class DateTimeUtil
     {
         if (dt == null) return string.Empty;
 
-        if (dt.Value.Year == DateTime.UtcNow.Year)
+        if (dt.Value.Year == DateTime.Now.Year)
             return dt.Value.ToString("MM-dd HH:mm");
         else
             return dt.Value.ToString("yyyy-MM-dd HH:mm");

@@ -61,7 +61,7 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
 
         var sysLogOp = new SysLogOp
         {
-            Id = DateTime.UtcNow.Ticks,
+            Id = DateTime.Now.Ticks,
             ControllerName = loggingMonitor.controllerName,
             ActionName = loggingMonitor.actionTypeName,
             DisplayTitle = loggingMonitor.displayTitle,
