@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
 
   // 详细数据库配置见SqlSugar官网（第一个为默认库），极力推荐 PostgreSQL 数据库
