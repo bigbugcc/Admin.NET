@@ -60,6 +60,7 @@ public class EnumToDictJob : IJob
                                 dictData.Code = enumData.Name;
                                 dictData.OrderNo = enumData.Value + 10;
                                 dictData.Name = enumData.Describe;
+                                dictData.TagType = enumData.Theme;
                                 uSysDictData.Add(dictData);
                             }
                         });
@@ -113,7 +114,7 @@ public class EnumToDictJob : IJob
                     Code = u.Name,
                     Remark = t2.Remark,
                     OrderNo = u.Value + 10,
-                    TagType = "info"
+                    TagType = u.Theme ?? "info"
                 }).ToList()
             }).ToList();
             var iDictData = new List<SysDictData>();
