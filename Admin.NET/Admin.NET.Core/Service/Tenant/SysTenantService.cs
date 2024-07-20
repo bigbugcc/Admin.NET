@@ -261,6 +261,11 @@ public class SysTenantService : IDynamicApiController, ITransient
         if (input.Id.ToString() == SqlSugarConst.MainConfigId)
             throw Oops.Oh(ErrorCodeEnum.D1023);
 
+        // 若账号为开放接口绑定租户则禁止删除
+        var isOpenAccessTenant = await _sysTenantRep.ChangeRepository<SqlSugarRepository<SysOpenAccess>>().IsAnyAsync(u => u.BindTenantId == input.Id);
+        if (isOpenAccessTenant)
+            throw Oops.Oh(ErrorCodeEnum.D1031);
+
         await _sysTenantRep.DeleteAsync(u => u.Id == input.Id);
 
         await CacheTenant(input.Id);
