@@ -65,12 +65,12 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 判断密码错误次数（缓存30分钟）
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
         var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
-        var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(CommonConst.SysPasswordMaxErrorTimes);
+        var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysPasswordMaxErrorTimes);
         if (passwordErrorTimes >= passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysCaptcha))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysCaptcha))
         {
             // 判断验证码
             if (!_captcha.Validate(input.CodeId.ToString(), input.Code))
@@ -101,7 +101,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         }
 
         // 是否开启域登录验证
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysDomainLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysDomainLogin))
         {
             var userLdap = await _sysUserLdap.GetFirstAsync(u => u.UserId == user.Id && u.TenantId == tenant.Id);
             if (userLdap == null)
@@ -333,8 +333,8 @@ public class SysAuthService : IDynamicApiController, ITransient
     [DisplayName("获取登录配置")]
     public async Task<dynamic> GetLoginConfig()
     {
-        var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSecondVer);
-        var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysCaptcha);
+        var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSecondVer);
+        var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysCaptcha);
         return new { SecondVerEnabled = secondVerEnabled, CaptchaEnabled = captchaEnabled };
     }
 
@@ -376,7 +376,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     {
         try
         {
-            _sysCacheService.Set($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}", false);
+            _sysCacheService.Set($"{CacheConst.KeyConfig}{ConfigConst.SysCaptcha}", false);
 
             await Login(new LoginInput
             {
@@ -384,7 +384,7 @@ public class SysAuthService : IDynamicApiController, ITransient
                 Password = CryptogramUtil.SM2Encrypt(auth.Password),
             });
 
-            _sysCacheService.Remove($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}");
+            _sysCacheService.Remove($"{CacheConst.KeyConfig}{ConfigConst.SysCaptcha}");
 
             return 200;
         }

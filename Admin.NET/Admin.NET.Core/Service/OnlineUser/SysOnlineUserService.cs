@@ -78,7 +78,7 @@ public class SysOnlineUserService : IDynamicApiController, ITransient
     [NonAction]
     public async Task SingleLogin(long userId)
     {
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
             var users = await _sysOnlineUerRep.GetListAsync(u => u.UserId == userId);
             foreach (var user in users)

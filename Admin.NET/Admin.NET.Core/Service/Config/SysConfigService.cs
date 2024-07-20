@@ -195,7 +195,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     [NonAction]
     public async Task<int> GetTokenExpire()
     {
-        var tokenExpireStr = await GetConfigValue<string>(CommonConst.SysTokenExpire);
+        var tokenExpireStr = await GetConfigValue<string>(ConfigConst.SysTokenExpire);
         _ = int.TryParse(tokenExpireStr, out var tokenExpire);
         return tokenExpire == 0 ? 20 : tokenExpire;
     }
@@ -207,7 +207,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     [NonAction]
     public async Task<int> GetRefreshTokenExpire()
     {
-        var refreshTokenExpireStr = await GetConfigValue<string>(CommonConst.SysRefreshTokenExpire);
+        var refreshTokenExpireStr = await GetConfigValue<string>(ConfigConst.SysRefreshTokenExpire);
         _ = int.TryParse(refreshTokenExpireStr, out var refreshTokenExpire);
         return refreshTokenExpire == 0 ? 40 : refreshTokenExpire;
     }

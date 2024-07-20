@@ -27,7 +27,7 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
     public async Task WriteAsync(LogMessage logMsg, bool flush)
     {
         // 是否启用操作日志
-        var sysOpLogEnabled = await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog);
+        var sysOpLogEnabled = await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysOpLog);
         if (!sysOpLogEnabled) return;
 
         var jsonStr = logMsg.Context?.Get("loggingMonitor")?.ToString();

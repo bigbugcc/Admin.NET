@@ -61,7 +61,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         await _sysOnlineUerRep.InsertAsync(user);
 
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
             _sysCacheService.Set(CacheConst.KeyUserOnline + user.UserId, user);
         }
@@ -102,7 +102,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         await _sysOnlineUerRep.DeleteAsync(u => u.Id == user.Id);
 
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
             _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId);
         }

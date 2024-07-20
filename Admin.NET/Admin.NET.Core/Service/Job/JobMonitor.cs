@@ -30,7 +30,7 @@ public class JobMonitor : IJobMonitor
     public async Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
     {
         // 将异常作业发送到邮件
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail) && context.Exception != null)
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysErrorMail) && context.Exception != null)
         {
             var errorInfo = $"【{context.Trigger.Description}】定时任务错误：{context.Exception}";
             await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, errorInfo, stoppingToken);

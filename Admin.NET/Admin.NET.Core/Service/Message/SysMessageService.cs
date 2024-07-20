@@ -48,7 +48,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     {
         var cacheKey = CacheConst.KeyUserOnline + input.UserId;
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
             var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
             if (user == null) return;
@@ -76,7 +76,7 @@ public class SysMessageService : IDynamicApiController, ITransient
     {
         var cacheKey = CacheConst.KeyUserOnline + input.UserId;
         // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
             var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
             if (user == null) return;
@@ -107,7 +107,7 @@ public class SysMessageService : IDynamicApiController, ITransient
         {
             var cacheKey = CacheConst.KeyUserOnline + userId;
             // 是否开启单用户登录
-            if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysSingleLogin))
+            if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
             {
                 var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
                 if (user != null) userList.Add(user.ConnectionId);

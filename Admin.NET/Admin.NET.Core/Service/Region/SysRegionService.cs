@@ -152,7 +152,7 @@ public class SysRegionService : IDynamicApiController, ITransient
     [DisplayName("同步行政区域")]
     public async Task Sync()
     {
-        var syncLevel = await _sysConfigService.GetConfigValue<int>(CommonConst.SysRegionSyncLevel);
+        var syncLevel = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysRegionSyncLevel);
         if (syncLevel < 1 || syncLevel > 5)
             syncLevel = 3;//默认区县级
         var context = BrowsingContext.New(AngleSharp.Configuration.Default.WithDefaultLoader());

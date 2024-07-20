@@ -34,7 +34,7 @@ public class GoViewSysService : IDynamicApiController
     [DisplayName("GoView 登录")]
     public async Task<GoViewLoginOutput> Login(GoViewLoginInput input)
     {
-        _sysCacheService.Set($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}", false);
+        _sysCacheService.Set($"{CacheConst.KeyConfig}{ConfigConst.SysCaptcha}", false);
 
         input.Password = CryptogramUtil.SM2Encrypt(input.Password);
         var loginResult = await _sysAuthService.Login(new LoginInput()
@@ -43,7 +43,7 @@ public class GoViewSysService : IDynamicApiController
             Password = input.Password,
         });
 
-        _sysCacheService.Remove($"{CacheConst.KeyConfig}{CommonConst.SysCaptcha}");
+        _sysCacheService.Remove($"{CacheConst.KeyConfig}{ConfigConst.SysCaptcha}");
 
         var sysUser = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(u => u.Account.Equals(input.Username));
         return new GoViewLoginOutput()

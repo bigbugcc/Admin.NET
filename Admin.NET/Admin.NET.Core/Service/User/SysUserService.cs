@@ -96,7 +96,7 @@ public class SysUserService : IDynamicApiController, ITransient
         var isExist = await _sysUserRep.AsQueryable().ClearFilter().AnyAsync(u => u.Account == input.Account);
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D1003);
 
-        var password = await _sysConfigService.GetConfigValue<string>(CommonConst.SysPassword);
+        var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
 
         var user = input.Adapt<SysUser>();
         user.Password = CryptogramUtil.Encrypt(password);
@@ -314,7 +314,7 @@ public class SysUserService : IDynamicApiController, ITransient
     public virtual async Task<string> ResetPwd(ResetPwdUserInput input)
     {
         var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
-        var password = await _sysConfigService.GetConfigValue<string>(CommonConst.SysPassword);
+        var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
         user.Password = CryptogramUtil.Encrypt(password);
         await _sysUserRep.AsUpdateable(user).UpdateColumns(u => u.Password).ExecuteCommandAsync();
 

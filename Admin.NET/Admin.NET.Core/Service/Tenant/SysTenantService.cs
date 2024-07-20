@@ -207,7 +207,7 @@ public class SysTenantService : IDynamicApiController, ITransient
         await _sysPosRep.InsertAsync(newPos);
 
         // 初始化系统账号
-        var password = await _sysConfigService.GetConfigValue<string>(CommonConst.SysPassword);
+        var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
         var newUser = new SysUser
         {
             TenantId = tenantId,
@@ -371,7 +371,7 @@ public class SysTenantService : IDynamicApiController, ITransient
     [DisplayName("重置租户管理员密码")]
     public async Task<string> ResetPwd(TenantUserInput input)
     {
-        var password = await _sysConfigService.GetConfigValue<string>(CommonConst.SysPassword);
+        var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
         var encryptPassword = CryptogramUtil.Encrypt(password);
         await _sysUserRep.UpdateAsync(u => new SysUser() { Password = encryptPassword }, u => u.Id == input.UserId);
         return password;

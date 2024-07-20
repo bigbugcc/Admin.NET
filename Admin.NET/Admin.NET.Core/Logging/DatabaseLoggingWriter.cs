@@ -51,7 +51,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
 
         var loggingMonitor = JSON.Deserialize<dynamic>(jsonStr);
         // 记录数据校验日志
-        if (loggingMonitor.validation != null && !await _sysConfigService.GetConfigValue<bool>(CommonConst.SysValidationLog)) return;
+        if (loggingMonitor.validation != null && !await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysValidationLog)) return;
 
         // 获取当前操作者
         string account = "", realName = "", userId = "", tenantId = "";
@@ -125,7 +125,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 }).ExecuteCommandAsync();
 
                 // 将异常日志发送到邮件
-                if (await _sysConfigService.GetConfigValue<bool>(CommonConst.SysErrorMail))
+                if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysErrorMail))
                 {
                     await App.GetRequiredService<IEventPublisher>().PublishAsync(CommonConst.SendErrorMail, logMsg.Exception ?? loggingMonitor.exception);
                 }
@@ -160,7 +160,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             }
 
             // 记录操作日志
-            if (!await _sysConfigService.GetConfigValue<bool>(CommonConst.SysOpLog)) return;
+            if (!await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysOpLog)) return;
             await _db.Insertable(new SysLogOp
             {
                 ControllerName = loggingMonitor.controllerName,
