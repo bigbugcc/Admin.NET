@@ -114,7 +114,7 @@ public class EnumToDictJob : IJob
                     Code = u.Name,
                     Remark = t2.Remark,
                     OrderNo = u.Value + 10,
-                    TagType = u.Theme ！= "" ? u.Theme : "info",
+                    TagType = u.Theme != "" ? u.Theme : "info",
                 }).ToList()
             }).ToList();
             var iDictData = new List<SysDictData>();
