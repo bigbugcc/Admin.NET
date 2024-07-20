@@ -12,26 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { FinishStatusEnum } from './finish-status-enum';
- /**
- * 
- *
+/**
+ * 完成状态枚举<br />&nbsp;未完成 UnFinish = 0<br />&nbsp;已完成 Finish = 1<br />
  * @export
- * @interface ScheduleInput
+ * @enum {string}
  */
-export interface ScheduleInput {
-
-    /**
-     * 主键Id
-     *
-     * @type {number}
-     * @memberof ScheduleInput
-     */
-    id: number;
-
-    /**
-     * @type {FinishStatusEnum}
-     * @memberof ScheduleInput
-     */
-    status?: FinishStatusEnum;
+export enum FinishStatusEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
 }
+
