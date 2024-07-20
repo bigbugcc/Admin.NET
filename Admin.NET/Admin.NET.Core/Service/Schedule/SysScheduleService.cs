@@ -33,7 +33,7 @@ public class SysScheduleService : IDynamicApiController, ITransient
             .Where(u => u.UserId == _userManager.UserId)
             .WhereIF(!string.IsNullOrWhiteSpace(input.StartTime.ToString()), u => u.ScheduleTime >= input.StartTime)
             .WhereIF(!string.IsNullOrWhiteSpace(input.EndTime.ToString()), u => u.ScheduleTime <= input.EndTime)
-            .OrderBy(u => u.StarTime, OrderByType.Asc)
+            .OrderBy(u => u.StartTime, OrderByType.Asc)
             .ToListAsync();
     }
 
@@ -84,6 +84,7 @@ public class SysScheduleService : IDynamicApiController, ITransient
     {
         await _sysSchedule.DeleteAsync(u => u.Id == input.Id);
     }
+
     /// <summary>
     /// 设置日程状态
     /// </summary>

@@ -115,7 +115,7 @@ export interface UpdateScheduleInput {
      * @type {string}
      * @memberof UpdateScheduleInput
      */
-    starTime?: string | null;
+    startTime?: string | null;
 
     /**
      * 结束时间

@@ -115,7 +115,7 @@ export interface SysSchedule {
      * @type {string}
      * @memberof SysSchedule
      */
-    starTime?: string | null;
+    startTime?: string | null;
 
     /**
      * 结束时间

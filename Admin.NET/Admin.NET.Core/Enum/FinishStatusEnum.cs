@@ -4,8 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-
 namespace Admin.NET.Core;
+
 /// <summary>
 /// 完成状态枚举
 /// </summary>
@@ -24,5 +24,3 @@ public enum FinishStatusEnum
     [Description("未完成")]
     UnFinish = 0,
 }
-
-

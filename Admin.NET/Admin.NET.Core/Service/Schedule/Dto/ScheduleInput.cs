@@ -13,6 +13,7 @@ public class ScheduleInput : BaseIdInput
     /// </summary>
     public virtual FinishStatusEnum Status { get; set; }
 }
+
 public class ListScheduleInput
 {
     public DateTime? StartTime { get; set; }
