@@ -212,6 +212,18 @@ public enum ErrorCodeEnum
     D1029,
 
     /// <summary>
+    /// 开放接口绑定账号禁止删除
+    /// </summary>
+    [ErrorCodeItemMetadata("开放接口绑定账号禁止删除")]
+    D1030,
+
+    /// <summary>
+    /// 开放接口绑定租户禁止删除
+    /// </summary>
+    [ErrorCodeItemMetadata("开放接口绑定租户禁止删除")]
+    D1031,
+
+    /// <summary>
     /// 父机构不存在
     /// </summary>
     [ErrorCodeItemMetadata("父机构不存在")]
