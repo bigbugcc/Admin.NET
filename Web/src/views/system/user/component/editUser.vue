@@ -8,7 +8,7 @@
 				</div>
 			</template>
 			<el-tabs v-loading="state.loading" v-model="state.selectedTabName">
-				<el-tab-pane label="基础信息" style="height: 550px">
+				<el-tab-pane label="基础信息" style="height: 550px; overflow-y: auto; overflow-x: hidden">
 					<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -144,7 +144,7 @@
 						</el-row>
 					</el-form>
 				</el-tab-pane>
-				<el-tab-pane label="档案信息" style="height: 550px">
+				<el-tab-pane label="档案信息" style="height: 550px; overflow-y: auto; overflow-x: hidden">
 					<el-form :model="state.ruleForm" label-width="auto">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">

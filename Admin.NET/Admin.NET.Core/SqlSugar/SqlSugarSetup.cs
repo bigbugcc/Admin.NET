@@ -289,6 +289,7 @@ public static class SqlSugarSetup
         // 初始化/创建数据库
         if (config.DbSettings.EnableInitDb)
         {
+            Log.Information($"初始化数据库 {config.DbType} - {config.ConfigId} - {config.ConnectionString}");
             if (config.DbType != SqlSugar.DbType.Oracle)
                 dbProvider.DbMaintenance.CreateDatabase();
         }
@@ -296,6 +297,7 @@ public static class SqlSugarSetup
         // 初始化表结构
         if (config.TableSettings.EnableInitTable)
         {
+            Log.Information($"初始化表结构 {config.DbType} - {config.ConfigId}");
             var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false))
                 .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
                 .WhereIF(config.TableSettings.EnableIncreTable, u => u.IsDefined(typeof(IncreTableAttribute), false)).ToList();
@@ -307,8 +309,10 @@ public static class SqlSugarSetup
             else
                 entityTypes = entityTypes.Where(u => u.GetCustomAttribute<TenantAttribute>()?.configId.ToString() == config.ConfigId.ToString()).ToList(); // 自定义的库
 
+            int count = 0, sum = entityTypes.Count;
             foreach (var entityType in entityTypes)
             {
+                Console.WriteLine($"创建表 {entityType} ({config.ConfigId} - {++count}/{sum})");
                 if (entityType.GetCustomAttribute<SplitTableAttribute>() == null)
                     dbProvider.CodeFirst.InitTables(entityType);
                 else
@@ -319,10 +323,12 @@ public static class SqlSugarSetup
         // 初始化种子数据
         if (config.SeedSettings.EnableInitSeed)
         {
+            Log.Information($"初始化种子数据 {config.DbType} - {config.ConfigId}");
             var seedDataTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarEntitySeedData<>))))
                 .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false))
                 .OrderBy(u => u.GetCustomAttributes(typeof(SeedDataAttribute), false).Length > 0 ? ((SeedDataAttribute)u.GetCustomAttributes(typeof(SeedDataAttribute), false)[0]).Order : 0).ToList();
 
+            int count = 0, sum = seedDataTypes.Count;
             foreach (var seedType in seedDataTypes)
             {
                 var entityType = seedType.GetInterfaces().First().GetGenericArguments().First();
@@ -348,19 +354,32 @@ public static class SqlSugarSetup
                 if (seedData == null) continue;
 
                 var entityInfo = dbProvider.EntityMaintenance.GetEntityInfo(entityType);
-                if (entityInfo.Columns.Any(u => u.IsPrimarykey))
+                Console.WriteLine($"添加数据 {entityInfo.DbTableName} ({config.ConfigId} - {++count}/{sum})");
+
+                if (entityType.GetCustomAttribute<SplitTableAttribute>(true) != null)
                 {
-                    // 按主键进行批量增加和更新
-                    var storage = dbProvider.StorageableByObject(seedData.ToList()).ToStorage();
-                    storage.AsInsertable.ExecuteCommand();
-                    if (seedType.GetCustomAttribute<IgnoreUpdateSeedAttribute>() == null) // 有忽略更新种子特性时则不更新
-                        storage.AsUpdateable.IgnoreColumns(entityInfo.Columns.Where(c => c.PropertyInfo.GetCustomAttribute<IgnoreUpdateSeedColumnAttribute>() != null).Select(c => c.PropertyName).ToArray()).ExecuteCommand();
+                    //拆分表的操作需要实体类型，而通过反射很难实现
+                    //所以，这里将Init方法写在“种子数据类”内部，再传入 db 反射调用
+                    var hasInitMethod = seedType.GetMethod("Init");
+                    var parameters = new object[] { db };
+                    hasInitMethod?.Invoke(instance, parameters);
                 }
                 else
                 {
-                    // 无主键则只进行插入
-                    if (!dbProvider.Queryable(entityInfo.DbTableName, entityInfo.DbTableName).Any())
-                        dbProvider.InsertableByObject(seedData.ToList()).ExecuteCommand();
+                    if (entityInfo.Columns.Any(u => u.IsPrimarykey))
+                    {
+                        // 按主键进行批量增加和更新
+                        var storage = dbProvider.StorageableByObject(seedData.ToList()).ToStorage();
+                        storage.AsInsertable.ExecuteCommand();
+                        if (seedType.GetCustomAttribute<IgnoreUpdateSeedAttribute>() == null) // 有忽略更新种子特性时则不更新
+                            storage.AsUpdateable.IgnoreColumns(entityInfo.Columns.Where(u => u.PropertyInfo.GetCustomAttribute<IgnoreUpdateSeedColumnAttribute>() != null).Select(u => u.PropertyName).ToArray()).ExecuteCommand();
+                    }
+                    else
+                    {
+                        // 无主键则只进行插入
+                        if (!dbProvider.Queryable(entityInfo.DbTableName, entityInfo.DbTableName).Any())
+                            dbProvider.InsertableByObject(seedData.ToList()).ExecuteCommand();
+                    }
                 }
             }
         }

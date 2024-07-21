@@ -74,7 +74,7 @@ public partial class SysMenu : EntityBase
     /// </summary>
     [SugarColumn(ColumnDescription = "图标", Length = 128)]
     [MaxLength(128)]
-    public string? Icon { get; set; }
+    public string? Icon { get; set; } = "ele-Menu";
 
     /// <summary>
     /// 是否内嵌

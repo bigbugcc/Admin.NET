@@ -4,7 +4,7 @@
   // 详细数据库配置见SqlSugar官网（第一个为默认库），极力推荐 PostgreSQL 数据库
   // 数据库连接字符串参考地址：https://www.connectionstrings.com/
   "DbConnection": {
-    "EnableConsoleSql": true, // 启用控制台打印SQL
+    "EnableConsoleSql": false, // 启用控制台打印SQL
     "ConnectionConfigs": [
       {
         //"ConfigId": "1300000000001", // 默认库标识-禁止修改
