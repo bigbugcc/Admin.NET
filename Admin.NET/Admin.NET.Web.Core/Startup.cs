@@ -79,6 +79,7 @@ public class Startup : AppStartup
         {
             setting.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             setting.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+            // setting.Converters.AddDateTimeTypeConverters(localized: true); // 时间本地化
             setting.DateFormatString = "yyyy-MM-dd HH:mm:ss"; // 时间格式化
             setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // 忽略循环引用
             // setting.ContractResolver = new CamelCasePropertyNamesContractResolver(); // 解决动态对象属性名大写
