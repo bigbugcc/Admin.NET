@@ -60,7 +60,7 @@
 			</el-col>
 		</el-row>
 
-		<EditOrg ref="editOrgRef" :title="state.editOrgTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
+		<EditOrg ref="editOrgRef" :title="state.editOrgTitle" :orgData="state.orgTreeData" @reload="handleQuery" />
 	</div>
 </template>
 

@@ -89,7 +89,7 @@ const props = defineProps({
 	title: String,
 	orgData: Array<SysOrg>,
 });
-const emits = defineEmits(['handleQuery']);
+const emits = defineEmits(['reload']);
 const ruleFormRef = ref();
 const state = reactive({
 	isShowDialog: false,
@@ -111,7 +111,7 @@ const openDialog = (row: any) => {
 
 // 关闭弹窗
 const closeDialog = () => {
-	emits('handleQuery', true);
+	emits('reload', true);
 	state.isShowDialog = false;
 };
 
