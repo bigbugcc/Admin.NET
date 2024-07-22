@@ -40,7 +40,7 @@ public class DictAttribute : ValidationAttribute, ITransient
         // 是否忽略空字符串
         if (AllowEmptyStrings && string.IsNullOrEmpty(valueAsString)) return ValidationResult.Success;
 
-        var sysDictDataServiceProvider = validationContext.GetRequiredService<SysDictDataService>();
+        var sysDictDataServiceProvider = App.GetRequiredService<SysDictDataService>();
         var dictDataList = sysDictDataServiceProvider.GetDataList(DictTypeCode).Result;
 
         // 使用HashSet来提高查找效率
