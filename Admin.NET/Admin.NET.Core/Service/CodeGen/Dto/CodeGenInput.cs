@@ -168,7 +168,7 @@ public class DeleteCodeGenInput
     public long Id { get; set; }
 }
 
-public class UpdateCodeGenInput : CodeGenInput
+public class UpdateCodeGenInput : AddCodeGenInput
 {
     /// <summary>
     /// 代码生成器Id
