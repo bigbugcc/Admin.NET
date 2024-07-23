@@ -180,7 +180,7 @@ public class SysRegionService : IDynamicApiController, ITransient
             list.Add(region);
 
             // 市级
-            if (!string.IsNullOrEmpty(item.Href) && syncLevel > 1)
+            if (!string.IsNullOrEmpty(item.Href))
             {
                 var dom1 = await context.OpenAsync(item.Href);
                 var itemList1 = dom1.QuerySelectorAll("table.citytable tr.citytr td a");
@@ -196,6 +196,13 @@ public class SysRegionService : IDynamicApiController, ITransient
                         Remark = item1.Href,
                         Level = 2,
                     };
+                    //URL中查询的一级行政区域缺少Code，通过二级区域填充
+                    if (list.Count == 1 && !string.IsNullOrEmpty(region1.Code))
+                        region.Code = region1.Code.Substring(0, 2).PadRight(region1.Code.Length, '0');
+                    //同步层级为“1-省级”退出
+                    if (syncLevel < 2)
+                        break;
+
                     list.Add(region1);
 
                     // 区县级
