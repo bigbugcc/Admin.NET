@@ -31,8 +31,8 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-form-item label="链接字段" prop="LinkColumnName">
-							<el-select v-model="state.ruleForm.LinkColumnName" class="w100">
+						<el-form-item label="链接字段" prop="linkColumnName">
+							<el-select v-model="state.ruleForm.linkColumnName" class="w100">
 								<el-option v-for="item in state.columnData" :key="item.columnName" :label="item.columnName + ' [' + item.columnComment + ']'" :value="item.columnName" />
 							</el-select>
 						</el-form-item>
@@ -115,7 +115,7 @@ const closeDialog = () => {
 	let tableData = state.tableData.filter((x) => x.tableName == state.ruleForm.tableName);
 	rowdata.fkEntityName = tableData.length == 0 ? '' : tableData[0].entityName;
 	rowdata.fkColumnName = state.ruleForm.columnName;
-	rowdata.fkLinkColumnName = state.ruleForm.LinkColumnName;
+	rowdata.fkLinkColumnName = state.ruleForm.linkColumnName;
 	let columnData = state.columnData.filter((x) => x.columnName == state.ruleForm.columnName);
 	rowdata.fkColumnNetType = columnData.length == 0 ? '' : columnData[0].netType;
 	emits('submitRefreshFk', rowdata);

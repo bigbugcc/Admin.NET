@@ -76,7 +76,7 @@ public class CodeGenConfig
     /// 外键显示字段
     /// </summary>
     public string FkColumnName { get; set; }
-    
+
     /// <summary>
     /// 外键链接字段
     /// </summary>

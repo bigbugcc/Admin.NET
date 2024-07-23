@@ -125,6 +125,14 @@ export interface CodeGenConfig {
     fkColumnName?: string | null;
 
     /**
+     * 外键链接字段
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    fkLinkColumnName?: string | null;
+
+    /**
      * 外键显示字段(首字母小写)
      *
      * @type {string}

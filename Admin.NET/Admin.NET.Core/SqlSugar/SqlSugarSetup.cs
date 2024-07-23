@@ -169,13 +169,7 @@ public static class SqlSugarSetup
                 {
                     var id = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue);
                     if (id == null || (long)id == 0)
-                    {
-                        if (!entityInfo.EntityColumnInfo.IsIdentity)
-                        {
-                            // 设置雪花Id
-                            entityInfo.SetValue(YitIdHelper.NextId());
-                        }
-                    }
+                        entityInfo.SetValue(YitIdHelper.NextId());
                 }
                 // 若创建时间为空则赋值当前时间
                 else if (entityInfo.PropertyName == nameof(EntityBase.CreateTime))

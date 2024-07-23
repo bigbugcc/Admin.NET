@@ -82,12 +82,12 @@ public partial class SysCodeGenConfig : EntityBase
     public string? FkColumnName { get; set; }
 
     /// <summary>
-    /// 外键显示字段
+    /// 外键链接字段
     /// </summary>
     [SugarColumn(ColumnDescription = "外键链接字段", Length = 64)]
     [MaxLength(64)]
     public string? FkLinkColumnName { get; set; }
-    
+
     /// <summary>
     /// 外键显示字段.NET类型
     /// </summary>

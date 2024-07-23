@@ -165,6 +165,14 @@ export interface SysCodeGenConfig {
     fkColumnName?: string | null;
 
     /**
+     * 外键链接字段
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    fkLinkColumnName?: string | null;
+
+    /**
      * 外键显示字段.NET类型
      *
      * @type {string}

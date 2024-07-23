@@ -83,14 +83,6 @@ export interface UpdateCodeGenInput {
     descStr?: string | null;
 
     /**
-     * 作者姓名
-     *
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-    authorName?: string | null;
-
-    /**
      * 类名
      *
      * @type {string}
@@ -139,38 +131,6 @@ export interface UpdateCodeGenInput {
     connectionString?: string | null;
 
     /**
-     * 生成方式
-     *
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-    generateType?: string | null;
-
-    /**
-     * 数据库表名
-     *
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-    tableName?: string | null;
-
-    /**
-     * 命名空间
-     *
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-    nameSpace?: string | null;
-
-    /**
-     * 业务名（业务代码包名称）
-     *
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-    busName?: string | null;
-
-    /**
      * 功能名（数据库表名称）
      *
      * @type {string}
@@ -185,14 +145,6 @@ export interface UpdateCodeGenInput {
      * @memberof UpdateCodeGenInput
      */
     menuApplication?: string | null;
-
-    /**
-     * 是否生成菜单
-     *
-     * @type {boolean}
-     * @memberof UpdateCodeGenInput
-     */
-    generateMenu?: boolean;
 
     /**
      * 菜单父级
@@ -225,6 +177,54 @@ export interface UpdateCodeGenInput {
      * @memberof UpdateCodeGenInput
      */
     printName?: string | null;
+
+    /**
+     * 数据库表名
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    tableName: string;
+
+    /**
+     * 业务名（业务代码包名称）
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    busName: string;
+
+    /**
+     * 命名空间
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    nameSpace: string;
+
+    /**
+     * 作者姓名
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    authorName: string;
+
+    /**
+     * 生成方式
+     *
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+    generateType: string;
+
+    /**
+     * 是否生成菜单
+     *
+     * @type {boolean}
+     * @memberof UpdateCodeGenInput
+     */
+    generateMenu: boolean;
 
     /**
      * 代码生成器Id
