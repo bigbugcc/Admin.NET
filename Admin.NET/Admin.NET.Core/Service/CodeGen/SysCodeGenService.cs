@@ -77,7 +77,11 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         if (isExist)
             throw Oops.Oh(ErrorCodeEnum.D1400);
 
-        await _db.Updateable(input.Adapt<SysCodeGen>()).ExecuteCommandAsync();
+        var codeGen = input.Adapt<SysCodeGen>();
+        await _db.Updateable(codeGen).ExecuteCommandAsync();
+        // 加入配置表中
+        await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
+        _codeGenConfigService.AddList(GetColumnList(input), codeGen);
     }
 
     /// <summary>
