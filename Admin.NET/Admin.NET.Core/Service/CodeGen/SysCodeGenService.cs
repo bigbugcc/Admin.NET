@@ -60,7 +60,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
 
         var codeGen = input.Adapt<SysCodeGen>();
         var newCodeGen = await _db.Insertable(codeGen).ExecuteReturnEntityAsync();
-        // 加入配置表中
+
+        // 增加配置表
         _codeGenConfigService.AddList(GetColumnList(input), newCodeGen);
     }
 
@@ -79,8 +80,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
 
         var codeGen = input.Adapt<SysCodeGen>();
         await _db.Updateable(codeGen).ExecuteCommandAsync();
-        
-        // 加入配置表中
+
+        // 更新配置表
         await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
         _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
     }
@@ -101,7 +102,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         {
             _db.Deleteable<SysCodeGen>().In(u.Id).ExecuteCommand();
 
-            // 删除配置表中
+            // 删除配置表
             codeGenConfigTaskList.Add(_codeGenConfigService.DeleteCodeGenConfig(u.Id));
         });
         await Task.WhenAll(codeGenConfigTaskList);

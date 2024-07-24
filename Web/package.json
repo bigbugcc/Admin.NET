@@ -2,7 +2,7 @@
 	"name": "admin.net",
 	"type": "module",
 	"version": "2.4.33",
-	"lastBuildTime": "2024.07.20",
+	"lastBuildTime": "2024.07.24",
 	"description": "Admin.NET 站在巨人肩膀上的 .NET 通用权限开发框架",
 	"author": "zuohuaijun",
 	"license": "MIT",
@@ -89,7 +89,7 @@
 		"typescript": "^5.5.4",
 		"vite": "^5.3.4",
 		"vite-plugin-cdn-import": "^1.0.1",
-		"vite-plugin-compression2": "^1.1.2",
+		"vite-plugin-compression2": "^1.1.3",
 		"vite-plugin-vue-setup-extend": "^0.4.0",
 		"vue-eslint-parser": "^9.4.3"
 	},
