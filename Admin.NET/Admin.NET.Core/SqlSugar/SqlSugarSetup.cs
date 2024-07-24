@@ -92,6 +92,10 @@ public static class SqlSugarSetup
             IsAutoUpdateQueryFilter = true, // 启用更新查询过滤器
             SqlServerCodeFirstNvarchar = true // 采用Nvarchar
         };
+
+        // 若库类型是人大金仓则默认设置PG模式
+        if (config.DbType == SqlSugar.DbType.Kdbndp)
+            config.MoreSettings.DatabaseModel = SqlSugar.DbType.PostgreSQL; // 配置PG模式主要是兼容系统表差异
     }
 
     /// <summary>
