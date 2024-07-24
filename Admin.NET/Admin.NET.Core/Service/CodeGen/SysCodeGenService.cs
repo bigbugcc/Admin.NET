@@ -79,9 +79,10 @@ public class SysCodeGenService : IDynamicApiController, ITransient
 
         var codeGen = input.Adapt<SysCodeGen>();
         await _db.Updateable(codeGen).ExecuteCommandAsync();
+        
         // 加入配置表中
         await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
-        _codeGenConfigService.AddList(GetColumnList(input), codeGen);
+        _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
     }
 
     /// <summary>
