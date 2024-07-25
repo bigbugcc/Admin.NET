@@ -14,10 +14,10 @@
 						<div v-for="(item, key) in state.ScheduleData" :key="key">
 							<el-badge v-if="FormatDate(data.day) == FormatDate(item.scheduleTime)" is-dot class="item"></el-badge>
 						</div>
-					</div>
 
-					<div style="font-size: 10px">
-						{{ solarDate2lunar(data.day) }}
+						<div style="font-size: 10px">
+							{{ solarDate2lunar(data.day) }}
+						</div>
 					</div>
 				</template>
 			</el-calendar>
