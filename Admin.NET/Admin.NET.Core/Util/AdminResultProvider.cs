@@ -84,7 +84,7 @@ public class AdminResultProvider : IUnifyResultProvider
                 await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: "403 禁止访问，没有权限"),
                     App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
                 break;
-             // 处理 302 状态码
+            // 处理 302 状态码
             case StatusCodes.Status302Found:
                 if (context.Response.Headers.TryGetValue("Location", out var redirectUrl))
                 {
@@ -92,7 +92,7 @@ public class AdminResultProvider : IUnifyResultProvider
                 }
                 else
                 {
-                    var errorMessage = "302 跳转失败：没有提供Location头信息。";
+                    var errorMessage = "302 跳转失败，没有提供 Location 头信息";
                     await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: errorMessage),
                         App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
                 }
