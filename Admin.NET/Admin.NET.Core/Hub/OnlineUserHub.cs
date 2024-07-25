@@ -17,7 +17,6 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
 {
     private const string GROUP_ONLINE = "GROUP_ONLINE_"; // 租户分组前缀
 
-    private readonly UserManager _userManager;
     private readonly SqlSugarRepository<SysOnlineUser> _sysOnlineUerRep;
     private readonly SysMessageService _sysMessageService;
     private readonly IHubContext<OnlineUserHub, IOnlineUserHub> _onlineUserHubContext;
@@ -28,15 +27,13 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         SysMessageService sysMessageService,
         IHubContext<OnlineUserHub, IOnlineUserHub> onlineUserHubContext,
         SysCacheService sysCacheService,
-        SysConfigService sysConfigService,
-        UserManager userManager)
+        SysConfigService sysConfigService)
     {
         _sysOnlineUerRep = sysOnlineUerRep;
         _sysMessageService = sysMessageService;
         _onlineUserHubContext = onlineUserHubContext;
         _sysCacheService = sysCacheService;
         _sysConfigService = sysConfigService;
-        _userManager = userManager;
     }
 
     /// <summary>
@@ -45,21 +42,23 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
     /// <returns></returns>
     public override async Task OnConnectedAsync()
     {
-        if (_userManager == null || _userManager.UserId == 0)
-            return;
-
         var httpContext = Context.GetHttpContext();
+        var userId = (httpContext.User.FindFirst(ClaimConst.UserId)?.Value).ToLong();
+        var account = httpContext.User.FindFirst(ClaimConst.Account)?.Value;
+        var realName = httpContext.User.FindFirst(ClaimConst.RealName)?.Value;
+        var tenantId = (httpContext.User.FindFirst(ClaimConst.TenantId)?.Value).ToLong();
+
         var user = new SysOnlineUser
         {
             ConnectionId = Context.ConnectionId,
-            UserId = _userManager.UserId,
-            UserName = _userManager.Account,
-            RealName = _userManager.RealName,
+            UserId = userId,
+            UserName = account,
+            RealName = realName,
             Time = DateTime.Now,
             Ip = httpContext.GetRemoteIpAddressToIPv4(true),
             Browser = httpContext.GetClientBrowser(),
             Os = httpContext.GetClientOs(),
-            TenantId = _userManager.TenantId,
+            TenantId = tenantId,
         };
         await _sysOnlineUerRep.InsertAsync(user);
 

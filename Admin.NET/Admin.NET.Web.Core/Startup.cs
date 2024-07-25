@@ -182,7 +182,6 @@ public class Startup : AppStartup
         services.AddViewEngine();
 
         // 即时通讯
-        //services.AddSingleton<IUserIdProvider, UserIdProvider>();
         services.AddSignalR(options =>
         {
             options.KeepAliveInterval = TimeSpan.FromSeconds(5);
