@@ -87,6 +87,11 @@ public class CodeGenInput : BasePageInput
     public virtual long? MenuPid { get; set; }
 
     /// <summary>
+    /// 菜单图标
+    /// </summary>
+    public virtual string MenuIcon { get; set; }
+
+    /// <summary>
     /// 页面目录
     /// </summary>
     public virtual string PagePath { get; set; }
@@ -100,11 +105,6 @@ public class CodeGenInput : BasePageInput
     /// 打印模版名称
     /// </summary>
     public virtual string PrintName { get; set; }
-
-    /// <summary>
-    /// 菜单图标
-    /// </summary>
-    public virtual string MenuIcon { get; set; }
 }
 
 public class AddCodeGenInput : CodeGenInput
