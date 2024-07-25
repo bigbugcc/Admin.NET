@@ -66,7 +66,7 @@ public class SysTenantService : IDynamicApiController, ITransient
             .WhereIF(!string.IsNullOrWhiteSpace(input.Phone), (u, a) => a.Phone.Contains(input.Phone.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), (u, a, b) => b.Name.Contains(input.Name.Trim()))
             .Where(u => u.Id.ToString() != SqlSugarConst.MainConfigId) // 排除默认主库/主租户
-            .OrderBy(u => u.OrderNo)
+            .OrderBy(u => new { u.OrderNo, u.Id })
             .Select((u, a, b) => new TenantOutput
             {
                 Id = u.Id,

@@ -89,13 +89,13 @@ public class SysMenuService : IDynamicApiController, ITransient
                 .WhereIF(!string.IsNullOrWhiteSpace(input.Title), u => u.Title.Contains(input.Title))
                 .WhereIF(input.Type is > 0, u => u.Type == input.Type)
                 .WhereIF(menuIdList.Count > 1, u => menuIdList.Contains(u.Id))
-                .OrderBy(u => u.OrderNo).ToListAsync();
+                .OrderBy(u => new { u.OrderNo, u.Id }).ToListAsync();
         }
 
         return _userManager.SuperAdmin ?
-            await _sysMenuRep.AsQueryable().OrderBy(u => u.OrderNo).ToTreeAsync(u => u.Children, u => u.Pid, 0) :
+            await _sysMenuRep.AsQueryable().OrderBy(u => new { u.OrderNo, u.Id }).ToTreeAsync(u => u.Children, u => u.Pid, 0) :
             await _sysMenuRep.AsQueryable()
-                .OrderBy(u => u.OrderNo).ToTreeAsync(u => u.Children, u => u.Pid, 0, menuIdList.Select(d => (object)d).ToArray()); // 角色菜单授权时
+                .OrderBy(u => new { u.OrderNo, u.Id }).ToTreeAsync(u => u.Children, u => u.Pid, 0, menuIdList.Select(d => (object)d).ToArray()); // 角色菜单授权时
     }
 
     /// <summary>

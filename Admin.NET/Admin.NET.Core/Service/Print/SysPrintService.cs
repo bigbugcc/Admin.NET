@@ -29,7 +29,7 @@ public class SysPrintService : IDynamicApiController, ITransient
     {
         return await _sysPrintRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), u => u.Name.Contains(input.Name))
-            .OrderBy(u => u.OrderNo)
+            .OrderBy(u => new { u.OrderNo, u.Id })
             .ToPagedListAsync(input.Page, input.PageSize);
     }
 

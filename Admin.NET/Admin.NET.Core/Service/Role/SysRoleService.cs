@@ -47,7 +47,7 @@ public class SysRoleService : IDynamicApiController, ITransient
             .WhereIF(!_userManager.SuperAdmin && !_userManager.SysAdmin, u => u.CreateUserId == _userManager.UserId) // 若非超管且非系统管理员，则只能操作自己创建的角色
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), u => u.Name.Contains(input.Name))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Code), u => u.Code.Contains(input.Code))
-            .OrderBy(u => u.OrderNo)
+            .OrderBy(u => new { u.OrderNo, u.Id })
             .ToPagedListAsync(input.Page, input.PageSize);
     }
 
@@ -64,7 +64,7 @@ public class SysRoleService : IDynamicApiController, ITransient
         return await _sysRoleRep.AsQueryable()
             .WhereIF(!_userManager.SuperAdmin, u => u.TenantId == _userManager.TenantId) // 若非超管，则只能操作本租户的角色
             .WhereIF(!_userManager.SuperAdmin && !_userManager.SysAdmin, u => u.CreateUserId == _userManager.UserId || roleIdList.Contains(u.Id)) // 若非超管且非系统管理员，则只显示自己创建和已拥有的角色
-            .OrderBy(u => u.OrderNo).Select<RoleOutput>().ToListAsync();
+            .OrderBy(u => new { u.OrderNo, u.Id }).Select<RoleOutput>().ToListAsync();
     }
 
     /// <summary>
