@@ -225,4 +225,13 @@ export interface AddCodeGenInput {
      * @memberof AddCodeGenInput
      */
     generateMenu: boolean;
+
+    /**
+     * 菜单图标
+     * 
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+
+    menuIcon?: string | null;
 }
