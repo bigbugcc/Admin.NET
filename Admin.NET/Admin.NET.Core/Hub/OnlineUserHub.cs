@@ -45,6 +45,9 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
     /// <returns></returns>
     public override async Task OnConnectedAsync()
     {
+        if (_userManager == null || _userManager.UserId == 0)
+            return;
+
         var httpContext = Context.GetHttpContext();
         var user = new SysOnlineUser
         {
