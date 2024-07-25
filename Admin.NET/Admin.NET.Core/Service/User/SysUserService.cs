@@ -72,7 +72,7 @@ public class SysUserService : IDynamicApiController, ITransient
             .WhereIF(!string.IsNullOrWhiteSpace(input.Account), u => u.Account.Contains(input.Account))
             .WhereIF(!string.IsNullOrWhiteSpace(input.RealName), u => u.RealName.Contains(input.RealName))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Phone), u => u.Phone.Contains(input.Phone))
-            .OrderBy(u => u.OrderNo)
+            .OrderBy(u => u.Id)
             .Select((u, a, b) => new UserOutput
             {
                 OrgName = a.Name,
