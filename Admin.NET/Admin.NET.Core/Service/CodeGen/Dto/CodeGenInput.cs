@@ -100,6 +100,11 @@ public class CodeGenInput : BasePageInput
     /// 打印模版名称
     /// </summary>
     public virtual string PrintName { get; set; }
+
+    /// <summary>
+    /// 菜单图标
+    /// </summary>
+    public virtual string MenuIcon { get; set; }
 }
 
 public class AddCodeGenInput : CodeGenInput

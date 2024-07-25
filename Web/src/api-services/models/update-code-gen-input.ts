@@ -233,4 +233,13 @@ export interface UpdateCodeGenInput {
      * @memberof UpdateCodeGenInput
      */
     id: number;
+
+    /**
+     * 菜单图标
+     * 
+     * @type {string}
+     * @memberof UpdateCodeGenInput
+     */
+
+    menuIcon?: string | null;
 }
