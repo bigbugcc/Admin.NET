@@ -7,18 +7,30 @@
 		</template>
 
 		<div class="custome-canlendar">
-			<el-calendar v-model="state.calendarValue">
+			<el-calendar v-model="state.calendarValue" ref="calendar">
+				<template #header="{date }">
+					<span>{{ date  }}</span>
+					<el-button-group>
+						<el-button size="small" @click="selectDate('prev-month')">
+							上个月
+						</el-button>
+						<el-button size="small" @click="selectDate('today')">今天</el-button>
+						<el-button size="small" @click="selectDate('next-month')">
+							下个月
+						</el-button>
+					</el-button-group>
+				</template>
 				<template #date-cell="{ data }">
 					<div @click="handleClickDate(data)">
 						<div class="spandate">{{ data.day.split('-').slice(2).join('-') }}</div>
 						<div v-for="(item, key) in state.ScheduleData" :key="key">
 							<el-badge v-if="FormatDate(data.day) == FormatDate(item.scheduleTime)" is-dot class="item"></el-badge>
 						</div>
-
 						<div style="font-size: 10px">
 							{{ solarDate2lunar(data.day) }}
 						</div>
 					</div>
+
 				</template>
 			</el-calendar>
 		</div>
@@ -54,7 +66,8 @@ export default {
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue';
 import { dayjs, ElMessage, ElMessageBox } from 'element-plus';
-import calendar from '/@/utils/calendar.js';
+import type { CalendarDateType, CalendarInstance } from 'element-plus';
+import calendarCom from '/@/utils/calendar.js';
 
 import EditSchedule from '/@/views/home/widgets/components/scheduleEdit.vue';
 
@@ -62,6 +75,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysScheduleApi } from '/@/api-services/api';
 import { SysSchedule } from '/@/api-services/models';
 
+const calendar = ref<CalendarInstance>();
 const editScheduleRef = ref<InstanceType<typeof EditSchedule>>();
 const state = reactive({
 	ScheduleData: [] as Array<SysSchedule>, // 日程列表数据
@@ -72,6 +86,7 @@ const state = reactive({
 		endTime: new Date(),
 	},
 	editTitle: '',
+	currentMonth: '',
 });
 
 // 页面初始化
@@ -81,23 +96,26 @@ onMounted(async () => {
 
 // 查询操作
 const handleQuery = async () => {
-	// debugger;
-	state.queryParams.startTime = GetMonthFirstDay(state.calendarValue);
-	state.queryParams.endTime = GetMonthLastDay(state.calendarValue);
+	state.queryParams.startTime = dayjs(GetMonthFirstDay(state.calendarValue)).add(-1, 'month').toDate();
+	state.queryParams.endTime = dayjs(GetMonthLastDay(state.calendarValue)).add(1, 'month').toDate();
 
 	let params = Object.assign(state.queryParams);
 	var res = await getAPI(SysScheduleApi).apiSysSchedulePagePost(params);
 	state.ScheduleData = res.data.result ?? [];
-	if (state.ScheduleData.length > 0) {
-		state.TodayScheduleData = state.ScheduleData.filter((item) => {
-			return FormatDate(item.scheduleTime) == FormatDate(state.calendarValue);
-		});
-	}
+	// if (state.ScheduleData.length > 0) {
+	state.TodayScheduleData = state.ScheduleData.filter((item) => {
+		return FormatDate(item.scheduleTime) == FormatDate(state.calendarValue);
+	});
+	state.currentMonth = dayjs(state.calendarValue).format('YYYYMM');
 };
 
+const selectDate = async (val: CalendarDateType) => {
+	if (!calendar.value) return;
+	calendar.value.selectDate(val);
+	await handleQuery();
+};
 // 删除
 const delItem = (row: any) => {
-	console.log(row);
 	ElMessageBox.confirm(`确定删日程：${row.startTime}-${row.endTime}【${row.content}】?`, '提示', {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
@@ -127,7 +145,7 @@ const changeStatus = async (row: any) => {
 // 农历转换
 const solarDate2lunar = (solarDate: any) => {
 	var solar = solarDate.split('-');
-	var lunar = calendar.solar2lunar(solar[0], solar[1], solar[2]);
+	var lunar = calendarCom.solar2lunar(solar[0], solar[1], solar[2]);
 	// return solar[1] + '-' + solar[2] + '\n' + lunar.IMonthCn + lunar.IDayCn;
 	return lunar.IMonthCn + lunar.IDayCn;
 };
@@ -158,6 +176,9 @@ const openEditSchedule = async (row: any) => {
 
 // 点击日历中的日期
 const handleClickDate = async (data: any) => {
+	if (state.currentMonth != dayjs(data.day).format('YYYYMM')) {
+		await handleQuery();
+	}
 	await handleQueryByDate(data.day);
 };
 
