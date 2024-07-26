@@ -152,11 +152,13 @@ onMounted(async () => {
 	document.addEventListener('keyup', handleKeyPress);
 });
 
+// 页面初始化
 onUnmounted(() => {
 	document.removeEventListener('keyup', handleKeyPress);
 });
 
-const handleKeyPress = (e: any) => {
+// 检测大小写按键
+const handleKeyPress = (e: KeyboardEvent) => {
 	const isCapsLockOn = e.getModifierState('CapsLock');
 	state.capsLockVisible = isCapsLockOn;
 };
