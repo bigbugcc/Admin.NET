@@ -339,8 +339,8 @@ public class SysFileService : IDynamicApiController, ITransient
         // 防止客户端伪造文件类型
         if (!string.IsNullOrWhiteSpace(allowSuffix) && !allowSuffix.Contains(suffix))
             throw Oops.Oh(ErrorCodeEnum.D8003);
-        if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
-            throw Oops.Oh(ErrorCodeEnum.D8001);
+        //if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix))
+        //    throw Oops.Oh(ErrorCodeEnum.D8001);
 
         var path = string.IsNullOrWhiteSpace(savePath) ? _uploadOptions.Path : savePath;
         path = path.ParseToDateTimeForRep();
