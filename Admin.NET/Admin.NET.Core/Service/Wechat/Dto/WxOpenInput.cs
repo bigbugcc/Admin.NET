@@ -116,3 +116,24 @@ public class AddSubscribeMessageTemplateInput
     [Required(ErrorMessage = "服务场景描述不能为空")]
     public string SceneDescription { get; set; }
 }
+
+/// <summary>
+/// 生成带参数小程序二维码
+/// </summary>
+public class GenerateQRImageInput
+{
+    /// <summary>
+    /// 扫码进入的小程序页面路径，最大长度 128 个字符，不能为空； eg: pages/index?id=0001
+    /// </summary>
+    public string PagePath { get; set; }
+    /// <summary>
+    /// 文件保存的名称
+    /// </summary>
+    public string ImageName { get; set; }
+
+    /// <summary>
+    /// 图片宽度 默认430
+    /// </summary>
+    public int Width { get; set; } = 430;
+}
+
