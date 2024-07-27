@@ -82,6 +82,22 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         if (resUserPhoneNumber.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
             throw Oops.Oh(resUserPhoneNumber.ErrorMessage + " " + resUserPhoneNumber.ErrorCode);
 
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        if (wxUser == null)
+        {
+            wxUser = new SysWechatUser
+            {
+                OpenId = input.OpenId,
+                Mobile = resUserPhoneNumber.PhoneInfo?.PhoneNumber,
+                PlatformType = PlatformTypeEnum.微信小程序
+            };
+            wxUser = await _sysWechatUserRep.AsInsertable(wxUser).ExecuteReturnEntityAsync();
+        }
+        else
+        {
+            wxUser.Mobile = resUserPhoneNumber.PhoneInfo?.PhoneNumber;
+            await _sysWechatUserRep.AsUpdateable(wxUser).IgnoreColumns(true).ExecuteCommandAsync();
+        }
         return new WxPhoneOutput
         {
             PhoneNumber = resUserPhoneNumber.PhoneInfo?.PhoneNumber
