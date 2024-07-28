@@ -7,7 +7,8 @@
     "Redis": {
       "Configuration": "server=127.0.0.1:6379;password=;db=5;", // Redis连接字符串
       "Prefix": "adminnet_", // Redis前缀（目前没用）
-      "MaxMessageSize": "1048576" // 最大消息大小 默认1024 * 1024
+      "MaxMessageSize": "1048576", // 最大消息大小 默认1024 * 1024
+      "AutoDetect": false // 自动检测集群节点 公有云Redis一般放在代理背后，主从架构，如果开启自动检测，将会自动识别主从，导致得到无法连接的内网主从库地址
     }
   },
   "Cluster": { // 集群配置

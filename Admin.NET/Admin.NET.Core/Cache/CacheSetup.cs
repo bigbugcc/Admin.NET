@@ -25,6 +25,9 @@ public static class CacheSetup
                 Configuration = cacheOptions.Redis.Configuration,
                 Prefix = cacheOptions.Redis.Prefix
             });
+            // 自动检测集群节点
+            redis.AutoDetect = App.GetConfig<bool>("Cache:Redis:AutoDetect", true);
+            // 最大消息大小
             if (cacheOptions.Redis.MaxMessageSize > 0)
                 redis.MaxMessageSize = cacheOptions.Redis.MaxMessageSize;
 
