@@ -126,6 +126,7 @@ public class GenerateQRImageInput
     /// 扫码进入的小程序页面路径，最大长度 128 个字符，不能为空； eg: pages/index?id=0001
     /// </summary>
     public string PagePath { get; set; }
+
     /// <summary>
     /// 文件保存的名称
     /// </summary>
@@ -136,4 +137,3 @@ public class GenerateQRImageInput
     /// </summary>
     public int Width { get; set; } = 430;
 }
-
