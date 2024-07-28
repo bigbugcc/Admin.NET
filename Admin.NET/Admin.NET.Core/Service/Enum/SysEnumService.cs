@@ -60,7 +60,7 @@ public class SysEnumService : IDynamicApiController, ITransient
             TypeDescribe = description,
             TypeName = type.Name,
             TypeRemark = description,
-            EnumEntities = enumType.EnumToList()
+            EnumEntities = (enumType ?? type).EnumToList()
         };
     }
 
