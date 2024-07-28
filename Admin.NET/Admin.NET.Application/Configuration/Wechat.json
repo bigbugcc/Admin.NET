@@ -11,7 +11,8 @@
     "WxOpenAppId": "",
     "WxOpenAppSecret": "",
     "WxToken": "", // 小程序消息推送中的令牌(Token)
-    "WxEncodingAESKey": "" // 小程序消息推送中的消息加解密密钥(EncodingAESKey)
+    "WxEncodingAESKey": "", // 小程序消息推送中的消息加解密密钥(EncodingAESKey)
+    "QRImagePath": "" //小程序生成带参数二维码保存位置（绝对路径 eg: d:\\Web\\wwwroot\\Upload\\QRImage）
   },
   // 微信支付
   "WechatPay": {

@@ -15,3 +15,10 @@ public class WxPhoneOutput
 {
     public string PhoneNumber { get; set; }
 }
+
+public class GenerateQRImageOutput
+{
+    public bool Success { get; set; }
+    public string ImgPath { get; set; }
+    public string Message { get; set; }
+}

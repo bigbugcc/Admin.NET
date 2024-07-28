@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Furion.LinqBuilder;
+using System;
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -82,6 +85,22 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         if (resUserPhoneNumber.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
             throw Oops.Oh(resUserPhoneNumber.ErrorMessage + " " + resUserPhoneNumber.ErrorCode);
 
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        if (wxUser == null)
+        {
+            wxUser = new SysWechatUser
+            {
+                OpenId = input.OpenId,
+                Mobile = resUserPhoneNumber.PhoneInfo?.PhoneNumber,
+                PlatformType = PlatformTypeEnum.微信小程序
+            };
+            wxUser = await _sysWechatUserRep.AsInsertable(wxUser).ExecuteReturnEntityAsync();
+        }
+        else
+        {
+            wxUser.Mobile = resUserPhoneNumber.PhoneInfo?.PhoneNumber;
+            await _sysWechatUserRep.AsUpdateable(wxUser).IgnoreColumns(true).ExecuteCommandAsync();
+        }
         return new WxPhoneOutput
         {
             PhoneNumber = resUserPhoneNumber.PhoneInfo?.PhoneNumber
@@ -175,6 +194,69 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         var resTemplate = await _wechatApiClient.ExecuteWxaApiNewTemplateAddTemplateAsync(reqMessage);
         return resTemplate;
     }
+
+    /// <summary>
+    /// 生成二维码
+    /// </summary>
+    /// <param name="input"> 扫码进入的小程序页面路径，最大长度 128 个字符，不能为空； eg: pages / index ? id = AY000001 </param>
+    /// <returns></returns>
+    [DisplayName("生成小程序二维码")]
+    [ApiDescriptionSettings(Name = "GenerateQRImage")]
+    public async Task<GenerateQRImageOutput> GenerateQRImageAsync(GenerateQRImageInput input)
+    {
+        GenerateQRImageOutput generateQRImageOutInput = new GenerateQRImageOutput();
+        if (input.PagePath.IsNullOrEmpty())
+        {
+            generateQRImageOutInput.Success = false;
+            generateQRImageOutInput.ImgPath = "";
+            generateQRImageOutInput.Message = $"生成失败 页面路径不能为空";
+            return generateQRImageOutInput;
+        }
+
+        if (input.ImageName.IsNullOrEmpty())
+        {
+            input.ImageName = DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
+
+        var accessToken = await GetCgibinToken();
+        var request = new CgibinWxaappCreateWxaQrcodeRequest
+        {
+            AccessToken = accessToken,
+            Path = input.PagePath,
+            Width = input.Width
+        };
+        var response = await _wechatApiClient.ExecuteCgibinWxaappCreateWxaQrcodeAsync(request);
+
+        if (response.IsSuccessful())
+        {
+            var QRImagePath = App.GetConfig<string>("Wechat:QRImagePath");
+            //判断文件存放路径是否存在
+            if (!Directory.Exists(QRImagePath))
+            {
+                Directory.CreateDirectory(QRImagePath);
+            }
+            // 将二维码图片数据保存为文件
+            var filePath = QRImagePath + $"\\{input.ImageName.ToUpper()}.png";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            File.WriteAllBytes(filePath, response.GetRawBytes());
+
+            generateQRImageOutInput.Success = true;
+            generateQRImageOutInput.ImgPath = filePath;
+            generateQRImageOutInput.Message = "生成成功";
+        }
+        else
+        {
+            // 处理错误情况
+            generateQRImageOutInput.Success = false;
+            generateQRImageOutInput.ImgPath = "";
+            generateQRImageOutInput.Message = $"生成失败 错误代码：{response.ErrorCode}  错误描述：{response.ErrorMessage}";
+        }
+        return generateQRImageOutInput;
+    }
+
 
     /// <summary>
     /// 获取Access_token
