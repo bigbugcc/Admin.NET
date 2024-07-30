@@ -485,7 +485,10 @@ const onColorPickerChange = () => {
 // 2、菜单 / 顶栏
 const onBgColorPickerChange = (bg: string) => {
 	document.documentElement.style.setProperty(`--next-bg-${bg}`, themeConfig.value[bg]);
-	if (bg === 'menuBar') {
+	if(bg === 'menuBarColor'){
+		document.documentElement.style.setProperty(`--el-menu-text-color`, themeConfig.value[bg]);
+	}
+    if (bg === 'menuBar') {
 		document.documentElement.style.setProperty(`--next-bg-menuBar-light-1`, getLightColor(getThemeConfig.value.menuBar, 0.05));
 	}
 	onTopBarGradualChange();
