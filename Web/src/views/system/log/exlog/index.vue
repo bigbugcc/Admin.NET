@@ -8,26 +8,26 @@
 				<el-form-item label="结束时间">
 					<el-date-picker v-model="state.queryParams.endTime" type="datetime" placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
 				</el-form-item>
-				<el-form-item label="模块名称" >
+				<el-form-item label="模块名称">
 					<el-input v-model="state.queryParams.controllerName" placeholder="方法名称" clearable />
 				</el-form-item>
-				<el-form-item label="方法名称" >
+				<el-form-item label="方法名称">
 					<el-input v-model="state.queryParams.actionName" placeholder="方法名称" clearable />
 				</el-form-item>
-				<el-form-item label="账号名称" >
-					<el-input v-model="state.queryParams.account" placeholder="账号名称" clearable  />
+				<el-form-item label="账号名称">
+					<el-input v-model="state.queryParams.account" placeholder="账号名称" clearable />
 				</el-form-item>
-				<el-form-item label="状态" >
-					<el-select v-model="state.queryParams.status" placeholder="状态"  clearable >
+				<el-form-item label="状态">
+					<el-select v-model="state.queryParams.status" placeholder="状态" clearable>
 						<el-option label="成功" :value="200" />
 						<el-option label="失败" :value="400" />
 					</el-select>
 				</el-form-item>
-				<el-form-item label="耗时" >
-					<el-input v-model="state.queryParams.elapsed" placeholder="耗时>?MS"  clearable  />
+				<el-form-item label="耗时">
+					<el-input v-model="state.queryParams.elapsed" placeholder="耗时>?MS" clearable />
 				</el-form-item>
-				<el-form-item label="IP地址" >
-					<el-input v-model="state.queryParams.remoteIp" placeholder="IP地址"  clearable  />
+				<el-form-item label="IP地址">
+					<el-input v-model="state.queryParams.remoteIp" placeholder="IP地址" clearable />
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
@@ -126,12 +126,12 @@ const state = reactive({
 	queryParams: {
 		startTime: undefined,
 		endTime: undefined,
-		status:undefined,
-		controllerName:undefined,
-		actionName:undefined,
-		account:undefined,
-		elapsed:undefined,
-		remoteIp:undefined,
+		status: undefined,
+		controllerName: undefined,
+		actionName: undefined,
+		account: undefined,
+		elapsed: undefined,
+		remoteIp: undefined,
 	},
 	tableParams: {
 		page: 1,

@@ -2,26 +2,26 @@
 	<div class="sys-oplog-container" v-loading="state.loading">
 		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
-				<el-form-item label="开始时间" >
+				<el-form-item label="开始时间">
 					<el-date-picker v-model="state.queryParams.startTime" type="datetime" placeholder="开始时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
 				</el-form-item>
-				<el-form-item label="结束时间" >
+				<el-form-item label="结束时间">
 					<el-date-picker v-model="state.queryParams.endTime" type="datetime" placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
 				</el-form-item>
-				<el-form-item label="模块名称" >
+				<el-form-item label="模块名称">
 					<el-input v-model="state.queryParams.controllerName" placeholder="方法名称" clearable />
 				</el-form-item>
-				<el-form-item label="方法名称" >
+				<el-form-item label="方法名称">
 					<el-input v-model="state.queryParams.actionName" placeholder="方法名称" clearable />
 				</el-form-item>
-				<el-form-item label="账号名称" >
-					<el-input v-model="state.queryParams.account" placeholder="账号名称" clearable  />
+				<el-form-item label="账号名称">
+					<el-input v-model="state.queryParams.account" placeholder="账号名称" clearable />
 				</el-form-item>
-				<el-form-item label="耗时" >
-					<el-input v-model="state.queryParams.elapsed" placeholder="耗时>?MS"  clearable  />
+				<el-form-item label="耗时">
+					<el-input v-model="state.queryParams.elapsed" placeholder="耗时>?MS" clearable />
 				</el-form-item>
-				<el-form-item label="IP地址" >
-					<el-input v-model="state.queryParams.remoteIp" placeholder="IP地址"  clearable  />
+				<el-form-item label="IP地址">
+					<el-input v-model="state.queryParams.remoteIp" placeholder="IP地址" clearable />
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
@@ -120,11 +120,11 @@ const state = reactive({
 	queryParams: {
 		startTime: undefined,
 		endTime: undefined,
-		controllerName:undefined,
-		actionName:undefined,
-		account:undefined,
-		elapsed:undefined,
-		remoteIp:undefined,
+		controllerName: undefined,
+		actionName: undefined,
+		account: undefined,
+		elapsed: undefined,
+		remoteIp: undefined,
 	},
 	tableParams: {
 		page: 1,
@@ -152,7 +152,7 @@ const handleQuery = async () => {
 	if (state.queryParams.account == null) state.queryParams.account = undefined;
 	if (state.queryParams.elapsed == null) state.queryParams.elapsed = undefined;
 	if (state.queryParams.remoteIp == null) state.queryParams.remoteIp = undefined;
-	
+
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
 	var res = await getAPI(SysLogOpApi).apiSysLogOpPagePost(params);

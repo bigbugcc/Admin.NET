@@ -6,14 +6,6 @@
 
 namespace Admin.NET.Core.Service;
 
-public class PageExLogInput : PageOpLogInput
-{
-    /// <summary>
-    /// 模块名称
-    /// </summary>
-    public string? ControllerName { get; set; }
-}
-
 public class PageOpLogInput : PageVisLogInput
 {
     /// <summary>
@@ -21,6 +13,11 @@ public class PageOpLogInput : PageVisLogInput
     /// </summary>
     public string? ControllerName { get; set; }
 }
+
+public class PageExLogInput : PageOpLogInput
+{
+}
+
 public class PageVisLogInput : PageLogInput
 {
     /// <summary>
@@ -28,6 +25,7 @@ public class PageVisLogInput : PageLogInput
     ///</summary>
     public string? ActionName { get; set; }
 }
+
 public class PageLogInput : BasePageInput
 {
     /// <summary>
