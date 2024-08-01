@@ -246,7 +246,7 @@ watch(
 			z-index: 1;
 			&:hover {
 				//@extend .layout-columns-hover;
-                background-color: var(--el-color-primary-light-3);
+				background-color: var(--el-color-primary-light-3);
 			}
 			.columns-vertical {
 				margin: auto;
