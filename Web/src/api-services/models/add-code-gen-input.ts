@@ -155,6 +155,14 @@ export interface AddCodeGenInput {
     menuPid?: number | null;
 
     /**
+     * 菜单图标
+     *
+     * @type {string}
+     * @memberof AddCodeGenInput
+     */
+    menuIcon?: string | null;
+
+    /**
      * 页面目录
      *
      * @type {string}
@@ -225,13 +233,4 @@ export interface AddCodeGenInput {
      * @memberof AddCodeGenInput
      */
     generateMenu: boolean;
-
-    /**
-     * 菜单图标
-     * 
-     * @type {string}
-     * @memberof UpdateCodeGenInput
-     */
-
-    menuIcon?: string | null;
 }

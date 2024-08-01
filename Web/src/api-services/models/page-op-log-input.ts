@@ -15,16 +15,16 @@
 import { Filter } from './filter';
 import { Search } from './search';
  /**
- * 获取用户分页列表输入参数
+ * 
  *
  * @export
- * @interface PageUserInput
+ * @interface PageOpLogInput
  */
-export interface PageUserInput {
+export interface PageOpLogInput {
 
     /**
      * @type {Search}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     search?: Search;
 
@@ -32,13 +32,13 @@ export interface PageUserInput {
      * 模糊查询关键字
      *
      * @type {string}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     keyword?: string | null;
 
     /**
      * @type {Filter}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     filter?: Filter;
 
@@ -46,7 +46,7 @@ export interface PageUserInput {
      * 当前页码
      *
      * @type {number}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     page?: number;
 
@@ -54,7 +54,7 @@ export interface PageUserInput {
      * 页码容量
      *
      * @type {number}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     pageSize?: number;
 
@@ -62,7 +62,7 @@ export interface PageUserInput {
      * 排序字段
      *
      * @type {string}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     field?: string | null;
 
@@ -70,7 +70,7 @@ export interface PageUserInput {
      * 排序方向
      *
      * @type {string}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     order?: string | null;
 
@@ -78,47 +78,71 @@ export interface PageUserInput {
      * 降序排序
      *
      * @type {string}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     descStr?: string | null;
+
+    /**
+     * 开始时间
+     *
+     * @type {Date}
+     * @memberof PageOpLogInput
+     */
+    startTime?: Date | null;
+
+    /**
+     * 结束时间
+     *
+     * @type {Date}
+     * @memberof PageOpLogInput
+     */
+    endTime?: Date | null;
 
     /**
      * 账号
      *
      * @type {string}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
     account?: string | null;
 
     /**
-     * 姓名
-     *
-     * @type {string}
-     * @memberof PageUserInput
-     */
-    realName?: string | null;
-
-    /**
-     * 职位名称
-     *
-     * @type {string}
-     * @memberof PageUserInput
-     */
-    posName?: string | null;
-
-    /**
-     * 手机号
-     *
-     * @type {string}
-     * @memberof PageUserInput
-     */
-    phone?: string | null;
-
-    /**
-     * 查询时所选机构Id
+     * 操作用时
      *
      * @type {number}
-     * @memberof PageUserInput
+     * @memberof PageOpLogInput
      */
-    orgId?: number;
+    elapsed?: number | null;
+
+    /**
+     * 状态
+     *
+     * @type {string}
+     * @memberof PageOpLogInput
+     */
+    status?: string | null;
+
+    /**
+     * IP地址
+     *
+     * @type {string}
+     * @memberof PageOpLogInput
+     */
+    remoteIp?: string | null;
+
+    /**
+     * 方法名称
+     *
+     * @type {string}
+     * @memberof PageOpLogInput
+     */
+    actionName?: string | null;
+
+    /**
+     * 模块名称
+     *
+     * @type {string}
+     * @memberof PageOpLogInput
+     */
+    controllerName?: string | null;
 }

@@ -203,6 +203,14 @@ export interface CodeGenInput {
     menuPid?: number | null;
 
     /**
+     * 菜单图标
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    menuIcon?: string | null;
+
+    /**
      * 页面目录
      *
      * @type {string}

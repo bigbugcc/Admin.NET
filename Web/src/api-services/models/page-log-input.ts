@@ -97,4 +97,36 @@ export interface PageLogInput {
      * @memberof PageLogInput
      */
     endTime?: Date | null;
+
+    /**
+     * 账号
+     *
+     * @type {string}
+     * @memberof PageLogInput
+     */
+    account?: string | null;
+
+    /**
+     * 操作用时
+     *
+     * @type {number}
+     * @memberof PageLogInput
+     */
+    elapsed?: number | null;
+
+    /**
+     * 状态
+     *
+     * @type {string}
+     * @memberof PageLogInput
+     */
+    status?: string | null;
+
+    /**
+     * IP地址
+     *
+     * @type {string}
+     * @memberof PageLogInput
+     */
+    remoteIp?: string | null;
 }

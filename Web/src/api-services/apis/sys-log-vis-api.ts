@@ -18,7 +18,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { AdminResultSqlSugarPagedListSysLogVis } from '../models';
-import { PageLogInput } from '../models';
+import { PageVisLogInput } from '../models';
 /**
  * SysLogVisApi - axios parameter creator
  * @export
@@ -71,11 +71,11 @@ export const SysLogVisApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary 获取访问日志分页列表 🔖
-         * @param {PageLogInput} [body] 
+         * @param {PageVisLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysLogVisPagePost: async (body?: PageLogInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysLogVisPagePost: async (body?: PageVisLogInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysLogVis/page`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -141,11 +141,11 @@ export const SysLogVisApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取访问日志分页列表 🔖
-         * @param {PageLogInput} [body] 
+         * @param {PageVisLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogVisPagePost(body?: PageLogInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>>> {
+        async apiSysLogVisPagePost(body?: PageVisLogInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>>> {
             const localVarAxiosArgs = await SysLogVisApiAxiosParamCreator(configuration).apiSysLogVisPagePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -173,11 +173,11 @@ export const SysLogVisApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary 获取访问日志分页列表 🔖
-         * @param {PageLogInput} [body] 
+         * @param {PageVisLogInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysLogVisPagePost(body?: PageLogInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>> {
+        async apiSysLogVisPagePost(body?: PageVisLogInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>> {
             return SysLogVisApiFp(configuration).apiSysLogVisPagePost(body, options).then((request) => request(axios, basePath));
         },
     };
@@ -203,12 +203,12 @@ export class SysLogVisApi extends BaseAPI {
     /**
      * 
      * @summary 获取访问日志分页列表 🔖
-     * @param {PageLogInput} [body] 
+     * @param {PageVisLogInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysLogVisApi
      */
-    public async apiSysLogVisPagePost(body?: PageLogInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>> {
+    public async apiSysLogVisPagePost(body?: PageVisLogInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysLogVis>> {
         return SysLogVisApiFp(this.configuration).apiSysLogVisPagePost(body, options).then((request) => request(this.axios, this.basePath));
     }
 }
