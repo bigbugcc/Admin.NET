@@ -18,6 +18,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { AdminResultSqlSugarPagedListSysLogEx } from '../models';
+import { AdminResultSysLogEx } from '../models';
 import { LogInput } from '../models';
 import { PageExLogInput } from '../models';
 /**
@@ -41,6 +42,55 @@ export const SysLogExApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取异常日志详情 🔖
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysLogExDetailIdGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysLogExDetailIdGet.');
+            }
+            const localVarPath = `/api/sysLogEx/detail/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -189,6 +239,20 @@ export const SysLogExApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取异常日志详情 🔖
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLogExDetailIdGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysLogEx>>> {
+            const localVarAxiosArgs = await SysLogExApiAxiosParamCreator(configuration).apiSysLogExDetailIdGet(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 导出异常日志 🔖
          * @param {LogInput} [body] 
          * @param {*} [options] Override http request option.
@@ -235,6 +299,16 @@ export const SysLogExApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary 获取异常日志详情 🔖
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLogExDetailIdGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysLogEx>> {
+            return SysLogExApiFp(configuration).apiSysLogExDetailIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 导出异常日志 🔖
          * @param {LogInput} [body] 
          * @param {*} [options] Override http request option.
@@ -272,6 +346,17 @@ export class SysLogExApi extends BaseAPI {
      */
     public async apiSysLogExClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysLogExApiFp(this.configuration).apiSysLogExClearPost(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取异常日志详情 🔖
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysLogExApi
+     */
+    public async apiSysLogExDetailIdGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysLogEx>> {
+        return SysLogExApiFp(this.configuration).apiSysLogExDetailIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

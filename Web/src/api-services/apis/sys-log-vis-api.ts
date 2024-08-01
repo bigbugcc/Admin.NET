@@ -17,6 +17,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { AdminResultListLogVisOutput } from '../models';
 import { AdminResultSqlSugarPagedListSysLogVis } from '../models';
 import { PageVisLogInput } from '../models';
 /**
@@ -40,6 +41,49 @@ export const SysLogVisApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取访问日志列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysLogVisListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLogVis/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -140,6 +184,19 @@ export const SysLogVisApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取访问日志列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLogVisListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListLogVisOutput>>> {
+            const localVarAxiosArgs = await SysLogVisApiAxiosParamCreator(configuration).apiSysLogVisListGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取访问日志分页列表 🔖
          * @param {PageVisLogInput} [body] 
          * @param {*} [options] Override http request option.
@@ -172,6 +229,15 @@ export const SysLogVisApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary 获取访问日志列表 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLogVisListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListLogVisOutput>> {
+            return SysLogVisApiFp(configuration).apiSysLogVisListGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取访问日志分页列表 🔖
          * @param {PageVisLogInput} [body] 
          * @param {*} [options] Override http request option.
@@ -199,6 +265,16 @@ export class SysLogVisApi extends BaseAPI {
      */
     public async apiSysLogVisClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysLogVisApiFp(this.configuration).apiSysLogVisClearPost(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取访问日志列表 🔖
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysLogVisApi
+     */
+    public async apiSysLogVisListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListLogVisOutput>> {
+        return SysLogVisApiFp(this.configuration).apiSysLogVisListGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
