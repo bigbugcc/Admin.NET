@@ -34,6 +34,11 @@ public class PageUserInput : BasePageInput
     public string RealName { get; set; }
 
     /// <summary>
+    /// 职位名称
+    /// </summary>
+    public string PosName { get; set; }
+
+    /// <summary>
     /// 手机号
     /// </summary>
     public string Phone { get; set; }

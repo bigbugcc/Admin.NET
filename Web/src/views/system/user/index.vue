@@ -11,9 +11,12 @@
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />
 						</el-form-item>
-						<!-- <el-form-item label="姓名">
+						<el-form-item label="姓名">
 							<el-input v-model="state.queryParams.realName" placeholder="姓名" clearable  />
-						</el-form-item> -->
+						</el-form-item>
+						<el-form-item label="职位名称">
+							<el-input v-model="state.queryParams.posName" placeholder="职位名称" clearable  />
+						</el-form-item>
 						<el-form-item label="手机号码">
 							<el-input v-model="state.queryParams.phone" placeholder="手机号码" clearable />
 						</el-form-item>
@@ -134,6 +137,7 @@ const state = reactive({
 		account: undefined,
 		realName: undefined,
 		phone: undefined,
+		posName:undefined,
 	},
 	tableParams: {
 		page: 1,
@@ -172,6 +176,7 @@ const resetQuery = async () => {
 	state.queryParams.account = undefined;
 	state.queryParams.realName = undefined;
 	state.queryParams.phone = undefined;
+	state.queryParams.posName=undefined;
 	await handleQuery();
 };
 
