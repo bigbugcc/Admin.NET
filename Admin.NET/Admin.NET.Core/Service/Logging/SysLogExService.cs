@@ -38,8 +38,20 @@ public class SysLogExService : IDynamicApiController, ITransient
             .WhereIF(!string.IsNullOrWhiteSpace(input.Status) && input.Status == "200", u => u.Status == input.Status)
             .WhereIF(!string.IsNullOrWhiteSpace(input.Status) && input.Status != "200", u => u.Status != input.Status)
             //.OrderBy(u => u.CreateTime, OrderByType.Desc)
+            .IgnoreColumns(u => new { u.RequestParam, u.ReturnResult, u.Message })
             .OrderBuilder(input)
             .ToPagedListAsync(input.Page, input.PageSize);
+    }
+
+    /// <summary>
+    /// 获取异常日志详情 🔖
+    /// </summary>
+    /// <returns></returns>
+    [SuppressMonitor]
+    [DisplayName("获取异常日志详情")]
+    public async Task<SysLogEx> GetDetail(long id)
+    {
+        return await _sysLogExRep.GetFirstAsync(u => u.Id == id);
     }
 
     /// <summary>

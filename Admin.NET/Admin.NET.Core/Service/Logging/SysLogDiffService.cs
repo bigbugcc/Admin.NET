@@ -35,6 +35,17 @@ public class SysLogDiffService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 获取差异日志详情 🔖
+    /// </summary>
+    /// <returns></returns>
+    [SuppressMonitor]
+    [DisplayName("获取差异日志详情")]
+    public async Task<SysLogDiff> GetDetail(long id)
+    {
+        return await _sysLogDiffRep.GetFirstAsync(u => u.Id == id);
+    }
+
+    /// <summary>
     /// 清空差异日志 🔖
     /// </summary>
     /// <returns></returns>

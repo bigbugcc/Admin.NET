@@ -36,8 +36,20 @@ public class SysLogOpService : IDynamicApiController, ITransient
             .WhereIF(!string.IsNullOrWhiteSpace(input.ActionName), u => u.ActionName == input.ActionName)
             .WhereIF(!string.IsNullOrWhiteSpace(input.Elapsed.ToString()), u => u.Elapsed >= input.Elapsed)
             //.OrderBy(u => u.CreateTime, OrderByType.Desc)
+            .IgnoreColumns(u => new { u.RequestParam, u.ReturnResult, u.Message })
             .OrderBuilder(input)
             .ToPagedListAsync(input.Page, input.PageSize);
+    }
+
+    /// <summary>
+    /// 获取操作日志详情 🔖
+    /// </summary>
+    /// <returns></returns>
+    [SuppressMonitor]
+    [DisplayName("获取操作日志详情")]
+    public async Task<SysLogOp> GetDetail(long id)
+    {
+        return await _sysLogOpRep.GetFirstAsync(u => u.Id == id);
     }
 
     /// <summary>

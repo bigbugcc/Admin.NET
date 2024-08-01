@@ -50,4 +50,23 @@ public class SysLogVisService : IDynamicApiController, ITransient
     {
         _sysLogVisRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogVis>();
     }
+
+    /// <summary>
+    /// 获取访问日志列表 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取访问日志列表")]
+    public async Task<List<LogVisOutput>> GetList()
+    {
+        return await _sysLogVisRep.AsQueryable()
+            .Where(u => u.Longitude > 0 && u.Longitude > 0)
+            .Select(u => new LogVisOutput
+            {
+                Location = u.Location,
+                Longitude = u.Longitude,
+                Latitude = u.Latitude,
+                RealName = u.RealName,
+                LogDateTime = u.LogDateTime
+            }).ToListAsync();
+    }
 }
