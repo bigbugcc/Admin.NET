@@ -38,4 +38,7 @@
     {
         width: 100% !important;
     }
+	.el-form--inline .el-form-item:has(.el-form-item__label) {
+		margin-right: 0;
+	}
 }
