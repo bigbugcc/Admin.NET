@@ -325,20 +325,6 @@ public class SysAuthService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取登录配置 🔖
-    /// </summary>
-    /// <returns></returns>
-    [AllowAnonymous]
-    [SuppressMonitor]
-    [DisplayName("获取登录配置")]
-    public async Task<dynamic> GetLoginConfig()
-    {
-        var secondVerEnabled = await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSecondVer);
-        var captchaEnabled = await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysCaptcha);
-        return new { SecondVerEnabled = secondVerEnabled, CaptchaEnabled = captchaEnabled };
-    }
-
-    /// <summary>
     /// 获取验证码 🔖
     /// </summary>
     /// <returns></returns>

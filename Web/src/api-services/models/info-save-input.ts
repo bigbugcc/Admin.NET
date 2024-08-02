@@ -91,4 +91,20 @@ export interface InfoSaveInput {
      * @memberof InfoSaveInput
      */
     sysIcpUrl?: string | null;
+    
+    /**
+     * 登录二次验证
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    sysSecondVer?: string | null;
+    
+    /**
+     * 图形验证码
+     *
+     * @type {string}
+     * @memberof InfoSaveInput
+     */
+    sysCaptcha?: string | null;
 }

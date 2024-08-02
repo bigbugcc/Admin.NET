@@ -37,6 +37,19 @@
 				<el-descriptions-item label="ICP地址">
 					<el-input v-model="state.formData.sysIcpUrl" />
 				</el-descriptions-item>
+				<el-descriptions-item label="登录二次验证">
+					<el-radio-group v-model="state.formData.sysSecondVer">
+								<el-radio :value="true">启用</el-radio>
+								<el-radio :value="false">禁用</el-radio>
+							</el-radio-group>
+				</el-descriptions-item>
+				<el-descriptions-item label="图形验证码">
+					<el-radio-group v-model="state.formData.sysCaptcha">
+								<el-radio :value="true">启用</el-radio>
+								<el-radio :value="false">禁用</el-radio>
+							</el-radio-group>
+				</el-descriptions-item>
+				
 				<template #extra>
 					<el-button type="primary" icon="ele-SuccessFilled" @click="onSave">保存</el-button>
 				</template>
@@ -68,6 +81,8 @@ const state = reactive({
 		sysCopyright: '',
 		sysIcp: '',
 		sysIcpUrl: '',
+		sysSecondVer:undefined,
+		sysCaptcha:undefined,
 	},
 });
 
@@ -100,7 +115,9 @@ const onSave = async () => {
 			sysWatermark: state.formData.sysWatermark,
 			sysCopyright: state.formData.sysCopyright,
 			sysIcp: state.formData.sysIcp,
-			sysIcpUrl: state.formData.sysIcpUrl,
+			sysIcpUrl: state.formData.sysIcpUrl,			
+			sysSecondVer: state.formData.sysSecondVer,
+			sysCaptcha: state.formData.sysCaptcha,
 		});
 		if (res.data!.type !== 'success') return;
 
@@ -133,7 +150,9 @@ const loadData = async () => {
 			sysWatermark: result.sysWatermark,
 			sysCopyright: result.sysCopyright,
 			sysIcp: result.sysIcp,
-			sysIcpUrl: result.sysIcpUrl,
+			sysIcpUrl: result.sysIcpUrl,			
+			sysSecondVer: result.sysSecondVer,
+			sysCaptcha: result.sysCaptcha,
 		};
 	} finally {
 		nextTick(() => {
