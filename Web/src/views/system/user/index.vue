@@ -1,12 +1,11 @@
 <template>
 	<div class="sys-user-container">
-		<el-row :gutter="5" style="width: 100%; flex: 1">
-			<el-col :span="4" :xs="24">
-				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
-			</el-col>
-
-			<el-col :span="20" :xs="24" style="display: flex; flex-direction: column">
-				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+		<splitpanes>
+  <pane size="16">
+    <OrgTree ref="orgTreeRef" @node-click="nodeClick" />
+  </pane>
+  <pane size="94">
+    <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />
@@ -106,8 +105,8 @@
 						layout="total, sizes, prev, pager, next, jumper"
 					/>
 				</el-card>
-			</el-col>
-		</el-row>
+  </pane>
+</splitpanes>
 
 		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
 	</div>
@@ -121,6 +120,9 @@ import { auth } from '/@/utils/authFunction';
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditUser from '/@/views/system/user/component/editUser.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
+
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
