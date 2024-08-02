@@ -101,7 +101,7 @@
 					<span> 日志详情 </span>
 				</div>
 			</template>
-			<pre>{{ state.content }}</pre>
+			<pre v-loading="state.loadingDetail">{{ state.content }}</pre>
 		</el-dialog>
 	</div>
 </template>
@@ -117,6 +117,7 @@ import { SysLogOp } from '/@/api-services/models';
 
 const state = reactive({
 	loading: false,
+	loadingDetail: false,
 	queryParams: {
 		startTime: undefined,
 		endTime: undefined,
@@ -206,9 +207,14 @@ const handleCurrentChange = (val: number) => {
 };
 
 // 查看详情
-const viewDetail = (row: any) => {
-	state.content = row.message;
+const viewDetail = async (row: any) => {
+	state.content = '';
 	state.dialogVisible = true;
+	state.loadingDetail = true;
+	var res = await getAPI(SysLogOpApi).apiSysLogOpDetailIdGet(row.id);
+	row.message = res.data.result?.message ?? '';
+	state.content = row.message;
+	state.loadingDetail = false;
 };
 
 // 设置行颜色
