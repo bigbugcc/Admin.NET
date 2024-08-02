@@ -60,7 +60,7 @@ public class EnumToDictJob : IJob
                                 dictData.Code = enumData.Name;
                                 dictData.OrderNo = enumData.Value + 10;
                                 dictData.Name = enumData.Describe;
-                                dictData.TagType = enumData.Theme != "" ? enumData.Theme : "info";
+                                dictData.TagType = enumData.Theme != "" ? enumData.Theme : dictData.TagType != "" ? dictData.TagType : "info";
                                 uSysDictData.Add(dictData);
                             }
                         });
