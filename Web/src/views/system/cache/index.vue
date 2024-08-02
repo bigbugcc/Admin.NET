@@ -1,42 +1,48 @@
 <template>
 	<div class="sys-cache-container">
-		<NoticeBar text="系统缓存数据管理，请慎重操作！" leftIcon="iconfont icon-tongzhi2" background="var(--el-color-primary-light-9)" color="var(--el-color-primary)" />
-		<el-row :gutter="8" style="width: 100%">
-			<el-col :span="8" :xs="24">
-				<el-card shadow="hover" header="缓存列表" v-loading="state.loading" class="mt8">
-					<template #header>
-						<div class="card-header">
-							<span>缓存列表</span>
-							<el-button icon="ele-Refresh" size="small" circle text @click="handleQuery" v-auth="'sysCache:keyList'" />
-						</div>
-					</template>
-					<el-tree
-						ref="treeRef"
-						class="filter-tree"
-						:data="state.cacheData"
-						node-key="id"
-						:props="{ children: 'children', label: 'name' }"
-						@node-click="nodeClick"
-						:default-checked-keys="state.cacheData"
-						highlight-current
-						check-strictly
-						default-expand-all
-						accordion
-					/>
-				</el-card>
-			</el-col>
-			<el-col :span="16" :xs="24">
-				<el-card shadow="hover" header="缓存数据" v-loading="state.loading1" class="mt8">
-					<template #header>
-						<div class="card-header">
-							<span>{{ `缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}` }}</span>
-							<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
-						</div>
-					</template>
-					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
-				</el-card>
-			</el-col>
-		</el-row>
+		<splitpanes horizontal >
+			<pane size="5">
+				<NoticeBar text="系统缓存数据管理，请慎重操作！" leftIcon="iconfont icon-tongzhi2" background="var(--el-color-primary-light-9)" color="var(--el-color-primary)" />
+			</pane>
+			<pane size="95">
+				<splitpanes>
+					<pane size="20">
+						<el-card shadow="hover" header="缓存列表" v-loading="state.loading" class="mt8" style="height: 100%" body-style="height:100%; overflow:auto">
+							<template #header>
+								<div class="card-header">
+									<span>缓存列表</span>
+									<el-button icon="ele-Refresh" size="small" circle text @click="handleQuery" v-auth="'sysCache:keyList'" />
+								</div>
+							</template>
+							<el-tree
+								ref="treeRef"
+								class="filter-tree"
+								:data="state.cacheData"
+								node-key="id"
+								:props="{ children: 'children', label: 'name' }"
+								@node-click="nodeClick"
+								:default-checked-keys="state.cacheData"
+								highlight-current
+								check-strictly
+								default-expand-all
+								accordion
+							/>
+						</el-card>
+					</pane>
+					<pane size="80">
+						<el-card shadow="hover" header="缓存数据" v-loading="state.loading1" class="mt8" style="height: 100%" body-style="height:100%; overflow:auto">
+							<template #header>
+								<div class="card-header">
+									<span>{{ `缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}` }}</span>
+									<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
+								</div>
+							</template>
+							<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
+						</el-card>
+					</pane>
+				</splitpanes>
+			</pane>
+		</splitpanes>
 	</div>
 </template>
 
@@ -46,6 +52,8 @@ import { ElMessageBox, ElMessage, ElTree } from 'element-plus';
 import NoticeBar from '/@/components/noticeBar/index.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCacheApi } from '/@/api-services';
