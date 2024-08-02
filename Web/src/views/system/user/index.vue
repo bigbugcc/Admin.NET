@@ -1,11 +1,11 @@
 <template>
 	<div class="sys-user-container">
 		<splitpanes>
-  <pane size="16">
-    <OrgTree ref="orgTreeRef" @node-click="nodeClick" />
-  </pane>
-  <pane size="94">
-    <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+			<pane size="16">
+				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
+			</pane>
+			<pane size="94">
+				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />
@@ -105,8 +105,8 @@
 						layout="total, sizes, prev, pager, next, jumper"
 					/>
 				</el-card>
-  </pane>
-</splitpanes>
+			</pane>
+		</splitpanes>
 
 		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
 	</div>

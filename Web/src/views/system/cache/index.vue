@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-cache-container">
-		<splitpanes horizontal >
+		<splitpanes horizontal>
 			<pane size="5">
 				<NoticeBar text="系统缓存数据管理，请慎重操作！" leftIcon="iconfont icon-tongzhi2" background="var(--el-color-primary-light-9)" color="var(--el-color-primary)" />
 			</pane>

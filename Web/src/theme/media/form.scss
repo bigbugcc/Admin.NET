@@ -29,15 +29,14 @@
 		overflow: auto;
 	}
 	// 在小屏幕中，取消表单左边距
-	.el-form-item__label-wrap{
+	.el-form-item__label-wrap {
 		margin-left: 0px !important;
 	}
 	// 列表页查询表单内的输入框宽度适配
-    .el-form--inline .el-form-item .el-select,
-    .el-form--inline .el-form-item .el-input
-    {
-        width: 100% !important;
-    }
+	.el-form--inline .el-form-item .el-select,
+	.el-form--inline .el-form-item .el-input {
+		width: 100% !important;
+	}
 	.el-form--inline .el-form-item:has(.el-form-item__label) {
 		margin-right: 0;
 	}
