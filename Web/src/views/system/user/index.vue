@@ -4,7 +4,7 @@
 			<pane size="16">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</pane>
-			<pane size="94">
+			<pane size="84">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">

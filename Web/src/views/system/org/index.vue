@@ -1,11 +1,10 @@
 <template>
 	<div class="sys-org-container">
-		<el-row :gutter="5" style="width: 100%; flex: 1">
-			<el-col :span="4" :xs="24">
+		<splitpanes>
+			<pane size="20">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
-			</el-col>
-
-			<el-col :span="20" :xs="24" style="display: flex; flex-direction: column">
+			</pane>
+			<pane size="80">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="机构名称">
@@ -57,8 +56,8 @@
 						</el-table-column>
 					</el-table>
 				</el-card>
-			</el-col>
-		</el-row>
+			</pane>
+		</splitpanes>
 
 		<EditOrg ref="editOrgRef" :title="state.editOrgTitle" :orgData="state.orgTreeData" @reload="handleQuery" />
 	</div>
@@ -74,6 +73,9 @@ import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOrgApi, SysDictDataApi } from '/@/api-services/api';
 import { SysOrg } from '/@/api-services/models';
+
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 
 const editOrgRef = ref<InstanceType<typeof EditOrg>>();
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
