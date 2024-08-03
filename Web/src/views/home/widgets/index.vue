@@ -1,13 +1,21 @@
 <template>
+	<div>
+		<NoticeBar style="margin: 4px" />
+		<div style="float: right; margin: -35px 10px 0 0">
+			<el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
+			<el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
+		</div>
+	</div>
+
 	<div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
 		<div class="widgets-content">
-			<div class="widgets-top">
+			<!-- <div class="widgets-top">
 				<div class="widgets-top-title">控制台</div>
 				<div class="widgets-top-actions">
 					<el-button v-if="customizing" type="primary" icon="ele-Check" round @click="save">完成</el-button>
 					<el-button v-else type="primary" icon="ele-Edit" round @click="custom">自定义</el-button>
 				</div>
-			</div>
+			</div> -->
 			<div class="widgets" ref="widgetsRef">
 				<div class="widgets-wrapper">
 					<div v-if="nowCompsList.length <= 0" class="no-widgets">

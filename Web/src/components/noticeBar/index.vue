@@ -1,12 +1,13 @@
 <template>
 	<div class="notice-bar" :style="{ background, height: `${height}px` }" v-show="!state.isMode">
-		<div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }">
+		<div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }" ref="noticeBarWarpRef">
 			<i v-if="leftIcon" class="notice-bar-warp-left-icon" :class="leftIcon"></i>
-			<div class="notice-bar-warp-text-box" ref="noticeBarWarpRef">
-				<div class="notice-bar-warp-text" ref="noticeBarTextRef" v-if="!scrollable">{{ text }}</div>
-				<div class="notice-bar-warp-slot" v-else><slot /></div>
+			<div class="notice-bar-warp-text-box">
+				<div class="notice-bar-warp-text" ref="noticeBarTextRef">
+					<div v-html="text" data-slate-editor />
+				</div>
 			</div>
-			<SvgIcon :name="rightIcon" v-if="rightIcon" class="notice-bar-warp-right-icon" @click="onRightIconClick" />
+			<!-- <SvgIcon :name="rightIcon" v-if="rightIcon" class="notice-bar-warp-right-icon" @click="onRightIconClick" /> -->
 		</div>
 	</div>
 </template>
@@ -14,117 +15,65 @@
 <script setup lang="ts" name="noticeBar">
 import { reactive, ref, onMounted, nextTick } from 'vue';
 
-// 定义父组件传过来的值
 const props = defineProps({
-	// 通知栏模式，可选值为 closeable link
-	mode: {
-		type: String,
-		default: () => '',
-	},
-	// 通知文本内容
-	text: {
-		type: String,
-		default: () => '',
-	},
-	// 通知文本颜色
-	color: {
-		type: String,
-		default: () => 'var(--el-color-warning)',
-	},
-	// 通知背景色
-	background: {
-		type: String,
-		default: () => 'var(--el-color-warning-light-9)',
-	},
-	// 字体大小，单位px
-	size: {
-		type: [Number, String],
-		default: () => 14,
-	},
-	// 通知栏高度，单位px
-	height: {
-		type: Number,
-		default: () => 40,
-	},
-	// 动画延迟时间 (s)
-	delay: {
-		type: Number,
-		default: () => 1,
-	},
-	// 滚动速率 (px/s)
-	speed: {
-		type: Number,
-		default: () => 100,
-	},
-	// 是否开启垂直滚动
-	scrollable: {
-		type: Boolean,
-		default: () => false,
-	},
-	// 自定义左侧图标
-	leftIcon: {
-		type: String,
-		default: () => '',
-	},
-	// 自定义右侧图标
-	rightIcon: {
-		type: String,
-		default: () => '',
-	},
+	mode: { type: String, default: '' }, // 通知栏模式，可选值为 closeable link
+	text: { type: String, default: '欢迎使用 Admin.NET 通用权限开发框架 <a href="https://gitee.com/zuohuaijun/Admin.NET" target="_blank">https://gitee.com/zuohuaijun/Admin.NET</a>' }, // 通知文本内容
+	color: { type: String, default: 'var(--el-color-warning)' }, // 通知文本颜色
+	background: { type: String, default: 'var(--el-color-warning-light-9)' }, // 通知背景色
+	size: { type: [Number, String], default: 14 }, // 字体大小，单位px
+	height: { type: Number, default: 40 }, // 通知栏高度，单位px
+	delay: { type: Number, default: 1 }, // 动画延迟时间 (s)
+	speed: { type: Number, default: 200 }, // 滚动速率 (px/s)
+	scrollable: { type: Boolean, default: false }, // 是否开启垂直滚动
+	leftIcon: { type: String, default: 'iconfont icon-tongzhi2' }, // 自定义左侧图标
+	rightIcon: { type: String, default: '' }, // 自定义右侧图标
 });
 
-// 定义子组件向父组件传值/事件
 const emit = defineEmits(['close', 'link']);
-
-// 定义变量内容
-const noticeBarWarpRef = ref();
-const noticeBarTextRef = ref();
+const noticeBarWarpRef = ref<HTMLDivElement | null>(null);
+const noticeBarTextRef = ref<HTMLDivElement | null>(null);
 const state = reactive({
-	order: 1,
-	oneTime: 0,
-	twoTime: 0,
+	isMode: false,
 	warpOWidth: 0,
 	textOWidth: 0,
-	isMode: false,
+	animationDuration: 0,
 });
 
-// 初始化 animation 各项参数
+// 页面初始化
+onMounted(() => {
+	if (!props.scrollable) {
+		initAnimation();
+	}
+});
+
+// 初始化动画
 const initAnimation = () => {
 	nextTick(() => {
-		state.warpOWidth = noticeBarWarpRef.value.offsetWidth;
-		state.textOWidth = noticeBarTextRef.value.offsetWidth;
-		document.styleSheets[0].insertRule(`@keyframes oneAnimation {0% {left: 0px;} 100% {left: -${state.textOWidth}px;}}`);
-		document.styleSheets[0].insertRule(`@keyframes twoAnimation {0% {left: ${state.warpOWidth}px;} 100% {left: -${state.textOWidth}px;}}`);
-		computeAnimationTime();
-		setTimeout(() => {
-			changeAnimation();
-		}, props.delay * 1000);
+		if (noticeBarWarpRef.value && noticeBarTextRef.value) {
+			state.warpOWidth = noticeBarWarpRef.value.offsetWidth;
+			state.textOWidth = noticeBarTextRef.value.scrollWidth;
+
+			state.animationDuration = (state.textOWidth + state.warpOWidth) / props.speed;
+
+			// Clear existing animation styles
+			noticeBarTextRef.value.style.animation = 'none';
+			noticeBarTextRef.value.offsetHeight; // Trigger reflow
+			noticeBarTextRef.value.style.animation = `marquee ${state.animationDuration}s linear infinite`;
+
+			// Define keyframes for marquee animation
+			const keyframes = `
+		  @keyframes marquee {
+			0% { transform: translateX(${state.warpOWidth}px); }
+			100% { transform: translateX(-${state.textOWidth}px); }
+		  }
+		`;
+			const styleSheet = document.createElement('style');
+			styleSheet.innerText = keyframes;
+			document.head.appendChild(styleSheet);
+		}
 	});
 };
-// 计算 animation 滚动时长
-const computeAnimationTime = () => {
-	state.oneTime = state.textOWidth / props.speed;
-	state.twoTime = (state.textOWidth + state.warpOWidth) / props.speed;
-};
-// 改变 animation 动画调用
-const changeAnimation = () => {
-	if (state.order === 1) {
-		noticeBarTextRef.value.style.cssText = `animation: oneAnimation ${state.oneTime}s linear; opactity: 1;}`;
-		state.order = 2;
-	} else {
-		noticeBarTextRef.value.style.cssText = `animation: twoAnimation ${state.twoTime}s linear infinite; opacity: 1;`;
-	}
-};
-// 监听 animation 动画的结束
-const listenerAnimationend = () => {
-	noticeBarTextRef.value.addEventListener(
-		'animationend',
-		() => {
-			changeAnimation();
-		},
-		false
-	);
-};
+
 // 右侧 icon 图标点击
 const onRightIconClick = () => {
 	if (!props.mode) return false;
@@ -135,12 +84,6 @@ const onRightIconClick = () => {
 		emit('link');
 	}
 };
-// 页面加载时
-onMounted(() => {
-	if (props.scrollable) return false;
-	initAnimation();
-	listenerAnimationend();
-});
 </script>
 
 <style scoped lang="scss">
@@ -160,19 +103,12 @@ onMounted(() => {
 			align-items: center;
 			overflow: hidden;
 			position: relative;
-			.notice-bar-warp-text {
-				white-space: nowrap;
-				position: absolute;
-				left: 0;
-			}
-			.notice-bar-warp-slot {
-				width: 100%;
-				white-space: nowrap;
-				:deep(.el-carousel__item) {
-					display: flex;
-					align-items: center;
-				}
-			}
+			margin-right: 35px;
+			// .notice-bar-warp-text {
+			// 	white-space: nowrap;
+			// 	position: absolute;
+			// 	left: 0;
+			// }
 		}
 		.notice-bar-warp-left-icon {
 			width: 24px;
