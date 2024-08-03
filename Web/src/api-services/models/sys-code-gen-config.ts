@@ -141,6 +141,14 @@ export interface SysCodeGenConfig {
     effectType?: string | null;
 
     /**
+     * 外键库标识
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    fkConfigId?: string | null;
+
+    /**
      * 外键实体名称
      *
      * @type {string}

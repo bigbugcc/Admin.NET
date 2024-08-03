@@ -93,6 +93,14 @@ export interface CodeGenConfig {
     effectType?: string | null;
 
     /**
+     * 外键库标识
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    fkConfigId?: string | null;
+
+    /**
      * 外键实体名称
      *
      * @type {string}

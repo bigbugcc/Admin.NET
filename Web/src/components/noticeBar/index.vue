@@ -23,7 +23,7 @@ const props = defineProps({
 	size: { type: [Number, String], default: 14 }, // 字体大小，单位px
 	height: { type: Number, default: 40 }, // 通知栏高度，单位px
 	delay: { type: Number, default: 1 }, // 动画延迟时间 (s)
-	speed: { type: Number, default: 200 }, // 滚动速率 (px/s)
+	speed: { type: Number, default: 100 }, // 滚动速率 (px/s)
 	scrollable: { type: Boolean, default: false }, // 是否开启垂直滚动
 	leftIcon: { type: String, default: 'iconfont icon-tongzhi2' }, // 自定义左侧图标
 	rightIcon: { type: String, default: '' }, // 自定义右侧图标
