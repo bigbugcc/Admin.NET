@@ -61,6 +61,13 @@ public partial class SysCodeGenConfig : EntityBase
     public string? EffectType { get; set; }
 
     /// <summary>
+    /// 外键库标识
+    /// </summary>
+    [SugarColumn(ColumnDescription = "外键库标识", Length = 20)]
+    [MaxLength(20)]
+    public string? FkConfigId { get; set; }
+
+    /// <summary>
     /// 外键实体名称
     /// </summary>
     [SugarColumn(ColumnDescription = "外键实体名称", Length = 64)]

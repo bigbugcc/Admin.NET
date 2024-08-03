@@ -104,8 +104,17 @@ const getColumnInfoList = async () => {
 };
 
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog = async (row: any) => {
 	rowdata = row;
+	if (rowdata.fkConfigId) {
+		await getDbList();
+		state.ruleForm.tableName = rowdata.fkTableName;
+		state.ruleForm.columnName = rowdata.fkColumnName;
+		state.ruleForm.linkColumnName = rowdata.fkLinkColumnName;
+		state.ruleForm.configId = rowdata.fkConfigId;
+		await DbChanged();
+		await TableChanged();
+	}
 	state.isShowDialog = true;
 };
 
@@ -116,15 +125,21 @@ const closeDialog = () => {
 	rowdata.fkEntityName = tableData.length == 0 ? '' : tableData[0].entityName;
 	rowdata.fkColumnName = state.ruleForm.columnName;
 	rowdata.fkLinkColumnName = state.ruleForm.linkColumnName;
+	rowdata.fkConfigId = state.ruleForm.configId;
 	let columnData = state.columnData.filter((x) => x.columnName == state.ruleForm.columnName);
 	rowdata.fkColumnNetType = columnData.length == 0 ? '' : columnData[0].netType;
 	emits('submitRefreshFk', rowdata);
-	state.isShowDialog = false;
+	cancel();
 };
 
 // 取消
 const cancel = () => {
 	state.isShowDialog = false;
+	ruleFormRef.value?.resetFields();
+	state.ruleForm = {};
+	state.dbData.value = [];
+	state.tableData.value = [];
+	state.columnData.value = [];
 };
 
 // 提交
