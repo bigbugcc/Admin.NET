@@ -36,7 +36,8 @@ public static class SqlSugarFilter
     public static void SetOrgEntityFilter(SqlSugarScopeProvider db)
     {
         // 若仅本人数据，则直接返回
-        if (SetDataScopeFilter(db) == (int)DataScopeEnum.Self) return;
+        var maxDataScope = SetDataScopeFilter(db);
+        if (maxDataScope == 0 || maxDataScope == (int)DataScopeEnum.Self) return;
 
         var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
         if (string.IsNullOrWhiteSpace(userId)) return;
@@ -46,6 +47,9 @@ public static class SqlSugarFilter
         var orgFilter = _cache.Get<ConcurrentDictionary<Type, LambdaExpression>>(cacheKey);
         if (orgFilter == null)
         {
+            // 获取用户最大数据范围，如果是全部数据，则跳过
+            if (maxDataScope == (int)DataScopeEnum.All) return;
+
             // 获取用户所属机构，保证同一作用域
             var orgIds = new List<long>();
             Scoped.Create((factory, scope) =>
