@@ -57,6 +57,11 @@ public class CodeGenConfig
     public string EffectType { get; set; }
 
     /// <summary>
+    /// 外键库标识
+    /// </summary>
+    public string FkConfigId { get; set; }
+
+    /// <summary>
     /// 外键实体名称
     /// </summary>
     public string FkEntityName { get; set; }

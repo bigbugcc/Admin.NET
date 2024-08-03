@@ -16,11 +16,21 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="netType" label="数据类型" min-width="90" show-overflow-tooltip />
-				<el-table-column prop="effectType" label="作用类型" width="120" show-overflow-tooltip>
+				<el-table-column prop="effectType" label="作用类型" width="140" show-overflow-tooltip>
 					<template #default="scope">
-						<el-select v-model="scope.row.effectType" class="m-2" placeholder="Select" :disabled="judgeColumns(scope.row)" @change="effectTypeChange(scope.row, scope.$index)">
-							<el-option v-for="item in state.effectTypeList" :key="item.code" :label="item.value" :value="item.code" />
-						</el-select>
+						<div class="effect-type-container">
+							<el-select v-model="scope.row.effectType" class="m-2" placeholder="Select" :disabled="judgeColumns(scope.row)" @change="effectTypeChange(scope.row, scope.$index)">
+								<el-option v-for="item in state.effectTypeList" :key="item.code" :label="item.value" :value="item.code" />
+							</el-select>
+							<el-button
+								v-if="scope.row.effectType === 'ApiTreeSelect' || scope.row.effectType === 'fk'"
+								:icon="Edit"
+								type="dashed"
+								title="修改"
+								link
+								@click="effectTypeChange(scope.row, scope.$index)"
+							/>
+						</div>
 					</template>
 				</el-table-column>
 				<el-table-column prop="dictTypeCode" label="字典" width="180" show-overflow-tooltip>
@@ -91,6 +101,7 @@ import treeDialog from '/@/views/system/codeGen/component/treeDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenConfigApi, SysConstApi, SysDictDataApi, SysDictTypeApi, SysEnumApi } from '/@/api-services/api';
 import { CodeGenConfig } from '/@/api-services/models/code-gen-config';
+import { Edit } from '@element-plus/icons-vue'
 
 const emits = defineEmits(['handleQuery']);
 const fkDialogRef = ref();
@@ -292,3 +303,9 @@ const isOrNotSelect = () => {
 // 导出对象
 defineExpose({ openDialog });
 </script>
+<style scoped>
+.effect-type-container {
+  display: flex;
+  align-items: center;
+}
+</style>
