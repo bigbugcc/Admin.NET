@@ -110,10 +110,20 @@ const getColumnInfoList = async () => {
 };
 
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog = async (row: any) => {
 	rowdata = row;
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
+	if (rowdata.fkConfigId) {
+		await getDbList();
+		state.ruleForm.tableName = rowdata.fkTableName;
+		state.ruleForm.displayColumn = rowdata.displayColumn;
+		state.ruleForm.valueColumn = rowdata.valueColumn;
+		state.ruleForm.pidColumn = rowdata.pidColumn;
+		state.ruleForm.configId = rowdata.fkConfigId;
+		await DbChanged();
+		await TableChanged();
+	}
 };
 
 // 关闭弹窗
@@ -128,13 +138,19 @@ const closeDialog = () => {
 	rowdata.displayColumn = state.ruleForm.displayColumn;
 	rowdata.valueColumn = state.ruleForm.valueColumn;
 	rowdata.pidColumn = state.ruleForm.pidColumn;
+	rowdata.fkConfigId = state.ruleForm.configId;
 	emits('submitRefreshFk', rowdata);
-	state.isShowDialog = false;
+	cancel();
 };
 
 // 取消
 const cancel = () => {
 	state.isShowDialog = false;
+	ruleFormRef.value?.resetFields();
+	state.ruleForm = {};
+	state.dbData.value = [];
+	state.tableData.value = [];
+	state.columnData.value = [];
 };
 
 // 提交
