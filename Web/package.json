@@ -9,7 +9,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "node --max-old-space-size=8192 ./node_modules/vite/bin/vite build",
-		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/",
+		"lint-fix": "eslint --fix src/",
+		"format": "prettier --write .",
 		"build-api": "cd api_build/ && build.bat"
 	},
 	"dependencies": {
@@ -81,6 +82,7 @@
 		"code-inspector-plugin": "^0.15.2",
 		"eslint": "^8.57.0",
 		"eslint-plugin-vue": "^9.27.0",
+		"globals": "^15.8.0",
 		"less": "^4.2.0",
 		"prettier": "^3.3.3",
 		"rollup-plugin-visualizer": "^5.12.0",

@@ -458,7 +458,7 @@ const state = reactive({
 });
 
 // 获取布局配置信息
-const getThemeConfig = computed(() => {
+const updateThemeConfig = () => {
 	if (!themeConfig.value.columnsMenuWidth) {
 		themeConfig.value.columnsMenuWidth = 70;
 	}
@@ -468,6 +468,9 @@ const getThemeConfig = computed(() => {
 	if (!themeConfig.value.columnsLogoHeight) {
 		themeConfig.value.columnsLogoHeight = 50;
 	}
+};
+const getThemeConfig = computed(() => {
+	updateThemeConfig();
 	return themeConfig.value;
 });
 // 1、全局主题
