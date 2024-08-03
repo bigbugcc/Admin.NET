@@ -44,8 +44,8 @@
 				</el-col>
 				<el-col :span="1"></el-col>
 				<el-col :span="8">
-					<div class="login-content-code">
-						<img class="login-content-code-img" @click="getCaptcha" width="130px" height="38px" :src="state.captchaImage" style="cursor: pointer" />
+					<div :class="[state.expirySeconds > 0 ? 'login-content-code' : 'login-content-code-expired']" @click="getCaptcha">
+						<img class="login-content-code-img" width="130px" height="38px" :src="state.captchaImage" style="cursor: pointer" />
 					</div>
 				</el-col>
 			</el-form-item>
@@ -131,7 +131,11 @@ const state = reactive({
 	captchaEnabled: false,
 	isPassRotate: false,
 	capsLockVisible: false,
+	expirySeconds: 60, //验证码过期时间
 });
+
+//验证码过期计时器
+let timer = null;
 
 // 页面初始化
 onMounted(async () => {
@@ -147,12 +151,22 @@ onMounted(async () => {
 	// 获取验证码
 	getCaptcha();
 
+	//注册验证码过期计时器
+	if (state.captchaEnabled) {
+		timer = setInterval(() => {
+			if (state.expirySeconds > 0) state.expirySeconds -= 1;
+		}, 1000);
+	}
+
 	// 检测大小写按键/CapsLK
 	document.addEventListener('keyup', handleKeyPress);
 });
 
 // 页面卸载
 onUnmounted(() => {
+	//销毁证码过期计时器
+	clearInterval(timer);
+	timer = null;
 	document.removeEventListener('keyup', handleKeyPress);
 });
 
@@ -169,6 +183,7 @@ const getCaptcha = async () => {
 	state.ruleForm.code = '';
 	var res = await getAPI(SysAuthApi).apiSysAuthCaptchaGet();
 	state.captchaImage = 'data:text/html;base64,' + res.data.result?.img;
+	state.expirySeconds = res.data.result?.expirySeconds;
 	state.ruleForm.codeId = res.data.result?.id;
 };
 
@@ -327,6 +342,7 @@ defineExpose({ saveTokenAndInitRoutes });
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
+		position: relative;
 
 		.login-content-code-img {
 			width: 100%;
@@ -343,6 +359,23 @@ defineExpose({ saveTokenAndInitRoutes });
 				border-color: #c0c4cc;
 				transition: all ease 0.2s;
 			}
+		}
+	}
+
+	.login-content-code-expired {
+		@extend .login-content-code;
+		&::before {
+			content: '验证码已过期';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: 4px;
+			/*最后一个参数是半透明度，可以透过调整0-1的数值，调整到满意的透明度*/
+			background-color: rgba(0, 0, 0, 0.5);
+			color: #ffffff;
+			text-align: center;
 		}
 	}
 

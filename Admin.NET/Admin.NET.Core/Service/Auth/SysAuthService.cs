@@ -335,7 +335,8 @@ public class SysAuthService : IDynamicApiController, ITransient
     {
         var codeId = YitIdHelper.NextId().ToString();
         var captcha = _captcha.Generate(codeId);
-        return new { Id = codeId, Img = captcha.Base64 };
+        var expirySeconds = App.GetOptions<CaptchaOptions>()?.ExpirySeconds ?? 60;
+        return new { Id = codeId, Img = captcha.Base64, ExpirySeconds = expirySeconds };
     }
 
     /// <summary>
