@@ -31,6 +31,12 @@ export interface MemberInfo {
     memberType?: MemberTypes;
 
     /**
+     * @type {string}
+     * @memberof MemberInfo
+     */
+    name?: string | null;
+
+    /**
      * @type {Type}
      * @memberof MemberInfo
      */
@@ -41,12 +47,6 @@ export interface MemberInfo {
      * @memberof MemberInfo
      */
     reflectedType?: Type;
-
-    /**
-     * @type {string}
-     * @memberof MemberInfo
-     */
-    name?: string | null;
 
     /**
      * @type {Module}

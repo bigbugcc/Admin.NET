@@ -91,20 +91,20 @@ export interface InfoSaveInput {
      * @memberof InfoSaveInput
      */
     sysIcpUrl?: string | null;
-    
+
     /**
      * 登录二次验证
      *
-     * @type {string}
+     * @type {boolean}
      * @memberof InfoSaveInput
      */
-    sysSecondVer?: string | null;
-    
+    sysSecondVer?: boolean | null;
+
     /**
      * 图形验证码
      *
-     * @type {string}
+     * @type {boolean}
      * @memberof InfoSaveInput
      */
-    sysCaptcha?: string | null;
+    sysCaptcha?: boolean | null;
 }

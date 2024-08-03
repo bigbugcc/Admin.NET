@@ -247,7 +247,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysIcpUrl = await GetConfigValue<string>(ConfigConst.SysWebIcpUrl);
         var sysSecondVer = await GetConfigValue<bool>(ConfigConst.SysSecondVer);
         var sysCaptcha = await GetConfigValue<bool>(ConfigConst.SysCaptcha);
-        
+
         return new
         {
             SysLogo = sysLogo,
@@ -312,7 +312,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         await UpdateConfigValue(ConfigConst.SysWebCopyright, input.SysCopyright);
         await UpdateConfigValue(ConfigConst.SysWebIcp, input.SysIcp);
         await UpdateConfigValue(ConfigConst.SysWebIcpUrl, input.SysIcpUrl);
-        await UpdateConfigValue(ConfigConst.SysSecondVer, (input.SysSecondVer??true).ToString());
-        await UpdateConfigValue(ConfigConst.SysCaptcha, (input.SysCaptcha??true).ToString());
+        await UpdateConfigValue(ConfigConst.SysSecondVer, (input.SysSecondVer ?? false).ToString());
+        await UpdateConfigValue(ConfigConst.SysCaptcha, (input.SysCaptcha ?? true).ToString());
     }
 }

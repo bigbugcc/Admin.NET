@@ -133,13 +133,14 @@ const state = reactive({
 	capsLockVisible: false,
 });
 
+// 页面初始化
 onMounted(async () => {
 	// 若URL带有Token参数（第三方登录）
 	var accessToken = route.query.token;
 	if (accessToken != null && accessToken != undefined) {
 		await saveTokenAndInitRoutes(accessToken);
 	}
-	// 获取登录配置	
+	// 获取登录配置
 	state.secondVerEnabled = themeConfig.value.secondVer ?? true;
 	state.captchaEnabled = themeConfig.value.captcha ?? true;
 
@@ -150,7 +151,7 @@ onMounted(async () => {
 	document.addEventListener('keyup', handleKeyPress);
 });
 
-// 页面初始化
+// 页面卸载
 onUnmounted(() => {
 	document.removeEventListener('keyup', handleKeyPress);
 });

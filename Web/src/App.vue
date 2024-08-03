@@ -133,6 +133,7 @@ const loadSysInfo = () => {
 			themeConfig.value.watermarkText = data.sysWatermark;
 			// 版权说明
 			themeConfig.value.copyright = data.sysCopyright;
+			// 登录验证
 			themeConfig.value.secondVer = data.sysSecondVer;
 			themeConfig.value.captcha = data.sysCaptcha;
 
