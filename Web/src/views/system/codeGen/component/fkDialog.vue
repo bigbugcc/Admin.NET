@@ -121,12 +121,12 @@ const openDialog = async (row: any) => {
 // 关闭弹窗
 const closeDialog = () => {
 	rowdata.fkTableName = state.ruleForm.tableName;
-	let tableData = state.tableData.filter((x) => x.tableName == state.ruleForm.tableName);
+	let tableData = state.tableData.filter((x: any) => x.tableName == state.ruleForm.tableName);
 	rowdata.fkEntityName = tableData.length == 0 ? '' : tableData[0].entityName;
 	rowdata.fkColumnName = state.ruleForm.columnName;
 	rowdata.fkLinkColumnName = state.ruleForm.linkColumnName;
 	rowdata.fkConfigId = state.ruleForm.configId;
-	let columnData = state.columnData.filter((x) => x.columnName == state.ruleForm.columnName);
+	let columnData = state.columnData.filter((x: any) => x.columnName == state.ruleForm.columnName);
 	rowdata.fkColumnNetType = columnData.length == 0 ? '' : columnData[0].netType;
 	emits('submitRefreshFk', rowdata);
 	cancel();

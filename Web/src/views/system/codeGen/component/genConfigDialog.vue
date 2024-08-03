@@ -95,13 +95,14 @@
 <script lang="ts" setup name="sysCodeGenConfig">
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import mittBus from '/@/utils/mitt';
+import { Edit } from '@element-plus/icons-vue';
+
 import fkDialog from '/@/views/system/codeGen/component/fkDialog.vue';
 import treeDialog from '/@/views/system/codeGen/component/treeDialog.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenConfigApi, SysConstApi, SysDictDataApi, SysDictTypeApi, SysEnumApi } from '/@/api-services/api';
 import { CodeGenConfig } from '/@/api-services/models/code-gen-config';
-import { Edit } from '@element-plus/icons-vue'
 
 const emits = defineEmits(['handleQuery']);
 const fkDialogRef = ref();
@@ -305,7 +306,7 @@ defineExpose({ openDialog });
 </script>
 <style scoped>
 .effect-type-container {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 </style>
