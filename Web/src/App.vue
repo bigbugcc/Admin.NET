@@ -133,6 +133,8 @@ const loadSysInfo = () => {
 			themeConfig.value.watermarkText = data.sysWatermark;
 			// 版权说明
 			themeConfig.value.copyright = data.sysCopyright;
+			themeConfig.value.secondVer = data.sysSecondVer;
+			themeConfig.value.captcha = data.sysCaptcha;
 
 			// 更新 favicon
 			updateFavicon(data.sysLogo);

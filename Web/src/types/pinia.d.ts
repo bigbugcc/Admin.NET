@@ -93,6 +93,8 @@ declare interface ThemeConfigState {
 		globalViceTitle: string;
 		globalViceTitleMsg: string;
 		copyright: string;
+		secondVer: boolean;
+		captcha: boolean;
 		globalI18n: string;
 		globalComponentSize: string;
 		logoUrl: string; // 系统 logo 地址

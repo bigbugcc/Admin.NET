@@ -139,11 +139,9 @@ onMounted(async () => {
 	if (accessToken != null && accessToken != undefined) {
 		await saveTokenAndInitRoutes(accessToken);
 	}
-
-	// 获取登录配置
-	var res1 = await getAPI(SysAuthApi).apiSysAuthLoginConfigGet();
-	state.secondVerEnabled = res1.data.result.secondVerEnabled ?? true;
-	state.captchaEnabled = res1.data.result.captchaEnabled ?? true;
+	// 获取登录配置	
+	state.secondVerEnabled = themeConfig.value.secondVer ?? true;
+	state.captchaEnabled = themeConfig.value.captcha ?? true;
 
 	// 获取验证码
 	getCaptcha();

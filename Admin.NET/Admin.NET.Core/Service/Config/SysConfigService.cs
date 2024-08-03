@@ -245,7 +245,9 @@ public class SysConfigService : IDynamicApiController, ITransient
         var sysCopyright = await GetConfigValue<string>(ConfigConst.SysWebCopyright);
         var sysIcp = await GetConfigValue<string>(ConfigConst.SysWebIcp);
         var sysIcpUrl = await GetConfigValue<string>(ConfigConst.SysWebIcpUrl);
-
+        var sysSecondVer = await GetConfigValue<bool>(ConfigConst.SysSecondVer);
+        var sysCaptcha = await GetConfigValue<bool>(ConfigConst.SysCaptcha);
+        
         return new
         {
             SysLogo = sysLogo,
@@ -255,7 +257,9 @@ public class SysConfigService : IDynamicApiController, ITransient
             SysWatermark = sysWatermark,
             SysCopyright = sysCopyright,
             SysIcp = sysIcp,
-            SysIcpUrl = sysIcpUrl
+            SysIcpUrl = sysIcpUrl,
+            SysSecondVer = sysSecondVer,
+            SysCaptcha = sysCaptcha
         };
     }
 
@@ -308,5 +312,7 @@ public class SysConfigService : IDynamicApiController, ITransient
         await UpdateConfigValue(ConfigConst.SysWebCopyright, input.SysCopyright);
         await UpdateConfigValue(ConfigConst.SysWebIcp, input.SysIcp);
         await UpdateConfigValue(ConfigConst.SysWebIcpUrl, input.SysIcpUrl);
+        await UpdateConfigValue(ConfigConst.SysSecondVer, (input.SysSecondVer??true).ToString());
+        await UpdateConfigValue(ConfigConst.SysCaptcha, (input.SysCaptcha??true).ToString());
     }
 }
