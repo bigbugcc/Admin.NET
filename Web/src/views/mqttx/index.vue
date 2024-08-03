@@ -131,7 +131,7 @@
 							<el-input v-model="publish.payload" clearable maxlength="64" show-word-limit>
 								<!--<template #prepend>
 								<el-button :icon="Operation" />
-							  </template> -->
+								</template> -->
 								<template #append>
 									<el-select v-model="publish.payload" placeholder="选择指令" style="width: 115px">
 										<el-option label="状态查询" value="55 AA AA AA AA 91 CF" />
