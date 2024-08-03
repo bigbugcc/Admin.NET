@@ -37,7 +37,7 @@ public static class SqlSugarFilter
     {
         // 若仅本人数据，则直接返回
         var maxDataScope = SetDataScopeFilter(db);
-        if (maxDataScope == (int)DataScopeEnum.Self) return;
+        if (maxDataScope == 0 || maxDataScope == (int)DataScopeEnum.Self) return;
 
         var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
         if (string.IsNullOrWhiteSpace(userId)) return;
