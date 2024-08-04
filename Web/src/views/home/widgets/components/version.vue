@@ -19,7 +19,7 @@
 <script lang="ts">
 export default {
 	title: '版本信息',
-	icon: 'ele-Monitor',
+	icon: 'ele-InfoFilled',
 	description: '版本信息原子组件演示',
 };
 </script>

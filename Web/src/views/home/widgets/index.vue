@@ -23,29 +23,19 @@
 					</div>
 					<el-row :gutter="8">
 						<el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
-							<draggable
-								v-model="grid.copmsList[index]"
-								animation="200"
-								handle=".customize-overlay"
-								group="people"
-								item-key="com"
-								drag-class="aaaaa"
-								force-fallback
-								fallback-on-body
-								class="draggable-box"
-							>
-								<template #item="{ element }">
+							<VueDraggable v-model="grid.copmsList[index]" :animation="200" handle=".customize-overlay" class="draggable-box">
+								<div v-for="item in grid.copmsList[index]" :key="item">
 									<div class="widgets-item mb8">
-										<component :is="allComps[element]"></component>
+										<component :is="allComps[item]"></component>
 										<div v-if="customizing" class="customize-overlay">
-											<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(element)"></el-button>
-											<label v-if="allComps[element]">
-												<el-icon> <component :is="allComps[element].icon" /> </el-icon>{{ allComps[element].title }}
+											<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(item)"></el-button>
+											<label v-if="allComps[item]">
+												<el-icon> <component :is="allComps[item].icon" /> </el-icon>{{ allComps[item].title }}
 											</label>
 										</div>
 									</div>
-								</template>
-							</draggable>
+								</div>
+							</VueDraggable>
 						</el-col>
 					</el-row>
 				</div>
@@ -144,7 +134,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from 'vue';
-import draggable from 'vuedraggable';
+import { VueDraggable } from 'vue-draggable-plus';
 import { clone } from '/@/utils/arrayOperation';
 import allComps from './components/index';
 import { Local } from '/@/utils/storage';
@@ -157,7 +147,7 @@ interface Grid {
 const defaultGrid = {
 	layout: [12, 6, 6],
 	copmsList: [
-		['welcome', 'commit'],
+		['welcome', 'myapp', 'commit'],
 		['about', 'version'],
 		['timer', 'schedule'],
 	],
@@ -275,7 +265,7 @@ const close = () => {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	position: relative;
 	overflow: auto;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 .widgets-aside-title {
 	margin-top: 10px;

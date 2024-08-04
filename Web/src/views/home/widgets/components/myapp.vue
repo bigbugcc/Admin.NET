@@ -1,5 +1,9 @@
 <template>
 	<el-card shadow="hover" header="快捷入口">
+		<template #header>
+			<el-icon style="display: inline; vertical-align: middle"> <ele-Guide /> </el-icon>
+			<span style=""> 快捷入口 </span>
+		</template>
 		<ul class="myMods">
 			<li v-for="mod in myMods" :key="mod.path!">
 				<router-link :to="{ path: mod.path! }">
@@ -17,25 +21,21 @@
 		<el-drawer title="添加应用" v-model="modsDrawer" :size="520" destroy-on-close :before-close="beforeClose">
 			<div class="setMods mt15">
 				<h4>我的常用 ( {{ myMods.length }} )</h4>
-				<draggable tag="ul" v-model="myMods" animation="200" item-key="id" group="app" class="draggable-box" force-fallback fallback-on-body>
-					<template #item="{ element }">
-						<li>
-							<SvgIcon :name="element.meta.icon" style="font-size: 18px" />
-							<p>{{ element.meta.title }}</p>
-						</li>
-					</template>
-				</draggable>
+				<VueDraggable tag="ul" v-model="myMods" :animation="200" group="app" class="draggable-box">
+					<li v-for="item in myMods" :key="item.id">
+						<SvgIcon :name="item.meta?.icon" style="font-size: 18px" />
+						<p>{{ item.meta?.title }}</p>
+					</li>
+				</VueDraggable>
 			</div>
 			<div class="setMods">
 				<h4>全部应用 ( {{ filterMods.length }} )</h4>
-				<draggable tag="ul" v-model="filterMods" animation="200" item-key="id" group="app" class="draggable-box-all" force-fallback fallback-on-body>
-					<template #item="{ element }">
-						<li :style="{ background: element.meta.color || '#909399' }">
-							<SvgIcon :name="element.meta.icon" style="font-size: 18px" />
-							<p>{{ element.meta.title }}</p>
-						</li>
-					</template>
-				</draggable>
+				<VueDraggable tag="ul" v-model="filterMods" :animation="200" group="app" class="draggable-box-all">
+					<li v-for="item in filterMods" :key="item.id" :style="{ background: '#909399' }">
+						<SvgIcon :name="item.meta?.icon" style="font-size: 18px" />
+						<p>{{ item.meta?.title }}</p>
+					</li>
+				</VueDraggable>
 			</div>
 			<template #footer>
 				<div style="margin: 0 20px 20px 0">
@@ -50,17 +50,17 @@
 <script lang="ts">
 export default {
 	title: '快捷入口',
-	icon: 'ele-Monitor',
+	icon: 'ele-Guide',
 	description: '可以配置的快捷入口',
 };
 </script>
 
 <script setup lang="ts" name="myapp">
-import { reactive, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
 import { storeToRefs } from 'pinia';
-import draggable from 'vuedraggable';
+import { VueDraggable } from 'vue-draggable-plus';
 import { useUserInfo } from '/@/stores/userInfo';
 
 import { getAPI } from '/@/utils/axios-utils';
@@ -74,10 +74,6 @@ const filterMods = ref<MenuOutput[]>([]); // 过滤我的常用后的应用
 const modsDrawer = ref<boolean>(false);
 
 const { userInfos } = storeToRefs(useUserInfo());
-const state = reactive({
-	navError: '',
-	navData: [],
-});
 
 onMounted(() => {
 	getMods();

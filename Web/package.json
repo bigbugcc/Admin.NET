@@ -2,7 +2,7 @@
 	"name": "admin.net",
 	"type": "module",
 	"version": "2.4.33",
-	"lastBuildTime": "2024.08.04",
+	"lastBuildTime": "2024.08.05",
 	"description": "Admin.NET 站在巨人肩膀上的 .NET 通用权限开发框架",
 	"author": "zuohuaijun",
 	"license": "MIT",
@@ -58,7 +58,8 @@
 		"vform3-builds": "^3.0.10",
 		"vue": "^3.4.35",
 		"vue-clipboard3": "^2.0.0",
-		"vue-demi": "^0.14.10",
+		"vue-demi": "^0.14.6",
+		"vue-draggable-plus": "^0.5.2",
 		"vue-grid-layout": "3.0.0-beta1",
 		"vue-i18n": "^9.13.1",
 		"vue-json-pretty": "^2.4.0",
@@ -66,7 +67,6 @@
 		"vue-router": "^4.4.2",
 		"vue-signature-pad": "^3.0.2",
 		"vue3-tree-org": "^4.2.2",
-		"vuedraggable": "4.1.0",
 		"xlsx-js-style": "^1.2.0"
 	},
 	"devDependencies": {
