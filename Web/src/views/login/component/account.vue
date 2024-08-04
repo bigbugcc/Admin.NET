@@ -164,7 +164,7 @@ onMounted(async () => {
 
 // 页面卸载
 onUnmounted(() => {
-	// 销毁证码过期计时器
+	// 销毁验证码过期计时器
 	clearInterval(timer);
 	timer = null;
 
