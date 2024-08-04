@@ -1,11 +1,10 @@
 <template>
 	<div class="sys-region-container">
-		<el-row :gutter="8" style="width: 100%; flex: 1">
-			<el-col :span="6" :xs="24">
+		<splitpanes>
+			<pane size="20">
 				<RegionTree ref="regionTreeRef" @node-click="nodeClick" />
-			</el-col>
-
-			<el-col :span="18" :xs="24" style="display: flex; flex-direction: column">
+			</pane>
+			<pane size="80">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="行政名称">
@@ -53,8 +52,8 @@
 						layout="total, sizes, prev, pager, next, jumper"
 					/>
 				</el-card>
-			</el-col>
-		</el-row>
+			</pane>
+		</splitpanes>
 
 		<EditRegion ref="editRegionRef" :title="state.editRegionTitle" @handleQuery="handleQuery" />
 	</div>
@@ -69,6 +68,9 @@ import EditRegion from '/@/views/system/region/component/editRegion.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysRegionApi } from '/@/api-services/api';
 import { SysRegion } from '/@/api-services/models';
+
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 
 const editRegionRef = ref<InstanceType<typeof EditRegion>>();
 const regionTreeRef = ref<InstanceType<typeof RegionTree>>();
