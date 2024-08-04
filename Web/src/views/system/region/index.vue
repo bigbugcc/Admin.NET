@@ -62,15 +62,15 @@
 <script lang="ts" setup name="sysRegion">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage, ElNotification } from 'element-plus';
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
+
 import RegionTree from '/@/views/system/region/component/regionTree.vue';
 import EditRegion from '/@/views/system/region/component/editRegion.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysRegionApi } from '/@/api-services/api';
 import { SysRegion } from '/@/api-services/models';
-
-import { Splitpanes, Pane } from 'splitpanes';
-import 'splitpanes/dist/splitpanes.css';
 
 const editRegionRef = ref<InstanceType<typeof EditRegion>>();
 const regionTreeRef = ref<InstanceType<typeof RegionTree>>();

@@ -1,10 +1,10 @@
 <template>
 	<div class="sys-user-container">
 		<splitpanes>
-			<pane size="16">
+			<pane size="20">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</pane>
-			<pane size="84">
+			<pane size="80">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
