@@ -148,6 +148,7 @@ import draggable from 'vuedraggable';
 import { clone } from '/@/utils/arrayOperation';
 import allComps from './components/index';
 import { Local } from '/@/utils/storage';
+import NoticeBar from '/@/components/noticeBar/index.vue';
 
 interface Grid {
 	layout: number[];
