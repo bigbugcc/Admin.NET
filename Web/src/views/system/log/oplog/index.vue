@@ -9,7 +9,7 @@
 					<el-date-picker v-model="state.queryParams.endTime" type="datetime" placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
 				</el-form-item>
 				<el-form-item label="模块名称">
-					<el-input v-model="state.queryParams.controllerName" placeholder="方法名称" clearable />
+					<el-input v-model="state.queryParams.controllerName" placeholder="模块名称" clearable />
 				</el-form-item>
 				<el-form-item label="方法名称">
 					<el-input v-model="state.queryParams.actionName" placeholder="方法名称" clearable />
