@@ -66,7 +66,11 @@ public class SysAuthService : IDynamicApiController, ITransient
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
         var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
         var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysPasswordMaxErrorTimes);
-        if (passwordErrorTimes >= passwordMaxErrorTimes)
+		if (passwordMaxErrorTimes < 1)
+		{
+			passwordMaxErrorTimes = 1;//如果未配置,或误配置为0、负数, 正确密码第一次也无法登录，账号全部锁定。
+		}
+		if (passwordErrorTimes >= passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
