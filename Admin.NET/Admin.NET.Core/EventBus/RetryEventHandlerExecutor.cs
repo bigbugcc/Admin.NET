@@ -17,7 +17,7 @@ public class RetryEventHandlerExecutor : IEventHandlerExecutor
         // 判断是否自定义了重试失败回调服务
         var fallbackPolicyService = eventSubscribeAttribute?.FallbackPolicy == null
             ? null
-            : App.GetService(eventSubscribeAttribute.FallbackPolicy) as IEventFallbackPolicy;
+            : App.GetRequiredService(eventSubscribeAttribute.FallbackPolicy) as IEventFallbackPolicy;
 
         await Retry.InvokeAsync(async () =>
         {

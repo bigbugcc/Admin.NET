@@ -100,7 +100,7 @@ public static class SqlSugarFilter
 
         // 获取用户最大数据范围---仅本人数据
         maxDataScope = App.GetRequiredService<SysCacheService>().Get<int>(CacheConst.KeyRoleMaxDataScope + userId);
-        // 如果为0，则调用GetUserOrgIdList,建立KeyRoleMaxDataScope缓存
+        // 若为0则获取用户机构组织集合建立缓存
         if (maxDataScope == 0)
         {
             // 获取用户所属机构，保证同一作用域
