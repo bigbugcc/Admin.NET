@@ -23,7 +23,7 @@
 					</div>
 					<el-row :gutter="8">
 						<el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
-							<VueDraggable v-model="grid.copmsList[index]" :animation="200" handle=".customize-overlay" class="draggable-box">
+							<VueDraggable v-model="grid.copmsList[index]" :animation="200" group="grid" handle=".customize-overlay" class="draggable-box">
 								<div v-for="item in grid.copmsList[index]" :key="item">
 									<div class="widgets-item mb8">
 										<component :is="allComps[item]"></component>

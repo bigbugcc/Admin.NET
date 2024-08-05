@@ -84,11 +84,11 @@ import { Local, Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
 import { NextLoading } from '/@/utils/loading';
 import { sm2 } from 'sm-crypto-v2';
+import { useThemeConfig } from '/@/stores/themeConfig';
+import { storeToRefs } from 'pinia';
 
 import { accessTokenKey, clearTokens, feature, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi } from '/@/api-services/api';
-import { useThemeConfig } from '/@/stores/themeConfig';
-import { storeToRefs } from 'pinia';
 
 // 旋转图片滑块组件
 // import verifyImg from '/@/assets/logo-mini.svg';
@@ -110,8 +110,8 @@ const dragRef: any = ref(null);
 const state = reactive({
 	isShowPassword: false,
 	ruleForm: {
-		account: 'superadmin',
-		password: '123456',
+		account: '',
+		password: '',
 		code: '',
 		codeId: 0,
 	},
@@ -144,6 +144,7 @@ onMounted(async () => {
 	if (accessToken != null && accessToken != undefined) {
 		await saveTokenAndInitRoutes(accessToken);
 	}
+
 	// 获取登录配置
 	state.secondVerEnabled = themeConfig.value.secondVer ?? true;
 	state.captchaEnabled = themeConfig.value.captcha ?? true;
