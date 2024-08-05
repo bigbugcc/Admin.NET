@@ -55,7 +55,7 @@ public static class SqlSugarFilter
             Scoped.Create((factory, scope) =>
             {
                 var services = scope.ServiceProvider;
-                orgIds = services.GetService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+                orgIds = services.GetRequiredService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
             });
             if (orgIds == null || orgIds.Count == 0) return;
 
@@ -100,6 +100,17 @@ public static class SqlSugarFilter
 
         // 获取用户最大数据范围---仅本人数据
         maxDataScope = App.GetRequiredService<SysCacheService>().Get<int>(CacheConst.KeyRoleMaxDataScope + userId);
+        // 如果为0，则调用GetUserOrgIdList,建立KeyRoleMaxDataScope缓存
+        if (maxDataScope == 0)
+        {
+            // 获取用户所属机构，保证同一作用域
+            Scoped.Create((factory, scope) =>
+            {
+                var services = scope.ServiceProvider;
+                services.GetRequiredService<SysOrgService>().GetUserOrgIdList().GetAwaiter().GetResult();
+                maxDataScope = services.GetRequiredService<SysCacheService>().Get<int>(CacheConst.KeyRoleMaxDataScope + userId);
+            });
+        }
         if (maxDataScope != (int)DataScopeEnum.Self) return maxDataScope;
 
         // 配置用户数据范围缓存
