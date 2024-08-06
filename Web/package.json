@@ -15,6 +15,11 @@
 	},
 	"dependencies": {
 		"@element-plus/icons-vue": "^2.3.1",
+		"@fast-crud/fast-crud": "^1.21.2",
+		"@fast-crud/fast-extends": "^1.21.2",
+		"@fast-crud/ui-element": "^1.21.2",
+		"@fast-crud/ui-interface": "^1.21.2",
+		"@iconify/vue": "^4.1.2",
 		"@logicflow/core": "^1.2.28",
 		"@logicflow/extension": "^1.2.28",
 		"@microsoft/signalr": "^8.0.7",
