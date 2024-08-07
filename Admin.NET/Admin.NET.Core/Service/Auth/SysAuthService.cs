@@ -69,7 +69,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 若未配置或误配置为0、负数, 则正确密码也无法登录
         if (passwordMaxErrorTimes < 1)
             passwordMaxErrorTimes = 1;
-        if (passwordErrorTimes >= passwordMaxErrorTimes)
+        if (passwordErrorTimes > passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
