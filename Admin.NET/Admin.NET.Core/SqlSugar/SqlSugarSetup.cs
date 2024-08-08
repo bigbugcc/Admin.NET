@@ -165,6 +165,8 @@ public static class SqlSugarSetup
         // 数据审计
         db.Aop.DataExecuting = (oldValue, entityInfo) =>
         {
+            if (CreateingSeedData)
+                return;
             // 新增/插入
             if (entityInfo.OperationType == DataFilterType.InsertByObject)
             {
@@ -249,6 +251,9 @@ public static class SqlSugarSetup
         SqlSugarFilter.SetCustomEntityFilter(db);
     }
 
+    //正在创建种子数据
+    private static bool CreateingSeedData = false;
+
     /// <summary>
     /// 开启库表差异化日志
     /// </summary>
@@ -327,6 +332,7 @@ public static class SqlSugarSetup
         // 初始化种子数据
         if (config.SeedSettings.EnableInitSeed)
         {
+            CreateingSeedData = true;
             Log.Information($"初始化种子数据 {config.DbType} - {config.ConfigId}");
             var seedDataTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarEntitySeedData<>))))
                 .WhereIF(config.SeedSettings.EnableIncreSeed, u => u.IsDefined(typeof(IncreSeedAttribute), false))
@@ -358,7 +364,7 @@ public static class SqlSugarSetup
                 if (seedData == null) continue;
 
                 var entityInfo = dbProvider.EntityMaintenance.GetEntityInfo(entityType);
-                Console.WriteLine($"添加数据 {entityInfo.DbTableName} ({config.ConfigId} - {++count}/{sum})");
+                Console.WriteLine($"添加数据 {entityInfo.DbTableName} ({config.ConfigId} - {++count}/{sum},数据量:{seedData.Count()})");
 
                 if (entityType.GetCustomAttribute<SplitTableAttribute>(true) != null)
                 {
@@ -374,9 +380,15 @@ public static class SqlSugarSetup
                     {
                         // 按主键进行批量增加和更新
                         var storage = dbProvider.StorageableByObject(seedData.ToList()).ToStorage();
-                        storage.AsInsertable.ExecuteCommand();
+
+                        //要先修改再插入，否则就会更新了最新修改时间字段
                         if (seedType.GetCustomAttribute<IgnoreUpdateSeedAttribute>() == null) // 有忽略更新种子特性时则不更新
-                            storage.AsUpdateable.IgnoreColumns(entityInfo.Columns.Where(u => u.PropertyInfo.GetCustomAttribute<IgnoreUpdateSeedColumnAttribute>() != null).Select(u => u.PropertyName).ToArray()).ExecuteCommand();
+                        {
+                            int updateCnt = storage.AsUpdateable.IgnoreColumns(entityInfo.Columns.Where(u => u.PropertyInfo.GetCustomAttribute<IgnoreUpdateSeedColumnAttribute>() != null).Select(u => u.PropertyName).ToArray()).ExecuteCommand();
+                            Console.WriteLine($"  修改{updateCnt}/{seedData.Count()}条新记录");
+                        }
+                        int insertCnt = storage.AsInsertable.ExecuteCommand();
+                        Console.WriteLine($"  插入{insertCnt}/{seedData.Count()}条新记录");
                     }
                     else
                     {
@@ -386,6 +398,7 @@ public static class SqlSugarSetup
                     }
                 }
             }
+            CreateingSeedData = false;
         }
     }
 
