@@ -68,7 +68,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysPasswordMaxErrorTimes);
         // 若未配置或误配置为0、负数, 则正确密码也无法登录
         if (passwordMaxErrorTimes < 1)
-            passwordMaxErrorTimes = 1;
+            passwordMaxErrorTimes = 10;
         if (passwordErrorTimes > passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
