@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
 
   "Urls": "http://*:5005", // 配置默认端口
@@ -46,6 +46,8 @@
     "PasswordStrengthValidation": "(?=^.{6,16}$)(?=.*\\d)(?=.*\\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\\n).*$", // 密码强度验证正则表达式，必须须包含大小写字母、数字和特殊字符的组合，长度在6-16之间
     "PasswordStrengthValidationMsg": "密码必须包含大小写字母、数字和特殊字符的组合，长度在6-16之间", // 密码强度验证消息提示
     "CryptoType": "SM2", // 密码加密算法：MD5、SM2、SM4
+    //新业务系统一定要改私钥，通过接口(http://localhost:5005/api/sysCommon/smKeyPair)获取
+    //获取后要同时修改前端文件：VITE_SM_PUBLIC_KEY 配置地项
     "PublicKey": "0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312", // 公钥
     "PrivateKey": "8EDB615B1D48B8BE188FC0F18EC08A41DF50EA731FA28BF409E6552809E3A111" // 私钥
   }

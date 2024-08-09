@@ -1,6 +1,6 @@
-{
+﻿{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
-
+  // Lazy.Captcha.Core 配置：详细文档(https://api.gitee.com/pojianbing/lazy-captcha/)
   "CaptchaOptions": {
     "CaptchaType": 10, // 验证码类型0、1、2、3、4、5、6、7、8、9、10、11
     "CodeLength": 1, // 验证码长度, 要放在CaptchaType设置后  当类型为算术表达式时，长度代表操作的个数, 例如2
