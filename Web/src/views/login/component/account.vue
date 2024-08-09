@@ -110,8 +110,8 @@ const dragRef: any = ref(null);
 const state = reactive({
 	isShowPassword: false,
 	ruleForm: {
-		account: '',
-		password: '',
+		account: window.__env__.VITE_DEFAULT_USER,
+		password: window.__env__.VITE_DEFAULT_USER_PASSWORD,
 		code: '',
 		codeId: 0,
 	},
