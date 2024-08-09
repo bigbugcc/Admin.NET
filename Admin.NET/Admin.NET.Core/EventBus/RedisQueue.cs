@@ -179,4 +179,24 @@ public static class RedisQueue
         var queue = GetRedisReliableQueue<T>(topic);
         return queue.Take(count).ToList();
     }
+
+    /// <summary>
+    /// 申请分布式锁
+    /// </summary>
+    /// <param name="key">要锁定的key</param>
+    /// <param name="msTimeout">申请锁等待的时间，单位毫秒</param>
+    /// <param name="msExpire">锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒</param>
+    /// <param name="throwOnFailure">失败时是否抛出异常,如不抛出异常，可通过判断返回null得知申请锁失败</param>
+    /// <returns></returns>
+    public static IDisposable? BeginCacheLock(string key, int msTimeout = 500, int msExpire = 10000, bool throwOnFailure = true)
+    {
+        try
+        {
+            return _cacheProvider.Cache.AcquireLock(key, msTimeout, msExpire, throwOnFailure);
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }
