@@ -77,7 +77,7 @@ const state = reactive({
 	TodayScheduleData: [] as Array<SysSchedule>, // 当天列表数据
 	calendarValue: new Date(),
 	queryParams: {
-        scheduleTime: new Date(),
+		scheduleTime: new Date(),
 		startTime: new Date(),
 		endTime: new Date(),
 	},
@@ -176,7 +176,7 @@ const handleClickDate = async (data: any) => {
 		await handleQuery();
 	}
 	await handleQueryByDate(data.day);
-    state.queryParams.scheduleTime=data.day;
+	state.queryParams.scheduleTime = data.day;
 };
 
 // 获取当月第一天

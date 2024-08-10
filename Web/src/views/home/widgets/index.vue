@@ -501,8 +501,8 @@ const close = () => {
 	margin: 5px;
 }
 .editlayout {
-	top: 17px;
-	right: 22px;
+	top: 18px;
+	right: 25px;
 	position: absolute;
 }
 </style>

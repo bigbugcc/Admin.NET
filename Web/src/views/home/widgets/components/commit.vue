@@ -72,6 +72,5 @@ onMounted(() => {
 .commit {
 	max-height: 500px;
 	overflow: auto;
-	padding-bottom: 20px;
 }
 </style>
