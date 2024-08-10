@@ -1,139 +1,139 @@
 <template>
-  <div style="height:100vh;display:flex;overflow:hidden">
-	<div class="noticebar">
-		<NoticeBar />
-		<div class="editlayout">
-			<el-tooltip content="编辑/保存布局" placement="bottom">
-			    <el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
-			    <el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
-            </el-tooltip>
+	<div style="height: 100vh; display: flex; overflow: hidden">
+		<div class="noticebar">
+			<NoticeBar />
+			<div class="editlayout">
+				<el-tooltip content="编辑/保存布局" placement="bottom">
+					<el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
+					<el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
+				</el-tooltip>
+			</div>
 		</div>
-	</div>
 
-	<div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
-		<div class="widgets-content">
-			<!-- <div class="widgets-top">
+		<div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
+			<div class="widgets-content">
+				<!-- <div class="widgets-top">
 				<div class="widgets-top-title">控制台</div>
 				<div class="widgets-top-actions">
 					<el-button v-if="customizing" type="primary" icon="ele-Check" round @click="save">完成</el-button>
 					<el-button v-else type="primary" icon="ele-Edit" round @click="custom">自定义</el-button>
 				</div>
 			</div> -->
-			<div class="widgets" ref="widgetsRef">
-				<div class="widgets-wrapper">
-					<div v-if="nowCompsList.length <= 0" class="no-widgets">
-						<el-empty description="没有部件啦" :image-size="300"></el-empty>
-					</div>
-					<el-row :gutter="8">
-						<el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
-							<VueDraggable v-model="grid.copmsList[index]" :animation="200" group="grid" handle=".customize-overlay" class="draggable-box">
-								<div v-for="item in grid.copmsList[index]" :key="item">
-									<div class="widgets-item mb8">
-										<component :is="allComps[item]"></component>
-										<div v-if="customizing" class="customize-overlay">
-											<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(item)"></el-button>
-											<label v-if="allComps[item]">
-												<el-icon> <component :is="allComps[item].icon" /> </el-icon>{{ allComps[item].title }}
-											</label>
+				<div class="widgets" ref="widgetsRef">
+					<div class="widgets-wrapper">
+						<div v-if="nowCompsList.length <= 0" class="no-widgets">
+							<el-empty description="没有部件啦" :image-size="300"></el-empty>
+						</div>
+						<el-row :gutter="8">
+							<el-col v-for="(item, index) in grid.layout" :key="index" :md="item" :xs="24">
+								<VueDraggable v-model="grid.copmsList[index]" :animation="200" group="grid" handle=".customize-overlay" class="draggable-box">
+									<div v-for="item in grid.copmsList[index]" :key="item">
+										<div class="widgets-item mb8">
+											<component :is="allComps[item]"></component>
+											<div v-if="customizing" class="customize-overlay">
+												<el-button class="close" type="danger" plain icon="ele-Close" @click="remove(item)"></el-button>
+												<label v-if="allComps[item]">
+													<el-icon> <component :is="allComps[item].icon" /> </el-icon>{{ allComps[item].title }}
+												</label>
+											</div>
 										</div>
 									</div>
-								</div>
-							</VueDraggable>
-						</el-col>
-					</el-row>
+								</VueDraggable>
+							</el-col>
+						</el-row>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div v-if="customizing" class="widgets-aside">
-			<div class="widgets-top">
-				<div class="widgets-aside-title">
-					<el-icon><ele-CirclePlusFilled /></el-icon>添加部件
-				</div>
-				<div class="widgets-top-actions">
-					<div class="widgets-aside-close" @click="close">
-						<el-icon><ele-Close /></el-icon>
+			<div v-if="customizing" class="widgets-aside">
+				<div class="widgets-top">
+					<div class="widgets-aside-title">
+						<el-icon><ele-CirclePlusFilled /></el-icon>添加部件
+					</div>
+					<div class="widgets-top-actions">
+						<div class="widgets-aside-close" @click="close">
+							<el-icon><ele-Close /></el-icon>
+						</div>
 					</div>
 				</div>
+				<el-container>
+					<el-header style="height: auto">
+						<div class="selectLayout">
+							<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '12,6,6' }" @click="setLayout([12, 6, 6])">
+								<el-row :gutter="2">
+									<el-col :span="12"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+								</el-row>
+							</div>
+							<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,16,8' }" @click="setLayout([24, 16, 8])">
+								<el-row :gutter="2">
+									<el-col :span="24"><span></span></el-col>
+									<el-col :span="16"><span></span></el-col>
+									<el-col :span="8"><span></span></el-col>
+								</el-row>
+							</div>
+							<div class="selectLayout-item item03" :class="{ active: grid.layout.join(',') === '24' }" @click="setLayout([24])">
+								<el-row :gutter="2">
+									<el-col :span="24"><span></span></el-col>
+									<el-col :span="24"><span></span></el-col>
+									<el-col :span="24"><span></span></el-col>
+								</el-row>
+							</div>
+							<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '6,12,6' }" @click="setLayout([6, 12, 6])">
+								<el-row :gutter="2">
+									<el-col :span="6"><span></span></el-col>
+									<el-col :span="12"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+								</el-row>
+							</div>
+							<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,6,12,6' }" @click="setLayout([24, 6, 12, 6])">
+								<el-row :gutter="2">
+									<el-col :span="24"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+									<el-col :span="12"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+								</el-row>
+							</div>
+							<div class="selectLayout-item item05" :class="{ active: grid.layout.join(',') === '24,6,12,6,24' }" @click="setLayout([24, 6, 12, 6, 24])">
+								<el-row :gutter="2">
+									<el-col :span="24"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+									<el-col :span="12"><span></span></el-col>
+									<el-col :span="6"><span></span></el-col>
+									<el-col :span="24"><span></span></el-col>
+								</el-row>
+							</div>
+						</div>
+					</el-header>
+					<el-main class="nopadding">
+						<div class="widgets-list">
+							<div v-if="myCompsList.length <= 0" class="widgets-list-nodata">
+								<el-empty description="没有部件啦" :image-size="60"></el-empty>
+							</div>
+							<div v-for="item in myCompsList" :key="item.title" class="widgets-list-item">
+								<div class="item-logo">
+									<el-icon>
+										<component :is="item.icon" />
+									</el-icon>
+								</div>
+								<div class="item-info">
+									<h2>{{ item.title }}</h2>
+									<p>{{ item.description }}</p>
+								</div>
+								<div class="item-actions">
+									<el-button type="primary" icon="ele-Plus" @click="push(item)"></el-button>
+								</div>
+							</div>
+						</div>
+					</el-main>
+					<el-footer style="height: 51px">
+						<el-button @click="backDefault">恢复默认</el-button>
+					</el-footer>
+				</el-container>
 			</div>
-			<el-container>
-				<el-header style="height: auto">
-					<div class="selectLayout">
-						<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '12,6,6' }" @click="setLayout([12, 6, 6])">
-							<el-row :gutter="2">
-								<el-col :span="12"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-							</el-row>
-						</div>
-						<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,16,8' }" @click="setLayout([24, 16, 8])">
-							<el-row :gutter="2">
-								<el-col :span="24"><span></span></el-col>
-								<el-col :span="16"><span></span></el-col>
-								<el-col :span="8"><span></span></el-col>
-							</el-row>
-						</div>
-						<div class="selectLayout-item item03" :class="{ active: grid.layout.join(',') === '24' }" @click="setLayout([24])">
-							<el-row :gutter="2">
-								<el-col :span="24"><span></span></el-col>
-								<el-col :span="24"><span></span></el-col>
-								<el-col :span="24"><span></span></el-col>
-							</el-row>
-						</div>
-						<div class="selectLayout-item item01" :class="{ active: grid.layout.join(',') === '6,12,6' }" @click="setLayout([6, 12, 6])">
-							<el-row :gutter="2">
-								<el-col :span="6"><span></span></el-col>
-								<el-col :span="12"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-							</el-row>
-						</div>
-						<div class="selectLayout-item item02" :class="{ active: grid.layout.join(',') === '24,6,12,6' }" @click="setLayout([24, 6, 12, 6])">
-							<el-row :gutter="2">
-								<el-col :span="24"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-								<el-col :span="12"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-							</el-row>
-						</div>
-						<div class="selectLayout-item item05" :class="{ active: grid.layout.join(',') === '24,6,12,6,24' }" @click="setLayout([24, 6, 12, 6, 24])">
-							<el-row :gutter="2">
-								<el-col :span="24"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-								<el-col :span="12"><span></span></el-col>
-								<el-col :span="6"><span></span></el-col>
-								<el-col :span="24"><span></span></el-col>
-							</el-row>
-						</div>
-					</div>
-				</el-header>
-				<el-main class="nopadding">
-					<div class="widgets-list">
-						<div v-if="myCompsList.length <= 0" class="widgets-list-nodata">
-							<el-empty description="没有部件啦" :image-size="60"></el-empty>
-						</div>
-						<div v-for="item in myCompsList" :key="item.title" class="widgets-list-item">
-							<div class="item-logo">
-								<el-icon>
-									<component :is="item.icon" />
-								</el-icon>
-							</div>
-							<div class="item-info">
-								<h2>{{ item.title }}</h2>
-								<p>{{ item.description }}</p>
-							</div>
-							<div class="item-actions">
-								<el-button type="primary" icon="ele-Plus" @click="push(item)"></el-button>
-							</div>
-						</div>
-					</div>
-				</el-main>
-				<el-footer style="height: 51px">
-					<el-button @click="backDefault">恢复默认</el-button>
-				</el-footer>
-			</el-container>
 		</div>
 	</div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -497,13 +497,13 @@ const close = () => {
 		margin-right: 0;
 	}
 }
-.noticebar{
-	margin-bottom:10px;
-	margin-left:5px;
+.noticebar {
+	margin-bottom: 10px;
+	margin-left: 5px;
 }
-.editlayout{
-	top:15px;
-	right:10px;
-	position:absolute;
+.editlayout {
+	top: 15px;
+	right: 10px;
+	position: absolute;
 }
 </style>
