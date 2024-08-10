@@ -51,7 +51,7 @@ public class SysProcService : IDynamicApiController, ITransient
         var dt = await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
 
         var excelExporter = new ExcelExporter();
-        string template = AppDomain.CurrentDomain.BaseDirectory + "/wwwroot/Template/" + input.Template + ".xlsx";
+        string template = AppDomain.CurrentDomain.BaseDirectory + "/wwwroot/template/" + input.Template + ".xlsx";
         var bs = await excelExporter.ExportBytesByTemplate(dt, template);
         return new FileContentResult(bs, "application/octet-stream") { FileDownloadName = input.ProcId + ".xlsx" };
     }

@@ -436,7 +436,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传头像")]
     public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
-        var sysFile = await HandleUploadFile(file, "Upload/Avatar", _imageType);
+        var sysFile = await HandleUploadFile(file, "upload/avatar", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);
@@ -458,7 +458,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传电子签名")]
     public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
-        var sysFile = await HandleUploadFile(file, "Upload/Signature", _imageType);
+        var sysFile = await HandleUploadFile(file, "upload/signature", _imageType);
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = sysUserRep.GetFirst(u => u.Id == _userManager.UserId);

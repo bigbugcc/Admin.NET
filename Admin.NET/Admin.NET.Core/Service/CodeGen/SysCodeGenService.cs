@@ -356,7 +356,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         };
         // 模板目录
         var templatePathList = GetTemplatePathList(input);
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
 
         for (var i = 0; i < templatePathList.Count; i++)
         {
@@ -422,7 +422,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
 
         // 获取模板文件并替换
         var templatePathList = GetTemplatePathList();
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
 
         var result = new Dictionary<string, string>();
         for (var i = 0; i < templatePathList.Count; i++)

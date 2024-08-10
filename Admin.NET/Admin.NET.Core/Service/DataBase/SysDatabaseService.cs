@@ -468,7 +468,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <returns></returns>
     private static string GetEntityTemplatePath()
     {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
         return Path.Combine(templatePath, "Entity.cs.vm");
     }
 
@@ -478,7 +478,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <returns></returns>
     private static string GetSeedDataTemplatePath()
     {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
         return Path.Combine(templatePath, "SeedData.cs.vm");
     }
 
