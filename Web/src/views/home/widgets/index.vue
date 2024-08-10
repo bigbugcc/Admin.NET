@@ -1,6 +1,6 @@
 <template>
-	<div style="height: 100vh; display: flex; overflow: hidden">
-		<div class="noticebar">
+	<div style="height: 100vh; overflow: hidden">
+		<div class="noticebar" style="display: flex">
 			<NoticeBar />
 			<div class="editlayout">
 				<el-tooltip content="编辑/保存布局" placement="bottom">
@@ -498,12 +498,11 @@ const close = () => {
 	}
 }
 .noticebar {
-	margin-bottom: 10px;
-	margin-left: 5px;
+	margin: 5px;
 }
 .editlayout {
-	top: 15px;
-	right: 10px;
+	top: 17px;
+	right: 22px;
 	position: absolute;
 }
 </style>
