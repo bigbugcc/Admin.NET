@@ -1,9 +1,12 @@
 <template>
-	<div>
-		<NoticeBar style="margin: 4px" />
-		<div style="float: right; margin: -35px 10px 0 0">
-			<el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
-			<el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
+  <div style="height:100vh;display:flex;overflow:hidden">
+	<div class="noticebar">
+		<NoticeBar />
+		<div class="editlayout">
+			<el-tooltip content="编辑/保存布局" placement="bottom">
+			    <el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
+			    <el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
+            </el-tooltip>
 		</div>
 	</div>
 
@@ -130,6 +133,7 @@
 			</el-container>
 		</div>
 	</div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -492,5 +496,14 @@ const close = () => {
 	.customizing .widgets-wrapper {
 		margin-right: 0;
 	}
+}
+.noticebar{
+	margin-bottom:10px;
+	margin-left:5px;
+}
+.editlayout{
+	top:15px;
+	right:10px;
+	position:absolute;
 }
 </style>
