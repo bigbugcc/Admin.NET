@@ -87,6 +87,22 @@ public class SysCacheService : IDynamicApiController, ISingleton
     }
 
     /// <summary>
+    /// 清空所有缓存 🔖
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete]
+    [DisplayName("清空所有缓存")]
+    [ApiDescriptionSettings(Name = "Clear")]
+    public void Clear()
+    {
+        // 清除框架的缓存
+        _cacheProvider.Cache.Clear();
+        // 当使用Redis时，清除MemoryCache，SqlSugarFilter会用到
+        var memoryCache = Cache.Default;
+        if (memoryCache != _cacheProvider.Cache) memoryCache.Clear();
+    }
+
+    /// <summary>
     /// 检查缓存是否存在
     /// </summary>
     /// <param name="key">键</param>

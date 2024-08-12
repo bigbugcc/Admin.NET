@@ -33,7 +33,10 @@
 					<template #header>
 						<div class="card-header">
 							<span>{{ `缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}` }}</span>
-							<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
+							<el-space :size="5">
+								<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
+								<el-button icon="ele-DeleteFilled" size="small" type="danger" @click="clearCache" v-auth="'sysCache:clear'"> 清空缓存 </el-button>
+							</el-space>
 						</div>
 					</template>
 					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
@@ -66,7 +69,7 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	handleQuery();
+	await handleQuery();
 });
 
 // 查询操作
@@ -114,10 +117,27 @@ const delCache = () => {
 	})
 		.then(async () => {
 			await getAPI(SysCacheApi).apiSysCacheDeleteKeyPost(currentNode.value.id);
-			handleQuery();
+			await handleQuery();
 			state.cacheValue = undefined;
 			state.cacheKey = undefined;
 			ElMessage.success('删除成功');
+		})
+		.catch(() => {});
+};
+
+// 清空
+const clearCache = () => {
+	ElMessageBox.confirm(`确认清空所有缓存?`, '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	})
+		.then(async () => {
+			await getAPI(SysCacheApi).apiSysCacheClearDelete();
+			await handleQuery();
+			state.cacheValue = undefined;
+			state.cacheKey = undefined;
+			ElMessage.success('清空成功');
 		})
 		.catch(() => {});
 };
