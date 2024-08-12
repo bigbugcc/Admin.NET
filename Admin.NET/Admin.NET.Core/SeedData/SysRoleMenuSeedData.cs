@@ -19,11 +19,10 @@ public class SysRoleMenuSeedData : ISqlSugarEntitySeedData<SysRoleMenu>
     {
         return new[]
         {
-            // 数据面板【admin/1300000000101】
+            ////// 数据面板【admin/1300000000101】
             new SysRoleMenu{ Id=1300000000101, RoleId=1300000000101, MenuId=1300000000101 },
             new SysRoleMenu{ Id=1300000000102, RoleId=1300000000101, MenuId=1300000000111 },
             new SysRoleMenu{ Id=1300000000103, RoleId=1300000000101, MenuId=1300000000121 },
-
             // 系统管理
             new SysRoleMenu{ Id=1300000000111, RoleId=1300000000101, MenuId=1310000000101 },
             // 账号管理
@@ -78,9 +77,8 @@ public class SysRoleMenuSeedData : ISqlSugarEntitySeedData<SysRoleMenu>
             new SysRoleMenu{ Id=1300000000193, RoleId=1300000000101, MenuId=1310000000183 },
             new SysRoleMenu{ Id=1300000000194, RoleId=1300000000101, MenuId=1310000000184 },
             new SysRoleMenu{ Id=1300000000195, RoleId=1300000000101, MenuId=1310000000185 },
-
-            //// 平台管理
-            //new SysRoleMenu{ Id=1300000000201, RoleId=1300000000101, MenuId=1310000000301 },
+            // 平台管理
+            new SysRoleMenu{ Id=1300000000201, RoleId=1300000000101, MenuId=1310000000301 },
             // 任务调度
             new SysRoleMenu{ Id=1300000000251, RoleId=1300000000101, MenuId=1310000000351 },
             new SysRoleMenu{ Id=1300000000252, RoleId=1300000000101, MenuId=1310000000352 },
@@ -93,6 +91,7 @@ public class SysRoleMenuSeedData : ISqlSugarEntitySeedData<SysRoleMenu>
             new SysRoleMenu{ Id=1300000000271, RoleId=1300000000101, MenuId=1310000000371 },
             new SysRoleMenu{ Id=1300000000272, RoleId=1300000000101, MenuId=1310000000372 },
             new SysRoleMenu{ Id=1300000000273, RoleId=1300000000101, MenuId=1310000000373 },
+            new SysRoleMenu{ Id=1300000000274, RoleId=1300000000101, MenuId=1310000000374 },
             // 行政区域
             new SysRoleMenu{ Id=1300000000281, RoleId=1300000000101, MenuId=1310000000381 },
             new SysRoleMenu{ Id=1300000000282, RoleId=1300000000101, MenuId=1310000000382 },

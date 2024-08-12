@@ -28,6 +28,49 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @summary 清空所有缓存 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysCacheClearPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysCache/clear`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
@@ -276,6 +319,19 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary 清空所有缓存 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCacheClearPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysCacheApiAxiosParamCreator(configuration).apiSysCacheClearPost(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
@@ -354,6 +410,15 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @summary 清空所有缓存 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysCacheClearPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysCacheApiFp(configuration).apiSysCacheClearPost(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 根据键名前缀删除缓存 🔖
          * @param {string} prefixKey 键名前缀
          * @param {*} [options] Override http request option.
@@ -411,6 +476,16 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
  * @extends {BaseAPI}
  */
 export class SysCacheApi extends BaseAPI {
+    /**
+     * 
+     * @summary 清空所有缓存 🔖
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysCacheApi
+     */
+    public async apiSysCacheClearPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysCacheApiFp(this.configuration).apiSysCacheClearPost(options).then((request) => request(this.axios, this.basePath));
+    }
     /**
      * 
      * @summary 根据键名前缀删除缓存 🔖

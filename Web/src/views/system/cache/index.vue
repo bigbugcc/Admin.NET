@@ -10,12 +10,16 @@
 					<template #header>
 						<div class="card-header">
 							<span>缓存列表</span>
-							<el-button icon="ele-Refresh" size="small" circle @click="handleQuery" v-auth="'sysCache:keyList'" />
+							<div>
+								<el-button icon="ele-Refresh" size="small" type="success" circle plain @click="handleQuery" v-auth="'sysCache:keyList'" />
+								<el-button icon="ele-DeleteFilled" size="small" type="danger" circle plain @click="clearCache" v-auth="'sysCache:clear'"> </el-button>
+							</div>
 						</div>
 					</template>
 					<el-tree
 						ref="treeRef"
 						class="filter-tree"
+						style="padding-bottom: 60px"
 						:data="state.cacheData"
 						node-key="id"
 						:props="{ children: 'children', label: 'name' }"
@@ -33,13 +37,10 @@
 					<template #header>
 						<div class="card-header">
 							<span>{{ `缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}` }}</span>
-							<el-space :size="5">
-								<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
-								<el-button icon="ele-DeleteFilled" size="small" type="danger" @click="clearCache" v-auth="'sysCache:clear'"> 清空缓存 </el-button>
-							</el-space>
+							<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
 						</div>
 					</template>
-					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
+					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController style="padding-bottom: 60px" />
 				</el-card>
 			</pane>
 		</splitpanes>

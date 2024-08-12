@@ -113,59 +113,56 @@ public class SysFileService : IDynamicApiController, ITransient
     {
         var file = input.Id > 0 ? await GetFile(input) : await _sysFileRep.CopyNew().GetFirstAsync(u => u.Url == input.Url);
         var fileName = HttpUtility.UrlEncode(file.FileName, Encoding.GetEncoding("UTF-8"));
+        var filePath = Path.Combine(file.FilePath, file.Id.ToString() + file.Suffix);
 
         if (_OSSProviderOptions.IsEnable)
         {
-            var filePath = string.Concat(file.FilePath, "/", file.Id.ToString() + file.Suffix);
             var stream = await (await _OSSService.PresignedGetObjectAsync(file.BucketName.ToString(), filePath, 5)).GetAsStreamAsync();
             return new FileStreamResult(stream.Stream, "application/octet-stream") { FileDownloadName = fileName + file.Suffix };
         }
         else if (App.Configuration["SSHProvider:IsEnable"].ToBoolean())
         {
-            var fullPath = string.Concat(file.FilePath, "/", file.Id + file.Suffix);
             using (SSHHelper helper = new SSHHelper(App.Configuration["SSHProvider:Host"],
                App.Configuration["SSHProvider:Port"].ToInt(), App.Configuration["SSHProvider:Username"], App.Configuration["SSHProvider:Password"]))
             {
-                return new FileStreamResult(helper.OpenRead(fullPath), "application/octet-stream") { FileDownloadName = fileName + file.Suffix };
+                return new FileStreamResult(helper.OpenRead(filePath), "application/octet-stream") { FileDownloadName = fileName + file.Suffix };
             }
         }
         else
         {
-            var filePath = Path.Combine(file.FilePath, file.Id.ToString() + file.Suffix);
             var path = Path.Combine(App.WebHostEnvironment.WebRootPath, filePath);
             return new FileStreamResult(new FileStream(path, FileMode.Open), "application/octet-stream") { FileDownloadName = fileName + file.Suffix };
         }
     }
 
     /// <summary>
-    /// 文件预览
+    /// 文件预览 🔖
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
+    [DisplayName("文件预览")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPreview([FromRoute] long Id)
     {
         var file = await GetFile(new FileInput { Id = Id });
         //var fileName = HttpUtility.UrlEncode(file.FileName, Encoding.GetEncoding("UTF-8"));
+        var filePath = Path.Combine(file.FilePath, file.Id.ToString() + file.Suffix);
 
         if (_OSSProviderOptions.IsEnable)
         {
-            var filePath = string.Concat(file.FilePath, "/", file.Id.ToString() + file.Suffix);
             var stream = await (await _OSSService.PresignedGetObjectAsync(file.BucketName.ToString(), filePath, 5)).GetAsStreamAsync();
             return new FileStreamResult(stream.Stream, "application/octet-stream");
         }
         else if (App.Configuration["SSHProvider:IsEnable"].ToBoolean())
         {
-            var fullPath = string.Concat(file.FilePath, "/", file.Id + file.Suffix);
             using (SSHHelper helper = new SSHHelper(App.Configuration["SSHProvider:Host"],
                App.Configuration["SSHProvider:Port"].ToInt(), App.Configuration["SSHProvider:Username"], App.Configuration["SSHProvider:Password"]))
             {
-                return new FileStreamResult(helper.OpenRead(fullPath), "application/octet-stream");
+                return new FileStreamResult(helper.OpenRead(filePath), "application/octet-stream");
             }
         }
         else
         {
-            var filePath = Path.Combine(file.FilePath, file.Id.ToString() + file.Suffix);
             var path = Path.Combine(App.WebHostEnvironment.WebRootPath, filePath);
             return new FileStreamResult(new FileStream(path, FileMode.Open), "application/octet-stream");
         }
@@ -274,11 +271,12 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取文件
+    /// 获取文件 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    private async Task<SysFile> GetFile([FromQuery] FileInput input)
+    [DisplayName("获取文件")]
+    public async Task<SysFile> GetFile([FromQuery] FileInput input)
     {
         var file = await _sysFileRep.CopyNew().GetFirstAsync(u => u.Id == input.Id);
         return file ?? throw Oops.Oh(ErrorCodeEnum.D8000);
@@ -387,7 +385,7 @@ public class SysFileService : IDynamicApiController, ITransient
         }
         else if (App.Configuration["SSHProvider:IsEnable"].ToBoolean())
         {
-            var fullPath = string.Concat(path.StartsWith("/") ? path : "/" + path, "/", finalName);
+            var fullPath = string.Concat(path.StartsWith('/') ? path : "/" + path, "/", finalName);
             using (SSHHelper helper = new SSHHelper(App.Configuration["SSHProvider:Host"],
                App.Configuration["SSHProvider:Port"].ToInt(), App.Configuration["SSHProvider:Username"], App.Configuration["SSHProvider:Password"]))
             {
@@ -416,17 +414,6 @@ public class SysFileService : IDynamicApiController, ITransient
         await _sysFileRep.AsInsertable(newFile).ExecuteCommandAsync();
         return newFile;
     }
-
-    ///// <summary>
-    ///// 获取Minio文件的下载或者预览地址
-    ///// </summary>
-    ///// <param name="bucketName">桶名</param>
-    ///// <param name="fileName">文件名</param>
-    ///// <returns></returns>
-    //private async Task<string> GetMinioPreviewFileUrl(string bucketName, string fileName)
-    //{
-    //    return await _OSSService.PresignedGetObjectAsync(bucketName, fileName, 7);
-    //}
 
     /// <summary>
     /// 上传头像 🔖
@@ -473,7 +460,7 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 修改附件关联对象
+    /// 修改附件关联对象 🔖
     /// </summary>
     /// <param name="ids"></param>
     /// <param name="relationName"></param>
@@ -499,6 +486,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
+    [DisplayName("根据关联查询附件")]
     public async Task<List<FileOutput>> GetRelationFiles([FromQuery] RelationQueryInput input)
     {
         return await _sysFileRep.AsQueryable()
