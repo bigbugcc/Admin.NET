@@ -19,6 +19,12 @@ public class FileInput : BaseIdInput
     public string FileType { get; set; }
 
     /// <summary>
+    /// 是否公开
+    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// </summary>
+    public bool IsPublic { get; set; }
+
+    /// <summary>
     /// 文件Url
     /// </summary>
     public string? Url { get; set; }
@@ -72,6 +78,12 @@ public class UploadFileFromBase64Input
     /// 文件类型
     /// </summary>
     public string FileType { get; set; }
+
+    /// <summary>
+    /// 是否公开
+    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// </summary>
+    public bool IsPublic { get; set; }
 }
 
 /// <summary>
@@ -89,6 +101,12 @@ public class FileUploadInput
     /// 文件类型
     /// </summary>
     public string FileType { get; set; }
+
+    /// <summary>
+    /// 是否公开
+    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// </summary>
+    public bool IsPublic { get; set; }
 
     /// <summary>
     /// 文件路径
@@ -167,6 +185,12 @@ public class FileOutput
     /// 文件类别
     /// </summary>
     public string FileType { get; set; }
+
+    /// <summary>
+    /// 是否公开
+    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// </summary>
+    public bool IsPublic { get; set; }
 
     /// <summary>
     /// 上传人
