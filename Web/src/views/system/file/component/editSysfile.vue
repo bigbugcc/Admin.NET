@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-file-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="500px">
+		<el-dialog v-model="state.isShowDialog" draggable overflow destroy-on-close width="500px">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -22,6 +22,14 @@
 								<el-option label="相关文件" value="相关文件" />
 								<el-option label="归档文件" value="归档文件" />
 							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="是否公开">
+							<el-radio-group v-model="state.ruleForm.isPublic">
+								<el-radio :value="false">否</el-radio>
+								<el-radio :value="true">是</el-radio>
+							</el-radio-group>
 						</el-form-item>
 					</el-col>
 				</el-row>
