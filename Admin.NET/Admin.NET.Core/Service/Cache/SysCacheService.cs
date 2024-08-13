@@ -22,6 +22,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
         _cacheProvider = cacheProvider;
         _cacheOptions = cacheOptions.Value;
     }
+
     /// <summary>
     /// 申请分布式锁
     /// </summary>
@@ -41,7 +42,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
             return null;
         }
     }
-    
+
     /// <summary>
     /// 获取缓存键名集合 🔖
     /// </summary>

@@ -20,7 +20,7 @@ public class FileInput : BaseIdInput
 
     /// <summary>
     /// 是否公开
-    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     public bool IsPublic { get; set; }
 
@@ -81,7 +81,7 @@ public class UploadFileFromBase64Input
 
     /// <summary>
     /// 是否公开
-    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     public bool IsPublic { get; set; }
 }
@@ -104,7 +104,7 @@ public class FileUploadInput
 
     /// <summary>
     /// 是否公开
-    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     public bool IsPublic { get; set; }
 
@@ -188,7 +188,7 @@ public class FileOutput
 
     /// <summary>
     /// 是否公开
-    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     public bool IsPublic { get; set; }
 

@@ -183,7 +183,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
          * @param {number} id 主键Id
          * @param {string} [fileName] 文件名称
          * @param {string} [fileType] 文件类型
-         * @param {boolean} [isPublic] 是否公开  如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
          * @param {string} [url] 文件Url
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -786,7 +786,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
          * @param {number} id 主键Id
          * @param {string} [fileName] 文件名称
          * @param {string} [fileType] 文件类型
-         * @param {boolean} [isPublic] 是否公开  如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
          * @param {string} [url] 文件Url
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -975,7 +975,7 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
          * @param {number} id 主键Id
          * @param {string} [fileName] 文件名称
          * @param {string} [fileType] 文件类型
-         * @param {boolean} [isPublic] 是否公开  如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
          * @param {string} [url] 文件Url
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1128,7 +1128,7 @@ export class SysFileApi extends BaseAPI {
      * @param {number} id 主键Id
      * @param {string} [fileName] 文件名称
      * @param {string} [fileType] 文件类型
-     * @param {boolean} [isPublic] 是否公开  如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+     * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
      * @param {string} [url] 文件Url
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

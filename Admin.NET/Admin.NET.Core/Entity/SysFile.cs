@@ -104,8 +104,8 @@ public partial class SysFile : EntityBaseData
 
     /// <summary>
     /// 是否公开
-    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
-    [SugarColumn(ColumnDescription = "是否公开", DefaultValue = "false")]
+    [SugarColumn(ColumnDescription = "是否公开")]
     public bool IsPublic { get; set; } = false;
 }

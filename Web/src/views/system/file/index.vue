@@ -53,10 +53,10 @@
 				<el-table-column prop="bucketName" label="存储位置" align="center" show-overflow-tooltip />
 				<el-table-column prop="id" label="存储标识" align="center" show-overflow-tooltip />
 				<el-table-column prop="fileType" label="文件类型" min-width="100" header-align="center" show-overflow-tooltip />
-				<el-table-column prop="isPublic" label="是否公开" min-width="100" header-align="center" show-overflow-tooltip >
-                    <template #default="scope">
+				<el-table-column prop="isPublic" label="是否公开" min-width="100" header-align="center" show-overflow-tooltip>
+					<template #default="scope">
 						<el-tag v-if="scope.row.isPublic === true" type="success">是</el-tag>
-							<el-tag v-else type="danger">否</el-tag>
+						<el-tag v-else type="danger">否</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column type="relationName" label="关联对象名称" min-width="150" align="center" />
@@ -101,8 +101,8 @@
 					<el-option label="相关文件" value="相关文件" />
 					<el-option label="归档文件" value="归档文件" />
 				</el-select>
-                是否公开：
-				<el-radio-group  v-model="state.isPublic">
+				是否公开：
+				<el-radio-group v-model="state.isPublic">
 					<el-radio :value="false">否</el-radio>
 					<el-radio :value="true">是</el-radio>
 				</el-radio-group>
@@ -183,7 +183,7 @@ const state = reactive({
 	pdfUrl: '',
 	fileName: '',
 	fileType: '',
-    isPublic:false,
+	isPublic: false,
 	previewList: [] as string[],
 });
 
@@ -216,7 +216,7 @@ const resetQuery = () => {
 const openUploadDialog = () => {
 	state.fileList = [];
 	state.dialogUploadVisible = true;
-    state.isPublic=false;
+	state.isPublic = false;
 };
 
 // 通过onChanne方法获得文件列表

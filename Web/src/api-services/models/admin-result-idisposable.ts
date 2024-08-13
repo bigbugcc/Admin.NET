@@ -12,59 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { IDisposable } from './idisposable';
  /**
- * 
+ * 全局返回结果
  *
  * @export
- * @interface UploadFileFromBase64Input
+ * @interface AdminResultIDisposable
  */
-export interface UploadFileFromBase64Input {
+export interface AdminResultIDisposable {
 
     /**
-     * 文件内容
+     * 状态码
+     *
+     * @type {number}
+     * @memberof AdminResultIDisposable
+     */
+    code?: number;
+
+    /**
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof AdminResultIDisposable
      */
-    fileDataBase64?: string | null;
+    type?: string | null;
 
     /**
-     * 文件类型( \"image/jpeg\",)
+     * 错误信息
      *
      * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @memberof AdminResultIDisposable
      */
-    contentType?: string | null;
+    message?: string | null;
 
     /**
-     * 文件名称
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {IDisposable}
+     * @memberof AdminResultIDisposable
      */
-    fileName?: string | null;
+    result?: IDisposable;
 
     /**
-     * 保存路径
+     * 附加数据
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {any}
+     * @memberof AdminResultIDisposable
      */
-    path?: string | null;
+    extras?: any | null;
 
     /**
-     * 文件类型
+     * 时间
      *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
+     * @type {Date}
+     * @memberof AdminResultIDisposable
      */
-    fileType?: string | null;
-
-    /**
-     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
-     *
-     * @type {boolean}
-     * @memberof UploadFileFromBase64Input
-     */
-    isPublic?: boolean;
+    time?: Date;
 }

@@ -85,6 +85,22 @@ export interface SysFile {
     isDelete?: boolean;
 
     /**
+     * 创建者部门Id
+     *
+     * @type {number}
+     * @memberof SysFile
+     */
+    createOrgId?: number | null;
+
+    /**
+     * 创建者部门名称
+     *
+     * @type {string}
+     * @memberof SysFile
+     */
+    createOrgName?: string | null;
+
+    /**
      * 提供者
      *
      * @type {string}
@@ -187,4 +203,12 @@ export interface SysFile {
      * @memberof SysFile
      */
     fileType?: string | null;
+
+    /**
+     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+     *
+     * @type {boolean}
+     * @memberof SysFile
+     */
+    isPublic?: boolean;
 }
