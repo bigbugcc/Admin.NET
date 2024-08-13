@@ -76,7 +76,6 @@ public class SysMenuService : IDynamicApiController, ITransient
     /// 获取菜单列表 🔖
     /// </summary>
     /// <returns></returns>
-    [AllowAnonymous]
     [DisplayName("获取菜单列表")]
     public async Task<List<SysMenu>> GetList([FromQuery] MenuInput input)
     {

@@ -141,7 +141,6 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="Id"></param>
     /// <returns></returns>
     [DisplayName("文件预览")]
-    [AllowAnonymous]
     public async Task<IActionResult> GetPreview([FromRoute] long Id)
     {
         var file = await GetFile(new FileInput { Id = Id });
@@ -173,7 +172,6 @@ public class SysFileService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
-    [AllowAnonymous]
     [DisplayName("下载指定文件Base64格式")]
     public async Task<string> DownloadFileBase64([FromBody] string url)
     {

@@ -10,7 +10,6 @@ namespace Admin.NET.Core.Service;
 /// 系统枚举服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 275)]
-[AllowAnonymous]
 public class SysEnumService : IDynamicApiController, ITransient
 {
     private readonly EnumOptions _enumOptions;

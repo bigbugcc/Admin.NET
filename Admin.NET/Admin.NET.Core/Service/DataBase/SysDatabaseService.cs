@@ -105,7 +105,6 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <param name="tableName">表名</param>
     /// <param name="configId">ConfigId</param>
     /// <returns></returns>
-    [AllowAnonymous]
     [DisplayName("获取字段列表")]
     public List<DbColumnOutput> GetColumnList(string tableName, string configId = SqlSugarConst.MainConfigId)
     {

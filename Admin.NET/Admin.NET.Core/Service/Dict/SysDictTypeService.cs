@@ -10,7 +10,6 @@ namespace Admin.NET.Core.Service;
 /// 系统字典类型服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 430)]
-[AllowAnonymous]
 public class SysDictTypeService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysDictType> _sysDictTypeRep;
@@ -56,7 +55,6 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [UnitOfWork]
-    [AllowAnonymous]
     [DisplayName("获取字典类型-值列表")]
     public async Task<List<SysDictData>> GetDataList([FromQuery] GetDataDictTypeInput input)
     {
@@ -148,7 +146,6 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// 获取所有字典集合 🔖
     /// </summary>
     /// <returns></returns>
-    [AllowAnonymous]
     [DisplayName("获取所有字典集合")]
     public async Task<dynamic> GetAllDictList()
     {
