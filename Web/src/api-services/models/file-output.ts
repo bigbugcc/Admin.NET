@@ -77,6 +77,14 @@ export interface FileOutput {
     fileType?: string | null;
 
     /**
+     * 是否公开  如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+     *
+     * @type {boolean}
+     * @memberof FileOutput
+     */
+    isPublic?: boolean;
+
+    /**
      * 上传人
      *
      * @type {string}
