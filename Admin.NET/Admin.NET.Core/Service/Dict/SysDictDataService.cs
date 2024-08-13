@@ -10,7 +10,6 @@ namespace Admin.NET.Core.Service;
 /// 系统字典值服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 420)]
-[AllowAnonymous]
 public class SysDictDataService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysDictData> _sysDictDataRep;

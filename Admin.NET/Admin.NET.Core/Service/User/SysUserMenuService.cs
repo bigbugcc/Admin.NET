@@ -26,6 +26,7 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// <returns></returns>
     [UnitOfWork]
     [ApiDescriptionSettings(Name = "Add"), HttpPost]
+    [DisplayName("收藏菜单")]
     public async Task AddUserMenu(UserMenuInput input)
     {
         await _sysUserMenuRep.DeleteAsync(u => u.UserId == input.UserId);
@@ -45,6 +46,7 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Delete"), HttpPost]
+    [DisplayName("取消收藏菜单")]
     public async Task DeleteUserMenu(UserMenuInput input)
     {
         await _sysUserMenuRep.DeleteAsync(u => u.UserId == input.UserId && input.MenuIdList.Contains(u.MenuId));
@@ -56,6 +58,7 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// <param name="userId"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "DeleteByUserId"), HttpPost]
+    [DisplayName("根据用户Id删除收藏菜单")]
     public async Task DeleteByUserId(long userId)
     {
         await _sysUserMenuRep.DeleteAsync(u => u.UserId == userId);
@@ -66,6 +69,7 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
+    [DisplayName("根据用户Id获取收藏菜单集合")]
     public async Task<List<MenuOutput>> GetUserMenuList(long userId)
     {
         var sysUserMenuList = await _sysUserMenuRep.AsQueryable()
@@ -79,6 +83,7 @@ public class SysUserMenuService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
+    [DisplayName("根据用户Id获取收藏菜单Id集合")]
     public async Task<List<long>> GetUserMenuIdList(long userId)
     {
         return await _sysUserMenuRep.AsQueryable()
