@@ -44,12 +44,16 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("获取文件分页列表")]
     public async Task<SqlSugarPagedList<SysFile>> Page(PageFileInput input)
     {
-        return await _sysFileRep.AsQueryable()
-            .WhereIF(!string.IsNullOrWhiteSpace(input.FileName), u => u.FileName.Contains(input.FileName.Trim()))
-            .WhereIF(!string.IsNullOrWhiteSpace(input.StartTime.ToString()) && !string.IsNullOrWhiteSpace(input.EndTime.ToString()),
-                        u => u.CreateTime >= input.StartTime && u.CreateTime <= input.EndTime)
-            .OrderBy(u => u.CreateTime, OrderByType.Desc)
-            .ToPagedListAsync(input.Page, input.PageSize);
+        //获取所有公开附件
+        var publicList = _sysFileRep.AsQueryable().ClearFilter().Where(u => u.IsPublic == true);
+        //获取私有附件
+        var privateList = _sysFileRep.AsQueryable().Where(u => u.IsPublic == false);
+        //合并公开和私有附件并分页
+        return await _sysFileRep.Context.UnionAll(publicList, privateList).WhereIF(!string.IsNullOrWhiteSpace(input.FileName), u => u.FileName.Contains(input.FileName.Trim()))
+             .WhereIF(!string.IsNullOrWhiteSpace(input.StartTime.ToString()) && !string.IsNullOrWhiteSpace(input.EndTime.ToString()),
+                         u => u.CreateTime >= input.StartTime && u.CreateTime <= input.EndTime)
+             .OrderBy(u => u.CreateTime, OrderByType.Desc)
+             .ToPagedListAsync(input.Page, input.PageSize);
     }
 
     /// <summary>
@@ -60,7 +64,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件")]
     public async Task<SysFile> UploadFile([FromForm] FileUploadInput input)
     {
-        return await HandleUploadFile(input.File, input.Path, fileType: input.FileType);
+        return await HandleUploadFile(input.File, input.Path, fileType: input.FileType, isPublic: input.IsPublic);
     }
 
     /// <summary>
@@ -84,7 +88,7 @@ public class SysFileService : IDynamicApiController, ITransient
             Headers = new HeaderDictionary(),
             ContentType = input.ContentType
         };
-        return await UploadFile(new FileUploadInput { File = formFile, Path = input.Path, FileType = input.FileType });
+        return await UploadFile(new FileUploadInput { File = formFile, Path = input.Path, FileType = input.FileType, IsPublic = input.IsPublic });
     }
 
     /// <summary>
@@ -265,7 +269,7 @@ public class SysFileService : IDynamicApiController, ITransient
         var isExist = await _sysFileRep.IsAnyAsync(u => u.Id == input.Id);
         if (!isExist) throw Oops.Oh(ErrorCodeEnum.D8000);
 
-        await _sysFileRep.UpdateAsync(u => new SysFile() { FileName = input.FileName, FileType = input.FileType }, u => u.Id == input.Id);
+        await _sysFileRep.UpdateAsync(u => new SysFile() { FileName = input.FileName, FileType = input.FileType, IsPublic = input.IsPublic }, u => u.Id == input.Id);
     }
 
     /// <summary>
@@ -287,8 +291,9 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="savePath">路径</param>
     /// <param name="allowSuffix">允许格式：.jpg.png.gif.tif.bmp</param>
     /// <param name="fileType">类型</param>
+    /// <param name="isPublic">是否公开</param>
     /// <returns></returns>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "")
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "", bool isPublic = false)
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -352,7 +357,8 @@ public class SysFileService : IDynamicApiController, ITransient
             SizeKb = sizeKb,
             FilePath = path,
             FileMd5 = fileMd5,
-            FileType = fileType
+            FileType = fileType,
+            IsPublic = isPublic,
         };
 
         var finalName = newFile.Id + suffix; // 文件最终名称

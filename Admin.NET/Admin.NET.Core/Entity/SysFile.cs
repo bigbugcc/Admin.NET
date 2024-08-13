@@ -12,7 +12,7 @@ namespace Admin.NET.Core;
 [SugarTable(null, "系统文件表")]
 [SysTable]
 [SugarIndex("index_{table}_F", nameof(FileName), OrderByType.Asc)]
-public partial class SysFile : EntityBase
+public partial class SysFile : EntityBaseData
 {
     /// <summary>
     /// 提供者
@@ -101,4 +101,11 @@ public partial class SysFile : EntityBase
     [SugarColumn(ColumnDescription = "文件类别", Length = 128)]
     [MaxLength(128)]
     public string? FileType { get; set; }
+
+    /// <summary>
+    /// 是否公开
+    /// 如果设置true，所有人都可以查看，默认只有自己或有权限的人可以查看
+    /// </summary>
+    [SugarColumn(ColumnDescription = "是否公开", DefaultValue = "false")]
+    public bool IsPublic { get; set; } = false;
 }
