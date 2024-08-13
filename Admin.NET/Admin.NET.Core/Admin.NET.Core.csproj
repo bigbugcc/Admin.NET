@@ -47,9 +47,9 @@
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="6.0.15" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="6.0.15" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.31" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.31" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="6.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.33" />
     <PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
   </ItemGroup>
 
