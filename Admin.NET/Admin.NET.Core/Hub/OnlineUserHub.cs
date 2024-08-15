@@ -48,6 +48,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         var realName = httpContext.User.FindFirst(ClaimConst.RealName)?.Value;
         var tenantId = (httpContext.User.FindFirst(ClaimConst.TenantId)?.Value).ToLong();
 
+        if (userId < 0 || string.IsNullOrWhiteSpace(account)) return;
         var user = new SysOnlineUser
         {
             ConnectionId = Context.ConnectionId,

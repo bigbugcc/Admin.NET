@@ -263,7 +263,10 @@
   const tableParams = ref({
     page: 1,
     pageSize: 10,
-    total: 0,
+    field: 'createTime', // 默认的排序字段
+    order: 'descending', // 排序方向
+    descstr: 'descending', // 降序排序的关键字符
+    total: 0 as any,
   });
 
   const print@(@Model.ClassName)Title = ref("");
@@ -285,8 +288,8 @@
 
   // 列排序
   const sortChange = async (column: any) => {
-	queryParams.value.field = column.prop;
-	queryParams.value.order = column.order;
+	tableParams.value.field = column.prop;
+	tableParams.value.order = column.order;
 	await handleQuery();
   };
 

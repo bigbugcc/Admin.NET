@@ -101,6 +101,14 @@ export interface SysFile {
     createOrgName?: string | null;
 
     /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof SysFile
+     */
+    tenantId?: number | null;
+
+    /**
      * 提供者
      *
      * @type {string}
