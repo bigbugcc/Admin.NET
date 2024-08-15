@@ -298,7 +298,7 @@ public class SysFileService : IDynamicApiController, ITransient
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
         // 判断是否重复上传的文件
-        var sizeKb = (long)(file.Length / 1024.0); // 大小KB
+        var sizeKb = file.Length / 1024; // 大小KB
         var fileMd5 = string.Empty;
         if (_uploadOptions.EnableMd5)
         {
