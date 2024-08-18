@@ -118,8 +118,11 @@
 								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
-						<el-table-column label="操作" width="80" fixed="right" align="center" show-overflow-tooltip>
+						<el-table-column label="操作" width="120" fixed="right" align="center" show-overflow-tooltip>
 							<template #default="scope">
+								<el-tooltip content="复制">
+									<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyDictData(scope.row)"> </el-button>
+								</el-tooltip>
 								<el-tooltip content="编辑">
 									<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictData(scope.row)"> </el-button>
 								</el-tooltip>
@@ -160,7 +163,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { Session } from '/@/utils/storage';
 import { useUserInfo } from '/@/stores/userInfo';
 import { SysDictTypeApi, SysDictDataApi } from '/@/api-services/api';
-import { SysDictType, SysDictData } from '/@/api-services/models';
+import { SysDictType, SysDictData, UpdateDictDataInput } from '/@/api-services/models';
 
 const editDictTypeRef = ref<InstanceType<typeof EditDictType>>();
 const editDictDataRef = ref<InstanceType<typeof EditDictData>>();
@@ -257,6 +260,14 @@ const openAddDictData = () => {
 const openEditDictType = (row: any) => {
 	state.editDictTypeTitle = '编辑字典';
 	editDictTypeRef.value?.openDialog(row);
+};
+
+// 打开复制字典值页面
+const openCopyDictData = (row: any) => {
+	state.editDictDataTitle = '复制字典值';
+	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateDictDataInput;
+	copyRow.id = 0;
+	editDictDataRef.value?.openDialog(copyRow);
 };
 
 // 打开编辑字典值页面
