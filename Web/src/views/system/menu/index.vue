@@ -54,8 +54,9 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="140" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
+						<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyMenu(scope.row)" v-auth="'sysMenu:add'"> 复制 </el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditMenu(scope.row)" v-auth="'sysMenu:update'"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="delMenu(scope.row)" v-auth="'sysMenu:delete'"> 删除 </el-button>
 					</template>
@@ -75,7 +76,7 @@ import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysMenuApi } from '/@/api-services/api';
-import { SysMenu } from '/@/api-services/models';
+import { SysMenu, UpdateMenuInput } from '/@/api-services/models';
 
 const editMenuRef = ref<InstanceType<typeof EditMenu>>();
 const state = reactive({
@@ -111,6 +112,15 @@ const resetQuery = () => {
 const openAddMenu = () => {
 	state.editMenuTitle = '添加菜单';
 	editMenuRef.value?.openDialog({ type: 2, isHide: false, isKeepAlive: true, isAffix: false, isIframe: false, status: 1, orderNo: 100 });
+};
+
+// 打开复制页面
+const openCopyMenu = (row: any) => {
+	state.editMenuTitle = '复制菜单';
+	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateMenuInput;
+	copyRow.id = 0;
+	copyRow.title = "";
+	editMenuRef.value?.openDialog(copyRow);
 };
 
 // 打开编辑页面
