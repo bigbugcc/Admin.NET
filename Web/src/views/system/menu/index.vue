@@ -56,7 +56,7 @@
 				</el-table-column>
 				<el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text type="primary" @click="openCopyMenu(scope.row)" v-auth="'sysMenu:add'"> 复制 </el-button>
+						<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyMenu(scope.row)" v-auth="'sysMenu:add'"> 复制 </el-button>
 						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditMenu(scope.row)" v-auth="'sysMenu:update'"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text type="danger" @click="delMenu(scope.row)" v-auth="'sysMenu:delete'"> 删除 </el-button>
 					</template>
