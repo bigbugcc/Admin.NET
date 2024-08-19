@@ -179,6 +179,78 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary 获取文件 🔖
+         * @param {number} id 主键Id
+         * @param {string} [fileName] 文件名称
+         * @param {string} [fileType] 文件类型
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+         * @param {string} [url] 文件Url
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysFileFileGet: async (id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysFileFileGet.');
+            }
+            const localVarPath = `/api/sysFile/file`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fileName !== undefined) {
+                localVarQueryParameter['FileName'] = fileName;
+            }
+
+            if (fileType !== undefined) {
+                localVarQueryParameter['FileType'] = fileType;
+            }
+
+            if (isPublic !== undefined) {
+                localVarQueryParameter['IsPublic'] = isPublic;
+            }
+
+            if (url !== undefined) {
+                localVarQueryParameter['Url'] = url;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['Id'] = id;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 获取文件分页列表 🔖
          * @param {PageFileInput} [body] 
          * @param {*} [options] Override http request option.
@@ -227,7 +299,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 文件预览
+         * @summary 文件预览 🔖
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -490,11 +562,12 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
          * @summary 上传文件 🔖
          * @param {Blob} [file] 
          * @param {string} [fileType] 
+         * @param {boolean} [isPublic] 
          * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, path?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/uploadFile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -523,6 +596,10 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
 
             if (fileType !== undefined) { 
                 localVarFormParams.append('FileType', fileType as any);
+            }
+
+            if (isPublic !== undefined) { 
+                localVarFormParams.append('IsPublic', isPublic as any);
             }
 
             if (path !== undefined) { 
@@ -705,6 +782,24 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取文件 🔖
+         * @param {number} id 主键Id
+         * @param {string} [fileName] 文件名称
+         * @param {string} [fileType] 文件类型
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+         * @param {string} [url] 文件Url
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileFileGet(id, fileName, fileType, isPublic, url, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取文件分页列表 🔖
          * @param {PageFileInput} [body] 
          * @param {*} [options] Override http request option.
@@ -719,7 +814,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 文件预览
+         * @summary 文件预览 🔖
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -795,12 +890,13 @@ export const SysFileApiFp = function(configuration?: Configuration) {
          * @summary 上传文件 🔖
          * @param {Blob} [file] 
          * @param {string} [fileType] 
+         * @param {boolean} [isPublic] 
          * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, path, options);
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -875,6 +971,20 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary 获取文件 🔖
+         * @param {number} id 主键Id
+         * @param {string} [fileName] 文件名称
+         * @param {string} [fileType] 文件类型
+         * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+         * @param {string} [url] 文件Url
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileFileGet(id, fileName, fileType, isPublic, url, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取文件分页列表 🔖
          * @param {PageFileInput} [body] 
          * @param {*} [options] Override http request option.
@@ -885,7 +995,7 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 文件预览
+         * @summary 文件预览 🔖
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -941,12 +1051,13 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
          * @summary 上传文件 🔖
          * @param {Blob} [file] 
          * @param {string} [fileType] 
+         * @param {boolean} [isPublic] 
          * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
-            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, path, options).then((request) => request(axios, basePath));
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1013,6 +1124,21 @@ export class SysFileApi extends BaseAPI {
     }
     /**
      * 
+     * @summary 获取文件 🔖
+     * @param {number} id 主键Id
+     * @param {string} [fileName] 文件名称
+     * @param {string} [fileType] 文件类型
+     * @param {boolean} [isPublic] 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+     * @param {string} [url] 文件Url
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysFileApi
+     */
+    public async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileFileGet(id, fileName, fileType, isPublic, url, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary 获取文件分页列表 🔖
      * @param {PageFileInput} [body] 
      * @param {*} [options] Override http request option.
@@ -1024,7 +1150,7 @@ export class SysFileApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 文件预览
+     * @summary 文件预览 🔖
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1085,13 +1211,14 @@ export class SysFileApi extends BaseAPI {
      * @summary 上传文件 🔖
      * @param {Blob} [file] 
      * @param {string} [fileType] 
+     * @param {boolean} [isPublic] 
      * @param {string} [path] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
-        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, path, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

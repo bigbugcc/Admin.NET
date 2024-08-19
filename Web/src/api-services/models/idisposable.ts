@@ -16,39 +16,7 @@
  * 
  *
  * @export
- * @interface SysFileUploadFileBody
+ * @interface IDisposable
  */
-export interface SysFileUploadFileBody {
-
-    /**
-     * 文件
-     *
-     * @type {Blob}
-     * @memberof SysFileUploadFileBody
-     */
-    file: Blob;
-
-    /**
-     * 文件类型
-     *
-     * @type {string}
-     * @memberof SysFileUploadFileBody
-     */
-    fileType?: string;
-
-    /**
-     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
-     *
-     * @type {boolean}
-     * @memberof SysFileUploadFileBody
-     */
-    isPublic?: boolean;
-
-    /**
-     * 文件路径
-     *
-     * @type {string}
-     * @memberof SysFileUploadFileBody
-     */
-    path?: string;
+export interface IDisposable {
 }

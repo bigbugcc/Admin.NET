@@ -19,7 +19,7 @@
 <script lang="ts">
 export default {
 	title: '更新记录',
-	icon: 'ele-Message',
+	icon: 'ele-DocumentCopy',
 	description: '当前项目更新记录',
 };
 </script>
@@ -68,5 +68,9 @@ onMounted(() => {
 .progress .percentage-label {
 	font-size: 12px;
 	margin-top: 10px;
+}
+.commit {
+	max-height: 500px;
+	overflow: auto;
 }
 </style>

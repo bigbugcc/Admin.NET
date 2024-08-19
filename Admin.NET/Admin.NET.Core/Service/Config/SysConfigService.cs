@@ -285,7 +285,7 @@ public class SysConfigService : IDynamicApiController, ITransient
             // 根据文件名取扩展名
             var ext = string.IsNullOrWhiteSpace(input.SysLogoFileName) ? ".png" : Path.GetExtension(input.SysLogoFileName);
             // 本地图标保存路径
-            var path = "Upload";
+            var path = "upload";
             var absoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path, $"logo{ext}");
 
             // 删除已存在文件

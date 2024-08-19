@@ -23,12 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Avatar\**" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot\avatar\**" CopyToPublishDirectory="Never" />
     <Content Update="wwwroot\upload\**" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Template\**">
+    <Content Update="wwwroot\template\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -49,7 +49,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Content Update="wwwroot\Upload\logo.png">
+    <Content Update="wwwroot\upload\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

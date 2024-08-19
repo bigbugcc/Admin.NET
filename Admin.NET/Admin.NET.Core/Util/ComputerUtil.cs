@@ -147,16 +147,16 @@ public static class ComputerUtil
     /// <returns></returns>
     public static string GetIpFromOnline()
     {
-        var url = "https://www.ip.cn/api/index?ip&type=0";
         try
         {
+            var url = "https://www.ip.cn/api/index?ip&type=0";
             var str = url.GetAsStringAsync().GetAwaiter().GetResult();
             var resp = JSON.Deserialize<IpCnResp>(str);
             return resp.Ip + " " + resp.Address;
         }
         catch
         {
-            return "";
+            return "unknow";
         }
     }
 

@@ -5,18 +5,21 @@ import router from '/@/router';
 import { directive } from '/@/directive/index';
 import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
-
 import ElementPlus from 'element-plus';
 import '/@/theme/index.scss';
+// 动画库
+import 'animate.css';
+// 栅格布局
 import VueGridLayout from 'vue-grid-layout';
-
-import VForm3 from 'vform3-builds'; // VForm3表单设计
-import 'vform3-builds/dist/designer.style.css'; // VForm3表单设计样式
-import VueSignaturePad from 'vue-signature-pad'; // 电子签名
-import vue3TreeOrg from 'vue3-tree-org'; // 组织架构图
-import 'vue3-tree-org/lib/vue3-tree-org.css'; // 组织架构图样式
-import 'animate.css'; // 动画库
-
+// 电子签名
+import VueSignaturePad from 'vue-signature-pad';
+// 组织架构图
+import vue3TreeOrg from 'vue3-tree-org';
+import 'vue3-tree-org/lib/vue3-tree-org.css';
+// VForm3 表单设计
+import VForm3 from 'vform3-builds';
+import 'vform3-builds/dist/designer.style.css';
+// 关闭自动打印
 import { disAutoConnect } from 'vue-plugin-hiprint';
 disAutoConnect();
 

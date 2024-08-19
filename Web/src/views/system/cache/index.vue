@@ -10,12 +10,16 @@
 					<template #header>
 						<div class="card-header">
 							<span>缓存列表</span>
-							<el-button icon="ele-Refresh" size="small" circle @click="handleQuery" v-auth="'sysCache:keyList'" />
+							<div>
+								<el-button icon="ele-Refresh" size="small" type="success" circle plain @click="handleQuery" v-auth="'sysCache:keyList'" />
+								<el-button icon="ele-DeleteFilled" size="small" type="danger" circle plain @click="clearCache" v-auth="'sysCache:clear'"> </el-button>
+							</div>
 						</div>
 					</template>
 					<el-tree
 						ref="treeRef"
 						class="filter-tree"
+						style="padding-bottom: 60px"
 						:data="state.cacheData"
 						node-key="id"
 						:props="{ children: 'children', label: 'name' }"
@@ -36,7 +40,7 @@
 							<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
 						</div>
 					</template>
-					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
+					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController style="padding-bottom: 60px" />
 				</el-card>
 			</pane>
 		</splitpanes>
@@ -66,7 +70,7 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	handleQuery();
+	await handleQuery();
 });
 
 // 查询操作
@@ -114,10 +118,27 @@ const delCache = () => {
 	})
 		.then(async () => {
 			await getAPI(SysCacheApi).apiSysCacheDeleteKeyPost(currentNode.value.id);
-			handleQuery();
+			await handleQuery();
 			state.cacheValue = undefined;
 			state.cacheKey = undefined;
 			ElMessage.success('删除成功');
+		})
+		.catch(() => {});
+};
+
+// 清空
+const clearCache = () => {
+	ElMessageBox.confirm(`确认清空所有缓存?`, '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	})
+		.then(async () => {
+			await getAPI(SysCacheApi).apiSysCacheClearDelete();
+			await handleQuery();
+			state.cacheValue = undefined;
+			state.cacheKey = undefined;
+			ElMessage.success('清空成功');
 		})
 		.catch(() => {});
 };

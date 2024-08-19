@@ -105,7 +105,6 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <param name="tableName">表名</param>
     /// <param name="configId">ConfigId</param>
     /// <returns></returns>
-    [AllowAnonymous]
     [DisplayName("获取字段列表")]
     public List<DbColumnOutput> GetColumnList(string tableName, string configId = SqlSugarConst.MainConfigId)
     {
@@ -468,7 +467,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <returns></returns>
     private static string GetEntityTemplatePath()
     {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
         return Path.Combine(templatePath, "Entity.cs.vm");
     }
 
@@ -478,7 +477,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <returns></returns>
     private static string GetSeedDataTemplatePath()
     {
-        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "Template");
+        var templatePath = Path.Combine(App.WebHostEnvironment.WebRootPath, "template");
         return Path.Combine(templatePath, "SeedData.cs.vm");
     }
 

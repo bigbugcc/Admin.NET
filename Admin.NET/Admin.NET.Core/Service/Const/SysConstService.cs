@@ -10,7 +10,6 @@ namespace Admin.NET.Core.Service;
 /// 系统常量服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 280)]
-[AllowAnonymous]
 public class SysConstService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;

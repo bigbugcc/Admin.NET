@@ -8,16 +8,12 @@
 
 		<div class="custome-canlendar">
 			<el-calendar v-model="state.calendarValue" ref="calendar">
-				<template #header="{date }">
-					<span>{{ date  }}</span>
+				<template #header="{ date }">
+					<span>{{ date }}</span>
 					<el-button-group>
-						<el-button size="small" @click="selectDate('prev-month')">
-							上个月
-						</el-button>
+						<el-button size="small" @click="selectDate('prev-month')"> 上个月 </el-button>
 						<el-button size="small" @click="selectDate('today')">今天</el-button>
-						<el-button size="small" @click="selectDate('next-month')">
-							下个月
-						</el-button>
+						<el-button size="small" @click="selectDate('next-month')"> 下个月 </el-button>
 					</el-button-group>
 				</template>
 				<template #date-cell="{ data }">
@@ -30,7 +26,6 @@
 							{{ solarDate2lunar(data.day) }}
 						</div>
 					</div>
-
 				</template>
 			</el-calendar>
 		</div>
@@ -58,7 +53,7 @@
 <script lang="ts">
 export default {
 	title: '日程',
-	icon: 'ele-Odometer',
+	icon: 'ele-Calendar',
 	description: '日程演示',
 };
 </script>
@@ -82,6 +77,7 @@ const state = reactive({
 	TodayScheduleData: [] as Array<SysSchedule>, // 当天列表数据
 	calendarValue: new Date(),
 	queryParams: {
+		scheduleTime: new Date(),
 		startTime: new Date(),
 		endTime: new Date(),
 	},
@@ -164,7 +160,7 @@ const openAddSchedule = () => {
 	var timerange = GetRecentTime();
 
 	state.editTitle = '添加日程';
-	editScheduleRef.value?.openDialog({ id: undefined, status: 0, orderNo: 100, startTime: timerange.startTime, endTime: timerange.endTime });
+	editScheduleRef.value?.openDialog({ id: undefined, status: 0, orderNo: 100, scheduleTime: state.queryParams.scheduleTime, startTime: timerange.startTime, endTime: timerange.endTime });
 };
 
 // 打开编辑页面
@@ -180,6 +176,7 @@ const handleClickDate = async (data: any) => {
 		await handleQuery();
 	}
 	await handleQueryByDate(data.day);
+	state.queryParams.scheduleTime = data.day;
 };
 
 // 获取当月第一天

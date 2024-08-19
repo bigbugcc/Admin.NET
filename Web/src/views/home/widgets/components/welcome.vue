@@ -45,7 +45,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 
 export default {
 	title: '欢迎',
-	icon: 'ele-Present',
+	icon: 'ele-Promotion',
 	description: '项目特色以及文档链接',
 };
 </script>

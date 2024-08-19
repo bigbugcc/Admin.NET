@@ -24,6 +24,26 @@ public class SysCacheService : IDynamicApiController, ISingleton
     }
 
     /// <summary>
+    /// 申请分布式锁
+    /// </summary>
+    /// <param name="key">要锁定的key</param>
+    /// <param name="msTimeout">申请锁等待的时间，单位毫秒</param>
+    /// <param name="msExpire">锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒</param>
+    /// <param name="throwOnFailure">失败时是否抛出异常,如不抛出异常，可通过判断返回null得知申请锁失败</param>
+    /// <returns></returns>
+    public IDisposable? BeginCacheLock(string key, int msTimeout = 500, int msExpire = 10000, bool throwOnFailure = true)
+    {
+        try
+        {
+            return _cacheProvider.Cache.AcquireLock(key, msTimeout, msExpire, throwOnFailure);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
     /// 获取缓存键名集合 🔖
     /// </summary>
     /// <returns></returns>
@@ -84,6 +104,19 @@ public class SysCacheService : IDynamicApiController, ISingleton
     public int Remove(string key)
     {
         return _cacheProvider.Cache.Remove($"{_cacheOptions.Prefix}{key}");
+    }
+
+    /// <summary>
+    /// 清空所有缓存 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("清空所有缓存")]
+    [ApiDescriptionSettings(Name = "Clear"), HttpPost]
+    public void Clear()
+    {
+        _cacheProvider.Cache.Clear();
+
+        Cache.Default.Clear();
     }
 
     /// <summary>

@@ -52,7 +52,7 @@
 				<ele-User />
 			</el-icon>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" size="large" @command="onHandleCommandClick">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<el-tooltip effect="dark" placement="left">
 					<template #content>
@@ -65,7 +65,6 @@
 					</template>
 					<img :src="userInfos.avatar" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				</el-tooltip>
-
 				{{ userInfos.realName == '' ? userInfos.account : userInfos.realName }}
 				<el-icon class="el-icon--right">
 					<ele-ArrowDown />
@@ -74,8 +73,9 @@
 			<template #dropdown>
 				<el-dropdown-menu>
 					<!-- <el-dropdown-item command="/dashboard/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item> -->
-					<el-dropdown-item command="/system/userCenter">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
-					<el-dropdown-item divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
+					<el-dropdown-item :icon="Avatar" command="/system/userCenter">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
+					<el-dropdown-item :icon="Loading" command="clearCache">{{ $t('message.user.dropdown3') }}</el-dropdown-item>
+					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
@@ -85,7 +85,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { defineAsyncComponent, ref, computed, reactive, onMounted, onUnmounted } from 'vue';
+import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessageBox, ElMessage, ElNotification } from 'element-plus';
 import screenfull from 'screenfull';
@@ -95,12 +95,13 @@ import { useUserInfo } from '/@/stores/userInfo';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import other from '/@/utils/other';
 import mittBus from '/@/utils/mitt';
-import { Local } from '/@/utils/storage';
+import { Local, Session } from '/@/utils/storage';
+import Push from 'push.js';
+import { signalR } from '/@/views/system/onlineUser/signalR';
+import { Avatar, CircleCloseFilled, Loading } from '@element-plus/icons-vue';
 
 import { clearAccessTokens, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysNoticeApi } from '/@/api-services/api';
-import Push from 'push.js';
-import { signalR } from '/@/views/system/onlineUser/signalR';
 
 // 引入组件
 const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'));
@@ -153,7 +154,11 @@ const onLayoutSetingClick = () => {
 };
 // 下拉菜单点击时
 const onHandleCommandClick = (path: string) => {
-	if (path === 'logOut') {
+	if (path === 'clearCache') {
+		Local.clear();
+		Session.clear();
+		window.location.reload();
+	} else if (path === 'logOut') {
 		ElMessageBox({
 			closeOnClickModal: false,
 			closeOnPressEscape: false,

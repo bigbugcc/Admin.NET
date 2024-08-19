@@ -66,7 +66,10 @@ public class SysAuthService : IDynamicApiController, ITransient
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
         var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
         var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysPasswordMaxErrorTimes);
-        if (passwordErrorTimes >= passwordMaxErrorTimes)
+        // 若未配置或误配置为0、负数, 则默认密码错误次数最大为10次
+        if (passwordMaxErrorTimes < 1)
+            passwordMaxErrorTimes = 10;
+        if (passwordErrorTimes > passwordMaxErrorTimes)
             throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 是否开启验证码
