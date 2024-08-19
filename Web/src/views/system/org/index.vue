@@ -140,7 +140,7 @@ const openCopyOrg = (row: any) => {
 	state.editOrgTitle = '复制菜单';
 	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateOrgInput;
 	copyRow.id = 0;
-	copyRow.name = "";
+	copyRow.name = '';
 	editOrgRef.value?.openDialog(copyRow);
 };
 

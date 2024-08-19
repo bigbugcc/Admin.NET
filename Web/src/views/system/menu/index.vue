@@ -119,7 +119,7 @@ const openCopyMenu = (row: any) => {
 	state.editMenuTitle = '复制菜单';
 	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateMenuInput;
 	copyRow.id = 0;
-	copyRow.title = "";
+	copyRow.title = '';
 	editMenuRef.value?.openDialog(copyRow);
 };
 
