@@ -134,7 +134,7 @@ const clearCache = () => {
 		type: 'warning',
 	})
 		.then(async () => {
-			await getAPI(SysCacheApi).apiSysCacheClearDelete();
+			await getAPI(SysCacheApi).apiSysCacheClearPost();
 			await handleQuery();
 			state.cacheValue = undefined;
 			state.cacheKey = undefined;
