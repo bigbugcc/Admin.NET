@@ -120,14 +120,14 @@
 						</el-table-column>
 						<el-table-column label="操作" width="120" fixed="right" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-tooltip content="复制">
-									<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyDictData(scope.row)"> </el-button>
-								</el-tooltip>
 								<el-tooltip content="编辑">
 									<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictData(scope.row)"> </el-button>
 								</el-tooltip>
 								<el-tooltip content="删除">
 									<el-button icon="ele-Delete" size="small" text type="danger" @click="delDictData(scope.row)"> </el-button>
+								</el-tooltip>
+								<el-tooltip content="复制">
+									<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyDictData(scope.row)"> </el-button>
 								</el-tooltip>
 							</template>
 						</el-table-column>

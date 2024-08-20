@@ -37,10 +37,11 @@
 						<ModifyRecord :data="scope.row" />
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="140" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditPos(scope.row)" v-auth="'sysPos:update'"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text type="danger" @click="delPos(scope.row)" v-auth="'sysPos:delete'"> 删除 </el-button>
+						<el-button icon="ele-Edit" text type="primary" @click="openEditPos(scope.row)" v-auth="'sysPos:update'"> 编辑 </el-button>
+						<el-button icon="ele-Delete" text type="danger" @click="delPos(scope.row)" v-auth="'sysPos:delete'"> 删除 </el-button>
+						<el-button icon="ele-CopyDocument" text type="primary" @click="openCopyMenu(scope.row)" v-auth="'sysPos:add'"> 复制 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -58,7 +59,7 @@ import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysPosApi } from '/@/api-services/api';
-import { SysPos } from '/@/api-services/models';
+import { SysPos, UpdatePosInput } from '/@/api-services/models';
 
 const editPosRef = ref<InstanceType<typeof EditPos>>();
 const state = reactive({
@@ -100,6 +101,15 @@ const openAddPos = () => {
 const openEditPos = (row: any) => {
 	state.editPosTitle = '编辑职位';
 	editPosRef.value?.openDialog(row);
+};
+
+// 打开复制页面
+const openCopyMenu = (row: any) => {
+	state.title = '复制职位';
+	var copyRow = JSON.parse(JSON.stringify(row)) as UpdatePosInput;
+	copyRow.id = 0;
+	copyRow.name = '';
+	editPosRef.value?.openDialog(copyRow);
 };
 
 // 删除
