@@ -14,9 +14,6 @@
 						<el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
 					</el-button-group>
 				</el-form-item>
-				<el-form-item>
-					<el-button icon="ele-DeleteFilled" type="danger" @click="clearLog" v-auth="'sysDifflog:clear'"> 清空 </el-button>
-				</el-form-item>
 			</el-form>
 		</el-card>
 
@@ -50,7 +47,6 @@
 
 <script lang="ts" setup name="sysDiffLog">
 import { onMounted, reactive } from 'vue';
-import { ElMessage } from 'element-plus';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLogDiffApi } from '/@/api-services/api';
@@ -91,16 +87,6 @@ const handleQuery = async () => {
 const resetQuery = () => {
 	state.queryParams.startTime = undefined;
 	state.queryParams.endTime = undefined;
-	handleQuery();
-};
-
-// 清空日志
-const clearLog = async () => {
-	state.loading = true;
-	await getAPI(SysLogDiffApi).apiSysLogDiffClearPost();
-	state.loading = false;
-
-	ElMessage.success('清空成功');
 	handleQuery();
 };
 
