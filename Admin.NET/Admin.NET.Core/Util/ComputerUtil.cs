@@ -84,9 +84,9 @@ public static class ComputerUtil
                 {
                     DiskName = disk[0],
                     TypeName = ShellHelper.Bash("diskutil info " + disk[0] + " | awk '/File System Personality/ {print $4}'").Replace("\n", string.Empty),
-                    TotalSize = long.Parse(disk[1]) / 1024,
-                    Used = long.Parse(disk[2]) / 1024,
-                    AvailableFreeSpace = long.Parse(disk[3]) / 1024,
+                    TotalSize = Math.Round(long.Parse(disk[1]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
+                    Used = Math.Round(long.Parse(disk[2]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
+                    AvailableFreeSpace = Math.Round(long.Parse(disk[3]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
                     AvailablePercent = decimal.Parse(disk[4].Replace("%", ""))
                 };
                 diskInfos.Add(diskInfo);
@@ -112,9 +112,9 @@ public static class ComputerUtil
                 {
                     DiskName = disk[0],
                     TypeName = disk[1],
-                    TotalSize = long.Parse(disk[2]) / 1024,
-                    Used = long.Parse(disk[3]) / 1024,
-                    AvailableFreeSpace = long.Parse(disk[4]) / 1024,
+                    TotalSize = Math.Round(long.Parse(disk[2]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
+                    Used = Math.Round(long.Parse(disk[3]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
+                    AvailableFreeSpace = Math.Round(long.Parse(disk[4]) / 1024.0m, 2, MidpointRounding.AwayFromZero),
                     AvailablePercent = decimal.Parse(disk[5].Replace("%", ""))
                 };
                 diskInfos.Add(diskInfo);
@@ -130,8 +130,8 @@ public static class ComputerUtil
                 {
                     DiskName = item.Name,
                     TypeName = item.DriveType.ToString(),
-                    TotalSize = item.TotalSize / 1024 / 1024 / 1024,
-                    AvailableFreeSpace = item.AvailableFreeSpace / 1024 / 1024 / 1024,
+                    TotalSize = Math.Round(item.TotalSize / 1024 / 1024 / 1024.0m, 2, MidpointRounding.AwayFromZero),
+                    AvailableFreeSpace = Math.Round(item.AvailableFreeSpace / 1024 / 1024 / 1024.0m, 2, MidpointRounding.AwayFromZero),
                 };
                 obj.Used = obj.TotalSize - obj.AvailableFreeSpace;
                 obj.AvailablePercent = decimal.Ceiling(obj.Used / (decimal)obj.TotalSize * 100);
@@ -294,22 +294,22 @@ public class DiskInfo
     /// <summary>
     /// 总剩余
     /// </summary>
-    public long TotalFree { get; set; }
+    public decimal TotalFree { get; set; }
 
     /// <summary>
     /// 总量
     /// </summary>
-    public long TotalSize { get; set; }
+    public decimal TotalSize { get; set; }
 
     /// <summary>
     /// 已使用
     /// </summary>
-    public long Used { get; set; }
+    public decimal Used { get; set; }
 
     /// <summary>
     /// 可使用
     /// </summary>
-    public long AvailableFreeSpace { get; set; }
+    public decimal AvailableFreeSpace { get; set; }
 
     /// <summary>
     /// 使用百分比
