@@ -56,7 +56,6 @@ public class SysConstService : IDynamicApiController, ITransient
         {
             var typeList = GetConstAttributeList();
             var type = typeList.FirstOrDefault(u => u.Name == typeName);
-
             if (type != null)
             {
                 var isEnum = type.BaseType.Name == "Enum";
