@@ -122,6 +122,7 @@ const loadTemplate = () => {
 	hiprintDesignRef.value?.hiprintTemplate.clear();
 	if (JSON.stringify(state.ruleForm) !== '{}') {
 		hiprintDesignRef.value?.hiprintTemplate.update(JSON.parse(state.ruleForm.template));
+		hiprintDesignRef.value?.initPaper();
 	}
 };
 
