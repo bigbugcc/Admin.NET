@@ -24,7 +24,7 @@ export const useKeepALiveNames = defineStore('keepALiveNames', {
 			const index = this.cachedViews.indexOf(view.name);
 			setTimeout(() => {
 				index > -1 && this.cachedViews.splice(index, 1);
-			}, 20)
+			}, 20);
 		},
 		async delOthersCachedViews(view: any) {
 			if (view.meta.isKeepAlive) this.cachedViews = [view.name];
