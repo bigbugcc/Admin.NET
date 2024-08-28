@@ -192,14 +192,11 @@ public class SysAuthService : IDynamicApiController, ITransient
     [DisplayName("手机号登录")]
     public virtual async Task<LoginOutput> LoginPhone([Required] LoginPhoneInput input)
     {
-        var verifyCode = _sysCacheService.Get<string>($"{CacheConst.KeyPhoneVerCode}{input.Phone}");
-        if (string.IsNullOrWhiteSpace(verifyCode))
-            throw Oops.Oh("验证码不存在或已失效，请重新获取！");
-        if (verifyCode != input.Code)
-            throw Oops.Oh("验证码错误！");
+        // 校验短信验证码
+        App.GetRequiredService<SysSmsService>().VerifyCode(new SmsVerifyCodeInput { Phone = input.Phone, Code = input.Code });
 
         // 账号是否存在
-        var user = await _sysUserRep.AsQueryable().Includes(t => t.SysOrg).ClearFilter().FirstAsync(u => u.Phone.Equals(input.Phone));
+        var user = await _sysUserRep.AsQueryable().Includes(u => u.SysOrg).ClearFilter().FirstAsync(u => u.Phone.Equals(input.Phone));
         _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0009);
 
         return await CreateToken(user);

@@ -197,7 +197,7 @@ public static class SqlSugarExtension
 
             return Expression.Constant(valueparsed, propertyType);
         }
-        if (propertyType == typeof(long))
+        if (propertyType == typeof(long) || propertyType == typeof(long?))
         {
             string? stringLong = GetStringFromJsonElement(value);
 

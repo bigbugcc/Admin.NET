@@ -44,6 +44,24 @@ public class SysSmsService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 校验短信验证码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("校验短信验证码")]
+    public bool VerifyCode(SmsVerifyCodeInput input)
+    {
+        var verifyCode = _sysCacheService.Get<string>($"{CacheConst.KeyPhoneVerCode}{input.Phone}");
+        if (string.IsNullOrWhiteSpace(verifyCode))
+            throw Oops.Oh("验证码不存在或已失效，请重新获取！");
+        if (verifyCode != input.Code)
+            throw Oops.Oh("验证码错误！");
+
+        return true;
+    }
+
+    /// <summary>
     /// 阿里云发送短信 📨
     /// </summary>
     /// <param name="phoneNumber"></param>
@@ -197,7 +215,6 @@ public class SysSmsService : IDynamicApiController, ITransient
             SecretId = _smsOptions.Tencentyun.AccessKeyId,
             SecretKey = _smsOptions.Tencentyun.AccessKeySecret
         };
-
         return cred;
     }
 }
