@@ -26,8 +26,8 @@ public class AppEventSubscriber : IEventSubscriber, ISingleton, IDisposable
     [EventSubscribe(CommonConst.AddExLog)]
     public async Task CreateExLog(EventHandlerExecutingContext context)
     {
-        var rep = _serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogEx>>();
-        await rep.InsertAsync((SysLogEx)context.Source.Payload);
+        var db = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>();
+        await db.CopyNew().Insertable((SysLogEx)context.Source.Payload).ExecuteCommandAsync();
     }
 
     /// <summary>

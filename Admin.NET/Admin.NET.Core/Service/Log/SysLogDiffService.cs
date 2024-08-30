@@ -44,15 +44,4 @@ public class SysLogDiffService : IDynamicApiController, ITransient
     {
         return await _sysLogDiffRep.GetFirstAsync(u => u.Id == id);
     }
-
-    /// <summary>
-    /// 清空差异日志 🔖
-    /// </summary>
-    /// <returns></returns>
-    [ApiDescriptionSettings(Name = "Clear"), HttpPost]
-    [DisplayName("清空差异日志")]
-    public void Clear()
-    {
-        _sysLogDiffRep.AsSugarClient().DbMaintenance.TruncateTable<SysLogDiff>();
-    }
 }

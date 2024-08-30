@@ -93,7 +93,7 @@ export default {
 		dropdownSmall: '小型',
 		dropdown1: '首页',
 		dropdown2: '个人中心',
-		dropdown3: '404',
+		dropdown3: '清理缓存',
 		dropdown4: '401',
 		dropdown5: '退出登录',
 		dropdown6: '代码仓库',

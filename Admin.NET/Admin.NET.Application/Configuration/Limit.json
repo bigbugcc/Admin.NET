@@ -21,7 +21,7 @@
     // 客户端白名单
     "ClientWhitelist": [],
     "QuotaExceededResponse": {
-      "Content": "{{\"code\":429,\"type\":\"error\",\"message\":\"访问过于频繁,请稍后重试!\",\"result\":null,\"extras\":null}}",
+      "Content": "{{\"code\":429,\"type\":\"error\",\"message\":\"访问过于频繁,请稍后重试！禁止违法行为否则110 👮\",\"result\":null,\"extras\":null}}",
       "ContentType": "application/json",
       "StatusCode": 429
     },
@@ -29,46 +29,42 @@
     "HttpStatusCode": 429,
     // API规则,结尾一定要带*
     "GeneralRules": [
-      // 1秒钟只能调用10次
+      // 1秒钟只能调用1000次
       {
         "Endpoint": "*",
         "Period": "1s",
-        "Limit": 10
+        "Limit": 1000
       },
-      // 1分钟只能调用600次
+      // 1分钟只能调用60000次
       {
         "Endpoint": "*",
         "Period": "1m",
-        "Limit": 600
-      },
-      // 1小时只能调用3600
-      {
-        "Endpoint": "*",
-        "Period": "1h",
-        "Limit": 3600
-      },
-      // 1天只能调用86400次
-      {
-        "Endpoint": "*",
-        "Period": "1d",
-        "Limit": 86400
+        "Limit": 60000
       }
+      //// 1小时只能调用3600000次
+      //{
+      //  "Endpoint": "*",
+      //  "Period": "1h",
+      //  "Limit": 3600000
+      //},
+      //// 1天只能调用86400000次
+      //{
+      //  "Endpoint": "*",
+      //  "Period": "1d",
+      //  "Limit": 86400000
+      //}
     ]
   },
+  // IP 黑名单
   "IpRateLimitPolicies": {
     "IpRules": [
       {
-        "Ip": "XXX.XXX.XXX.XXX",
+        "Ip": "0.0.0.0", // IP可用："::1/10" 
         "Rules": [
           {
             "Endpoint": "*",
             "Period": "1s",
-            "Limit": 10
-          },
-          {
-            "Endpoint": "*",
-            "Period": "1m",
-            "Limit": 600
+            "Limit": 0 // 设置为0就是1次都不能请求，完全屏蔽
           }
         ]
       }
@@ -90,29 +86,19 @@
       {
         "Endpoint": "*",
         "Period": "1s",
-        "Limit": 10
-      },
-      {
-        "Endpoint": "*",
-        "Period": "1m",
-        "Limit": 600
+        "Limit": 2000
       }
     ]
   },
   "ClientRateLimitPolicies": {
     "ClientRules": [
       {
-        "ClientId": "xxx-xxx",
+        "ClientId": "",
         "Rules": [
           {
             "Endpoint": "*",
             "Period": "1s",
-            "Limit": 10
-          },
-          {
-            "Endpoint": "*",
-            "Period": "1m",
-            "Limit": 600
+            "Limit": 2000
           }
         ]
       }

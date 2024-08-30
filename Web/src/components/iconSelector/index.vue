@@ -210,3 +210,9 @@ watch(
 	}
 );
 </script>
+
+<style scoped>
+:deep(.el-tabs__nav) {
+	float: right !important;
+}
+</style>

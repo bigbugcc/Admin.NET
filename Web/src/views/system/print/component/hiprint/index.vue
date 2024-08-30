@@ -70,19 +70,19 @@
 
 	<el-row :gutter="8">
 		<el-col :span="4">
-			<el-card style="height: 100%" shadow="never">
+			<el-card style="height: 100%" shadow="never" :body-style="{ padding: '0px 0 5px 7px' }">
 				<el-row>
 					<el-col :span="24" id="hiprintEpContainer" class="rect-printElement-types hiprintEpContainer"> </el-col>
 				</el-row>
 			</el-card>
 		</el-col>
 		<el-col :span="14">
-			<el-card shadow="never" class="card-design">
+			<el-card shadow="never" class="card-design" :body-style="{ padding: '18px' }">
 				<div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
 			</el-card>
 		</el-col>
 		<el-col :span="6" class="params_setting_container">
-			<el-card shadow="never">
+			<el-card shadow="never" :body-style="{ padding: '0px' }">
 				<el-row class="hinnn-layout-sider">
 					<div id="PrintElementOptionSetting"></div>
 				</el-row>
@@ -163,13 +163,14 @@ const state = reactive({
 
 // 计算当前纸张类型
 const curPaperType = computed(() => {
+	let { width, height } = state.curPaper;
 	let type = 'other';
 	let types: any = state.paperTypes;
 	for (const key in types) {
 		let item = types[key];
-		let { width, height } = state.curPaper;
 		if (item.width === width && item.height === height) {
 			type = key;
+			break;
 		}
 	}
 	return type;
@@ -181,7 +182,6 @@ const changeMode = () => {
 	hiprint.init({
 		providers: [provider.f],
 	});
-
 	// 渲染自定义选项
 	const hiprintEpContainerEl = document.getElementById('hiprintEpContainer');
 	if (hiprintEpContainerEl) {
@@ -212,7 +212,7 @@ const changeMode = () => {
 	});
 	hiprintTemplate.value.design('#hiprint-printTemplate');
 	// 获取当前放大比例, 当zoom时传true才会有
-	state.scaleValue = hiprintTemplate.value.editingPanel.scale || 1;
+	state.scaleValue = hiprintTemplate.value.editingPanel?.scale ?? 1;
 };
 
 /**
@@ -239,7 +239,7 @@ const changeScale = (currentValue: number, oldValue: number) => {
 	let big = false;
 	currentValue <= oldValue ? (big = false) : (big = true);
 
-	let scaleVal = state.scaleValue;
+	let scaleVal = currentValue;
 	if (big) {
 		if (scaleVal > state.scaleMax) scaleVal = 5;
 	} else {
@@ -322,8 +322,18 @@ onMounted(() => {
 	// otherPaper(); // 默认纸张
 });
 
+// 初始化纸张大小
+const initPaper = () => {
+	var template = hiprintTemplate.value.getJson();
+	var width = template.panels[0].width;
+	var height = template.panels[0].height;
+
+	state.curPaper = { type: '', width: width, height: height }; // 计算纸张类型和状态
+	hiprintTemplate.value.setPaper(width, height); // 设置纸张大小
+};
+
 // 导出对象
-defineExpose({ hiprintTemplate });
+defineExpose({ hiprintTemplate, initPaper });
 </script>
 
 <style lang="scss" scoped>

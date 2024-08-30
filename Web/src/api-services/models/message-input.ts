@@ -22,12 +22,20 @@ import { MessageTypeEnum } from './message-type-enum';
 export interface MessageInput {
 
     /**
-     * 用户ID
+     * 接收者用户Id
      *
      * @type {number}
      * @memberof MessageInput
      */
-    userId?: number;
+    receiveUserId?: number;
+
+    /**
+     * 接收者名称
+     *
+     * @type {string}
+     * @memberof MessageInput
+     */
+    receiveUserName?: string | null;
 
     /**
      * 用户ID列表
@@ -58,4 +66,28 @@ export interface MessageInput {
      * @memberof MessageInput
      */
     message?: string | null;
+
+    /**
+     * 发送者Id
+     *
+     * @type {string}
+     * @memberof MessageInput
+     */
+    sendUserId?: string | null;
+
+    /**
+     * 发送者名称
+     *
+     * @type {string}
+     * @memberof MessageInput
+     */
+    sendUserName?: string | null;
+
+    /**
+     * 发送时间
+     *
+     * @type {Date}
+     * @memberof MessageInput
+     */
+    sendTime?: Date;
 }

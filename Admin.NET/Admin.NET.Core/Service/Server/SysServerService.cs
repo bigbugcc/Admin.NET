@@ -4,21 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using AlibabaCloud.SDK.Dysmsapi20170525.Models;
-using AngleSharp.Html.Parser;
-using AspNet.Security.OAuth.Gitee;
-using AspNet.Security.OAuth.Weixin;
-using AspNetCoreRateLimit;
-using Elastic.Clients.Elasticsearch;
-using IPTools.Core;
-using Lazy.Captcha.Core;
-using Magicodes.ExporterAndImporter.Pdf;
-using Magicodes.ExporterAndImporter.Word;
-using MailKit.Net.Smtp;
-using Novell.Directory.Ldap;
-using OnceMi.AspNetCore.OSS;
-using QRCoder;
-
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -102,25 +87,28 @@ public class SysServerService : IDynamicApiController, ITransient
         var redisAssembly = typeof(Redis).Assembly.GetName();
         var jsonAssembly = typeof(NewtonsoftJsonMvcCoreBuilderExtensions).Assembly.GetName();
         var excelAssembly = typeof(IExcelImporter).Assembly.GetName();
-        var pdfAssembly = typeof(IPdfExporter).Assembly.GetName();
-        var wordAssembly = typeof(IWordExporter).Assembly.GetName();
-        var captchaAssembly = typeof(ICaptcha).Assembly.GetName();
+        var pdfAssembly = typeof(Magicodes.ExporterAndImporter.Pdf.IPdfExporter).Assembly.GetName();
+        var wordAssembly = typeof(Magicodes.ExporterAndImporter.Word.IWordExporter).Assembly.GetName();
+        var captchaAssembly = typeof(Lazy.Captcha.Core.ICaptcha).Assembly.GetName();
         var wechatApiAssembly = typeof(WechatApiClient).Assembly.GetName();
         var wechatTenpayAssembly = typeof(WechatTenpayClient).Assembly.GetName();
-        var ossAssembly = typeof(IOSSServiceFactory).Assembly.GetName();
+        var ossAssembly = typeof(OnceMi.AspNetCore.OSS.IOSSServiceFactory).Assembly.GetName();
         var parserAssembly = typeof(Parser).Assembly.GetName();
-        var elasticsearchClientAssembly = typeof(ElasticsearchClient).Assembly.GetName();
-        var limitAssembly = typeof(IpRateLimitMiddleware).Assembly.GetName();
-        var htmlParserAssembly = typeof(HtmlParser).Assembly.GetName();
-        var fluentEmailAssembly = typeof(SmtpClient).Assembly.GetName();
-        var qRCodeGeneratorAssembly = typeof(QRCodeGenerator).Assembly.GetName();
-        var sendSmsRequestAssembly = typeof(SendSmsRequest).Assembly.GetName();
+        var elasticsearchClientAssembly = typeof(Elastic.Clients.Elasticsearch.ElasticsearchClient).Assembly.GetName();
+        var limitAssembly = typeof(AspNetCoreRateLimit.IpRateLimitMiddleware).Assembly.GetName();
+        var htmlParserAssembly = typeof(AngleSharp.Html.Parser.HtmlParser).Assembly.GetName();
+        var fluentEmailAssembly = typeof(MailKit.Net.Smtp.SmtpClient).Assembly.GetName();
+        var qRCodeGeneratorAssembly = typeof(QRCoder.QRCodeGenerator).Assembly.GetName();
+        var alibabaSendSmsRequestAssembly = typeof(AlibabaCloud.SDK.Dysmsapi20170525.Models.SendSmsRequest).Assembly.GetName();
+        var tencentSendSmsRequestAssembly = typeof(TencentCloud.Sms.V20190711.Models.SendSmsRequest).Assembly.GetName();
         var imageAssembly = typeof(Image).Assembly.GetName();
         var rabbitMQAssembly = typeof(RabbitMQEventSourceStore).Assembly.GetName();
-        var ldapConnectionAssembly = typeof(LdapConnection).Assembly.GetName();
-        var ipToolAssembly = typeof(IpTool).Assembly.GetName();
-        var weixinAuthenticationOptionsAssembly = typeof(WeixinAuthenticationOptions).Assembly.GetName();
-        var giteeAuthenticationOptionsAssembly = typeof(GiteeAuthenticationOptions).Assembly.GetName();
+        var ldapConnectionAssembly = typeof(Novell.Directory.Ldap.LdapConnection).Assembly.GetName();
+        var ipToolAssembly = typeof(IPTools.Core.IpTool).Assembly.GetName();
+        var weixinAuthenticationOptionsAssembly = typeof(AspNet.Security.OAuth.Weixin.WeixinAuthenticationOptions).Assembly.GetName();
+        var giteeAuthenticationOptionsAssembly = typeof(AspNet.Security.OAuth.Gitee.GiteeAuthenticationOptions).Assembly.GetName();
+        var hashidsAssembly = typeof(HashidsNet.Hashids).Assembly.GetName();
+        var sftpClientAssembly = typeof(Renci.SshNet.SftpClient).Assembly.GetName();
 
         return new[]
         {
@@ -142,13 +130,16 @@ public class SysServerService : IDynamicApiController, ITransient
             new { htmlParserAssembly.Name, htmlParserAssembly.Version },
             new { fluentEmailAssembly.Name, fluentEmailAssembly.Version },
             new { qRCodeGeneratorAssembly.Name, qRCodeGeneratorAssembly.Version },
-            new { sendSmsRequestAssembly.Name, sendSmsRequestAssembly.Version },
+            new { alibabaSendSmsRequestAssembly.Name, alibabaSendSmsRequestAssembly.Version },
+            new { tencentSendSmsRequestAssembly.Name, tencentSendSmsRequestAssembly.Version },
             new { imageAssembly.Name, imageAssembly.Version },
             new { rabbitMQAssembly.Name, rabbitMQAssembly.Version },
             new { ldapConnectionAssembly.Name, ldapConnectionAssembly.Version },
             new { ipToolAssembly.Name, ipToolAssembly.Version },
             new { weixinAuthenticationOptionsAssembly.Name, weixinAuthenticationOptionsAssembly.Version },
             new { giteeAuthenticationOptionsAssembly.Name, giteeAuthenticationOptionsAssembly.Version },
+            new { hashidsAssembly.Name, hashidsAssembly.Version },
+            new { sftpClientAssembly.Name, sftpClientAssembly.Version },
         };
     }
 }

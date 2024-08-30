@@ -50,9 +50,9 @@
 						</el-table-column>
 						<el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-button icon="ele-CopyDocument" size="small" text type="primary" @click="openCopyOrg(scope.row)" v-auth="'sysOrg:add'"> 复制 </el-button>
-								<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditOrg(scope.row)" v-auth="'sysOrg:update'"> 编辑 </el-button>
-								<el-button icon="ele-Delete" size="small" text type="danger" @click="delOrg(scope.row)" v-auth="'sysOrg:delete'"> 删除 </el-button>
+								<el-button icon="ele-Edit" text type="primary" @click="openEditOrg(scope.row)" v-auth="'sysOrg:update'"> 编辑 </el-button>
+								<el-button icon="ele-Delete" text type="danger" @click="delOrg(scope.row)" v-auth="'sysOrg:delete'"> 删除 </el-button>
+								<el-button icon="ele-CopyDocument" text type="primary" @click="openCopyOrg(scope.row)" v-auth="'sysOrg:add'"> 复制 </el-button>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -135,19 +135,19 @@ const openAddOrg = () => {
 	editOrgRef.value?.openDialog({ status: 1, orderNo: 100 });
 };
 
-// 打开复制页面
-const openCopyOrg = (row: any) => {
-	state.editOrgTitle = '复制菜单';
-	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateOrgInput;
-	copyRow.id = 0;
-	copyRow.name = '';
-	editOrgRef.value?.openDialog(copyRow);
-};
-
 // 打开编辑页面
 const openEditOrg = (row: any) => {
 	state.editOrgTitle = '编辑机构';
 	editOrgRef.value?.openDialog(row);
+};
+
+// 打开复制页面
+const openCopyOrg = (row: any) => {
+	state.editOrgTitle = '复制机构';
+	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateOrgInput;
+	copyRow.id = 0;
+	copyRow.name = '';
+	editOrgRef.value?.openDialog(copyRow);
 };
 
 // 删除

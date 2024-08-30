@@ -46,24 +46,9 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给除了发送人的其他人")]
     public async Task SendOtherUser(MessageInput input)
     {
-        var cacheKey = CacheConst.KeyUserOnline + input.UserId;
-        // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
-        {
-            var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
-            if (user == null) return;
-            await _chatHubContext.Clients.AllExcept(user.ConnectionId).ReceiveMessage(input);
-        }
-        else
-        {
-            var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
-            foreach (var _cacheKey in _cacheKeys)
-            {
-                var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
-                if (user == null) return;
-                await _chatHubContext.Clients.AllExcept(user.ConnectionId).ReceiveMessage(input);
-            }
-        }
+        var hashKey = _sysCacheService.HashGetAll<SysOnlineUser>(CacheConst.KeyUserOnline);
+        var exceptRecevieUsers = hashKey.Where(u => u.Value.UserId == input.ReceiveUserId).Select(u => u.Value).ToList();
+        await _chatHubContext.Clients.AllExcept(exceptRecevieUsers.Select(t => t.ConnectionId)).ReceiveMessage(input);
     }
 
     /// <summary>
@@ -74,24 +59,9 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给某个人")]
     public async Task SendUser(MessageInput input)
     {
-        var cacheKey = CacheConst.KeyUserOnline + input.UserId;
-        // 是否开启单用户登录
-        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
-        {
-            var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
-            if (user == null) return;
-            await _chatHubContext.Clients.Client(user.ConnectionId).ReceiveMessage(input);
-        }
-        else
-        {
-            var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
-            foreach (var _cacheKey in _cacheKeys)
-            {
-                var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
-                if (user == null) return;
-                await _chatHubContext.Clients.Client(user.ConnectionId).ReceiveMessage(input);
-            }
-        }
+        var hashKey = _sysCacheService.HashGetAll<SysOnlineUser>(CacheConst.KeyUserOnline);
+        var recevieUsers = hashKey.Where(u => u.Value.UserId == input.ReceiveUserId).Select(u => u.Value).ToList();
+        await recevieUsers.ForEachAsync(u => _chatHubContext.Clients.Client(u.ConnectionId).ReceiveMessage(input));
     }
 
     /// <summary>
@@ -102,26 +72,8 @@ public class SysMessageService : IDynamicApiController, ITransient
     [DisplayName("发送消息给某些人")]
     public async Task SendUsers(MessageInput input)
     {
-        var userList = new List<string>();
-        foreach (var userId in input.UserIds)
-        {
-            var cacheKey = CacheConst.KeyUserOnline + userId;
-            // 是否开启单用户登录
-            if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
-            {
-                var user = _sysCacheService.Get<SysOnlineUser>(cacheKey);
-                if (user != null) userList.Add(user.ConnectionId);
-            }
-            else
-            {
-                var _cacheKeys = _sysCacheService.GetKeyList().Where(u => u.StartsWith(cacheKey)).ToArray();
-                foreach (var _cacheKey in _cacheKeys)
-                {
-                    var user = _sysCacheService.Get<SysOnlineUser>(_cacheKey);
-                    if (user != null) userList.Add(user.ConnectionId);
-                }
-            }
-        }
-        await _chatHubContext.Clients.Clients(userList).ReceiveMessage(input);
+        var hashKey = _sysCacheService.HashGetAll<SysOnlineUser>(CacheConst.KeyUserOnline);
+        var recevieUsers = hashKey.Where(u => input.UserIds.Any(a => a == u.Value.UserId)).Select(u => u.Value).ToList();
+        await recevieUsers.ForEachAsync(u => _chatHubContext.Clients.Client(u.ConnectionId).ReceiveMessage(input));
     }
 }

@@ -77,19 +77,19 @@
 								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
-						<el-table-column label="操作" width="130" align="center" fixed="right" show-overflow-tooltip>
+						<el-table-column label="操作" width="300" align="center" fixed="right" show-overflow-tooltip>
 							<template #default="scope">
-								<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditUser(scope.row)" v-auth="'sysUser:update'"> 编辑 </el-button>
-								<el-dropdown>
-									<el-button icon="ele-MoreFilled" size="small" text type="primary" style="padding-left: 12px" />
-									<template #dropdown>
-										<el-dropdown-menu>
-											<el-dropdown-item icon="ele-RefreshLeft" @click="resetUserPwd(scope.row)" :disabled="!auth('sysUser:resetPwd')"> 重置密码 </el-dropdown-item>
-											<el-dropdown-item icon="ele-Unlock" @click="unlockLogin(scope.row)" divided :disabled="!auth('sysUser:unlockLogin')"> 解除锁定 </el-dropdown-item>
-											<el-dropdown-item icon="ele-Delete" @click="delUser(scope.row)" divided :disabled="!auth('sysUser:delete')"> 删除账号 </el-dropdown-item>
-										</el-dropdown-menu>
-									</template>
-								</el-dropdown>
+								<el-tooltip content="编辑" placement="top">
+									<el-button icon="ele-Edit" text type="primary" v-auth="'sysUser:update'" @click="openEditUser(scope.row)"> </el-button>
+								</el-tooltip>
+								<el-tooltip content="删除" placement="top">
+									<el-button icon="ele-Delete" text type="danger" v-auth="'sysUser:delete'" @click="delUser(scope.row)"> </el-button>
+								</el-tooltip>
+								<el-tooltip content="复制" placement="top">
+									<el-button icon="ele-CopyDocument" text type="primary" v-auth="'sysUser:add'" @click="openCopyMenu(scope.row)"> </el-button>
+								</el-tooltip>
+								<el-button icon="ele-RefreshLeft" text type="danger" v-auth="'sysUser:resetPwd'" @click="resetUserPwd(scope.row)">重置密码</el-button>
+								<el-button icon="ele-Unlock" text type="primary" v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定</el-button>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -126,7 +126,7 @@ import 'splitpanes/dist/splitpanes.css';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
-import { SysUser, SysOrg } from '/@/api-services/models';
+import { SysUser, SysOrg, UpdateUserInput } from '/@/api-services/models';
 
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const editUserRef = ref<InstanceType<typeof EditUser>>();
@@ -192,6 +192,15 @@ const openAddUser = () => {
 const openEditUser = (row: any) => {
 	state.editUserTitle = '编辑账号';
 	editUserRef.value?.openDialog(row);
+};
+
+// 打开复制页面
+const openCopyMenu = (row: any) => {
+	state.editUserTitle = '复制账号';
+	var copyRow = JSON.parse(JSON.stringify(row)) as UpdateUserInput;
+	copyRow.id = 0;
+	copyRow.account = '';
+	editUserRef.value?.openDialog(copyRow);
 };
 
 // 删除

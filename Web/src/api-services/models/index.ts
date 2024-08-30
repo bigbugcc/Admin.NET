@@ -283,6 +283,7 @@ export * from './send-subscribe-message-input';
 export * from './serialization-format';
 export * from './signature-input';
 export * from './sm-key-pair-output';
+export * from './sms-verify-code-input';
 export * from './sort-version';
 export * from './sql-sugar-paged-list-job-detail-output';
 export * from './sql-sugar-paged-list-open-access-output';
