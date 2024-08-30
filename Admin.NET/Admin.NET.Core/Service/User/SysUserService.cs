@@ -221,6 +221,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("设置用户状态")]
     public virtual async Task<int> SetStatus(UserInput input)
     {
@@ -271,6 +272,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("修改用户密码")]
     public virtual async Task<int> ChangePwd(ChangePwdInput input)
     {
@@ -313,6 +315,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("重置用户密码")]
     public virtual async Task<string> ResetPwd(ResetPwdUserInput input)
     {
