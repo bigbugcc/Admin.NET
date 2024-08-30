@@ -259,6 +259,7 @@ public class Startup : AppStartup
         // 限流组件（在跨域之后）
         app.UseIpRateLimiting();
         app.UseClientRateLimiting();
+        app.UsePolicyRateLimit();
 
         // 任务调度看板
         app.UseScheduleUI(options =>
