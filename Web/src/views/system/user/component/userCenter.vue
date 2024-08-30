@@ -113,13 +113,13 @@
 						<el-tab-pane label="修改密码">
 							<el-form ref="ruleFormPasswordRef" :model="state.ruleFormPassword" label-width="auto">
 								<el-form-item label="当前密码" prop="passwordOld" :rules="[{ required: true, message: '当前密码不能为空', trigger: 'blur' }]">
-									<el-input v-model="state.ruleFormPassword.passwordOld" type="password" autocomplete="off" />
+									<el-input v-model="state.ruleFormPassword.passwordOld" type="password" autocomplete="off" show-password/>
 								</el-form-item>
 								<el-form-item label="新密码" prop="passwordNew" :rules="[{ required: true, message: '新密码不能为空', trigger: 'blur' }]">
-									<el-input v-model="state.ruleFormPassword.passwordNew" type="password" autocomplete="off" />
+									<el-input v-model="state.ruleFormPassword.passwordNew" type="password" autocomplete="off" show-password/>
 								</el-form-item>
 								<el-form-item label="确认密码" prop="passwordNew2" :rules="[{ validator: validatePassword, required: true, trigger: 'blur' }]">
-									<el-input v-model="state.passwordNew2" type="password" autocomplete="off" />
+									<el-input v-model="state.passwordNew2" type="password" autocomplete="off" show-password/>
 								</el-form-item>
 								<el-form-item>
 									<el-button icon="ele-Refresh" @click="resetPassword">重 置</el-button>
