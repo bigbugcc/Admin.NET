@@ -15,14 +15,19 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     private readonly SqlSugarRepository<SysWechatUser> _sysWechatUserRep;
     private readonly SysConfigService _sysConfigService;
     private readonly WechatApiClient _wechatApiClient;
+    private readonly SysFileService _sysFileService;
+
 
     public SysWxOpenService(SqlSugarRepository<SysWechatUser> sysWechatUserRep,
         SysConfigService sysConfigService,
-        WechatApiClientFactory wechatApiClientFactory)
+        WechatApiClientFactory wechatApiClientFactory,
+        SysFileService sysFileService)
     {
         _sysWechatUserRep = sysWechatUserRep;
         _sysConfigService = sysConfigService;
         _wechatApiClient = wechatApiClientFactory.CreateWxOpenClient();
+        _sysFileService = sysFileService;
+
     }
 
     /// <summary>
@@ -130,6 +135,59 @@ public class SysWxOpenService : IDynamicApiController, ITransient
             }, tokenExpire)
         };
     }
+
+    /// <summary>
+    /// 上传小程序头像
+    /// </summary> 
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("上传小程序头像")]
+    public async Task<SysFile> UploadAvatar([FromForm] UploadAvatarInput input)
+    {
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        if (wxUser == null)
+            throw Oops.Oh("未找到用户上传失败");
+
+        var res = await _sysFileService.UploadFile(new FileUploadInput { File = input.File, FileType = input.FileType, Path = input.Path });
+        wxUser.Avatar = res.Url;
+        await _sysWechatUserRep.AsUpdateable(wxUser).IgnoreColumns(true).ExecuteCommandAsync();
+
+        return res;
+    }
+
+    /// <summary>
+    /// 设置小程序用户昵称
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [HttpPost]
+    public async Task SetNickName(SetNickNameInput input)
+    {
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        if (wxUser == null)
+            throw Oops.Oh("未找到用户信息设置失败");
+        wxUser.NickName = input.NickName;
+        await _sysWechatUserRep.AsUpdateable(wxUser).IgnoreColumns(true).ExecuteCommandAsync();
+        return;
+    }
+
+    /// <summary>
+    /// 获取小程序用户信息
+    /// </summary>
+    /// <param name="openid"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    public async Task<dynamic> GetUserInfo(string openid)
+    {
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == openid);
+        if (wxUser == null)
+            throw Oops.Oh("未找到用户信息获取失败");
+        return new { nickName = wxUser.NickName, avator = wxUser.Avatar };
+    }
+
+
 
     /// <summary>
     /// 获取订阅消息模板列表 🔖
