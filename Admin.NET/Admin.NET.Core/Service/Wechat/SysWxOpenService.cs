@@ -117,7 +117,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     [DisplayName("微信小程序登录OpenId")]
     public async Task<dynamic> WxOpenIdLogin(WxOpenIdLoginInput input)
     {
-        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(u => u.OpenId == input.OpenId);
         if (wxUser == null)
             throw Oops.Oh("微信小程序登录失败");
 
@@ -143,7 +143,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     [DisplayName("上传小程序头像")]
     public async Task<SysFile> UploadAvatar([FromForm] UploadAvatarInput input)
     {
-        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(u => u.OpenId == input.OpenId);
         if (wxUser == null)
             throw Oops.Oh("未找到用户上传失败");
 
@@ -163,7 +163,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     [HttpPost]
     public async Task SetNickName(SetNickNameInput input)
     {
-        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == input.OpenId);
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(u => u.OpenId == input.OpenId);
         if (wxUser == null)
             throw Oops.Oh("未找到用户信息设置失败");
         wxUser.NickName = input.NickName;
@@ -179,7 +179,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     [AllowAnonymous]
     public async Task<dynamic> GetUserInfo(string openid)
     {
-        var wxUser = await _sysWechatUserRep.GetFirstAsync(p => p.OpenId == openid);
+        var wxUser = await _sysWechatUserRep.GetFirstAsync(u => u.OpenId == openid);
         if (wxUser == null)
             throw Oops.Oh("未找到用户信息获取失败");
         return new { nickName = wxUser.NickName, avator = wxUser.Avatar };

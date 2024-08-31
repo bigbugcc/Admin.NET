@@ -5,7 +5,6 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using AngleSharp.Common;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Admin.NET.Core;
 
@@ -19,6 +18,7 @@ public class EnumToDictJob : IJob
     private readonly IServiceScopeFactory _scopeFactory;
     private const int OrderOffset = 10;
     private const string DefaultTagType = "info";
+
     public EnumToDictJob(IServiceScopeFactory scopeFactory)
     {
         _scopeFactory = scopeFactory;
@@ -36,15 +36,15 @@ public class EnumToDictJob : IJob
         var enumCodeList = enumTypeList.Select(u => u.TypeName);
         // 查询数据库中已存在的枚举类型代码
         var sysDictTypeList = await db.Queryable<SysDictType>()
-                                      .Includes(d=>d.Children)
+                                      .Includes(d => d.Children)
                                       .Where(d => enumCodeList.Contains(d.Code))
                                       .ToListAsync(stoppingToken);
         // 更新的枚举转换字典
         var updatedEnumCodes = sysDictTypeList.Select(u => u.Code);
         var updatedEnumType = enumTypeList.Where(u => updatedEnumCodes.Contains(u.TypeName)).ToList();
         var sysDictTypeDict = sysDictTypeList.ToDictionary(u => u.Code, u => u);
-        var (updatedDictTypes, updatedDictDatas) =  GetUpdatedDicts(updatedEnumType, sysDictTypeDict);
-        
+        var (updatedDictTypes, updatedDictDatas) = GetUpdatedDicts(updatedEnumType, sysDictTypeDict);
+
         // 新增的枚举转换字典
         var newEnumType = enumTypeList.Where(u => !updatedEnumCodes.Contains(u.TypeName)).ToList();
         var (newDictTypes, newDictDatas) = GetNewSysDicts(newEnumType);
@@ -58,9 +58,9 @@ public class EnumToDictJob : IJob
                 await db.Updateable(updatedDictTypes).ExecuteCommandAsync(stoppingToken);
 
             if (updatedDictDatas.Count > 0)
-                await db.Updateable(updatedDictDatas).ExecuteCommandAsync(stoppingToken); 
+                await db.Updateable(updatedDictDatas).ExecuteCommandAsync(stoppingToken);
 
-            if (newDictTypes.Count > 0) 
+            if (newDictTypes.Count > 0)
                 await db.Insertable(newDictTypes).ExecuteCommandAsync(stoppingToken);
 
             if (newDictDatas.Count > 0)
@@ -79,6 +79,7 @@ public class EnumToDictJob : IJob
         Console.WriteLine($"【{DateTime.Now}】系统枚举转换字典");
         Console.ForegroundColor = originColor;
     }
+
     /// <summary>
     /// 获取需要新增的字典列表
     /// </summary>
@@ -90,7 +91,8 @@ public class EnumToDictJob : IJob
     ///     <item><term>SysDictDatas</term><description>字典数据列表</description></item>
     /// </list>
     /// </returns>
-    private (List<SysDictType>, List<SysDictData>) GetNewSysDicts(List<EnumTypeOutput> addEnumType) {
+    private (List<SysDictType>, List<SysDictData>) GetNewSysDicts(List<EnumTypeOutput> addEnumType)
+    {
         var newDictType = new List<SysDictType>();
         var newDictData = new List<SysDictData>();
         if (addEnumType.Count > 0)
@@ -120,10 +122,8 @@ public class EnumToDictJob : IJob
                     TagType = u.Theme != "" ? u.Theme : DefaultTagType,
                 }).ToList()
             }).SelectMany(x => x.Data).ToList();
-
         }
         return (newDictType, newDictData);
-
     }
 
     /// <summary>
@@ -172,8 +172,4 @@ public class EnumToDictJob : IJob
 
         return (updatedSysDictTypes, updatedSysDictData);
     }
-
-
-    
-
 }
