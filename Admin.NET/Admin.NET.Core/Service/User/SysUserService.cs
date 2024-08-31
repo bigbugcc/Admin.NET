@@ -165,11 +165,9 @@ public class SysUserService : IDynamicApiController, ITransient
     [DisplayName("删除用户")]
     public virtual async Task DeleteUser(DeleteUserInput input)
     {
-        var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
-        if (user.AccountType == AccountTypeEnum.SuperAdmin)
-            throw Oops.Oh(ErrorCodeEnum.D1014);
-        if (user.Id == _userManager.UserId)
-            throw Oops.Oh(ErrorCodeEnum.D1001);
+        var user = await _sysUserRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        user.ValidateIsSuperAdminAccountType();
+        user.ValidateIsUserId(_userManager.UserId);
 
         // 若账号为租户默认账号则禁止删除
         var isTenantUser = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysTenant>>().IsAnyAsync(u => u.UserId == input.Id);
@@ -203,7 +201,7 @@ public class SysUserService : IDynamicApiController, ITransient
     [DisplayName("查看用户基本信息")]
     public virtual async Task<SysUser> GetBaseInfo()
     {
-        return await _sysUserRep.GetFirstAsync(u => u.Id == _userManager.UserId);
+        return await _sysUserRep.GetByIdAsync(_userManager.UserId);
     }
 
     /// <summary>
@@ -223,16 +221,15 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("设置用户状态")]
     public virtual async Task<int> SetStatus(UserInput input)
     {
         if (_userManager.UserId == input.Id)
             throw Oops.Oh(ErrorCodeEnum.D1026);
 
-        var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
-        if (user.AccountType == AccountTypeEnum.SuperAdmin)
-            throw Oops.Oh(ErrorCodeEnum.D1015);
-
+        var user = await _sysUserRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        user.ValidateIsSuperAdminAccountType(ErrorCodeEnum.D1015);
         if (!Enum.IsDefined(typeof(StatusEnum), input.Status))
             throw Oops.Oh(ErrorCodeEnum.D3005);
 
@@ -275,6 +272,7 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("修改用户密码")]
     public virtual async Task<int> ChangePwd(ChangePwdInput input)
     {
@@ -282,7 +280,7 @@ public class SysUserService : IDynamicApiController, ITransient
         input.PasswordOld = CryptogramUtil.SM2Decrypt(input.PasswordOld);
         input.PasswordNew = CryptogramUtil.SM2Decrypt(input.PasswordNew);
 
-        var user = await _sysUserRep.GetFirstAsync(u => u.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        var user = await _sysUserRep.GetByIdAsync(_userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (user.Password != MD5Encryption.Encrypt(input.PasswordOld))
@@ -317,10 +315,11 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("重置用户密码")]
     public virtual async Task<string> ResetPwd(ResetPwdUserInput input)
     {
-        var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        var user = await _sysUserRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
         var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
         user.Password = CryptogramUtil.Encrypt(password);
         await _sysUserRep.AsUpdateable(user).UpdateColumns(u => u.Password).ExecuteCommandAsync();
@@ -340,7 +339,7 @@ public class SysUserService : IDynamicApiController, ITransient
     [DisplayName("解除登录锁定")]
     public virtual async Task UnlockLogin(UnlockLoginInput input)
     {
-        var user = await _sysUserRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        var user = await _sysUserRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
 
         // 清空密码错误次数
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{user.Account}";
