@@ -133,8 +133,6 @@ public class UploadAvatarInput
     public string Path { get; set; }
 }
 
-
-
 public class SetNickNameInput
 {
     /// <summary>
@@ -142,7 +140,6 @@ public class SetNickNameInput
     /// </summary>
     [Required(ErrorMessage = "OpenId不能为空")]
     public string OpenId { get; set; }
-
 
     /// <summary>
     /// 昵称

@@ -17,7 +17,6 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     private readonly WechatApiClient _wechatApiClient;
     private readonly SysFileService _sysFileService;
 
-
     public SysWxOpenService(SqlSugarRepository<SysWechatUser> sysWechatUserRep,
         SysConfigService sysConfigService,
         WechatApiClientFactory wechatApiClientFactory,
@@ -27,7 +26,6 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         _sysConfigService = sysConfigService;
         _wechatApiClient = wechatApiClientFactory.CreateWxOpenClient();
         _sysFileService = sysFileService;
-
     }
 
     /// <summary>
@@ -138,7 +136,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
 
     /// <summary>
     /// 上传小程序头像
-    /// </summary> 
+    /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [AllowAnonymous]
@@ -186,8 +184,6 @@ public class SysWxOpenService : IDynamicApiController, ITransient
             throw Oops.Oh("未找到用户信息获取失败");
         return new { nickName = wxUser.NickName, avator = wxUser.Avatar };
     }
-
-
 
     /// <summary>
     /// 获取订阅消息模板列表 🔖

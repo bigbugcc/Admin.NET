@@ -312,13 +312,11 @@ public partial class SysUser : EntityTenant
     [SugarColumn(ColumnDescription = "电子签名", Length = 512)]
     [MaxLength(512)]
     public string? Signature { get; set; }
+
     /// <summary>
-    /// 验证超级管理员类型
+    /// 验证超级管理员类型，若账号类型为超级管理员则报错
     /// </summary>
     /// <param name="errorMsg">自定义错误消息</param>
-    /// <remarks>
-    /// 如果账号类型为超级管理员则报错
-    /// </remarks>
     public void ValidateIsSuperAdminAccountType(ErrorCodeEnum? errorMsg = ErrorCodeEnum.D1014)
     {
         if (AccountType == AccountTypeEnum.SuperAdmin)
@@ -326,16 +324,13 @@ public partial class SysUser : EntityTenant
             throw Oops.Oh(errorMsg);
         }
     }
+
     /// <summary>
-    /// 验证用户Id是否相同
+    /// 验证用户Id是否相同，若用户Id相同则报错
     /// </summary>
     /// <param name="userId">用户Id</param>
     /// <param name="errorMsg">自定义错误消息</param>
-    /// <remarks>
-    /// 如果用户id相同则报错
-    /// </remarks>
-
-    public void ValidateIsUserId(long userId,ErrorCodeEnum? errorMsg = ErrorCodeEnum.D1001)
+    public void ValidateIsUserId(long userId, ErrorCodeEnum? errorMsg = ErrorCodeEnum.D1001)
     {
         if (Id == userId)
         {
