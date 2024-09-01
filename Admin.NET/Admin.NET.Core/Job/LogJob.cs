@@ -26,15 +26,13 @@ public class LogJob : IJob
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var logVisRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogVis>>();
-        var logOpRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogOp>>();
-        var logDiffRep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogDiff>>();
+        var db = serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
         var sysConfigService = serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
 
         var daysAgo = await sysConfigService.GetConfigValue<int>(ConfigConst.SysLogRetentionDays); // 日志保留天数
-        await logVisRep.CopyNew().AsDeleteable().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除访问日志
-        await logOpRep.CopyNew().AsDeleteable().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除操作日志
-        await logDiffRep.CopyNew().AsDeleteable().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除差异日志
+        await db.Deleteable<SysLogVis>().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除访问日志
+        await db.Deleteable<SysLogOp>().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除操作日志
+        await db.Deleteable<SysLogDiff>().Where(u => u.CreateTime < DateTime.Now.AddDays(-daysAgo)).ExecuteCommandAsync(stoppingToken); // 删除差异日志
 
         string msg = $"【{DateTime.Now}】清理系统日志成功，删除 {daysAgo} 天前的日志数据！";
         var originColor = Console.ForegroundColor;

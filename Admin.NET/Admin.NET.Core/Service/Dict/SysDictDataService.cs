@@ -42,7 +42,6 @@ public class SysDictDataService : IDynamicApiController, ITransient
     /// 获取字典值列表 🔖
     /// </summary>
     /// <returns></returns>
-    [UnitOfWork]
     [DisplayName("获取字典值列表")]
     public async Task<List<SysDictData>> GetList([FromQuery] GetDataDictDataInput input)
     {
@@ -99,7 +98,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("删除字典值")]
     public async Task DeleteDictData(DeleteDictDataInput input)
     {
-        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
+        var dictData = await _sysDictDataRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
 
         var dictTypeCode = await _sysDictDataRep.AsQueryable().Where(u => u.DictTypeId == dictData.Id).Select(u => u.DictType.Code).FirstAsync();
         _sysCacheService.Remove($"{CacheConst.KeyDict}{dictTypeCode}");
@@ -115,7 +114,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("获取字典值详情")]
     public async Task<SysDictData> GetDetail([FromQuery] DictDataInput input)
     {
-        return await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id);
+        return await _sysDictDataRep.GetByIdAsync(input.Id);
     }
 
     /// <summary>
@@ -127,7 +126,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("修改字典值状态")]
     public async Task SetStatus(DictDataInput input)
     {
-        var dictData = await _sysDictDataRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
+        var dictData = await _sysDictDataRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3004);
 
         var dictTypeCode = await _sysDictDataRep.AsQueryable().Where(u => u.DictTypeId == dictData.Id).Select(u => u.DictType.Code).FirstAsync();
         _sysCacheService.Remove($"{CacheConst.KeyDict}{dictTypeCode}");

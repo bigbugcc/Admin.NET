@@ -333,8 +333,8 @@ public static partial class ObjectExtension
     {
         if (!email.TryValidate(ValidationTypes.EmailAddress).IsValid) return email;
 
-        var masks = mask.ToString().PadLeft(4, mask);
-        return email.Replace(@"^([^\.]+)\.?", $"$1{masks}$2");
+        var pos = email.IndexOf("@");
+        return Mask(email[..pos], mask) + email[pos..];
     }
 
     /// <summary>

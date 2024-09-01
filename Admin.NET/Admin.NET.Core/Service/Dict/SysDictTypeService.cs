@@ -54,6 +54,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [UnitOfWork]
     [DisplayName("获取字典类型-值列表")]
     public async Task<List<SysDictData>> GetDataList([FromQuery] GetDataDictTypeInput input)
     {
@@ -106,7 +107,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("删除字典类型")]
     public async Task DeleteDictType(DeleteDictTypeInput input)
     {
-        var dictType = await _sysDictTypeRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3000);
+        var dictType = await _sysDictTypeRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3000);
 
         // 删除字典值
         await _sysDictTypeRep.DeleteAsync(dictType);
@@ -121,7 +122,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("获取字典类型详情")]
     public async Task<SysDictType> GetDetail([FromQuery] DictTypeInput input)
     {
-        return await _sysDictTypeRep.GetFirstAsync(u => u.Id == input.Id);
+        return await _sysDictTypeRep.GetByIdAsync(input.Id);
     }
 
     /// <summary>
@@ -133,7 +134,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("修改字典类型状态")]
     public async Task SetStatus(DictTypeInput input)
     {
-        var dictType = await _sysDictTypeRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3000);
+        var dictType = await _sysDictTypeRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D3000);
 
         _sysCacheService.Remove($"{CacheConst.KeyDict}{dictType.Code}");
 
