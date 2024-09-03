@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.ReZero", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.ApprovalFlow", "Plugins\Admin.NET.Plugin.ApprovalFlow\Admin.NET.Plugin.ApprovalFlow.csproj", "{902A91A7-5EF0-4A63-BC2C-9B783DC00880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.NET.Plugin.K3Cloud", "Plugins\Admin.NET.Plugin.K3Cloud\Admin.NET.Plugin.K3Cloud.csproj", "{72EB89AB-15F7-4F85-88DB-7C2EF7C3D588}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Plugin.K3Cloud", "Plugins\Admin.NET.Plugin.K3Cloud\Admin.NET.Plugin.K3Cloud.csproj", "{72EB89AB-15F7-4F85-88DB-7C2EF7C3D588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
