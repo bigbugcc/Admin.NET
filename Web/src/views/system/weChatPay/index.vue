@@ -117,6 +117,7 @@ import { ref, nextTick, onMounted, reactive } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import QRCode from 'qrcodejs2-fixes';
 import { pagePayList, createPay, getRefundListByID, refundDomestic } from '/@/api/system/weChatPay';
+import { SysWechatPay } from '/@/api-services/models';
 
 const qrDiv = ref<HTMLElement | null>(null);
 const showAddDialog = ref(false);
@@ -128,7 +129,7 @@ const addData = ref<any>({});
 
 const state = reactive({
 	loading: false,
-	tableData: [] as any,
+	tableData: [] as Array<SysWechatPay>,
 	queryParams: {
 		searchKey: undefined,
 		createTimeRange: undefined,
@@ -152,7 +153,7 @@ const handleQuery = async () => {
 	let params = Object.assign(state.queryParams, state.tableParams);
 	var res = await pagePayList(params);
 	let tmpRows = res.data.result?.items ?? [];
-	state.tableData.value = tmpRows;
+	state.tableData = tmpRows;
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
 };
