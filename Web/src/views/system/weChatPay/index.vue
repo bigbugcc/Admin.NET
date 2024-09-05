@@ -67,7 +67,13 @@
 			/>
 		</el-card>
 
-		<el-dialog v-model="showAddDialog" title="新增模拟数据">
+		<el-dialog v-model="showAddDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
+					<span>新增模拟数据</span>
+				</div>
+			</template>
 			<el-form>
 				<el-form-item label="商品">
 					<el-input v-model="addData.description" placeholder="必填" clearable />
@@ -86,11 +92,23 @@
 				</span>
 			</template>
 		</el-dialog>
-		<el-dialog title="付款二维码" v-model="showQrDialog">
+		<el-dialog v-model="showQrDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-View /> </el-icon>
+					<span>付款二维码</span>
+				</div>
+			</template>
 			<div ref="qrDiv"></div>
 		</el-dialog>
 
-		<el-dialog title="退款信息" v-model="showRefundDialog">
+		<el-dialog v-model="showRefundDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Document /> </el-icon>
+					<span>退款信息</span>
+				</div>
+			</template>
 			<el-table :data="subTableData" style="width: 100%" tooltip-effect="light" row-key="id" border="">
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="outRefundNumber" label="商户退款号" width="180"></el-table-column>
