@@ -1,3 +1,8 @@
+<div align="center">
+    <p align="center">
+        <img src="./Web/src/assets/logo.png" height="128" alt="logo"/>
+    </p>
+</div>
 <div align="center"><h1>Admin.NET</h1></div>
 <div align="center"><h3>站在巨人肩膀上的 .NET 通用权限开发框架</h3></div>
 
