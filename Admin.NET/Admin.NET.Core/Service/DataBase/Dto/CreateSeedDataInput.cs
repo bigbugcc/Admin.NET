@@ -42,4 +42,13 @@ public class CreateSeedDataInput
     /// </summary>
     /// <example>Web.Application</example>
     public string Suffix { get; set; }
+
+    /// <summary>
+    /// 过滤已有数据
+    /// </summary>
+    /// <remarks>
+    /// 如果数据在其它不同名的已有的种子类型的数据中出现过，就不生成这个数据
+    /// 主要用于生成菜单功能，菜单功能往往与子项目绑定，如果生成完整数据就会导致菜单项多处理重复。
+    /// </remarks>
+    public bool FilterExistingData { get; set; }
 }
