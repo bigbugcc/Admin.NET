@@ -4,11 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using Mapster.Adapters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Npgsql;
-using System.Linq;
 
 namespace Admin.NET.Core.Service;
 
@@ -355,17 +353,16 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             query.OrderBy(orderField.DbColumnName);
         IEnumerable recordsTmp = (IEnumerable)query.ToList();
         List<dynamic> records = recordsTmp.ToDynamicList();
-        //这里要过滤已存在的数据
+        // 过滤已存在的数据
         if (input.FilterExistingData && records.Count() > 0)
         {
-            //获取实体类型
-            //获取所有种数据数据类型
+            // 获取实体类型-所有种数据数据类型
             var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.IsDefined(typeof(SugarTable), false) && u.FullName.EndsWith("." + input.EntityName))
                 .Where(u => !u.GetCustomAttributes<IgnoreTableAttribute>().Any())
                 .ToList();
-            if (entityTypes.Count == 1) //只有一个实体匹配才能过滤
+            if (entityTypes.Count == 1) // 只有一个实体匹配才能过滤
             {
-                //获取实体的主键对应的属性名称
+                // 获取实体的主键对应的属性名称
                 var pkInfo = entityTypes[0].GetProperties().Where(u => u.GetCustomAttribute<SugarColumn>() != null && u.GetCustomAttribute<SugarColumn>().IsPrimaryKey).First();
                 if (pkInfo != null)
                 {
@@ -375,9 +372,9 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                             )
                         )
                         .ToList();
-                    //可能会重名的种子数据不作为过滤项
+                    // 可能会重名的种子数据不作为过滤项
                     string doNotFilterfullName1 = $"{input.Position}.SeedData.{input.SeedDataName}";
-                    string doNotFilterfullName2 = $"{input.Position}.{input.SeedDataName}"; //Core中的命名空间没有SeedData
+                    string doNotFilterfullName2 = $"{input.Position}.{input.SeedDataName}"; // Core中的命名空间没有SeedData
 
                     PropertyInfo idPropertySeedData = records[0].GetType().GetProperty("Id");
 
@@ -386,7 +383,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                         string fullName = seedDataTypes[i].FullName;
                         if ((fullName == doNotFilterfullName1) || (fullName == doNotFilterfullName2))
                             continue;
-                        //开始删除重复数据
+                        // 删除重复数据
                         var instance = Activator.CreateInstance(seedDataTypes[i]);
                         var hasDataMethod = seedDataTypes[i].GetMethod("HasData");
                         var seedData = ((IEnumerable)hasDataMethod?.Invoke(instance, null))?.Cast<object>();
