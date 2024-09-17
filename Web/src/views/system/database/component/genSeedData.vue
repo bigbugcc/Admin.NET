@@ -29,7 +29,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="过滤重复数据" prop="filterExistingData">
-							<el-switch v-model="state.ruleForm.filterExistingData" ></el-switch>
+							<el-switch v-model="state.ruleForm.filterExistingData"></el-switch>
 						</el-form-item>
 					</el-col>
 				</el-row>
