@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
 
   // 详细数据库配置见SqlSugar官网（第一个为默认库），极力推荐 PostgreSQL 数据库
@@ -13,7 +13,7 @@
         //"ConnectionString": "PORT=5432;DATABASE=xxx;HOST=localhost;PASSWORD=xxx;USER ID=xxx", // PostgreSQL 库连接字符串
         //"ConnectionString": "Server=localhost;Database=xxx;Uid=xxx;Pwd=xxx;SslMode=None;", // MySql 库连接字符串",
         //"ConnectionString": "User Id=xxx; Password=xxx; Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)))", // Oracle 库连接字符串
-        //"ConnectionString": "Server=localhost;Database=xxx;User Id=xxx;Password=xxx;", // SqlServer 库连接字符串
+        //"ConnectionString": "Server=localhost;Database=xxx;User Id=xxx;Password=xxx;Encrypt=True;TrustServerCertificate=True;", // SqlServer 库连接字符串
 
         //"SlaveConnectionConfigs": [ // 读写分离/主从
         //	{
