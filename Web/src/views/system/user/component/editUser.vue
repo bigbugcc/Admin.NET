@@ -173,7 +173,8 @@
 									<el-radio-group v-model="state.ruleForm.sex">
 										<el-radio :value="1">男</el-radio>
 										<el-radio :value="2">女</el-radio>
-										<el-radio :value="3">其他</el-radio>
+										<el-radio :value="0">未知的性别</el-radio>
+                                        <el-radio :value="9">未说明的性别</el-radio>
 									</el-radio-group>
 								</el-form-item>
 							</el-col>
