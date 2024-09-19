@@ -13,7 +13,7 @@
 						<el-form-item label="上级名称">
 							<el-cascader
 								:options="regionData"
-								:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'name' }"
+								:props="cascaderProps"
 								placeholder="请选择上级名称"
 								clearable
 								class="w100"
@@ -84,6 +84,8 @@ const state = reactive({
 	isShowDialog: false,
 	ruleForm: {} as UpdateRegionInput,
 });
+//级联选择器配置选项
+//const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name' };
 
 // 打开弹窗
 const openDialog = (row: any) => {
