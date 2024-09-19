@@ -159,8 +159,8 @@
 									<el-radio-group v-model="state.ruleForm.sex">
 										<el-radio :value="1">男</el-radio>
 										<el-radio :value="2">女</el-radio>
-										<el-radio :value="0">未知的性别</el-radio>
-										<el-radio :value="9">未说明的性别</el-radio>
+										<el-radio :value="0">未知</el-radio>
+										<el-radio :value="9">未说明</el-radio>
 									</el-radio-group>
 								</el-form-item>
 							</el-col>
@@ -271,7 +271,7 @@ const state = reactive({
 	posData: [] as Array<SysPos>, // 职位数据
 	roleData: [] as Array<RoleOutput>, // 角色数据
 });
-//级联选择器配置选项
+// 级联选择器配置选项
 const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' };
 
 onMounted(async () => {

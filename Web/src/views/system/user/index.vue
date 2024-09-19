@@ -52,8 +52,8 @@
 							<template #default="scope">
 								<el-tag v-if="scope.row.sex === 1" type="success">男</el-tag>
 								<el-tag v-else-if="scope.row.sex === 2" type="danger">女</el-tag>
-								<el-tag v-else-if="scope.row.sex === 0" type="info">未知的性别</el-tag>
-								<el-tag v-else-if="scope.row.sex === 9" type="info">未说明的性别</el-tag>
+								<el-tag v-else-if="scope.row.sex === 0" type="info">未知</el-tag>
+								<el-tag v-else-if="scope.row.sex === 9" type="info">未说明</el-tag>
 							</template>
 						</el-table-column> -->
 						<el-table-column label="账号类型" width="110" align="center" show-overflow-tooltip>

@@ -173,7 +173,7 @@ const state = reactive({
 	printTypeList: [] as any,
 	printList: [] as Array<SysPrint>,
 });
-//级联选择器配置选项
+// 级联选择器配置选项
 const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
 
 onMounted(async () => {

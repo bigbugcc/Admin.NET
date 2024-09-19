@@ -158,7 +158,7 @@ const state = reactive({
 	isShowDialog: false,
 	ruleForm: {} as UpdateMenuInput,
 });
-//级联选择器配置选项
+// 级联选择器配置选项
 const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
 
 // 获取全局组件大小
