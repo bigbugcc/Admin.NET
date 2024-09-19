@@ -11,14 +11,7 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="上级机构">
-							<el-cascader
-								:options="props.orgData"
-								:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'name' }"
-								placeholder="请选择上级机构"
-								clearable
-								class="w100"
-								v-model="state.ruleForm.pid"
-							>
+							<el-cascader :options="props.orgData" :props="cascaderProps" placeholder="请选择上级机构" clearable filterable class="w100" v-model="state.ruleForm.pid">
 								<template #default="{ node, data }">
 									<span>{{ data.name }}</span>
 									<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -96,6 +89,8 @@ const state = reactive({
 	ruleForm: {} as UpdateOrgInput,
 	orgTypeList: [] as any,
 });
+//级联选择器配置选项
+const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name' };
 
 onMounted(async () => {
 	let resDicData = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('org_type');
