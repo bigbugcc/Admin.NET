@@ -95,7 +95,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				...(JSON.parse(env.VITE_OPEN_CDN) ? { external: buildConfig.external } : {}),
 			},
 		},
-		css: { preprocessorOptions: { css: { charset: false } } },
+		css: { preprocessorOptions: { css: { charset: false }, scss: { silenceDeprecations: ['legacy-js-api'] } } },
 		define: {
 			__VUE_I18N_LEGACY_API__: JSON.stringify(false),
 			__VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
