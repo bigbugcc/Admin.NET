@@ -47,7 +47,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         var account = httpContext.User.FindFirst(ClaimConst.Account)?.Value;
         var realName = httpContext.User.FindFirst(ClaimConst.RealName)?.Value;
         var tenantId = (httpContext.User.FindFirst(ClaimConst.TenantId)?.Value).ToLong();
-        var device = httpContext.GetClientDeviceInfo().Trim();
+        //var device = httpContext.GetClientDeviceInfo().Trim();
 
         if (userId < 0 || string.IsNullOrWhiteSpace(account)) return;
         var user = new SysOnlineUser
@@ -69,9 +69,9 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         {
             _sysCacheService.HashAdd(CacheConst.KeyUserOnline, "" + user.UserId, user);
         }
-        else  // 非单用户登录则绑定用户设备信息
+        else  // 非单用户登录则绑定用户连接信息
         {
-            _sysCacheService.HashAdd(CacheConst.KeyUserOnline, user.UserId + device, user);
+            _sysCacheService.HashAdd(CacheConst.KeyUserOnline, user.UserId + Context.ConnectionId, user);
         }
 
         // 以租户Id进行分组
@@ -112,9 +112,8 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         }
         else
         {
-            var device = httpContext.GetClientDeviceInfo().Trim();
-            _sysCacheService.HashDel<SysOnlineUser>(CacheConst.KeyUserOnline, user.UserId + device);
-            // _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId + device);
+            _sysCacheService.HashDel<SysOnlineUser>(CacheConst.KeyUserOnline, user.UserId + Context.ConnectionId);
+            // _sysCacheService.Remove(CacheConst.KeyUserOnline + user.UserId + Context.ConnectionId);
         }
 
         // 通知当前组用户变动
