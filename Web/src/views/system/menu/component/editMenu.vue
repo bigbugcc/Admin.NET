@@ -11,14 +11,7 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="上级菜单">
-							<el-cascader
-								:options="props.menuData"
-								:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'title' }"
-								placeholder="请选择上级菜单"
-								clearable
-								class="w100"
-								v-model="state.ruleForm.pid"
-							>
+							<el-cascader :options="props.menuData" :props="cascaderProps" placeholder="请选择上级菜单" clearable filterable class="w100" v-model="state.ruleForm.pid">
 								<template #default="{ node, data }">
 									<span>{{ data.title }}</span>
 									<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -165,6 +158,8 @@ const state = reactive({
 	isShowDialog: false,
 	ruleForm: {} as UpdateMenuInput,
 });
+// 级联选择器配置选项
+const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
 
 // 获取全局组件大小
 const getGlobalComponentSize = computed(() => {

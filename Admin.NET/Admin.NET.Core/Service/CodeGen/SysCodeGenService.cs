@@ -387,7 +387,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             if (File.Exists(downloadPath))
                 File.Delete(downloadPath);
             ZipFile.CreateFromDirectory(zipPath, downloadPath);
-            return new { url = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Host.Value}/CodeGen/{input.TableName}.zip" };
+            return new { url = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Host.Value}/codeGen/{input.TableName}.zip" };
         }
     }
 

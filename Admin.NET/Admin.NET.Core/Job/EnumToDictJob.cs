@@ -4,8 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using AngleSharp.Common;
-
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -43,7 +41,7 @@ public class EnumToDictJob : IJob
         var updatedEnumCodes = sysDictTypeList.Select(u => u.Code);
         var updatedEnumType = enumTypeList.Where(u => updatedEnumCodes.Contains(u.TypeName)).ToList();
         var sysDictTypeDict = sysDictTypeList.ToDictionary(u => u.Code, u => u);
-        var (updatedDictTypes, updatedDictDatas) = GetUpdatedDicts(updatedEnumType, sysDictTypeDict);
+        var (updatedDictTypes, updatedDictDatas, newSysDictDatas) = GetUpdatedDicts(updatedEnumType, sysDictTypeDict);
 
         // 新增的枚举转换字典
         var newEnumType = enumTypeList.Where(u => !updatedEnumCodes.Contains(u.TypeName)).ToList();
@@ -52,7 +50,7 @@ public class EnumToDictJob : IJob
         // 执行数据库操作
         try
         {
-            db.BeginTran();
+            await db.BeginTranAsync();
 
             if (updatedDictTypes.Count > 0)
                 await db.Updateable(updatedDictTypes).ExecuteCommandAsync(stoppingToken);
@@ -60,17 +58,20 @@ public class EnumToDictJob : IJob
             if (updatedDictDatas.Count > 0)
                 await db.Updateable(updatedDictDatas).ExecuteCommandAsync(stoppingToken);
 
+            if (newSysDictDatas.Count > 0)
+                await db.Insertable(newSysDictDatas).ExecuteCommandAsync(stoppingToken);
+
             if (newDictTypes.Count > 0)
                 await db.Insertable(newDictTypes).ExecuteCommandAsync(stoppingToken);
 
             if (newDictDatas.Count > 0)
                 await db.Insertable(newDictDatas).ExecuteCommandAsync(stoppingToken);
 
-            db.CommitTran();
+            await db.CommitTranAsync();
         }
         catch (Exception error)
         {
-            db.RollbackTran();
+            await db.RollbackTranAsync();
             Log.Error($"系统枚举转换字典操作错误：{error.Message}\n堆栈跟踪：{error.StackTrace}", error);
             throw;
         }
@@ -95,34 +96,35 @@ public class EnumToDictJob : IJob
     {
         var newDictType = new List<SysDictType>();
         var newDictData = new List<SysDictData>();
-        if (addEnumType.Count > 0)
+        if (addEnumType.Count <= 0)
+            return (newDictType, newDictData);
+
+        // 新增字典类型
+        newDictType = addEnumType.Select(u => new SysDictType
         {
-            // 新增字典类型
-            newDictType = addEnumType.Select(u => new SysDictType
+            Id = YitIdHelper.NextId(),
+            Code = u.TypeName,
+            Name = u.TypeDescribe,
+            Remark = u.TypeRemark,
+            Status = StatusEnum.Enable
+        }).ToList();
+
+        // 新增字典数据
+        newDictData = addEnumType.Join(newDictType, t1 => t1.TypeName, t2 => t2.Code, (t1, t2) => new
+        {
+            Data = t1.EnumEntities.Select(u => new SysDictData
             {
                 Id = YitIdHelper.NextId(),
-                Code = u.TypeName,
-                Name = u.TypeDescribe,
-                Remark = u.TypeRemark,
-                Status = StatusEnum.Enable
-            }).ToList();
+                DictTypeId = t2.Id,
+                Name = u.Describe,
+                Value = u.Value.ToString(),
+                Code = u.Name,
+                Remark = t2.Remark,
+                OrderNo = u.Value + OrderOffset,
+                TagType = u.Theme != "" ? u.Theme : DefaultTagType,
+            }).ToList()
+        }).SelectMany(x => x.Data).ToList();
 
-            // 新增字典数据
-            newDictData = addEnumType.Join(newDictType, t1 => t1.TypeName, t2 => t2.Code, (t1, t2) => new
-            {
-                Data = t1.EnumEntities.Select(u => new SysDictData
-                {
-                    Id = YitIdHelper.NextId(),
-                    DictTypeId = t2.Id,
-                    Name = u.Describe,
-                    Value = u.Value.ToString(),
-                    Code = u.Name,
-                    Remark = t2.Remark,
-                    OrderNo = u.Value + OrderOffset,
-                    TagType = u.Theme != "" ? u.Theme : DefaultTagType,
-                }).ToList()
-            }).SelectMany(x => x.Data).ToList();
-        }
         return (newDictType, newDictData);
     }
 
@@ -134,42 +136,70 @@ public class EnumToDictJob : IJob
     /// <returns>
     /// 一个元组，包含以下元素：
     /// <list type="table">
-    ///     <item><term>SysDictTypes</term><description>字典类型列表</description>
+    ///     <item><term>SysDictTypes</term><description>更新字典类型列表</description>
     ///     </item>
-    ///     <item><term>SysDictDatas</term><description>字典数据列表</description>
+    ///     <item><term>SysDictDatas</term><description>更新字典数据列表</description>
+    ///     </item>
+    ///     <item><term>SysDictDatas</term><description>新增字典数据列表</description>
     ///     </item>
     /// </list>
     /// </returns>
-    private (List<SysDictType>, List<SysDictData>) GetUpdatedDicts(List<EnumTypeOutput> updatedEnumType, Dictionary<string, SysDictType> sysDictTypeDict)
+    private (List<SysDictType>, List<SysDictData>, List<SysDictData>) GetUpdatedDicts(List<EnumTypeOutput> updatedEnumType, Dictionary<string, SysDictType> sysDictTypeDict)
     {
         var updatedSysDictTypes = new List<SysDictType>();
         var updatedSysDictData = new List<SysDictData>();
+        var newSysDictData = new List<SysDictData>();
         foreach (var e in updatedEnumType)
         {
-            if (sysDictTypeDict.TryGetValue(e.TypeName, out var value))
-            {
-                var updatedDictType = value;
-                updatedDictType.Name = e.TypeDescribe;
-                updatedDictType.Remark = e.TypeRemark;
-                updatedSysDictTypes.Add(updatedDictType);
-                var updatedDictData = updatedDictType.Children.Where(u => u.DictTypeId == updatedDictType.Id).ToList();
+            if (!sysDictTypeDict.TryGetValue(e.TypeName, out var value))
+                continue;
 
-                // 遍历需要更新的字典数据
-                foreach (var dictData in updatedDictData)
+            var updatedDictType = value;
+            updatedDictType.Name = e.TypeDescribe;
+            updatedDictType.Remark = e.TypeRemark;
+            updatedSysDictTypes.Add(updatedDictType);
+            var updatedDictData = updatedDictType.Children.Where(u => u.DictTypeId == updatedDictType.Id).ToList();
+
+            // 遍历需要更新的字典数据
+            foreach (var dictData in updatedDictData)
+            {
+                var enumData = e.EnumEntities.FirstOrDefault(u => dictData.Code == u.Name);
+                if (enumData != null)
                 {
-                    var enumData = e.EnumEntities.Where(u => dictData.Code == u.Name).FirstOrDefault();
-                    if (enumData != null)
-                    {
-                        dictData.Value = enumData.Value.ToString();
-                        dictData.OrderNo = enumData.Value + OrderOffset;
-                        dictData.Name = enumData.Describe;
-                        dictData.TagType = enumData.Theme != "" ? enumData.Theme : dictData.TagType != "" ? dictData.TagType : DefaultTagType;
-                        updatedSysDictData.Add(dictData);
-                    }
+                    dictData.Value = enumData.Value.ToString();
+                    dictData.OrderNo = enumData.Value + OrderOffset;
+                    dictData.Name = enumData.Describe;
+                    dictData.TagType = enumData.Theme != "" ? enumData.Theme : dictData.TagType != "" ? dictData.TagType : DefaultTagType;
+                    updatedSysDictData.Add(dictData);
                 }
             }
+
+            // 新增的枚举值名称列表
+            var newEnumDataNameList = e.EnumEntities.Select(u => u.Name).Except(updatedDictData.Select(u => u.Code));
+            foreach (var newEnumDataName in newEnumDataNameList)
+            {
+                var enumData = e.EnumEntities.FirstOrDefault(u => newEnumDataName == u.Name);
+                if (enumData != null)
+                {
+                    var dictData = new SysDictData
+                    {
+                        Id = YitIdHelper.NextId(),
+                        DictTypeId = updatedDictType.Id,
+                        Name = enumData.Describe,
+                        Value = enumData.Value.ToString(),
+                        Code = enumData.Name,
+                        Remark = updatedDictType.Remark,
+                        OrderNo = enumData.Value + OrderOffset,
+                        TagType = enumData.Theme != "" ? enumData.Theme : DefaultTagType,
+                    };
+                    dictData.TagType = enumData.Theme != "" ? enumData.Theme : dictData.TagType != "" ? dictData.TagType : DefaultTagType;
+                    newSysDictData.Add(dictData);
+                }
+            }
+
+            // 删除的情况暂不处理
         }
 
-        return (updatedSysDictTypes, updatedSysDictData);
+        return (updatedSysDictTypes, updatedSysDictData, newSysDictData);
     }
 }

@@ -28,11 +28,8 @@ public class OnlineUserJob : IJob
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var rep = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysOnlineUser>>();
-        await rep.CopyNew().AsDeleteable().ExecuteCommandAsync(stoppingToken);
-
-        // 缓存租户列表
-        await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
+        var db = serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
+        await db.Deleteable<SysOnlineUser>().ExecuteCommandAsync(stoppingToken);
 
         string msg = $"【{DateTime.Now}】清理在线用户成功！服务已重启...";
         var originColor = Console.ForegroundColor;
@@ -42,5 +39,8 @@ public class OnlineUserJob : IJob
 
         // 自定义日志
         _logger.LogInformation(msg);
+
+        // 缓存租户列表
+        await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
     }
 }

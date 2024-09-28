@@ -62,14 +62,7 @@
 							</el-divider>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="所属机构" prop="orgId" :rules="[{ required: true, message: '所属机构不能为空', trigger: 'blur' }]">
-									<el-cascader
-										:options="props.orgData"
-										:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' }"
-										placeholder="所属机构"
-										clearable
-										class="w100"
-										v-model="state.ruleForm.orgId"
-									>
+									<el-cascader :options="props.orgData" :props="cascaderProps" placeholder="所属机构" clearable filterable class="w100" v-model="state.ruleForm.orgId">
 										<template #default="{ node, data }">
 											<span>{{ data.name }}</span>
 											<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -115,14 +108,7 @@
 													<el-button icon="ele-Delete" type="danger" circle plain size="small" @click="deleteExtOrgRow(k)" />
 													<span class="ml5">机构</span>
 												</template>
-												<el-cascader
-													:options="props.orgData"
-													:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' }"
-													placeholder="机构组织"
-													clearable
-													class="w100"
-													v-model="state.ruleForm.extOrgIdList[k].orgId"
-												>
+												<el-cascader :options="props.orgData" :props="cascaderProps" placeholder="机构组织" clearable filterable class="w100" v-model="state.ruleForm.extOrgIdList[k].orgId">
 													<template #default="{ node, data }">
 														<span>{{ data.name }}</span>
 														<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -173,7 +159,8 @@
 									<el-radio-group v-model="state.ruleForm.sex">
 										<el-radio :value="1">男</el-radio>
 										<el-radio :value="2">女</el-radio>
-										<el-radio :value="3">其他</el-radio>
+										<el-radio :value="0">未知</el-radio>
+										<el-radio :value="9">未说明</el-radio>
 									</el-radio-group>
 								</el-form-item>
 							</el-col>
@@ -284,6 +271,8 @@ const state = reactive({
 	posData: [] as Array<SysPos>, // 职位数据
 	roleData: [] as Array<RoleOutput>, // 角色数据
 });
+// 级联选择器配置选项
+const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' };
 
 onMounted(async () => {
 	state.loading = true;

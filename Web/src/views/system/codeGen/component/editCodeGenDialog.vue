@@ -81,9 +81,10 @@
 						<el-form-item label="父级菜单" prop="menuPid">
 							<el-cascader
 								:options="state.menuData"
-								:props="{ checkStrictly: true, emitPath: false, value: 'id', label: 'title' }"
+								:props="cascaderProps"
 								placeholder="请选择上级菜单"
 								:disabled="!state.ruleForm.generateMenu"
+								filterable
 								clearable
 								class="w100"
 								v-model="state.ruleForm.menuPid"
@@ -172,6 +173,8 @@ const state = reactive({
 	printTypeList: [] as any,
 	printList: [] as Array<SysPrint>,
 });
+// 级联选择器配置选项
+const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
 
 onMounted(async () => {
 	var resDb = await getAPI(SysCodeGenApi).apiSysCodeGenDatabaseListGet();

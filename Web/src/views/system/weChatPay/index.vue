@@ -67,7 +67,13 @@
 			/>
 		</el-card>
 
-		<el-dialog v-model="showAddDialog" title="新增模拟数据">
+		<el-dialog v-model="showAddDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
+					<span>新增模拟数据</span>
+				</div>
+			</template>
 			<el-form>
 				<el-form-item label="商品">
 					<el-input v-model="addData.description" placeholder="必填" clearable />
@@ -86,11 +92,23 @@
 				</span>
 			</template>
 		</el-dialog>
-		<el-dialog title="付款二维码" v-model="showQrDialog">
+		<el-dialog v-model="showQrDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-View /> </el-icon>
+					<span>付款二维码</span>
+				</div>
+			</template>
 			<div ref="qrDiv"></div>
 		</el-dialog>
 
-		<el-dialog title="退款信息" v-model="showRefundDialog">
+		<el-dialog v-model="showRefundDialog">
+			<template #header>
+				<div style="color: #fff">
+					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Document /> </el-icon>
+					<span>退款信息</span>
+				</div>
+			</template>
 			<el-table :data="subTableData" style="width: 100%" tooltip-effect="light" row-key="id" border="">
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="outRefundNumber" label="商户退款号" width="180"></el-table-column>
@@ -117,6 +135,7 @@ import { ref, nextTick, onMounted, reactive } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import QRCode from 'qrcodejs2-fixes';
 import { pagePayList, createPay, getRefundListByID, refundDomestic } from '/@/api/system/weChatPay';
+import { SysWechatPay } from '/@/api-services/models';
 
 const qrDiv = ref<HTMLElement | null>(null);
 const showAddDialog = ref(false);
@@ -128,7 +147,7 @@ const addData = ref<any>({});
 
 const state = reactive({
 	loading: false,
-	tableData: [] as any,
+	tableData: [] as Array<SysWechatPay>,
 	queryParams: {
 		searchKey: undefined,
 		createTimeRange: undefined,
@@ -152,7 +171,7 @@ const handleQuery = async () => {
 	let params = Object.assign(state.queryParams, state.tableParams);
 	var res = await pagePayList(params);
 	let tmpRows = res.data.result?.items ?? [];
-	state.tableData.value = tmpRows;
+	state.tableData = tmpRows;
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
 };

@@ -165,7 +165,7 @@ import { storeToRefs } from 'pinia';
 import { ElForm, ElMessageBox, genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
-import { base64ToFile } from '/@/utils/base64Conver';
+import { base64ToFile, blobToFile } from '/@/utils/base64Conver';
 import OrgTree from '/@/views/system/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
@@ -214,8 +214,9 @@ watch(state.signOptions, () => {
 
 // 上传头像图片
 const uploadCropperImg = async (e: any) => {
-	var res = await getAPI(SysFileApi).apiSysFileUploadAvatarPostForm(e.img);
+	var res = await getAPI(SysFileApi).apiSysFileUploadAvatarPostForm(blobToFile(e.img, userInfos.value.account + '.png'));
 	userInfos.value.avatar = getFileUrl(res.data.result!);
+	state.ruleFormBase.avatar = userInfos.value.avatar;
 };
 
 // 打开电子签名页面
@@ -226,11 +227,14 @@ const openSignDialog = () => {
 // 保存并上传电子签名
 const saveUploadSign = async () => {
 	const { isEmpty, data } = signaturePadRef.value.saveSignature();
-	if (isEmpty) return;
-
-	var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(base64ToFile(data, userInfos.value.account + '.png'));
-	userInfos.value.signature = getFileUrl(res.data.result!);
-
+	if (isEmpty) {
+		userInfos.value.signature = null;
+		state.ruleFormBase.signature = null;
+	} else {
+		var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(base64ToFile(data, userInfos.value.account + '.png'));
+		userInfos.value.signature = getFileUrl(res.data.result!);
+		state.ruleFormBase.signature = userInfos.value.signature;
+	}
 	clearSign();
 	state.signDialogVisible = false;
 };
@@ -249,6 +253,7 @@ const clearSign = () => {
 const uploadSignFile = async (file: any) => {
 	var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(file.raw);
 	userInfos.value.signature = res.data.result?.url;
+	state.ruleFormBase.signature = userInfos.value.signature;
 };
 
 // 获得电子签名文件列表
