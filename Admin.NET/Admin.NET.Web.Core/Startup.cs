@@ -25,8 +25,9 @@ using Newtonsoft.Json;
 using OnceMi.AspNetCore.OSS;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+
 namespace Admin.NET.Web.Core;
 
 public class Startup : AppStartup
@@ -202,7 +203,8 @@ public class Startup : AppStartup
         // 设置默认查询器China和International
         //IpToolSettings.DefalutSearcherType = IpSearcherType.China;
         IpToolSettings.DefalutSearcherType = IpSearcherType.International;
-        // 第一步: 配置gzip与br的压缩等级为最优
+
+        // 配置gzip与br的压缩等级为最优
         //services.Configure<BrotliCompressionProviderOptions>(options =>
         //{
         //    options.Level = CompressionLevel.Optimal;
@@ -211,14 +213,12 @@ public class Startup : AppStartup
         //{
         //    options.Level = CompressionLevel.Optimal;
         //});
-        //注册压缩响应
+        // 注册压缩响应
         services.AddResponseCompression((options) =>
         {
             options.EnableForHttps = true;
             options.Providers.Add<BrotliCompressionProvider>();
             options.Providers.Add<GzipCompressionProvider>();
-            // 指定压缩的大小阈值，这里设置为1024字节
-            // 扩展一些类型 (MimeTypes中有一些基本的类型,可以打断点看看)
             options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
             {
                     "text/html; charset=utf-8",
@@ -233,6 +233,7 @@ public class Startup : AppStartup
     {
         // 响应压缩
         app.UseResponseCompression();
+
         app.UseForwardedHeaders();
 
         if (env.IsDevelopment())
