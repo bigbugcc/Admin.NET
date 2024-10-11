@@ -8,8 +8,10 @@ COPY . .
 ENV LANG zh-Hans
 
 # 使用阿里云的镜像源进行更新
+# .NET6使用
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/' /etc/apt/sources.list
-
+# .NET8使用
+# RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/' /etc/apt/sources.list.d/debian.sources
 # 更新包管理器并安装free命令
 RUN apt-get update && apt-get install -y procps
 
