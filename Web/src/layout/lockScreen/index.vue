@@ -416,7 +416,7 @@ onUnmounted(() => {
 	padding: 0px 15px;
 }
 :deep(.el-input__wrapper.is-focus) {
-	box-shadow: unset !important;
+	box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset !important;
 }
 :deep(.el-input__inner) {
 	border-right-color: var(--el-border-color-extra-light);
