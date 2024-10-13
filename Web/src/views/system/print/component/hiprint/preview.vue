@@ -1,5 +1,11 @@
 <template>
 	<el-dialog v-model="state.dialogVisible" draggable :close-on-click-modal="false" :width="Number(state.width) + Number(8) + 'mm'">
+		<template #header>
+			<div style="color: #fff">
+				<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Printer /> </el-icon>
+				<span>{{ props.title }}</span>
+			</div>
+		</template>
 		<div id="preview_content" ref="previewContentRef"></div>
 		<template #footer>
 			<el-button :loading="state.waitShowPrinter" type="primary" icon="ele-Printer" @click.stop="print">直接打印</el-button>
@@ -11,6 +17,13 @@
 
 <script lang="ts" setup>
 import { nextTick, reactive, ref } from 'vue';
+
+var props = defineProps({
+	title: {
+		type: String,
+		default: '',
+	},
+});
 
 const state = reactive({
 	dialogVisible: false,

@@ -2,7 +2,7 @@
 	<el-row :gutter="8" style="margin-bottom: 5px">
 		<el-col :span="4">
 			<!-- 流程下拉 模板选择 -->
-			<el-select v-model="state.mode" showSearch @change="changeMode" :defaultValue="0" option-label-prop="label" class="w100">
+			<el-select v-model="mode" showSearch @change="changeMode" :defaultValue="0" option-label-prop="label" class="w100">
 				<el-option v-for="(opt, idx) in state.modeList" :key="idx" :label="opt.name" :value="idx">
 					{{ opt.name }}
 				</el-option>
@@ -109,12 +109,18 @@ import providers from './providers';
 import PrintPreview from './preview.vue';
 import printData from './print-data';
 
+var props = defineProps({
+	modeIndex: {
+		type: Number,
+		default: 0,
+	},
+});
+
 let hiprintTemplate = ref();
+let mode = ref(0); // 模板选择
 
 const preViewRef = ref();
 const state = reactive({
-	// 模板选择
-	mode: 0,
 	modeList: [] as any,
 	// 当前纸张
 	curPaper: {
@@ -178,7 +184,7 @@ const curPaperType = computed(() => {
 
 // 选择模板
 const changeMode = () => {
-	let provider = providers[state.mode];
+	let provider = providers[mode.value];
 	hiprint.init({
 		providers: [provider.f],
 	});
@@ -318,6 +324,7 @@ onMounted(() => {
 	state.modeList = providers.map((e) => {
 		return { type: e.type, name: e.name, value: e.value };
 	});
+	mode.value = props.modeIndex;
 	changeMode();
 	// otherPaper(); // 默认纸张
 });
@@ -333,7 +340,7 @@ const initPaper = () => {
 };
 
 // 导出对象
-defineExpose({ hiprintTemplate, initPaper });
+defineExpose({ hiprintTemplate, initPaper, mode });
 </script>
 
 <style lang="scss" scoped>

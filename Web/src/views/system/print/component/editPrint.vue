@@ -1,15 +1,15 @@
 <template>
 	<div class="sys-print-container">
 		<div class="printDialog">
-			<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" fullscreen>
+			<el-dialog v-model="state.isShowDialog" draggable overflow destroy-on-close fullscreen>
 				<template #header>
 					<div style="color: #fff">
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
 						<span> {{ props.title }} </span>
 					</div>
 				</template>
-				<div style="margin: -16px 0px 0px 0px">
-					<HiprintDesign ref="hiprintDesignRef" />
+				<div style="margin: 0px 0px 0px 0px">
+					<HiprintDesign :mode-index="mode" ref="hiprintDesignRef" />
 				</div>
 				<template #footer>
 					<span class="dialog-footer" style="margin-top: 10px">
@@ -20,7 +20,7 @@
 			</el-dialog>
 		</div>
 
-		<el-dialog v-model="state.showDialog2" draggable :close-on-click-modal="false" width="600px">
+		<el-dialog v-model="state.showDialog2" draggable overflow destroy-on-close width="600px">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -28,7 +28,7 @@
 				</div>
 			</template>
 			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
-				<el-row :gutter="35">
+				<el-row :gutter="10">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="模板名称" prop="name" :rules="[{ required: true, message: '模板名称不能为空', trigger: 'blur' }]">
 							<el-input v-model="state.ruleForm.name" placeholder="模板名称" clearable />
@@ -93,6 +93,8 @@ import { UpdatePrintInput } from '/@/api-services/models';
 
 const hiprintDesignRef = ref<InstanceType<typeof HiprintDesign>>();
 
+const mode = ref(0);
+
 const props = defineProps({
 	title: String,
 });
@@ -104,11 +106,16 @@ const state = reactive({
 	showDialog2: false,
 });
 
+// 页面初始化
 onMounted(async () => {});
 
 // 打开弹窗
 const openDialog = (row: any) => {
 	state.ruleForm = JSON.parse(JSON.stringify(row));
+	if (JSON.stringify(state.ruleForm) !== '{}') {
+		let templateJson = JSON.parse(state.ruleForm.template);
+		mode.value = templateJson.panels[0].index;
+	}
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
 
@@ -146,7 +153,9 @@ const templateCancel = () => {
 
 // 模板设置提交
 const templateSubmit = async () => {
-	state.ruleForm.template = JSON.stringify(hiprintDesignRef.value?.hiprintTemplate.getJson());
+	let templateJson=hiprintDesignRef.value?.hiprintTemplate.getJson();
+	templateJson.panels[0].index=hiprintDesignRef.value?.mode;
+	state.ruleForm.template = JSON.stringify(templateJson);
 	if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 		await getAPI(SysPrintApi).apiSysPrintUpdatePost(state.ruleForm);
 	} else {
@@ -169,6 +178,7 @@ defineExpose({ openDialog });
 		}
 		.el-dialog__body {
 			max-height: calc(100vh - 80px) !important;
+			height: calc(100vh - 80px) !important;
 		}
 	}
 }
