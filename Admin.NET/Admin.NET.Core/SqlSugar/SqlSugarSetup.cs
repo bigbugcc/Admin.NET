@@ -372,6 +372,18 @@ public static class SqlSugarSetup
                 var entityInfo = dbProvider.EntityMaintenance.GetEntityInfo(entityType);
                 Console.WriteLine($"添加数据 {entityInfo.DbTableName} ({config.ConfigId} - {++count}/{sum}，数据量：{seedData.Count()})");
 
+                // 若实体包含Id字段，则设置为当前租户Id递增1
+                if (entityInfo.Columns.Any(u => u.PropertyName == nameof(EntityBaseId.Id)))
+                {
+                    var seedId = config.ConfigId.ToLong();
+                    foreach (var sd in seedData)
+                    {
+                        var id = sd.GetType().GetProperty(nameof(EntityBaseId.Id))!.GetValue(sd, null);
+                        if (id != null && (id.ToString() == "0" || string.IsNullOrWhiteSpace(id.ToString())))
+                            sd.GetType().GetProperty(nameof(EntityBaseId.Id))!.SetValue(sd, ++seedId);
+                    }
+                }
+
                 if (entityType.GetCustomAttribute<SplitTableAttribute>(true) != null)
                 {
                     //拆分表的操作需要实体类型，而通过反射很难实现
