@@ -26,6 +26,8 @@ using OnceMi.AspNetCore.OSS;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace Admin.NET.Web.Core;
@@ -98,7 +100,11 @@ public class Startup : AppStartup
             .AddNewtonsoftJson(options => SetNewtonsoftJsonSetting(options.SerializerSettings))
             //.AddXmlSerializerFormatters()
             //.AddXmlDataContractSerializerFormatters()
-            .AddInjectWithUnifyResult<AdminResultProvider>();
+            .AddInjectWithUnifyResult<AdminResultProvider>()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All); // 禁止Unicode转码
+            });
 
         // 三方授权登录OAuth
         services.AddOAuth();
