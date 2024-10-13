@@ -75,6 +75,7 @@
 					<!-- <el-dropdown-item command="/dashboard/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item> -->
 					<el-dropdown-item :icon="Avatar" command="/system/userCenter">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
 					<el-dropdown-item :icon="Loading" command="clearCache">{{ $t('message.user.dropdown3') }}</el-dropdown-item>
+					<el-dropdown-item :icon="Lock" divided command="lockScreen">{{ $t('message.layout.threeIsLockScreen') }}</el-dropdown-item>
 					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
@@ -98,7 +99,7 @@ import mittBus from '/@/utils/mitt';
 import { Local, Session } from '/@/utils/storage';
 import Push from 'push.js';
 import { signalR } from '/@/views/system/onlineUser/signalR';
-import { Avatar, CircleCloseFilled, Loading } from '@element-plus/icons-vue';
+import { Avatar, CircleCloseFilled, Loading, Lock } from '@element-plus/icons-vue';
 
 import { clearAccessTokens, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysNoticeApi } from '/@/api-services/api';
@@ -158,6 +159,11 @@ const onHandleCommandClick = (path: string) => {
 		Local.clear();
 		Session.clear();
 		window.location.reload();
+	} else if (path === 'lockScreen') {
+		Local.remove('themeConfig');
+		themeConfig.value.isLockScreen = true;
+		themeConfig.value.lockScreenTime = 1;
+		Local.set('themeConfig', themeConfig.value);
 	} else if (path === 'logOut') {
 		ElMessageBox({
 			closeOnClickModal: false,
