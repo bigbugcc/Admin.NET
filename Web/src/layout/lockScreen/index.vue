@@ -194,7 +194,7 @@ const onLockScreenSubmit = async () => {
 	if (state.lockScreenPassword) {
 		try {
 			// 用户信息不存在时直接解锁（清理缓存后）
-			if (userInfos.account === void 0) {
+			if (userInfos.value.account === void 0) {
 				themeConfig.value.isLockScreen = false;
 				themeConfig.value.lockScreenTime = 300;
 				setLocalThemeConfig();
