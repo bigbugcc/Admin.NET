@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 
 namespace Admin.NET.Web.Core;
 
-[AppStartup(int.MaxValue)]//将Order置最大值确保最先执行
+[AppStartup(int.MaxValue)]
 public class Startup : AppStartup
 {
     public void ConfigureServices(IServiceCollection services)

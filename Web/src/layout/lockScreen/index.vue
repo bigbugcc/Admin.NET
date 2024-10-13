@@ -233,20 +233,21 @@ onMounted(() => {
 	initGetElement();
 	initSetTime();
 	initLockScreen();
-	//侦听ENTER按钮事件
+
+	// 侦听ENTER按钮事件
 	document.onkeydown = (e) => {
 		if (e.key === 'Enter') {
-			//当显示锁屏页时，按ENTER切到密码输入
+			// 当显示锁屏页时，按ENTER切到密码输入
 			if (state.isShowLoockLogin == false) {
 				const moveInterval = setInterval(() => {
 					state.isFlags = true;
 					state.moveDifference = state.moveDifference - 10;
 					onMove();
-					//超过410像素则结束
+					// 超过410像素则结束
 					if (state.moveDifference < -410) clearInterval(moveInterval);
 				}, 5);
 			}
-			//当显示消息时，按ENTER切到密码输入
+			// 当显示消息时，按ENTER切到密码输入
 			if (state.showMessage == true) hideMessage();
 		}
 	};
