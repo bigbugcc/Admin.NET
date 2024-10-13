@@ -9,6 +9,26 @@ namespace Admin.NET.Core;
 public class DateTimeUtil
 {
     /// <summary>
+    /// 根据unix时间戳的长度自动判断是秒还是以毫秒为单位
+    /// </summary>
+    /// <param name="unixTime"></param>
+    /// <returns></returns>
+    public static DateTime ConvertUnixTime(long unixTime)
+    {
+        // 判断时间戳长度
+        bool isMilliseconds = unixTime > 9999999999;
+
+        if (isMilliseconds)
+        {
+            return DateTimeOffset.FromUnixTimeMilliseconds(unixTime).ToLocalTime().DateTime;
+        }
+        else
+        {
+            return DateTimeOffset.FromUnixTimeSeconds(unixTime).ToLocalTime().DateTime;
+        }
+    }
+
+    /// <summary>
     /// 获取开始时间
     /// </summary>
     /// <param name="dateTime"></param>
