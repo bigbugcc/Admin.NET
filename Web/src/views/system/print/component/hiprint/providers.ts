@@ -412,6 +412,16 @@ export const bProvider = function () {
 					title: '椭圆',
 					type: 'oval',
 				},
+                {
+					tid: 'bProviderModule.barcode',
+					title: '条形码',
+					type: 'barcode',
+				},
+				{
+					tid: 'bProviderModule.qrcode',
+					title: '二维码',
+					type: 'qrcode',
+				},
 			]),
 		]);
 	};
