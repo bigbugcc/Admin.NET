@@ -412,7 +412,7 @@ export const bProvider = function () {
 					title: '椭圆',
 					type: 'oval',
 				},
-                {
+				{
 					tid: 'bProviderModule.barcode',
 					title: '条形码',
 					type: 'barcode',
