@@ -72,4 +72,12 @@ export interface CreateSeedDataInput {
      * @example Web.Application
      */
     suffix?: string | null;
+
+    /**
+     * 过滤已有数据
+     *
+     * @type {boolean}
+     * @memberof CreateSeedDataInput
+     */
+    filterExistingData?: boolean;
 }

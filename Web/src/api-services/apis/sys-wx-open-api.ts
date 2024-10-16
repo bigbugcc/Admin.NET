@@ -20,10 +20,12 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AddSubscribeMessageTemplateInput } from '../models';
 import { AdminResultGenerateQRImageOutput } from '../models';
 import { AdminResultObject } from '../models';
+import { AdminResultSysFile } from '../models';
 import { AdminResultWxOpenIdOutput } from '../models';
 import { AdminResultWxPhoneOutput } from '../models';
 import { GenerateQRImageInput } from '../models';
 import { SendSubscribeMessageInput } from '../models';
+import { SetNickNameInput } from '../models';
 import { WxOpenIdLoginInput } from '../models';
 /**
  * SysWxOpenApi - axios parameter creator
@@ -212,6 +214,170 @@ export const SysWxOpenApiAxiosParamCreator = function (configuration?: Configura
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 设置小程序用户昵称
+         * @param {SetNickNameInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWxOpenSetNickNamePost: async (body?: SetNickNameInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWxOpen/setNickName`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 上传小程序头像
+         * @param {string} [openId] 
+         * @param {Blob} [file] 
+         * @param {string} [fileType] 
+         * @param {string} [path] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWxOpenUploadAvatarPostForm: async (openId?: string, file?: Blob, fileType?: string, path?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysWxOpen/uploadAvatar`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+            if (openId !== undefined) { 
+                localVarFormParams.append('OpenId', openId as any);
+            }
+
+            if (file !== undefined) { 
+                localVarFormParams.append('File', file as any);
+            }
+
+            if (fileType !== undefined) { 
+                localVarFormParams.append('FileType', fileType as any);
+            }
+
+            if (path !== undefined) { 
+                localVarFormParams.append('Path', path as any);
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取小程序用户信息
+         * @param {string} openid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysWxOpenUserInfoOpenidGet: async (openid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'openid' is not null or undefined
+            if (openid === null || openid === undefined) {
+                throw new RequiredError('openid','Required parameter openid was null or undefined when calling apiSysWxOpenUserInfoOpenidGet.');
+            }
+            const localVarPath = `/api/sysWxOpen/userInfo/{openid}`
+                .replace(`{${"openid"}}`, encodeURIComponent(String(openid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -445,6 +611,51 @@ export const SysWxOpenApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 设置小程序用户昵称
+         * @param {SetNickNameInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenSetNickNamePost(body?: SetNickNameInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysWxOpenApiAxiosParamCreator(configuration).apiSysWxOpenSetNickNamePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 上传小程序头像
+         * @param {string} [openId] 
+         * @param {Blob} [file] 
+         * @param {string} [fileType] 
+         * @param {string} [path] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenUploadAvatarPostForm(openId?: string, file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysWxOpenApiAxiosParamCreator(configuration).apiSysWxOpenUploadAvatarPostForm(openId, file, fileType, path, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取小程序用户信息
+         * @param {string} openid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenUserInfoOpenidGet(openid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysWxOpenApiAxiosParamCreator(configuration).apiSysWxOpenUserInfoOpenidGet(openid, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取微信用户OpenId 🔖
          * @param {string} jsCode JsCode
          * @param {*} [options] Override http request option.
@@ -536,6 +747,39 @@ export const SysWxOpenApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary 设置小程序用户昵称
+         * @param {SetNickNameInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenSetNickNamePost(body?: SetNickNameInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysWxOpenApiFp(configuration).apiSysWxOpenSetNickNamePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 上传小程序头像
+         * @param {string} [openId] 
+         * @param {Blob} [file] 
+         * @param {string} [fileType] 
+         * @param {string} [path] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenUploadAvatarPostForm(openId?: string, file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysWxOpenApiFp(configuration).apiSysWxOpenUploadAvatarPostForm(openId, file, fileType, path, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取小程序用户信息
+         * @param {string} openid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysWxOpenUserInfoOpenidGet(openid: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysWxOpenApiFp(configuration).apiSysWxOpenUserInfoOpenidGet(openid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取微信用户OpenId 🔖
          * @param {string} jsCode JsCode
          * @param {*} [options] Override http request option.
@@ -617,6 +861,42 @@ export class SysWxOpenApi extends BaseAPI {
      */
     public async apiSysWxOpenSendSubscribeMessagePost(body?: SendSubscribeMessageInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
         return SysWxOpenApiFp(this.configuration).apiSysWxOpenSendSubscribeMessagePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 设置小程序用户昵称
+     * @param {SetNickNameInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWxOpenApi
+     */
+    public async apiSysWxOpenSetNickNamePost(body?: SetNickNameInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysWxOpenApiFp(this.configuration).apiSysWxOpenSetNickNamePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 上传小程序头像
+     * @param {string} [openId] 
+     * @param {Blob} [file] 
+     * @param {string} [fileType] 
+     * @param {string} [path] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWxOpenApi
+     */
+    public async apiSysWxOpenUploadAvatarPostForm(openId?: string, file?: Blob, fileType?: string, path?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysWxOpenApiFp(this.configuration).apiSysWxOpenUploadAvatarPostForm(openId, file, fileType, path, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取小程序用户信息
+     * @param {string} openid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysWxOpenApi
+     */
+    public async apiSysWxOpenUserInfoOpenidGet(openid: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysWxOpenApiFp(this.configuration).apiSysWxOpenUserInfoOpenidGet(openid, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
