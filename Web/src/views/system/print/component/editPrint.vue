@@ -118,7 +118,6 @@ const openDialog = (row: any) => {
 	}
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
-
 	nextTick(() => {
 		loadTemplate();
 	});
@@ -127,6 +126,7 @@ const openDialog = (row: any) => {
 // 加载模板
 const loadTemplate = () => {
 	hiprintDesignRef.value?.hiprintTemplate.clear();
+	hiprintDesignRef.value?.setPrintDataDemo(state.ruleForm.printDataDemo);
 	if (JSON.stringify(state.ruleForm) !== '{}') {
 		hiprintDesignRef.value?.hiprintTemplate.update(JSON.parse(state.ruleForm.template));
 		hiprintDesignRef.value?.initPaper();
@@ -156,6 +156,8 @@ const templateSubmit = async () => {
 	let templateJson=hiprintDesignRef.value?.hiprintTemplate.getJson();
 	templateJson.panels[0].index=hiprintDesignRef.value?.mode;
 	state.ruleForm.template = JSON.stringify(templateJson);
+	const printDataDemo = hiprintDesignRef.value?.printDataDemo;
+	state.ruleForm.printDataDemo = printDataDemo;
 	if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 		await getAPI(SysPrintApi).apiSysPrintUpdatePost(state.ruleForm);
 	} else {
