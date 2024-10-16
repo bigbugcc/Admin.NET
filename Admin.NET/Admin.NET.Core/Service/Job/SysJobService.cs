@@ -41,8 +41,9 @@ public class SysJobService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<JobDetailOutput>> PageJobDetail(PageJobDetailInput input)
     {
         var jobDetails = await _sysJobDetailRep.AsQueryable()
-            .WhereIF(!string.IsNullOrWhiteSpace(input.JobId), u => u.JobId.Contains(input.JobId))
-            .WhereIF(!string.IsNullOrWhiteSpace(input.Description), u => u.Description.Contains(input.Description))
+            .WhereIF(!string.IsNullOrWhiteSpace(input.JobId), u => u.JobId.Contains(input.JobId.Trim()))
+            .WhereIF(!string.IsNullOrWhiteSpace(input.GroupName), u => u.GroupName.Contains(input.GroupName.Trim()))
+            .WhereIF(!string.IsNullOrWhiteSpace(input.Description), u => u.Description.Contains(input.Description.Trim()))
             .Select(d => new JobDetailOutput
             {
                 JobDetail = d,
@@ -62,6 +63,15 @@ public class SysJobService : IDynamicApiController, ITransient
             }
         }
         return jobDetails;
+    }
+
+    /// <summary>
+    /// 获取作业组名称集合 ⏰
+    /// </summary>
+    [DisplayName("获取作业组名称集合")]
+    public async Task<List<string>> ListJobGroup()
+    {
+        return await _sysJobDetailRep.AsQueryable().Distinct().Select(e => e.GroupName).ToListAsync();
     }
 
     /// <summary>

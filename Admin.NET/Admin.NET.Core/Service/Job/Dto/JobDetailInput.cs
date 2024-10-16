@@ -22,6 +22,11 @@ public class PageJobDetailInput : BasePageInput
     public string JobId { get; set; }
 
     /// <summary>
+    /// 组名称
+    /// </summary>
+    public string GroupName { get; set; }
+
+    /// <summary>
     /// 描述信息
     /// </summary>
     public string Description { get; set; }

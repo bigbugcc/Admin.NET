@@ -5,6 +5,11 @@
 				<el-form-item label="作业编号">
 					<el-input v-model="state.queryParams.jobId" placeholder="作业编号" clearable />
 				</el-form-item>
+				<el-form-item label="组名称">
+					<el-select v-model="state.queryParams.groupName" placeholder="组名称" clearable>
+						<el-option v-for="item in state.groupsData" :key="item" :label="item" :value="item" />
+					</el-select>
+				</el-form-item>
 				<el-form-item label="描述信息">
 					<el-input v-model="state.queryParams.description" placeholder="描述信息" clearable />
 				</el-form-item>
@@ -265,7 +270,7 @@
 </template>
 
 <script lang="ts" setup name="sysJob">
-import { onMounted, reactive, ref } from 'vue';
+import { nextTick, onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { Timer } from '@element-plus/icons-vue';
@@ -286,6 +291,7 @@ const state = reactive({
 	jobData: [] as Array<JobDetailOutput>,
 	queryParams: {
 		jobId: undefined,
+		groupName: undefined,
 		description: undefined,
 	},
 	tableParams: {
@@ -304,10 +310,16 @@ const state = reactive({
 	isVisibleDrawer: false,
 	triggerRecordData: [] as any,
 	currentJob: {} as any,
+	groupsData: [] as Array<string>,
 });
 
 onMounted(async () => {
-	handleQuery();
+	await handleQuery();
+	// 获取组名称下拉集合
+	nextTick(async () => {
+		const { data } = await getAPI(SysJobApi).apiSysJobListJobGroupPost();
+		state.groupsData = data.result ?? [];
+	});
 });
 
 // 查询操作
@@ -321,10 +333,11 @@ const handleQuery = async () => {
 };
 
 // 重置操作
-const resetQuery = () => {
+const resetQuery = async () => {
 	state.queryParams.jobId = undefined;
+	state.queryParams.groupName = undefined;
 	state.queryParams.description = undefined;
-	handleQuery();
+	await handleQuery();
 };
 
 // 打开新增作业页面
@@ -348,7 +361,7 @@ const delJobDetail = (row: JobDetailOutput) => {
 	})
 		.then(async () => {
 			await getAPI(SysJobApi).apiSysJobDeleteJobDetailPost({ jobId: row.jobDetail?.jobId });
-			handleQuery();
+			await handleQuery();
 			ElMessage.success('删除成功');
 		})
 		.catch(() => {});
@@ -382,22 +395,22 @@ const delJobTrigger = (row: SysJobTrigger) => {
 	})
 		.then(async () => {
 			await getAPI(SysJobApi).apiSysJobDeleteJobTriggerPost({ jobId: row.jobId, triggerId: row.triggerId });
-			handleQuery();
+			await handleQuery();
 			ElMessage.success('删除成功');
 		})
 		.catch(() => {});
 };
 
 // 改变页面容量
-const handleSizeChange = (val: number) => {
+const handleSizeChange = async (val: number) => {
 	state.tableParams.pageSize = val;
-	handleQuery();
+	await handleQuery();
 };
 
 // 改变页码序号
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = async (val: number) => {
 	state.tableParams.page = val;
-	handleQuery();
+	await handleQuery();
 };
 
 // 启动所有作业
@@ -497,11 +510,10 @@ const getHttpMethodDesc = (httpMethodStr: string | undefined | null): string => 
 };
 
 // 打开作业触发器运行记录
-const openJobTriggerRecord = (row: any) => {
+const openJobTriggerRecord = async (row: any) => {
 	state.currentJob = row;
-	state.recordPageParam.jobId = row?.jobDetail?.jobId;
 	state.isVisibleDrawer = true;
-	handleQuery2();
+	await handleQuery2();
 };
 
 // 作业触发器运行记录查询操作
@@ -515,15 +527,15 @@ const handleQuery2 = async () => {
 };
 
 // 作业触发器运行记录-改变页面容量
-const handleSizeChange2 = (val: number) => {
+const handleSizeChange2 = async (val: number) => {
 	state.tableParams2.pageSize = val;
-	handleQuery2();
+	await handleQuery2();
 };
 
 // 作业触发器运行记录-改变页码序号
-const handleCurrentChange2 = (val: number) => {
+const handleCurrentChange2 = async (val: number) => {
 	state.tableParams2.page = val;
-	handleQuery2();
+	await handleQuery2();
 };
 </script>
 
