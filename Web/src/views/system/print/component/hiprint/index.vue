@@ -357,7 +357,7 @@ const initPaper = () => {
 };
 
 // 导出对象
-defineExpose({ hiprintTemplate, initPaper, mode });
+defineExpose({ hiprintTemplate, printDataDemo, initPaper, mode });
 </script>
 
 <style lang="scss" scoped>
