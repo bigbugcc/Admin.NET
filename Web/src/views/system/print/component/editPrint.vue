@@ -9,7 +9,15 @@
 					</div>
 				</template>
 				<div style="margin: 0px 0px 0px 0px">
-					<HiprintDesign :mode-index="mode" ref="hiprintDesignRef" />
+					<el-tabs type="border-card">
+						<el-tab-pane label="属性">
+							<HiprintDesign :mode-index="mode" ref="hiprintDesignRef" />
+						</el-tab-pane>
+						<el-tab-pane label="测试数据">
+							<el-input type="textarea" style="width: 240px" rows="20"></el-input>
+						</el-tab-pane>
+					</el-tabs>
+					
 				</div>
 				<template #footer>
 					<span class="dialog-footer" style="margin-top: 10px">
