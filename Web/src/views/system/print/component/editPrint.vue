@@ -118,7 +118,6 @@ const openDialog = (row: any) => {
 	}
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
-
 	nextTick(() => {
 		loadTemplate();
 	});
@@ -127,6 +126,7 @@ const openDialog = (row: any) => {
 // 加载模板
 const loadTemplate = () => {
 	hiprintDesignRef.value?.hiprintTemplate.clear();
+	hiprintDesignRef.value?.setPrintDataDemo(state.ruleForm.printDataDemo);
 	if (JSON.stringify(state.ruleForm) !== '{}') {
 		hiprintDesignRef.value?.hiprintTemplate.update(JSON.parse(state.ruleForm.template));
 		hiprintDesignRef.value?.initPaper();
