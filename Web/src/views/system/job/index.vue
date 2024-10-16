@@ -512,7 +512,6 @@ const getHttpMethodDesc = (httpMethodStr: string | undefined | null): string => 
 // 打开作业触发器运行记录
 const openJobTriggerRecord = async (row: any) => {
 	state.currentJob = row;
-	state.recordPageParam.jobId = row?.jobDetail?.jobId;
 	state.isVisibleDrawer = true;
 	await handleQuery2();
 };
