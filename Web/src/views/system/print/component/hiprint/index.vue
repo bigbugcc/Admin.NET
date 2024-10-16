@@ -91,7 +91,8 @@
 					</el-card>
 				</el-tab-pane>
 				<el-tab-pane label="测试数据">
-					<el-input v-model="printDataDemo" type="textarea" style="width: 100%" rows="35" placeholder="对整个文档的完整测试数据"></el-input>
+					<el-input v-model="printDataDemo" type="textarea" style="width: 100%" rows="30" placeholder="对整个文档的完整测试数据"></el-input>
+					<el-button @click="formatPrintDataDemo()" style="margin-top: 10px; width:100%" type="success">格式化字符串</el-button>
 				</el-tab-pane>
 			</el-tabs>
 		</el-col>
@@ -356,8 +357,22 @@ const initPaper = () => {
 	hiprintTemplate.value.setPaper(width, height); // 设置纸张大小
 };
 
+// 设置预览测试数据
+const setPrintDataDemo = (strData: string|null|undefined) => {
+	printDataDemo.value = strData as string;
+}
+
+// 格式化打印测试数据
+const formatPrintDataDemo = () => {
+	try{
+		const obj = JSON.parse(printDataDemo.value);
+		printDataDemo.value = JSON.stringify(obj, null, 2);
+	} catch (e) {
+		ElMessageBox.alert("出错:" + e);
+	}
+}
 // 导出对象
-defineExpose({ hiprintTemplate, initPaper, mode });
+defineExpose({ hiprintTemplate, printDataDemo, setPrintDataDemo, initPaper, mode });
 </script>
 
 <style lang="scss" scoped>
