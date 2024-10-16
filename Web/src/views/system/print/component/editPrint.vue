@@ -156,6 +156,8 @@ const templateSubmit = async () => {
 	let templateJson=hiprintDesignRef.value?.hiprintTemplate.getJson();
 	templateJson.panels[0].index=hiprintDesignRef.value?.mode;
 	state.ruleForm.template = JSON.stringify(templateJson);
+	const printDataDemo = hiprintTemplate.value?.printDataDemo.value;
+	state.ruleForm.printData = printDataDemo;
 	if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 		await getAPI(SysPrintApi).apiSysPrintUpdatePost(state.ruleForm);
 	} else {

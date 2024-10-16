@@ -153,4 +153,12 @@ export interface SysPrint {
      * @memberof SysPrint
      */
     remark?: string | null;
+
+    /**
+     * 打印预览测试数据
+     *
+     * @type {string}
+     * @memberof SysPrint
+     */
+    printDataDemo?: string | null;
 }

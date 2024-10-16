@@ -147,6 +147,14 @@ export interface UpdatePrintInput {
     remark?: string | null;
 
     /**
+     * 打印预览测试数据
+     *
+     * @type {string}
+     * @memberof UpdatePrintInput
+     */
+    printDataDemo?: string | null;
+
+    /**
      * 名称
      *
      * @type {string}

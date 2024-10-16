@@ -31,7 +31,7 @@ import { LoginPhoneInput } from '../models';
 export const SysAuthApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Swagger登录检查
          * @summary Swagger登录检查 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -74,7 +74,7 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Swagger登录提交
          * @summary Swagger登录提交 🔖
          * @param {string} [userName] 
          * @param {string} [password] 
@@ -473,7 +473,7 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
 export const SysAuthApiFp = function(configuration?: Configuration) {
     return {
         /**
-         * 
+         * Swagger登录检查
          * @summary Swagger登录检查 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -486,7 +486,7 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * 
+         * Swagger登录提交
          * @summary Swagger登录提交 🔖
          * @param {string} [userName] 
          * @param {string} [password] 
@@ -605,7 +605,7 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
 export const SysAuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         * 
+         * Swagger登录检查
          * @summary Swagger登录检查 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -614,7 +614,7 @@ export const SysAuthApiFactory = function (configuration?: Configuration, basePa
             return SysAuthApiFp(configuration).apiSwaggerCheckUrlPost(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Swagger登录提交
          * @summary Swagger登录提交 🔖
          * @param {string} [userName] 
          * @param {string} [password] 
@@ -702,7 +702,7 @@ export const SysAuthApiFactory = function (configuration?: Configuration, basePa
  */
 export class SysAuthApi extends BaseAPI {
     /**
-     * 
+     * Swagger登录检查
      * @summary Swagger登录检查 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -712,7 +712,7 @@ export class SysAuthApi extends BaseAPI {
         return SysAuthApiFp(this.configuration).apiSwaggerCheckUrlPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     * 
+     * Swagger登录提交
      * @summary Swagger登录提交 🔖
      * @param {string} [userName] 
      * @param {string} [password] 
