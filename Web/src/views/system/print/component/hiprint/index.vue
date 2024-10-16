@@ -163,6 +163,14 @@ const state = reactive({
 			width: 250,
 			height: 175.6,
 		},
+		"4R": {
+			width: 152,
+			height: 102,
+		},
+		"6R": {
+			width: 203,
+			height: 152,
+		},
 	},
 	scaleValue: 1,
 	scaleMax: 5,
