@@ -82,11 +82,18 @@
 			</el-card>
 		</el-col>
 		<el-col :span="6" class="params_setting_container">
-			<el-card shadow="never" :body-style="{ padding: '0px' }">
-				<el-row class="hinnn-layout-sider">
-					<div id="PrintElementOptionSetting"></div>
-				</el-row>
-			</el-card>
+			<el-tabs type="border-card">
+				<el-tab-pane label="属性" style="height: auto">
+					<el-card shadow="never" :body-style="{ padding: '0px' }">
+						<el-row class="hinnn-layout-sider">
+							<div id="PrintElementOptionSetting"></div>
+						</el-row>
+					</el-card>
+				</el-tab-pane>
+				<el-tab-pane label="测试数据">
+					<el-input v-model="printDataDemo" type="textarea" style="width: 100%" rows="35" placeholder="对整个文档的完整测试数据"></el-input>
+				</el-tab-pane>
+			</el-tabs>
 		</el-col>
 	</el-row>
 
@@ -107,7 +114,7 @@ import 'vue-json-pretty/lib/styles.css';
 import { hiprint } from 'vue-plugin-hiprint';
 import providers from './providers';
 import PrintPreview from './preview.vue';
-import printData from './print-data';
+import printDataDefault from './print-data';
 
 var props = defineProps({
 	modeIndex: {
@@ -119,6 +126,7 @@ var props = defineProps({
 let hiprintTemplate = ref();
 let mode = ref(0); // 模板选择
 
+const printDataDemo = ref("");
 const preViewRef = ref();
 const state = reactive({
 	modeList: [] as any,
@@ -304,11 +312,20 @@ const otherPaper = () => {
 // 预览
 const preView = () => {
 	let { width } = state.curPaper;
+	let printData = null;
+	try {printData = JSON.parse(printDataDemo.value);}
+	catch(e){
+		console.log("出错：" + e)
+	}
+	if (printData == null) {
+		printData = printDataDefault;
+	}
 	preViewRef.value.showDialog(hiprintTemplate.value, printData, width);
 };
 // 直接打印
 const print = () => {
 	console.log('直接打印');
+	preView();
 };
 
 // 查看模板JSON
