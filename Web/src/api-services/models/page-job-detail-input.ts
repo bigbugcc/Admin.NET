@@ -91,6 +91,14 @@ export interface PageJobDetailInput {
     jobId?: string | null;
 
     /**
+     * 组名称
+     *
+     * @type {string}
+     * @memberof PageJobDetailInput
+     */
+    groupName?: string | null;
+
+    /**
      * 描述信息
      *
      * @type {string}

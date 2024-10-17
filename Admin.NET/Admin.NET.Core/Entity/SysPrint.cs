@@ -71,5 +71,5 @@ public partial class SysPrint : EntityTenant
     /// 打印预览测试数据
     /// </summary>
     [SugarColumn(ColumnDescription = "打印预览测试数据", ColumnDataType = StaticConfig.CodeFirst_BigString)]
-    public string ? PrintDataDemo { get; set; }
+    public string? PrintDataDemo { get; set; }
 }

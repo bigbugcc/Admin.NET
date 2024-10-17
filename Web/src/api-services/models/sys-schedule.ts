@@ -94,6 +94,14 @@ export interface SysSchedule {
     tenantId?: number | null;
 
     /**
+     * 日程内容
+     *
+     * @type {string}
+     * @memberof SysSchedule
+     */
+    content: string;
+
+    /**
      * 用户Id
      *
      * @type {number}
@@ -124,14 +132,6 @@ export interface SysSchedule {
      * @memberof SysSchedule
      */
     endTime?: string | null;
-
-    /**
-     * 日程内容
-     *
-     * @type {string}
-     * @memberof SysSchedule
-     */
-    content: string;
 
     /**
      * @type {FinishStatusEnum}

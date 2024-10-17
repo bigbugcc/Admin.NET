@@ -92,7 +92,7 @@
 				</el-tab-pane>
 				<el-tab-pane label="测试数据">
 					<el-input v-model="printDataDemo" type="textarea" style="width: 100%" rows="30" placeholder="对整个文档的完整测试数据"></el-input>
-					<el-button @click="formatPrintDataDemo()" style="margin-top: 10px; width:100%" type="success">格式化字符串</el-button>
+					<el-button @click="formatPrintDataDemo()" style="margin-top: 10px; width: 100%" type="success">格式化字符串</el-button>
 				</el-tab-pane>
 			</el-tabs>
 		</el-col>
@@ -127,7 +127,7 @@ var props = defineProps({
 let hiprintTemplate = ref();
 let mode = ref(0); // 模板选择
 
-const printDataDemo = ref("");
+const printDataDemo = ref('');
 const preViewRef = ref();
 const state = reactive({
 	modeList: [] as any,
@@ -163,11 +163,11 @@ const state = reactive({
 			width: 250,
 			height: 175.6,
 		},
-		"4R": {
+		'4R': {
 			width: 152,
 			height: 102,
 		},
-		"6R": {
+		'6R': {
 			width: 203,
 			height: 152,
 		},
@@ -322,9 +322,10 @@ const otherPaper = () => {
 const preView = () => {
 	let { width } = state.curPaper;
 	let printData = null;
-	try {printData = JSON.parse(printDataDemo.value);}
-	catch(e){
-		console.log("出错：" + e)
+	try {
+		printData = JSON.parse(printDataDemo.value);
+	} catch (e) {
+		console.log('出错：' + e);
 	}
 	if (printData == null) {
 		printData = printDataDefault;
@@ -366,19 +367,19 @@ const initPaper = () => {
 };
 
 // 设置预览测试数据
-const setPrintDataDemo = (strData: string|null|undefined) => {
+const setPrintDataDemo = (strData: string | null | undefined) => {
 	printDataDemo.value = strData as string;
-}
+};
 
 // 格式化打印测试数据
 const formatPrintDataDemo = () => {
-	try{
+	try {
 		const obj = JSON.parse(printDataDemo.value);
 		printDataDemo.value = JSON.stringify(obj, null, 2);
 	} catch (e) {
-		ElMessageBox.alert("出错:" + e);
+		ElMessageBox.alert('出错:' + e);
 	}
-}
+};
 // 导出对象
 defineExpose({ hiprintTemplate, printDataDemo, setPrintDataDemo, initPaper, mode });
 </script>

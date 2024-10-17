@@ -153,8 +153,8 @@ const templateCancel = () => {
 
 // 模板设置提交
 const templateSubmit = async () => {
-	let templateJson=hiprintDesignRef.value?.hiprintTemplate.getJson();
-	templateJson.panels[0].index=hiprintDesignRef.value?.mode;
+	let templateJson = hiprintDesignRef.value?.hiprintTemplate.getJson();
+	templateJson.panels[0].index = hiprintDesignRef.value?.mode;
 	state.ruleForm.template = JSON.stringify(templateJson);
 	const printDataDemo = hiprintDesignRef.value?.printDataDemo;
 	state.ruleForm.printDataDemo = printDataDemo;

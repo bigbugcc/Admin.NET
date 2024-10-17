@@ -19,6 +19,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { AddJobDetailInput } from '../models';
 import { AddJobTriggerInput } from '../models';
+import { AdminResultListString } from '../models';
 import { AdminResultListSysJobCluster } from '../models';
 import { AdminResultListSysJobTrigger } from '../models';
 import { AdminResultSqlSugarPagedListJobDetailOutput } from '../models';
@@ -393,6 +394,49 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (jobId !== undefined) {
                 localVarQueryParameter['JobId'] = jobId;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取作业组名称集合 ⏰
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysJobListJobGroupPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysJob/listJobGroup`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -1093,6 +1137,19 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取作业组名称集合 ⏰
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysJobListJobGroupPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListString>>> {
+            const localVarAxiosArgs = await SysJobApiAxiosParamCreator(configuration).apiSysJobListJobGroupPost(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取作业分页列表 ⏰
          * @param {PageJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
@@ -1345,6 +1402,15 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary 获取作业组名称集合 ⏰
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysJobListJobGroupPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListString>> {
+            return SysJobApiFp(configuration).apiSysJobListJobGroupPost(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取作业分页列表 ⏰
          * @param {PageJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
@@ -1555,6 +1621,16 @@ export class SysJobApi extends BaseAPI {
      */
     public async apiSysJobJobTriggerListGet(jobId?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysJobTrigger>> {
         return SysJobApiFp(this.configuration).apiSysJobJobTriggerListGet(jobId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取作业组名称集合 ⏰
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysJobApi
+     */
+    public async apiSysJobListJobGroupPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListString>> {
+        return SysJobApiFp(this.configuration).apiSysJobListJobGroupPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
