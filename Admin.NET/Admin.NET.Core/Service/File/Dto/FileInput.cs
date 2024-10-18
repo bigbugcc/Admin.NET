@@ -112,14 +112,17 @@ public class FileUploadInput
     /// 文件路径
     /// </summary>
     public string Path { get; set; }
+
     /// <summary>
     /// 所属实体ID
     /// </summary>
     public long BelongId { get; set; }
+
     /// <summary>
     /// 关联对象Id
     /// </summary>
     public long RelationId { get; set; }
+
     /// <summary>
     /// 关联对象名称
     /// </summary>
@@ -140,6 +143,7 @@ public class RelationQueryInput
     /// 关联对象Id
     /// </summary>
     public long? RelationId { get; set; }
+
     /// <summary>
     /// 文件，多个以","分割
     /// </summary>

@@ -12,7 +12,6 @@ namespace Admin.NET.Core.Service;
 /// <summary>
 /// 系统文件服务 🧩
 /// </summary>
-/// <remarks>2024-10-18新增支持belondId, relationId, relationName</remarks>
 [ApiDescriptionSettings(Order = 410)]
 public class SysFileService : IDynamicApiController, ITransient
 {
@@ -65,9 +64,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件")]
     public async Task<SysFile> UploadFile([FromForm] FileUploadInput input)
     {
-        var ans = await HandleUploadFile(input.File, input.Path, fileType: input.FileType, isPublic: input.IsPublic,belongId:input.BelongId,
-            relationId:input.RelationId, relationName:input.RelationName);
-        return ans;
+        return await HandleUploadFile(input.File, input.Path, fileType: input.FileType, isPublic: input.IsPublic, belongId: input.BelongId, relationId: input.RelationId, relationName: input.RelationName);
     }
 
     /// <summary>
@@ -299,8 +296,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="relationName"></param>
     /// <param name="relationId"></param>
     /// <returns></returns>
-    /// <remarks>新增支持belongId, relation</remarks>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "", bool isPublic = false,long belongId=0,string relationName = "", long relationId=0)
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "", bool isPublic = false, long belongId = 0, string relationName = "", long relationId = 0)
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -367,7 +363,7 @@ public class SysFileService : IDynamicApiController, ITransient
             FileType = fileType,
             IsPublic = isPublic,
             BelongId = belongId,
-            RelationId= relationId,
+            RelationId = relationId,
             RelationName = relationName,
         };
 

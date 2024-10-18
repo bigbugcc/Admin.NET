@@ -70,10 +70,10 @@
 				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button-group>
-							<el-button icon="ele-View" size="small"  type="primary" @click="openFilePreviewDialog(scope.row)" v-auth="'sysFile:delete'"></el-button>
-							<el-button icon="ele-Download" size="small"  type="primary" @click="downloadFile(scope.row)" v-auth="'sysFile:downloadFile'"></el-button>
-							<el-button icon="ele-Delete" size="small"  type="danger" @click="delFile(scope.row)" v-auth="'sysFile:delete'"></el-button>
-							<el-button icon="ele-Edit" size="small"  type="primary" @click="openEditSysFile(scope.row)" v-auth="'sysFile:update'"></el-button>
+							<el-button icon="ele-View" size="small" type="primary" @click="openFilePreviewDialog(scope.row)" v-auth="'sysFile:delete'"></el-button>
+							<el-button icon="ele-Download" size="small" type="primary" @click="downloadFile(scope.row)" v-auth="'sysFile:downloadFile'"></el-button>
+							<el-button icon="ele-Delete" size="small" type="danger" @click="delFile(scope.row)" v-auth="'sysFile:delete'"></el-button>
+							<el-button icon="ele-Edit" size="small" type="primary" @click="openEditSysFile(scope.row)" v-auth="'sysFile:update'"></el-button>
 						</el-button-group>
 					</template>
 				</el-table-column>
@@ -201,7 +201,7 @@ const handleQuery = async () => {
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
 	var res = await getAPI(SysFileApi).apiSysFilePagePost(params);
-	console.log(res)
+	console.log(res);
 	state.fileData = res.data.result?.items ?? [];
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
