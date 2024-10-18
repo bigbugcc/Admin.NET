@@ -29,15 +29,19 @@ public class SysEmailService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="content"></param>
     /// <param name="title"></param>
+    /// <param name="toEmail"></param>
     /// <returns></returns>
     [DisplayName("发送邮件")]
-    public async Task SendEmail([Required] string content, string title = "")
+    public async Task SendEmail([Required] string content, string title = "", string toEmail = "")
     {
         var webTitle = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysWebTitle);
         title = string.IsNullOrWhiteSpace(title) ? $"{webTitle} 系统邮件" : title;
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(_emailOptions.DefaultFromEmail, _emailOptions.DefaultFromEmail));
-        message.To.Add(new MailboxAddress(_emailOptions.DefaultToEmail, _emailOptions.DefaultToEmail));
+        if (string.IsNullOrWhiteSpace(toEmail))
+            message.To.Add(new MailboxAddress(_emailOptions.DefaultToEmail, _emailOptions.DefaultToEmail));
+        else
+            message.To.Add(new MailboxAddress(toEmail, toEmail));
         message.Subject = title;
         message.Body = new TextPart("html")
         {
