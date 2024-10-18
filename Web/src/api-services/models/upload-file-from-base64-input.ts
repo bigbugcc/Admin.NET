@@ -67,4 +67,28 @@ export interface UploadFileFromBase64Input {
      * @memberof UploadFileFromBase64Input
      */
     isPublic?: boolean;
+
+    /**
+     * 所属实体ID
+     *
+     * @type {number}
+     * @memberof UploadFileFromBase64Input
+     */
+    belongId?: number;
+
+    /**
+     * 关联对象Id
+     *
+     * @type {number}
+     * @memberof UploadFileFromBase64Input
+     */
+    relationId?: number;
+
+    /**
+     * 关联对象名称
+     *
+     * @type {string}
+     * @memberof UploadFileFromBase64Input
+     */
+    relationName?: string | null;
 }

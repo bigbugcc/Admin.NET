@@ -28,21 +28,27 @@ export const SysEmailApiAxiosParamCreator = function (configuration?: Configurat
          * @summary 发送邮件 📧
          * @param {string} content 
          * @param {string} title 
+         * @param {string} toEmail 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysEmailSendEmailContentTitlePost: async (content: string, title: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysEmailSendEmailContentTitleToEmailPost: async (content: string, title: string, toEmail: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'content' is not null or undefined
             if (content === null || content === undefined) {
-                throw new RequiredError('content','Required parameter content was null or undefined when calling apiSysEmailSendEmailContentTitlePost.');
+                throw new RequiredError('content','Required parameter content was null or undefined when calling apiSysEmailSendEmailContentTitleToEmailPost.');
             }
             // verify required parameter 'title' is not null or undefined
             if (title === null || title === undefined) {
-                throw new RequiredError('title','Required parameter title was null or undefined when calling apiSysEmailSendEmailContentTitlePost.');
+                throw new RequiredError('title','Required parameter title was null or undefined when calling apiSysEmailSendEmailContentTitleToEmailPost.');
             }
-            const localVarPath = `/api/sysEmail/sendEmail/{content}/{title}`
+            // verify required parameter 'toEmail' is not null or undefined
+            if (toEmail === null || toEmail === undefined) {
+                throw new RequiredError('toEmail','Required parameter toEmail was null or undefined when calling apiSysEmailSendEmailContentTitleToEmailPost.');
+            }
+            const localVarPath = `/api/sysEmail/sendEmail/{content}/{title}/{toEmail}`
                 .replace(`{${"content"}}`, encodeURIComponent(String(content)))
-                .replace(`{${"title"}}`, encodeURIComponent(String(title)));
+                .replace(`{${"title"}}`, encodeURIComponent(String(title)))
+                .replace(`{${"toEmail"}}`, encodeURIComponent(String(toEmail)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -92,11 +98,12 @@ export const SysEmailApiFp = function(configuration?: Configuration) {
          * @summary 发送邮件 📧
          * @param {string} content 
          * @param {string} title 
+         * @param {string} toEmail 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysEmailSendEmailContentTitlePost(content: string, title: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysEmailApiAxiosParamCreator(configuration).apiSysEmailSendEmailContentTitlePost(content, title, options);
+        async apiSysEmailSendEmailContentTitleToEmailPost(content: string, title: string, toEmail: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysEmailApiAxiosParamCreator(configuration).apiSysEmailSendEmailContentTitleToEmailPost(content, title, toEmail, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -116,11 +123,12 @@ export const SysEmailApiFactory = function (configuration?: Configuration, baseP
          * @summary 发送邮件 📧
          * @param {string} content 
          * @param {string} title 
+         * @param {string} toEmail 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysEmailSendEmailContentTitlePost(content: string, title: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysEmailApiFp(configuration).apiSysEmailSendEmailContentTitlePost(content, title, options).then((request) => request(axios, basePath));
+        async apiSysEmailSendEmailContentTitleToEmailPost(content: string, title: string, toEmail: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysEmailApiFp(configuration).apiSysEmailSendEmailContentTitleToEmailPost(content, title, toEmail, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -137,11 +145,12 @@ export class SysEmailApi extends BaseAPI {
      * @summary 发送邮件 📧
      * @param {string} content 
      * @param {string} title 
+     * @param {string} toEmail 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysEmailApi
      */
-    public async apiSysEmailSendEmailContentTitlePost(content: string, title: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysEmailApiFp(this.configuration).apiSysEmailSendEmailContentTitlePost(content, title, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysEmailSendEmailContentTitleToEmailPost(content: string, title: string, toEmail: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysEmailApiFp(this.configuration).apiSysEmailSendEmailContentTitleToEmailPost(content, title, toEmail, options).then((request) => request(this.axios, this.basePath));
     }
 }

@@ -59,16 +59,28 @@ export interface FileInput {
      * @memberof FileInput
      */
     url?: string | null;
+
     /**
-     * 关联对象名称
+     * 所属实体ID
+     *
+     * @type {number}
+     * @memberof FileInput
      */
-    relationName?:string |null;
+    belongId?: number;
+
     /**
      * 关联对象Id
+     *
+     * @type {number}
+     * @memberof FileInput
      */
-    relationId?:number;
+    relationId?: number;
+
     /**
-     * 所属ID
+     * 关联对象名称
+     *
+     * @type {string}
+     * @memberof FileInput
      */
-    belongId?:number;
+    relationName?: string | null;
 }

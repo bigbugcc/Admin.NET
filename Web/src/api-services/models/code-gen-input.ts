@@ -83,52 +83,12 @@ export interface CodeGenInput {
     descStr?: string | null;
 
     /**
-     * 数据库表名
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    tableName?: string | null;
-
-    /**
-     * 业务名（业务代码包名称）
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    busName?: string | null;
-
-    /**
-     * 命名空间
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    nameSpace?: string | null;
-
-    /**
      * 作者姓名
      *
      * @type {string}
      * @memberof CodeGenInput
      */
     authorName?: string | null;
-
-    /**
-     * 生成方式
-     *
-     * @type {string}
-     * @memberof CodeGenInput
-     */
-    generateType?: string | null;
-
-    /**
-     * 是否生成菜单
-     *
-     * @type {boolean}
-     * @memberof CodeGenInput
-     */
-    generateMenu?: boolean;
 
     /**
      * 类名
@@ -179,6 +139,38 @@ export interface CodeGenInput {
     connectionString?: string | null;
 
     /**
+     * 生成方式
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    generateType?: string | null;
+
+    /**
+     * 数据库表名
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    tableName?: string | null;
+
+    /**
+     * 命名空间
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    nameSpace?: string | null;
+
+    /**
+     * 业务名（业务代码包名称）
+     *
+     * @type {string}
+     * @memberof CodeGenInput
+     */
+    busName?: string | null;
+
+    /**
      * 功能名（数据库表名称）
      *
      * @type {string}
@@ -193,6 +185,14 @@ export interface CodeGenInput {
      * @memberof CodeGenInput
      */
     menuApplication?: string | null;
+
+    /**
+     * 是否生成菜单
+     *
+     * @type {boolean}
+     * @memberof CodeGenInput
+     */
+    generateMenu?: boolean;
 
     /**
      * 菜单父级

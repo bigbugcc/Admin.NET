@@ -51,4 +51,28 @@ export interface SysFileUploadFileBody {
      * @memberof SysFileUploadFileBody
      */
     path?: string;
+
+    /**
+     * 所属实体ID
+     *
+     * @type {number}
+     * @memberof SysFileUploadFileBody
+     */
+    belongId?: number;
+
+    /**
+     * 关联对象Id
+     *
+     * @type {number}
+     * @memberof SysFileUploadFileBody
+     */
+    relationId?: number;
+
+    /**
+     * 关联对象名称
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    relationName?: string;
 }

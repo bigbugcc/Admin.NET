@@ -28,6 +28,21 @@ public class FileInput : BaseIdInput
     /// 文件Url
     /// </summary>
     public string? Url { get; set; }
+
+    /// <summary>
+    /// 所属实体ID
+    /// </summary>
+    public long BelongId { get; set; }
+
+    /// <summary>
+    /// 关联对象Id
+    /// </summary>
+    public long RelationId { get; set; }
+
+    /// <summary>
+    /// 关联对象名称
+    /// </summary>
+    public string RelationName { get; set; }
 }
 
 public class PageFileInput : BasePageInput
@@ -84,6 +99,21 @@ public class UploadFileFromBase64Input
     /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     public bool IsPublic { get; set; }
+
+    /// <summary>
+    /// 所属实体ID
+    /// </summary>
+    public long BelongId { get; set; }
+
+    /// <summary>
+    /// 关联对象Id
+    /// </summary>
+    public long RelationId { get; set; }
+
+    /// <summary>
+    /// 关联对象名称
+    /// </summary>
+    public string RelationName { get; set; }
 }
 
 /// <summary>

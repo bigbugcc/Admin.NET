@@ -30,20 +30,20 @@ export interface SysRegion {
     id?: number;
 
     /**
-     * 名称
-     *
-     * @type {string}
-     * @memberof SysRegion
-     */
-    name: string;
-
-    /**
      * 父Id
      *
      * @type {number}
      * @memberof SysRegion
      */
     pid?: number;
+
+    /**
+     * 名称
+     *
+     * @type {string}
+     * @memberof SysRegion
+     */
+    name: string;
 
     /**
      * 简称
