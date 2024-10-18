@@ -1,0 +1,20 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "K3Cloud": {
+    // ERP地址
+    "Url": "http://127.0.0.1/k3cloud/",
+    // 帐套Id(数据中心ID)
+    "AcctID": "XXXXXXXXX",
+    // 应用Id
+    "AppId": "XXXXXXXX",
+    // 应用密钥
+    "AppKey": "XXX",
+    // 用户名称
+    "UserName": "XXX",
+    // 用户密码
+    "UserPassword": "XXXX@2024",
+    // 语言代码
+    "LanguageCode": "2052"
+  }
+}

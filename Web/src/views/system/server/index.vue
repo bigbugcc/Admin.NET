@@ -4,38 +4,40 @@
 			<el-col :md="12" :sm="24">
 				<el-card shadow="hover" header="系统信息">
 					<table class="sysInfo_table">
-						<tr>
-							<td class="sysInfo_td">主机名称：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.hostName }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">操作系统：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.systemOs }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">系统架构：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.osArchitecture }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">CPU核数：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.processorCount }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">运行时长：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.sysRunTime }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">外网地址：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.remoteIp }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">内网地址：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.localIp }}</td>
-						</tr>
-						<tr>
-							<td class="sysInfo_td">运行框架：</td>
-							<td class="sysInfo_td">{{ state.machineBaseInfo.frameworkDescription }}</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td class="sysInfo_td">主机名称：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.hostName }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">操作系统：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.systemOs }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">系统架构：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.osArchitecture }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">CPU核数：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.processorCount }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">运行时长：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.sysRunTime }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">外网地址：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.remoteIp }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">内网地址：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.localIp }}</td>
+							</tr>
+							<tr>
+								<td class="sysInfo_td">运行框架：</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.frameworkDescription }}</td>
+							</tr>
+						</tbody>
 					</table>
 				</el-card>
 			</el-col>
@@ -74,26 +76,28 @@
 
 					<el-row>
 						<table class="sysInfo_table">
-							<tr>
-								<td class="sysInfo_td">启动时间：</td>
-								<td class="sysInfo_td">{{ state.machineUseInfo.startTime }}</td>
-							</tr>
-							<tr>
-								<td class="sysInfo_td">运行时长：</td>
-								<td class="sysInfo_td">{{ state.machineUseInfo.runTime }}</td>
-							</tr>
-							<tr>
-								<td class="sysInfo_td">网站目录：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.wwwroot }}</td>
-							</tr>
-							<tr>
-								<td class="sysInfo_td">开发环境：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.environment }}</td>
-							</tr>
-							<tr>
-								<td class="sysInfo_td">环境变量：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.stage }}</td>
-							</tr>
+							<tbody>
+								<tr>
+									<td class="sysInfo_td">启动时间：</td>
+									<td class="sysInfo_td">{{ state.machineUseInfo.startTime }}</td>
+								</tr>
+								<tr>
+									<td class="sysInfo_td">运行时长：</td>
+									<td class="sysInfo_td">{{ state.machineUseInfo.runTime }}</td>
+								</tr>
+								<tr>
+									<td class="sysInfo_td">网站目录：</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.wwwroot }}</td>
+								</tr>
+								<tr>
+									<td class="sysInfo_td">开发环境：</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.environment }}</td>
+								</tr>
+								<tr>
+									<td class="sysInfo_td">环境变量：</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.stage }}</td>
+								</tr>
+							</tbody>
 						</table>
 					</el-row>
 				</el-card>

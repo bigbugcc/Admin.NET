@@ -50,9 +50,10 @@
 						</el-table-column>
 						<el-table-column label="性别" width="70" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-tag type="success" v-if="scope.row.sex === 1"> 男 </el-tag>
-								<el-tag type="danger" v-else-if="scope.row.sex === 2"> 女 </el-tag>
-								<el-tag type="info" v-else> 其他 </el-tag>
+								<el-tag v-if="scope.row.sex === 1" type="success">男</el-tag>
+								<el-tag v-else-if="scope.row.sex === 2" type="danger">女</el-tag>
+								<el-tag v-else-if="scope.row.sex === 0" type="info">未知</el-tag>
+								<el-tag v-else-if="scope.row.sex === 9" type="info">未说明</el-tag>
 							</template>
 						</el-table-column> -->
 						<el-table-column label="账号类型" width="110" align="center" show-overflow-tooltip>

@@ -11,21 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Configuration\**\*">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    <None Update="Configuration\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\**\*">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.11.0" />
-    <PackageReference Include="Rezero.Api" Version="1.7.12" />
+    </None>
   </ItemGroup>
 
   <ItemGroup>

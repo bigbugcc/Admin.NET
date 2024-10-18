@@ -113,13 +113,13 @@
 						<el-tab-pane label="修改密码">
 							<el-form ref="ruleFormPasswordRef" :model="state.ruleFormPassword" label-width="auto">
 								<el-form-item label="当前密码" prop="passwordOld" :rules="[{ required: true, message: '当前密码不能为空', trigger: 'blur' }]">
-									<el-input v-model="state.ruleFormPassword.passwordOld" type="password" autocomplete="off" />
+									<el-input v-model="state.ruleFormPassword.passwordOld" type="password" autocomplete="off" show-password />
 								</el-form-item>
 								<el-form-item label="新密码" prop="passwordNew" :rules="[{ required: true, message: '新密码不能为空', trigger: 'blur' }]">
-									<el-input v-model="state.ruleFormPassword.passwordNew" type="password" autocomplete="off" />
+									<el-input v-model="state.ruleFormPassword.passwordNew" type="password" autocomplete="off" show-password />
 								</el-form-item>
 								<el-form-item label="确认密码" prop="passwordNew2" :rules="[{ validator: validatePassword, required: true, trigger: 'blur' }]">
-									<el-input v-model="state.passwordNew2" type="password" autocomplete="off" />
+									<el-input v-model="state.passwordNew2" type="password" autocomplete="off" show-password />
 								</el-form-item>
 								<el-form-item>
 									<el-button icon="ele-Refresh" @click="resetPassword">重 置</el-button>
@@ -165,7 +165,7 @@ import { storeToRefs } from 'pinia';
 import { ElForm, ElMessageBox, genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
-import { base64ToFile } from '/@/utils/base64Conver';
+import { base64ToFile, blobToFile } from '/@/utils/base64Conver';
 import OrgTree from '/@/views/system/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
@@ -214,8 +214,9 @@ watch(state.signOptions, () => {
 
 // 上传头像图片
 const uploadCropperImg = async (e: any) => {
-	var res = await getAPI(SysFileApi).apiSysFileUploadAvatarPostForm(e.img);
+	var res = await getAPI(SysFileApi).apiSysFileUploadAvatarPostForm(blobToFile(e.img, userInfos.value.account + '.png'));
 	userInfos.value.avatar = getFileUrl(res.data.result!);
+	state.ruleFormBase.avatar = userInfos.value.avatar;
 };
 
 // 打开电子签名页面
@@ -226,11 +227,14 @@ const openSignDialog = () => {
 // 保存并上传电子签名
 const saveUploadSign = async () => {
 	const { isEmpty, data } = signaturePadRef.value.saveSignature();
-	if (isEmpty) return;
-
-	var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(base64ToFile(data, userInfos.value.account + '.png'));
-	userInfos.value.signature = getFileUrl(res.data.result!);
-
+	if (isEmpty) {
+		userInfos.value.signature = null;
+		state.ruleFormBase.signature = null;
+	} else {
+		var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(base64ToFile(data, userInfos.value.account + '.png'));
+		userInfos.value.signature = getFileUrl(res.data.result!);
+		state.ruleFormBase.signature = userInfos.value.signature;
+	}
 	clearSign();
 	state.signDialogVisible = false;
 };
@@ -249,6 +253,7 @@ const clearSign = () => {
 const uploadSignFile = async (file: any) => {
 	var res = await getAPI(SysFileApi).apiSysFileUploadSignaturePostForm(file.raw);
 	userInfos.value.signature = res.data.result?.url;
+	state.ruleFormBase.signature = userInfos.value.signature;
 };
 
 // 获得电子签名文件列表

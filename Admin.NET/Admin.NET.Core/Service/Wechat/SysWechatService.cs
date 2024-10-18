@@ -70,6 +70,10 @@ public class SysWechatService : IDynamicApiController, ITransient
             wxUser = resUserInfo.Adapt<SysWechatUser>();
             wxUser.Avatar = resUserInfo.HeadImageUrl;
             wxUser.NickName = resUserInfo.Nickname;
+            wxUser.OpenId = resOAuth2.OpenId;
+            wxUser.UnionId = resOAuth2.UnionId;
+            wxUser.AccessToken = resOAuth2.AccessToken;
+            wxUser.RefreshToken = resOAuth2.RefreshToken;
             wxUser = await _sysWechatUserRep.AsInsertable(wxUser).ExecuteReturnEntityAsync();
         }
         else

@@ -345,7 +345,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost("/api/swagger/checkUrl"), NonUnify]
-    [DisplayName("Swagger登录检查")]
+    [ApiDescriptionSettings(Description = "Swagger登录检查", DisableInherite = true)]
     public int SwaggerCheckUrl()
     {
         return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? 200 : 401;
@@ -358,7 +358,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost("/api/swagger/submitUrl"), NonUnify]
-    [DisplayName("Swagger登录提交")]
+    [ApiDescriptionSettings(Description = "Swagger登录提交", DisableInherite = true)]
     public async Task<int> SwaggerSubmitUrl([FromForm] SpecificationAuth auth)
     {
         try

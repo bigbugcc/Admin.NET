@@ -107,3 +107,43 @@ public class DeleteMessageTemplateInput
     [Required(ErrorMessage = "订阅模板Id不能为空")]
     public string TemplateId { get; set; }
 }
+
+public class UploadAvatarInput
+{
+    /// <summary>
+    /// 小程序用户身份标识
+    /// </summary>
+    [Required(ErrorMessage = "OpenId不能为空")]
+    public string OpenId { get; set; }
+
+    /// <summary>
+    /// 文件
+    /// </summary>
+    [Required]
+    public IFormFile File { get; set; }
+
+    /// <summary>
+    /// 文件类型
+    /// </summary>
+    public string FileType { get; set; }
+
+    /// <summary>
+    /// 文件路径
+    /// </summary>
+    public string Path { get; set; }
+}
+
+public class SetNickNameInput
+{
+    /// <summary>
+    /// 小程序用户身份标识
+    /// </summary>
+    [Required(ErrorMessage = "OpenId不能为空")]
+    public string OpenId { get; set; }
+
+    /// <summary>
+    /// 昵称
+    /// </summary>
+    [Required(ErrorMessage = "昵称不能为空")]
+    public string NickName { get; set; }
+}

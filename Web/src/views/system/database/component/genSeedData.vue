@@ -27,6 +27,11 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="过滤重复数据" prop="filterExistingData">
+							<el-switch v-model="state.ruleForm.filterExistingData"></el-switch>
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 			<template #footer>
@@ -69,6 +74,7 @@ const openDialog = (row: any) => {
 	state.ruleForm.configId = row.configId;
 	state.ruleForm.tableName = row.tableName;
 	state.ruleForm.position = row.position;
+	state.ruleForm.filterExistingData = false;
 	state.isShowDialog = true;
 };
 

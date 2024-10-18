@@ -28,7 +28,8 @@ public class SysEnumService : IDynamicApiController, ITransient
     {
         var enumTypeList = App.EffectiveTypes.Where(t => t.IsEnum)
             .Where(t => _enumOptions.EntityAssemblyNames.Contains(t.Assembly.GetName().Name) || _enumOptions.EntityAssemblyNames.Any(name => t.Assembly.GetName().Name.Contains(name)))
-            .OrderBy(u => u.Name).OrderBy(u => u.FullName)
+            .Where(t => t.GetCustomAttributes(typeof(ErrorCodeTypeAttribute), false).Length == 0) // 排除错误代码类型
+            .OrderBy(u => u.Name).ThenBy(u => u.FullName)
             .ToList();
 
         var result = new List<EnumTypeOutput>();

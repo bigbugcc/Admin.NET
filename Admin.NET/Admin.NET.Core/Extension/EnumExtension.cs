@@ -31,7 +31,7 @@ public static class EnumExtension
             throw new ArgumentException("Type '" + enumType.Name + "' is not an enum.");
 
         // 查询缓存
-        var enumDic = EnumNameValueDict.ContainsKey(enumType) ? EnumNameValueDict[enumType] : new Dictionary<int, string>();
+        var enumDic = EnumNameValueDict.TryGetValue(enumType, out var value) ? value : new Dictionary<int, string>();
         if (enumDic.Count != 0)
             return enumDic;
         // 取枚举类型的Key/Value字典集合
@@ -57,7 +57,7 @@ public static class EnumExtension
         // 遍历字段数组获取key和name
         foreach (var enumField in enumFields)
         {
-            var intValue = (int)enumField.GetValue(enumType);
+            var intValue = (int)enumField.GetValue(enumType)!;
             enumDic[intValue] = enumField.Name;
         }
 
@@ -76,8 +76,8 @@ public static class EnumExtension
             throw new ArgumentException("Type '" + enumType.Name + "' is not an enum.");
 
         // 查询缓存
-        var enumDic = EnumDisplayValueDict.ContainsKey(enumType)
-            ? EnumDisplayValueDict[enumType]
+        var enumDic = EnumDisplayValueDict.TryGetValue(enumType, out var value)
+            ? value
             : new Dictionary<int, string>();
         if (enumDic.Count != 0)
             return enumDic;
@@ -105,7 +105,7 @@ public static class EnumExtension
         // 遍历字段数组获取key和name
         foreach (var enumField in enumFields)
         {
-            var intValue = (int)enumField.GetValue(enumType);
+            var intValue = (int)enumField.GetValue(enumType)!;
             var desc = enumField.GetDescriptionValue<DescriptionAttribute>();
             enumDic[intValue] = desc != null && !string.IsNullOrEmpty(desc.Description) ? desc.Description : enumField.Name;
         }
@@ -125,7 +125,7 @@ public static class EnumExtension
         _enumTypeDict ??= LoadEnumTypeDict(assembly);
 
         // 按名称查找
-        return _enumTypeDict.ContainsKey(typeName) ? _enumTypeDict[typeName] : null;
+        return _enumTypeDict.TryGetValue(typeName, out var value) ? value : null;
     }
 
     /// <summary>
@@ -149,10 +149,9 @@ public static class EnumExtension
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static string GetDescription(this System.Enum value)
+    public static string GetDescription(this Enum value)
     {
-        return value.GetType().GetMember(value.ToString()).FirstOrDefault()?.GetCustomAttribute<DescriptionAttribute>()
-            ?.Description;
+        return value.GetType().GetField(value.ToString())?.GetCustomAttribute<DescriptionAttribute>()?.Description;
     }
 
     /// <summary>
@@ -162,8 +161,7 @@ public static class EnumExtension
     /// <returns></returns>
     public static string GetDescription(this object value)
     {
-        return value.GetType().GetMember(value.ToString() ?? string.Empty).FirstOrDefault()
-            ?.GetCustomAttribute<DescriptionAttribute>()?.Description;
+        return value.GetType().GetField(value.ToString()!)?.GetCustomAttribute<DescriptionAttribute>()?.Description;
     }
 
     /// <summary>
@@ -173,8 +171,7 @@ public static class EnumExtension
     /// <returns></returns>
     public static string GetTheme(this object value)
     {
-        return value.GetType().GetMember(value.ToString() ?? string.Empty).FirstOrDefault()
-            ?.GetCustomAttribute<ThemeAttribute>()?.Theme;
+        return value.GetType().GetField(value.ToString()!)?.GetCustomAttribute<ThemeAttribute>()?.Theme;
     }
 
     /// <summary>
@@ -186,10 +183,10 @@ public static class EnumExtension
     {
         if (!type.IsEnum)
             throw new ArgumentException("Type '" + type.Name + "' is not an enum.");
-        var arr = System.Enum.GetNames(type);
+        var arr = Enum.GetNames(type);
         return arr.Select(sl =>
         {
-            var item = System.Enum.Parse(type, sl);
+            var item = Enum.Parse(type, sl);
             return new EnumEntity
             {
                 Name = item.ToString(),
@@ -210,8 +207,8 @@ public static class EnumExtension
     {
         if (!type.IsEnum)
             throw new ArgumentException("Type '" + type.Name + "' is not an enum.");
-        var arr = System.Enum.GetNames(type);
-        return arr.Select(name => (T)System.Enum.Parse(type, name)).ToList();
+        var arr = Enum.GetNames(type);
+        return arr.Select(name => (T)Enum.Parse(type, name)).ToList();
     }
 }
 
@@ -223,20 +220,20 @@ public class EnumEntity
     /// <summary>
     /// 枚举的描述
     /// </summary>
-    public string Describe { set; get; }
+    public string Describe { get; set; }
 
     /// <summary>
     /// 枚举的样式
     /// </summary>
-    public string Theme { set; get; }
+    public string Theme { get; set; }
 
     /// <summary>
     /// 枚举名称
     /// </summary>
-    public string Name { set; get; }
+    public string Name { get; set; }
 
     /// <summary>
     /// 枚举对象的值
     /// </summary>
-    public int Value { set; get; }
+    public int Value { get; set; }
 }
