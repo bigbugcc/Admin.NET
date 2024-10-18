@@ -48,7 +48,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -72,9 +72,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -96,7 +96,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -120,9 +120,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -144,7 +144,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -168,9 +168,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -191,7 +191,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         apiSysFileFileGet: async (id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysFileFileGet.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiSysFileFileGet.');
             }
             const localVarPath = `/api/sysFile/file`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -200,7 +200,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -242,7 +242,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -264,7 +264,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -288,9 +288,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -307,7 +307,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         apiSysFilePreviewIdGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysFilePreviewIdGet.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiSysFilePreviewIdGet.');
             }
             const localVarPath = `/api/sysFile/preview/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
@@ -317,7 +317,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -339,7 +339,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -364,7 +364,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -402,7 +402,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -424,7 +424,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -448,9 +448,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -472,7 +472,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
@@ -487,7 +487,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-            if (file !== undefined) { 
+            if (file !== undefined) {
                 localVarFormParams.append('file', file as any);
             }
 
@@ -501,7 +501,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = localVarFormParams;
 
             return {
@@ -524,7 +524,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -548,9 +548,9 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -564,10 +564,12 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [fileType] 
          * @param {boolean} [isPublic] 
          * @param {string} [path] 
+         * @param {number} [belongId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options: AxiosRequestConfig = {}
+            , belongId?: number, relationId?: number, relationName?: string): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/uploadFile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -575,7 +577,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
@@ -590,22 +592,31 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-            if (file !== undefined) { 
+            if (file !== undefined) {
                 localVarFormParams.append('File', file as any);
             }
 
-            if (fileType !== undefined) { 
+            if (fileType !== undefined) {
                 localVarFormParams.append('FileType', fileType as any);
             }
 
-            if (isPublic !== undefined) { 
+            if (isPublic !== undefined) {
                 localVarFormParams.append('IsPublic', isPublic as any);
             }
 
-            if (path !== undefined) { 
+            if (path !== undefined) {
                 localVarFormParams.append('Path', path as any);
             }
+            if (belongId > 0) {
+                localVarFormParams.append('BelongId', belongId as any);
+            }
 
+            if (relationId > 0) {
+                localVarFormParams.append('RelationId', relationId as any);
+            }
+            if (relationName !== undefined) {
+                localVarFormParams.append('RelationName', relationName as any);
+            }
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -616,7 +627,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = localVarFormParams;
 
             return {
@@ -624,6 +635,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+       
         /**
          * 
          * @summary 上传多文件 🔖
@@ -639,7 +651,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
@@ -669,7 +681,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = localVarFormParams;
 
             return {
@@ -692,7 +704,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
@@ -707,7 +719,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-            if (file !== undefined) { 
+            if (file !== undefined) {
                 localVarFormParams.append('file', file as any);
             }
 
@@ -721,7 +733,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
             }
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = localVarFormParams;
 
             return {
@@ -736,7 +748,7 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
  * SysFileApi - functional programming interface
  * @export
  */
-export const SysFileApiFp = function(configuration?: Configuration) {
+export const SysFileApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -748,7 +760,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileDeletePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -762,7 +774,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileDownloadFileBase64Post(body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileDownloadFileBase64Post(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -776,7 +788,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileDownloadFilePost(body?: FileInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultIActionResult>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileDownloadFilePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -794,7 +806,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileFileGet(id, fileName, fileType, isPublic, url, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -808,7 +820,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFilePagePost(body?: PageFileInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFilePagePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -822,7 +834,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFilePreviewIdGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultIActionResult>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFilePreviewIdGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -839,7 +851,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListFileOutput>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -853,7 +865,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileUpdatePost(body?: FileInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUpdatePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -867,7 +879,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileUploadAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadAvatarPostForm(file, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -881,7 +893,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileUploadFileFromBase64Post(body?: UploadFileFromBase64Input, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFileFromBase64Post(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -895,13 +907,14 @@ export const SysFileApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options);
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig, belongId?: number, relationId?: number, relationName?: string): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options, belongId, relationId, relationName);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
+
         /**
          * 
          * @summary 上传多文件 🔖
@@ -912,7 +925,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileUploadFilesPostForm(files?: Array<Blob>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilesPostForm(files, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -926,7 +939,7 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         async apiSysFileUploadSignaturePostForm(file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadSignaturePostForm(file, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1056,8 +1069,8 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
-            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options).then((request) => request(axios, basePath));
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig, belongId?: number, relationId?: number, relationName?: string): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options, belongId, relationId, relationName).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1097,7 +1110,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
         return SysFileApiFp(this.configuration).apiSysFileDeletePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1108,7 +1121,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileDownloadFileBase64Post(body?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
+    public async apiSysFileDownloadFileBase64Post(body?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
         return SysFileApiFp(this.configuration).apiSysFileDownloadFileBase64Post(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1119,7 +1132,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileDownloadFilePost(body?: FileInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultIActionResult>> {
+    public async apiSysFileDownloadFilePost(body?: FileInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultIActionResult>> {
         return SysFileApiFp(this.configuration).apiSysFileDownloadFilePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1134,7 +1147,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+    public async apiSysFileFileGet(id: number, fileName?: string, fileType?: string, isPublic?: boolean, url?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFileFileGet(id, fileName, fileType, isPublic, url, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1145,7 +1158,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFilePagePost(body?: PageFileInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysFile>> {
+    public async apiSysFilePagePost(body?: PageFileInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFilePagePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1156,7 +1169,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFilePreviewIdGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultIActionResult>> {
+    public async apiSysFilePreviewIdGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultIActionResult>> {
         return SysFileApiFp(this.configuration).apiSysFilePreviewIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1170,7 +1183,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListFileOutput>> {
+    public async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListFileOutput>> {
         return SysFileApiFp(this.configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1181,7 +1194,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUpdatePost(body?: FileInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async apiSysFileUpdatePost(body?: FileInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
         return SysFileApiFp(this.configuration).apiSysFileUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1192,7 +1205,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadAvatarPostForm(file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+    public async apiSysFileUploadAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFileUploadAvatarPostForm(file, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1203,7 +1216,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFileFromBase64Post(body?: UploadFileFromBase64Input, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+    public async apiSysFileUploadFileFromBase64Post(body?: UploadFileFromBase64Input, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFileUploadFileFromBase64Post(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1217,9 +1230,10 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
-        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, options?: AxiosRequestConfig, belongId?: number, relationId?: number, relationName?: string): Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, options, belongId, relationId, relationName).then((request) => request(this.axios, this.basePath));
     }
+   
     /**
      * 
      * @summary 上传多文件 🔖
@@ -1228,7 +1242,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFilesPostForm(files?: Array<Blob>, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysFile>> {
+    public async apiSysFileUploadFilesPostForm(files?: Array<Blob>, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFileUploadFilesPostForm(files, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1239,7 +1253,7 @@ export class SysFileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadSignaturePostForm(file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+    public async apiSysFileUploadSignaturePostForm(file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
         return SysFileApiFp(this.configuration).apiSysFileUploadSignaturePostForm(file, options).then((request) => request(this.axios, this.basePath));
     }
 }

@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// <summary>
 /// 系统文件服务 🧩
 /// </summary>
+/// <remarks>2024-10-18新增支持belondId, relationId, relationName</remarks>
 [ApiDescriptionSettings(Order = 410)]
 public class SysFileService : IDynamicApiController, ITransient
 {
@@ -64,7 +65,9 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传文件")]
     public async Task<SysFile> UploadFile([FromForm] FileUploadInput input)
     {
-        return await HandleUploadFile(input.File, input.Path, fileType: input.FileType, isPublic: input.IsPublic);
+        var ans = await HandleUploadFile(input.File, input.Path, fileType: input.FileType, isPublic: input.IsPublic,belongId:input.BelongId,
+            relationId:input.RelationId, relationName:input.RelationName);
+        return ans;
     }
 
     /// <summary>
@@ -292,8 +295,12 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="allowSuffix">允许格式：.jpg.png.gif.tif.bmp</param>
     /// <param name="fileType">类型</param>
     /// <param name="isPublic">是否公开</param>
+    /// <param name="belongId">所属实体的ID</param>
+    /// <param name="relationName"></param>
+    /// <param name="relationId"></param>
     /// <returns></returns>
-    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "", bool isPublic = false)
+    /// <remarks>新增支持belongId, relation</remarks>
+    private async Task<SysFile> HandleUploadFile(IFormFile file, string savePath, string allowSuffix = "", string fileType = "", bool isPublic = false,long belongId=0,string relationName = "", long relationId=0)
     {
         if (file == null) throw Oops.Oh(ErrorCodeEnum.D8000);
 
@@ -359,6 +366,9 @@ public class SysFileService : IDynamicApiController, ITransient
             FileMd5 = fileMd5,
             FileType = fileType,
             IsPublic = isPublic,
+            BelongId = belongId,
+            RelationId= relationId,
+            RelationName = relationName,
         };
 
         var finalName = newFile.Id + suffix; // 文件最终名称

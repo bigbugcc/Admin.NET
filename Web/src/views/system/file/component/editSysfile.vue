@@ -34,6 +34,27 @@
 					</el-col>
 				</el-row>
 			</el-form>
+			<el-row>
+				<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+					<el-form-item label="关联对象名称" prop="relationName" >
+						<el-input v-model="state.ruleForm.relationName" placeholder="关联对象名称" clearable />
+					</el-form-item>
+				</el-col>
+			</el-row>
+			<el-row>
+				<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+					<el-form-item label="关联对象Id" prop="relationId" >
+						<el-input v-model="state.ruleForm.relationId" placeholder="关联对象ID" clearable />
+					</el-form-item>
+				</el-col>
+			</el-row>
+			<el-row>
+				<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+					<el-form-item label="所属ID" prop="fileName" >
+						<el-input v-model="state.ruleForm.belongId" placeholder="所属ID" clearable />
+					</el-form-item>
+				</el-col>
+			</el-row>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button @click="cancel">取 消</el-button>
