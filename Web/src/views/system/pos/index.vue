@@ -105,7 +105,7 @@ const openEditPos = (row: any) => {
 
 // 打开复制页面
 const openCopyMenu = (row: any) => {
-	state.title = '复制职位';
+	state.editPosTitle = '复制职位';
 	var copyRow = JSON.parse(JSON.stringify(row)) as UpdatePosInput;
 	copyRow.id = 0;
 	copyRow.name = '';
