@@ -59,9 +59,9 @@
 						<el-tag v-else type="danger">否</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column type="relationName" label="关联对象名称" min-width="150" align="center" />
-				<el-table-column type="relationId" label="关联对象Id" align="center" />
-				<el-table-column type="belongId" label="所属Id" align="center" />
+				<el-table-column prop="relationName" label="关联对象名称" min-width="150" align="center" />
+				<el-table-column prop="relationId" label="关联对象Id" align="center" />
+				<el-table-column prop="belongId" label="所属Id" align="center" />
 				<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<ModifyRecord :data="scope.row" />
@@ -69,10 +69,12 @@
 				</el-table-column>
 				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button icon="ele-View" size="small" text type="primary" @click="openFilePreviewDialog(scope.row)" v-auth="'sysFile:delete'"> 预览 </el-button>
-						<el-button icon="ele-Download" size="small" text type="primary" @click="downloadFile(scope.row)" v-auth="'sysFile:downloadFile'"> 下载 </el-button>
-						<el-button icon="ele-Delete" size="small" text type="danger" @click="delFile(scope.row)" v-auth="'sysFile:delete'"> 删除 </el-button>
-						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditSysFile(scope.row)" v-auth="'sysFile:update'"> 编辑 </el-button>
+						<el-button-group>
+							<el-button icon="ele-View" size="small"  type="primary" @click="openFilePreviewDialog(scope.row)" v-auth="'sysFile:delete'"></el-button>
+							<el-button icon="ele-Download" size="small"  type="primary" @click="downloadFile(scope.row)" v-auth="'sysFile:downloadFile'"></el-button>
+							<el-button icon="ele-Delete" size="small"  type="danger" @click="delFile(scope.row)" v-auth="'sysFile:delete'"></el-button>
+							<el-button icon="ele-Edit" size="small"  type="primary" @click="openEditSysFile(scope.row)" v-auth="'sysFile:update'"></el-button>
+						</el-button-group>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -199,6 +201,7 @@ const handleQuery = async () => {
 	state.loading = true;
 	let params = Object.assign(state.queryParams, state.tableParams);
 	var res = await getAPI(SysFileApi).apiSysFilePagePost(params);
+	console.log(res)
 	state.fileData = res.data.result?.items ?? [];
 	state.tableParams.total = res.data.result?.total;
 	state.loading = false;
