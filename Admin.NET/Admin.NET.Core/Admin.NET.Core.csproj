@@ -18,9 +18,9 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.15.10" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.5.16" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.5.16" />
-    <PackageReference Include="Furion.Pure" Version="4.9.5.16" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.5.17" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.5.17" />
+    <PackageReference Include="Furion.Pure" Version="4.9.5.17" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
     <PackageReference Include="IPTools.International" Version="1.6.0" />
@@ -39,7 +39,7 @@
     <PackageReference Include="SqlSugarCore" Version="5.1.4.169" />
     <PackageReference Include="SSH.NET" Version="2024.1.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.6" />
-    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1108" />
+    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1109" />
     <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
   </ItemGroup>
@@ -57,7 +57,7 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="8.2.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="8.2.0" />
-    <PackageReference Include="Lazy.Captcha.Core" Version="2.0.8" />
+    <PackageReference Include="Lazy.Captcha.Core" Version="2.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.10" />
