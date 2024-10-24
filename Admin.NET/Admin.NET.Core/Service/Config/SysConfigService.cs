@@ -31,7 +31,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<SysConfig>> Page(PageConfigInput input)
     {
         return await _sysConfigRep.AsQueryable()
-            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup) // 不显示 WebConfig 分组
+            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup || u.GroupCode == null) // 不显示 WebConfig 分组
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name?.Trim()), u => u.Name.Contains(input.Name))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrWhiteSpace(input.GroupCode?.Trim()), u => u.GroupCode.Equals(input.GroupCode))
@@ -183,7 +183,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     public async Task<List<string>> GetGroupList()
     {
         return await _sysConfigRep.AsQueryable()
-            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup) // 不显示 WebConfig 分组
+            .Where(u => u.GroupCode != ConfigConst.SysWebConfigGroup || u.GroupCode == null) // 不显示 WebConfig 分组
             .GroupBy(u => u.GroupCode)
             .Select(u => u.GroupCode).ToListAsync();
     }
