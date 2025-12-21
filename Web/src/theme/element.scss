@@ -456,6 +456,11 @@
         padding: 0;
         .cell { text-overflow: clip; }
     }
+    &:has(.el-image) {
+        padding: 3px;
+        .cell { padding: 0;}
+        .cell .el-image { display: block; }
+    }
 
     .el-button.is-text {
         height: 20px;
