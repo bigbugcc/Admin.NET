@@ -37,11 +37,11 @@
 				<el-table-column label="操作" width="280" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-button icon="ele-Delete" size="small" text type="danger" title="删除" @click="deleConfig(scope.row)" />
-						<el-button icon="ele-Edit" size="small" text type="primary" title="编辑" @click="openEditDialog(scope.row)" />
+						<el-button icon="ele-Edit" size="small" text type="primary" title="编辑并完全刷新字段列表" @click="openEditDialog(scope.row)" />
 						<el-button icon="ele-CopyDocument" size="small" text type="primary" title="复制" @click="openCopyDialog(scope.row)" />
 						<el-button icon="ele-View" size="small" text type="primary" title="预览" @click="handlePreview(scope.row)" />
 						<el-button icon="ele-Setting" size="small" text type="primary" title="配置" @click="openConfigDialog(scope.row)" />
-						<el-button icon="ele-Refresh" size="small" text type="primary" title="同步" @click="syncCodeGen(scope.row)" />
+						<el-button icon="ele-Refresh" size="small" text type="primary" title="同步字段并保留历史字段作用类型" @click="syncCodeGen(scope.row)" />
 						<el-button icon="ele-Position" size="small" text type="primary" @click="handleGenerate(scope.row)">生成</el-button>
 					</template>
 				</el-table-column>
@@ -187,14 +187,14 @@ const deleConfig = (row: any) => {
 
 // 同步生成
 const syncCodeGen = async (row: any) => {
-  ElMessageBox.confirm(`确定要同步吗?`, '提示', {
+  ElMessageBox.confirm(`确定要同步吗? （保留历史字段作用类型）`, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
   }).then(async () => {
-	await getAPI(SysCodeGenApi).apiSysCodeGenUpdatePost(row);
+	await getAPI(SysCodeGenApi).apiSysCodeFieldGenPost(row);
     handleQuery();
-    ElMessage.success('同步成功');
+    ElMessage.success('同步字段列表成功');
   }).catch(() => {});
 }
 
