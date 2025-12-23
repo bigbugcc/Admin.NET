@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
 
   // 支付宝支付配置，文档地址：https://openhome.alipay.com/develop/sandbox/app
@@ -9,7 +9,7 @@
     "AuthUrl": "https://openauth-sandbox.dl.alipaydev.com/oauth2/publicAppAuthorize.htm", // 沙箱环境授权回调地址
     "AppAuthUrl": "http://xxxxxxxxxx", // 应用授权回调地址
     "NotifyUrl": "http://xxxxxxxxx/api/sysAlipay/Notify", // 应用网关地址
-    "RootCertPath": "Alipaycrt/alipayRootCert.crt", // 支付宝根证书存放路径
+    "RootCertPath": "AlipayCrt/alipayRootCert.crt", // 支付宝根证书存放路径
     "AccountList": [
       {
         "Name": "sandbox 默认应用",
@@ -17,8 +17,8 @@
         "SignType": "RSA2",
         "PrivateKey": "xxxxxxxxxxxxxxxxx",
         "EncryptKey": "xxxxxxxxxxxxxxxxxxxx",
-        "AppCertPath": "Alipaycrt/appPublicCert.crt", // 应用公钥证书存放路径
-        "AlipayPublicCertPath": "Alipaycrt/alipayPublicCert.crt" // 支付宝公钥证书存放路径
+        "AppCertPath": "AlipayCrt/appPublicCert.crt", // 应用公钥证书存放路径
+        "AlipayPublicCertPath": "AlipayCrt/alipayPublicCert.crt" // 支付宝公钥证书存放路径
       },
       {
         "Name": "sandbox 默认应用2",
@@ -26,8 +26,8 @@
         "SignType": "RSA2",
         "PrivateKey": "xxxxxxxxxxxxxxxxx",
         "EncryptKey": "xxxxxxxxxxxxxxxxxxxx",
-        "AppCertPath": "Alipaycrt/appPublicCert.crt", // 应用公钥证书存放路径
-        "AlipayPublicCertPath": "Alipaycrt/alipayPublicCert.crt" // 支付宝公钥证书存放路径
+        "AppCertPath": "AlipayCrt/appPublicCert.crt", // 应用公钥证书存放路径
+        "AlipayPublicCertPath": "AlipayCrt/alipayPublicCert.crt" // 支付宝公钥证书存放路径
       }
     ]
   }

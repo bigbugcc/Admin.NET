@@ -123,6 +123,34 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }
     }
 
+
+    /// <summary>
+    /// 同步代码字段(保留历史作用类型) 🔖 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [ApiDescriptionSettings(Name = "SyncField"), HttpPost]
+    [DisplayName("同步代码字段")]
+    public async Task SyncCodeFieldGen(UpdateCodeGenInput input)
+    {
+        var isExist = await _db.Queryable<SysCodeGen>().AnyAsync(u => u.TableName == input.TableName && u.Id != input.Id);
+        if (isExist) throw Oops.Oh(ErrorCodeEnum.D1400);
+        try
+        {
+            // 开启事务
+            _db.AsTenant().BeginTran();
+            await _codeGenConfigService.UpdateList(GetColumnList(input.Adapt<AddCodeGenInput>()), input.Id);
+            _db.AsTenant().CommitTran();
+        }
+        catch (Exception ex)
+        {
+            _db.AsTenant().RollbackTran();
+            throw Oops.Oh(ex);
+        }
+    }
+
+
+
     /// <summary>
     /// 删除代码生成 🔖
     /// </summary>
