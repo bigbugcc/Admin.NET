@@ -72,6 +72,8 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         if (string.IsNullOrEmpty(remoteIPv4))
             remoteIPv4 = loggingMonitor.remoteIPv4;
 
+        remoteIPv4 = remoteIPv4?.Split(',')?.FirstOrDefault()?.Trim();
+
         (string ipLocation, double? longitude, double? latitude) = CommonUtil.GetIpAddress(remoteIPv4);
 
         var browser = "";

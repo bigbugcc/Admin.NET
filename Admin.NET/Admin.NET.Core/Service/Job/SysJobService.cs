@@ -385,8 +385,14 @@ public class SysJobService : IDynamicApiController, ITransient
     public async Task ClearExpireJobTriggerRecord(SysJobTriggerRecord input)
     {
         int keepRecords = 30;//保留记录条数
-        await _sysJobTriggerRecordRep.AsDeleteable().In(it => it.Id,
-         _sysJobTriggerRecordRep.AsQueryable().Skip(keepRecords).OrderByDescending(it => it.LastRunTime)
-         .Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId).Select(it => it.Id)).ExecuteCommandAsync();//注意Select不要ToList(), ToList就2次查询了
+        // 使用CopyNew()创建新的数据库连接实例，避免连接冲突
+        var db = _sysJobTriggerRecordRep.AsSugarClient().CopyNew();
+        await db.Deleteable<SysJobTriggerRecord>().In(it => it.Id,
+            db.Queryable<SysJobTriggerRecord>()
+                .Skip(keepRecords)
+                .OrderByDescending(it => it.LastRunTime)
+                .Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId)
+                .Select(it => it.Id) //注意Select不要ToList(), ToList就2次查询了
+        ).ExecuteCommandAsync();
     }
 }

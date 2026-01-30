@@ -13,7 +13,9 @@ import type { FormRules } from "element-plus";
 @:import { useUserInfo } from "/@@/stores/userInfo";
 }
 import { use@(Model.ClassName)Api } from '/@@/api/@(Model.PagePath)/@(Model.LowerClassName)';
-
+@if(@Model.TableField.Any(x=>x.EffectType == "Editor")){
+@:import Editor from '/@@/components/editor/index.vue';
+}
 //父级传递来的函数，用于回调
 const emit = defineEmits(["reloadTable"]);
 const @(Model.LowerClassName)Api = use@(Model.ClassName)Api();
@@ -103,8 +105,8 @@ defineExpose({ openDialog });
 					}
 					@foreach (var column in Model.AddUpdateFieldList) {
 					var showStatus = Model.IsStatus(column) ? $"v-if=\"state.ruleForm.{Model.PrimaryKeyFieldList.First().LowerPropertyName}\" " : "";
-					if (column.EffectType == "InputTextArea"){
-						@:<el-col :xs="24" class="mb20" @showStatus>
+					if (column.EffectType == "InputTextArea"||column.EffectType == "Editor"){
+					@:<el-col :xs="24" class="mb20" @showStatus>
 							} else{
 						@:<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" @showStatus>
 							} 
@@ -168,6 +170,8 @@ defineExpose({ openDialog });
 							@:<el-switch v-model="state.ruleForm.@(column.LowerPropertyName)" />
 						} else if (column.EffectType == "DatePicker") {
 							@:<el-date-picker v-model="state.ruleForm.@(column.LowerPropertyName)" type="date" placeholder="@(column.ColumnComment)" />
+						}else if(@column.EffectType == "Editor"){
+							@:<Editor v-model:get-html="state.ruleForm.@(@column.LowerPropertyName)" /> 
 						} else {
 							var inputType = column.EffectType == "InputTextArea" ? "type=\"textarea\" " : "";
 					        var maxlength = column.ColumnLength > 0 ? $"maxlength=\"{column.ColumnLength}\" " : "";

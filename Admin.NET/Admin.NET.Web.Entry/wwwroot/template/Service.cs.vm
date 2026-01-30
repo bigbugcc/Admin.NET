@@ -65,7 +65,7 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
             } else if (column.NetType.TrimEnd('?') == "int" || column.NetType.TrimEnd('?') == "long") {
             @:.WhereIF(input.@(column.PropertyName) != null, u => u.@(column.PropertyName) @(column.QueryType) input.@(column.PropertyName))
             } else if (column.NetType.TrimEnd('?').EndsWith("Enum")) {
-            @:.WhereIF(input.@(column.PropertyName).HasValue, u => u.@(column.PropertyName) == (int)input.@(column.PropertyName))
+            @:.WhereIF(input.@(column.PropertyName).HasValue, u => u.@(column.PropertyName) == input.@(column.PropertyName))
             } else if (column.NetType.TrimEnd('?') == "DateTime" && column.QueryType == "~") {
             @:.WhereIF(input.@(column.PropertyName)Range?.Length == 2, u => u.@(column.PropertyName) >= input.@(column.PropertyName)Range[0] && u.@(column.PropertyName) <= input.@(column.PropertyName)Range[1])
             } else if (column.NetType.TrimEnd('?').EndsWith("bool")) {
@@ -165,9 +165,16 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
     [ApiDescriptionSettings(Name = "Delete"), HttpPost]
     public async Task Delete(Delete@(Model.ClassName)Input input)
     {
-        var entity = await _@(Model.LowerClassName)Rep.GetFirstAsync(u => @Model.PrimaryKeysFormat(" && ", "u.{0} == input.{0}")) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        await _@(Model.LowerClassName)Rep.FakeDeleteAsync(entity);   //假删除
-        //await _@(Model.LowerClassName)Rep.DeleteAsync(entity);   //真删除
+        var entity = await _@(Model.LowerClassName)Rep.GetFirstAsync(u => @Model.PrimaryKeysFormat(" && ", "u.{0} == input.{0}")) ?? throw Oops.Oh(ErrorCodeEnum.D1002); 
+@{ 
+    @if(Model.TableField.Where(x => x.ColumnName == "IsDelete").Any())
+    {
+        @:await _@(Model.LowerClassName)Rep.FakeDeleteAsync(entity);   //假删除
+    }
+    else{
+        @:await _@(Model.LowerClassName)Rep.DeleteAsync(entity);   //真删除 
+    }
+}  
     }
 
     /// <summary>
@@ -182,9 +189,15 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
         var exp = Expressionable.Create<@(Model.ClassName)>();
         foreach (var row in input) exp = exp.Or(it => @Model.PrimaryKeysFormat(" && ", "it.{0} == row.{0}"));
         var list = await _@(Model.LowerClassName)Rep.AsQueryable().Where(exp.ToExpression()).ToListAsync();
-   
-        return await _@(Model.LowerClassName)Rep.FakeDeleteAsync(list);   //假删除
-        //return await _@(Model.LowerClassName)Rep.DeleteAsync(list);   //真删除
+@{ 
+    @if(Model.TableField.Where(x => x.ColumnName == "IsDelete").Any())
+    {
+        @:return await _@(Model.LowerClassName)Rep.FakeDeleteAsync(list);   //假删除
+    }
+    else{ 
+        @:return await _@(Model.LowerClassName)Rep.Context.Deleteable(list).ExecuteCommandAsync();   //真删除--返回受影响的行数
+    }
+}  
     }
     @if (Model.HasSetStatus) {
     @:

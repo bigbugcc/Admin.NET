@@ -8,7 +8,7 @@ namespace Admin.NET.Core;
 
 /// <summary>
 /// 系统字典值表种子数据
-/// </summary>
+/// </summary> 
 public class SysDictDataSeedData : ISqlSugarEntitySeedData<SysDictData>
 {
     /// <summary>
@@ -32,6 +32,7 @@ public class SysDictDataSeedData : ISqlSugarEntitySeedData<SysDictData>
             new SysDictData{ Id=1300000000110, DictTypeId=typeList[0].Id, Label="上传", Value="Upload", OrderNo=100, Remark="上传", Status=StatusEnum.Enable, CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysDictData{ Id=1300000000111, DictTypeId=typeList[0].Id, Label="开关", Value="Switch", OrderNo=100, Remark="开关", Status=StatusEnum.Enable, CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysDictData{ Id=1300000000112, DictTypeId=typeList[0].Id, Label="上传单文件", Value="Upload_SingleFile", OrderNo=120, Remark="上传单文件", Status=StatusEnum.Enable, CreateTime= DateTime.Now },
+            new SysDictData{ Id=1300000000113, DictTypeId=typeList[0].Id, Label="富文本编辑器", Value="Editor", OrderNo=130, Remark="富文本编辑器", Status=StatusEnum.Enable,   CreateTime=DateTime.Parse("2025-12-25 00:00:00") },
 
             new SysDictData{ Id=1300000000201, DictTypeId=typeList[1].Id, Label="等于", Value="==", OrderNo=1, Remark="等于", Status=StatusEnum.Enable, CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
             new SysDictData{ Id=1300000000202, DictTypeId=typeList[1].Id, Label="模糊", Value="like", OrderNo=1, Remark="模糊", Status=StatusEnum.Enable, CreateTime=DateTime.Parse("2022-02-10 00:00:00") },
