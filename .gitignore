@@ -45,3 +45,4 @@ node_modules/
 /Admin.NET/Admin.NET.sln.DotSettings.user
 Admin.NET/Admin.NET.Application/Configuration/DeepSeek.json
 *.user
+/Admin.NET/.github
