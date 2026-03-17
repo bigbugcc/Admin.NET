@@ -13,7 +13,6 @@ namespace Admin.NET.Core;
 [SysTable]
 [SugarIndex("index_{table}_T", nameof(Title), OrderByType.Asc)]
 [SugarIndex("index_{table}_T2", nameof(Type), OrderByType.Asc)]
-[SugarIndex("index_{table}_T3", nameof(Name), OrderByType.Asc, IsUnique = true)]
 public partial class SysMenu : EntityBase
 {
     /// <summary>
