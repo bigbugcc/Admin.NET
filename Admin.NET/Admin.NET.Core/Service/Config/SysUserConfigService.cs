@@ -247,7 +247,8 @@ public class SysUserConfigService : IDynamicApiController, ITransient
         var config = await _sysConfigRep.GetFirstAsync(u => u.Code == code);
         if (config == null) return;
 
-        await _sysConfigDataRep.AsUpdateable().SetColumns(it => it.Value == value).Where(it => it.UserId == _userManager.UserId && it.ConfigId == config.Id).ExecuteCommandAsync();
+        var configData = new SysUserConfigData() { UserId = _userManager.UserId, ConfigId = config.Id, Value = value };
+        await _sysConfigDataRep.Context.Storageable(configData).WhereColumns(it => new[] { it.UserId, it.ConfigId }).ExecuteCommandAsync();
 
         RemoveConfigCache(config);
     }
