@@ -165,6 +165,40 @@ public static class EnumExtension
     }
 
     /// <summary>
+    /// 根据枚举值描述获取枚举值
+    /// </summary>
+    /// <typeparam name="T">枚举类型</typeparam>
+    /// <param name="description">枚举描述</param>
+    /// <returns>枚举值</returns>
+    public static T GetValueByDescription<T>(this string description) where T : struct, Enum
+    {
+        var type = typeof(T);
+        var dict = GetEnumDescDictionary(type);
+
+        if (dict.ContainsValue(description))
+            return (T)Enum.ToObject(type, dict.FirstOrDefault(x => x.Value == description).Key);
+        else
+            return default;
+    }
+
+    /// <summary>
+    /// 根据枚举值描述获取枚举值（非泛型版本）
+    /// </summary>
+    /// <param name="description">枚举描述</param>
+    /// <param name="enumType">枚举类型</param>
+    /// <returns>枚举值</returns>
+    public static object GetValueByDescription(this string description, Type enumType)
+    {
+        if (!enumType.IsEnum)
+            throw new ArgumentException("Type '" + enumType.Name + "' is not an enum.");
+
+        var dict = GetEnumDescDictionary(enumType);
+        var value = dict.FirstOrDefault(x => x.Value == description).Key;
+
+        return Enum.ToObject(enumType, value);
+    }
+
+    /// <summary>
     /// 获取枚举的Theme
     /// </summary>
     /// <param name="value"></param>
