@@ -32,8 +32,15 @@ public static class SqlSugarFilterExtension
     {
         var fieldNames = type.GetPropertyNames<T>();
         ParameterExpression parameter = Expression.Parameter(type, "c");
+        Expression userSelf = Expression.Constant(type.Name == nameof(SysUser));
+        userSelf = Expression.AndAlso(userSelf, Expression.Call(
+            Expression.Constant(owners),
+            nameof(List<long>.Contains),
+            null,
+            Expression.Property(parameter, nameof(SysUser.Id))
+            ));
 
-        Expression right = Expression.Constant(false);
+        Expression right = userSelf;
         ConstantExpression ownersCollection = Expression.Constant(owners);
         foreach (var fieldName in fieldNames)
         {
