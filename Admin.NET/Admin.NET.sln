@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.5.11605.296 insiders
+VisualStudioVersion = 18.5.11605.296
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.NET.Application", "Admin.NET.Application\Admin.NET.Application.csproj", "{C3F5AEC5-ACEE-4109-94E3-3F981DC18268}"
 EndProject
