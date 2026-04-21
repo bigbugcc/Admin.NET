@@ -285,7 +285,7 @@ public static class CommonUtil
         var res = await importer.Import<T>(fileStream);
 
         // 删除文件
-        _ = SysFileService.DeleteFile(new BaseIdInput { Id = newFile.Id });
+        await SysFileService.DeleteFile(new BaseIdInput { Id = newFile.Id });
 
         if (res == null)
             throw Oops.Oh("导入数据为空");
