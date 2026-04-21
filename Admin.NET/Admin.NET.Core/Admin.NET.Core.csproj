@@ -19,16 +19,15 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.3.4" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.8.47" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.8.47" />
-    <PackageReference Include="Furion.Pure" Version="4.9.8.47" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.8.49" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.8.49" />
+    <PackageReference Include="Furion.Pure" Version="4.9.8.49" />
     <PackageReference Include="Hardware.Info" Version="101.1.1.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
     <PackageReference Include="IPTools.International" Version="1.6.0" />
     <PackageReference Include="log4net" Version="3.3.1" />
-    <PackageReference Include="Lazy.Captcha.Core" Version="2.2.4" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.6" />
+    <PackageReference Include="Lazy.Captcha.Core" Version="2.2.4" />    
     <PackageReference Include="Magicodes.IE.Excel" Version="2.8.0" />
     <PackageReference Include="Magicodes.IE.Pdf" Version="2.8.0" />
     <PackageReference Include="Magicodes.IE.Word" Version="2.8.0" />
@@ -47,7 +46,7 @@
     <PackageReference Include="SqlSugarCore" Version="5.1.4.214" />
     <PackageReference Include="SSH.NET" Version="2025.1.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.7.2" />
-    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1406" />
+    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1412" />
     <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" Aliases="BouncyCastleV2" />
@@ -56,14 +55,16 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="8.3.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="8.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.22" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.22" />
+	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.26" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.13" />
   </ItemGroup>
 	
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="10.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="10.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.6" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.0" />
