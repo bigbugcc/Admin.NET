@@ -232,8 +232,11 @@ public class SysAuthService : IDynamicApiController, ITransient
     [NonAction]
     internal virtual async Task<LoginOutput> CreateToken(SysUser user, SysUserEventTypeEnum sysUserEventTypeEnum = SysUserEventTypeEnum.Login)
     {
-        // 单用户登录
-        await _sysOnlineUserService.SingleLogin(user.Id);
+        if (sysUserEventTypeEnum != SysUserEventTypeEnum.RefreshToken)
+        {
+            // 单用户登录
+            await _sysOnlineUserService.SingleLogin(user.Id);
+        }
 
         // 生成Token令牌
         var tokenExpire = await _sysConfigService.GetTokenExpire();
