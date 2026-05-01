@@ -122,7 +122,7 @@ public partial class SysCodeGen : EntityBase
     /// <summary>
     /// 菜单图标
     /// </summary>
-    [SugarColumn(ColumnDescription = "菜单图标", Length = 32)]
+    [SugarColumn(ColumnDescription = "菜单图标", Length = 64)]
     public string? MenuIcon { get; set; } = "ele-Menu";
 
     /// <summary>
