@@ -171,6 +171,37 @@ public class SysConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 根据Code获取配置参数值 🔖
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
+    [DisplayName("根据Code获取配置参数值")]
+    public async Task<string> GetConfigValueByCode(string code)
+    {
+        return await GetConfigValueByCode<string>(code);
+    }
+
+    /// <summary>
+    /// 获取配置参数值
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<T> GetConfigValueByCode<T>(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code)) return default;
+
+        var value = _sysCacheService.Get<string>($"{CacheConst.KeyConfig}{code}");
+        if (string.IsNullOrEmpty(value))
+        {
+            value = (await _sysConfigRep.CopyNew().GetFirstAsync(u => u.Code == code))?.Value;
+            _sysCacheService.Set($"{CacheConst.KeyConfig}{code}", value);
+        }
+        if (string.IsNullOrWhiteSpace(value)) return default;
+        return (T)Convert.ChangeType(value, typeof(T));
+    }
+
+    /// <summary>
     /// 更新参数配置值
     /// </summary>
     /// <param name="code"></param>
