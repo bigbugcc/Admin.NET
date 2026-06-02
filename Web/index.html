@@ -8,37 +8,6 @@
 	<link rel="stylesheet" type="text/css" media="print" href="/print-lock.css" />
 	<link rel="icon" id="favicon" href="data:;base64,=" />
 	<title>Admin.NET</title>
-	<script>
-		// 必须在任何 ES Module 代码执行前先挂载 i18n 全局函数。
-		// vite-auto-i18n-plugin 会把源码中文字符串替换成裸的 $t(key, val, 'lang') 调用，
-		// 这些调用可能出现在 router 等独立 chunk 的模块顶层；而 lang/index.js 是通过 main.ts
-		// 的 static import 引入的，ESM 规范下 import 依赖会先于本模块主体求值，
-		// 导致 router chunk 先执行、$t 还未挂载 → ReferenceError。
-		// 这里提供 stub：未加载语言包时回退为源语言 val，与 lang/index.js 的 `globalThis.$t || $t` 兼容。
-		(function () {
-			var stub = function (key, val, nameSpace) {
-				var pkg = stub[nameSpace];
-				return (pkg && pkg[key]) || val;
-			};
-			stub.locale = function (locale, nameSpace) {
-				stub[nameSpace] = locale || {};
-			};
-			globalThis.$t = globalThis.$t || stub;
-			globalThis.$$t = globalThis.$$t || function (val) { return val; };
-			globalThis.$deepScan = globalThis.$deepScan || function (val) { return val; };
-			globalThis.$iS = globalThis.$iS || function (val, args) {
-				if (typeof val !== 'string' || !Array.isArray(args)) return val;
-				try {
-					return val.replace(/\$(?:\{|｛)(\d+)(?:\}|｝)/g, function (m, i) {
-						var idx = parseInt(i, 10);
-						return args[idx] !== undefined ? String(args[idx]) : m;
-					});
-				} catch (e) {
-					return val;
-				}
-			};
-		})();
-	</script>
 </head>
 
 <body>
