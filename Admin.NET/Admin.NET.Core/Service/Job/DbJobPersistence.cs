@@ -177,7 +177,7 @@ public class DbJobPersistence : IJobPersistence
             Type jobType = dbDetail.CreateType switch
             {
                 JobCreateTypeEnum.Script => dynamicJobCompiler.BuildJob(dbDetail.ScriptCode),
-                JobCreateTypeEnum.Http => typeof(HttpJob),
+                //JobCreateTypeEnum.Http => typeof(HttpJob),
                 _ => throw new NotSupportedException(),
             };
 

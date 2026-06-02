@@ -18,6 +18,13 @@ public static class SqlSugarSetup
     private static bool _isHandlingSeedData = false;
 
     /// <summary>
+    /// 日志数据库上下文
+    /// </summary>
+    public static SqlSugarScopeProvider LogDb => ITenant.IsAnyConnection(SqlSugarConst.LogConfigId)
+        ? ITenant.GetConnectionScope(SqlSugarConst.LogConfigId)
+        : ITenant.GetConnectionScope(SqlSugarConst.MainConfigId);
+
+    /// <summary>
     /// SqlSugar 上下文初始化
     /// </summary>
     /// <param name="services"></param>

@@ -65,7 +65,7 @@ public static class LoggingSetup
         }
 
         // 日志写入ElasticSearch
-        if (App.GetConfig<bool>("ElasticSearch:Logging:Enabled", true))
+        if (App.GetConfig<bool>("Logging:ElasticSearch:Enabled", true))
         {
             services.AddDatabaseLogging<ElasticSearchLoggingWriter>(options =>
             {
