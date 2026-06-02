@@ -101,9 +101,67 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 					entryFileNames: 'assets/js/[name]-[hash].js', // 包的入口文件名称
 					assetFileNames: 'assets/[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
 					manualChunks(id) {
-						if (id.includes('node_modules')) {
-							return id.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender';
+						const normalizedId = id.toString().replace(/\\/g, '/');
+						if (!normalizedId.includes('node_modules')) return;
+
+						const includesPackage = (packageName: string) => normalizedId.includes(`/node_modules/${packageName}/`);
+
+						// Vue 运行时及 Vue 组件库放在一起，避免 runtime helper 被拆到不同 chunk 后丢引用
+						if (
+							[
+								'vue',
+								'@vue',
+								'@vueuse',
+								'vue-demi',
+								'vue-router',
+								'pinia',
+								'element-plus',
+								'@element-plus',
+								'vue-i18n',
+								'@vue-office',
+								'vue-json-pretty',
+								'vue-plugin-hiprint',
+								'vue-signature-pad',
+								'vue3-tree-org',
+								'vue-clipboard3',
+								'vue-draggable-plus',
+								'vue-grid-layout',
+								'splitpanes',
+								'vcrontab-3',
+								'md-editor-v3',
+								'json-editor-vue',
+								'vform3-builds',
+								'@wangeditor/editor-for-vue',
+							].some(includesPackage)
+						) {
+							return 'vue-vendor';
 						}
+
+						if (['echarts', 'echarts-gl', 'echarts-wordcloud'].some(includesPackage)) {
+							return 'charts';
+						}
+
+						if (includesPackage('monaco-editor')) {
+							return 'monaco';
+						}
+
+						if (['@wangeditor/editor', 'cropperjs'].some(includesPackage)) {
+							return 'editor';
+						}
+
+						if (['xlsx-js-style', 'js-table2excel', 'print-js', 'qrcodejs2-fixes'].some(includesPackage)) {
+							return 'office';
+						}
+
+						if (['@logicflow', 'jsplumb', 'relation-graph'].some(includesPackage)) {
+							return 'flow';
+						}
+
+						if (['mqtt', '@microsoft/signalr', 'axios'].some(includesPackage)) {
+							return 'comm';
+						}
+
+						return 'vendor';
 					},
 				},
 				...(JSON.parse(env.VITE_OPEN_CDN) ? { external: buildConfig.external } : {}),
