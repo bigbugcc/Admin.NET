@@ -60,9 +60,11 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                     case LogTypeEnum.Visit:
                         visLogs.Add((SysLogVis)logEntity);
                         break;
+
                     case LogTypeEnum.Operation when opLogEnabled:
                         opLogs.Add((SysLogOp)logEntity);
                         break;
+
                     case LogTypeEnum.Exception:
                         exLogs.Add((SysLogEx)logEntity);
 
