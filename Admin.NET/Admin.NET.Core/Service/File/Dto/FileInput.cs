@@ -72,6 +72,11 @@ public class UploadFileInput
     /// 指定存储提供者ID
     /// </summary>
     public long? ProviderId { get; set; }
+
+    /// <summary>
+    /// 业务数据Id
+    /// </summary>
+    public long? DataId { get; set; }
 }
 
 /// <summary>

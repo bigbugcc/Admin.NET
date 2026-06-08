@@ -147,7 +147,6 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
         provider.Insertable(codeGenConfigs).ExecuteCommand();
     }
 
-
     /// <summary>
     /// 批量更新代码字段:先删除再新增，会保留历史字段操作类型
     /// </summary>
@@ -222,7 +221,6 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
                 codeGenConfig.FkDisplayColumns = oldItem.FkDisplayColumns;
                 codeGenConfig.FkLinkColumnName = oldItem.FkLinkColumnName;
                 codeGenConfig.FkColumnNetType = oldItem.FkColumnNetType;
-
             }
 
             codeGenConfigs.Add(codeGenConfig);

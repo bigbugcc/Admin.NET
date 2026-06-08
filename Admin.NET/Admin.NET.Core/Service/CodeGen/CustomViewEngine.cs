@@ -108,7 +108,7 @@ public class CustomViewEngine : ViewEngineModel
     /// 判断字段是否为状态字段
     /// </summary>
     /// <param name="column"></param>
-    /// <returns></returns> 
+    /// <returns></returns>
     public bool IsStatus(CodeGenConfig column) => column.NetType == nameof(StatusEnum);
 
     /// <summary>
@@ -164,11 +164,14 @@ public class CustomViewEngine : ViewEngineModel
                         case "EnumSelector"://枚举和数字框，通过正则提取 数字：如 ('0')
                             content += $"{item.LowerPropertyName}: {Regex.Match(item.DefaultValue, @"\d+").Value},";
                             break;
+
                         case "Switch":
                             content += $"{item.LowerPropertyName}: {(item.DefaultValue == "1" ? true.ToString().ToLower() : false.ToString().ToLower())},";
                             break;
-                        case "DatePicker"://忽略适配日期格式  
+
+                        case "DatePicker"://忽略适配日期格式
                             break;
+
                         default:
                             content += $"{item.LowerPropertyName}: \"{item.DefaultValue}\",";// 如果是字符串 DefaultValue=('男')
                             break;

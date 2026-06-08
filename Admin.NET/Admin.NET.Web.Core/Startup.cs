@@ -12,7 +12,6 @@ using Furion;
 using Furion.Logging;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
-using IGeekFan.AspNetCore.Knife4jUI;
 using IPTools.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using OnceMi.AspNetCore.OSS;
+using Scalar.AspNetCore;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
 using System.Linq;
@@ -363,16 +363,6 @@ public class Startup : AppStartup
             options.LoginConfig.SessionKey = "schedule_session_key"; // 登录客户端存储的 Session 键
         });
 
-        // 配置Swagger-Knife4UI（路由前缀一致代表独立，不同则代表共存）
-        app.UseKnife4UI(options =>
-        {
-            options.RoutePrefix = "kapi";
-            foreach (var groupInfo in SpecificationDocumentBuilder.GetOpenApiGroups())
-            {
-                options.SwaggerEndpoint("/" + groupInfo.RouteTemplate, groupInfo.Title);
-            }
-        });
-
         app.UseInject(string.Empty, options =>
         {
             foreach (var groupInfo in SpecificationDocumentBuilder.GetOpenApiGroups())
@@ -391,6 +381,20 @@ public class Startup : AppStartup
 
         app.UseEndpoints(endpoints =>
         {
+            // 配置 Scalar 第三方 UI 集成（路由前缀一致代表独立，不同则代表共存）
+            if (App.GetConfig<bool>("AppSettings:InjectSpecificationDocument", true))
+            {
+                endpoints.MapScalarApiReference("sapi", options =>
+                {
+                    options.WithTitle("Admin.NET");
+
+                    // 配置 OpenAPI 文档
+                    foreach (var groupInfo in SpecificationDocumentBuilder.GetOpenApiGroups())
+                    {
+                        options.AddDocument(groupInfo.Group, groupInfo.Title, groupInfo.RouteTemplate);
+                    }
+                });
+            }
             // 注册集线器
             endpoints.MapHubs();
 

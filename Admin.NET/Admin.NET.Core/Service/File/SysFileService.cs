@@ -329,6 +329,7 @@ public class SysFileService : IDynamicApiController, ITransient
         newFile.SizeKb = sizeKb;
         newFile.FilePath = path;
         newFile.FileMd5 = fileMd5;
+        newFile.DataId = input.DataId;
 
         var finalName = newFile.Id + suffix; // 文件最终名称
 

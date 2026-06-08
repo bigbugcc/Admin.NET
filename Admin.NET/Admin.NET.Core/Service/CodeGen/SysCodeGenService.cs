@@ -123,9 +123,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }
     }
 
-
     /// <summary>
-    /// 同步代码字段(保留历史作用类型) 🔖 
+    /// 同步代码字段(保留历史作用类型) 🔖
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -148,8 +147,6 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             throw Oops.Oh(ex);
         }
     }
-
-
 
     /// <summary>
     /// 删除代码生成 🔖

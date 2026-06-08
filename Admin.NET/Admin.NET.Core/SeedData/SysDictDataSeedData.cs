@@ -8,7 +8,7 @@ namespace Admin.NET.Core;
 
 /// <summary>
 /// 系统字典值表种子数据
-/// </summary> 
+/// </summary>
 public class SysDictDataSeedData : ISqlSugarEntitySeedData<SysDictData>
 {
     /// <summary>

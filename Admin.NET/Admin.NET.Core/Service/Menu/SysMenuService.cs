@@ -242,7 +242,6 @@ public class SysMenuService : IDynamicApiController, ITransient
         }, err => {
             Oops.Oh("更新数据时发生错误", err.Message);
         });
-        
 
         // 清除缓存
         DeleteMenuCache();
@@ -337,7 +336,7 @@ public class SysMenuService : IDynamicApiController, ITransient
         if (permissions != null) return permissions;
 
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new() : await GetMenuIdList();
-        if(menuIdList.Count <= 0 && !_userManager.SuperAdmin)
+        if (menuIdList.Count <= 0 && !_userManager.SuperAdmin)
         {
             //_sysCacheService.Set(CacheConst.KeyUserButton + userId, new List<string>(), TimeSpan.FromDays(7));
             return new List<string>();
