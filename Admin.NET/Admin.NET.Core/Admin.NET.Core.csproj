@@ -14,14 +14,14 @@
 
   <ItemGroup>
     <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="4.3.1" />
-    <PackageReference Include="AlipaySDKNet.Standard" Version="4.9.1161" />
-    <PackageReference Include="AngleSharp" Version="1.4.0" />
+    <PackageReference Include="AlipaySDKNet.Standard" Version="4.9.1234" />
+    <PackageReference Include="AngleSharp" Version="1.5.0" />
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.4.2" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.8.91" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.8.91" />
-    <PackageReference Include="Furion.Pure" Version="4.9.8.91" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.8.96" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.8.96" />
+    <PackageReference Include="Furion.Pure" Version="4.9.8.96" />
     <PackageReference Include="Hardware.Info" Version="110.0.0.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
@@ -55,18 +55,18 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="8.3.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="8.3.0" />
-	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.26" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.26" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.26" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.13" />
+	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.28" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.28" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.28" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.16" />
   </ItemGroup>
 	
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="10.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="10.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.8" />
+	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.9" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.2" />
     <PackageReference Include="XiHan.Framework.Utils" Version="2.5.0" />
   </ItemGroup>	
