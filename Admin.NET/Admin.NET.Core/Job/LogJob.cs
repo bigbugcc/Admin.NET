@@ -26,7 +26,7 @@ public class LogJob : IJob
     {
         using var serviceScope = _scopeFactory.CreateScope();
 
-        var db = serviceScope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
+        var db = serviceScope.ServiceProvider.GetRequiredService<SqlSugarRepository<SysLogVis>>().AsSugarClient().CopyNew();
         var sysConfigService = serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
 
         var daysAgo = await sysConfigService.GetConfigValue<int>(ConfigConst.SysLogRetentionDays); // 日志保留天数
