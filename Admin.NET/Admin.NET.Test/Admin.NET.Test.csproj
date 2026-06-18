@@ -12,11 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion.Xunit" Version="4.9.8.96" />
+    <PackageReference Include="Furion.Xunit" Version="4.9.8.98" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
-    <PackageReference Include="Selenium.Support" Version="4.44.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.44.0" />
-    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="148.0.3967.96" />
+    <PackageReference Include="Selenium.Support" Version="4.45.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.45.0" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="149.0.4022.69" />
     <PackageReference Include="xunit.v3.assert" Version="3.2.2" />
   </ItemGroup>
 
