@@ -76,8 +76,7 @@ public sealed class RedisEventSourceStorer : IEventSourceStorer, IDisposable
             // var oriColor = Console.ForegroundColor;
             try
             {
-                ChannelEventSource ces = (ChannelEventSource)cr;
-                await ConsumeChannelEventSourceAsync(ces, ces.CancellationToken);
+                await ConsumeChannelEventSourceAsync(cr);
             }
             catch (Exception e)
             {

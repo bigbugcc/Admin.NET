@@ -42,5 +42,10 @@ public class OnlineUserJob : IJob
 
         // 缓存租户列表
         await serviceScope.ServiceProvider.GetRequiredService<SysTenantService>().CacheTenant();
+
+        // 加载动态程序集
+        await serviceScope.ServiceProvider.GetRequiredService<SysPluginService>().LoadAllAssembly();
+        msg = $"【启动任务】加载动态程序集 {DateTime.Now}";
+        Console.WriteLine(msg);
     }
 }

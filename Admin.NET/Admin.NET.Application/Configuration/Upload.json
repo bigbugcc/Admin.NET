@@ -27,7 +27,7 @@
     "Password": "Password.1"
   },
   "MultiOSS": {
-    "Enabled": true, // 是否启用多OSS功能
+    "Enabled": false, // 是否启用多OSS功能
     "Description": "启用多OSS功能后，系统将支持多个存储提供者，可以通过BucketName或ProviderId指定使用哪个存储提供者"
   }
 }

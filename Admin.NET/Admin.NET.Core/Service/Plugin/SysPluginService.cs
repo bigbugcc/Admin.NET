@@ -123,4 +123,18 @@ public class SysPluginService : IDynamicApiController, ITransient
     {
         _provider.RemoveAssembliesWithNotifyChanges(assemblyName);
     }
+
+    /// <summary>
+    /// 加载所有动态程序集/接口
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    public async Task LoadAllAssembly()
+    {
+        var plugins = await _sysPluginRep.GetListAsync();
+        foreach (var plugin in plugins)
+        {
+            CompileAssembly(plugin.CsharpCode, plugin.AssemblyName);
+        }
+    }
 }

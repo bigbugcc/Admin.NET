@@ -18,6 +18,13 @@ public static class SqlSugarSetup
     private static bool _isHandlingSeedData = false;
 
     /// <summary>
+    /// 日志数据库上下文
+    /// </summary>
+    public static SqlSugarScopeProvider LogDb => ITenant.IsAnyConnection(SqlSugarConst.LogConfigId)
+        ? ITenant.GetConnectionScope(SqlSugarConst.LogConfigId)
+        : ITenant.GetConnectionScope(SqlSugarConst.MainConfigId);
+
+    /// <summary>
     /// SqlSugar 上下文初始化
     /// </summary>
     /// <param name="services"></param>
@@ -241,10 +248,6 @@ public static class SqlSugarSetup
             {
                 if (entityInfo.PropertyName == nameof(EntityBase.UpdateTime))
                     entityInfo.SetValue(DateTime.Now);
-                else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserId))
-                    entityInfo.SetValue(App.User?.FindFirst(ClaimConst.UserId)?.Value);
-                else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserName))
-                    entityInfo.SetValue(App.User?.FindFirst(ClaimConst.RealName)?.Value);
                 else if (entityInfo.PropertyName == nameof(EntityBaseDel.DeleteTime))
                 {
                     dynamic entityValue = entityInfo.EntityValue;
@@ -254,6 +257,13 @@ public static class SqlSugarSetup
                         entityInfo.SetValue(DateTime.Now);
                     }
                 }
+                // 若当前用户为空（非web线程时）
+                if (App.User == null) return;
+
+                if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserId))
+                    entityInfo.SetValue(App.User?.FindFirst(ClaimConst.UserId)?.Value);
+                else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserName))
+                    entityInfo.SetValue(App.User?.FindFirst(ClaimConst.RealName)?.Value);
             }
         };
 
@@ -410,15 +420,15 @@ public static class SqlSugarSetup
     {
         var dbProvider = db.GetConnectionScope(config.ConfigId);
 
-        // 等待数据库连接就绪
-        WaitForDatabaseReady(dbProvider);
-
-        // 初始化数据库
+        // 初始化数据库  如果是没有数据库的话，是先初始化数据库再做连接
         if (config.DbSettings.EnableInitDb)
         {
             Log.Information($"初始化数据库 {config.DbType} - {config.ConfigId} - {config.ConnectionString}");
             if (config.DbType != DbType.Oracle) dbProvider.DbMaintenance.CreateDatabase();
         }
+
+        // 等待数据库连接就绪
+        WaitForDatabaseReady(dbProvider);
 
         // 初始化表结构
         if (config.TableSettings.EnableInitTable)

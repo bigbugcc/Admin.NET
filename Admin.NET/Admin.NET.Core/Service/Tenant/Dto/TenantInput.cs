@@ -102,6 +102,11 @@ public class DeleteTenantInput : BaseIdInput
 public class TenantMenuInput : BaseIdInput
 {
     /// <summary>
+    /// 同步租户Id集合
+    /// </summary>
+    public List<long> TenantIdList { get; set; }
+
+    /// <summary>
     /// 菜单Id集合
     /// </summary>
     public List<long> MenuIdList { get; set; }

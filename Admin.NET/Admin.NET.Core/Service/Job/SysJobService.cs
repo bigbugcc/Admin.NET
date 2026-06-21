@@ -389,9 +389,9 @@ public class SysJobService : IDynamicApiController, ITransient
         var db = _sysJobTriggerRecordRep.AsSugarClient().CopyNew();
         await db.Deleteable<SysJobTriggerRecord>().In(it => it.Id,
             db.Queryable<SysJobTriggerRecord>()
-                .Skip(keepRecords)
-                .OrderByDescending(it => it.LastRunTime)
                 .Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId)
+                .OrderByDescending(it => it.LastRunTime)
+                .Skip(keepRecords)
                 .Select(it => it.Id) //注意Select不要ToList(), ToList就2次查询了
         ).ExecuteCommandAsync();
     }

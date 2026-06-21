@@ -95,7 +95,7 @@ public abstract class EntityBaseDel : EntityBase, IDeletedFilter
     /// 软删除时间
     /// </summary>
     [SugarColumn(ColumnDescription = "软删除时间")]
-    public virtual DateTime? DeleteTime { get; set; } 
+    public virtual DateTime? DeleteTime { get; set; }
 }
 
 /// <summary>

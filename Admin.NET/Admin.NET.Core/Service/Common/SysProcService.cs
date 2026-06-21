@@ -61,10 +61,11 @@ public class SysProcService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<DataTable> ProcTable(BaseProcInput input)
+    public async Task<DataSet> ProcTable(BaseProcInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
-        return await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
+        var dt = await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
+        return new DataSet { Tables = { dt } };
     }
 
     /// <summary>

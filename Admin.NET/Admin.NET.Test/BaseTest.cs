@@ -44,7 +44,7 @@ public class BaseTest : IDisposable
     /// </summary>
     /// <param name="account"></param>
     /// <param name="password"></param>
-    protected async Task Login(string account = "superadmin", string password = "123456")
+    protected async Task Login(string account = "superAdmin.NET", string password = "Admin.NET++010101")
     {
         await GoToUrlAsync("/#/login");
         var inputList = Driver.FindElements(By.CssSelector("#pane-account input"));

@@ -406,10 +406,12 @@ public class SysUpdateService : IDynamicApiController, ITransient
         using var process = new Process();
         process.StartInfo = processStartInfo;
         process.Start();
-
-        while (!process.StandardOutput.EndOfStream)
+        //修复CA2024 ，去掉EndOfStream
+        //while (!process.StandardOutput.EndOfStream)
+        string? line;
+        while ((line = await process.StandardOutput.ReadLineAsync()) != null)
         {
-            string line = await process.StandardOutput.ReadLineAsync();
+            //string line = await process.StandardOutput.ReadLineAsync();
             if (string.IsNullOrEmpty(line)) continue;
             PrintfLog(line.Trim());
         }

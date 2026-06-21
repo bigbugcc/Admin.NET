@@ -11,14 +11,13 @@ namespace Admin.NET.Core.Service;
 /// </summary>
 public class JobMonitor : IJobMonitor
 {
-    private readonly SysConfigService _sysConfigService;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly IEventPublisher _eventPublisher;
     private readonly ILogger<JobMonitor> _logger;
 
     public JobMonitor(IServiceScopeFactory serviceScopeFactory, IEventPublisher eventPublisher, ILogger<JobMonitor> logger)
     {
-        var serviceScope = serviceScopeFactory.CreateScope();
-        _sysConfigService = serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
+        _serviceScopeFactory = serviceScopeFactory;
         _eventPublisher = eventPublisher;
         _logger = logger;
     }
@@ -36,7 +35,9 @@ public class JobMonitor : IJobMonitor
         // 将作业异常信息记录到本地
         _logger.LogError(exception);
 
-        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysErrorMail))
+        using var scope = _serviceScopeFactory.CreateScope();
+        var sysConfigService = scope.ServiceProvider.GetRequiredService<SysConfigService>();
+        if (await sysConfigService.GetConfigValue<bool>(ConfigConst.SysErrorMail))
         {
             // 将作业异常信息发送到邮件
             await _eventPublisher.PublishAsync(CommonConst.SendErrorMail, exception, stoppingToken);

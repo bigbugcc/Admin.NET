@@ -15,19 +15,14 @@ namespace Admin.NET.Core;
 /// <summary>
 /// 通用工具类
 /// </summary>
-public static class CommonUtil
+public static class CommonHelper
 {
-    private static readonly SysCacheService SysCacheService = App.GetRequiredService<SysCacheService>();
-    private static readonly SysFileService SysFileService = App.GetRequiredService<SysFileService>();
-    private static readonly SqlSugarRepository<SysDictData> SysDictDataRep = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
-
     /// <summary>
     /// 根据字符串获取固定整型哈希值
     /// </summary>
     /// <param name="str"></param>
-    /// <param name="startNumber"></param>
     /// <returns></returns>
-    public static long GetFixedHashCode(string str, long startNumber = 0)
+    public static int GetFixedHashCode(string str)
     {
         if (string.IsNullOrWhiteSpace(str)) return 0;
         unchecked
@@ -37,10 +32,55 @@ public static class CommonUtil
             for (int i = 0; i < str.Length; i += 2)
             {
                 hash1 = ((hash1 << 5) + hash1) ^ str[i];
-                if (i == str.Length - 1) break;
+                if (i == str.Length - 1)
+                    break;
                 hash2 = ((hash2 << 5) + hash2) ^ str[i + 1];
             }
-            return startNumber + Math.Abs(hash1 + (hash2 * 1566083941));
+            return Math.Abs(hash1 + (hash2 * 1566083941));
+        }
+    }
+
+    /// <summary>
+    /// 将版本号转换为长整型，版本格式要求 x.xx.xxxxxx，比如 v1.2.5=>102000005 V3.10.42=>310000042
+    /// </summary>
+    /// <param name="version">x.xx.xxxxxx</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static long ConvertVersionToLong(string version)
+    {
+        // 1. 移除所有字母（不区分大小写）
+        string noLetters = Regex.Replace(version, "[a-zA-Z]", "");
+
+        // 2. 按 '.' 分割版本号
+        string[] parts = noLetters.Split('.', StringSplitOptions.RemoveEmptyEntries);
+
+        // 3. 确保至少有3部分，不足则补 "0"
+        if (parts.Length < 3)
+        {
+            Array.Resize(ref parts, 3);
+            for (int i = 0; i < parts.Length; i++)
+            {
+                parts[i] = string.IsNullOrEmpty(parts[i]) ? "0" : parts[i];
+            }
+        }
+
+        // 4. 格式化各部分：
+        //    - part1: 至少1位（直接取）
+        //    - part2: 补齐到2位（如 "2" → "02"）
+        //    - part3: 补齐到6位（如 "5" → "000005"）
+        string part1 = parts[0];
+        string part2 = parts[1].PadLeft(2, '0');
+        string part3 = parts[2].PadLeft(6, '0');
+
+        // 5. 拼接所有部分并转换为 long
+        string combined = $"{part1}{part2}{part3}";
+        if (long.TryParse(combined, out long result))
+        {
+            return result;
+        }
+        else
+        {
+            throw new ArgumentException("版本号转换失败，结果超出 long 范围。");
         }
     }
 
@@ -76,13 +116,30 @@ public static class CommonUtil
         // 代理模式：获取真正的本机地址
         // X-Original-Host=原始请求
         // X-Forwarded-Server=从哪里转发过来
-        if (App.HttpContext.Request.Headers.ContainsKey("Origin")) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
-            result = $"{App.HttpContext.Request.Headers["Origin"]}";
-        else if (App.HttpContext.Request.Headers.ContainsKey("X-Original")) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
-            result = $"{App.HttpContext.Request.Headers["X-Original"]}";
-        else if (App.HttpContext.Request.Headers.ContainsKey("X-Original-Host"))
-            result = $"{App.HttpContext.Request.Scheme}://{App.HttpContext.Request.Headers["X-Original-Host"]}";
-        return result + (string.IsNullOrWhiteSpace(App.Settings.VirtualPath) ? "" : App.Settings.VirtualPath);
+        if (App.HttpContext.Request.Headers.TryGetValue("Origin", out Microsoft.Extensions.Primitives.StringValues value1)) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
+            result = $"{value1}";
+        else if (App.HttpContext.Request.Headers.TryGetValue("X-Original", out Microsoft.Extensions.Primitives.StringValues value2)) // 配置成完整的路径如（结尾不要带"/"）,比如 https://www.abc.com
+            result = $"{value2}";
+        else if (App.HttpContext.Request.Headers.TryGetValue("X-Original-Host", out Microsoft.Extensions.Primitives.StringValues value3))
+            result = $"{App.HttpContext.Request.Scheme}://{value3}";
+        return result;
+    }
+
+    /// <summary>
+    /// 获取请求地址源
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static string GetOrigin(this HttpRequest request)
+    {
+        string scheme = request.Scheme;
+        string host = request.Host.Host;
+        int port = request.Host.Port ?? (-1);
+
+        string url = $"{scheme}://{host}";
+        if (port != 80 && port != 443 && port != -1) url += $":{port}";
+
+        return url;
     }
 
     /// <summary>
@@ -134,9 +191,7 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<IActionResult> ExportExcelTemplate<T>(string fileName = null) where T : class, new()
     {
-        IImporter importer = new ExcelImporter();
-        var res = await importer.GenerateTemplateBytes<T>();
-
+        var res = await new ExcelImporter().GenerateTemplateBytes<T>();
         return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
@@ -146,9 +201,7 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<IActionResult> ExportExcelData<T>(ICollection<T> data, string fileName = null) where T : class, new()
     {
-        var export = new ExcelExporter();
-        var res = await export.ExportAsByteArray<T>(data);
-
+        var res = await new ExcelExporter().ExportAsByteArray<T>(data);
         return new FileContentResult(res, "application/octet-stream") { FileDownloadName = $"{(string.IsNullOrEmpty(fileName) ? typeof(T).Name : fileName)}.xlsx" };
     }
 
@@ -161,7 +214,7 @@ public static class CommonUtil
     {
         var propMappings = GetExportPropertMap<TSource, TTarget>();
         var data = query.ToList();
-        //相同属性复制值，字典值转换
+        // 相同属性复制值，字典值转换
         var result = new List<TTarget>();
         foreach (var item in data)
         {
@@ -203,9 +256,8 @@ public static class CommonUtil
             }
             result.Add(newData);
         }
-        var export = new ExcelExporter();
-        var res = await export.ExportAsByteArray(result);
 
+        var res = await new ExcelExporter().ExportAsByteArray(result);
         return new FileContentResult(res, "application/octet-stream") { FileDownloadName = typeof(TTarget).Name + ".xlsx" };
     }
 
@@ -216,12 +268,10 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file) where T : class, new()
     {
-        IImporter importer = new ExcelImporter();
-        var res = await importer.Import<T>(file.OpenReadStream());
-        var message = string.Empty;
-
+        var res = await new ExcelImporter().Import<T>(file.OpenReadStream());
         if (!res.HasError) return res.Data;
 
+        var message = string.Empty;
         if (res.Exception != null)
             message += $"\r\n{res.Exception.Message}";
         foreach (DataRowErrorInfo drErrorInfo in res.RowErrors)
@@ -243,20 +293,20 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<ICollection<T>> ImportExcelData<T>([Required] IFormFile file, Func<ImportResult<T>, ImportResult<T>> importResultCallback = null) where T : class, new()
     {
-        IImporter importer = new ExcelImporter();
         var resultStream = new MemoryStream();
-        var res = await importer.Import<T>(file.OpenReadStream(), resultStream, importResultCallback);
+        var res = await new ExcelImporter().Import<T>(file.OpenReadStream(), resultStream, importResultCallback);
         resultStream.Seek(0, SeekOrigin.Begin);
-        var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
-
-        SysCacheService.Remove(CacheConst.KeyExcelTemp + userId);
-        SysCacheService.Set(CacheConst.KeyExcelTemp + userId, resultStream, TimeSpan.FromMinutes(5));
-
-        var message = string.Empty;
         if (!res.HasError) return res.Data;
 
+        var message = string.Empty;
         if (res.Exception != null)
             message += $"\r\n{res.Exception.Message}";
+
+        var userId = App.User?.FindFirst(ClaimConst.UserId)?.Value;
+        var sysCacheService = App.GetRequiredService<SysCacheService>();
+        sysCacheService.Remove(CacheConst.KeyExcelTemp + userId);
+        sysCacheService.Set(CacheConst.KeyExcelTemp + userId, resultStream, TimeSpan.FromMinutes(5));
+
         foreach (DataRowErrorInfo drErrorInfo in res.RowErrors)
         {
             message = drErrorInfo.FieldErrors.Aggregate(message, (current, item) => current + $"\r\n{item.Key}：{item.Value}（文件第{drErrorInfo.RowIndex}行）");
@@ -265,7 +315,7 @@ public static class CommonUtil
             message += "\r\n字段缺失：" + string.Join("，", res.TemplateErrors.Select(m => m.RequireColumnName).ToList());
 
         if (message.Length > 200)
-            message = message.Substring(0, 200) + "...\r\n异常过多，建议下载错误标记文件查看详细错误信息并重新导入。";
+            message = string.Concat(message.AsSpan(0, 200), "...\r\n异常过多，建议下载错误标记文件查看详细错误信息并重新导入。");
         throw Oops.Oh("导入异常:" + message);
     }
 
@@ -277,16 +327,10 @@ public static class CommonUtil
     /// <returns></returns>
     public static async Task<List<T>> ImportExcelDataAsync<T>([Required] IFormFile file) where T : class, new()
     {
-        var newFile = await SysFileService.UploadFile(new UploadFileInput { File = file });
+        using MemoryStream stream = new();
+        await file.CopyToAsync(stream);
 
-        await using var fileStream = await SysFileService.GetFileStream(newFile);
-
-        IImporter importer = new ExcelImporter();
-        var res = await importer.Import<T>(fileStream);
-
-        // 删除文件
-        await SysFileService.DeleteFile(new BaseIdInput { Id = newFile.Id });
-
+        var res = await ((IImporter)new ExcelImporter()).Import<T>(stream);
         if (res == null)
             throw Oops.Oh("导入数据为空");
         if (res.Exception != null)
@@ -294,7 +338,7 @@ public static class CommonUtil
         if (res.TemplateErrors?.Count > 0)
             throw Oops.Oh("模板异常:" + res.TemplateErrors.Select(x => $"[{x.RequireColumnName}]{x.Message}").Join("\n"));
 
-        return res.Data.ToList();
+        return [.. res.Data];
     }
 
     // 例：List<Dm_ApplyDemo> ls = CommonUtil.ParseList<Dm_ApplyDemoInport, Dm_ApplyDemo>(importResult.Data);
@@ -379,8 +423,8 @@ public static class CommonUtil
                     .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
                     .Select((u, a) => new
                     {
-                        Label = a.Label,
-                        Value = a.Value
+                        a.Label,
+                        a.Value
                     }).ToList()
                     .ToDictionary(u => u.Label, u => u.Value.ParseTo(targetProp.PropertyType));
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(mappingValues, propertyInfo, targetProp));
@@ -388,7 +432,7 @@ public static class CommonUtil
             else
             {
                 propMappings.Add(propertyInfo.Name, new Tuple<Dictionary<string, object>, PropertyInfo, PropertyInfo>(
-                    null, propertyInfo, tTargetProps.ContainsKey(propertyInfo.Name) ? tTargetProps[propertyInfo.Name] : null));
+                    null, propertyInfo, tTargetProps.TryGetValue(propertyInfo.Name, out PropertyInfo value) ? value : null));
             }
         }
 
@@ -406,6 +450,7 @@ public static class CommonUtil
         // 整理导入对象的属性名称，<字典数据，原属性信息，目标属性信息>
         var propMappings = new Dictionary<string, Tuple<Dictionary<object, string>, PropertyInfo, PropertyInfo>>();
 
+        var dictService = App.GetRequiredService<SqlSugarRepository<SysDictData>>();
         var targetProps = typeof(TTarget).GetProperties().ToList();
         var sourceProps = typeof(TSource).GetProperties().ToDictionary(u => u.Name);
         foreach (var propertyInfo in targetProps)
@@ -414,7 +459,7 @@ public static class CommonUtil
             if (attrs != null && !string.IsNullOrWhiteSpace(attrs.TypeCode))
             {
                 var targetProp = sourceProps[attrs.TargetPropName];
-                var mappingValues = SysDictDataRep.Context.Queryable<SysDictType, SysDictData>((u, a) =>
+                var mappingValues = dictService.Context.Queryable<SysDictType, SysDictData>((u, a) =>
                     new JoinQueryInfos(JoinType.Inner, u.Id == a.DictTypeId))
                     .Where(u => u.Code == attrs.TypeCode)
                     .Where((u, a) => u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable)
@@ -469,7 +514,9 @@ public static class CommonUtil
         {
             var ipInfo = IpTool.SearchWithI18N(ip); // 国际化查询，默认中文 中文zh-CN、英文en
             var addressList = new List<string>() { ipInfo.Country, ipInfo.Province, ipInfo.City, ipInfo.NetworkOperator };
-            return (string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()), ipInfo.Longitude, ipInfo.Latitude); // 去掉0及空并用空格连接
+            var location = string.Join(" ", addressList.Where(u => u != "0" && !string.IsNullOrWhiteSpace(u)).ToList()); // 去掉0及空并用空格连接
+            if (string.IsNullOrWhiteSpace(location)) location = "未知";
+            return (location, ipInfo.Longitude, ipInfo.Latitude);
         }
         catch
         {
@@ -479,25 +526,111 @@ public static class CommonUtil
     }
 
     /// <summary>
-    /// 获取客户端设备信息（操作系统+浏览器）
+    /// 获取客户端设备信息（操作系统和浏览器）
+    /// </summary>
+    /// <param name="userAgent">User-Agent字符串</param>
+    /// <returns>(操作系统, 浏览器)</returns>
+    public static (string os, string browser) GetClientDeviceInfo(string userAgent)
+    {
+        if (string.IsNullOrWhiteSpace(userAgent)) return ("Unknown", "Unknown");
+
+        try
+        {
+            var client = Parser.GetDefault().Parse(userAgent);
+
+            // 爬虫检测
+            if (client.Device.IsSpider) return ("Spider", "Spider");
+
+            // 获取操作系统信息
+            var os = $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}".Trim();
+            // 获取浏览器信息
+            var browser = $"{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}".Trim();
+            return (os, browser);
+        }
+        catch
+        {
+            return ("Unknown", "Unknown");
+        }
+    }
+
+    /// <summary>
+    /// 从日志消息中获取用户信息
+    /// </summary>
+    /// <param name="loggingMonitor"></param>
+    /// <returns></returns>
+    public static LoggingUserInfo GetUserInfo(LoggingMonitorDto loggingMonitor)
+    {
+        LoggingUserInfo result = new();
+
+        // 从授权声明中获取用户信息
+        if (loggingMonitor.AuthorizationClaims != null)
+        {
+            var authDict = loggingMonitor.AuthorizationClaims.ToDictionary(u => u.Type, u => u.Value);
+            result.UserId = long.TryParse(authDict?.GetValueOrDefault(ClaimConst.UserId) ?? "", out var userId) ? userId : null;
+            result.Account = authDict?.GetValueOrDefault(ClaimConst.Account);
+            result.RealName = authDict?.GetValueOrDefault(ClaimConst.RealName);
+            result.TenantId = long.TryParse(authDict?.GetValueOrDefault(ClaimConst.TenantId) ?? "", out var tenantId) ? tenantId : null;
+        }
+
+        // 登录时从请求参数获取用户信息
+        if (result.UserId == null && loggingMonitor.ActionName == "login" && loggingMonitor.Parameters?.FirstOrDefault()?.Value is JObject jObject)
+        {
+            result.Account = jObject.GetValue("account")?.ToString();
+            if (string.IsNullOrEmpty(result.Account)) return result;
+
+            var db = SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.MainConfigId);
+            var user = db.Queryable<SysUser>().First(u => u.Account == result.Account);
+            if (user != null)
+            {
+                result.UserId = user.Id;
+                result.RealName = user.RealName;
+                result.TenantId = user.TenantId;
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 判断是否为移动端UA
     /// </summary>
     /// <param name="userAgent"></param>
     /// <returns></returns>
-    public static string GetClientDeviceInfo(string userAgent)
+    public static bool IsMobile(string userAgent)
     {
-        try
+        var mobilePatterns = new[] { "android.*mobile", "iphone", "ipod", "windows phone", "blackberry", "nokia", "mobile", "opera mini", "opera mobi", "palm", "webos", "bb\\d+", "meego" };
+        return mobilePatterns.Any(pattern => Regex.IsMatch(userAgent ?? "", pattern, RegexOptions.IgnoreCase));
+    }
+
+    /// <summary>
+    /// 获取对象属性变更的字典集合
+    /// </summary>
+    /// <param name="oldEntity">旧实体</param>
+    /// <param name="newEntity">新实体</param>
+    /// <param name="ignoreNull">忽略空值</param>
+    /// <returns></returns>
+    public static (Dictionary<string, object> oldValues, Dictionary<string, object> newValues) GetChangedDictionary<T>(T oldEntity, T newEntity, bool ignoreNull = false) where T : class
+    {
+        var newValues = new Dictionary<string, object>();
+        var oldValues = new Dictionary<string, object>();
+        var properties = typeof(T).GetProperties();
+        foreach (var prop in properties)
         {
-            if (userAgent != null)
+            var oldValue = prop.GetValue(oldEntity);
+            var newValue = prop.GetValue(newEntity);
+            if (newValue == null && ignoreNull) continue;
+
+            // 排除通用字段
+            if (CodeGenHelper.IsCommonColumn(prop.Name)) continue;
+
+            // 排除引用类型
+            if (prop.PropertyType.IsClass) continue;
+
+            if (!Equals(oldValue, newValue))
             {
-                var client = Parser.GetDefault().Parse(userAgent);
-                if (client.Device.IsSpider)
-                    return "爬虫";
-                return $"{client.OS.Family} {client.OS.Major} {client.OS.Minor}" +
-                    $"|{client.UA.Family} {client.UA.Major}.{client.UA.Minor} / {client.Device.Family}";
+                oldValues[prop.Name] = oldValue;
+                newValues[prop.Name] = newValue;
             }
         }
-        catch
-        { }
-        return "未知";
+        return (oldValues, newValues);
     }
 }

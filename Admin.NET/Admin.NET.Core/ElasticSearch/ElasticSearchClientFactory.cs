@@ -65,18 +65,21 @@ public class ElasticSearchClientFactory
             case ElasticSearchAuthTypeEnum.Basic:
                 settings.Authentication(new BasicAuthentication(options.User, options.Password));
                 break;
+
             case ElasticSearchAuthTypeEnum.ApiKey:
                 settings.Authentication(new ApiKey(options.ApiKey));
                 break;
+
             case ElasticSearchAuthTypeEnum.Base64ApiKey:
                 settings.Authentication(new Base64ApiKey(options.Base64ApiKey));
                 break;
+
             case ElasticSearchAuthTypeEnum.None:
                 // 无需认证
                 break;
+
             default:
                 throw new ArgumentOutOfRangeException(nameof(options.AuthType));
         }
     }
 }
-

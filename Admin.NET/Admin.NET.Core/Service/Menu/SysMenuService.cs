@@ -221,7 +221,8 @@ public class SysMenuService : IDynamicApiController, ITransient
         var sysMenu = input.Adapt<SysMenu>();
         CheckMenuParam(sysMenu);
 
-        await _sysMenuRep.AsTenant().UseTranAsync(async () => {
+        await _sysMenuRep.AsTenant().UseTranAsync(async () =>
+        {
             // 更新菜单
             await _sysMenuRep.AsUpdateable(sysMenu).ExecuteCommandAsync();
 
@@ -239,7 +240,8 @@ public class SysMenuService : IDynamicApiController, ITransient
                     Content = sysMenu.Title
                 });
             }
-        }, err => {
+        }, err =>
+        {
             Oops.Oh("更新数据时发生错误", err.Message);
         });
 
@@ -335,8 +337,8 @@ public class SysMenuService : IDynamicApiController, ITransient
         var permissions = _sysCacheService.Get<List<string>>(CacheConst.KeyUserButton + userId);
         if (permissions != null) return permissions;
 
-        var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new() : await GetMenuIdList();
-        if (menuIdList.Count <= 0 && !_userManager.SuperAdmin)
+        var menuIdList = _userManager.SuperAdmin ? new() : await GetMenuIdList();
+        if (menuIdList.Count <= 0 && !_userManager.SuperAdmin && !_userManager.SysAdmin)
         {
             //_sysCacheService.Set(CacheConst.KeyUserButton + userId, new List<string>(), TimeSpan.FromDays(7));
             return new List<string>();

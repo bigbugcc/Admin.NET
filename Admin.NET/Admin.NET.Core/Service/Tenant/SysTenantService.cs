@@ -520,11 +520,13 @@ public class SysTenantService : IDynamicApiController, ITransient
         if (menuList.Where(u => !string.IsNullOrWhiteSpace(u.Name)).GroupBy(u => u.Name).Any(u => u.Count() > 1))
             throw Oops.Oh(ErrorCodeEnum.D4009);
 
-        //获取旧记录数据   原ID不能改变  种子初始化后  数据重复
-        var tenantMenuList = await _sysTenantMenuRep.AsQueryable().Where(u => u.TenantId == input.Id).ToListAsync();
+        //获取默认租户授权菜单，种子数据主键ID保持不变，防止重复
+        var tenantMenuList = input.Id == SqlSugarConst.DefaultTenantId ? await _sysTenantMenuRep.AsQueryable().Where(u => u.TenantId == input.Id).ToListAsync() : null;
 
+        List<long> tenantIdList = [input.Id];
+        if (input.TenantIdList?.Count > 0) tenantIdList.AddRange(input.TenantIdList);
         // 删除旧记录
-        await _sysTenantMenuRep.AsDeleteable().Where(u => u.TenantId == input.Id).ExecuteCommandAsync();
+        await _sysTenantMenuRep.AsDeleteable().Where(u => tenantIdList.Contains(u.TenantId)).ExecuteCommandAsync();
 
         // 追加父级菜单
         var allIdList = await _sysTenantRep.Context.Queryable<SysMenu>().Select(u => new { u.Id, u.Pid }).ToListAsync();
@@ -532,15 +534,18 @@ public class SysTenantService : IDynamicApiController, ITransient
         input.MenuIdList = input.MenuIdList.Concat(pIdList).Distinct().Where(u => u != 0).ToList();
 
         // 保存租户菜单
-        var sysTenantMenuList = input.MenuIdList.Select(menuId => new SysTenantMenu { TenantId = input.Id, MenuId = menuId }).ToList();
+        List<SysTenantMenu> sysTenantMenuList = new();
+        tenantIdList.ForEach(tenantId =>
+        {
+            sysTenantMenuList.AddRange(input.MenuIdList.Select(menuId => new SysTenantMenu { TenantId = tenantId, MenuId = menuId }));
+        });
 
-        //原ID不变
+        //默认租户授权菜单主键ID不变
         foreach (var item in sysTenantMenuList)
         {
             var tenantMenu = tenantMenuList.FirstOrDefault(u => u.TenantId == item.TenantId && u.MenuId == item.MenuId);
             if (tenantMenu != null) item.Id = tenantMenu.Id;
         }
-
         await _sysTenantMenuRep.InsertRangeAsync(sysTenantMenuList);
 
         // 清除菜单权限缓存
