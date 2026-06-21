@@ -5,37 +5,49 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 
-namespace Admin.NET.Core.ElasticSearch;
+namespace Admin.NET.Core;
 
 /// <summary>
 /// ES服务注册
 /// </summary>
 public static class ElasticSearchSetup
 {
-    /// <summary>
-    /// 注册所有ES客户端（日志+业务）
-    /// </summary>
-    public static void AddElasticSearchClients(this IServiceCollection services)
+    public static void AddElasticSearch(this IServiceCollection services)
     {
-        // 1. 创建客户端字典（枚举→客户端实例）
-        var clients = new Dictionary<EsClientTypeEnum, ElasticsearchClient>();
+        var option = App.GetConfig<ElasticSearchOptions>("Logging:ElasticSearch");
+        if (!option.Enabled) return;
 
-        // 2. 注册日志客户端
-        var loggingClient = ElasticSearchClientFactory.CreateClient<ElasticSearchOptions>(configPath: "ElasticSearch:Logging");
-        if (loggingClient != null)
+        var uris = option.ServerUris.Select(u => new Uri(u));
+        // 集群
+        var connectionPool = new StaticNodePool(uris);
+        var connectionSettings = new ElasticsearchClientSettings(connectionPool).DefaultIndex(option.DefaultIndex);
+        // 单连接
+        //var connectionSettings = new ElasticsearchClientSettings(new StaticNodePool(new List<Uri> { uris.FirstOrDefault() })).DefaultIndex(option.DefaultIndex);
+
+        // 认证类型
+        if (option.AuthType == ElasticSearchAuthTypeEnum.Basic) // Basic 认证
         {
-            clients[EsClientTypeEnum.Logging] = loggingClient;
+            connectionSettings.Authentication(new BasicAuthentication(option.User, option.Password));
+        }
+        else if (option.AuthType == ElasticSearchAuthTypeEnum.ApiKey) // ApiKey 认证
+        {
+            connectionSettings.Authentication(new ApiKey(option.ApiKey));
+        }
+        else if (option.AuthType == ElasticSearchAuthTypeEnum.Base64ApiKey) // Base64ApiKey 认证
+        {
+            connectionSettings.Authentication(new Base64ApiKey(option.Base64ApiKey));
+        }
+        else return;
+
+        // ES使用Https时的证书指纹
+        if (!string.IsNullOrEmpty(option.Fingerprint))
+        {
+            connectionSettings.CertificateFingerprint(option.Fingerprint);
         }
 
-        // 3. 注册业务客户端
-        var businessClient = ElasticSearchClientFactory.CreateClient<ElasticSearchOptions>(configPath: "ElasticSearch:Business");
-        if (businessClient != null)
-        {
-            clients[EsClientTypeEnum.Business] = businessClient;
-        }
-
-        // 4. 将客户端容器注册为单例（全局唯一）
-        services.AddSingleton(new ElasticSearchClientContainer(clients));
+        var client = new ElasticsearchClient(connectionSettings);
+        services.AddSingleton(client); // 单例注册
     }
 }
