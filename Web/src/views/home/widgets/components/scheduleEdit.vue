@@ -145,7 +145,7 @@ defineExpose({ openDialog });
 		color: red;
 	}
 }
-:v-deep(.el-select__prefix) {
+:deep(.el-select__prefix) {
 	display: none !important;
 }
 .time-padding-right {

@@ -86,6 +86,14 @@ export interface UpdateSysLdapInput {
     isDelete?: boolean;
 
     /**
+     * 软删除时间
+     *
+     * @type {Date}
+     * @memberof UpdateSysLdapInput
+     */
+    deleteTime?: Date | null;
+
+    /**
      * 租户Id
      *
      * @type {number}

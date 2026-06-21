@@ -13,7 +13,7 @@
  */
 
 import { StatusEnum } from './status-enum';
-//import { SysOrg } from './sys-org';
+import { SysOrg } from './sys-org';
  /**
  * 系统机构表
  *

@@ -12,13 +12,27 @@
  * Do not edit the class manually.
  */
 
-/**
- * 租户类型枚举<br />&nbsp;ID隔离 Id = 0<br />&nbsp;库隔离 Db = 1<br />
+ /**
+ * 批量启用/禁用存储提供者输入参数
+ *
  * @export
- * @enum {string}
+ * @interface BatchEnableProviderInput
  */
-export enum TenantTypeEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1
-}
+export interface BatchEnableProviderInput {
 
+    /**
+     * 存储提供者ID列表
+     *
+     * @type {Array<number>}
+     * @memberof BatchEnableProviderInput
+     */
+    ids: Array<number>;
+
+    /**
+     * 是否启用
+     *
+     * @type {boolean}
+     * @memberof BatchEnableProviderInput
+     */
+    isEnable?: boolean;
+}

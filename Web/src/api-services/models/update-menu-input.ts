@@ -139,7 +139,7 @@ export interface UpdateMenuInput {
      * @type {string}
      * @memberof UpdateMenuInput
      */
-    icon?: string;
+    icon?: string | null;
 
     /**
      * 是否内嵌

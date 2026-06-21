@@ -11,344 +11,444 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { AccountTypeEnum } from './account-type-enum';
 import { CardTypeEnum } from './card-type-enum';
 import { CultureLevelEnum } from './culture-level-enum';
 import { GenderEnum } from './gender-enum';
 import { StatusEnum } from './status-enum';
 import { SysOrg } from './sys-org';
-/**
+ /**
  * 
+ *
  * @export
  * @interface UserOutput
  */
 export interface UserOutput {
+
     /**
      * 雪花Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     id?: number;
+
     /**
      * 创建时间
+     *
      * @type {Date}
      * @memberof UserOutput
      */
     createTime?: Date;
+
     /**
      * 更新时间
+     *
      * @type {Date}
      * @memberof UserOutput
      */
     updateTime?: Date | null;
+
     /**
      * 创建者Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     createUserId?: number | null;
+
     /**
      * 创建者姓名
+     *
      * @type {string}
      * @memberof UserOutput
      */
     createUserName?: string | null;
+
     /**
      * 修改者Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     updateUserId?: number | null;
+
     /**
      * 修改者姓名
+     *
      * @type {string}
      * @memberof UserOutput
      */
     updateUserName?: string | null;
+
     /**
      * 机构Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     orgId?: number;
+
     /**
      * 租户Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     tenantId?: number | null;
+
     /**
      * 账号
+     *
      * @type {string}
      * @memberof UserOutput
      */
     account: string;
+
     /**
      * 真实姓名
+     *
      * @type {string}
      * @memberof UserOutput
      */
     realName?: string | null;
+
     /**
      * 昵称
+     *
      * @type {string}
      * @memberof UserOutput
      */
     nickName?: string | null;
+
     /**
      * 头像
+     *
      * @type {string}
      * @memberof UserOutput
      */
     avatar?: string | null;
+
     /**
-     * 
      * @type {GenderEnum}
      * @memberof UserOutput
      */
     sex?: GenderEnum;
+
     /**
      * 年龄
+     *
      * @type {number}
      * @memberof UserOutput
      */
     age?: number;
+
     /**
      * 出生日期
+     *
      * @type {Date}
      * @memberof UserOutput
      */
     birthday?: Date | null;
+
     /**
      * 民族
+     *
      * @type {string}
      * @memberof UserOutput
      */
     nation?: string | null;
+
     /**
      * 手机号码
+     *
      * @type {string}
      * @memberof UserOutput
      */
     phone?: string | null;
+
     /**
-     * 
      * @type {CardTypeEnum}
      * @memberof UserOutput
      */
     cardType?: CardTypeEnum;
+
     /**
      * 身份证号
+     *
      * @type {string}
      * @memberof UserOutput
      */
     idCardNum?: string | null;
+
     /**
      * 邮箱
+     *
      * @type {string}
      * @memberof UserOutput
      */
     email?: string | null;
+
     /**
      * 地址
+     *
      * @type {string}
      * @memberof UserOutput
      */
     address?: string | null;
+
     /**
-     * 
      * @type {CultureLevelEnum}
      * @memberof UserOutput
      */
     cultureLevel?: CultureLevelEnum;
+
     /**
      * 政治面貌
+     *
      * @type {string}
      * @memberof UserOutput
      */
     politicalOutlook?: string | null;
+
     /**
      * 毕业院校
+     *
      * @type {string}
      * @memberof UserOutput
      */
     college?: string | null;
+
     /**
      * 办公电话
+     *
      * @type {string}
      * @memberof UserOutput
      */
     officePhone?: string | null;
+
     /**
      * 紧急联系人
+     *
      * @type {string}
      * @memberof UserOutput
      */
     emergencyContact?: string | null;
+
     /**
      * 紧急联系人电话
+     *
      * @type {string}
      * @memberof UserOutput
      */
     emergencyPhone?: string | null;
+
     /**
      * 紧急联系人地址
+     *
      * @type {string}
      * @memberof UserOutput
      */
     emergencyAddress?: string | null;
+
     /**
      * 个人简介
+     *
      * @type {string}
      * @memberof UserOutput
      */
     introduction?: string | null;
+
     /**
      * 排序
+     *
      * @type {number}
      * @memberof UserOutput
      */
     orderNo?: number;
+
     /**
-     * 
      * @type {StatusEnum}
      * @memberof UserOutput
      */
     status?: StatusEnum;
+
     /**
      * 备注
+     *
      * @type {string}
      * @memberof UserOutput
      */
     remark?: string | null;
+
     /**
-     * 
      * @type {AccountTypeEnum}
      * @memberof UserOutput
      */
     accountType?: AccountTypeEnum;
+
     /**
-     * 
      * @type {SysOrg}
      * @memberof UserOutput
      */
     sysOrg?: SysOrg;
+
     /**
      * 直属主管Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     managerUserId?: number | null;
+
     /**
      * 职位Id
+     *
      * @type {number}
      * @memberof UserOutput
      */
     posId?: number;
+
     /**
      * 工号
+     *
      * @type {string}
      * @memberof UserOutput
      */
     jobNum?: string | null;
+
     /**
      * 职级
+     *
      * @type {string}
      * @memberof UserOutput
      */
     posLevel?: string | null;
+
     /**
      * 职称
+     *
      * @type {string}
      * @memberof UserOutput
      */
     posTitle?: string | null;
+
     /**
      * 擅长领域
+     *
      * @type {string}
      * @memberof UserOutput
      */
     expertise?: string | null;
+
     /**
      * 办公区域
+     *
      * @type {string}
      * @memberof UserOutput
      */
     officeZone?: string | null;
+
     /**
      * 办公室
+     *
      * @type {string}
      * @memberof UserOutput
      */
     office?: string | null;
+
     /**
      * 入职日期
+     *
      * @type {Date}
      * @memberof UserOutput
      */
     joinDate?: Date | null;
+
     /**
      * 最新登录Ip
+     *
      * @type {string}
      * @memberof UserOutput
      */
     lastLoginIp?: string | null;
+
     /**
      * 最新登录地点
+     *
      * @type {string}
      * @memberof UserOutput
      */
     lastLoginAddress?: string | null;
+
     /**
      * 最新登录时间
+     *
      * @type {Date}
      * @memberof UserOutput
      */
     lastLoginTime?: Date | null;
+
     /**
      * 最新登录设备
+     *
      * @type {string}
      * @memberof UserOutput
      */
     lastLoginDevice?: string | null;
+
     /**
      * 电子签名
+     *
      * @type {string}
      * @memberof UserOutput
      */
     signature?: string | null;
+
     /**
      * 语言代码（如 zh-CN）
+     *
      * @type {string}
      * @memberof UserOutput
      */
     langCode?: string | null;
+
     /**
      * 个性化首页地址
+     *
      * @type {string}
      * @memberof UserOutput
      */
     homepage?: string | null;
+
     /**
      * 机构名称
+     *
      * @type {string}
      * @memberof UserOutput
      */
     orgName?: string | null;
+
     /**
      * 职位名称
+     *
      * @type {string}
      * @memberof UserOutput
      */
     posName?: string | null;
+
     /**
      * 角色名称
+     *
      * @type {string}
      * @memberof UserOutput
      */
     roleName?: string | null;
+
     /**
      * 域用户
+     *
      * @type {string}
      * @memberof UserOutput
      */

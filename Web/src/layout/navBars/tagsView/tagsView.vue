@@ -601,7 +601,7 @@ watch(
 	background-color: var(--el-color-white);
 	border-bottom: 1px solid var(--next-border-color-light);
 	position: relative;
-	z-index: 199;
+	z-index: 100;
 	:deep(.el-scrollbar__wrap) {
 		overflow-x: auto !important;
 	}

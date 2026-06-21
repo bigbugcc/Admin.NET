@@ -12,60 +12,68 @@
  * Do not edit the class manually.
  */
 
-import { OrgTreeOutput } from './org-tree-output';
+import { SysFileProvider } from './sys-file-provider';
  /**
- * 机构树形输出
+ * 分页泛型集合
  *
  * @export
- * @interface OrgTreeOutput
+ * @interface SqlSugarPagedListSysFileProvider
  */
-export interface OrgTreeOutput {
+export interface SqlSugarPagedListSysFileProvider {
 
     /**
-     * 主键Id
+     * 页码
      *
      * @type {number}
-     * @memberof OrgTreeOutput
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    id?: number;
+    page?: number;
 
     /**
-     * 租户Id
+     * 页容量
      *
      * @type {number}
-     * @memberof OrgTreeOutput
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    tenantId?: number;
+    pageSize?: number;
 
     /**
-     * 父Id
+     * 总条数
      *
      * @type {number}
-     * @memberof OrgTreeOutput
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    pid?: number;
+    total?: number;
 
     /**
-     * 名称
+     * 总页数
      *
-     * @type {string}
-     * @memberof OrgTreeOutput
+     * @type {number}
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    name?: string | null;
+    totalPages?: number;
 
     /**
-     * 机构子项
+     * 当前页集合
      *
-     * @type {Array<OrgTreeOutput>}
-     * @memberof OrgTreeOutput
+     * @type {Array<SysFileProvider>}
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    children?: Array<OrgTreeOutput> | null;
+    items?: Array<SysFileProvider> | null;
 
     /**
-     * 是否禁止选中
+     * 是否有上一页
      *
      * @type {boolean}
-     * @memberof OrgTreeOutput
+     * @memberof SqlSugarPagedListSysFileProvider
      */
-    disabled?: boolean;
+    hasPrevPage?: boolean;
+
+    /**
+     * 是否有下一页
+     *
+     * @type {boolean}
+     * @memberof SqlSugarPagedListSysFileProvider
+     */
+    hasNextPage?: boolean;
 }

@@ -12,60 +12,60 @@
  * Do not edit the class manually.
  */
 
-import { OrgTreeOutput } from './org-tree-output';
+import { SysFileProvider } from './sys-file-provider';
  /**
- * 机构树形输出
+ * 全局返回结果
  *
  * @export
- * @interface OrgTreeOutput
+ * @interface AdminResultListSysFileProvider
  */
-export interface OrgTreeOutput {
+export interface AdminResultListSysFileProvider {
 
     /**
-     * 主键Id
+     * 状态码
      *
      * @type {number}
-     * @memberof OrgTreeOutput
+     * @memberof AdminResultListSysFileProvider
      */
-    id?: number;
+    code?: number;
 
     /**
-     * 租户Id
-     *
-     * @type {number}
-     * @memberof OrgTreeOutput
-     */
-    tenantId?: number;
-
-    /**
-     * 父Id
-     *
-     * @type {number}
-     * @memberof OrgTreeOutput
-     */
-    pid?: number;
-
-    /**
-     * 名称
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof OrgTreeOutput
+     * @memberof AdminResultListSysFileProvider
      */
-    name?: string | null;
+    type?: string | null;
 
     /**
-     * 机构子项
+     * 错误信息
      *
-     * @type {Array<OrgTreeOutput>}
-     * @memberof OrgTreeOutput
+     * @type {string}
+     * @memberof AdminResultListSysFileProvider
      */
-    children?: Array<OrgTreeOutput> | null;
+    message?: string | null;
 
     /**
-     * 是否禁止选中
+     * 数据
      *
-     * @type {boolean}
-     * @memberof OrgTreeOutput
+     * @type {Array<SysFileProvider>}
+     * @memberof AdminResultListSysFileProvider
      */
-    disabled?: boolean;
+    result?: Array<SysFileProvider> | null;
+
+    /**
+     * 附加数据
+     *
+     * @type {any}
+     * @memberof AdminResultListSysFileProvider
+     */
+    extras?: any | null;
+
+    /**
+     * 时间
+     *
+     * @type {Date}
+     * @memberof AdminResultListSysFileProvider
+     */
+    time?: Date;
 }

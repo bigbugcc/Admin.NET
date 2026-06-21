@@ -29,6 +29,14 @@ export interface RoleMenuInput {
     id: number;
 
     /**
+     * 同步角色Id集合
+     *
+     * @type {Array<number>}
+     * @memberof RoleMenuInput
+     */
+    roleIdList?: Array<number> | null;
+
+    /**
      * 菜单Id集合
      *
      * @type {Array<number>}

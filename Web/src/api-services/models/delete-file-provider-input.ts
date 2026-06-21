@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-/**
- * 租户类型枚举<br />&nbsp;ID隔离 Id = 0<br />&nbsp;库隔离 Db = 1<br />
+ /**
+ * 删除文件存储提供者输入参数
+ *
  * @export
- * @enum {string}
+ * @interface DeleteFileProviderInput
  */
-export enum TenantTypeEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1
-}
+export interface DeleteFileProviderInput {
 
+    /**
+     * 主键Id
+     *
+     * @type {number}
+     * @memberof DeleteFileProviderInput
+     */
+    id: number;
+}

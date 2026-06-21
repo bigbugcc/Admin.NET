@@ -29,6 +29,14 @@ export interface TenantMenuInput {
     id: number;
 
     /**
+     * 同步租户Id集合
+     *
+     * @type {Array<number>}
+     * @memberof TenantMenuInput
+     */
+    tenantIdList?: Array<number> | null;
+
+    /**
      * 菜单Id集合
      *
      * @type {Array<number>}

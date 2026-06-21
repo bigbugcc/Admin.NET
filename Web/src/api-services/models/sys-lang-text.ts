@@ -85,7 +85,7 @@ export interface SysLangText {
     entityName?: string | null;
 
     /**
-     * 语言代码（如 zh-CN）
+     * 所属实体ID
      *
      * @type {number}
      * @memberof SysLangText

@@ -51,4 +51,28 @@ export interface SysFileUploadFileBody {
      * @memberof SysFileUploadFileBody
      */
     allowSuffix?: string;
+
+    /**
+     * 指定存储桶名称
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    bucketName?: string;
+
+    /**
+     * 指定存储提供者ID
+     *
+     * @type {number}
+     * @memberof SysFileUploadFileBody
+     */
+    providerId?: number;
+
+    /**
+     * 业务数据Id
+     *
+     * @type {number}
+     * @memberof SysFileUploadFileBody
+     */
+    dataId?: number;
 }

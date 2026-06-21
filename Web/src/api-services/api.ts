@@ -26,6 +26,7 @@ export * from './apis/sys-dict-type-api';
 export * from './apis/sys-email-api';
 export * from './apis/sys-enum-api';
 export * from './apis/sys-file-api';
+export * from './apis/sys-file-provider-api';
 export * from './apis/sys-job-api';
 export * from './apis/sys-lang-api';
 export * from './apis/sys-lang-text-api';

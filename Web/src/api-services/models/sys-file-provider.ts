@@ -12,22 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { MenuTypeEnum } from './menu-type-enum';
-import { StatusEnum } from './status-enum';
-import { SysMenu } from './sys-menu';
  /**
- * 系统菜单表
+ * 系统文件存储提供者表
  *
  * @export
- * @interface SysMenu
+ * @interface SysFileProvider
  */
-export interface SysMenu {
+export interface SysFileProvider {
 
     /**
      * 雪花Id
      *
      * @type {number}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     id?: number;
 
@@ -35,7 +32,7 @@ export interface SysMenu {
      * 创建时间
      *
      * @type {Date}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     createTime?: Date;
 
@@ -43,7 +40,7 @@ export interface SysMenu {
      * 更新时间
      *
      * @type {Date}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     updateTime?: Date | null;
 
@@ -51,7 +48,7 @@ export interface SysMenu {
      * 创建者Id
      *
      * @type {number}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     createUserId?: number | null;
 
@@ -59,7 +56,7 @@ export interface SysMenu {
      * 创建者姓名
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     createUserName?: string | null;
 
@@ -67,7 +64,7 @@ export interface SysMenu {
      * 修改者Id
      *
      * @type {number}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     updateUserId?: number | null;
 
@@ -75,147 +72,135 @@ export interface SysMenu {
      * 修改者姓名
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     updateUserName?: string | null;
 
     /**
-     * 父Id
+     * 租户Id
      *
      * @type {number}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    pid?: number;
+    tenantId?: number | null;
 
     /**
-     * @type {MenuTypeEnum}
-     * @memberof SysMenu
-     */
-    type?: MenuTypeEnum;
-
-    /**
-     * 路由名称
+     * 存储提供者（Minio， QCloud，Aliyun 等等）
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    name?: string | null;
+    provider: string;
 
     /**
-     * 路由地址
+     * 存储桶名称
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    path?: string | null;
+    bucketName: string;
 
     /**
-     * 组件路径
+     * 访问密钥 （填入 阿里云（Aliyun）/Minio：的 AccessKey，腾讯云（QCloud）: 的 SecretId）
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    component?: string | null;
+    accessKey?: string | null;
 
     /**
-     * 重定向
+     * 密钥
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    redirect?: string | null;
+    secretKey?: string | null;
 
     /**
-     * 权限标识
+     * 地域
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    permission?: string | null;
+    region?: string | null;
 
     /**
-     * 菜单名称
+     * 端点地址（填入 阿里云（Aliyun）/Minio：的 endpoint/Api address，腾讯云（QCloud）: 的 AppId）
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    title: string;
+    endpoint?: string | null;
 
     /**
-     * 图标
-     *
-     * @type {string}
-     * @memberof SysMenu
-     */
-    icon?: string | null;
-
-    /**
-     * 是否内嵌
+     * 是否启用HTTPS
      *
      * @type {boolean}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    isIframe?: boolean;
+    isEnableHttps?: boolean | null;
 
     /**
-     * 外链链接
+     * 是否启用缓存
+     *
+     * @type {boolean}
+     * @memberof SysFileProvider
+     */
+    isEnableCache?: boolean | null;
+
+    /**
+     * 是否启用
+     *
+     * @type {boolean}
+     * @memberof SysFileProvider
+     */
+    isEnable?: boolean | null;
+
+    /**
+     * 是否默认提供者
+     *
+     * @type {boolean}
+     * @memberof SysFileProvider
+     */
+    isDefault?: boolean | null;
+
+    /**
+     * 自定义域名
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    outLink?: string | null;
+    sinceDomain?: string | null;
 
     /**
-     * 是否隐藏
-     *
-     * @type {boolean}
-     * @memberof SysMenu
-     */
-    isHide?: boolean;
-
-    /**
-     * 是否缓存
-     *
-     * @type {boolean}
-     * @memberof SysMenu
-     */
-    isKeepAlive?: boolean;
-
-    /**
-     * 是否固定
-     *
-     * @type {boolean}
-     * @memberof SysMenu
-     */
-    isAffix?: boolean;
-
-    /**
-     * 排序
+     * 排序号
      *
      * @type {number}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
-    orderNo?: number;
-
-    /**
-     * @type {StatusEnum}
-     * @memberof SysMenu
-     */
-    status?: StatusEnum;
+    orderNo?: number | null;
 
     /**
      * 备注
      *
      * @type {string}
-     * @memberof SysMenu
+     * @memberof SysFileProvider
      */
     remark?: string | null;
 
     /**
-     * 菜单子项
+     * 获取显示名称
      *
-     * @type {Array<SysMenu>}
-     * @memberof SysMenu
+     * @type {string}
+     * @memberof SysFileProvider
      */
-    children?: Array<SysMenu> | null;
+    displayName?: string | null;
+
+    /**
+     * 获取配置键名
+     *
+     * @type {string}
+     * @memberof SysFileProvider
+     */
+    configKey?: string | null;
 }

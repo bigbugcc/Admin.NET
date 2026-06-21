@@ -11,26 +11,34 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
+
+ /**
  * 用户登录结果
+ *
  * @export
  * @interface LoginOutput
  */
 export interface LoginOutput {
+
     /**
      * 令牌Token
+     *
      * @type {string}
      * @memberof LoginOutput
      */
     accessToken?: string | null;
+
     /**
      * 刷新Token
+     *
      * @type {string}
      * @memberof LoginOutput
      */
     refreshToken?: string | null;
+
     /**
      * 个性化首页
+     *
      * @type {string}
      * @memberof LoginOutput
      */

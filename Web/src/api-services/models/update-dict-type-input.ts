@@ -118,18 +118,18 @@ export interface UpdateDictTypeInput {
     status?: StatusEnum;
 
     /**
-     * @type {YesNoEnum}
-     * @memberof UpdateDictTypeInput
-     */
-    isTenant?: YesNoEnum;
-
-    /**
      * 字典值集合
      *
      * @type {Array<SysDictData>}
      * @memberof UpdateDictTypeInput
      */
     children?: Array<SysDictData> | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof UpdateDictTypeInput
+     */
+    isTenant?: YesNoEnum;
 
     /**
      * @type {YesNoEnum}
