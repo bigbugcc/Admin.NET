@@ -97,7 +97,7 @@
 				layout="total, sizes, prev, pager, next, jumper"
 			/>
 		</el-card>
-		<el-dialog v-model="state.dialogVisible" draggable fullscreen>
+		<!-- <el-dialog v-model="state.dialogVisible" draggable fullscreen>
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Document /> </el-icon>
@@ -105,7 +105,14 @@
 				</div>
 			</template>
 			<pre v-loading="state.loadingDetail">{{ state.content }}</pre>
-		</el-dialog>
+		</el-dialog> -->
+        <DialogPro v-model="state.dialogVisible" title="日志详情" prefix-icon="ele-Document" height="600px">
+            <pre v-loading="state.loadingDetail">{{ state.content }}</pre>
+            <template #footer>
+                <el-button >取 消</el-button>
+                <el-button type="primary" >确 定</el-button>
+            </template>
+        </DialogPro>
 	</div>
 </template>
 
@@ -119,6 +126,7 @@ import { SysLogOp } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
 import { SysLogOpApi } from '/@/api-services/api';
 import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
+import DialogPro from '/@/components/dialogPro/index.vue';
 
 const userStore = useUserInfo();
 const state = reactive({

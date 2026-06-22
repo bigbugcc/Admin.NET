@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="开始时间">
 					<el-date-picker v-model="state.queryParams.startTime" type="datetime" placeholder="开始时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
@@ -105,15 +103,13 @@
 				layout="total, sizes, prev, pager, next, jumper"
 			/>
 		</el-card>
-		<el-dialog v-model="state.dialogVisible" draggable fullscreen>
-			<template #header>
-				<div style="color: #fff">
-					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Document /> </el-icon>
-					<span> 日志详情 </span>
-				</div>
-			</template>
-			<pre v-loading="state.loadingDetail">{{ state.content }}</pre>
-		</el-dialog>
+		<DialogPro v-model="state.dialogVisible" title="日志详情" prefix-icon="ele-Document" width="70%" draggable  height="600px">
+            <pre v-loading="state.loadingDetail">{{ state.content }}</pre>
+            <template #footer>
+                <el-button >取 消</el-button>
+                <el-button type="primary" >确 定</el-button>
+            </template>
+        </DialogPro>
 	</div>
 </template>
 
@@ -126,12 +122,13 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysLogExApi, SysTenantApi } from '/@/api-services/api';
 import { SysLogEx } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
+import DialogPro from '/@/components/dialogPro/dialog.vue';
 
 const userStore = useUserInfo();
 const state = reactive({
 	loading: false,
 	loadingDetail: false,
-	tenantList: [] as Array<any>,
 	queryParams: {
 		tenantId: undefined,
 		startTime: undefined,
@@ -158,7 +155,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();
