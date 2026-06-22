@@ -87,33 +87,32 @@
 						{{ getProperty(scope.row, item.prop) }}
 					</template>
 				</template>
-				<el-table-column v-for="(childrenItem, childrenIndex) in item.children" :key="childrenIndex" v-bind="childrenItem">
-					<!-- 自定义列插槽，插槽名为columns属性的prop -->
-					<template #default="scope" v-if="$slots[childrenItem.prop]">
-						<formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
-						<slot v-else :name="childrenItem.prop" v-bind="scope"></slot>
-					</template>
-					<template v-else v-slot="scope">
-						<formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
-						<template v-else-if="childrenItem.type === 'image'">
-							<el-image
-							    :style="{ width: `${childrenItem.width}px`, height: `${childrenItem.height}px` }"
-							    :src="scope.row[childrenItem.prop]"
-							    :zoom-rate="1.2"
-							    :preview-src-list="[scope.row[childrenItem.prop]]"
-							    preview-teleported
-							    fit="cover"
-							/>
-						</template>
-						<template v-else>
-							{{ getProperty(scope.row, childrenItem.prop) }}
-						</template>
-					</template>
-				</el-table-column>
+                <template v-else-if="item.children" v-slot="scope">
+                    <!-- 多表头支持，只需要在列定义里面添加children数组定义，数组内的定义与column完全相同 -->
+                    <el-table-column v-for="(childrenItem, childrenIndex) in item.children" :key="childrenIndex" v-bind="childrenItem">
+                        <template #default="scope" v-if="$slots[childrenItem.prop]">
+                            <formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
+                            <slot v-else :name="childrenItem.prop" v-bind="scope"></slot>
+                        </template>
+                        <template v-else v-slot="scope">
+                            <formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
+                            <template v-else-if="childrenItem.type === 'image'">
+                                <el-image
+                                    :style="{ width: `${childrenItem.width}px`, height: `${childrenItem.height}px` }"
+                                    :src="scope.row[childrenItem.prop]"
+                                    :zoom-rate="1.2"
+                                    :preview-src-list="[scope.row[childrenItem.prop]]"
+                                    preview-teleported
+                                    fit="cover"
+                                />
+                            </template>
+                            <template v-else>
+                                {{ getProperty(scope.row, childrenItem.prop) }}
+                            </template>
+                        </template>
+                    </el-table-column>
+                </template>
 			</el-table-column>
-			<!-- <template #empty>
-				<el-empty description="暂无数据" />
-			</template> -->
 		</el-table>
 		<div v-if="!config.hidePagination && state.showPagination" class="table-footer mt2">
 			<el-pagination 
