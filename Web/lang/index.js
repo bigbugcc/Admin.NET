@@ -3,14 +3,14 @@
     import langJSON from './index.json'
     (function () {
     // 定义翻译函数
-    let $t = function (key, val, nameSpace) {
+    let $tr = function (key, val, nameSpace) {
       // 获取指定命名空间下的语言包
-      const langPackage = $t[nameSpace];
+      const langPackage = $tr[nameSpace];
       // 返回翻译结果，如果不存在则返回默认值
       return (langPackage || {})[key] || val;
     };
     // 定义简单翻译函数，直接返回传入的值
-    let $$t = function (val) {
+    let $$tr = function (val) {
       return val;
     };
     globalThis.$deepScan = function (val) {
@@ -35,14 +35,14 @@
         }
     }
     // 定义设置语言包的方法
-    $t.locale = function (locale, nameSpace) {
+    $tr.locale = function (locale, nameSpace) {
       // 将指定命名空间下的语言包设置为传入的locale
-      $t[nameSpace] = locale || {};
+      $tr[nameSpace] = locale || {};
     };
     // 将翻译函数挂载到globalThis对象上，如果已经存在则使用已有的
-    globalThis.$t = globalThis.$t || $t;
+    globalThis.$tr = globalThis.$tr || $tr;
     // 将简单翻译函数挂载到globalThis对象上
-    globalThis.$$t = $$t;
+    globalThis.$$tr = $$tr;
     // 定义从JSON文件中获取指定键的语言对象的方法（合并模式）
     globalThis._getJSONKey = function (key, insertJSONObj = undefined) {
         // 获取JSON对象
@@ -60,10 +60,7 @@
     })();
     // 定义语言映射对象
     const langMap = {
-        'zhhk': (globalThis && globalThis.lang && globalThis.lang.zhhk) ? globalThis.lang.zhhk : globalThis._getJSONKey('zh-hk', langJSON),
-'zhtw': (globalThis && globalThis.lang && globalThis.lang.zhtw) ? globalThis.lang.zhtw : globalThis._getJSONKey('zh-tw', langJSON),
-'en': (globalThis && globalThis.lang && globalThis.lang.en) ? globalThis.lang.en : globalThis._getJSONKey('en', langJSON),
-'it': (globalThis && globalThis.lang && globalThis.lang.it) ? globalThis.lang.it : globalThis._getJSONKey('it', langJSON),
+        'en': (globalThis && globalThis.lang && globalThis.lang.en) ? globalThis.lang.en : globalThis._getJSONKey('en', langJSON),
 'zhcn': (globalThis && globalThis.lang && globalThis.lang.zhcn) ? globalThis.lang.zhcn : globalThis._getJSONKey('zh-cn', langJSON)
     };
     globalThis.langMap = langMap;
@@ -83,8 +80,8 @@
     const baseLang = withStorageLang ? globalThis.localStorage.getItem('lang') : 'zhcn';
     const lang = commonLang ? commonLang : baseLang;
     // 根据当前语言设置翻译函数的语言包
-    globalThis.$t.locale(globalThis.langMap[lang], 'lang');
+    globalThis.$tr.locale(globalThis.langMap[lang], 'lang');
     globalThis.$changeLang = (lang) => {
-        globalThis.$t.locale(globalThis.langMap[lang], 'lang');
+        globalThis.$tr.locale(globalThis.langMap[lang], 'lang');
     };
   
