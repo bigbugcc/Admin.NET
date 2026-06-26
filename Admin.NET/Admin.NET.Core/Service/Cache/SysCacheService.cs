@@ -114,7 +114,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
             }
 
             value = await ((dynamic)del).DynamicInvoke(obs);
-            if (value is ICollection { Count: 0 }) 
+            if (value is null or ICollection { Count: 0 }) 
             {
                 return value;
             }
