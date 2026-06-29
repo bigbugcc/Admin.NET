@@ -188,7 +188,7 @@ const bacthDelete = () => {
 			const ids = state.selectlist.map((item) => {
 				return item.id;
 			});
-			var res = await getAPI(SysTenantConfigApi).apiSysTenantConfigBatchDeletePost(ids);
+			await getAPI(SysTenantConfigApi).apiSysTenantConfigBatchDeletePost(ids);
 			tableRef.value.pageReset();
 			ElMessage.success('删除成功');
 		})
