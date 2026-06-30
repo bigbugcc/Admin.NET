@@ -5,7 +5,7 @@
                 <OrgTree ref="orgTreeRef" @node-click="nodeClick" />
             </el-splitter-panel>
             <el-splitter-panel :min="200" style="overflow: auto; display: flex; flex-direction: column;">
-                <el-card shadow="hover" :body-style="{ padding: 5 }">
+                <el-card shadow="hover" class="card-tight">
                     <el-form :model="state.queryParams" ref="queryForm" :inline="true">
                         <el-form-item label="机构名称">
                             <el-input v-model="state.queryParams.name" placeholder="机构名称" clearable />

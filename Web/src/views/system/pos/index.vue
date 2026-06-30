@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-pos-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
 					<TenantSelect v-model="state.queryParams.tenantId" clearable />

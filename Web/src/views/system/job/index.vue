@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-job-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="作业编号">
 					<el-input v-model="state.queryParams.jobId" placeholder="作业编号" clearable />

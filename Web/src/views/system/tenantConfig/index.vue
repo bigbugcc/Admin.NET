@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-config-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<TableSearch :search="tb.tableData.search" @search="onSearch" />
 		</el-card>
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">

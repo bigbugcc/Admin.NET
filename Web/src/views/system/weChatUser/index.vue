@@ -1,6 +1,6 @@
 <template>
 	<div class="weChatUser-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="微信昵称">
 					<el-input v-model="state.queryParams.nickName" placeholder="微信昵称" clearable />

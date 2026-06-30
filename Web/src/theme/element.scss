@@ -424,19 +424,16 @@
 	padding: 15px 20px;
 }
 
-.el-card__body:has(.el-form--small) {
-    --el-card-padding: 5px;
-}
 .el-card__body:has(.el-table--small) {
     --el-card-padding: 12px;
 }
 
-.el-card__body:has(.el-form--default) {
+.card-tight {
     --el-card-padding: 8px;
-}
 
-.el-card__body:has(.el-form--large) {
-    --el-card-padding: 10px;
+    .el-card__body:has(.el-form--small) {
+        --el-card-padding: 5px;
+    }
 }
 
 /* Table 表格 element plus 2.2.0 版本

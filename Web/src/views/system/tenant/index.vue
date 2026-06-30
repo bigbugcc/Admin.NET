@@ -1,6 +1,6 @@
 <template>
     <div class="sys-tenant-container">
-        <el-card shadow="hover" :body-style="{ padding: 5 }">
+        <el-card shadow="hover" class="card-tight">
             <el-form :model="state.queryParams" ref="queryForm" :inline="true">
                 <el-form-item label="租户名称">
                     <el-input v-model="state.queryParams.name" placeholder="租户名称" clearable />
