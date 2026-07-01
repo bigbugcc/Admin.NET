@@ -86,12 +86,12 @@ export const buildConfig = {
 				// 	path: 'dist/print.min.js',
 				// },
 				// {
-				// 	name: '@wangeditor/editor',
+				// 	name: '@wangeditor-next/editor',
 				// 	var: 'wangEditor',
 				// 	path: 'dist/index.min.js',
 				// },
 				// {
-				// 	name: '@wangeditor/editor-for-vue',
+				// 	name: '@wangeditor-next/editor-for-vue',
 				// 	var: 'WangEditorForVue',
 				// 	path: 'dist/index.min.js',
 				// },
@@ -118,8 +118,8 @@ export const buildConfig = {
 		// 'sortablejs',
 		// 'qrcodejs2-fixes',
 		// 'print-js',
-		// '@wangeditor/editor',
-		// '@wangeditor/editor-for-vue',
+		// '@wangeditor-next/editor',
+		// '@wangeditor-next/editor-for-vue',
 		// 'vue-grid-layout',
 	],
 };

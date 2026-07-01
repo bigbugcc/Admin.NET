@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts" name="notice">
-import '@wangeditor/editor/dist/css/style.css';
+import '@wangeditor-next/editor/dist/css/style.css';
 import { onMounted, reactive } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysNoticeApi } from '/@/api-services/api';
