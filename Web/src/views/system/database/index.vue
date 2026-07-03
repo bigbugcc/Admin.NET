@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-database-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true" v-loading="state.loading">
 				<el-form-item label="库名">
 					<el-select v-model="state.configId" placeholder="库名" filterable @change="handleQueryTable">

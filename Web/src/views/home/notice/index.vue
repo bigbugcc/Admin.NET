@@ -1,6 +1,6 @@
 <template>
     <div class="notice-container">
-        <el-card shadow="hover" :body-style="{ padding: 5 }">
+        <el-card shadow="hover" class="card-tight">
             <el-form :model="state.queryParams" ref="queryForm" :inline="true">
                 <el-form-item label="标题">
                     <el-input v-model="state.queryParams.title" placeholder="标题" clearable />
@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts" name="notice">
-import '@wangeditor/editor/dist/css/style.css';
+import '@wangeditor-next/editor/dist/css/style.css';
 import { onMounted, reactive } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysNoticeApi } from '/@/api-services/api';

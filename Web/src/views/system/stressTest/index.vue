@@ -145,9 +145,9 @@ onMounted(async () => {
 // 获取分组列表
 const getGroupList = async () => {
 	try {
-		const response = await request('/swagger-resources', { method: 'get' });
-        return response.data
-        .filter((resource: { name: string; url: string }) => !resource.url.toLowerCase().includes('all%20groups'))
+		const response = await request('/api/swagger/swaggerGroups', { method: 'get' });
+        return response.data.result
+        .filter((resource: { name: string; url: string }) => !resource.url.toLowerCase().includes('all%20groups') && !resource.url.toLowerCase().includes('all groups'))
         .map((resource: { name: string; url: string }) => {
             const rawUrl = resource.url || '';
             let fixedUrl = rawUrl.startsWith('//') ? 

@@ -1,6 +1,6 @@
 <template>
 	<div class="weChatPay-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }">
+		<el-card shadow="hover" class="card-tight">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="订单号">
 					<el-input v-model="state.queryParams.keyword" clearable placeholder="请输入订单号" />

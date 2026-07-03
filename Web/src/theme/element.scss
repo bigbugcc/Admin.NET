@@ -423,12 +423,17 @@
 .el-card__header {
 	padding: 15px 20px;
 }
-.el-card__body {
-	--el-card-padding: 8px;
+
+.el-card__body:has(.el-table--small) {
+    --el-card-padding: 12px;
 }
-   // 由于card没有size属性，所以通过其子元素来判断,当组件大小选择为默认时
-.el-card__body:has(.el-table--default) {
-    --el-card-padding: 20px;
+
+.card-tight {
+    --el-card-padding: 8px;
+
+    .el-card__body:has(.el-form--small) {
+        --el-card-padding: 5px;
+    }
 }
 
 /* Table 表格 element plus 2.2.0 版本

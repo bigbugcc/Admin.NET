@@ -5,7 +5,7 @@ declare module 'vform3-builds';
 declare module 'qrcodejs2-fixes';
 declare module 'splitpanes';
 declare module 'js-cookie';
-//declare module '@wangeditor/editor-for-vue';
+//declare module '@wangeditor-next/editor-for-vue';
 //declare module 'js-table2excel';
 //declare module 'qs';
 //declare module 'sortablejs';

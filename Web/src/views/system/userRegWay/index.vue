@@ -1,6 +1,6 @@
 ﻿<template>
 	<div class="sys-user-reg-way-container">
-		<el-card shadow="hover" :body-style="{ padding: 5 }" v-auth="'sysUserRegWay:list'">
+		<el-card shadow="hover" class="card-tight"v-auth="'sysUserRegWay:list'">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
 					<TenantSelect v-model="state.queryParams.tenantId" clearable />
