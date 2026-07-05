@@ -19,5 +19,5 @@ public interface IWorkWeixinAuthHttp : IHttpDeclarative
     /// <returns></returns>
     /// <see href="https://developer.work.weixin.qq.com/document/path/91039"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/gettoken")]
-    Task<AuthAccessTokenHttpOutput> GetToken([Query("corpid")] string corpId, [Query("corpsecret")] string corpSecret);
+    Task<AuthAccessTokenHttpOutput> GetToken([QueryParam("corpid")] string corpId, [QueryParam("corpsecret")] string corpSecret);
 }

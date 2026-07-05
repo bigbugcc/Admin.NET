@@ -19,7 +19,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="body"></param>
     /// <returns></returns>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/tag/create")]
-    Task<BaseWorkIdOutput> Create([Query("access_token")] string accessToken, [Body] TagHttpInput body);
+    Task<BaseWorkIdOutput> Create([QueryParam("access_token")] string accessToken, [Body] TagHttpInput body);
 
     /// <summary>
     /// 更新标签名字
@@ -29,7 +29,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="body"></param>
     /// <returns></returns>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/tag/update")]
-    Task<TagIdHttpOutput> Update([Query("access_token")] string accessToken, [Body] TagHttpInput body);
+    Task<TagIdHttpOutput> Update([QueryParam("access_token")] string accessToken, [Body] TagHttpInput body);
 
     /// <summary>
     /// 删除标签
@@ -39,7 +39,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="tagId"></param>
     /// <returns></returns>
     [Get("https://qyapi.weixin.qq.com/cgi-bin/tag/delete")]
-    Task<BaseWorkOutput> Delete([Query("access_token")] string accessToken, [Query("tagid")] long tagId);
+    Task<BaseWorkOutput> Delete([QueryParam("access_token")] string accessToken, [QueryParam("tagid")] long tagId);
 
     /// <summary>
     /// 获取标签详情
@@ -49,7 +49,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="tagId"></param>
     /// <returns></returns>
     [Get("https://qyapi.weixin.qq.com/cgi-bin/tag/get")]
-    Task<DepartmentOutput> Get([Query("access_token")] string accessToken, [Query("tagid")] long tagId);
+    Task<DepartmentOutput> Get([QueryParam("access_token")] string accessToken, [QueryParam("tagid")] long tagId);
 
     /// <summary>
     /// 增加标签成员
@@ -59,7 +59,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="body"></param>
     /// <returns></returns>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers")]
-    Task<DepartmentOutput> AddTagUsers([Query("access_token")] string accessToken, [Body] TagUsersTagInput body);
+    Task<DepartmentOutput> AddTagUsers([QueryParam("access_token")] string accessToken, [Body] TagUsersTagInput body);
 
     /// <summary>
     /// 删除标签成员
@@ -69,7 +69,7 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="body"></param>
     /// <returns></returns>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers")]
-    Task<DepartmentOutput> DelTagUsers([Query("access_token")] string accessToken, [Body] TagUsersTagInput body);
+    Task<DepartmentOutput> DelTagUsers([QueryParam("access_token")] string accessToken, [Body] TagUsersTagInput body);
 
     /// <summary>
     /// 获取标签列表
@@ -78,5 +78,5 @@ public interface ITagHttp : IHttpDeclarative
     /// <param name="accessToken"></param>
     /// <returns></returns>
     [Get("https://qyapi.weixin.qq.com/cgi-bin/tag/list")]
-    Task<TagListHttpOutput> List([Query("access_token")] string accessToken);
+    Task<TagListHttpOutput> List([QueryParam("access_token")] string accessToken);
 }

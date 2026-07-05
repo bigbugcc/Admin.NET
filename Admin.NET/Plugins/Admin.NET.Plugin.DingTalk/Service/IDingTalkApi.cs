@@ -15,7 +15,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <param name="appsecret"> 应用的密钥。AppKey和AppSecret可在钉钉开发者后台的应用详情页面获取。</param>
     /// <returns></returns>
     [Get("https://oapi.dingtalk.com/gettoken")]
-    Task<GetDingTalkTokenOutput> GetDingTalkToken([Query] string appkey, [Query] string appsecret);
+    Task<GetDingTalkTokenOutput> GetDingTalkToken([QueryParam] string appkey, [QueryParam] string appsecret);
 
     /// <summary>
     /// 获取在职员工列表
@@ -27,7 +27,7 @@ public interface IDingTalkApi : IHttpDeclarative
     Task<
         DingTalkBaseResponse<GetDingTalkCurrentEmployeesListOutput>
     > GetDingTalkCurrentEmployeesList(
-        [Query] string access_token,
+        [QueryParam] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required]
             GetDingTalkCurrentEmployeesListInput input
     );
@@ -42,7 +42,7 @@ public interface IDingTalkApi : IHttpDeclarative
     Task<
         DingTalkBaseResponse<List<DingTalkEmpRosterFieldVo>>
     > GetDingTalkCurrentEmployeesRosterList(
-        [Query] string access_token,
+        [QueryParam] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required]
             GetDingTalkCurrentEmployeesRosterListInput input
     );
@@ -74,7 +74,7 @@ public interface IDingTalkApi : IHttpDeclarative
     [Get("https://api.dingtalk.com/v1.0/robot/oToMessages/readStatus")]
     Task<GetDingTalkCardMessageReadStatusOutput> GetDingTalkCardMessageReadStatus(
         [Header("x-acs-dingtalk-access-token")] string token,
-        [Query] GetDingTalkCardMessageReadStatusInput input
+        [QueryParam] GetDingTalkCardMessageReadStatusInput input
     );
 
     /// <summary>
@@ -85,7 +85,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/role/list")]
     Task<DingTalkBaseResponse<DingTalkRoleListOutput>> GetDingTalkRoleList(
-        [Query] string access_token,
+        [QueryParam] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required]
             GetDingTalkCurrentRoleListInput input
     );
@@ -98,7 +98,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/role/simplelist")]
     Task<DingTalkBaseResponse<DingTalkRoleSimplelistOutput>> GetDingTalkRoleSimplelist(
-        [Query] string access_token,
+        [QueryParam] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required]
             GetDingTalkCurrentRoleSimplelistInput input
     );
@@ -124,7 +124,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/v2/department/listsub")]
     Task<DingTalkBaseResponse<List<DingTalkDeptOutput>>> GetDingTalkDept(
-        [Query] string access_token,
+        [QueryParam] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required]
             GetDingTalkDeptInput input
     );
@@ -151,6 +151,6 @@ public interface IDingTalkApi : IHttpDeclarative
     [Get("https://api.dingtalk.com/v1.0/workflow/processInstances")]
     Task<DingTalkGetProcessInstancesOutput> GetProcessInstances(
         [Header("x-acs-dingtalk-access-token")] string token,
-        [Query] string processInstanceId
+        [QueryParam] string processInstanceId
     );
 }

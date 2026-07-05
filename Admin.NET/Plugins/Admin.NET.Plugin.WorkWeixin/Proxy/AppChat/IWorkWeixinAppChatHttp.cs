@@ -19,7 +19,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <returns></returns>
     /// <see href="https://developer.work.weixin.qq.com/document/path/90245"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/create")]
-    Task<CreatAppChatOutput> Create([Query("access_token")] string accessToken, [Body] CreatAppChatInput body);
+    Task<CreatAppChatOutput> Create([QueryParam("access_token")] string accessToken, [Body] CreatAppChatInput body);
 
     /// <summary>
     /// 修改群聊会话
@@ -29,7 +29,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <returns></returns>
     /// <see href="https://developer.work.weixin.qq.com/document/path/98913"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/update")]
-    Task<CreatAppChatOutput> Update([Query("access_token")] string accessToken, [Body] UpdateAppChatInput body);
+    Task<CreatAppChatOutput> Update([QueryParam("access_token")] string accessToken, [Body] UpdateAppChatInput body);
 
     /// <summary>
     /// 获取群聊会话
@@ -39,7 +39,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <returns></returns>
     /// <see href="https://developer.work.weixin.qq.com/document/path/98914"/>
     [Get("https://qyapi.weixin.qq.com/cgi-bin/appchat/get")]
-    Task<CreatAppChatOutput> Get([Query("access_token")] string accessToken, [Query("chatid")] string chatId);
+    Task<CreatAppChatOutput> Get([QueryParam("access_token")] string accessToken, [QueryParam("chatid")] string chatId);
 
     /// <summary>
     /// 应用推送消息
@@ -49,5 +49,5 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <returns></returns>
     /// <see href="https://developer.work.weixin.qq.com/document/path/90248"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/send")]
-    Task<BaseWorkOutput> Send([Query("access_token")] string accessToken, [Body] SendBaseAppChatInput body);
+    Task<BaseWorkOutput> Send([QueryParam("access_token")] string accessToken, [Body] SendBaseAppChatInput body);
 }

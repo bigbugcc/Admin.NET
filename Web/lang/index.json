@@ -1,710 +1,10 @@
 {
-	"py5l6gd": {
-		"zh-cn": "请输入至少一条多语言内容！",
-		"zh-hk": "請輸入至少一條多語言內容！",
-		"zh-tw": "請輸入至少一條多語言內容！",
-		"en": "Please enter at least one multilingual content!",
-		"it": "Per favore inserisci almeno un contenuto multilingue!"
-	},
-	"uyiu215": {
-		"zh-cn": "保存成功！",
-		"zh-hk": "保存成功！",
-		"zh-tw": "儲存成功！",
-		"en": "Save successful!",
-		"it": "Salvataggio riuscito!"
-	},
-	"uzjnny5": {
-		"zh-cn": "保存失败！",
-		"zh-hk": "保存失敗！",
-		"zh-tw": "儲存失敗！",
-		"en": "Save failed!",
-		"it": "Salvataggio fallito!"
-	},
-	"i8xvpz4": {
-		"zh-cn": "请输入 ",
-		"zh-hk": "請輸入 ",
-		"zh-tw": "請輸入 ",
-		"en": "Please enter ",
-		"it": "Per favore inserisci "
-	},
-	"bgjiwt5": {
-		"zh-cn": "多语言设置",
-		"zh-hk": "多語言設定",
-		"zh-tw": "多語言設定",
-		"en": "Multilingual Settings",
-		"it": "Impostazioni Multilingua"
-	},
 	"eod62": {
 		"zh-cn": "关闭",
 		"zh-hk": "關閉",
 		"zh-tw": "關閉",
 		"en": "Close",
 		"it": "Chiudi"
-	},
-	"fro6m94": {
-		"zh-cn": "确认修改",
-		"zh-hk": "確認修改",
-		"zh-tw": "確認修改",
-		"en": "Confirm Changes",
-		"it": "Conferma Modifiche"
-	},
-	"is7269m": {
-		"zh-cn": "站在巨人肩膀上的 .NET 通用权限开发框架",
-		"zh-hk": "站在巨人肩膀上的 .NET 通用權限開發框架",
-		"zh-tw": "站在巨人肩膀上的 .NET 通用權限開發框架",
-		"en": ".NET Universal Permission Framework on the Shoulders of Giants",
-		"it": "Framework .NET per Autorizzazioni Universali sulle Spalle dei Giganti"
-	},
-	"abaue24": {
-		"zh-cn": "任务看板",
-		"zh-hk": "任務看板",
-		"zh-tw": "任務看板",
-		"en": "Task Board",
-		"it": "Bacheca Attività"
-	},
-	"w6yay25": {
-		"zh-cn": "库表可视化",
-		"zh-hk": "庫表可視化",
-		"zh-tw": "資料表視覺化",
-		"en": "Database Visualization",
-		"it": "Visualizzazione Tabelle"
-	},
-	"koca2": {
-		"zh-cn": "登录",
-		"zh-hk": "登入",
-		"zh-tw": "登入",
-		"en": "Login",
-		"it": "Accesso"
-	},
-	"ha8f2": {
-		"zh-cn": "拨号",
-		"zh-hk": "撥號",
-		"zh-tw": "撥號",
-		"en": "Dial",
-		"it": "Componi"
-	},
-	"mmzpyie": {
-		"zh-cn": "仟佰拾亿仟佰拾万仟佰拾元角分",
-		"zh-hk": "仟佰拾億仟佰拾萬仟佰拾元角分",
-		"zh-tw": "仟佰拾億仟佰拾萬仟佰拾元角分",
-		"en": "Thousand Hundred Ten Billion Thousand Hundred Ten Million Thousand Hundred Ten Yuan Jiao Fen",
-		"it": "Mille Cento Dieci Miliardi Mille Cento Dieci Milioni Mille Cento Dieci Yuan Jiao Fen"
-	},
-	"y5ru5ta": {
-		"zh-cn": "零壹贰叁肆伍陆柒捌玖",
-		"zh-hk": "零壹貳叄肆伍陸柒捌玖",
-		"zh-tw": "零壹貳參肆伍陸柒捌玖",
-		"en": "Zero One Two Three Four Five Six Seven Eight Nine",
-		"it": "Zero Uno Due Tre Quattro Cinque Sei Sette Otto Nove"
-	},
-	"k1g1": {
-		"zh-cn": "整",
-		"zh-hk": "整",
-		"zh-tw": "整",
-		"en": "Whole",
-		"it": "Intero"
-	},
-	"tti1": {
-		"zh-cn": "零",
-		"zh-hk": "零",
-		"zh-tw": "零",
-		"en": "Zero",
-		"it": "Zero"
-	},
-	"g1v1": {
-		"zh-cn": "元",
-		"zh-hk": "元",
-		"zh-tw": "元",
-		"en": "Yuan",
-		"it": "Yuan"
-	},
-	"fjz1": {
-		"zh-cn": "亿",
-		"zh-hk": "億",
-		"zh-tw": "億",
-		"en": "Billion",
-		"it": "Miliardo"
-	},
-	"q4gd2": {
-		"zh-cn": "零元",
-		"zh-hk": "零元",
-		"zh-tw": "零元",
-		"en": "Zero Yuan",
-		"it": "Zero Yuan"
-	},
-	"isx1": {
-		"zh-cn": "弱",
-		"zh-hk": "弱",
-		"zh-tw": "弱",
-		"en": "Weak",
-		"it": "Debole"
-	},
-	"ffx1": {
-		"zh-cn": "中",
-		"zh-hk": "中",
-		"zh-tw": "中",
-		"en": "Medium",
-		"it": "Medio"
-	},
-	"it61": {
-		"zh-cn": "强",
-		"zh-hk": "強",
-		"zh-tw": "強",
-		"en": "Strong",
-		"it": "Forte"
-	},
-	"qyi32": {
-		"zh-cn": "首頁",
-		"zh-hk": "首頁",
-		"zh-tw": "首頁",
-		"en": "Home",
-		"it": "Home"
-	},
-	"gaj8s74": {
-		"zh-cn": "系統設置",
-		"zh-hk": "系統設定",
-		"zh-tw": "系統設定",
-		"en": "System Settings",
-		"it": "Impostazioni di Sistema"
-	},
-	"il4n5n4": {
-		"zh-cn": "選單管理",
-		"zh-hk": "選單管理",
-		"zh-tw": "選單管理",
-		"en": "Menu Management",
-		"it": "Gestione Menu"
-	},
-	"hxhx7p4": {
-		"zh-cn": "角色管理",
-		"zh-hk": "角色管理",
-		"zh-tw": "角色管理",
-		"en": "Role Management",
-		"it": "Gestione Ruoli"
-	},
-	"f6y5n74": {
-		"zh-cn": "用戶管理",
-		"zh-hk": "用戶管理",
-		"zh-tw": "使用者管理",
-		"en": "User Management",
-		"it": "Gestione Utenti"
-	},
-	"iwgoil4": {
-		"zh-cn": "部門管理",
-		"zh-hk": "部門管理",
-		"zh-tw": "部門管理",
-		"en": "Department Management",
-		"it": "Gestione Dipartimenti"
-	},
-	"bv9v7q4": {
-		"zh-cn": "字典管理",
-		"zh-hk": "字典管理",
-		"zh-tw": "字典管理",
-		"en": "Dictionary Management",
-		"it": "Gestione Dizionari"
-	},
-	"gvsubz5": {
-		"zh-cn": "許可權管理",
-		"zh-hk": "權限管理",
-		"zh-tw": "權限管理",
-		"en": "Permission Management",
-		"it": "Gestione Autorizzazioni"
-	},
-	"aw6p814": {
-		"zh-cn": "前端控制",
-		"zh-hk": "前端控制",
-		"zh-tw": "前端控制",
-		"en": "Frontend Control",
-		"it": "Controllo Frontend"
-	},
-	"pa1iyd5": {
-		"zh-cn": "頁面許可權",
-		"zh-hk": "頁面權限",
-		"zh-tw": "頁面權限",
-		"en": "Page Permission",
-		"it": "Permesso Pagina"
-	},
-	"jym08w5": {
-		"zh-cn": "按鈕許可權",
-		"zh-hk": "按鈕權限",
-		"zh-tw": "按鈕權限",
-		"en": "Button Permission",
-		"it": "Permesso Pulsante"
-	},
-	"ckbxqq4": {
-		"zh-cn": "後端控制",
-		"zh-hk": "後端控制",
-		"zh-tw": "後端控制",
-		"en": "Backend Control",
-		"it": "Controllo Backend"
-	},
-	"ikzc5d4": {
-		"zh-cn": "選單嵌套",
-		"zh-hk": "選單嵌套",
-		"zh-tw": "選單嵌套",
-		"en": "Nested Menu",
-		"it": "Menu Annidato"
-	},
-	"lkcsb3": {
-		"zh-cn": "選單1",
-		"zh-hk": "選單1",
-		"zh-tw": "選單1",
-		"en": "Menu 1",
-		"it": "Menu 1"
-	},
-	"ikj0eu4": {
-		"zh-cn": "選單11",
-		"zh-hk": "選單11",
-		"zh-tw": "選單11",
-		"en": "Menu 11",
-		"it": "Menu 11"
-	},
-	"ikj0ev4": {
-		"zh-cn": "選單12",
-		"zh-hk": "選單12",
-		"zh-tw": "選單12",
-		"en": "Menu 12",
-		"it": "Menu 12"
-	},
-	"7fgx165": {
-		"zh-cn": "選單121",
-		"zh-hk": "選單121",
-		"zh-tw": "選單121",
-		"en": "Menu 121",
-		"it": "Menu 121"
-	},
-	"7fgx175": {
-		"zh-cn": "選單122",
-		"zh-hk": "選單122",
-		"zh-tw": "選單122",
-		"en": "Menu 122",
-		"it": "Menu 122"
-	},
-	"ikj0ew4": {
-		"zh-cn": "選單13",
-		"zh-hk": "選單13",
-		"zh-tw": "選單13",
-		"en": "Menu 13",
-		"it": "Menu 13"
-	},
-	"lkcsc3": {
-		"zh-cn": "選單2",
-		"zh-hk": "選單2",
-		"zh-tw": "選單2",
-		"en": "Menu 2",
-		"it": "Menu 2"
-	},
-	"erem2": {
-		"zh-cn": "功能",
-		"zh-hk": "功能",
-		"zh-tw": "功能",
-		"en": "Features",
-		"it": "Funzionalità"
-	},
-	"b8ph3jb": {
-		"zh-cn": "tagsView 操作",
-		"zh-hk": "tagsView 操作",
-		"zh-tw": "tagsView 操作",
-		"en": "tagsView Operations",
-		"it": "Operazioni tagsView"
-	},
-	"d4vsq44": {
-		"zh-cn": "數位滾動",
-		"zh-hk": "數字滾動",
-		"zh-tw": "數字滾動",
-		"en": "Digital Scrolling",
-		"it": "Scorrimento Numerico"
-	},
-	"7qddkea": {
-		"zh-cn": "Editor 編輯器",
-		"zh-hk": "Editor 編輯器",
-		"zh-tw": "Editor 編輯器",
-		"en": "Editor",
-		"it": "Editor"
-	},
-	"bgtk6y4": {
-		"zh-cn": "圖片裁剪",
-		"zh-hk": "圖片裁剪",
-		"zh-tw": "圖片裁剪",
-		"en": "Image Cropping",
-		"it": "Ritaglio Immagine"
-	},
-	"vogyb85": {
-		"zh-cn": "二維碼生成",
-		"zh-hk": "二維碼生成",
-		"zh-tw": "二維碼產生",
-		"en": "QR Code Generation",
-		"it": "Generazione Codice QR"
-	},
-	"w8pi6r7": {
-		"zh-cn": "地理座標/地圖",
-		"zh-hk": "地理座標/地圖",
-		"zh-tw": "地理座標/地圖",
-		"en": "Geolocation/Maps",
-		"it": "Geolocalizzazione/Mappe"
-	},
-	"jsrkai4": {
-		"zh-cn": "頁面列印",
-		"zh-hk": "頁面列印",
-		"zh-tw": "頁面列印",
-		"en": "Page Printing",
-		"it": "Stampa Pagina"
-	},
-	"hunltf4": {
-		"zh-cn": "複製剪切",
-		"zh-hk": "複製剪貼",
-		"zh-tw": "複製剪下",
-		"en": "Copy/Cut",
-		"it": "Copia/Taglia"
-	},
-	"cvnwgv4": {
-		"zh-cn": "拖拽佈局",
-		"zh-hk": "拖拽佈局",
-		"zh-tw": "拖曳佈局",
-		"en": "Drag Layout",
-		"it": "Layout Trascinabile"
-	},
-	"4boxqo5": {
-		"zh-cn": "窗格折開器",
-		"zh-hk": "窗格折開器",
-		"zh-tw": "窗格分離器",
-		"en": "Pane Splitter",
-		"it": "Divisore Pannello"
-	},
-	"n9zva3": {
-		"zh-cn": "驗證器",
-		"zh-hk": "驗證器",
-		"zh-tw": "驗證器",
-		"en": "Validator",
-		"it": "Validatore"
-	},
-	"qoox2": {
-		"zh-cn": "頁面",
-		"zh-hk": "頁面",
-		"zh-tw": "頁面",
-		"en": "Page",
-		"it": "Pagina"
-	},
-	"pmo0hb6": {
-		"zh-cn": "過濾篩選組件",
-		"zh-hk": "過濾篩選組件",
-		"zh-tw": "過濾篩選元件",
-		"en": "Filter Component",
-		"it": "Componente Filtro"
-	},
-	"hnqadf8": {
-		"zh-cn": "過濾篩選組件詳情",
-		"zh-hk": "過濾篩選組件詳情",
-		"zh-tw": "過濾篩選元件詳細資訊",
-		"en": "Filter Component Details",
-		"it": "Dettagli Componente Filtro"
-	},
-	"tj0d2mb": {
-		"zh-cn": "過濾篩選組件詳情111",
-		"zh-hk": "過濾篩選組件詳情111",
-		"zh-tw": "過濾篩選元件詳細資訊111",
-		"en": "Filter Component Details 111",
-		"it": "Dettagli Componente Filtro 111"
-	},
-	"vkinz28": {
-		"zh-cn": "ali 字體圖標",
-		"zh-hk": "ali 字體圖示",
-		"zh-tw": "ali 字型圖示",
-		"en": "Ali Font Icons",
-		"it": "Icone Font Ali"
-	},
-	"asoopu8": {
-		"zh-cn": "ele 字體圖標",
-		"zh-hk": "ele 字體圖示",
-		"zh-tw": "ele 字型圖示",
-		"en": "Ele Font Icons",
-		"it": "Icone Font Ele"
-	},
-	"e2k51r8": {
-		"zh-cn": "awe 字體圖標",
-		"zh-hk": "awe 字體圖示",
-		"zh-tw": "awe 字型圖示",
-		"en": "Awe Font Icons",
-		"it": "Icone Font Awe"
-	},
-	"ju9zlq6": {
-		"zh-cn": "表單自我調整",
-		"zh-hk": "表單自我調整",
-		"zh-tw": "表單自適應",
-		"en": "Form Responsive",
-		"it": "Form Reattivo"
-	},
-	"iztdlg6": {
-		"zh-cn": "表單表格驗證",
-		"zh-hk": "表單表格驗證",
-		"zh-tw": "表單表格驗證",
-		"en": "Form Table Validation",
-		"it": "Validazione Tabella Form"
-	},
-	"npyfhc5": {
-		"zh-cn": "表單國際化",
-		"zh-hk": "表單國際化",
-		"zh-tw": "表單國際化",
-		"en": "Form Internationalization",
-		"it": "Internazionalizzazione Form"
-	},
-	"asyvn65": {
-		"zh-cn": "多表單驗證",
-		"zh-hk": "多表單驗證",
-		"zh-tw": "多表單驗證",
-		"en": "Multi-form Validation",
-		"it": "Validazione Multi-form"
-	},
-	"37am9b6": {
-		"zh-cn": "動態複雜表單",
-		"zh-hk": "動態複雜表單",
-		"zh-tw": "動態複雜表單",
-		"en": "Dynamic Complex Form",
-		"it": "Form Complesso Dinamico"
-	},
-	"e579m3": {
-		"zh-cn": "工作流",
-		"zh-hk": "工作流",
-		"zh-tw": "工作流程",
-		"en": "Workflow",
-		"it": "Flusso di Lavoro"
-	},
-	"lrkk576": {
-		"zh-cn": "清單自我調整",
-		"zh-hk": "清單自我調整",
-		"zh-tw": "清單自適應",
-		"en": "List Responsive",
-		"it": "Lista Reattiva"
-	},
-	"gvf5p3": {
-		"zh-cn": "瀑布屏",
-		"zh-hk": "瀑布屏",
-		"zh-tw": "瀑布流",
-		"en": "Waterfall Display",
-		"it": "Display a Cascata"
-	},
-	"gh4cj3": {
-		"zh-cn": "步驟條",
-		"zh-hk": "步驟條",
-		"zh-tw": "步驟條",
-		"en": "Step Bar",
-		"it": "Barra dei Passaggi"
-	},
-	"bmav984": {
-		"zh-cn": "大圖預覽",
-		"zh-hk": "大圖預覽",
-		"zh-tw": "大圖預覽",
-		"en": "Large Image Preview",
-		"it": "Anteprima Immagine Grande"
-	},
-	"e6wysc4": {
-		"zh-cn": "波浪效果",
-		"zh-hk": "波浪效果",
-		"zh-tw": "波浪效果",
-		"en": "Wave Effect",
-		"it": "Effetto Onda"
-	},
-	"1lpzvo5": {
-		"zh-cn": "樹形改表格",
-		"zh-hk": "樹形改表格",
-		"zh-tw": "樹狀轉表格",
-		"en": "Tree to Table",
-		"it": "Da Struttura ad Albero a Tabella"
-	},
-	"ctdzuk4": {
-		"zh-cn": "拖動指令",
-		"zh-hk": "拖動指令",
-		"zh-tw": "拖曳指令",
-		"en": "Drag Directive",
-		"it": "Direttiva Trascinamento"
-	},
-	"68dou5": {
-		"zh-cn": "圖片懶加載",
-		"zh-hk": "圖片懶加載",
-		"zh-tw": "圖片延遲載入",
-		"en": "Image Lazy Loading",
-		"it": "Caricamento Lazy delle Immagini"
-	},
-	"g4sypa4": {
-		"zh-cn": "組件封裝",
-		"zh-hk": "組件封裝",
-		"zh-tw": "元件封裝",
-		"en": "Component Encapsulation",
-		"it": "Incapsulamento Componente"
-	},
-	"o0ofe5": {
-		"zh-cn": "圖標選擇器",
-		"zh-hk": "圖示選擇器",
-		"zh-tw": "圖示選擇器",
-		"en": "Icon Picker",
-		"it": "Selettore Icone"
-	},
-	"iuaijm5": {
-		"zh-cn": "滾動通知欄",
-		"zh-hk": "滾動通知欄",
-		"zh-tw": "滾動通知欄",
-		"en": "Scrolling Notification Bar",
-		"it": "Barra Notifiche a Scorrimento"
-	},
-	"p8555ja": {
-		"zh-cn": "svgIcon 演示",
-		"zh-hk": "svgIcon 演示",
-		"zh-tw": "svgIcon 示範",
-		"en": "svgIcon Demo",
-		"it": "Demo svgIcon"
-	},
-	"my87m26": {
-		"zh-cn": "表格封裝演示",
-		"zh-hk": "表格封裝演示",
-		"zh-tw": "表格封裝示範",
-		"en": "Table Encapsulation Demo",
-		"it": "Demo Incapsulamento Tabella"
-	},
-	"ie1jg74": {
-		"zh-cn": "路由參數",
-		"zh-hk": "路由參數",
-		"zh-tw": "路由參數",
-		"en": "Route Parameters",
-		"it": "Parametri Rotta"
-	},
-	"diw0pa4": {
-		"zh-cn": "普通路由",
-		"zh-hk": "普通路由",
-		"zh-tw": "一般路由",
-		"en": "Normal Route",
-		"it": "Rotta Normale"
-	},
-	"av1pyw4": {
-		"zh-cn": "動態路由",
-		"zh-hk": "動態路由",
-		"zh-tw": "動態路由",
-		"en": "Dynamic Route",
-		"it": "Rotta Dinamica"
-	},
-	"1e77sw6": {
-		"zh-cn": "普通路由詳情",
-		"zh-hk": "普通路由詳情",
-		"zh-tw": "一般路由詳細資訊",
-		"en": "Normal Route Details",
-		"it": "Dettagli Rotta Normale"
-	},
-	"2pxr4m6": {
-		"zh-cn": "動態路由詳情",
-		"zh-hk": "動態路由詳情",
-		"zh-tw": "動態路由詳細資訊",
-		"en": "Dynamic Route Details",
-		"it": "Dettagli Rotta Dinamica"
-	},
-	"blz6y35": {
-		"zh-cn": "大資料圖表",
-		"zh-hk": "大數據圖表",
-		"zh-tw": "大數據圖表",
-		"en": "Big Data Charts",
-		"it": "Grafici Big Data"
-	},
-	"g59tyo5": {
-		"zh-cn": "數據視覺化",
-		"zh-hk": "數據可視化",
-		"zh-tw": "資料視覺化",
-		"en": "Data Visualization",
-		"it": "Visualizzazione Dati"
-	},
-	"243q638": {
-		"zh-cn": "數據視覺化演示1",
-		"zh-hk": "數據可視化演示1",
-		"zh-tw": "資料視覺化示範1",
-		"en": "Data Visualization Demo 1",
-		"it": "Demo Visualizzazione Dati 1"
-	},
-	"243q648": {
-		"zh-cn": "數據視覺化演示2",
-		"zh-hk": "數據可視化演示2",
-		"zh-tw": "資料視覺化示範2",
-		"en": "Data Visualization Demo 2",
-		"it": "Demo Visualizzazione Dati 2"
-	},
-	"afcy9x4": {
-		"zh-cn": "個人中心",
-		"zh-hk": "個人中心",
-		"zh-tw": "個人中心",
-		"en": "Personal Center",
-		"it": "Centro Personale"
-	},
-	"mvwbji5": {
-		"zh-cn": "工具類集合",
-		"zh-hk": "工具類集合",
-		"zh-tw": "工具類集合",
-		"en": "Utility Collection",
-		"it": "Collezione Utilità"
-	},
-	"fype2": {
-		"zh-cn": "外鏈",
-		"zh-hk": "外鏈",
-		"zh-tw": "外部連結",
-		"en": "External Links",
-		"it": "Link Esterni"
-	},
-	"tlkf9wa": {
-		"zh-cn": "内嵌 iframe1",
-		"zh-hk": "內嵌 iframe1",
-		"zh-tw": "內嵌 iframe1",
-		"en": "Embedded iframe1",
-		"it": "Iframe Incorporato 1"
-	},
-	"tlkf9xa": {
-		"zh-cn": "内嵌 iframe2",
-		"zh-hk": "內嵌 iframe2",
-		"zh-tw": "內嵌 iframe2",
-		"en": "Embedded iframe2",
-		"it": "Iframe Incorporato 2"
-	},
-	"kll62": {
-		"zh-cn": "登入",
-		"zh-hk": "登入",
-		"zh-tw": "登入",
-		"en": "Login",
-		"it": "Accesso"
-	},
-	"y6e5q46": {
-		"zh-cn": "找不到此頁面",
-		"zh-hk": "找不到此頁面",
-		"zh-tw": "找不到此頁面",
-		"en": "Page Not Found",
-		"it": "Pagina Non Trovata"
-	},
-	"bw38ph5": {
-		"zh-cn": "沒有許可權",
-		"zh-hk": "沒有權限",
-		"zh-tw": "沒有權限",
-		"en": "No Permission",
-		"it": "Nessun Permesso"
-	},
-	"g4s8e24": {
-		"zh-cn": "組件大小",
-		"zh-hk": "組件大小",
-		"zh-tw": "元件大小",
-		"en": "Component Size",
-		"it": "Dimensione Componente"
-	},
-	"i20uom4": {
-		"zh-cn": "語言切換",
-		"zh-hk": "語言切換",
-		"zh-tw": "語言切換",
-		"en": "Language Switch",
-		"it": "Cambio Lingua"
-	},
-	"il67ns4": {
-		"zh-cn": "選單蒐索",
-		"zh-hk": "選單搜尋",
-		"zh-tw": "選單搜尋",
-		"en": "Menu Search",
-		"it": "Ricerca Menu"
-	},
-	"ae757n4": {
-		"zh-cn": "佈局配寘",
-		"zh-hk": "佈局設定",
-		"zh-tw": "佈局設定",
-		"en": "Layout Configuration",
-		"it": "Configurazione Layout"
 	},
 	"j5rb2": {
 		"zh-cn": "消息",
@@ -713,89 +13,12 @@
 		"en": "Messages",
 		"it": "Messaggi"
 	},
-	"maw1e3": {
-		"zh-cn": "開全屏",
-		"zh-hk": "開全螢幕",
-		"zh-tw": "開啟全螢幕",
-		"en": "Enter Fullscreen",
-		"it": "Attiva Schermo Intero"
-	},
-	"mck3n3": {
-		"zh-cn": "關全屏",
-		"zh-hk": "關全螢幕",
-		"zh-tw": "關閉全螢幕",
-		"en": "Exit Fullscreen",
-		"it": "Esci da Schermo Intero"
-	},
-	"fn7o2": {
-		"zh-cn": "大型",
-		"zh-hk": "大型",
-		"zh-tw": "大型",
-		"en": "Large",
-		"it": "Grande"
-	},
-	"rs1h2": {
-		"zh-cn": "默認",
-		"zh-hk": "默認",
-		"zh-tw": "預設",
-		"en": "Default",
-		"it": "Predefinito"
-	},
-	"g50c2": {
-		"zh-cn": "小型",
-		"zh-hk": "小型",
-		"zh-tw": "小型",
-		"en": "Small",
-		"it": "Piccolo"
-	},
-	"klpb2": {
-		"zh-cn": "登出",
-		"zh-hk": "登出",
-		"zh-tw": "登出",
-		"en": "Logout",
-		"it": "Disconnetti"
-	},
-	"7jf23q5": {
-		"zh-cn": "程式碼倉庫",
-		"zh-hk": "程式碼倉庫",
-		"zh-tw": "程式碼倉庫",
-		"en": "Code Repository",
-		"it": "Repository Codice"
-	},
-	"yyxtzoe": {
-		"zh-cn": "選單蒐索：支援中文、路由路徑",
-		"zh-hk": "選單搜尋：支援中文、路由路徑",
-		"zh-tw": "選單搜尋：支援中文、路由路徑",
-		"en": "Menu Search: Supports Chinese and Route Paths",
-		"it": "Ricerca Menu: Supporta Cinese e Percorsi Rotta"
-	},
 	"p62z2": {
 		"zh-cn": "通知",
 		"zh-hk": "通知",
 		"zh-tw": "通知",
 		"en": "Notifications",
 		"it": "Notifiche"
-	},
-	"avbolq4": {
-		"zh-cn": "全部已讀",
-		"zh-hk": "全部已讀",
-		"zh-tw": "全部已讀",
-		"en": "Mark All as Read",
-		"it": "Segna Tutto come Letto"
-	},
-	"2tdhkc6": {
-		"zh-cn": "前往通知中心",
-		"zh-hk": "前往通知中心",
-		"zh-tw": "前往通知中心",
-		"en": "Go to Notification Center",
-		"it": "Vai al Centro Notifiche"
-	},
-	"dfg19d4": {
-		"zh-cn": "暫無通知",
-		"zh-hk": "暫無通知",
-		"zh-tw": "暫無通知",
-		"en": "No Notifications",
-		"it": "Nessuna Notifica"
 	},
 	"hn562": {
 		"zh-cn": "提示",
@@ -804,1076 +27,12 @@
 		"en": "Prompt",
 		"it": "Richiesta"
 	},
-	"9jbprzc": {
-		"zh-cn": "此操作將登出，是否繼續？",
-		"zh-hk": "此操作將登出，是否繼續？",
-		"zh-tw": "此操作將登出，是否繼續？",
-		"en": "This will log you out. Continue?",
-		"it": "Questo ti disconnetterà. Continuare?"
-	},
-	"l1cw2": {
-		"zh-cn": "確定",
-		"zh-hk": "確定",
-		"zh-tw": "確定",
-		"en": "Confirm",
-		"it": "Conferma"
-	},
 	"ev022": {
 		"zh-cn": "取消",
 		"zh-hk": "取消",
 		"zh-tw": "取消",
 		"en": "Cancel",
 		"it": "Annulla"
-	},
-	"lhoj73": {
-		"zh-cn": "退出中",
-		"zh-hk": "退出中",
-		"zh-tw": "退出中",
-		"en": "Logging Out",
-		"it": "Disconnessione in corso"
-	},
-	"phrx2": {
-		"zh-cn": "重繪",
-		"zh-hk": "重繪",
-		"zh-tw": "重新繪製",
-		"en": "Redraw",
-		"it": "Ridisegna"
-	},
-	"qb712": {
-		"zh-cn": "關閉",
-		"zh-hk": "關閉",
-		"zh-tw": "關閉",
-		"en": "Close",
-		"it": "Chiudi"
-	},
-	"jir7i24": {
-		"zh-cn": "關閉其它",
-		"zh-hk": "關閉其它",
-		"zh-tw": "關閉其他",
-		"en": "Close Others",
-		"it": "Chiudi Altri"
-	},
-	"avl8z14": {
-		"zh-cn": "全部關閉",
-		"zh-hk": "全部關閉",
-		"zh-tw": "全部關閉",
-		"en": "Close All",
-		"it": "Chiudi Tutti"
-	},
-	"qxq1jj5": {
-		"zh-cn": "當前頁全屏",
-		"zh-hk": "當前頁全螢幕",
-		"zh-tw": "目前頁面全螢幕",
-		"en": "Fullscreen Current Page",
-		"it": "Pagina Corrente a Schermo Intero"
-	},
-	"jir7bo4": {
-		"zh-cn": "關閉全屏",
-		"zh-hk": "關閉全螢幕",
-		"zh-tw": "關閉全螢幕",
-		"en": "Exit Fullscreen",
-		"it": "Esci da Schermo Intero"
-	},
-	"e1u20jf": {
-		"zh-cn": "地址輸入錯誤，請重新輸入地址~",
-		"zh-hk": "地址輸入錯誤，請重新輸入地址~",
-		"zh-tw": "地址輸入錯誤，請重新輸入地址~",
-		"en": "Incorrect address entered, please re-enter the address~",
-		"it": "Indirizzo inserito errato, si prega di reinserire l'indirizzo~"
-	},
-	"1wnotvo": {
-		"zh-cn": "您可以先檢查網址，然後重新輸入或給我們迴響問題。",
-		"zh-hk": "您可以先檢查網址，然後重新輸入或給我們反饋問題。",
-		"zh-tw": "您可以先檢查網址，然後重新輸入或給我們回饋問題。",
-		"en": "You can check the URL first, then re-enter it or give us feedback.",
-		"it": "Puoi prima controllare l'URL, quindi reinserirlo o fornirci un feedback."
-	},
-	"iijh9x4": {
-		"zh-cn": "返回首頁",
-		"zh-hk": "返回首頁",
-		"zh-tw": "返回首頁",
-		"en": "Return to Home",
-		"it": "Torna alla Home"
-	},
-	"yp4vte": {
-		"zh-cn": "您未被授權，沒有操作許可權~",
-		"zh-hk": "您未被授權，沒有操作權限~",
-		"zh-tw": "您未被授權，沒有操作權限~",
-		"en": "You are not authorized and have no operation permissions~",
-		"it": "Non sei autorizzato e non hai i permessi per operare~"
-	},
-	"kw8vesk": {
-		"zh-cn": "聯繫方式：加QQ群探討665452019",
-		"zh-hk": "聯繫方式：加QQ群探討665452019",
-		"zh-tw": "聯絡方式：加QQ群探討665452019",
-		"en": "Contact: Join QQ group 665452019 for discussion",
-		"it": "Contatti: Unisciti al gruppo QQ 665452019 per discutere"
-	},
-	"iten2d4": {
-		"zh-cn": "重新授權",
-		"zh-hk": "重新授權",
-		"zh-tw": "重新授權",
-		"en": "Re-authorize",
-		"it": "Riautorizza"
-	},
-	"amwc2w4": {
-		"zh-cn": "全域主題",
-		"zh-hk": "全域主題",
-		"zh-tw": "全域主題",
-		"en": "Global Theme",
-		"it": "Tema Globale"
-	},
-	"jmju8f4": {
-		"zh-cn": "頂欄設定",
-		"zh-hk": "頂欄設定",
-		"zh-tw": "頂欄設定",
-		"en": "Top Bar Settings",
-		"it": "Impostazioni Barra Superiore"
-	},
-	"il6zer4": {
-		"zh-cn": "選單設定",
-		"zh-hk": "選單設定",
-		"zh-tw": "選單設定",
-		"en": "Menu Settings",
-		"it": "Impostazioni Menu"
-	},
-	"ass18r4": {
-		"zh-cn": "分欄設定",
-		"zh-hk": "分欄設定",
-		"zh-tw": "分欄設定",
-		"en": "Column Settings",
-		"it": "Impostazioni Colonne"
-	},
-	"jmiaxx4": {
-		"zh-cn": "頂欄背景",
-		"zh-hk": "頂欄背景",
-		"zh-tw": "頂欄背景",
-		"en": "Top Bar Background",
-		"it": "Sfondo Barra Superiore"
-	},
-	"ts96hj8": {
-		"zh-cn": "頂欄默認字體顏色",
-		"zh-hk": "頂欄默認字體顏色",
-		"zh-tw": "頂欄預設字型顏色",
-		"en": "Top Bar Default Font Color",
-		"it": "Colore Carattere Predefinito Barra Superiore"
-	},
-	"ycstft6": {
-		"zh-cn": "頂欄背景漸變",
-		"zh-hk": "頂欄背景漸變",
-		"zh-tw": "頂欄背景漸層",
-		"en": "Top Bar Background Gradient",
-		"it": "Sfondo Gradiente Barra Superiore"
-	},
-	"il5g494": {
-		"zh-cn": "選單背景",
-		"zh-hk": "選單背景",
-		"zh-tw": "選單背景",
-		"en": "Menu Background",
-		"it": "Sfondo Menu"
-	},
-	"rvjoc58": {
-		"zh-cn": "選單默認字體顏色",
-		"zh-hk": "選單默認字體顏色",
-		"zh-tw": "選單預設字型顏色",
-		"en": "Menu Default Font Color",
-		"it": "Colore Carattere Predefinito Menu"
-	},
-	"cpruzn7": {
-		"zh-cn": "選單高亮背景色",
-		"zh-hk": "選單高亮背景色",
-		"zh-tw": "選單醒目提示背景色",
-		"en": "Menu Highlight Background Color",
-		"it": "Colore Sfondo Evidenziazione Menu"
-	},
-	"xvp6976": {
-		"zh-cn": "選單背景漸變",
-		"zh-hk": "選單背景漸變",
-		"zh-tw": "選單背景漸層",
-		"en": "Menu Background Gradient",
-		"it": "Sfondo Gradiente Menu"
-	},
-	"8i92tz6": {
-		"zh-cn": "分欄選單背景",
-		"zh-hk": "分欄選單背景",
-		"zh-tw": "分欄選單背景",
-		"en": "Column Menu Background",
-		"it": "Sfondo Menu Colonne"
-	},
-	"fttt13a": {
-		"zh-cn": "分欄選單默認字體顏色",
-		"zh-hk": "分欄選單默認字體顏色",
-		"zh-tw": "分欄選單預設字型顏色",
-		"en": "Column Menu Default Font Color",
-		"it": "Colore Carattere Predefinito Menu Colonne"
-	},
-	"6oxzjd8": {
-		"zh-cn": "分欄選單背景漸變",
-		"zh-hk": "分欄選單背景漸變",
-		"zh-tw": "分欄選單背景漸層",
-		"en": "Column Menu Background Gradient",
-		"it": "Sfondo Gradiente Menu Colonne"
-	},
-	"cx2t7yb": {
-		"zh-cn": "分欄選單滑鼠懸停預加載",
-		"zh-hk": "分欄選單滑鼠懸停預加載",
-		"zh-tw": "分欄選單滑鼠懸停預載入",
-		"en": "Column Menu Hover Preload",
-		"it": "Precaricamento al Passaggio Mouse Menu Colonne"
-	},
-	"1d9w8gc": {
-		"zh-cn": "分欄Logo高度(px)",
-		"zh-hk": "分欄Logo高度(px)",
-		"zh-tw": "分欄Logo高度(px)",
-		"en": "Column Logo Height (px)",
-		"it": "Altezza Logo Colonna (px)"
-	},
-	"klzkpa": {
-		"zh-cn": "分欄選單寬度(px)",
-		"zh-hk": "分欄選單寬度(px)",
-		"zh-tw": "分欄選單寬度(px)",
-		"en": "Column Menu Width (px)",
-		"it": "Larghezza Menu Colonne (px)"
-	},
-	"z0lmspa": {
-		"zh-cn": "分欄菜單高度(px)",
-		"zh-hk": "分欄選單高度(px)",
-		"zh-tw": "分欄選單高度(px)",
-		"en": "Column Menu Height (px)",
-		"it": "Altezza Menu Colonne (px)"
-	},
-	"aklx6s4": {
-		"zh-cn": "介面設定",
-		"zh-hk": "介面設定",
-		"zh-tw": "介面設定",
-		"en": "Interface Settings",
-		"it": "Impostazioni Interfaccia"
-	},
-	"v73nwa6": {
-		"zh-cn": "選單水准折疊",
-		"zh-hk": "選單水平折疊",
-		"zh-tw": "選單水平折疊",
-		"en": "Menu Horizontal Collapse",
-		"it": "Menu Collassamento Orizzontale"
-	},
-	"7ukrvl5": {
-		"zh-cn": "選單手風琴",
-		"zh-hk": "選單手風琴",
-		"zh-tw": "選單手風琴",
-		"en": "Menu Accordion",
-		"it": "Menu a Fisarmonica"
-	},
-	"uhtxbh9": {
-		"zh-cn": "固定 Header",
-		"zh-hk": "固定 Header",
-		"zh-tw": "固定 Header",
-		"en": "Fixed Header",
-		"it": "Intestazione Fissa"
-	},
-	"h62ash8": {
-		"zh-cn": "經典佈局分割選單",
-		"zh-hk": "經典佈局分割選單",
-		"zh-tw": "經典佈局分割選單",
-		"en": "Classic Layout Split Menu",
-		"it": "Menu Diviso Layout Classico"
-	},
-	"aro6i34": {
-		"zh-cn": "切換租戶",
-		"zh-hk": "切換租戶",
-		"zh-tw": "切換租戶",
-		"en": "Switch Tenant",
-		"it": "Cambia Tenant"
-	},
-	"j88ejx4": {
-		"zh-cn": "開啟鎖屏",
-		"zh-hk": "開啟鎖屏",
-		"zh-tw": "開啟鎖定畫面",
-		"en": "Enable Lock Screen",
-		"it": "Abilita Schermata di Blocco"
-	},
-	"kvrvjr9": {
-		"zh-cn": "自動鎖屏(s/秒)",
-		"zh-hk": "自動鎖屏(s/秒)",
-		"zh-tw": "自動鎖定畫面(s/秒)",
-		"en": "Auto Lock Screen (s/sec)",
-		"it": "Schermata di Blocco Automatica (s/sec)"
-	},
-	"akoici4": {
-		"zh-cn": "介面顯示",
-		"zh-hk": "介面顯示",
-		"zh-tw": "介面顯示",
-		"en": "Interface Display",
-		"it": "Visualizzazione Interfaccia"
-	},
-	"5rej5p8": {
-		"zh-cn": "側邊欄 Logo",
-		"zh-hk": "側邊欄 Logo",
-		"zh-tw": "側邊欄 Logo",
-		"en": "Sidebar Logo",
-		"it": "Logo Barra Laterale"
-	},
-	"4ehv1td": {
-		"zh-cn": "開啟 Breadcrumb",
-		"zh-hk": "開啟 Breadcrumb",
-		"zh-tw": "開啟麵包屑",
-		"en": "Enable Breadcrumb",
-		"it": "Abilita Breadcrumb"
-	},
-	"y3rj78g": {
-		"zh-cn": "開啟 Breadcrumb 圖標",
-		"zh-hk": "開啟 Breadcrumb 圖示",
-		"zh-tw": "開啟麵包屑圖示",
-		"en": "Enable Breadcrumb Icon",
-		"it": "Abilita Icona Breadcrumb"
-	},
-	"q32ytmb": {
-		"zh-cn": "開啟 Tagsview",
-		"zh-hk": "開啟 Tagsview",
-		"zh-tw": "開啟標籤檢視",
-		"en": "Enable Tagsview",
-		"it": "Abilita Tagsview"
-	},
-	"wcdnvre": {
-		"zh-cn": "開啟 Tagsview 圖標",
-		"zh-hk": "開啟 Tagsview 圖示",
-		"zh-tw": "開啟標籤檢視圖示",
-		"en": "Enable Tagsview Icon",
-		"it": "Abilita Icona Tagsview"
-	},
-	"4t3ud7e": {
-		"zh-cn": "開啟 TagsView 緩存",
-		"zh-hk": "開啟 TagsView 緩存",
-		"zh-tw": "開啟標籤檢視快取",
-		"en": "Enable TagsView Cache",
-		"it": "Abilita Cache TagsView"
-	},
-	"4t8en7e": {
-		"zh-cn": "開啟 TagsView 拖拽",
-		"zh-hk": "開啟 TagsView 拖拽",
-		"zh-tw": "開啟標籤檢視拖曳",
-		"en": "Enable TagsView Drag",
-		"it": "Abilita Trascinamento TagsView"
-	},
-	"4tb9kje": {
-		"zh-cn": "開啟 TagsView 共用",
-		"zh-hk": "開啟 TagsView 共用",
-		"zh-tw": "開啟標籤檢視共用",
-		"en": "Enable TagsView Sharing",
-		"it": "Abilita Condivisione TagsView"
-	},
-	"hjlvix9": {
-		"zh-cn": "開啟 Footer",
-		"zh-hk": "開啟 Footer",
-		"zh-tw": "開啟頁尾",
-		"en": "Enable Footer",
-		"it": "Abilita Footer"
-	},
-	"eq5p5c4": {
-		"zh-cn": "灰色模式",
-		"zh-hk": "灰色模式",
-		"zh-tw": "灰色模式",
-		"en": "Grayscale Mode",
-		"it": "Modalità Scala di Grigi"
-	},
-	"gurej14": {
-		"zh-cn": "色弱模式",
-		"zh-hk": "色弱模式",
-		"zh-tw": "色弱模式",
-		"en": "Color Weakness Mode",
-		"it": "Modalità Debolezza Colore"
-	},
-	"eetoj34": {
-		"zh-cn": "深色模式",
-		"zh-hk": "深色模式",
-		"zh-tw": "深色模式",
-		"en": "Dark Mode",
-		"it": "Modalità Scura"
-	},
-	"rou22e5": {
-		"zh-cn": "開啟浮水印",
-		"zh-hk": "開啟浮水印",
-		"zh-tw": "開啟浮水印",
-		"en": "Enable Watermark",
-		"it": "Abilita Filigrana"
-	},
-	"fol0az5": {
-		"zh-cn": "浮水印文案",
-		"zh-hk": "浮水印文案",
-		"zh-tw": "浮水印文案",
-		"en": "Watermark Text",
-		"it": "Testo Filigrana"
-	},
-	"anyc2i4": {
-		"zh-cn": "其它設定",
-		"zh-hk": "其它設定",
-		"zh-tw": "其他設定",
-		"en": "Other Settings",
-		"it": "Altre Impostazioni"
-	},
-	"b6jlnub": {
-		"zh-cn": "Tagsview 風格",
-		"zh-hk": "Tagsview 風格",
-		"zh-tw": "標籤檢視風格",
-		"en": "Tagsview Style",
-		"it": "Stile Tagsview"
-	},
-	"eub46e7": {
-		"zh-cn": "主頁面切換動畫",
-		"zh-hk": "主頁面切換動畫",
-		"zh-tw": "主頁面切換動畫",
-		"en": "Main Page Transition Animation",
-		"it": "Animazione Transizione Pagina Principale"
-	},
-	"9sg5ns6": {
-		"zh-cn": "分欄高亮風格",
-		"zh-hk": "分欄高亮風格",
-		"zh-tw": "分欄醒目提示風格",
-		"en": "Column Highlight Style",
-		"it": "Stile Evidenziazione Colonna"
-	},
-	"bc3ey6": {
-		"zh-cn": "分欄佈局風格",
-		"zh-hk": "分欄佈局風格",
-		"zh-tw": "分欄佈局風格",
-		"en": "Column Layout Style",
-		"it": "Stile Layout Colonna"
-	},
-	"adwfcc4": {
-		"zh-cn": "佈局切換",
-		"zh-hk": "佈局切換",
-		"zh-tw": "佈局切換",
-		"en": "Layout Switch",
-		"it": "Cambio Layout"
-	},
-	"lt1h2": {
-		"zh-cn": "經典",
-		"zh-hk": "經典",
-		"zh-tw": "經典",
-		"en": "Classic",
-		"it": "Classico"
-	},
-	"ik922": {
-		"zh-cn": "橫向",
-		"zh-hk": "橫向",
-		"zh-tw": "橫向",
-		"en": "Horizontal",
-		"it": "Orizzontale"
-	},
-	"ejem2": {
-		"zh-cn": "分欄",
-		"zh-hk": "分欄",
-		"zh-tw": "分欄",
-		"en": "Column",
-		"it": "Colonna"
-	},
-	"5uefiy19": {
-		"zh-cn": "點擊下方按鈕，複製佈局配寘去`src/stores/themeConfig.ts`中修改。",
-		"zh-hk": "點擊下方按鈕，複製佈局設定去`src/stores/themeConfig.ts`中修改。",
-		"zh-tw": "點擊下方按鈕，複製佈局設定到`src/stores/themeConfig.ts`中修改。",
-		"en": "Click the button below to copy the layout configuration to `src/stores/themeConfig.ts` for modification.",
-		"it": "Fai clic sul pulsante sottostante per copiare la configurazione del layout in `src/stores/themeConfig.ts` per la modifica."
-	},
-	"xdpieu6": {
-		"zh-cn": "一鍵複製配寘",
-		"zh-hk": "一鍵複製設定",
-		"zh-tw": "一鍵複製設定",
-		"en": "One-Click Copy Configuration",
-		"it": "Copia Configurazione con un Clic"
-	},
-	"s36aup6": {
-		"zh-cn": "一鍵恢復默認",
-		"zh-hk": "一鍵恢復默認",
-		"zh-tw": "一鍵恢復預設",
-		"en": "One-Click Restore Default",
-		"it": "Ripristina Predefiniti con un Clic"
-	},
-	"es8mys5": {
-		"zh-cn": "複製成功！",
-		"zh-hk": "複製成功！",
-		"zh-tw": "複製成功！",
-		"en": "Copy Successful!",
-		"it": "Copia Riuscita!"
-	},
-	"etg8bf5": {
-		"zh-cn": "複製失敗！",
-		"zh-hk": "複製失敗！",
-		"zh-tw": "複製失敗！",
-		"en": "Copy Failed!",
-		"it": "Copia Fallita!"
-	},
-	"dqh6uo5": {
-		"zh-cn": "新版本陞級",
-		"zh-hk": "新版本陞級",
-		"zh-tw": "新版本升級",
-		"en": "New Version Upgrade",
-		"it": "Aggiornamento Nuova Versione"
-	},
-	"gdb50lr": {
-		"zh-cn": "新版本來啦，馬上更新嘗鮮吧！ 不用擔心，更新很快的哦！",
-		"zh-hk": "新版本來啦，馬上更新嘗鮮吧！ 不用擔心，更新很快的哦！",
-		"zh-tw": "新版本來啦，馬上更新嚐鮮吧！ 不用擔心，更新很快的哦！",
-		"en": "New version is here! Update now to try it out! Don't worry, the update is fast!",
-		"it": "Nuova versione disponibile! Aggiorna ora per provarla! Non preoccuparti, l'aggiornamento è veloce!"
-	},
-	"nv602ac": {
-		"zh-cn": "提示：更新會還原默認配寘",
-		"zh-hk": "提示：更新會還原默認設定",
-		"zh-tw": "提示：更新會還原預設設定",
-		"en": "Note: Update will restore default configuration",
-		"it": "Nota: L'aggiornamento ripristinerà la configurazione predefinita"
-	},
-	"dz26604": {
-		"zh-cn": "殘忍拒絕",
-		"zh-hk": "殘忍拒絕",
-		"zh-tw": "殘忍拒絕",
-		"en": "Cruelly Reject",
-		"it": "Rifiuta Crudelmente"
-	},
-	"jpp4ey4": {
-		"zh-cn": "馬上更新",
-		"zh-hk": "馬上更新",
-		"zh-tw": "馬上更新",
-		"en": "Update Now",
-		"it": "Aggiorna Ora"
-	},
-	"fklf53": {
-		"zh-cn": "更新中",
-		"zh-hk": "更新中",
-		"zh-tw": "更新中",
-		"en": "Updating",
-		"it": "Aggiornamento in corso"
-	},
-	"qylb2": {
-		"zh-cn": "首页",
-		"zh-hk": "首頁",
-		"zh-tw": "首頁",
-		"en": "Home",
-		"it": "Home"
-	},
-	"gar1ro4": {
-		"zh-cn": "系统设置",
-		"zh-hk": "系統設定",
-		"zh-tw": "系統設定",
-		"en": "System Settings",
-		"it": "Impostazioni di Sistema"
-	},
-	"gzj3um4": {
-		"zh-cn": "菜单管理",
-		"zh-hk": "選單管理",
-		"zh-tw": "選單管理",
-		"en": "Menu Management",
-		"it": "Gestione Menu"
-	},
-	"f6y6dw4": {
-		"zh-cn": "用户管理",
-		"zh-hk": "用戶管理",
-		"zh-tw": "使用者管理",
-		"en": "User Management",
-		"it": "Gestione Utenti"
-	},
-	"iwitmt4": {
-		"zh-cn": "部门管理",
-		"zh-hk": "部門管理",
-		"zh-tw": "部門管理",
-		"en": "Department Management",
-		"it": "Gestione Dipartimenti"
-	},
-	"dnhnle4": {
-		"zh-cn": "权限管理",
-		"zh-hk": "權限管理",
-		"zh-tw": "權限管理",
-		"en": "Permission Management",
-		"it": "Gestione Autorizzazioni"
-	},
-	"juxlmi4": {
-		"zh-cn": "页面权限",
-		"zh-hk": "頁面權限",
-		"zh-tw": "頁面權限",
-		"en": "Page Permission",
-		"it": "Permesso Pagina"
-	},
-	"d3yvw24": {
-		"zh-cn": "按钮权限",
-		"zh-hk": "按鈕權限",
-		"zh-tw": "按鈕權限",
-		"en": "Button Permission",
-		"it": "Permesso Pulsante"
-	},
-	"b45ec04": {
-		"zh-cn": "后端控制",
-		"zh-hk": "後端控制",
-		"zh-tw": "後端控制",
-		"en": "Backend Control",
-		"it": "Controllo Backend"
-	},
-	"gzdsuc4": {
-		"zh-cn": "菜单嵌套",
-		"zh-hk": "選單嵌套",
-		"zh-tw": "選單嵌套",
-		"en": "Nested Menu",
-		"it": "Menu Annidato"
-	},
-	"jpgt43": {
-		"zh-cn": "菜单1",
-		"zh-hk": "選單1",
-		"zh-tw": "選單1",
-		"en": "Menu 1",
-		"it": "Menu 1"
-	},
-	"gyxh3t4": {
-		"zh-cn": "菜单11",
-		"zh-hk": "選單11",
-		"zh-tw": "選單11",
-		"en": "Menu 11",
-		"it": "Menu 11"
-	},
-	"gyxh3u4": {
-		"zh-cn": "菜单12",
-		"zh-hk": "選單12",
-		"zh-tw": "選單12",
-		"en": "Menu 12",
-		"it": "Menu 12"
-	},
-	"sv1cif5": {
-		"zh-cn": "菜单121",
-		"zh-hk": "選單121",
-		"zh-tw": "選單121",
-		"en": "Menu 121",
-		"it": "Menu 121"
-	},
-	"sv1cig5": {
-		"zh-cn": "菜单122",
-		"zh-hk": "選單122",
-		"zh-tw": "選單122",
-		"en": "Menu 122",
-		"it": "Menu 122"
-	},
-	"gyxh3v4": {
-		"zh-cn": "菜单13",
-		"zh-hk": "選單13",
-		"zh-tw": "選單13",
-		"en": "Menu 13",
-		"it": "Menu 13"
-	},
-	"jpgt53": {
-		"zh-cn": "菜单2",
-		"zh-hk": "選單2",
-		"zh-tw": "選單2",
-		"en": "Menu 2",
-		"it": "Menu 2"
-	},
-	"d6i59x4": {
-		"zh-cn": "数字滚动",
-		"zh-hk": "數字滾動",
-		"zh-tw": "數字滾動",
-		"en": "Digital Scrolling",
-		"it": "Scorrimento Numerico"
-	},
-	"7qjnuia": {
-		"zh-cn": "Editor 编辑器",
-		"zh-hk": "Editor 編輯器",
-		"zh-tw": "Editor 編輯器",
-		"en": "Editor",
-		"it": "Editor"
-	},
-	"bge8ia4": {
-		"zh-cn": "图片裁剪",
-		"zh-hk": "圖片裁剪",
-		"zh-tw": "圖片裁剪",
-		"en": "Image Cropping",
-		"it": "Ritaglio Immagine"
-	},
-	"vis09i5": {
-		"zh-cn": "二维码生成",
-		"zh-hk": "二維碼生成",
-		"zh-tw": "二維碼產生",
-		"en": "QR Code Generation",
-		"it": "Generazione Codice QR"
-	},
-	"9tupsg7": {
-		"zh-cn": "地理坐标/地图",
-		"zh-hk": "地理座標/地圖",
-		"zh-tw": "地理座標/地圖",
-		"en": "Geolocation/Maps",
-		"it": "Geolocalizzazione/Mappe"
-	},
-	"juwe6i4": {
-		"zh-cn": "页面打印",
-		"zh-hk": "頁面列印",
-		"zh-tw": "頁面列印",
-		"en": "Page Printing",
-		"it": "Stampa Pagina"
-	},
-	"bksep24": {
-		"zh-cn": "复制剪切",
-		"zh-hk": "複製剪貼",
-		"zh-tw": "複製剪下",
-		"en": "Copy/Cut",
-		"it": "Copia/Taglia"
-	},
-	"cvqeo44": {
-		"zh-cn": "拖拽布局",
-		"zh-hk": "拖拽佈局",
-		"zh-tw": "拖曳佈局",
-		"en": "Drag Layout",
-		"it": "Layout Trascinabile"
-	},
-	"4bzh315": {
-		"zh-cn": "窗格拆分器",
-		"zh-hk": "窗格折開器",
-		"zh-tw": "窗格分離器",
-		"en": "Pane Splitter",
-		"it": "Divisore Pannello"
-	},
-	"nb61f3": {
-		"zh-cn": "验证器",
-		"zh-hk": "驗證器",
-		"zh-tw": "驗證器",
-		"en": "Validator",
-		"it": "Validatore"
-	},
-	"qrgt2": {
-		"zh-cn": "页面",
-		"zh-hk": "頁面",
-		"zh-tw": "頁面",
-		"en": "Page",
-		"it": "Pagina"
-	},
-	"mw9mbn6": {
-		"zh-cn": "过滤筛选组件",
-		"zh-hk": "過濾篩選組件",
-		"zh-tw": "過濾篩選元件",
-		"en": "Filter Component",
-		"it": "Componente Filtro"
-	},
-	"g8sffg8": {
-		"zh-cn": "过滤筛选组件详情",
-		"zh-hk": "過濾篩選組件詳情",
-		"zh-tw": "過濾篩選元件詳細資訊",
-		"en": "Filter Component Details",
-		"it": "Dettagli Componente Filtro"
-	},
-	"3uwuizb": {
-		"zh-cn": "过滤筛选组件详情111",
-		"zh-hk": "過濾篩選組件詳情111",
-		"zh-tw": "過濾篩選元件詳細資訊111",
-		"en": "Filter Component Details 111",
-		"it": "Dettagli Componente Filtro 111"
-	},
-	"vvktnd8": {
-		"zh-cn": "ali 字体图标",
-		"zh-hk": "ali 字體圖示",
-		"zh-tw": "ali 字型圖示",
-		"en": "Ali Font Icons",
-		"it": "Icone Font Ali"
-	},
-	"ahmj1j8": {
-		"zh-cn": "ele 字体图标",
-		"zh-hk": "ele 字體圖示",
-		"zh-tw": "ele 字型圖示",
-		"en": "Ele Font Icons",
-		"it": "Icone Font Ele"
-	},
-	"edmaq28": {
-		"zh-cn": "awe 字体图标",
-		"zh-hk": "awe 字體圖示",
-		"zh-tw": "awe 字型圖示",
-		"en": "Awe Font Icons",
-		"it": "Icone Font Awe"
-	},
-	"nud6mp5": {
-		"zh-cn": "表单自适应",
-		"zh-hk": "表單自我調整",
-		"zh-tw": "表單自適應",
-		"en": "Form Responsive",
-		"it": "Form Reattivo"
-	},
-	"s69oui6": {
-		"zh-cn": "表单表格验证",
-		"zh-hk": "表單表格驗證",
-		"zh-tw": "表單表格驗證",
-		"en": "Form Table Validation",
-		"it": "Validazione Tabella Form"
-	},
-	"o0mj1b5": {
-		"zh-cn": "表单国际化",
-		"zh-hk": "表單國際化",
-		"zh-tw": "表單國際化",
-		"en": "Form Internationalization",
-		"it": "Internazionalizzazione Form"
-	},
-	"asmjcs5": {
-		"zh-cn": "多表单验证",
-		"zh-hk": "多表單驗證",
-		"zh-tw": "多表單驗證",
-		"en": "Multi-form Validation",
-		"it": "Validazione Multi-form"
-	},
-	"z8iyqj6": {
-		"zh-cn": "动态复杂表单",
-		"zh-hk": "動態複雜表單",
-		"zh-tw": "動態複雜表單",
-		"en": "Dynamic Complex Form",
-		"it": "Form Complesso Dinamico"
-	},
-	"gfkknp5": {
-		"zh-cn": "列表自适应",
-		"zh-hk": "清單自我調整",
-		"zh-tw": "清單自適應",
-		"en": "List Responsive",
-		"it": "Lista Reattiva"
-	},
-	"gh5r63": {
-		"zh-cn": "步骤条",
-		"zh-hk": "步驟條",
-		"zh-tw": "步驟條",
-		"en": "Step Bar",
-		"it": "Barra dei Passaggi"
-	},
-	"bmag8r4": {
-		"zh-cn": "大图预览",
-		"zh-hk": "大圖預覽",
-		"zh-tw": "大圖預覽",
-		"en": "Large Image Preview",
-		"it": "Anteprima Immagine Grande"
-	},
-	"6tsfno5": {
-		"zh-cn": "树形改表格",
-		"zh-hk": "樹形改表格",
-		"zh-tw": "樹狀轉表格",
-		"en": "Tree to Table",
-		"it": "Da Struttura ad Albero a Tabella"
-	},
-	"ctd2hb4": {
-		"zh-cn": "拖动指令",
-		"zh-hk": "拖動指令",
-		"zh-tw": "拖曳指令",
-		"en": "Drag Directive",
-		"it": "Direttiva Trascinamento"
-	},
-	"6zf5m5": {
-		"zh-cn": "图片懒加载",
-		"zh-hk": "圖片懶加載",
-		"zh-tw": "圖片延遲載入",
-		"en": "Image Lazy Loading",
-		"it": "Caricamento Lazy delle Immagini"
-	},
-	"gbm5na4": {
-		"zh-cn": "组件封装",
-		"zh-hk": "組件封裝",
-		"zh-tw": "元件封裝",
-		"en": "Component Encapsulation",
-		"it": "Incapsulamento Componente"
-	},
-	"1aorgh5": {
-		"zh-cn": "图标选择器",
-		"zh-hk": "圖示選擇器",
-		"zh-tw": "圖示選擇器",
-		"en": "Icon Picker",
-		"it": "Selettore Icone"
-	},
-	"i9p66u5": {
-		"zh-cn": "滚动通知栏",
-		"zh-hk": "滾動通知欄",
-		"zh-tw": "滾動通知欄",
-		"en": "Scrolling Notification Bar",
-		"it": "Barra Notifiche a Scorrimento"
-	},
-	"my8peq6": {
-		"zh-cn": "表格封装演示",
-		"zh-hk": "表格封裝演示",
-		"zh-tw": "表格封裝示範",
-		"en": "Table Encapsulation Demo",
-		"it": "Demo Incapsulamento Tabella"
-	},
-	"ie1jf44": {
-		"zh-cn": "路由参数",
-		"zh-hk": "路由參數",
-		"zh-tw": "路由參數",
-		"en": "Route Parameters",
-		"it": "Parametri Rotta"
-	},
-	"au26uz4": {
-		"zh-cn": "动态路由",
-		"zh-hk": "動態路由",
-		"zh-tw": "動態路由",
-		"en": "Dynamic Route",
-		"it": "Rotta Dinamica"
-	},
-	"1e6yxf6": {
-		"zh-cn": "普通路由详情",
-		"zh-hk": "普通路由詳情",
-		"zh-tw": "一般路由詳細資訊",
-		"en": "Normal Route Details",
-		"it": "Dettagli Rotta Normale"
-	},
-	"t2elt26": {
-		"zh-cn": "动态路由详情",
-		"zh-hk": "動態路由詳情",
-		"zh-tw": "動態路由詳細資訊",
-		"en": "Dynamic Route Details",
-		"it": "Dettagli Rotta Dinamica"
-	},
-	"6n15xr5": {
-		"zh-cn": "大数据图表",
-		"zh-hk": "大數據圖表",
-		"zh-tw": "大數據圖表",
-		"en": "Big Data Charts",
-		"it": "Grafici Big Data"
-	},
-	"gnzibj5": {
-		"zh-cn": "数据可视化",
-		"zh-hk": "數據可視化",
-		"zh-tw": "資料視覺化",
-		"en": "Data Visualization",
-		"it": "Visualizzazione Dati"
-	},
-	"14kduy8": {
-		"zh-cn": "数据可视化演示1",
-		"zh-hk": "數據可視化演示1",
-		"zh-tw": "資料視覺化示範1",
-		"en": "Data Visualization Demo 1",
-		"it": "Demo Visualizzazione Dati 1"
-	},
-	"14kduz8": {
-		"zh-cn": "数据可视化演示2",
-		"zh-hk": "數據可視化演示2",
-		"zh-tw": "資料視覺化示範2",
-		"en": "Data Visualization Demo 2",
-		"it": "Demo Visualizzazione Dati 2"
-	},
-	"a6ttl24": {
-		"zh-cn": "个人中心",
-		"zh-hk": "個人中心",
-		"zh-tw": "個人中心",
-		"en": "Personal Center",
-		"it": "Centro Personale"
-	},
-	"mrt9vv5": {
-		"zh-cn": "工具类集合",
-		"zh-hk": "工具類集合",
-		"zh-tw": "工具類集合",
-		"en": "Utility Collection",
-		"it": "Collezione Utilità"
-	},
-	"fyy02": {
-		"zh-cn": "外链",
-		"zh-hk": "外鏈",
-		"zh-tw": "外部連結",
-		"en": "External Links",
-		"it": "Link Esterni"
-	},
-	"y6e2y86": {
-		"zh-cn": "找不到此页面",
-		"zh-hk": "找不到此頁面",
-		"zh-tw": "找不到此頁面",
-		"en": "Page Not Found",
-		"it": "Pagina Non Trovata"
-	},
-	"e4uf3p4": {
-		"zh-cn": "没有权限",
-		"zh-hk": "沒有權限",
-		"zh-tw": "沒有權限",
-		"en": "No Permission",
-		"it": "Nessun Permesso"
-	},
-	"gblfcq4": {
-		"zh-cn": "组件大小",
-		"zh-hk": "組件大小",
-		"zh-tw": "元件大小",
-		"en": "Component Size",
-		"it": "Dimensione Componente"
-	},
-	"i7yr724": {
-		"zh-cn": "语言切换",
-		"zh-hk": "語言切換",
-		"zh-tw": "語言切換",
-		"en": "Language Switch",
-		"it": "Cambio Lingua"
-	},
-	"gzf5mn4": {
-		"zh-cn": "菜单搜索",
-		"zh-hk": "選單搜尋",
-		"zh-tw": "選單搜尋",
-		"en": "Menu Search",
-		"it": "Ricerca Menu"
-	},
-	"c937ry4": {
-		"zh-cn": "布局配置",
-		"zh-hk": "佈局設定",
-		"zh-tw": "佈局設定",
-		"en": "Layout Configuration",
-		"it": "Configurazione Layout"
-	},
-	"ebaav3": {
-		"zh-cn": "开全屏",
-		"zh-hk": "開全螢幕",
-		"zh-tw": "開啟全螢幕",
-		"en": "Enter Fullscreen",
-		"it": "Attiva Schermo Intero"
-	},
-	"cbtzu3": {
-		"zh-cn": "关全屏",
-		"zh-hk": "關全螢幕",
-		"zh-tw": "關閉全螢幕",
-		"en": "Exit Fullscreen",
-		"it": "Esci da Schermo Intero"
-	},
-	"rs982": {
-		"zh-cn": "默认",
-		"zh-hk": "默認",
-		"zh-tw": "預設",
-		"en": "Default",
-		"it": "Predefinito"
-	},
-	"ed5y4m4": {
-		"zh-cn": "清理缓存",
-		"zh-hk": "清理緩存",
-		"zh-tw": "清理快取",
-		"en": "Clear Cache",
-		"it": "Svuota Cache"
-	},
-	"iifi5w4": {
-		"zh-cn": "退出登录",
-		"zh-hk": "退出登入",
-		"zh-tw": "登出",
-		"en": "Logout",
-		"it": "Disconnetti"
-	},
-	"ag5pge4": {
-		"zh-cn": "代码仓库",
-		"zh-hk": "程式碼倉庫",
-		"zh-tw": "程式碼倉庫",
-		"en": "Code Repository",
-		"it": "Repository Codice"
-	},
-	"filjf5e": {
-		"zh-cn": "菜单搜索：支持中文、路由路径",
-		"zh-hk": "選單搜尋：支援中文、路由路徑",
-		"zh-tw": "選單搜尋：支援中文、路由路徑",
-		"en": "Menu Search: Supports Chinese and Route Paths",
-		"it": "Ricerca Menu: Supporta Cinese e Percorsi Rotta"
-	},
-	"avbop54": {
-		"zh-cn": "全部已读",
-		"zh-hk": "全部已讀",
-		"zh-tw": "全部已讀",
-		"en": "Mark All as Read",
-		"it": "Segna Tutto come Letto"
-	},
-	"dd2ii14": {
-		"zh-cn": "暂无通知",
-		"zh-hk": "暫無通知",
-		"zh-tw": "暫無通知",
-		"en": "No Notifications",
-		"it": "Nessuna Notifica"
-	},
-	"atlrllf": {
-		"zh-cn": "此操作将退出登录, 是否继续?",
-		"zh-hk": "此操作將退出登入, 是否繼續?",
-		"zh-tw": "此操作將登出, 是否繼續?",
-		"en": "This will log you out. Continue?",
-		"it": "Questo ti disconnetterà. Continuare?"
 	},
 	"kzjg2": {
 		"zh-cn": "确定",
@@ -1889,13 +48,6 @@
 		"en": "Refresh",
 		"it": "Aggiorna"
 	},
-	"aw6sdj4": {
-		"zh-cn": "关闭其它",
-		"zh-hk": "關閉其它",
-		"zh-tw": "關閉其他",
-		"en": "Close Others",
-		"it": "Chiudi Altri"
-	},
 	"av9m564": {
 		"zh-cn": "全部关闭",
 		"zh-hk": "全部關閉",
@@ -1903,33 +55,12 @@
 		"en": "Close All",
 		"it": "Chiudi Tutti"
 	},
-	"skmdtu5": {
-		"zh-cn": "当前页全屏",
-		"zh-hk": "當前頁全螢幕",
-		"zh-tw": "目前頁面全螢幕",
-		"en": "Fullscreen Current Page",
-		"it": "Pagina Corrente a Schermo Intero"
-	},
-	"aw6s754": {
-		"zh-cn": "关闭全屏",
-		"zh-hk": "關閉全螢幕",
-		"zh-tw": "關閉全螢幕",
-		"en": "Exit Fullscreen",
-		"it": "Esci da Schermo Intero"
-	},
 	"d6oo2ef": {
 		"zh-cn": "地址输入错误，请重新输入地址~",
 		"zh-hk": "地址輸入錯誤，請重新輸入地址~",
 		"zh-tw": "地址輸入錯誤，請重新輸入地址~",
 		"en": "Incorrect address entered, please re-enter the address~",
 		"it": "Indirizzo inserito errato, si prega di reinserire l'indirizzo~"
-	},
-	"5od290o": {
-		"zh-cn": "您可以先检查网址，然后重新输入或给我们反馈问题。",
-		"zh-hk": "您可以先檢查網址，然後重新輸入或給我們反饋問題。",
-		"zh-tw": "您可以先檢查網址，然後重新輸入或給我們回饋問題。",
-		"en": "You can check the URL first, then re-enter it or give us feedback.",
-		"it": "Puoi prima controllare l'URL, quindi reinserirlo o fornirci un feedback."
 	},
 	"iijhd54": {
 		"zh-cn": "返回首页",
@@ -1959,398 +90,6 @@
 		"en": "Re-authorize",
 		"it": "Riautorizza"
 	},
-	"anjfdh4": {
-		"zh-cn": "全局主题",
-		"zh-hk": "全域主題",
-		"zh-tw": "全域主題",
-		"en": "Global Theme",
-		"it": "Tema Globale"
-	},
-	"jo6s214": {
-		"zh-cn": "顶栏设置",
-		"zh-hk": "頂欄設定",
-		"zh-tw": "頂欄設定",
-		"en": "Top Bar Settings",
-		"it": "Impostazioni Barra Superiore"
-	},
-	"gzlwrt4": {
-		"zh-cn": "菜单设置",
-		"zh-hk": "選單設定",
-		"zh-tw": "選單設定",
-		"en": "Menu Settings",
-		"it": "Impostazioni Menu"
-	},
-	"ascwl54": {
-		"zh-cn": "分栏设置",
-		"zh-hk": "分欄設定",
-		"zh-tw": "分欄設定",
-		"en": "Column Settings",
-		"it": "Impostazioni Colonne"
-	},
-	"jo4s3g4": {
-		"zh-cn": "顶栏背景",
-		"zh-hk": "頂欄背景",
-		"zh-tw": "頂欄背景",
-		"en": "Top Bar Background",
-		"it": "Sfondo Barra Superiore"
-	},
-	"8jxorb8": {
-		"zh-cn": "顶栏默认字体颜色",
-		"zh-hk": "頂欄默認字體顏色",
-		"zh-tw": "頂欄預設字型顏色",
-		"en": "Top Bar Default Font Color",
-		"it": "Colore Carattere Predefinito Barra Superiore"
-	},
-	"906l1g6": {
-		"zh-cn": "顶栏背景渐变",
-		"zh-hk": "頂欄背景漸變",
-		"zh-tw": "頂欄背景漸層",
-		"en": "Top Bar Background Gradient",
-		"it": "Sfondo Gradiente Barra Superiore"
-	},
-	"gzjwt84": {
-		"zh-cn": "菜单背景",
-		"zh-hk": "選單背景",
-		"zh-tw": "選單背景",
-		"en": "Menu Background",
-		"it": "Sfondo Menu"
-	},
-	"r7axu18": {
-		"zh-cn": "菜单默认字体颜色",
-		"zh-hk": "選單默認字體顏色",
-		"zh-tw": "選單預設字型顏色",
-		"en": "Menu Default Font Color",
-		"it": "Colore Carattere Predefinito Menu"
-	},
-	"abh5mo7": {
-		"zh-cn": "菜单高亮背景色",
-		"zh-hk": "選單高亮背景色",
-		"zh-tw": "選單醒目提示背景色",
-		"en": "Menu Highlight Background Color",
-		"it": "Colore Sfondo Evidenziazione Menu"
-	},
-	"c0ujq46": {
-		"zh-cn": "菜单背景渐变",
-		"zh-hk": "選單背景漸變",
-		"zh-tw": "選單背景漸層",
-		"en": "Menu Background Gradient",
-		"it": "Sfondo Gradiente Menu"
-	},
-	"4nkpnf6": {
-		"zh-cn": "分栏菜单背景",
-		"zh-hk": "分欄選單背景",
-		"zh-tw": "分欄選單背景",
-		"en": "Column Menu Background",
-		"it": "Sfondo Menu Colonne"
-	},
-	"p962v4a": {
-		"zh-cn": "分栏菜单默认字体颜色",
-		"zh-hk": "分欄選單默認字體顏色",
-		"zh-tw": "分欄選單預設字型顏色",
-		"en": "Column Menu Default Font Color",
-		"it": "Colore Carattere Predefinito Menu Colonne"
-	},
-	"1mpwvh8": {
-		"zh-cn": "分栏菜单背景渐变",
-		"zh-hk": "分欄選單背景漸變",
-		"zh-tw": "分欄選單背景漸層",
-		"en": "Column Menu Background Gradient",
-		"it": "Sfondo Gradiente Menu Colonne"
-	},
-	"u2z0fcb": {
-		"zh-cn": "分栏菜单鼠标悬停预加载",
-		"zh-hk": "分欄選單滑鼠懸停預加載",
-		"zh-tw": "分欄選單滑鼠懸停預載入",
-		"en": "Column Menu Hover Preload",
-		"it": "Precaricamento al Passaggio Mouse Menu Colonne"
-	},
-	"lf4zs5c": {
-		"zh-cn": "分栏Logo高度(px)",
-		"zh-hk": "分欄Logo高度(px)",
-		"zh-tw": "分欄Logo高度(px)",
-		"en": "Column Logo Height (px)",
-		"it": "Altezza Logo Colonna (px)"
-	},
-	"eax538a": {
-		"zh-cn": "分栏菜单宽度(px)",
-		"zh-hk": "分欄選單寬度(px)",
-		"zh-tw": "分欄選單寬度(px)",
-		"en": "Column Menu Width (px)",
-		"it": "Larghezza Menu Colonne (px)"
-	},
-	"82cchja": {
-		"zh-cn": "分栏菜单高度(px)",
-		"zh-hk": "分欄選單高度(px)",
-		"zh-tw": "分欄選單高度(px)",
-		"en": "Column Menu Height (px)",
-		"it": "Altezza Menu Colonne (px)"
-	},
-	"ffgbk64": {
-		"zh-cn": "界面设置",
-		"zh-hk": "介面設定",
-		"zh-tw": "介面設定",
-		"en": "Interface Settings",
-		"it": "Impostazioni Interfaccia"
-	},
-	"enkwg06": {
-		"zh-cn": "菜单水平折叠",
-		"zh-hk": "選單水平折疊",
-		"zh-tw": "選單水平折疊",
-		"en": "Menu Horizontal Collapse",
-		"it": "Menu Collassamento Orizzontale"
-	},
-	"ta589k5": {
-		"zh-cn": "菜单手风琴",
-		"zh-hk": "選單手風琴",
-		"zh-tw": "選單手風琴",
-		"en": "Menu Accordion",
-		"it": "Menu a Fisarmonica"
-	},
-	"8ltpfv8": {
-		"zh-cn": "经典布局分割菜单",
-		"zh-hk": "經典佈局分割選單",
-		"zh-tw": "經典佈局分割選單",
-		"en": "Classic Layout Split Menu",
-		"it": "Menu Diviso Layout Classico"
-	},
-	"arlos34": {
-		"zh-cn": "切换租户",
-		"zh-hk": "切換租戶",
-		"zh-tw": "切換租戶",
-		"en": "Switch Tenant",
-		"it": "Cambia Tenant"
-	},
-	"ccenz14": {
-		"zh-cn": "开启锁屏",
-		"zh-hk": "開啟鎖屏",
-		"zh-tw": "開啟鎖定畫面",
-		"en": "Enable Lock Screen",
-		"it": "Abilita Schermata di Blocco"
-	},
-	"33ai5r9": {
-		"zh-cn": "自动锁屏(s/秒)",
-		"zh-hk": "自動鎖屏(s/秒)",
-		"zh-tw": "自動鎖定畫面(s/秒)",
-		"en": "Auto Lock Screen (s/sec)",
-		"it": "Schermata di Blocco Automatica (s/sec)"
-	},
-	"ff9wpe4": {
-		"zh-cn": "界面显示",
-		"zh-hk": "介面顯示",
-		"zh-tw": "介面顯示",
-		"en": "Interface Display",
-		"it": "Visualizzazione Interfaccia"
-	},
-	"nxuonm8": {
-		"zh-cn": "侧边栏 Logo",
-		"zh-hk": "側邊欄 Logo",
-		"zh-tw": "側邊欄 Logo",
-		"en": "Sidebar Logo",
-		"it": "Logo Barra Laterale"
-	},
-	"o8drgsd": {
-		"zh-cn": "开启 Breadcrumb",
-		"zh-hk": "開啟 Breadcrumb",
-		"zh-tw": "開啟麵包屑",
-		"en": "Enable Breadcrumb",
-		"it": "Abilita Breadcrumb"
-	},
-	"xh291ng": {
-		"zh-cn": "开启 Breadcrumb 图标",
-		"zh-hk": "開啟 Breadcrumb 圖示",
-		"zh-tw": "開啟麵包屑圖示",
-		"en": "Enable Breadcrumb Icon",
-		"it": "Abilita Icona Breadcrumb"
-	},
-	"dkndwvb": {
-		"zh-cn": "开启 Tagsview",
-		"zh-hk": "開啟 Tagsview",
-		"zh-tw": "開啟標籤檢視",
-		"en": "Enable Tagsview",
-		"it": "Abilita Tagsview"
-	},
-	"7su3zae": {
-		"zh-cn": "开启 Tagsview 图标",
-		"zh-hk": "開啟 Tagsview 圖示",
-		"zh-tw": "開啟標籤檢視圖示",
-		"en": "Enable Tagsview Icon",
-		"it": "Abilita Icona Tagsview"
-	},
-	"jqfxnae": {
-		"zh-cn": "开启 TagsView 缓存",
-		"zh-hk": "開啟 TagsView 緩存",
-		"zh-tw": "開啟標籤檢視快取",
-		"en": "Enable TagsView Cache",
-		"it": "Abilita Cache TagsView"
-	},
-	"jqb68oe": {
-		"zh-cn": "开启 TagsView 拖拽",
-		"zh-hk": "開啟 TagsView 拖拽",
-		"zh-tw": "開啟標籤檢視拖曳",
-		"en": "Enable TagsView Drag",
-		"it": "Abilita Trascinamento TagsView"
-	},
-	"jq8bbce": {
-		"zh-cn": "开启 TagsView 共用",
-		"zh-hk": "開啟 TagsView 共用",
-		"zh-tw": "開啟標籤檢視共用",
-		"en": "Enable TagsView Sharing",
-		"it": "Abilita Condivisione TagsView"
-	},
-	"weolos9": {
-		"zh-cn": "开启 Footer",
-		"zh-hk": "開啟 Footer",
-		"zh-tw": "開啟頁尾",
-		"en": "Enable Footer",
-		"it": "Abilita Footer"
-	},
-	"cc7odn4": {
-		"zh-cn": "开启水印",
-		"zh-hk": "開啟浮水印",
-		"zh-tw": "開啟浮水印",
-		"en": "Enable Watermark",
-		"it": "Abilita Filigrana"
-	},
-	"e00xnh4": {
-		"zh-cn": "水印文案",
-		"zh-hk": "浮水印文案",
-		"zh-tw": "浮水印文案",
-		"en": "Watermark Text",
-		"it": "Testo Filigrana"
-	},
-	"anysql4": {
-		"zh-cn": "其它设置",
-		"zh-hk": "其它設定",
-		"zh-tw": "其他設定",
-		"en": "Other Settings",
-		"it": "Altre Impostazioni"
-	},
-	"b6jkr4b": {
-		"zh-cn": "Tagsview 风格",
-		"zh-hk": "Tagsview 風格",
-		"zh-tw": "標籤檢視風格",
-		"en": "Tagsview Style",
-		"it": "Stile Tagsview"
-	},
-	"19nawa7": {
-		"zh-cn": "主页面切换动画",
-		"zh-hk": "主頁面切換動畫",
-		"zh-tw": "主頁面切換動畫",
-		"en": "Main Page Transition Animation",
-		"it": "Animazione Transizione Pagina Principale"
-	},
-	"1rs2lv6": {
-		"zh-cn": "分栏高亮风格",
-		"zh-hk": "分欄高亮風格",
-		"zh-tw": "分欄醒目提示風格",
-		"en": "Column Highlight Style",
-		"it": "Stile Evidenziazione Colonna"
-	},
-	"9e09bg6": {
-		"zh-cn": "分栏布局风格",
-		"zh-hk": "分欄佈局風格",
-		"zh-tw": "分欄佈局風格",
-		"en": "Column Layout Style",
-		"it": "Stile Layout Colonna"
-	},
-	"c8sas84": {
-		"zh-cn": "布局切换",
-		"zh-hk": "佈局切換",
-		"zh-tw": "佈局切換",
-		"en": "Layout Switch",
-		"it": "Cambio Layout"
-	},
-	"m0ll2": {
-		"zh-cn": "经典",
-		"zh-hk": "經典",
-		"zh-tw": "經典",
-		"en": "Classic",
-		"it": "Classico"
-	},
-	"iip32": {
-		"zh-cn": "横向",
-		"zh-hk": "橫向",
-		"zh-tw": "橫向",
-		"en": "Horizontal",
-		"it": "Orizzontale"
-	},
-	"eitl2": {
-		"zh-cn": "分栏",
-		"zh-hk": "分欄",
-		"zh-tw": "分欄",
-		"en": "Column",
-		"it": "Colonna"
-	},
-	"ntg5351b": {
-		"zh-cn": "点击下方按钮，复制布局配置去 `src/stores/themeConfig.ts` 中修改。",
-		"zh-hk": "點擊下方按鈕，複製佈局設定到 `src/stores/themeConfig.ts` 中修改。",
-		"zh-tw": "點擊下方按鈕，複製佈局設定到 `src/stores/themeConfig.ts` 中修改。",
-		"en": "Click the button below to copy the layout configuration to `src/stores/themeConfig.ts` for modification.",
-		"it": "Fai clic sul pulsante sottostante per copiare la configurazione del layout in `src/stores/themeConfig.ts` per la modifica."
-	},
-	"xubrzs6": {
-		"zh-cn": "一键复制配置",
-		"zh-hk": "一鍵複製設定",
-		"zh-tw": "一鍵複製設定",
-		"en": "One-Click Copy Configuration",
-		"it": "Copia Configurazione con un Clic"
-	},
-	"ysoq3p6": {
-		"zh-cn": "一键恢复默认",
-		"zh-hk": "一鍵恢復默認",
-		"zh-tw": "一鍵恢復預設",
-		"en": "One-Click Restore Default",
-		"it": "Ripristina Predefiniti con un Clic"
-	},
-	"3t8e7d5": {
-		"zh-cn": "复制成功！",
-		"zh-hk": "複製成功！",
-		"zh-tw": "複製成功！",
-		"en": "Copy Successful!",
-		"it": "Copia Riuscita!"
-	},
-	"3s7klg5": {
-		"zh-cn": "复制失败！",
-		"zh-hk": "複製失敗！",
-		"zh-tw": "複製失敗！",
-		"en": "Copy Failed!",
-		"it": "Copia Fallita!"
-	},
-	"dqsld85": {
-		"zh-cn": "新版本升级",
-		"zh-hk": "新版本陞級",
-		"zh-tw": "新版本升級",
-		"en": "New Version Upgrade",
-		"it": "Aggiornamento Nuova Versione"
-	},
-	"8qgd9lq": {
-		"zh-cn": "新版本来啦，马上更新尝鲜吧！不用担心，更新很快的哦！",
-		"zh-hk": "新版本來啦，馬上更新嘗鮮吧！不用擔心，更新很快的哦！",
-		"zh-tw": "新版本來啦，馬上更新嚐鮮吧！不用擔心，更新很快的哦！",
-		"en": "New version is here! Update now to try it out! Don't worry, the update is fast!",
-		"it": "Nuova versione disponibile! Aggiorna ora per provarla! Non preoccuparti, l'aggiornamento è veloce!"
-	},
-	"pfi7yac": {
-		"zh-cn": "提示：更新会还原默认配置",
-		"zh-hk": "提示：更新會還原默認設定",
-		"zh-tw": "提示：更新會還原預設設定",
-		"en": "Note: Update will restore default configuration",
-		"it": "Nota: L'aggiornamento ripristinerà la configurazione predefinita"
-	},
-	"dytvn14": {
-		"zh-cn": "残忍拒绝",
-		"zh-hk": "殘忍拒絕",
-		"zh-tw": "殘忍拒絕",
-		"en": "Cruelly Reject",
-		"it": "Rifiuta Crudelmente"
-	},
-	"jt3pwa4": {
-		"zh-cn": "马上更新",
-		"zh-hk": "馬上更新",
-		"zh-tw": "馬上更新",
-		"en": "Update Now",
-		"it": "Aggiorna Ora"
-	},
 	"i5rv634": {
 		"zh-cn": "账号登录",
 		"zh-hk": "帳號登入",
@@ -2372,13 +111,6 @@
 		"en": "User Registration",
 		"it": "Registrazione Utente"
 	},
-	"9urfj57": {
-		"zh-cn": "没有账号? 去",
-		"zh-hk": "沒有帳號? 去",
-		"zh-tw": "沒有帳號? 前往",
-		"en": "No account? Go to",
-		"it": "Nessun account? Vai a"
-	},
 	"e34j054": {
 		"zh-cn": "注册账号",
 		"zh-hk": "註冊帳號",
@@ -2386,33 +118,12 @@
 		"en": "Register Account",
 		"it": "Registra Account"
 	},
-	"t8hy9e7": {
-		"zh-cn": "已有账户? 去",
-		"zh-hk": "已有帳戶? 去",
-		"zh-tw": "已有帳戶? 前往",
-		"en": "Already have an account? Go to",
-		"it": "Hai già un account? Vai a"
-	},
 	"fcm8nf4": {
 		"zh-cn": "登录账号",
 		"zh-hk": "登入帳號",
 		"zh-tw": "登入帳號",
 		"en": "Login Account",
 		"it": "Accedi all'Account"
-	},
-	"5cewui5": {
-		"zh-cn": "第三方登录",
-		"zh-hk": "第三方登入",
-		"zh-tw": "第三方登入",
-		"en": "Third-party Login",
-		"it": "Accesso di Terze Parti"
-	},
-	"azd54x4": {
-		"zh-cn": "友情链接",
-		"zh-hk": "友情連結",
-		"zh-tw": "友情連結",
-		"en": "Friendly Links",
-		"it": "Link Amichevoli"
 	},
 	"2eh64x5": {
 		"zh-cn": "请选择租户",
@@ -2448,13 +159,6 @@
 		"zh-tw": "請輸入驗證碼",
 		"en": "Please enter verification code",
 		"it": "Inserisci codice di verifica"
-	},
-	"aax6x55": {
-		"zh-cn": "注册失败！",
-		"zh-hk": "註冊失敗！",
-		"zh-tw": "註冊失敗！",
-		"en": "Registration failed!",
-		"it": "Registrazione fallita!"
 	},
 	"fyq8k3": {
 		"zh-cn": "注 册",
@@ -2512,13 +216,6 @@
 		"en": "Sorry, you have no login permission",
 		"it": "Spiacenti, non hai i permessi di accesso"
 	},
-	"pwzuma6": {
-		"zh-cn": "验证码已过期",
-		"zh-hk": "驗證碼已過期",
-		"zh-tw": "驗證碼已過期",
-		"en": "Verification code has expired",
-		"it": "Codice di verifica scaduto"
-	},
 	"hdaeo3": {
 		"zh-cn": "登 录",
 		"zh-hk": "登 入",
@@ -2568,572 +265,12 @@
 		"en": "Name",
 		"it": "Nome"
 	},
-	"xzj6ue6": {
-		"zh-cn": "用戶歸屬部門",
-		"zh-hk": "用戶歸屬部門",
-		"zh-tw": "使用者所屬部門",
-		"en": "User Department",
-		"it": "Dipartimento Utente"
-	},
-	"napv9c5": {
-		"zh-cn": "登入帳戶名",
-		"zh-hk": "登入帳戶名",
-		"zh-tw": "登入帳戶名稱",
-		"en": "Login Account Name",
-		"it": "Nome Account di Accesso"
-	},
-	"75usdq5": {
-		"zh-cn": "請輸入姓名",
-		"zh-hk": "請輸入姓名",
-		"zh-tw": "請輸入姓名",
-		"en": "Please enter name",
-		"it": "Inserisci nome"
-	},
-	"ekkeky9": {
-		"zh-cn": "請輸入用戶歸屬部門",
-		"zh-hk": "請輸入用戶歸屬部門",
-		"zh-tw": "請輸入使用者所屬部門",
-		"en": "Please enter user department",
-		"it": "Inserisci dipartimento utente"
-	},
-	"zh948o8": {
-		"zh-cn": "請輸入登入帳戶名",
-		"zh-hk": "請輸入登入帳戶名",
-		"zh-tw": "請輸入登入帳戶名稱",
-		"en": "Please enter login account name",
-		"it": "Inserisci nome account di accesso"
-	},
-	"zi5hr96": {
-		"zh-cn": "用户归属部门",
-		"zh-hk": "用戶歸屬部門",
-		"zh-tw": "使用者所屬部門",
-		"en": "User Department",
-		"it": "Dipartimento Utente"
-	},
-	"ef37an5": {
-		"zh-cn": "登陆账户名",
-		"zh-hk": "登陸賬戶名",
-		"zh-tw": "登入帳戶名稱",
-		"en": "Login Account Name",
-		"it": "Nome Account di Accesso"
-	},
-	"2jaekd5": {
-		"zh-cn": "请输入姓名",
-		"zh-hk": "請輸入姓名",
-		"zh-tw": "請輸入姓名",
-		"en": "Please enter name",
-		"it": "Inserisci nome"
-	},
-	"9wqgsc9": {
-		"zh-cn": "请输入用户归属部门",
-		"zh-hk": "請輸入用戶歸屬部門",
-		"zh-tw": "請輸入使用者所屬部門",
-		"en": "Please enter user department",
-		"it": "Inserisci dipartimento utente"
-	},
-	"blzvrc8": {
-		"zh-cn": "请输入登陆账户名",
-		"zh-hk": "請輸入登陸賬戶名",
-		"zh-tw": "請輸入登入帳戶名稱",
-		"en": "Please enter login account name",
-		"it": "Inserisci nome account di accesso"
-	},
-	"cfz5jq4": {
-		"zh-cn": "帳號登入",
-		"zh-hk": "帳號登入",
-		"zh-tw": "帳號登入",
-		"en": "Account Login",
-		"it": "Accesso Account"
-	},
-	"rvskcr5": {
-		"zh-cn": "手機號登入",
-		"zh-hk": "手機號登入",
-		"zh-tw": "手機號碼登入",
-		"en": "Mobile Login",
-		"it": "Accesso Cellulare"
-	},
-	"f70g8t4": {
-		"zh-cn": "用戶註冊",
-		"zh-hk": "用戶註冊",
-		"zh-tw": "使用者註冊",
-		"en": "User Registration",
-		"it": "Registrazione Utente"
-	},
-	"wda8uh7": {
-		"zh-cn": "沒有帳號? 去",
-		"zh-hk": "沒有帳號? 去",
-		"zh-tw": "沒有帳號? 前往",
-		"en": "No account? Go to",
-		"it": "Nessun account? Vai a"
-	},
-	"hs26ij4": {
-		"zh-cn": "註冊帳號",
-		"zh-hk": "註冊帳號",
-		"zh-tw": "註冊帳號",
-		"en": "Register Account",
-		"it": "Registra Account"
-	},
-	"c9tsf47": {
-		"zh-cn": "已有帳戶? 去",
-		"zh-hk": "已有帳戶? 去",
-		"zh-tw": "已有帳戶? 前往",
-		"en": "Already have an account? Go to",
-		"it": "Hai già un account? Vai a"
-	},
-	"fad1ee4": {
-		"zh-cn": "登入帳號",
-		"zh-hk": "登入帳號",
-		"zh-tw": "登入帳號",
-		"en": "Login Account",
-		"it": "Accedi all'Account"
-	},
-	"6329ah6": {
-		"zh-cn": "協力廠商登入",
-		"zh-hk": "第三方登入",
-		"zh-tw": "第三方登入",
-		"en": "Third-party Login",
-		"it": "Accesso di Terze Parti"
-	},
-	"azcgh34": {
-		"zh-cn": "友情連結",
-		"zh-hk": "友情連結",
-		"zh-tw": "友情連結",
-		"en": "Friendly Links",
-		"it": "Link Amichevoli"
-	},
-	"6x6q5r5": {
-		"zh-cn": "請選擇租戶",
-		"zh-hk": "請選擇租戶",
-		"zh-tw": "請選擇租戶",
-		"en": "Please select tenant",
-		"it": "Seleziona tenant"
-	},
-	"8wt32l6": {
-		"zh-cn": "請輸入手機號",
-		"zh-hk": "請輸入手機號",
-		"zh-tw": "請輸入手機號碼",
-		"en": "Please enter mobile number",
-		"it": "Inserisci numero cellulare"
-	},
-	"ab8o7i7": {
-		"zh-cn": "請輸入登入帳號",
-		"zh-hk": "請輸入登入帳號",
-		"zh-tw": "請輸入登入帳號",
-		"en": "Please enter login account",
-		"it": "Inserisci account di accesso"
-	},
-	"7pjycu7": {
-		"zh-cn": "請輸入您的姓名",
-		"zh-hk": "請輸入您的姓名",
-		"zh-tw": "請輸入您的姓名",
-		"en": "Please enter your name",
-		"it": "Inserisci il tuo nome"
-	},
-	"8og0zy6": {
-		"zh-cn": "請輸入驗證碼",
-		"zh-hk": "請輸入驗證碼",
-		"zh-tw": "請輸入驗證碼",
-		"en": "Please enter verification code",
-		"it": "Inserisci codice di verifica"
-	},
-	"h3vgd05": {
-		"zh-cn": "註冊失敗！",
-		"zh-hk": "註冊失敗！",
-		"zh-tw": "註冊失敗！",
-		"en": "Registration failed!",
-		"it": "Registrazione fallita!"
-	},
-	"k9crp3": {
-		"zh-cn": "註 冊",
-		"zh-hk": "註 冊",
-		"zh-tw": "註 冊",
-		"en": "Register",
-		"it": "Registrati"
-	},
-	"75trng5": {
-		"zh-cn": "請輸入帳號",
-		"zh-hk": "請輸入帳號",
-		"zh-tw": "請輸入帳號",
-		"en": "Please enter account",
-		"it": "Inserisci account"
-	},
-	"75u9765": {
-		"zh-cn": "請輸入密碼",
-		"zh-hk": "請輸入密碼",
-		"zh-tw": "請輸入密碼",
-		"en": "Please enter password",
-		"it": "Inserisci password"
-	},
-	"hcd3tu7": {
-		"zh-cn": "大寫鎖定已打開",
-		"zh-hk": "大寫鎖定已打開",
-		"zh-tw": "大寫鎖定已開啟",
-		"en": "Caps Lock is on",
-		"it": "Bloc Maiuscole attivo"
-	},
-	"qxcflj7": {
-		"zh-cn": "請按住滑塊拖動",
-		"zh-hk": "請按住滑塊拖動",
-		"zh-tw": "請按住滑塊拖曳",
-		"en": "Hold and drag the slider",
-		"it": "Tieni premuto e trascina il cursore"
-	},
-	"k1whqe4": {
-		"zh-cn": "驗證通過",
-		"zh-hk": "驗證通過",
-		"zh-tw": "驗證通過",
-		"en": "Verification passed",
-		"it": "Verifica superata"
-	},
-	"ss16qlb": {
-		"zh-cn": "登入失敗，請檢查帳號！",
-		"zh-hk": "登入失敗，請檢查帳號！",
-		"zh-tw": "登入失敗，請檢查帳號！",
-		"en": "Login failed, please check account!",
-		"it": "Accesso fallito, controlla l'account!"
-	},
-	"yta4e0b": {
-		"zh-cn": "抱歉，您沒有登錄許可權",
-		"zh-hk": "抱歉，您沒有登入權限",
-		"zh-tw": "抱歉，您沒有登入權限",
-		"en": "Sorry, you have no login permission",
-		"it": "Spiacenti, non hai i permessi di accesso"
-	},
-	"ia2f156": {
-		"zh-cn": "驗證碼已過期",
-		"zh-hk": "驗證碼已過期",
-		"zh-tw": "驗證碼已過期",
-		"en": "Verification code has expired",
-		"it": "Il codice di verifica è scaduto"
-	},
-	"hd7nk3": {
-		"zh-cn": "登 入",
-		"zh-hk": "登 入",
-		"zh-tw": "登 入",
-		"en": "Log In",
-		"it": "Accedi"
-	},
-	"ylumey5": {
-		"zh-cn": "獲取驗證碼",
-		"zh-hk": "獲取驗證碼",
-		"zh-tw": "取得驗證碼",
-		"en": "Get Verification Code",
-		"it": "Ottieni Codice di Verifica"
-	},
-	"2ap2im1s": {
-		"zh-cn": "*溫馨提示：建議使用穀歌、 Microsoft Edge, 版本79.0.1072.62及以上瀏覽器,360瀏覽器請使用極速模式",
-		"zh-hk": "*溫馨提示：建議使用Google Chrome、Microsoft Edge 版本79.0.1072.62 或以上瀏覽器，360瀏覽器請使用極速模式",
-		"zh-tw": "*溫馨提示：建議使用Google Chrome、Microsoft Edge 版本79.0.1072.62 或以上瀏覽器，360瀏覽器請使用極速模式",
-		"en": "*Friendly Reminder: It is recommended to use Google Chrome, Microsoft Edge (version 79.0.1072.62 or above). For 360 Browser, please use Speed Mode.",
-		"it": "*Gentile Promemoria: Si consiglia di utilizzare Google Chrome, Microsoft Edge (versione 79.0.1072.62 o superiore). Per 360 Browser, si prega di utilizzare la Modalità Velocità (Speed Mode)."
-	},
-	"f6fc04f": {
-		"zh-cn": "打開手機掃一掃,快速登錄/注册",
-		"zh-hk": "打開手機掃一掃,快速登入/註冊",
-		"zh-tw": "開啟手機掃一掃,快速登入/註冊",
-		"en": "Scan with your phone for quick login/registration",
-		"it": "Scansiona con il tuo telefono per un accesso/registrazione rapida"
-	},
-	"c5zpbg5": {
-		"zh-cn": "歡迎回來！",
-		"zh-hk": "歡迎回來！",
-		"zh-tw": "歡迎回來！",
-		"en": "Welcome back!",
-		"it": "Bentornato/a!"
-	},
-	"cvra6mf": {
-		"zh-cn": "歡迎加入,請使用默認密碼登入！",
-		"zh-hk": "歡迎加入,請使用默認密碼登入！",
-		"zh-tw": "歡迎加入,請使用預設密碼登入！",
-		"en": "Welcome aboard! Please log in using the default password.",
-		"it": "Benvenuto/a a bordo! Accedi utilizzando la password predefinita."
-	},
-	"rutjhk": {
-		"zh-cn": "全局主题 primary 颜色值不能为空",
-		"zh-hk": "全局主題 primary 顏色值不能為空",
-		"zh-tw": "全域主題 primary 顏色值不能為空",
-		"en": "Global theme primary color value cannot be empty",
-		"it": "Il valore del colore primario del tema globale non può essere vuoto"
-	},
-	"aib1034": {
-		"zh-cn": "主题颜色",
-		"zh-hk": "主題顏色",
-		"zh-tw": "主題顏色",
-		"en": "Theme Color",
-		"it": "Colore del Tema"
-	},
 	"l72nr3": {
 		"zh-cn": "请选择",
 		"zh-hk": "請選擇",
 		"zh-tw": "請選擇",
 		"en": "Please select",
 		"it": "Seleziona"
-	},
-	"mvgsj3": {
-		"zh-cn": "风格1",
-		"zh-hk": "風格1",
-		"zh-tw": "風格1",
-		"en": "Style 1",
-		"it": "Stile 1"
-	},
-	"mvgsm3": {
-		"zh-cn": "风格4",
-		"zh-hk": "風格4",
-		"zh-tw": "風格4",
-		"en": "Style 4",
-		"it": "Stile 4"
-	},
-	"mvgsn3": {
-		"zh-cn": "风格5",
-		"zh-hk": "風格5",
-		"zh-tw": "風格5",
-		"en": "Style 5",
-		"it": "Stile 5"
-	},
-	"fk3w2": {
-		"zh-cn": "圆角",
-		"zh-hk": "圓角",
-		"zh-tw": "圓角",
-		"en": "Rounded Corner",
-		"it": "Angolo Arrotondato"
-	},
-	"et522": {
-		"zh-cn": "卡片",
-		"zh-hk": "卡片",
-		"zh-tw": "卡片",
-		"en": "Card",
-		"it": "Scheda"
-	},
-	"ix8f2": {
-		"zh-cn": "水平",
-		"zh-hk": "水平",
-		"zh-tw": "水平",
-		"en": "Horizontal",
-		"it": "Orizzontale"
-	},
-	"fjci2": {
-		"zh-cn": "垂直",
-		"zh-hk": "垂直",
-		"zh-tw": "垂直",
-		"en": "Vertical",
-		"it": "Verticale"
-	},
-	"yjgaf38": {
-		"zh-cn": "输入错误的hex",
-		"zh-hk": "輸入錯誤的hex",
-		"zh-tw": "輸入錯誤的hex",
-		"en": "Incorrect HEX input",
-		"it": "Input HEX errato"
-	},
-	"rvnsyzb": {
-		"zh-cn": "输入错误的rgb颜色值",
-		"zh-hk": "輸入錯誤的RGB顏色值",
-		"zh-tw": "輸入錯誤的RGB顏色值",
-		"en": "Incorrect RGB color value",
-		"it": "Valore colore RGB errato"
-	},
-	"wmtke1b": {
-		"zh-cn": "输入错误的hex颜色值",
-		"zh-hk": "輸入錯誤的HEX顏色值",
-		"zh-tw": "輸入錯誤的HEX顏色值",
-		"en": "Incorrect HEX color value",
-		"it": "Valore colore HEX errato"
-	},
-	"k4l1": {
-		"zh-cn": "日",
-		"zh-hk": "日",
-		"zh-tw": "日",
-		"en": "Sun",
-		"it": "Dom"
-	},
-	"feo1": {
-		"zh-cn": "一",
-		"zh-hk": "一",
-		"zh-tw": "一",
-		"en": "Mon",
-		"it": "Lun"
-	},
-	"fik1": {
-		"zh-cn": "二",
-		"zh-hk": "二",
-		"zh-tw": "二",
-		"en": "Tue",
-		"it": "Mar"
-	},
-	"fex1": {
-		"zh-cn": "三",
-		"zh-hk": "三",
-		"zh-tw": "三",
-		"en": "Wed",
-		"it": "Mer"
-	},
-	"h5n1": {
-		"zh-cn": "四",
-		"zh-hk": "四",
-		"zh-tw": "四",
-		"en": "Thu",
-		"it": "Gio"
-	},
-	"fis1": {
-		"zh-cn": "五",
-		"zh-hk": "五",
-		"zh-tw": "五",
-		"en": "Fri",
-		"it": "Ven"
-	},
-	"g311": {
-		"zh-cn": "六",
-		"zh-hk": "六",
-		"zh-tw": "六",
-		"en": "Sat",
-		"it": "Sab"
-	},
-	"hxpc2": {
-		"zh-cn": "星期",
-		"zh-hk": "星期",
-		"zh-tw": "星期",
-		"en": "Week",
-		"it": "Settimana"
-	},
-	"go81": {
-		"zh-cn": "周",
-		"zh-hk": "週",
-		"zh-tw": "週",
-		"en": "Week",
-		"it": "Settimana"
-	},
-	"obw1": {
-		"zh-cn": "第",
-		"zh-hk": "第",
-		"zh-tw": "第",
-		"en": "No.",
-		"it": "N°"
-	},
-	"g2ar2": {
-		"zh-cn": "季度",
-		"zh-hk": "季度",
-		"zh-tw": "季度",
-		"en": "Quarter",
-		"it": "Trimestre"
-	},
-	"eeyo2": {
-		"zh-cn": "刚刚",
-		"zh-hk": "剛剛",
-		"zh-tw": "剛剛",
-		"en": "Just now",
-		"it": "Proprio ora"
-	},
-	"l67v2": {
-		"zh-cn": "秒前",
-		"zh-hk": "秒前",
-		"zh-tw": "秒前",
-		"en": "seconds ago",
-		"it": "secondi fa"
-	},
-	"cq8lw3": {
-		"zh-cn": "分钟前",
-		"zh-hk": "分鐘前",
-		"zh-tw": "分鐘前",
-		"en": "minutes ago",
-		"it": "minuti fa"
-	},
-	"dz7ty3": {
-		"zh-cn": "小时前",
-		"zh-hk": "小時前",
-		"zh-tw": "小時前",
-		"en": "hours ago",
-		"it": "ore fa"
-	},
-	"fm842": {
-		"zh-cn": "天前",
-		"zh-hk": "天前",
-		"zh-tw": "天前",
-		"en": "days ago",
-		"it": "giorni fa"
-	},
-	"ch80x3": {
-		"zh-cn": "凌晨好",
-		"zh-hk": "凌晨好",
-		"zh-tw": "凌晨好",
-		"en": "Good early morning",
-		"it": "Buon mattino presto"
-	},
-	"fb4v03": {
-		"zh-cn": "早上好",
-		"zh-hk": "早上好",
-		"zh-tw": "早上好",
-		"en": "Good morning",
-		"it": "Buongiorno"
-	},
-	"bu5kv3": {
-		"zh-cn": "上午好",
-		"zh-hk": "上午好",
-		"zh-tw": "上午好",
-		"en": "Good morning",
-		"it": "Buongiorno"
-	},
-	"buvj63": {
-		"zh-cn": "中午好",
-		"zh-hk": "中午好",
-		"zh-tw": "中午好",
-		"en": "Good noon",
-		"it": "Buon pomeriggio"
-	},
-	"bu6bk3": {
-		"zh-cn": "下午好",
-		"zh-hk": "下午好",
-		"zh-tw": "下午好",
-		"en": "Good afternoon",
-		"it": "Buon pomeriggio"
-	},
-	"can5c3": {
-		"zh-cn": "傍晚好",
-		"zh-hk": "傍晚好",
-		"zh-tw": "傍晚好",
-		"en": "Good evening",
-		"it": "Buona sera"
-	},
-	"fdgnh3": {
-		"zh-cn": "晚上好",
-		"zh-hk": "晚上好",
-		"zh-tw": "晚上好",
-		"en": "Good evening",
-		"it": "Buona sera"
-	},
-	"dr5u53": {
-		"zh-cn": "夜里好",
-		"zh-hk": "夜裡好",
-		"zh-tw": "夜裡好",
-		"en": "Good night",
-		"it": "Buona notte"
-	},
-	"hm11": {
-		"zh-cn": "天",
-		"zh-hk": "天",
-		"zh-tw": "天",
-		"en": "Day",
-		"it": "Giorno"
-	},
-	"k521": {
-		"zh-cn": "时",
-		"zh-hk": "時",
-		"zh-tw": "時",
-		"en": "Hour",
-		"it": "Ora"
-	},
-	"g7a1": {
-		"zh-cn": "分",
-		"zh-hk": "分",
-		"zh-tw": "分",
-		"en": "Minute",
-		"it": "Minuto"
-	},
-	"o2a1": {
-		"zh-cn": "秒",
-		"zh-hk": "秒",
-		"zh-tw": "秒",
-		"en": "Second",
-		"it": "Secondo"
 	},
 	"cm4moka": {
 		"zh-cn": "请正确输入手机号码！",
@@ -3149,13 +286,6 @@
 		"en": " seconds to retry",
 		"it": " secondi per riprovare"
 	},
-	"mbmcmfq": {
-		"zh-cn": "请正确输入路径及完整参数（query、params）",
-		"zh-hk": "請正確輸入路徑及完整參數（query、params）",
-		"zh-tw": "請正確輸入路徑及完整參數（query、params）",
-		"en": "Please enter a valid path with full parameters (query, params)",
-		"it": "Inserisci un percorso valido con parametri completi (query, params)"
-	},
 	"6osrlg7": {
 		"zh-cn": "编辑/保存布局",
 		"zh-hk": "編輯/儲存佈局",
@@ -3170,96 +300,12 @@
 		"en": "No widgets available",
 		"it": "Nessun widget disponibile"
 	},
-	"e86f2r4": {
-		"zh-cn": "添加部件",
-		"zh-hk": "添加部件",
-		"zh-tw": "新增元件",
-		"en": "Add Widget",
-		"it": "Aggiungi Widget"
-	},
 	"cjgauv4": {
 		"zh-cn": "恢复默认",
 		"zh-hk": "恢復預設",
 		"zh-tw": "恢復預設值",
 		"en": "Restore Default",
 		"it": "Ripristina Predefinito"
-	},
-	"ivykzf7": {
-		"zh-cn": "暂不不支持全屏",
-		"zh-hk": "暫不支援全螢幕",
-		"zh-tw": "暫不支援全螢幕",
-		"en": "Full screen not supported yet",
-		"it": "Schermo intero non ancora supportato"
-	},
-	"rv9bwna": {
-		"zh-cn": "您有一条新消息...",
-		"zh-hk": "您有一條新訊息...",
-		"zh-tw": "您有一則新訊息...",
-		"en": "You have a new message...",
-		"it": "Hai un nuovo messaggio..."
-	},
-	"63e7i38": {
-		"zh-cn": "你有一条新的消息",
-		"zh-hk": "你有一條新的訊息",
-		"zh-tw": "你有一則新的訊息",
-		"en": "You have a new message",
-		"it": "Hai un nuovo messaggio"
-	},
-	"bivjza4": {
-		"zh-cn": "在线用户",
-		"zh-hk": "線上使用者",
-		"zh-tw": "線上使用者",
-		"en": "Online Users",
-		"it": "Utenti Online"
-	},
-	"l3ycp3": {
-		"zh-cn": "账号：",
-		"zh-hk": "帳號：",
-		"zh-tw": "帳號：",
-		"en": "Account:",
-		"it": "Account:"
-	},
-	"dlc5c3": {
-		"zh-cn": "姓名：",
-		"zh-hk": "姓名：",
-		"zh-tw": "姓名：",
-		"en": "Name:",
-		"it": "Nome:"
-	},
-	"hv7wy3": {
-		"zh-cn": "电话：",
-		"zh-hk": "電話：",
-		"zh-tw": "電話：",
-		"en": "Phone:",
-		"it": "Telefono:"
-	},
-	"ltbxz3": {
-		"zh-cn": "邮箱：",
-		"zh-hk": "郵箱：",
-		"zh-tw": "信箱：",
-		"en": "Email:",
-		"it": "Email:"
-	},
-	"lyzh63": {
-		"zh-cn": "部门：",
-		"zh-hk": "部門：",
-		"zh-tw": "部門：",
-		"en": "Department:",
-		"it": "Dipartimento:"
-	},
-	"j7e7t3": {
-		"zh-cn": "职位：",
-		"zh-hk": "職位：",
-		"zh-tw": "職位：",
-		"en": "Position:",
-		"it": "Posizione:"
-	},
-	"300otv3n": {
-		"zh-cn": "欢迎使用 Admin.NET 通用权限开发框架 <a href=\"https://gitee.com/zuohuaijun/Admin.NET\" target=\"_blank\">https://gitee.com/zuohuaijun/Admin.NET</a>",
-		"zh-hk": "歡迎使用 Admin.NET 通用權限開發框架 <a href=\"https://gitee.com/zuohuaijun/Admin.NET\" target=\"_blank\">https://gitee.com/zuohuaijun/Admin.NET</a>",
-		"zh-tw": "歡迎使用 Admin.NET 通用權限開發框架 <a href=\"https://gitee.com/zuohuaijun/Admin.NET\" target=\"_blank\">https://gitee.com/zuohuaijun/Admin.NET</a>",
-		"en": "Welcome to Admin.NET Universal Permission Framework <a href=\"https://gitee.com/zuohuaijun/Admin.NET\" target=\"_blank\">https://gitee.com/zuohuaijun/Admin.NET</a>",
-		"it": "Benvenuti in Admin.NET Framework di Autorizzazione Universale <a href=\"https://gitee.com/zuohuaijun/Admin.NET\" target=\"_blank\">https://gitee.com/zuohuaijun/Admin.NET</a>"
 	},
 	"ykunwe9": {
 		"zh-cn": "服务器已断线...",
@@ -3310,13 +356,6 @@
 		"en": "Give a star to support",
 		"it": "Dai una stella per supportare"
 	},
-	"r2dv0f59": {
-		"zh-cn": "基于 .NET6 (Furion/SqlSugar) 实现的通用权限开发框架，前端采用 Vue3+Element-plus+Vite5，整合众多优秀技术和框架，模块插件式开发。集成多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、打印等众多黑科技。代码结构简单清晰，注释详尽，易于上手与二次开发，即便是复杂业务逻辑也能迅速实现，真正实现“开箱即用”。",
-		"zh-hk": "基於 .NET6 (Furion/SqlSugar) 實現的通用權限開發框架，前端採用 Vue3+Element-plus+Vite5，整合眾多優秀技術和框架，模組外掛式開發。整合多租戶、快取、資料校驗、鑑權、事件匯流排、動態API、通訊、遠端請求、任務排程、列印等眾多黑科技。程式碼結構簡單清晰，註釋詳盡，易於上手與二次開發，即便是複雜業務邏輯也能迅速實現，真正實現“開箱即用”。",
-		"zh-tw": "基於 .NET6 (Furion/SqlSugar) 實現的通用權限開發框架，前端採用 Vue3+Element-plus+Vite5，整合眾多優秀技術和框架，模組外掛式開發。整合多租戶、快取、資料校驗、鑑權、事件匯流排、動態API、通訊、遠端請求、任務排程、列印等眾多黑科技。程式碼結構簡單清晰，註釋詳盡，易於上手與二次開發，即便是複雜業務邏輯也能迅速實現，真正實現“開箱即用”。",
-		"en": "A universal permission development framework based on .NET6 (Furion/SqlSugar). Frontend uses Vue3+Element-plus+Vite5, integrating numerous excellent technologies and frameworks with modular plugin development. Includes multi-tenancy, caching, data validation, authentication, event bus, dynamic APIs, communication, remote requests, task scheduling, printing, and many other advanced features. The code structure is simple and clear, with detailed comments, easy to get started and for secondary development. Even complex business logic can be quickly implemented, truly achieving \"out-of-the-box\" usability.",
-		"it": "Un framework di sviluppo autorizzativo universale basato su .NET6 (Furion/SqlSugar). Il frontend utilizza Vue3+Element-plus+Vite5, integrando numerose tecnologie eccellenti e framework con sviluppo modulare a plugin. Include multi-tenant, caching, validazione dati, autenticazione, event bus, API dinamiche, comunicazione, richieste remote, schedulazione di task, stampa e molte altre funzionalità avanzate. La struttura del codice è semplice e chiara, con commenti dettagliati, facile da iniziare e per sviluppi secondari. Anche logiche di business complesse possono essere implementate rapidamente, realizzando veramente un'usabilità \"pronta all'uso\"."
-	},
 	"i5pl2": {
 		"zh-cn": "时钟",
 		"zh-hk": "時鐘",
@@ -3359,13 +398,6 @@
 		"en": "Project Features and Documentation Links",
 		"it": "Caratteristiche del Progetto e Link alla Documentazione"
 	},
-	"e3wm7p4": {
-		"zh-cn": "欢迎使用",
-		"zh-hk": "歡迎使用",
-		"zh-tw": "歡迎使用",
-		"en": "Welcome to use",
-		"it": "Benvenuti all'uso"
-	},
 	"isf2lw11": {
 		"zh-cn": "这里是项目控制台，你可以点击右上方的“自定义”按钮来添加移除或者移动部件。",
 		"zh-hk": "這裡是專案控制台，你可以點選右上方的「自訂」按鈕來新增移除或者移動部件。",
@@ -3407,13 +439,6 @@
 		"zh-tw": "版本資訊原子元件展示",
 		"en": "Version Info Atomic Component Demo",
 		"it": "Demo Componente Atomico Info Versione"
-	},
-	"df4tck4": {
-		"zh-cn": "最新版本",
-		"zh-hk": "最新版本",
-		"zh-tw": "最新版本",
-		"en": "Latest Version",
-		"it": "Ultima Versione"
 	},
 	"dev07i4": {
 		"zh-cn": "更新日志",
@@ -3583,20 +608,6 @@
 		"en": "Save",
 		"it": "Salva"
 	},
-	"2xp7gr6": {
-		"zh-cn": "我的常用 (",
-		"zh-hk": "我的常用 (",
-		"zh-tw": "我的常用 (",
-		"en": "My Favorites (",
-		"it": "I Miei Preferiti ("
-	},
-	"4mxcpo6": {
-		"zh-cn": "全部应用 (",
-		"zh-hk": "全部應用 (",
-		"zh-tw": "全部應用 (",
-		"en": "All Applications (",
-		"it": "Tutte le Applicazioni ("
-	},
 	"i01y2": {
 		"zh-cn": "日程",
 		"zh-hk": "日程",
@@ -3660,26 +671,12 @@
 		"en": "My Schedule",
 		"it": "Il Mio Programma"
 	},
-	"btcx43": {
-		"zh-cn": "上个月",
-		"zh-hk": "上個月",
-		"zh-tw": "上個月",
-		"en": "Previous month",
-		"it": "Mese precedente"
-	},
 	"dw2n2": {
 		"zh-cn": "今天",
 		"zh-hk": "今天",
 		"zh-tw": "今天",
 		"en": "Today",
 		"it": "Oggi"
-	},
-	"btdnt3": {
-		"zh-cn": "下个月",
-		"zh-hk": "下個月",
-		"zh-tw": "下個月",
-		"en": "Next month",
-		"it": "Prossimo mese"
 	},
 	"df1fj54": {
 		"zh-cn": "更新记录",
@@ -3702,747 +699,12 @@
 		"en": "Empty",
 		"it": "Vuoto"
 	},
-	"n5e1": {
-		"zh-cn": "甲",
-		"zh-hk": "甲",
-		"zh-tw": "甲",
-		"en": "First",
-		"it": "Primo"
-	},
-	"fh51": {
-		"zh-cn": "乙",
-		"zh-hk": "乙",
-		"zh-tw": "乙",
-		"en": "Second",
-		"it": "Secondo"
-	},
-	"ffd1": {
-		"zh-cn": "丙",
-		"zh-hk": "丙",
-		"zh-tw": "丙",
-		"en": "Third",
-		"it": "Terzo"
-	},
-	"fep1": {
-		"zh-cn": "丁",
-		"zh-hk": "丁",
-		"zh-tw": "丁",
-		"en": "Fourth",
-		"it": "Quarto"
-	},
-	"jd61": {
-		"zh-cn": "戊",
-		"zh-hk": "戊",
-		"zh-tw": "戊",
-		"en": "Fifth",
-		"it": "Quinto"
-	},
-	"ik11": {
-		"zh-cn": "己",
-		"zh-hk": "己",
-		"zh-tw": "己",
-		"en": "Sixth",
-		"it": "Sesto"
-	},
-	"ioq1": {
-		"zh-cn": "庚",
-		"zh-hk": "庚",
-		"zh-tw": "庚",
-		"en": "Seventh",
-		"it": "Settimo"
-	},
-	"sd71": {
-		"zh-cn": "辛",
-		"zh-hk": "辛",
-		"zh-tw": "辛",
-		"en": "Eighth",
-		"it": "Ottavo"
-	},
-	"hkc1": {
-		"zh-cn": "壬",
-		"zh-hk": "壬",
-		"zh-tw": "壬",
-		"en": "Ninth",
-		"it": "Nono"
-	},
-	"neg1": {
-		"zh-cn": "癸",
-		"zh-hk": "癸",
-		"zh-tw": "癸",
-		"en": "Tenth",
-		"it": "Decimo"
-	},
-	"i1c1": {
-		"zh-cn": "子",
-		"zh-hk": "子",
-		"zh-tw": "子",
-		"en": "Zi",
-		"it": "Zi"
-	},
-	"ff51": {
-		"zh-cn": "丑",
-		"zh-hk": "丑",
-		"zh-tw": "丑",
-		"en": "Chou",
-		"it": "Chou"
-	},
-	"i4l1": {
-		"zh-cn": "寅",
-		"zh-hk": "寅",
-		"zh-tw": "寅",
-		"en": "Yin",
-		"it": "Yin"
-	},
-	"ghb1": {
-		"zh-cn": "卯",
-		"zh-hk": "卯",
-		"zh-tw": "卯",
-		"en": "Mao",
-		"it": "Mao"
-	},
-	"sds1": {
-		"zh-cn": "辰",
-		"zh-hk": "辰",
-		"zh-tw": "辰",
-		"en": "Chen",
-		"it": "Chen"
-	},
-	"ik31": {
-		"zh-cn": "巳",
-		"zh-hk": "巳",
-		"zh-tw": "巳",
-		"en": "Si",
-		"it": "Si"
-	},
-	"gg81": {
-		"zh-cn": "午",
-		"zh-hk": "午",
-		"zh-tw": "午",
-		"en": "Wu",
-		"it": "Wu"
-	},
-	"kdm1": {
-		"zh-cn": "未",
-		"zh-hk": "未",
-		"zh-tw": "未",
-		"en": "Wei",
-		"it": "Wei"
-	},
-	"n5f1": {
-		"zh-cn": "申",
-		"zh-hk": "申",
-		"zh-tw": "申",
-		"en": "Shen",
-		"it": "Shen"
-	},
-	"sp51": {
-		"zh-cn": "酉",
-		"zh-hk": "酉",
-		"zh-tw": "酉",
-		"en": "You",
-		"it": "You"
-	},
-	"jd81": {
-		"zh-cn": "戌",
-		"zh-hk": "戌",
-		"zh-tw": "戌",
-		"en": "Xu",
-		"it": "Xu"
-	},
-	"fj91": {
-		"zh-cn": "亥",
-		"zh-hk": "亥",
-		"zh-tw": "亥",
-		"en": "Hai",
-		"it": "Hai"
-	},
-	"vfk1": {
-		"zh-cn": "鼠",
-		"zh-hk": "鼠",
-		"zh-tw": "鼠",
-		"en": "Rat",
-		"it": "Topo"
-	},
-	"ml71": {
-		"zh-cn": "牛",
-		"zh-hk": "牛",
-		"zh-tw": "牛",
-		"en": "Ox",
-		"it": "Bue"
-	},
-	"qj21": {
-		"zh-cn": "虎",
-		"zh-hk": "虎",
-		"zh-tw": "虎",
-		"en": "Tiger",
-		"it": "Tigre"
-	},
-	"g2c1": {
-		"zh-cn": "兔",
-		"zh-hk": "兔",
-		"zh-tw": "兔",
-		"en": "Rabbit",
-		"it": "Coniglio"
-	},
-	"vix1": {
-		"zh-cn": "龙",
-		"zh-hk": "龍",
-		"zh-tw": "龍",
-		"en": "Dragon",
-		"it": "Drago"
-	},
-	"qmf1": {
-		"zh-cn": "蛇",
-		"zh-hk": "蛇",
-		"zh-tw": "蛇",
-		"en": "Snake",
-		"it": "Serpente"
-	},
-	"ui41": {
-		"zh-cn": "马",
-		"zh-hk": "馬",
-		"zh-tw": "馬",
-		"en": "Horse",
-		"it": "Cavallo"
-	},
-	"p6y1": {
-		"zh-cn": "羊",
-		"zh-hk": "羊",
-		"zh-tw": "羊",
-		"en": "Goat",
-		"it": "Capra"
-	},
-	"mr81": {
-		"zh-cn": "猴",
-		"zh-hk": "猴",
-		"zh-tw": "猴",
-		"en": "Monkey",
-		"it": "Scimmia"
-	},
-	"v8h1": {
-		"zh-cn": "鸡",
-		"zh-hk": "雞",
-		"zh-tw": "雞",
-		"en": "Rooster",
-		"it": "Gallo"
-	},
-	"mon1": {
-		"zh-cn": "狗",
-		"zh-hk": "狗",
-		"zh-tw": "狗",
-		"en": "Dog",
-		"it": "Cane"
-	},
-	"mqy1": {
-		"zh-cn": "猪",
-		"zh-hk": "豬",
-		"zh-tw": "豬",
-		"en": "Pig",
-		"it": "Maiale"
-	},
-	"cejfj3": {
-		"zh-cn": "元旦节",
-		"zh-hk": "元旦節",
-		"zh-tw": "元旦節",
-		"en": "New Year's Day",
-		"it": "Capodanno"
-	},
-	"ekdcd3": {
-		"zh-cn": "情人节",
-		"zh-hk": "情人節",
-		"zh-tw": "情人節",
-		"en": "Valentine's Day",
-		"it": "San Valentino"
-	},
-	"ciuh93": {
-		"zh-cn": "劳动节",
-		"zh-hk": "勞動節",
-		"zh-tw": "勞動節",
-		"en": "Labor Day",
-		"it": "Festa del Lavoro"
-	},
-	"mmov43": {
-		"zh-cn": "青年节",
-		"zh-hk": "青年節",
-		"zh-tw": "青年節",
-		"en": "Youth Day",
-		"it": "Giornata della Gioventù"
-	},
-	"ci1183": {
-		"zh-cn": "儿童节",
-		"zh-hk": "兒童節",
-		"zh-tw": "兒童節",
-		"en": "Children's Day",
-		"it": "Giornata dei Bambini"
-	},
-	"fb4433": {
-		"zh-cn": "教师节",
-		"zh-hk": "教師節",
-		"zh-tw": "教師節",
-		"en": "Teachers' Day",
-		"it": "Giornata degli Insegnanti"
-	},
-	"d7hbt3": {
-		"zh-cn": "国庆节",
-		"zh-hk": "國慶節",
-		"zh-tw": "國慶節",
-		"en": "National Day",
-		"it": "Festa Nazionale"
-	},
-	"dfz5z3": {
-		"zh-cn": "圣诞节",
-		"zh-hk": "聖誕節",
-		"zh-tw": "聖誕節",
-		"en": "Christmas",
-		"it": "Natale"
-	},
-	"dk08m3": {
-		"zh-cn": "妇女节",
-		"zh-hk": "婦女節",
-		"zh-tw": "婦女節",
-		"en": "Women's Day",
-		"it": "Giornata della Donna"
-	},
-	"fwcim3": {
-		"zh-cn": "植树节",
-		"zh-hk": "植樹節",
-		"zh-tw": "植樹節",
-		"en": "Tree Planting Day",
-		"it": "Giornata della Piantagione"
-	},
-	"em4de3": {
-		"zh-cn": "愚人节",
-		"zh-hk": "愚人節",
-		"zh-tw": "愚人節",
-		"en": "April Fools' Day",
-		"it": "Pesce d'Aprile"
-	},
-	"evyxn3": {
-		"zh-cn": "护士节",
-		"zh-hk": "護士節",
-		"zh-tw": "護士節",
-		"en": "Nurses' Day",
-		"it": "Giornata degli Infermieri"
-	},
-	"ebd2a3": {
-		"zh-cn": "建党节",
-		"zh-hk": "建黨節",
-		"zh-tw": "建黨節",
-		"en": "Party Founding Day",
-		"it": "Giorno della Fondazione del Partito"
-	},
-	"ebem93": {
-		"zh-cn": "建军节",
-		"zh-hk": "建軍節",
-		"zh-tw": "建軍節",
-		"en": "Army Day",
-		"it": "Giorno dell'Esercito"
-	},
-	"ea3523": {
-		"zh-cn": "平安夜",
-		"zh-hk": "平安夜",
-		"zh-tw": "平安夜",
-		"en": "Christmas Eve",
-		"it": "Vigilia di Natale"
-	},
-	"q2i92": {
-		"zh-cn": "除夕",
-		"zh-hk": "除夕",
-		"zh-tw": "除夕",
-		"en": "New Year's Eve",
-		"it": "Vigilia di Capodanno"
-	},
-	"i3992": {
-		"zh-cn": "春节",
-		"zh-hk": "春節",
-		"zh-tw": "春節",
-		"en": "Spring Festival",
-		"it": "Festa di Primavera"
-	},
-	"cct0w3": {
-		"zh-cn": "元宵节",
-		"zh-hk": "元宵節",
-		"zh-tw": "元宵節",
-		"en": "Lantern Festival",
-		"it": "Festa delle Lanterne"
-	},
-	"nutsx3": {
-		"zh-cn": "龙抬头",
-		"zh-hk": "龍抬頭",
-		"zh-tw": "龍抬頭",
-		"en": "Dragon Head-raising",
-		"it": "Sollevamento della Testa del Drago"
-	},
-	"if3vt3": {
-		"zh-cn": "端午节",
-		"zh-hk": "端午節",
-		"zh-tw": "端午節",
-		"en": "Dragon Boat Festival",
-		"it": "Festa delle Barche Drago"
-	},
-	"bv80g3": {
-		"zh-cn": "七夕节",
-		"zh-hk": "七夕節",
-		"zh-tw": "七夕節",
-		"en": "Qixi Festival",
-		"it": "Festa di Qixi"
-	},
-	"bur9o3": {
-		"zh-cn": "中元节",
-		"zh-hk": "中元節",
-		"zh-tw": "中元節",
-		"en": "Ghost Festival",
-		"it": "Festa degli Spiriti"
-	},
-	"c1ngk3": {
-		"zh-cn": "中秋节",
-		"zh-hk": "中秋節",
-		"zh-tw": "中秋節",
-		"en": "Mid-Autumn Festival",
-		"it": "Festa di Mezzo Autunno"
-	},
-	"m32gs3": {
-		"zh-cn": "重阳节",
-		"zh-hk": "重陽節",
-		"zh-tw": "重陽節",
-		"en": "Double Ninth Festival",
-		"it": "Festa del Doppio Nove"
-	},
-	"e42xd3": {
-		"zh-cn": "寒衣节",
-		"zh-hk": "寒衣節",
-		"zh-tw": "寒衣節",
-		"en": "Cold Clothing Festival",
-		"it": "Festa degli Abiti Freddi"
-	},
-	"bu2223": {
-		"zh-cn": "下元节",
-		"zh-hk": "下元節",
-		"zh-tw": "下元節",
-		"en": "Xia Yuan Festival",
-		"it": "Festa di Xia Yuan"
-	},
-	"jcawx3": {
-		"zh-cn": "腊八节",
-		"zh-hk": "臘八節",
-		"zh-tw": "臘八節",
-		"en": "Laba Festival",
-		"it": "Festa del Laba"
-	},
-	"awmm2v4": {
-		"zh-cn": "北方小年",
-		"zh-hk": "北方小年",
-		"zh-tw": "北方小年",
-		"en": "Northern Little New Year",
-		"it": "Piccolo Capodanno del Nord"
-	},
-	"axrh8n4": {
-		"zh-cn": "南方小年",
-		"zh-hk": "南方小年",
-		"zh-tw": "南方小年",
-		"en": "Southern Little New Year",
-		"it": "Piccolo Capodanno del Sud"
-	},
-	"g5ur2": {
-		"zh-cn": "小寒",
-		"zh-hk": "小寒",
-		"zh-tw": "小寒",
-		"en": "Minor Cold",
-		"it": "Piccolo Freddo"
-	},
-	"fo232": {
-		"zh-cn": "大寒",
-		"zh-hk": "大寒",
-		"zh-tw": "大寒",
-		"en": "Major Cold",
-		"it": "Grande Freddo"
-	},
-	"lg3e2": {
-		"zh-cn": "立春",
-		"zh-hk": "立春",
-		"zh-tw": "立春",
-		"en": "Start of Spring",
-		"it": "Inizio della Primavera"
-	},
-	"q9fw2": {
-		"zh-cn": "雨水",
-		"zh-hk": "雨水",
-		"zh-tw": "雨水",
-		"en": "Rain Water",
-		"it": "Acqua Piovana"
-	},
-	"h7c62": {
-		"zh-cn": "惊蛰",
-		"zh-hk": "驚蟄",
-		"zh-tw": "驚蟄",
-		"en": "Awakening of Insects",
-		"it": "Risveglio degli Insetti"
-	},
-	"htoh2": {
-		"zh-cn": "春分",
-		"zh-hk": "春分",
-		"zh-tw": "春分",
-		"en": "Spring Equinox",
-		"it": "Equinozio di Primavera"
-	},
-	"j9ux2": {
-		"zh-cn": "清明",
-		"zh-hk": "清明",
-		"zh-tw": "清明",
-		"en": "Qingming",
-		"it": "Qingming"
-	},
-	"ooep2": {
-		"zh-cn": "谷雨",
-		"zh-hk": "穀雨",
-		"zh-tw": "穀雨",
-		"en": "Grain Rain",
-		"it": "Pioggia dei Cereali"
-	},
-	"ldic2": {
-		"zh-cn": "立夏",
-		"zh-hk": "立夏",
-		"zh-tw": "立夏",
-		"en": "Start of Summer",
-		"it": "Inizio dell'Estate"
-	},
-	"g9ma2": {
-		"zh-cn": "小满",
-		"zh-hk": "小滿",
-		"zh-tw": "小滿",
-		"en": "Grain Full",
-		"it": "Grano Pieno"
-	},
-	"mvln2": {
-		"zh-cn": "芒种",
-		"zh-hk": "芒種",
-		"zh-tw": "芒種",
-		"en": "Grain in Ear",
-		"it": "Spighe di Grano"
-	},
-	"fv0k2": {
-		"zh-cn": "夏至",
-		"zh-hk": "夏至",
-		"zh-tw": "夏至",
-		"en": "Summer Solstice",
-		"it": "Solstizio d'Estate"
-	},
-	"g7z62": {
-		"zh-cn": "小暑",
-		"zh-hk": "小暑",
-		"zh-tw": "小暑",
-		"en": "Minor Heat",
-		"it": "Piccolo Caldo"
-	},
-	"fq6i2": {
-		"zh-cn": "大暑",
-		"zh-hk": "大暑",
-		"zh-tw": "大暑",
-		"en": "Major Heat",
-		"it": "Grande Caldo"
-	},
-	"ljz42": {
-		"zh-cn": "立秋",
-		"zh-hk": "立秋",
-		"zh-tw": "立秋",
-		"en": "Start of Autumn",
-		"it": "Inizio dell'Autunno"
-	},
-	"fpcd2": {
-		"zh-cn": "处暑",
-		"zh-hk": "處暑",
-		"zh-tw": "處暑",
-		"en": "Limit of Heat",
-		"it": "Limite del Caldo"
-	},
-	"kzf92": {
-		"zh-cn": "白露",
-		"zh-hk": "白露",
-		"zh-tw": "白露",
-		"en": "White Dew",
-		"it": "Rugiada Bianca"
-	},
-	"l5zv2": {
-		"zh-cn": "秋分",
-		"zh-hk": "秋分",
-		"zh-tw": "秋分",
-		"en": "Autumn Equinox",
-		"it": "Equinozio d'Autunno"
-	},
-	"gg4g2": {
-		"zh-cn": "寒露",
-		"zh-hk": "寒露",
-		"zh-tw": "寒露",
-		"en": "Cold Dew",
-		"it": "Rugiada Fredda"
-	},
-	"qj012": {
-		"zh-cn": "霜降",
-		"zh-hk": "霜降",
-		"zh-tw": "霜降",
-		"en": "Frost's Descent",
-		"it": "Discesa del Gelo"
-	},
-	"lc1t2": {
-		"zh-cn": "立冬",
-		"zh-hk": "立冬",
-		"zh-tw": "立冬",
-		"en": "Start of Winter",
-		"it": "Inizio dell'Inverno"
-	},
-	"ghiz2": {
-		"zh-cn": "小雪",
-		"zh-hk": "小雪",
-		"zh-tw": "小雪",
-		"en": "Minor Snow",
-		"it": "Piccola Neve"
-	},
-	"fzqb2": {
-		"zh-cn": "大雪",
-		"zh-hk": "大雪",
-		"zh-tw": "大雪",
-		"en": "Major Snow",
-		"it": "Grande Neve"
-	},
-	"els72": {
-		"zh-cn": "冬至",
-		"zh-hk": "冬至",
-		"zh-tw": "冬至",
-		"en": "Winter Solstice",
-		"it": "Solstizio d'Inverno"
-	},
-	"fer1": {
-		"zh-cn": "七",
-		"zh-hk": "七",
-		"zh-tw": "七",
-		"en": "Seven",
-		"it": "Sette"
-	},
-	"g2z1": {
-		"zh-cn": "八",
-		"zh-hk": "八",
-		"zh-tw": "八",
-		"en": "Eight",
-		"it": "Otto"
-	},
-	"fh91": {
-		"zh-cn": "九",
-		"zh-hk": "九",
-		"zh-tw": "九",
-		"en": "Nine",
-		"it": "Nove"
-	},
-	"gg11": {
-		"zh-cn": "十",
-		"zh-hk": "十",
-		"zh-tw": "十",
-		"en": "Ten",
-		"it": "Dieci"
-	},
-	"g7x1": {
-		"zh-cn": "初",
-		"zh-hk": "初",
-		"zh-tw": "初",
-		"en": "Initial",
-		"it": "Iniziale"
-	},
-	"irj1": {
-		"zh-cn": "廿",
-		"zh-hk": "廿",
-		"zh-tw": "廿",
-		"en": "Twenty",
-		"it": "Venti"
-	},
-	"gg51": {
-		"zh-cn": "卅",
-		"zh-hk": "卅",
-		"zh-tw": "卅",
-		"en": "Thirty",
-		"it": "Trenta"
-	},
-	"l7n1": {
-		"zh-cn": "正",
-		"zh-hk": "正",
-		"zh-tw": "正",
-		"en": "First month",
-		"it": "Primo mese"
-	},
-	"g4s1": {
-		"zh-cn": "冬",
-		"zh-hk": "冬",
-		"zh-tw": "冬",
-		"en": "Winter",
-		"it": "Inverno"
-	},
-	"pje1": {
-		"zh-cn": "腊",
-		"zh-hk": "臘",
-		"zh-tw": "臘",
-		"en": "Twelfth month",
-		"it": "Dodicesimo mese"
-	},
-	"7qioimq": {
-		"zh-cn": "摩羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手摩羯",
-		"zh-hk": "摩羯水瓶雙魚白羊金牛雙子巨蟹獅子處女天秤天蠍射手摩羯",
-		"zh-tw": "摩羯水瓶雙魚白羊金牛雙子巨蟹獅子處女天秤天蠍射手摩羯",
-		"en": "Capricorn Aquarius Pisces Aries Taurus Gemini Cancer Leo Virgo Libra Scorpio Sagittarius Capricorn",
-		"it": "Capricorno Acquario Pesci Ariete Toro Gemelli Cancro Leone Vergine Bilancia Scorpione Sagittario Capricorno"
-	},
-	"ip31": {
-		"zh-cn": "座",
-		"zh-hk": "座",
-		"zh-tw": "座",
-		"en": "Zodiac",
-		"it": "Zodiaco"
-	},
-	"kco1": {
-		"zh-cn": "月",
-		"zh-hk": "月",
-		"zh-tw": "月",
-		"en": "Month",
-		"it": "Mese"
-	},
-	"ef9g2": {
-		"zh-cn": "初十",
-		"zh-hk": "初十",
-		"zh-tw": "初十",
-		"en": "Tenth day",
-		"it": "Decimo giorno"
-	},
-	"dtf92": {
-		"zh-cn": "二十",
-		"zh-hk": "二十",
-		"zh-tw": "二十",
-		"en": "Twenty",
-		"it": "Venti"
-	},
-	"dqag2": {
-		"zh-cn": "三十",
-		"zh-hk": "三十",
-		"zh-tw": "三十",
-		"en": "Thirty",
-		"it": "Trenta"
-	},
-	"tm81": {
-		"zh-cn": "闰",
-		"zh-hk": "閏",
-		"zh-tw": "閏",
-		"en": "Leap",
-		"it": "Bisestile"
-	},
 	"l9o82": {
 		"zh-cn": "租户",
 		"zh-hk": "租戶",
 		"zh-tw": "租戶",
 		"en": "Tenant",
 		"it": "Inquilino"
-	},
-	"yb1epk6": {
-		"zh-cn": "租户不能为空",
-		"zh-hk": "租戶不能為空",
-		"zh-tw": "租戶不能為空",
-		"en": "Tenant cannot be empty",
-		"it": "L'inquilino non può essere vuoto"
 	},
 	"6eaj5s4": {
 		"zh-cn": "】上线了",
@@ -4486,13 +748,6 @@
 		"en": "Search",
 		"it": "Cerca"
 	},
-	"phz52": {
-		"zh-cn": "重置",
-		"zh-hk": "重置",
-		"zh-tw": "重置",
-		"en": "Reset",
-		"it": "Ripristina"
-	},
 	"gjm02": {
 		"zh-cn": "序号",
 		"zh-hk": "序號",
@@ -4527,69 +782,6 @@
 		"zh-tw": "操作",
 		"en": "Action",
 		"it": "Azione"
-	},
-	"dyxg2": {
-		"zh-cn": "下线",
-		"zh-hk": "下線",
-		"zh-tw": "離線",
-		"en": "Offline",
-		"it": "Disconnetti"
-	},
-	"glczjw4": {
-		"zh-cn": "网络超时",
-		"zh-hk": "網路超時",
-		"zh-tw": "網路逾時",
-		"en": "Network timeout",
-		"it": "Timeout di rete"
-	},
-	"zflmhk6": {
-		"zh-cn": "网络连接错误",
-		"zh-hk": "網路連線錯誤",
-		"zh-tw": "網路連線錯誤",
-		"en": "Network connection error",
-		"it": "Errore connessione di rete"
-	},
-	"iu8vf27": {
-		"zh-cn": "接口路径找不到",
-		"zh-hk": "介面路徑找不到",
-		"zh-tw": "介面路徑找不到",
-		"en": "Interface path not found",
-		"it": "Percorso interfaccia non trovato"
-	},
-	"ie2s53": {
-		"zh-cn": "站内信",
-		"zh-hk": "站內信",
-		"zh-tw": "站內信",
-		"en": "In-site message",
-		"it": "Messaggio interno"
-	},
-	"6nwwnq4": {
-		"zh-cn": "【通知】",
-		"zh-hk": "【通告】",
-		"zh-tw": "【公告】",
-		"en": "【Notice】",
-		"it": "【Notifica】"
-	},
-	"6ekcbn4": {
-		"zh-cn": "【公告】",
-		"zh-hk": "【公告】",
-		"zh-tw": "【公告】",
-		"en": "【Announcement】",
-		"it": "【Annuncio】"
-	},
-	"hbwz2": {
-		"zh-cn": "我的",
-		"zh-hk": "我嘅",
-		"zh-tw": "我的",
-		"en": "mine",
-		"it": "Mio"
-	},
-	"e851om4": {
-		"zh-cn": "消息详情",
-		"zh-hk": "訊息詳情",
-		"zh-tw": "訊息詳情",
-		"en": "Message Details",
-		"it": "Dettagli del messaggio"
 	},
 	"l9122": {
 		"zh-cn": "确认",
@@ -4899,20 +1091,6 @@
 		"en": "Affiliated institution",
 		"it": "Filiale"
 	},
-	"2t5pba6": {
-		"zh-cn": "增加附属机构",
-		"zh-hk": "增加附屬機構",
-		"zh-tw": "增加附屬機構",
-		"en": "Add affiliated institutions",
-		"it": "aggiungere un'unità affiliata"
-	},
-	"nbdvv0d": {
-		"zh-cn": "具有相应组织机构的数据权限",
-		"zh-hk": "具有相應組織機構嘅數據權限",
-		"zh-tw": "具有相應組織機構的資料權限",
-		"en": "Has corresponding organizational data permissions",
-		"it": "Avere i corrispondenti diritti di accesso ai dati dell'organizzazione"
-	},
 	"i4ju2": {
 		"zh-cn": "机构",
 		"zh-hk": "機構",
@@ -4933,13 +1111,6 @@
 		"zh-tw": "職位不能為空",
 		"en": "Position cannot be empty",
 		"it": "La posizione non può essere vuota"
-	},
-	"ifm603": {
-		"zh-cn": "空数据",
-		"zh-hk": "空數據",
-		"zh-tw": "空資料",
-		"en": "Empty data",
-		"it": "Dati vuoti"
 	},
 	"hxdr4r4": {
 		"zh-cn": "角色授权",
@@ -5074,47 +1245,12 @@
 		"en": "Note",
 		"it": "Nota"
 	},
-	"obrz2": {
-		"zh-cn": "详情",
-		"zh-hk": "詳情",
-		"zh-tw": "詳情",
-		"en": "Details",
-		"it": "Dettagli"
-	},
-	"chspy3": {
-		"zh-cn": "创建者",
-		"zh-hk": "創建者",
-		"zh-tw": "創建者",
-		"en": "Creator",
-		"it": "Creatore"
-	},
-	"k4g1": {
-		"zh-cn": "无",
-		"zh-hk": "無",
-		"zh-tw": "無",
-		"en": "None",
-		"it": "Nessuno"
-	},
 	"ar84e54": {
 		"zh-cn": "创建时间",
 		"zh-hk": "創建時間",
 		"zh-tw": "建立時間",
 		"en": "Creation Time",
 		"it": "Data di creazione"
-	},
-	"c7dy23": {
-		"zh-cn": "修改者",
-		"zh-hk": "修改者",
-		"zh-tw": "修改者",
-		"en": "Modifier",
-		"it": "Modificatore"
-	},
-	"ai9edl4": {
-		"zh-cn": "修改时间",
-		"zh-hk": "修改時間",
-		"zh-tw": "修改時間",
-		"en": "Modification time",
-		"it": "Data di modifica"
 	},
 	"dgag7h4": {
 		"zh-cn": "机构名称",
@@ -5192,13 +1328,6 @@
 		"zh-tw": "資料範圍",
 		"en": "Data range",
 		"it": "Intervallo di dati"
-	},
-	"kcxyba6": {
-		"zh-cn": "授权数据范围",
-		"zh-hk": "授權數據範圍",
-		"zh-tw": "授權資料範圍",
-		"en": "Authorization Data Scope",
-		"it": "Ambito dei dati autorizzati"
 	},
 	"ghaytx5": {
 		"zh-cn": "数据范围：",
@@ -5466,13 +1595,6 @@
 		"en": "Female",
 		"it": "Donna"
 	},
-	"xhrbjv6": {
-		"zh-cn": "保存基本信息",
-		"zh-hk": "儲存基本資料",
-		"zh-tw": "儲存基本資訊",
-		"en": "Save Basic Information",
-		"it": "Salva informazioni di base"
-	},
 	"gio0nh4": {
 		"zh-cn": "组织机构",
 		"zh-hk": "組織機構",
@@ -5557,26 +1679,12 @@
 		"en": "Brush color:",
 		"it": "Colore del pennello："
 	},
-	"gr9cs5": {
-		"zh-cn": "横向/纵向",
-		"zh-hk": "橫向/縱向\n\n（嚴格遵守技術符號保留原則，所有程式符號、UI佔位符及單位符號均保持原樣，符合企業軟件系統專業翻譯標準）",
-		"zh-tw": "橫向/縱向\n\n（嚴格遵守技術翻譯規範：\n1. 保留所有技術符號格式\n2. 使用國際通用企業軟體術語\n3. 中文符號全形化處理\n4. 被動/主動語態依語言特性轉換\n5. 未改動任何技術參數與占位符）",
-		"en": "Horizontal/Vertical",
-		"it": "Orizzontale/Verticale"
-	},
 	"j7xlb3": {
 		"zh-cn": "编码：",
 		"zh-hk": "編碼：",
 		"zh-tw": "編碼：",
 		"en": "Code:",
 		"it": "Codifica："
-	},
-	"ikxafd4": {
-		"zh-cn": "选择图片",
-		"zh-hk": "選擇圖片",
-		"zh-tw": "選擇圖片",
-		"en": "Select Image",
-		"it": "Seleziona immagine"
 	},
 	"qp502": {
 		"zh-cn": "预览",
@@ -5662,13 +1770,6 @@
 		"en": "Publish Time",
 		"it": "Data di pubblicazione"
 	},
-	"erte2": {
-		"zh-cn": "发布",
-		"zh-hk": "發佈",
-		"zh-tw": "發布",
-		"en": "Publish",
-		"it": "Pubblica"
-	},
 	"4cmfpd6": {
 		"zh-cn": "标题不能为空",
 		"zh-hk": "標題不能為空",
@@ -5689,27 +1790,6 @@
 		"zh-tw": "內容不能為空",
 		"en": "Content cannot be empty",
 		"it": "Il contenuto non può essere vuoto"
-	},
-	"16nec18": {
-		"zh-cn": "请输入内容...",
-		"zh-hk": "請輸入內容...",
-		"zh-tw": "請輸入內容...",
-		"en": "Please enter content...",
-		"it": "Inserisci il contenuto..."
-	},
-	"vdb68n5": {
-		"zh-cn": "上传失败！",
-		"zh-hk": "上傳失敗！",
-		"zh-tw": "上傳失敗！",
-		"en": "Upload failed!",
-		"it": "Caricamento fallito!"
-	},
-	"lu94pl": {
-		"zh-cn": "图片网址必须以 http/https 开头",
-		"zh-hk": "圖片網址必須以 http/https 開頭",
-		"zh-tw": "圖片網址必須以 http/https 開頭",
-		"en": "Image URL must start with http/https",
-		"it": "L'URL dell'immagine deve iniziare con http/https"
 	},
 	"47bzwh6": {
 		"zh-cn": "编辑微信账号",
@@ -5878,20 +1958,6 @@
 		"zh-tw": "Ldap版本",
 		"en": "LDAP Version",
 		"it": "Versione LDAP"
-	},
-	"cm04nd5": {
-		"zh-cn": "同步域账户",
-		"zh-hk": "同步域賬戶",
-		"zh-tw": "同步網域帳戶",
-		"en": "Sync Domain Accounts",
-		"it": "Sincronizza account di dominio"
-	},
-	"cm2f2v5": {
-		"zh-cn": "同步域组织",
-		"zh-hk": "同步域組織",
-		"zh-tw": "同步網域組織",
-		"en": "Sync Domain Organizations",
-		"it": "Sincronizza organizzazione di dominio"
 	},
 	"7meykn6": {
 		"zh-cn": "请输入主机！",
@@ -6173,13 +2239,6 @@
 		"en": "other configurations?",
 		"it": "configurazioni?"
 	},
-	"d0w7cq4": {
-		"zh-cn": "批量删除",
-		"zh-hk": "批量刪除",
-		"zh-tw": "批次刪除",
-		"en": "Batch Delete",
-		"it": "Eliminazione in blocco"
-	},
 	"18jpqs8": {
 		"zh-cn": "配置名称不能为空",
 		"zh-hk": "設定名稱不能為空",
@@ -6208,13 +2267,6 @@
 		"en": "Value cannot be empty",
 		"it": "Il valore non può essere vuoto"
 	},
-	"pc402": {
-		"zh-cn": "选项",
-		"zh-hk": "選項",
-		"zh-tw": "選項",
-		"en": "Options",
-		"it": "Opzione"
-	},
 	"cv4oqh8": {
 		"zh-cn": "内置参数不能为空",
 		"zh-hk": "內置參數不能為空",
@@ -6222,145 +2274,12 @@
 		"en": "Built-in parameters cannot be empty",
 		"it": "Il parametro integrato non può essere vuoto"
 	},
-	"gqur3": {
-		"zh-cn": "7天内",
-		"zh-hk": "7天內",
-		"zh-tw": "7天內",
-		"en": "Within 7 days",
-		"it": "Entro 7 giorni"
-	},
-	"ctf124": {
-		"zh-cn": "1个月内",
-		"zh-hk": "1個月內",
-		"zh-tw": "1個月內",
-		"en": "Within 1 month",
-		"it": "Entro 1 mese"
-	},
-	"cup044": {
-		"zh-cn": "3个月内",
-		"zh-hk": "3個月內",
-		"zh-tw": "3個月內",
-		"en": "Within 3 months",
-		"it": "Entro 3 mesi"
-	},
-	"adohlc4": {
-		"zh-cn": "不能为空",
-		"zh-hk": "不能為空",
-		"zh-tw": "不能為空",
-		"en": "Cannot be empty",
-		"it": "Non può essere vuoto"
-	},
-	"cd0ag54": {
-		"zh-cn": "开始日期",
-		"zh-hk": "開始日期",
-		"zh-tw": "開始日期",
-		"en": "Start date",
-		"it": "Data di inizio"
-	},
-	"gfhy2u4": {
-		"zh-cn": "结束日期",
-		"zh-hk": "結束日期",
-		"zh-tw": "結束日期",
-		"en": "End date",
-		"it": "Data di fine"
-	},
-	"d6cz975": {
-		"zh-cn": "取消固定列",
-		"zh-hk": "取消固定欄",
-		"zh-tw": "取消固定欄",
-		"en": "Unpin column",
-		"it": "Annulla colonna fissa"
-	},
-	"8nqzkv9": {
-		"zh-cn": "没有勾选要导出的列",
-		"zh-hk": "沒有勾選要導出的欄",
-		"zh-tw": "未勾選要匯出的欄位",
-		"en": "No columns selected for export",
-		"it": "Nessuna colonna selezionata per l'esportazione"
-	},
-	"wl1oyu8": {
-		"zh-cn": "没有数据可以导出",
-		"zh-hk": "沒有數據可以導出",
-		"zh-tw": "無資料可匯出",
-		"en": "No data available for export",
-		"it": "Nessun dato disponibile per l'esportazione"
-	},
-	"by61a44": {
-		"zh-cn": "导出数据",
-		"zh-hk": "導出數據",
-		"zh-tw": "匯出資料",
-		"en": "Export Data",
-		"it": "Esporta dati"
-	},
-	"ausw1u5": {
-		"zh-cn": "启用固定列",
-		"zh-hk": "啟用固定欄",
-		"zh-tw": "啟用固定欄",
-		"en": "Enable Fixed Columns",
-		"it": "Abilita colonne fisse"
-	},
-	"ngzs3f6": {
-		"zh-cn": "导出本页数据",
-		"zh-hk": "導出本頁數據",
-		"zh-tw": "匯出本頁資料",
-		"en": "Export Current Page Data",
-		"it": "Esporta dati della pagina corrente"
-	},
-	"q8xgck6": {
-		"zh-cn": "导出全部数据",
-		"zh-hk": "導出全部數據",
-		"zh-tw": "匯出全部資料",
-		"en": "Export All Data",
-		"it": "Esporta tutti i dati"
-	},
 	"g3ge2": {
 		"zh-cn": "导出",
 		"zh-hk": "導出",
 		"zh-tw": "匯出",
 		"en": "Export",
 		"it": "Esporta"
-	},
-	"h6kd2": {
-		"zh-cn": "打印",
-		"zh-hk": "列印",
-		"zh-tw": "列印",
-		"en": "Print",
-		"it": "Stampa"
-	},
-	"ogvk2": {
-		"zh-cn": "设置",
-		"zh-hk": "設定",
-		"zh-tw": "設定",
-		"en": "Settings",
-		"it": "Impostazioni"
-	},
-	"ciwwj3": {
-		"zh-cn": "列显示",
-		"zh-hk": "欄顯示",
-		"zh-tw": "欄位顯示",
-		"en": "Column Display",
-		"it": "Visualizzazione colonne"
-	},
-	"fy272": {
-		"zh-cn": "多选",
-		"zh-hk": "多选",
-		"zh-tw": "多選",
-		"en": "Multiple Selection",
-		"it": "Selezione multipla"
-	},
-	"xdtlcw6": {
-		"zh-cn": "拖动进行排序",
-		"zh-hk": "拖動進行排序",
-		"zh-tw": "拖曳進行排序",
-		"en": "Drag to Sort",
-		"it": "Trascina per ordinare"
-	},
-	"dcv57g4": {
-		"zh-cn": "暂无数据",
-		"zh-hk": "暫無數據",
-		"zh-tw": "暫無資料",
-		"en": "No Data Available",
-		"it": "Nessun dato disponibile"
 	},
 	"m9kx7j7": {
 		"zh-cn": "确定要删除吗?",
@@ -6726,13 +2645,6 @@
 		"en": "Please enter the translation content",
 		"it": "Inserisci il contenuto della traduzione"
 	},
-	"k25dws4": {
-		"zh-cn": "高级查询",
-		"zh-hk": "進階查詢",
-		"zh-tw": "進階查詢",
-		"en": "Advanced Query",
-		"it": "Ricerca avanzata"
-	},
 	"qce72": {
 		"zh-cn": "隐藏",
 		"zh-hk": "隱藏",
@@ -6817,75 +2729,12 @@
 		"en": "Please enter the translation content!",
 		"it": "Selezionare il contenuto della traduzione!"
 	},
-	"mzx3c3b": {
-		"zh-cn": "导入完成，存在部分错误",
-		"zh-hk": "匯入完成，存在部分錯誤",
-		"zh-tw": "匯入完成，存在部分錯誤",
-		"en": "Import completed with partial errors",
-		"it": "Importazione completata con alcuni errori"
-	},
-	"3h96vw9": {
-		"zh-cn": "导入过程中发生错误",
-		"zh-hk": "匯入過程中發生錯誤",
-		"zh-tw": "匯入過程中發生錯誤",
-		"en": "An error occurred during the import process",
-		"it": "Si è verificato un errore durante l'importazione"
-	},
-	"va9u6m5": {
-		"zh-cn": "下载错误:",
-		"zh-hk": "下載錯誤：",
-		"zh-tw": "下載錯誤：",
-		"en": "Download error:",
-		"it": "Errore di download:"
-	},
-	"d7ll5z4": {
-		"zh-cn": "数据导入",
-		"zh-hk": "數據導入",
-		"zh-tw": "資料匯入",
-		"en": "Data import",
-		"it": "Importazione dati"
-	},
 	"bybnk3": {
 		"zh-cn": "关 闭",
 		"zh-hk": "關 閉",
 		"zh-tw": "關 閉",
 		"en": "Close",
 		"it": "Chiudi"
-	},
-	"imbi2": {
-		"zh-cn": "模板",
-		"zh-hk": "範本",
-		"zh-tw": "範本",
-		"en": "Template",
-		"it": "Modello"
-	},
-	"ikzkgf4": {
-		"zh-cn": "选择文件",
-		"zh-hk": "選擇檔案",
-		"zh-tw": "選擇檔案",
-		"en": "Select file",
-		"it": "Seleziona file"
-	},
-	"48ecnb5": {
-		"zh-cn": "未选择文件",
-		"zh-hk": "未選擇檔案",
-		"zh-tw": "未選擇檔案",
-		"en": "No file selected",
-		"it": "Nessun file selezionato"
-	},
-	"t5axoun": {
-		"zh-cn": "导入完毕，存在部分错误，请下载导入结果查看详情",
-		"zh-hk": "導入完成，存在部分錯誤，請下載導入結果查看詳情",
-		"zh-tw": "匯入完畢，存在部分錯誤，請下載匯入結果查看詳情",
-		"en": "Import completed with partial errors. Please download the import results for details.",
-		"it": "Importazione completata con alcuni errori, scaricare il risultato per i dettagli"
-	},
-	"h5tc4k6": {
-		"zh-cn": "下载导入结果",
-		"zh-hk": "下載導入結果",
-		"zh-tw": "下載匯入結果",
-		"en": "Download import results",
-		"it": "Scarica risultato importazione"
 	},
 	"uy5wps6": {
 		"zh-cn": "打印机不存在",
@@ -7020,13 +2869,6 @@
 		"en": "Contact Number",
 		"it": "Telefono"
 	},
-	"fd8p2": {
-		"zh-cn": "图标",
-		"zh-hk": "圖標",
-		"zh-tw": "圖示",
-		"en": "Icon",
-		"it": "Icona"
-	},
 	"eyrn2": {
 		"zh-cn": "名称",
 		"zh-hk": "名稱",
@@ -7068,20 +2910,6 @@
 		"zh-tw": "備案號碼",
 		"en": "Record Filing Number",
 		"it": "Numero di registrazione"
-	},
-	"1nz86e5": {
-		"zh-cn": "icp地址",
-		"zh-hk": "ICP地址",
-		"zh-tw": "ICP位址",
-		"en": "ICP Address",
-		"it": "Indirizzo ICP"
-	},
-	"b3xkql4": {
-		"zh-cn": "启用注册",
-		"zh-hk": "啟用註冊",
-		"zh-tw": "啟用註冊",
-		"en": "Enable Registration",
-		"it": "Abilita registrazione"
 	},
 	"fw5os34": {
 		"zh-cn": "租管账号",
@@ -7132,54 +2960,12 @@
 		"en": "Replica Connection",
 		"it": "Connessione slave"
 	},
-	"chm443": {
-		"zh-cn": "创建库",
-		"zh-hk": "創建庫",
-		"zh-tw": "建立資料庫",
-		"en": "Create Database",
-		"it": "Crea database"
-	},
-	"5041gj5": {
-		"zh-cn": "进入租管端",
-		"zh-hk": "進入租管端",
-		"zh-tw": "進入租戶管理端",
-		"en": "Enter Tenant Management Console",
-		"it": "Accedi al tenant management"
-	},
-	"czozjo4": {
-		"zh-cn": "授权菜单",
-		"zh-hk": "授權菜單",
-		"zh-tw": "授權選單",
-		"en": "Authorize Menu",
-		"it": "Menu autorizzazioni"
-	},
 	"mszyzue": {
 		"zh-cn": "用于版本更新后，同步授权数据",
 		"zh-hk": "用於版本更新後，同步授權數據",
 		"zh-tw": "用於版本更新後，同步授權資料",
 		"en": "Used to synchronize authorization data after version updates",
 		"it": "Sincronizza i dati di autorizzazione dopo l'aggiornamento della versione"
-	},
-	"b1ua1g4": {
-		"zh-cn": "同步授权",
-		"zh-hk": "同步授權",
-		"zh-tw": "同步授權",
-		"en": "Synchronize Authorization",
-		"it": "Sincronizza autorizzazioni"
-	},
-	"azim4c4": {
-		"zh-cn": "删除租户",
-		"zh-hk": "刪除租戶",
-		"zh-tw": "刪除租戶",
-		"en": "Delete Tenant",
-		"it": "Elimina tenant"
-	},
-	"hsc42c6": {
-		"zh-cn": "授权租户菜单",
-		"zh-hk": "授權租戶菜單",
-		"zh-tw": "授權租戶選單",
-		"en": "Authorize Tenant Menu",
-		"it": "Autorizza menu tenant"
 	},
 	"biyzkw4": {
 		"zh-cn": "基本信息",
@@ -7642,34 +3428,6 @@
 		"zh-tw": "不啟用",
 		"en": "Disabled",
 		"it": "Non abilitato"
-	},
-	"2e2shof": {
-		"zh-cn": "请输入内容搜索图标或者选择图标",
-		"zh-hk": "請輸入內容搜尋圖示或者選擇圖示",
-		"zh-tw": "請輸入內容搜尋圖示或選擇圖示",
-		"en": "Please enter content to search for icons or select an icon",
-		"it": "Inserisci l'icona di ricerca o seleziona un'icona"
-	},
-	"2en2kg5": {
-		"zh-cn": "请选择图标",
-		"zh-hk": "請選擇圖示",
-		"zh-tw": "請選擇圖示",
-		"en": "Please select an icon",
-		"it": "Seleziona icona"
-	},
-	"cia9wc5": {
-		"zh-cn": "无相关图标",
-		"zh-hk": "無相關圖示",
-		"zh-tw": "無相關圖示",
-		"en": "No relevant icons found",
-		"it": "Nessuna icona correlata"
-	},
-	"dp22e7b": {
-		"zh-cn": "未获取到值，请刷新重试",
-		"zh-hk": "未獲取到值，請重新整理重試",
-		"zh-tw": "未取得值，請重新整理重試",
-		"en": "Value not retrieved, please refresh and try again",
-		"it": "Valore non ottenuto, aggiornare e riprovare"
 	},
 	"e7xbk64": {
 		"zh-cn": "添加字典",
@@ -8182,110 +3940,12 @@
 		"en": "Add Job",
 		"it": "Aggiungi job"
 	},
-	"jjs7t94": {
-		"zh-cn": "集群控制",
-		"zh-hk": "集群控制",
-		"zh-tw": "叢集控制",
-		"en": "Cluster Control",
-		"it": "Controllo cluster"
-	},
 	"i4ky9u5": {
 		"zh-cn": "触发器编号",
 		"zh-hk": "觸發器編號",
 		"zh-tw": "觸發器編號",
 		"en": "Trigger ID",
 		"it": "ID Trigger"
-	},
-	"l75o2": {
-		"zh-cn": "积压",
-		"zh-hk": "積壓",
-		"zh-tw": "待處理",
-		"en": "Backlog",
-		"it": "Backlog"
-	},
-	"gdll2": {
-		"zh-cn": "就绪",
-		"zh-hk": "就緒",
-		"zh-tw": "就緒",
-		"en": "Ready",
-		"it": "Pronto"
-	},
-	"dx2gkh4": {
-		"zh-cn": "正在运行",
-		"zh-hk": "正在執行",
-		"zh-tw": "執行中",
-		"en": "Running",
-		"it": "In esecuzione"
-	},
-	"hvkq2": {
-		"zh-cn": "暂停",
-		"zh-hk": "暫停",
-		"zh-tw": "已暫停",
-		"en": "Paused",
-		"it": "In pausa"
-	},
-	"q1dv2": {
-		"zh-cn": "阻塞",
-		"zh-hk": "阻塞",
-		"zh-tw": "已封鎖",
-		"en": "Blocked",
-		"it": "Bloccato"
-	},
-	"u1wfnc7": {
-		"zh-cn": "由失败进入就绪",
-		"zh-hk": "由失敗進入就緒",
-		"zh-tw": "由失敗進入就緒",
-		"en": "Ready after failure",
-		"it": "Pronto dopo fallimento"
-	},
-	"gsb52": {
-		"zh-cn": "归档",
-		"zh-hk": "歸檔",
-		"zh-tw": "歸檔",
-		"en": "Archived",
-		"it": "Archiviato"
-	},
-	"ggai2": {
-		"zh-cn": "崩溃",
-		"zh-hk": "崩潰",
-		"zh-tw": "崩潰",
-		"en": "Crashed",
-		"it": "Arresto anomalo"
-	},
-	"owa32": {
-		"zh-cn": "超限",
-		"zh-hk": "超限",
-		"zh-tw": "超限",
-		"en": "Exceeded limit",
-		"it": "Superamento limite"
-	},
-	"a3wpdj5": {
-		"zh-cn": "无触发时间",
-		"zh-hk": "無觸發時間",
-		"zh-tw": "無觸發時間",
-		"en": "No trigger time",
-		"it": "Nessun tempo di attivazione"
-	},
-	"fir5v3": {
-		"zh-cn": "未启动",
-		"zh-hk": "未啟動",
-		"zh-tw": "未啟動",
-		"en": "Not started",
-		"it": "Non avviato"
-	},
-	"tofitg7": {
-		"zh-cn": "未知作业触发器",
-		"zh-hk": "未知作業觸發器",
-		"zh-tw": "未知作業觸發器",
-		"en": "Unknown job trigger",
-		"it": "Trigger di lavoro sconosciuto"
-	},
-	"9e5li98": {
-		"zh-cn": "未知作业处理程序",
-		"zh-hk": "未知作業處理程序",
-		"zh-tw": "未知作業處理程序",
-		"en": "Unknown job handler",
-		"it": "Gestore di attività sconosciuto"
 	},
 	"i7zt2q4": {
 		"zh-cn": "起始时间",
@@ -8427,13 +4087,6 @@
 		"en": "Additional data",
 		"it": "Dati aggiuntivi"
 	},
-	"i3sm6x4": {
-		"zh-cn": "请求参数",
-		"zh-hk": "請求參數",
-		"zh-tw": "請求參數",
-		"en": "Request parameters",
-		"it": "Parametri di richiesta"
-	},
 	"htw9in9": {
 		"zh-cn": "Http 请求参数",
 		"zh-hk": "Http 請求參數",
@@ -8532,27 +4185,6 @@
 		"en": "Cluster ID",
 		"it": "ID cluster"
 	},
-	"g56t2": {
-		"zh-cn": "宕机",
-		"zh-hk": "宕機",
-		"zh-tw": "當機",
-		"en": "Down",
-		"it": "Down"
-	},
-	"e514m3": {
-		"zh-cn": "工作中",
-		"zh-hk": "工作中",
-		"zh-tw": "工作中",
-		"en": "In Progress",
-		"it": "In esecuzione"
-	},
-	"2k3z0j5": {
-		"zh-cn": "等待被唤醒",
-		"zh-hk": "等待被喚醒",
-		"zh-tw": "等待被喚醒",
-		"en": "Awaiting Wake-up",
-		"it": "In attesa di risveglio"
-	},
 	"ac67ho4": {
 		"zh-cn": "作业信息",
 		"zh-hk": "作業資訊",
@@ -8580,13 +4212,6 @@
 		"zh-tw": "建立類型",
 		"en": "Creation Type",
 		"it": "Tipo di creazione"
-	},
-	"s7n50n5": {
-		"zh-cn": "扫描触发器",
-		"zh-hk": "掃描觸發器",
-		"zh-tw": "掃描觸發器",
-		"en": "Scan Trigger",
-		"it": "Trigger di scansione"
 	},
 	"mi9shkt": {
 		"zh-cn": "此参数只在新增作业时生效<br/>扫描定义在作业上的触发器",
@@ -8721,33 +4346,12 @@
 		"en": "Execute Once on Startup",
 		"it": "Esegui una volta all'avvio"
 	},
-	"4hrriz6": {
-		"zh-cn": "重置触发次数",
-		"zh-hk": "重設觸發次數",
-		"zh-tw": "重設觸發次數",
-		"en": "Reset Trigger Count",
-		"it": "Reimposta conteggio trigger"
-	},
 	"rky0sj1g": {
 		"zh-cn": "是否在启动时重置最大触发次数等于一次的作业<br/>解决因持久化数据已完成一次触发但启动时不再执行的问题",
 		"zh-hk": "是否在啟動時重設最大觸發次數等於一次的作業<br/>解決因持久化數據已完成一次觸發但啟動時不再執行的問題",
 		"zh-tw": "是否在啟動時重設最大觸發次數等於一次的作業<br/>解決因持久化資料已完成一次觸發但啟動時不再執行的問題",
 		"en": "Whether to reset the maximum trigger count to one for jobs on startup<br/>Resolves the issue where persisted data has already triggered once but does not execute again on startup",
 		"it": "Reimpostare i lavori con trigger massimo=1 all'avvio?<br/>Risoluzione problema: trigger già completato nei dati persistenti ma non eseguito all'avvio"
-	},
-	"tb3oz8a": {
-		"zh-cn": "Cron表达式生成器",
-		"zh-hk": "Cron表達式生成器",
-		"zh-tw": "Cron運算式產生器",
-		"en": "Cron Expression Generator",
-		"it": "Generatore espressioni Cron"
-	},
-	"h6ghbdvj": {
-		"zh-cn": "#region using\n\nusing Furion;\nusing Furion.Logging;\nusing Furion.RemoteRequest.Extensions;\nusing Furion.Schedule;\nusing Microsoft.Extensions.DependencyInjection;\nusing System;\nusing System.Data;\nusing System.Linq.Dynamic.Core;\nusing System.Linq.Expressions;\nusing System.Text;\nusing System.Threading;\nusing System.Threading.Tasks;\nusing Yitter.IdGenerator;\n\n#endregion\n\nnamespace Admin.NET.Core;\n\n/// <summary>\n/// 动态作业任务\n/// </summary>\n[JobDetail(\"你的作业编号\")]\npublic class DynamicJob : IJob\n{\n    private readonly IServiceProvider _serviceProvider;\n\n    public DynamicJob(IServiceProvider serviceProvider)\n    {\n        _serviceProvider = serviceProvider;\n    }\n\n    public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)\n    {\n        using var serviceScope = _serviceProvider.CreateScope();\n        \n        // 获取用户仓储\n        // var rep = serviceScope.ServiceProvider.GetService<SqlSugarRepository<SysUser>>();\n\n        // 请求网址\n        // var result = await \"http://www.baidu.com\".GetAsStringAsync();\n        // Console.WriteLine(result);\n\n        // 日志\n        // Log.Information(\"日志消息\");\n    }\n}",
-		"zh-hk": "#region using",
-		"zh-tw": "#region using",
-		"en": "#region using",
-		"it": "#region using"
 	},
 	"gagp2q4": {
 		"zh-cn": "系统信息",
@@ -8818,27 +4422,6 @@
 		"zh-tw": "使用資訊",
 		"en": "Usage Information",
 		"it": "Informazioni sull'utilizzo"
-	},
-	"ebatg3": {
-		"zh-cn": "已用:",
-		"zh-hk": "已用：",
-		"zh-tw": "已用：",
-		"en": "Used:",
-		"it": "Utilizzato:"
-	},
-	"cg1m23": {
-		"zh-cn": "剩余:",
-		"zh-hk": "剩餘：",
-		"zh-tw": "剩餘：",
-		"en": "Remaining:",
-		"it": "Disponibile:"
-	},
-	"ojyuyd5": {
-		"zh-cn": "内存使用率",
-		"zh-hk": "記憶體使用率",
-		"zh-tw": "記憶體使用率",
-		"en": "Memory Usage",
-		"it": "Utilizzo memoria"
 	},
 	"xbq8ie6": {
 		"zh-cn": "CPU使用率",
@@ -8917,13 +4500,6 @@
 		"en": "Cache cleared successfully",
 		"it": "Cache svuotata con successo"
 	},
-	"rwzrfgf": {
-		"zh-cn": "系统缓存数据管理，请慎重操作！",
-		"zh-hk": "系統快取數據管理，請慎重操作！",
-		"zh-tw": "系統快取資料管理，請慎重操作！",
-		"en": "System cache data management - proceed with caution!",
-		"it": "Gestione dati cache di sistema - operare con cautela!"
-	},
 	"ges7fa4": {
 		"zh-cn": "缓存列表",
 		"zh-hk": "快取列表",
@@ -8937,13 +4513,6 @@
 		"zh-tw": "快取資料",
 		"en": "Cache data",
 		"it": "Dati cache"
-	},
-	"azjgmh4": {
-		"zh-cn": "删除缓存",
-		"zh-hk": "刪除緩存",
-		"zh-tw": "刪除快取",
-		"en": "Delete cache",
-		"it": "Elimina cache"
 	},
 	"xeardp6": {
 		"zh-cn": "添加行政区域",
@@ -8993,13 +4562,6 @@
 		"zh-tw": "行政區代碼",
 		"en": "Administrative Code",
 		"it": "Codice amministrativo"
-	},
-	"cgarvf5": {
-		"zh-cn": "同步统计局",
-		"zh-hk": "同步統計局",
-		"zh-tw": "同步統計局",
-		"en": "Synchronize with NBS",
-		"it": "Sincronizza con l'Ufficio Statistico"
 	},
 	"em7x2": {
 		"zh-cn": "区号",
@@ -9085,13 +4647,6 @@
 		"en": "Start time",
 		"it": "Ora di inizio"
 	},
-	"dphy2": {
-		"zh-cn": "上传",
-		"zh-hk": "上傳",
-		"zh-tw": "上傳",
-		"en": "Upload",
-		"it": "Carica"
-	},
 	"ezsi2": {
 		"zh-cn": "后缀",
 		"zh-hk": "後綴",
@@ -9105,13 +4660,6 @@
 		"zh-tw": "大小kb",
 		"en": "Size (KB)",
 		"it": "Dimensione (KB)"
-	},
-	"db9abd4": {
-		"zh-cn": "无法预览",
-		"zh-hk": "無法預覽",
-		"zh-tw": "無法預覽",
-		"en": "Preview unavailable",
-		"it": "Anteprima non disponibile"
 	},
 	"buyqs14": {
 		"zh-cn": "存储位置",
@@ -9162,13 +4710,6 @@
 		"en": "Owner ID",
 		"it": "ID proprietario"
 	},
-	"a6fdb94": {
-		"zh-cn": "上传文件",
-		"zh-hk": "上傳檔案",
-		"zh-tw": "上傳檔案",
-		"en": "Upload file",
-		"it": "Carica file"
-	},
 	"wxrovq7": {
 		"zh-cn": "请选择文件类型",
 		"zh-hk": "請選擇檔案類型",
@@ -9189,13 +4730,6 @@
 		"zh-tw": "歸檔檔案",
 		"en": "Archived Files",
 		"it": "File archiviati"
-	},
-	"fowaep5": {
-		"zh-cn": "是否公开：",
-		"zh-hk": "是否公開：",
-		"zh-tw": "是否公開：",
-		"en": "Public Visibility:",
-		"it": "Visibilità："
 	},
 	"wlobrhh": {
 		"zh-cn": "请上传大小不超过 10MB 的文件",
@@ -10093,13 +5627,6 @@
 		"en": "Identity ID",
 		"it": "Identificativo"
 	},
-	"od5m2": {
-		"zh-cn": "说明",
-		"zh-hk": "說明",
-		"zh-tw": "說明",
-		"en": "Description",
-		"it": "Descrizione"
-	},
 	"gfbz2": {
 		"zh-cn": "密钥",
 		"zh-hk": "密鑰",
@@ -10120,13 +5647,6 @@
 		"zh-tw": "綁定租戶名稱",
 		"en": "Bound Tenant Name",
 		"it": "Associa nome tenant"
-	},
-	"f6rffk4": {
-		"zh-cn": "生成签名",
-		"zh-hk": "生成簽名",
-		"zh-tw": "產生簽章",
-		"en": "Generate Signature",
-		"it": "Genera firma"
 	},
 	"58u9up8": {
 		"zh-cn": "身份标识不能为空",
@@ -10184,27 +5704,6 @@
 		"en": "OpenAPI usage",
 		"it": "Utilizzo OpenAPI"
 	},
-	"bn1xvot": {
-		"zh-cn": "在需要使用 Signature 身份验证的 Api 中贴上",
-		"zh-hk": "在需要使用 Signature 身份驗證的 Api 中貼上",
-		"zh-tw": "在需要使用 Signature 身份驗證的 Api 中貼上",
-		"en": "Apply to APIs requiring Signature authentication",
-		"it": "Da applicare sulle API che richiedono autenticazione tramite Signature"
-	},
-	"u2rv8er": {
-		"zh-cn": "如果 Api 需要保留 Jwt 方式的身份验证，可贴上",
-		"zh-hk": "如果 Api 需要保留 Jwt 方式嘅身份驗證，可貼上",
-		"zh-tw": "如果 API 需要保留 JWT 方式的身份驗證，可貼上",
-		"en": "For APIs needing to retain JWT authentication, apply",
-		"it": "Se l'API deve mantenere l'autenticazione Jwt, applicare questo"
-	},
-	"2c61rui": {
-		"zh-cn": "通过对请求的签名，可以达到以下目的：",
-		"zh-hk": "透過對請求嘅簽名，可以達到以下目的：",
-		"zh-tw": "透過對請求的簽章，可以達到以下目的：",
-		"en": "Request signing achieves the following purposes:",
-		"it": "La firma della richiesta consente di:"
-	},
 	"eldt9ue": {
 		"zh-cn": "免登录识别访问接口用户的身份",
 		"zh-hk": "免登入識別訪問接口用戶嘅身份",
@@ -10225,13 +5724,6 @@
 		"zh-tw": "OpenAPI 簽章流程",
 		"en": "OpenAPI Signature Process",
 		"it": "Flusso di firma OpenAPI"
-	},
-	"gxdhu213": {
-		"zh-cn": "客户端在请求时，需要按照如下步骤生成签名 Signature，并添加公共参数：",
-		"zh-hk": "客戶端喺請求時，需要按照如下步驟生成簽名 Signature，並添加公共參數：",
-		"zh-tw": "用戶端在請求時，需要按照以下步驟產生簽章 Signature，並新增公共參數：",
-		"en": "When making a request, the client must generate the signature (Signature) according to the following steps and include common parameters:",
-		"it": "Il client deve generare la firma Signature seguendo i passaggi seguenti durante la richiesta e aggiungere i parametri pubblici:"
 	},
 	"mtmgma6": {
 		"zh-cn": "公共请求参数",
@@ -10281,48 +5773,6 @@
 		"zh-tw": "計算簽名",
 		"en": "Signature Calculation",
 		"it": "Calcolo della firma"
-	},
-	"bbw6lu12": {
-		"zh-cn": "按照如下顺序对请求中的参数进行排序，各个参数通过&进行拼接（中间不含空格）：",
-		"zh-hk": "按照如下順序對請求中的參數進行排序，各個參數通過&進行拼接（中間不含空格）：",
-		"zh-tw": "按照如下順序對請求中的參數進行排序，各個參數通過&進行拼接（中間不含空格）：",
-		"en": "Sort the parameters in the request in the following order and concatenate them with & (without spaces in between):",
-		"it": "Ordinare i parametri nella richiesta secondo la sequenza seguente, concatenando i vari parametri con & (senza spazi intermedi):"
-	},
-	"cdebq3a": {
-		"zh-cn": "需要大写，如：GET",
-		"zh-hk": "需要大寫，如：GET",
-		"zh-tw": "需要大寫，如：GET",
-		"en": "Must be uppercase, e.g.: GET",
-		"it": "Deve essere in maiuscolo, ad esempio: GET"
-	},
-	"ayeej813": {
-		"zh-cn": "去除协议、域名、参数，以 / 开头，如：/api/demo/helloWord",
-		"zh-hk": "去除協議、域名、參數，以 / 開頭，如：/api/demo/helloWord",
-		"zh-tw": "去除協議、域名、參數，以 / 開頭，如：/api/demo/helloWord",
-		"en": "Remove protocol, domain, and parameters, starting with /, e.g.: /api/demo/helloWord",
-		"it": "Rimuovere protocollo, dominio e parametri, iniziare con /, ad esempio: /api/demo/helloWord"
-	},
-	"guvzer15": {
-		"zh-cn": "使用 HMAC-SHA256 协议创建基于哈希的消息身份验证代码 (HMAC)，以",
-		"zh-hk": "使用 HMAC-SHA256 協議創建基於哈希的消息身份驗證代碼 (HMAC)，以",
-		"zh-tw": "使用 HMAC-SHA256 協議創建基於哈希的消息身份驗證代碼 (HMAC)，以",
-		"en": "Use the HMAC-SHA256 protocol to create a Hash-based Message Authentication Code (HMAC), with",
-		"it": "Utilizzare il protocollo HMAC-SHA256 per creare un codice di autenticazione del messaggio basato su hash (HMAC), con"
-	},
-	"tdjfij11": {
-		"zh-cn": "作为密钥，对上面拼接的参数进行计算签名，所得签名进行 Base-64 编码",
-		"zh-hk": "作為密鑰，對上面拼接的參數進行計算簽名，所得簽名進行 Base-64 編碼",
-		"zh-tw": "作為密鑰，對上面拼接的參數進行計算簽名，所得簽名進行 Base-64 編碼",
-		"en": "as the key, to compute the signature for the concatenated parameters above. The resulting signature is Base-64 encoded.",
-		"it": "come chiave, per calcolare la firma dei parametri concatenati sopra. La firma risultante viene codificata in Base-64."
-	},
-	"oo9yxyh": {
-		"zh-cn": "HMAC-SHA256 在线计算：",
-		"zh-hk": "HMAC-SHA256 在線計算：",
-		"zh-tw": "HMAC-SHA256 在線計算：",
-		"en": "HMAC-SHA256 online calculation:",
-		"it": "Calcolatore online HMAC-SHA256:"
 	},
 	"6gpiuf6": {
 		"zh-cn": "接口请求地址",
@@ -10547,27 +5997,6 @@
 		"zh-tw": "支付訂單號",
 		"en": "Payment order number",
 		"it": "Numero ordine pagamento"
-	},
-	"g3yc2": {
-		"zh-cn": "完成",
-		"zh-hk": "完成",
-		"zh-tw": "完成",
-		"en": "Completed",
-		"it": "Completato"
-	},
-	"p2ym2": {
-		"zh-cn": "退款",
-		"zh-hk": "退款",
-		"zh-tw": "退款",
-		"en": "Refund",
-		"it": "Rimborso"
-	},
-	"fk3am3": {
-		"zh-cn": "未完成",
-		"zh-hk": "未完成",
-		"zh-tw": "未完成",
-		"en": "Incomplete",
-		"it": "Incompleto"
 	},
 	"jask224": {
 		"zh-cn": "附加信息",
@@ -10862,13 +6291,6 @@
 		"zh-tw": "流程",
 		"en": "Process",
 		"it": "Processo"
-	},
-	"ibpi2": {
-		"zh-cn": "查看",
-		"zh-hk": "查看",
-		"zh-tw": "檢視",
-		"en": "View",
-		"it": "Visualizza"
 	},
 	"cb8ajm4": {
 		"zh-cn": "库定位器",
@@ -11430,48 +6852,6 @@
 		"en": "Unknown Error",
 		"it": "Errore sconosciuto"
 	},
-	"de2ue3": {
-		"zh-cn": "增加表",
-		"zh-hk": "增加表",
-		"zh-tw": "新增表格",
-		"en": "Add Table",
-		"it": "Aggiungi tabella"
-	},
-	"jbafh3": {
-		"zh-cn": "编辑表",
-		"zh-hk": "編輯表",
-		"zh-tw": "編輯表格",
-		"en": "Edit Table",
-		"it": "Modifica tabella"
-	},
-	"crdes3": {
-		"zh-cn": "删除表",
-		"zh-hk": "刪除表",
-		"zh-tw": "刪除表格",
-		"en": "Delete Table",
-		"it": "Elimina tabella"
-	},
-	"cygxr3": {
-		"zh-cn": "可视化",
-		"zh-hk": "可視化",
-		"zh-tw": "視覺化",
-		"en": "Visualization",
-		"it": "Visualizzazione"
-	},
-	"dds453": {
-		"zh-cn": "增加列",
-		"zh-hk": "增加欄",
-		"zh-tw": "新增欄位",
-		"en": "Add Column",
-		"it": "Aggiungi colonna"
-	},
-	"f6lzba4": {
-		"zh-cn": "生成实体",
-		"zh-hk": "生成實體",
-		"zh-tw": "產生實體",
-		"en": "Generate Entity",
-		"it": "Genera entità"
-	},
 	"ej6wcp4": {
 		"zh-cn": "温馨提示",
 		"zh-hk": "溫馨提示",
@@ -11485,13 +6865,6 @@
 		"zh-tw": "若為剛產生的實體，請重啟服務後再產生種子資料",
 		"en": "If the entity was just created, please restart the service before generating seeds",
 		"it": "Se l'entità è stata appena generata, riavviare il servizio prima di generare il seed"
-	},
-	"f6r6ic4": {
-		"zh-cn": "生成种子",
-		"zh-hk": "生成種子",
-		"zh-tw": "產生種子資料",
-		"en": "Generate Seeds",
-		"it": "Genera seed"
 	},
 	"d7r5da4": {
 		"zh-cn": "数据类型",
@@ -11541,13 +6914,6 @@
 		"zh-tw": "預設值",
 		"en": "Default Value",
 		"it": "Valore predefinito"
-	},
-	"klo6b3": {
-		"zh-cn": "表编辑",
-		"zh-hk": "表格編輯",
-		"zh-tw": "表格編輯",
-		"en": "Table Editing",
-		"it": "Modifica tabella"
 	},
 	"ke8dn3": {
 		"zh-cn": "表名称",
@@ -11731,13 +7097,6 @@
 		"en": "Add soft-delete field",
 		"it": "Aggiungi campo eliminazione logica"
 	},
-	"cn9g23": {
-		"zh-cn": "列编辑",
-		"zh-hk": "欄編輯",
-		"zh-tw": "欄位編輯",
-		"en": "Column editing",
-		"it": "Modifica colonna"
-	},
 	"cftne3": {
 		"zh-cn": "列名称",
 		"zh-hk": "欄名稱",
@@ -11759,13 +7118,6 @@
 		"en": "Please select storage location",
 		"it": "Seleziona posizione di archiviazione"
 	},
-	"xzzb8y6": {
-		"zh-cn": "生成种子数据",
-		"zh-hk": "生成種子數據",
-		"zh-tw": "產生種子資料",
-		"en": "Generate seed data",
-		"it": "Genera dati seed"
-	},
 	"kais9x6": {
 		"zh-cn": "过滤重复数据",
 		"zh-hk": "過濾重複數據",
@@ -11779,20 +7131,6 @@
 		"zh-tw": "新增",
 		"en": "Add",
 		"it": "Aggiungi"
-	},
-	"m75hhm7": {
-		"zh-cn": "确定要同步吗?",
-		"zh-hk": "確定要同步嗎？",
-		"zh-tw": "確定要同步嗎？",
-		"en": "Confirm synchronization?",
-		"it": "Confermi la sincronizzazione?"
-	},
-	"b1twyw4": {
-		"zh-cn": "同步成功",
-		"zh-hk": "同步成功",
-		"zh-tw": "同步成功",
-		"en": "Synchronization succeeded",
-		"it": "Sincronizzazione completata"
 	},
 	"i2cb0y7": {
 		"zh-cn": "确定要生成吗?",
@@ -11850,13 +7188,6 @@
 		"en": "Configuration",
 		"it": "Configurazione"
 	},
-	"evvd2": {
-		"zh-cn": "同步",
-		"zh-hk": "同步",
-		"zh-tw": "同步",
-		"en": "Synchronization",
-		"it": "Sincronizzazione"
-	},
 	"kgk12": {
 		"zh-cn": "生成",
 		"zh-hk": "生成",
@@ -11878,13 +7209,6 @@
 		"en": "Tree Selector Configuration",
 		"it": "Configurazione selettore ad albero"
 	},
-	"f6vdjm4": {
-		"zh-cn": "生成配置",
-		"zh-hk": "生成配置",
-		"zh-tw": "生成配置",
-		"en": "Generation Configuration",
-		"it": "Configurazione generazione"
-	},
 	"bw2gu64": {
 		"zh-cn": "实体属性",
 		"zh-hk": "實體屬性",
@@ -11898,13 +7222,6 @@
 		"zh-tw": "作用類型",
 		"en": "Action Type",
 		"it": "Tipo di funzione"
-	},
-	"ax7wz14": {
-		"zh-cn": "列表显示",
-		"zh-hk": "列表顯示",
-		"zh-tw": "列表顯示",
-		"en": "List Display",
-		"it": "Visualizzazione elenco"
 	},
 	"fmmz2": {
 		"zh-cn": "增改",
@@ -12039,20 +7356,6 @@
 		"en": "Data Uniqueness Configuration",
 		"it": "Configurazione univoca dei dati"
 	},
-	"bj6nsz4": {
-		"zh-cn": "增加配置",
-		"zh-hk": "增加配置",
-		"zh-tw": "新增配置",
-		"en": "Add Configuration",
-		"it": "Aggiungi configurazione"
-	},
-	"9s65q5h": {
-		"zh-cn": "保证字段值的唯一性，排除null值",
-		"zh-hk": "保證字段值的唯一性，排除null值",
-		"zh-tw": "保證欄位值的唯一性，排除null值",
-		"en": "Ensure field value uniqueness (excluding null values)",
-		"it": "Garantire l'unicità dei valori dei campi, escludendo i valori null"
-	},
 	"g4la2": {
 		"zh-cn": "字段",
 		"zh-hk": "字段",
@@ -12143,13 +7446,6 @@
 		"zh-tw": "複 製",
 		"en": "Copy",
 		"it": "Copia"
-	},
-	"ol9zulo": {
-		"zh-cn": "接口压测会占用服务器大量的内存资源，请慎重操作！",
-		"zh-hk": "接口壓測會佔用伺服器大量的記憶體資源，請慎重操作！",
-		"zh-tw": "介面壓測會佔用伺服器大量的記憶體資源，請謹慎操作！",
-		"en": "Interface stress testing will consume significant server memory resources. Proceed with caution!",
-		"it": "Il test di carico dell'interfaccia occupa molte risorse di memoria del server, operare con cautela!"
 	},
 	"cx55zj4": {
 		"zh-cn": "接口列表",
@@ -12305,13 +7601,6 @@
 		"en": "P999 response time (ms)",
 		"it": "Tempo di risposta P999 (ms)"
 	},
-	"dkrf2s6": {
-		"zh-cn": "接口压测参数",
-		"zh-hk": "接口壓測參數",
-		"zh-tw": "介面壓測參數",
-		"en": "Interface stress test parameters",
-		"it": "Parametri di stress test dell'interfaccia"
-	},
 	"fk90tt8": {
 		"zh-cn": "请求方式不能为空",
 		"zh-hk": "請求方式不能為空",
@@ -12354,27 +7643,6 @@
 		"en": "Read status",
 		"it": "Stato di lettura"
 	},
-	"d5my53": {
-		"zh-cn": "图例：",
-		"zh-hk": "圖例：",
-		"zh-tw": "圖例：",
-		"en": "Legend：",
-		"it": "Legenda："
-	},
-	"bvfb53": {
-		"zh-cn": "一对多",
-		"zh-hk": "一對多",
-		"zh-tw": "一對多",
-		"en": "One-to-many",
-		"it": "Uno-a-molti"
-	},
-	"bvd473": {
-		"zh-cn": "一对一",
-		"zh-hk": "一對一",
-		"zh-tw": "一對一",
-		"en": "One-to-one",
-		"it": "Uno-a-uno"
-	},
 	"e8622": {
 		"zh-cn": "列】",
 		"zh-hk": "列】",
@@ -12382,103 +7650,12 @@
 		"en": "Column】",
 		"it": "Colonna】"
 	},
-	"2jq3sh5": {
-		"zh-cn": "请输入: ",
-		"zh-hk": "請輸入:",
-		"zh-tw": "請輸入:",
-		"en": "Please enter:",
-		"it": "Inserisci:"
-	},
-	"1tjku4": {
-		"zh-cn": "AI翻译",
-		"zh-hk": "AI翻譯",
-		"zh-tw": "AI翻譯",
-		"en": "AI Translation",
-		"it": "Traduzione AI"
-	},
-	"fymq3d16": {
-		"zh-cn": "作为企业软件系统专业翻译，严格遵守以下铁律：\n\n■ 核心原则\n1. 严格逐符号翻译（",
-		"zh-hk": "作為企業軟件系統專業翻譯，嚴格遵守以下鐵律：",
-		"zh-tw": "作為企業軟體系統專業翻譯，嚴格遵守以下鐵律：",
-		"en": "As a professional enterprise software system translator, strictly adhere to the following iron rules:",
-		"it": "Come traduttore professionale di sistemi software aziendali, aderisco rigorosamente ai seguenti principi:"
-	},
-	"7p37ouhk": {
-		"zh-cn": "）\n2. 禁止添加/删除/改写任何内容\n3. 保持批量翻译的编号格式\n\n■ 符号保留规则\n! 所有符号必须原样保留：\n• 编程符号：\\${ } <% %> @ # & | \n• UI占位符：{0} %s [ ] \n• 货币单位：¥100.00 kg cm²\n• 中文符号：【 】 《 》 ：\n\n■ 中文符号位置规范\n# 三级处理机制：\n1. 成对符号必须保持完整结构：\n   ✓ 正确：【Warning】Text\n   ✗ 禁止：Warning【 】Text\n   \n2. 独立符号位置：\n   • 优先句尾 → Text】?\n   • 次选句首 → 】Text?\n   • 禁止句中 → Text】Text?\n\n3. 跨字符串符号处理：\n   • 前段含【时 → 保留在段尾（\"Synchronize【\"）\n   • 后段含】时 → 保留在段首（\"】authorization data?\"）\n   • 符号后接字母时添加空格：】 Authorization\n\n■ 语法规范\n• 外文 → 被动语态（\"Item was created\"）\n• 中文 → 主动语态（\"已创建项目\"）\n• 禁止推测上下文（只翻译当前字符串内容）\n\n■ 错误预防（绝对禁止）\n✗ 将中文符号改为西式符号（】→]）\n✗ 移动非中文符号位置\n✗ 添加原文不存在的内容\n✗ 合并/拆分原始字符串\n\n■ 批量处理\n▸ 严格保持原始JSON结构\n▸ 语言键名精确匹配（zh-cn/en/it等）",
-		"zh-hk": "）",
-		"zh-tw": "）",
-		"en": ")",
-		"it": ")"
-	},
-	"qhx1eya": {
-		"zh-cn": "翻译API返回错误：",
-		"zh-hk": "翻譯API返回錯誤：",
-		"zh-tw": "翻譯API返回錯誤：",
-		"en": "Translation API returned an error:",
-		"it": "Errore API traduzione:"
-	},
-	"s7bystp": {
-		"zh-cn": "环境变量 DEEPSEEK_API_KEY 未定义",
-		"zh-hk": "環境變量 DEEPSEEK_API_KEY 未定義",
-		"zh-tw": "環境變數 DEEPSEEK_API_KEY 未定義",
-		"en": "Environment variable DEEPSEEK_API_KEY not defined",
-		"it": "Variabile d'ambiente DEEPSEEK_API_KEY non definita"
-	},
-	"k2ng5l4": {
-		"zh-cn": "验证失败",
-		"zh-hk": "驗證失敗",
-		"zh-tw": "驗證失敗",
-		"en": "Verification failed",
-		"it": "Validazione fallita"
-	},
-	"kw130t7": {
-		"zh-cn": "正在翻译...",
-		"zh-hk": "正在翻譯...",
-		"zh-tw": "正在翻譯...",
-		"en": "Translating...",
-		"it": "Traduzione in corso..."
-	},
 	"fac718": {
 		"zh-cn": "菜单状态设置成功",
 		"zh-hk": "選單狀態設定成功",
 		"zh-tw": "選單狀態設定成功",
 		"en": "Menu status set successfully",
 		"it": "Stato menu impostato con successo"
-	},
-	"hztngs4": {
-		"zh-cn": "请先保存",
-		"zh-hk": "請先儲存",
-		"zh-tw": "請先儲存",
-		"en": "Please save first",
-		"it": "Salvare prima"
-	},
-	"wsnvnu6": {
-		"zh-cn": "请先保存数据",
-		"zh-hk": "請先儲存數據",
-		"zh-tw": "請先儲存資料",
-		"en": "Please save data first",
-		"it": "Salvare i dati prima"
-	},
-	"m90w8n7": {
-		"zh-cn": "请先保存数据！",
-		"zh-hk": "請先儲存數據！",
-		"zh-tw": "請先儲存資料！",
-		"en": "Please save data first!",
-		"it": "Salvare i dati prima！"
-	},
-	"hf19iw8": {
-		"zh-cn": " 一键复制配置 ",
-		"zh-hk": "一鍵複製配置",
-		"zh-tw": "一鍵複製設定",
-		"en": "One-click copy configuration",
-		"it": "Copia configurazione con un clic"
-	},
-	"c643uj8": {
-		"zh-cn": " 一键恢复默认 ",
-		"zh-hk": "一鍵恢復預設",
-		"zh-tw": "一鍵恢復預設",
-		"en": "One-click restore default",
-		"it": "Ripristina impostazioni predefinite con un clic"
 	},
 	"8s9vsx8": {
 		"zh-cn": " 没有账号? 去",
@@ -12501,68 +7678,12 @@
 		"en": "Add widget",
 		"it": "Aggiungi widget"
 	},
-	"lodxl4": {
-		"zh-cn": " 账号：",
-		"zh-hk": "帳號：",
-		"zh-tw": "帳號：",
-		"en": "Account:",
-		"it": "Account："
-	},
-	"e5rq84": {
-		"zh-cn": " 姓名：",
-		"zh-hk": "姓名：",
-		"zh-tw": "姓名：",
-		"en": "Name:",
-		"it": "Nome："
-	},
-	"ifnhu4": {
-		"zh-cn": " 电话：",
-		"zh-hk": "電話：",
-		"zh-tw": "電話：",
-		"en": "Phone:",
-		"it": "Telefono："
-	},
-	"mdriv4": {
-		"zh-cn": " 邮箱：",
-		"zh-hk": "電郵：",
-		"zh-tw": "信箱：",
-		"en": "Email:",
-		"it": "Email："
-	},
-	"mjf224": {
-		"zh-cn": " 部门：",
-		"zh-hk": "部門：",
-		"zh-tw": "部門：",
-		"en": "Department:",
-		"it": "Dipartimento："
-	},
-	"jrtsp4": {
-		"zh-cn": " 职位：",
-		"zh-hk": "職位：",
-		"zh-tw": "職位：",
-		"en": "Position:",
-		"it": "Posizione："
-	},
-	"aztb2o6": {
-		"zh-cn": " 关于项目 ",
-		"zh-hk": "關於項目",
-		"zh-tw": "關於專案",
-		"en": "About the Project",
-		"it": "Informazioni sul progetto"
-	},
 	"wxmxcx5b": {
 		"zh-cn": " 基于 .NET6 (Furion/SqlSugar) 实现的通用权限开发框架，前端采用 Vue3+Element-plus+Vite5，整合众多优秀技术和框架，模块插件式开发。集成多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、打印等众多黑科技。代码结构简单清晰，注释详尽，易于上手与二次开发，即便是复杂业务逻辑也能迅速实现，真正实现“开箱即用”。 ",
 		"zh-hk": "基於 .NET6 (Furion/SqlSugar) 實現的通用權限開發框架，前端採用 Vue3+Element-plus+Vite5，整合眾多優秀技術和框架，模組插件式開發。整合多租戶、快取、數據校驗、鑑權、事件匯流排、動態API、通訊、遠端請求、任務排程、列印等眾多黑科技。代碼結構簡單清晰，註解詳盡，易於上手與二次開發，即便是複雜業務邏輯也能迅速實現，真正實現「開箱即用」。",
 		"zh-tw": "基於 .NET6 (Furion/SqlSugar) 實現的通用權限開發框架，前端採用 Vue3+Element-plus+Vite5，整合眾多優秀技術和框架，模組外掛式開發。整合多租戶、快取、資料校驗、鑑權、事件匯流排、動態API、通訊、遠端請求、任務排程、列印等眾多黑科技。程式碼結構簡單清晰，註解詳盡，易於上手與二次開發，即便是複雜業務邏輯也能迅速實現，真正實現「開箱即用」。",
 		"en": "A general permission development framework implemented based on .NET6 (Furion/SqlSugar), with the frontend using Vue3+Element-plus+Vite5. It integrates numerous excellent technologies and frameworks, and adopts modular plugin-based development. It incorporates many advanced features such as multi-tenancy, caching, data validation, authentication, event bus, dynamic API, communication, remote requests, task scheduling, printing, and more. The code structure is simple and clear, with detailed comments, making it easy to get started and perform secondary development. Even complex business logic can be quickly implemented, truly achieving \"out-of-the-box\" usability.",
 		"it": "Framework di sviluppo per autorizzazioni generiche basato su .NET6 (Furion/SqlSugar), frontend con Vue3+Element-plus+Vite5, integra numerose tecnologie e framework eccellenti, sviluppo modulare plug-in. Include multi-tenancy, cache, validazione dati, autenticazione, event bus, API dinamiche, comunicazione, richieste remote, pianificazione attività, stampa e molte altre tecnologie avanzate. Struttura del codice semplice e chiara, commenti dettagliati, facile da usare e sviluppare ulteriormente, anche logiche di business complesse possono essere implementate rapidamente, veramente \"pronto all'uso\"."
-	},
-	"4wzy9r6": {
-		"zh-cn": " 更新记录 ",
-		"zh-hk": "更新記錄",
-		"zh-tw": "更新記錄",
-		"en": "Update Log",
-		"it": "Cronologia aggiornamenti"
 	},
 	"n3y5l66": {
 		"zh-cn": " 快捷入口 ",
@@ -12626,13 +7747,6 @@
 		"zh-tw": "目前時鐘",
 		"en": "Current Clock",
 		"it": "Orologio corrente"
-	},
-	"c7un3t6": {
-		"zh-cn": " 我的日程 ",
-		"zh-hk": "我的日程",
-		"zh-tw": "我的行程",
-		"en": "My Schedule",
-		"it": "La mia agenda"
 	},
 	"anvjiw5": {
 		"zh-cn": " 上个月 ",
@@ -12739,75 +7853,12 @@
 		"en": "Details",
 		"it": "Dettagli"
 	},
-	"arbqd64": {
-		"zh-cn": "创建者 ",
-		"zh-hk": "建立者",
-		"zh-tw": "建立者",
-		"en": "Creator",
-		"it": "Creatore"
-	},
-	"lpkhod5": {
-		"zh-cn": "创建时间 ",
-		"zh-hk": "建立時間",
-		"zh-tw": "建立時間",
-		"en": "Creation Time",
-		"it": "Data creazione"
-	},
-	"aid0cm4": {
-		"zh-cn": "修改者 ",
-		"zh-hk": "修改者",
-		"zh-tw": "修改者",
-		"en": "Modifier",
-		"it": "Modificatore"
-	},
-	"tfgw5l5": {
-		"zh-cn": "修改时间 ",
-		"zh-hk": "修改時間",
-		"zh-tw": "修改時間",
-		"en": "Modification Time",
-		"it": "Data modifica"
-	},
-	"djypr3": {
-		"zh-cn": "备注 ",
-		"zh-hk": "備註",
-		"zh-tw": "備註",
-		"en": "Remarks",
-		"it": "Note"
-	},
 	"d7exy4": {
 		"zh-cn": " 关闭 ",
 		"zh-hk": "關閉",
 		"zh-tw": "關閉",
 		"en": "Close",
 		"it": "Chiudi"
-	},
-	"ol3rzi6": {
-		"zh-cn": "下载错误: ",
-		"zh-hk": "下載錯誤:",
-		"zh-tw": "下載錯誤:",
-		"en": "Download Error:",
-		"it": "Errore download:"
-	},
-	"1hn72f6": {
-		"zh-cn": " 数据导入 ",
-		"zh-hk": "數據導入",
-		"zh-tw": "資料匯入",
-		"en": "Data Import",
-		"it": "Importazione dati"
-	},
-	"e078mqp": {
-		"zh-cn": " 导入完毕，存在部分错误，请下载导入结果查看详情 ",
-		"zh-hk": "導入完畢，存在部分錯誤，請下載導入結果查看詳情",
-		"zh-tw": "匯入完畢，存在部分錯誤，請下載匯入結果查看詳情",
-		"en": "Import completed with some errors, please download the import results to view details",
-		"it": "Importazione completata con alcuni errori, scarica il risultato per i dettagli"
-	},
-	"ysh24c7": {
-		"zh-cn": "下载导入结果 ",
-		"zh-hk": "下載導入結果",
-		"zh-tw": "下載匯入結果",
-		"en": "Download Import Results",
-		"it": "Scarica risultato importazione"
 	},
 	"i1gx3": {
 		"zh-cn": " 是 ",
@@ -12941,20 +7992,6 @@
 		"zh-tw": "複製",
 		"en": "Copy",
 		"it": "Copia"
-	},
-	"trwivz2w": {
-		"zh-cn": "\n          <div style=\"height: 8px\"></div>\n        </div>\n      </div>\n\n      <!-- 设置弹窗 -->\n      ",
-		"zh-hk": "",
-		"zh-tw": "",
-		"en": "",
-		"it": ""
-	},
-	"iyjj6g61j": {
-		"zh-cn": "\n    .code-inspector-container {\n      position: fixed;\n      pointer-events: none;\n      z-index: 9999999999999;\n      font-family: 'PingFang SC';\n      .margin-overlay {\n        position: absolute;\n        inset: 0;\n        border-style: solid;\n        border-color: rgba(255, 155, 0, 0.3);\n        .border-overlay {\n          position: absolute;\n          inset: 0;\n          border-style: solid;\n          border-color: rgba(255, 200, 50, 0.3);\n          .padding-overlay {\n            position: absolute;\n            inset: 0;\n            border-style: solid;\n            border-color: rgba(77, 200, 0, 0.3);\n            .content-overlay {\n              position: absolute;\n              inset: 0;\n              background: rgba(120, 170, 210, 0.7);\n            }\n          }\n        }\n      }\n    }\n    .element-info {\n      position: absolute;\n    }\n    .element-info.hidden {\n      visibility: hidden;\n    }\n    .element-info-content {\n      max-width: 100%;\n      font-size: 12px;\n      color: #000;\n      background-color: #fff;\n      word-break: break-all;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);\n      box-sizing: border-box;\n      padding: 4px 8px;\n      border-radius: 4px;\n    }\n    .element-info-top {\n      top: -4px;\n      transform: translateY(-100%);\n    }\n    .element-info-bottom {\n      top: calc(100% + 4px);\n    }\n    .element-info-top-inner {\n      top: 4px;\n    }\n    .element-info-bottom-inner {\n      bottom: 4px;\n    }\n    .element-info-left {\n      left: 0;\n      display: flex;\n      justify-content: flex-start;\n    }\n    .element-info-right {\n      right: 0;\n      display: flex;\n      justify-content: flex-end;\n    }\n    .element-name .element-title {\n      color: coral;\n      font-weight: bold;\n    }\n    .path-line {\n      color: #333;\n      line-height: 12px;\n      margin-top: 4px;\n    }\n    .inspector-switch {\n      position: fixed;\n      z-index: 9999999999999;\n      top: 50%;\n      right: 24px;\n      font-size: 22px;\n      transform: translateY(-100%);\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      background-color: rgba(255, 255, 255, 0.8);\n      color: #555;\n      height: 32px;\n      width: 32px;\n      border-radius: 50%;\n      box-shadow: 0px 1px 2px -2px rgba(0, 0, 0, 0.2),\n        0px 3px 6px 0px rgba(0, 0, 0, 0.16),\n        0px 5px 12px 4px rgba(0, 0, 0, 0.12);\n      cursor: pointer;\n    }\n    .active-inspector-switch {\n      color: #006aff;\n    }\n    .move-inspector-switch {\n      cursor: move;\n    }\n    #inspector-node-tree {\n      position: fixed;\n      user-select: none;\n      z-index: 9999999999999999;\n      min-width: 300px;\n      max-width: min(max(30vw, 300px), 400px);\n      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n        'Liberation Mono', 'Courier New', monospace;\n      display: flex;\n      flex-direction: column;\n      padding: 0;\n\n      .inspector-layer-title {\n        border-bottom: 1px solid #eee;\n        padding: 8px 8px 4px;\n        margin-bottom: 8px;\n        flex-shrink: 0;\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        cursor: move;\n        user-select: none;\n        &:hover {\n          background: rgba(0, 106, 255, 0.1);\n        }\n      }\n\n      .node-tree-list {\n        flex: 1;\n        overflow-y: auto;\n        min-height: 0;\n      }\n\n      .inspector-layer {\n        cursor: pointer;\n        position: relative;\n        padding-right: 8px;\n        &:hover {\n          background: #fdf4bf;\n        }\n      }\n\n      .path-line {\n        font-size: 9px;\n        color: #777;\n        margin-top: 1px;\n        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;\n      }\n    }\n\n    #node-tree-tooltip {\n      position: fixed;\n      box-sizing: border-box;\n      z-index: 999999999999999999;\n      background: rgba(0, 0, 0, 0.6);\n      color: white;\n      padding: 2px 6px;\n      border-radius: 4px;\n      font-size: 12px;\n      white-space: wrap;\n      pointer-events: none;\n      word-break: break-all;\n    }\n    .tooltip-top {\n      transform: translateY(-100%);\n    }\n    .close-icon {\n      cursor: pointer;\n    }\n\n    /* 设置弹窗样式 */\n    .settings-modal-overlay {\n      position: fixed;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      background: rgba(0, 0, 0, 0.5);\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      z-index: 99999999999999999;\n      animation: fadeIn 0.2s ease-out;\n    }\n\n    .settings-modal {\n      background: #fff;\n      border-radius: 12px;\n      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);\n      width: 90%;\n      max-width: 480px;\n      max-height: 90vh;\n      overflow: hidden;\n      display: flex;\n      flex-direction: column;\n      animation: slideUp 0.3s ease-out;\n    }\n\n    .settings-modal-header {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 20px 24px;\n      border-bottom: 1px solid #eee;\n    }\n\n    .settings-modal-title {\n      margin: 0;\n      font-size: 18px;\n      font-weight: 600;\n      color: #333;\n    }\n\n    .settings-modal-close {\n      background: none;\n      border: none;\n      font-size: 28px;\n      color: #999;\n      cursor: pointer;\n      padding: 0;\n      width: 32px;\n      height: 32px;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      border-radius: 4px;\n      transition: all 0.2s;\n    }\n\n    .settings-modal-close:hover {\n      background: #f5f5f5;\n      color: #333;\n    }\n\n    .settings-modal-content {\n      padding: 16px 24px;\n      overflow-y: auto;\n      flex: 1;\n    }\n\n    .settings-item {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 16px 0;\n      border-bottom: 1px solid #f5f5f5;\n    }\n\n    .settings-item:last-child {\n      border-bottom: none;\n    }\n\n    .settings-label {\n      display: flex;\n      flex-direction: column;\n      flex: 1;\n      margin-right: 16px;\n      cursor: pointer;\n    }\n\n    .settings-label-text {\n      font-size: 15px;\n      font-weight: 500;\n      color: #333;\n      margin-bottom: 4px;\n    }\n\n    .settings-label-desc {\n      font-size: 13px;\n      color: #999;\n    }\n\n    .settings-switch {\n      position: relative;\n      display: inline-block;\n      width: 44px;\n      height: 24px;\n      flex-shrink: 0;\n    }\n\n    .settings-switch input {\n      opacity: 0;\n      width: 0;\n      height: 0;\n    }\n\n    .settings-slider {\n      position: absolute;\n      cursor: pointer;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      background-color: #ccc;\n      transition: 0.3s;\n      border-radius: 24px;\n    }\n\n    .settings-slider:before {\n      position: absolute;\n      content: '';\n      height: 18px;\n      width: 18px;\n      left: 3px;\n      bottom: 3px;\n      background-color: white;\n      transition: 0.3s;\n      border-radius: 50%;\n    }\n\n    .settings-switch input:checked + .settings-slider {\n      background-color: #006aff;\n    }\n\n    .settings-switch input:checked + .settings-slider:before {\n      transform: translateX(20px);\n    }\n\n    .settings-switch input:focus + .settings-slider {\n      box-shadow: 0 0 1px #006aff;\n    }\n\n    @keyframes fadeIn {\n      from {\n        opacity: 0;\n      }\n      to {\n        opacity: 1;\n      }\n    }\n\n    @keyframes slideUp {\n      from {\n        transform: translateY(20px);\n        opacity: 0;\n      }\n      to {\n        transform: translateY(0);\n        opacity: 1;\n      }\n    }\n  ",
-		"zh-hk": "",
-		"zh-tw": "",
-		"en": "",
-		"it": ""
 	},
 	"xzd9zs5": {
 		"zh-cn": "个性化首页",
