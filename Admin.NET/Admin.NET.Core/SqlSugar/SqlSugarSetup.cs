@@ -88,6 +88,9 @@ public static class SqlSugarSetup
                 // 只处理贴了特性[SugarTable]表
                 if (!type.GetCustomAttributes<SugarTable>().Any())
                     return;
+                var moduleAttr = type.GetCustomAttribute<TableModuleAttribute>();
+                if (moduleAttr != null && !entity.DbTableName.StartsWith(moduleAttr.Prefix))
+                    entity.DbTableName = moduleAttr.Prefix + entity.DbTableName;
                 if (config.DbSettings.EnableUnderLine && !entity.DbTableName.Contains('_'))
                     entity.DbTableName = entity.DbTableName.ToUnderLine(); // 驼峰转下划线
             },
