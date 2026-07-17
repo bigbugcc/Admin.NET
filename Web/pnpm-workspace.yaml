@@ -1,4 +1,5 @@
 allowBuilds:
+  '@code-inspector/core': true
   '@logicflow/core': true
   '@parcel/watcher': true
   '@vue-office/docx': true
@@ -7,6 +8,7 @@ allowBuilds:
   core-js: true
   es5-ext: true
   json-editor-vue: true
+  node-pty: true
   vue-demi: true
 onlyBuiltDependencies:
   - '@vue-office/docx'
