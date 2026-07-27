@@ -34,7 +34,7 @@ public static class RepositoryExtension
         return db.Updateable(entity).AS().ReSetValue(x => { x.IsDelete = true; })
             .IgnoreColumns(ignoreAllNullColumns: true)
             .EnableDiffLogEvent()   // 记录差异日志
-            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
+            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId, x.UpdateUserName })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
             .ExecuteCommand();
     }
 
@@ -62,7 +62,7 @@ public static class RepositoryExtension
         return db.Updateable(entity).AS().ReSetValue(x => { x.IsDelete = true; })
             .IgnoreColumns(ignoreAllNullColumns: true)
             .EnableDiffLogEvent()   // 记录差异日志
-            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
+            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId, x.UpdateUserName })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
             .ExecuteCommand();
     }
 
@@ -90,7 +90,7 @@ public static class RepositoryExtension
         return db.Updateable(entity).AS().ReSetValue(x => { x.IsDelete = true; })
             .IgnoreColumns(ignoreAllNullColumns: true)
             .EnableDiffLogEvent()   // 记录差异日志
-            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
+            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId, x.UpdateUserName })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
             .ExecuteCommandAsync();
     }
 
@@ -118,7 +118,7 @@ public static class RepositoryExtension
         return db.Updateable(entity).AS().ReSetValue(x => { x.IsDelete = true; })
             .IgnoreColumns(ignoreAllNullColumns: true)
             .EnableDiffLogEvent()   // 记录差异日志
-            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
+            .UpdateColumns(x => new { x.IsDelete, x.DeleteTime, x.UpdateTime, x.UpdateUserId, x.UpdateUserName })  // 允许更新的字段-AOP拦截自动设置UpdateTime、UpdateUserId
             .ExecuteCommandAsync();
     }
 
