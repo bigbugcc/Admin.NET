@@ -178,7 +178,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             ControllerName = loggingMonitor.DisplayName,                              // 控制器名称
             ActionName = loggingMonitor.ActionTypeName,                               // 操作方法名称
             DisplayTitle = loggingMonitor.DisplayTitle,                               // 显示标题
-            Status = loggingMonitor.ReturnInformation?.HttpStatusCode?.ToString(),    // HTTP状态码
+            Status = loggingMonitor.ReturnInformation?.HttpStatusCode?.ToString() ?? "200",    // HTTP状态码
 
             // 网络信息
             RemoteIp = remoteIPv4,                                                    // 客户端IP
