@@ -520,7 +520,7 @@ public class SysTenantService : IDynamicApiController, ITransient
         if (menuList.Where(u => !string.IsNullOrWhiteSpace(u.Name)).GroupBy(u => u.Name).Any(u => u.Count() > 1))
             throw Oops.Oh(ErrorCodeEnum.D4009);
 
-        //获取默认租户授权菜单，种子数据主键ID保持不变，防止重复
+        // 获取默认租户授权菜单，种子数据主键ID保持不变，防止重复
         var tenantMenuList = input.Id == SqlSugarConst.DefaultTenantId ? await _sysTenantMenuRep.AsQueryable().Where(u => u.TenantId == input.Id).ToListAsync() : null;
 
         List<long> tenantIdList = [input.Id];
@@ -540,11 +540,14 @@ public class SysTenantService : IDynamicApiController, ITransient
             sysTenantMenuList.AddRange(input.MenuIdList.Select(menuId => new SysTenantMenu { TenantId = tenantId, MenuId = menuId }));
         });
 
-        //默认租户授权菜单主键ID不变
-        foreach (var item in sysTenantMenuList)
+        // 默认租户授权菜单主键ID不变
+        if (tenantMenuList != null)
         {
-            var tenantMenu = tenantMenuList.FirstOrDefault(u => u.TenantId == item.TenantId && u.MenuId == item.MenuId);
-            if (tenantMenu != null) item.Id = tenantMenu.Id;
+            foreach (var item in sysTenantMenuList)
+            {
+                var tenantMenu = tenantMenuList.FirstOrDefault(u => u.TenantId == item.TenantId && u.MenuId == item.MenuId);
+                if (tenantMenu != null) item.Id = tenantMenu.Id;
+            }
         }
         await _sysTenantMenuRep.InsertRangeAsync(sysTenantMenuList);
 
