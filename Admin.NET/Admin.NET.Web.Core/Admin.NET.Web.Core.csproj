@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Scalar.AspNetCore" Version="2.16.15" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.16.17" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.10" />
   </ItemGroup>
 

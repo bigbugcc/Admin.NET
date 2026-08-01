@@ -15,13 +15,13 @@
   <ItemGroup>
     <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="4.4.0" />
     <PackageReference Include="AlipaySDKNet.Standard" Version="4.9.1234" />
-    <PackageReference Include="AngleSharp" Version="1.5.2" />
-    <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.6.3" />
+    <PackageReference Include="AngleSharp" Version="1.6.0" />
+    <PackageReference Include="AspectCore.Extensions.Reflection" Version="3.0.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.4.2" />
-    <PackageReference Include="Furion" Version="4.9.9.33" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.33" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.33" />
+    <PackageReference Include="Furion" Version="4.9.9.52" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.52" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.52" />
     <PackageReference Include="Hardware.Info" Version="110.0.0.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
@@ -49,7 +49,7 @@
     <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1435" />
     <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
-    <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" Aliases="BouncyCastleV2" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" Aliases="BouncyCastleV2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
@@ -58,7 +58,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.28" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="8.0.28" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.28" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.17" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.18" />
   </ItemGroup>
 	
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
@@ -67,8 +67,8 @@
 	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.10" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.3" />
-    <PackageReference Include="XiHan.Framework.Utils" Version="3.6.0" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.4" />
+    <PackageReference Include="XiHan.Framework.Utils" Version="3.9.0" />
   </ItemGroup>	
 
 </Project>
