@@ -101,9 +101,9 @@ public class SysJobService : IDynamicApiController, ITransient
                         throw Oops.Oh(ErrorCodeEnum.D1703);
                     break;
                 }
-            //case JobCreateTypeEnum.Http:
-            //    jobType = typeof(HttpJob);
-            //    break;
+            case JobCreateTypeEnum.Http:
+                jobType = typeof(HttpJob);
+                break;
 
             default:
                 throw new NotSupportedException();
