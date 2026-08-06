@@ -392,6 +392,7 @@ public class SysJobService : IDynamicApiController, ITransient
                 .Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId)
                 .OrderByDescending(it => it.LastRunTime)
                 .Skip(keepRecords)
+                .Take(int.MaxValue)
                 .Select(it => it.Id) //注意Select不要ToList(), ToList就2次查询了
         ).ExecuteCommandAsync();
     }
