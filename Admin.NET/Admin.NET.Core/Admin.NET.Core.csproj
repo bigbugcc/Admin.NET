@@ -19,9 +19,9 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="3.0.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.5.0" />
-    <PackageReference Include="Furion" Version="4.9.9.68" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.68" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.68" />
+    <PackageReference Include="Furion" Version="4.9.9.73" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.73" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.73" />
     <PackageReference Include="Hardware.Info" Version="110.0.0.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
@@ -44,7 +44,7 @@
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.16.0" />
     <PackageReference Include="SqlSugar.MongoDbCore" Version="5.1.4.277" />
     <PackageReference Include="SqlSugarCore" Version="5.1.4.216" />
-    <PackageReference Include="SSH.NET" Version="2025.1.0" />
+    <PackageReference Include="SSH.NET" Version="2026.0.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.7.3" />
     <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1435" />
     <PackageReference Include="UAParser" Version="3.1.47" />
@@ -64,11 +64,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="10.0.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="10.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.10" />
+	<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.11" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.4" />
-    <PackageReference Include="XiHan.Framework.Utils" Version="3.10.1" />
+    <PackageReference Include="XiHan.Framework.Utils" Version="3.11.1" />
   </ItemGroup>	
 
 </Project>
