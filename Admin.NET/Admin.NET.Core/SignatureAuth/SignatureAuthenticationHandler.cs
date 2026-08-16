@@ -71,7 +71,11 @@ public sealed class SignatureAuthenticationHandler : AuthenticationHandler<Signa
         if (!long.TryParse(timestampStr, out var timestamp))
             return await AuthenticateResultFailAsync("timestamp 值不合法");
 
-        var requestDate = DateTimeUtil.ConvertUnixTime(timestamp);
+        // 根据时间戳转成时间格式(自动判断时间戳长度是秒还是以毫秒为单位)
+        bool isMilliseconds = timestamp > 9999999999;
+        var requestDate = isMilliseconds
+            ? DateTimeOffset.FromUnixTimeMilliseconds(timestamp).ToLocalTime().DateTime
+            : DateTimeOffset.FromUnixTimeSeconds(timestamp).ToLocalTime().DateTime;
 
 #if NET6_0
         var utcNow = Clock.UtcNow;

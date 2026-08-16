@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 处理器信息
  *
  * @export
  * @interface CpuInfo
@@ -21,44 +21,66 @@
 export interface CpuInfo {
 
     /**
+     * 处理器名称
+     *
      * @type {string}
      * @memberof CpuInfo
      */
     processorName?: string | null;
 
     /**
+     * 处理器架构
+     *
      * @type {string}
      * @memberof CpuInfo
      */
     processorArchitecture?: string | null;
 
     /**
+     * 物理核心数
+     *
      * @type {number}
      * @memberof CpuInfo
      */
     physicalCoreCount?: number;
 
     /**
+     * 逻辑核心数(超线程)
+     *
      * @type {number}
      * @memberof CpuInfo
      */
     logicalCoreCount?: number;
 
     /**
+     * 基础时钟频率(GHz)
+     *
      * @type {number}
      * @memberof CpuInfo
      */
     baseClockSpeed?: number;
 
     /**
+     * 缓存大小
+     *
      * @type {number}
      * @memberof CpuInfo
      */
     cacheBytes?: number;
 
     /**
+     * CPU使用率(%)
+     *
      * @type {number}
      * @memberof CpuInfo
      */
     usagePercentage?: number;
+
+    /**
+     * CPU温度(°C)
+     *
+     * @type {number}
+     * @memberof CpuInfo
+     */
+    temperature?: number | null;
 }

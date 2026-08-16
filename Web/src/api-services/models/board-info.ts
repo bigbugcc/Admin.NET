@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 主板信息
  *
  * @export
  * @interface BoardInfo
@@ -21,24 +21,32 @@
 export interface BoardInfo {
 
     /**
+     * 型号
+     *
      * @type {string}
      * @memberof BoardInfo
      */
     product?: string | null;
 
     /**
+     * 制造商
+     *
      * @type {string}
      * @memberof BoardInfo
      */
     manufacturer?: string | null;
 
     /**
+     * 序列号
+     *
      * @type {string}
      * @memberof BoardInfo
      */
     serialNumber?: string | null;
 
     /**
+     * 版本号
+     *
      * @type {string}
      * @memberof BoardInfo
      */

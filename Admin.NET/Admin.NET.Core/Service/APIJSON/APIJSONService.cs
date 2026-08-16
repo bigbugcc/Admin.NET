@@ -4,6 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Newtonsoft.Json.Linq;
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -40,8 +42,7 @@ public class APIJSONService : IDynamicApiController, ITransient
         var database = jobject["@database"]?.ToString();
         if (!string.IsNullOrEmpty(database))
         {
-            // 设置数据库
-            var provider = _db.AsTenant().GetConnectionScope(database);
+            var provider = _db.AsTenant().GetConnectionScope(database); // 指定数据库
             jobject.Remove("@database");
             return new SelectTable(_identityService, _tableMapper, provider).Query(jobject);
         }
@@ -201,7 +202,7 @@ public class APIJSONService : IDynamicApiController, ITransient
                     parameters.Add(new SugarParameter($"@{f.Key}", FuncList.TransJObjectToSugarPara(f.Value)));
                 }
             }
-            if (!parameters.Any())
+            if (parameters.Count == 0)
                 throw Oops.Bah("请输入删除条件");
 
             var whereSql = sb.ToString().TrimEnd(" and ");

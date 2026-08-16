@@ -57,8 +57,9 @@ public class SysMessageService : IDynamicApiController, ITransient
     public async Task SendUser(MessageInput input)
     {
         var hashKey = _sysCacheService.HashGetAll<SysOnlineUser>(CacheConst.KeyUserOnline);
-        var receiveUsers = hashKey.Where(u => u.UserId == input.ReceiveUserId).Select(u => u).ToList();
-        await receiveUsers.ForEachAsync(u => _chatHubContext.Clients.Client(u.ConnectionId ?? "").ReceiveMessage(input));
+        var receiveUser = hashKey.Where(u => u.UserId == input.ReceiveUserId).Select(u => u).FirstOrDefault();
+        // 发送消息
+        await _chatHubContext.Clients.Client(receiveUser.ConnectionId ?? "").ReceiveMessage(input);
     }
 
     /// <summary>
@@ -71,6 +72,10 @@ public class SysMessageService : IDynamicApiController, ITransient
     {
         var hashKey = _sysCacheService.HashGetAll<SysOnlineUser>(CacheConst.KeyUserOnline);
         var receiveUsers = hashKey.Where(u => input.UserIds.Any(a => a == u.UserId)).Select(u => u).ToList();
-        await receiveUsers.ForEachAsync(u => _chatHubContext.Clients.Client(u.ConnectionId ?? "").ReceiveMessage(input));
+        foreach (var receiveUser in receiveUsers)
+        {
+            // 发送消息
+            await _chatHubContext.Clients.Client(receiveUser.ConnectionId ?? "").ReceiveMessage(input);
+        }
     }
 }

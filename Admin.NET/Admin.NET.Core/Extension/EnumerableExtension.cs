@@ -97,7 +97,7 @@ public static class EnumerableExtension
         {
             var currentNode = queue.Dequeue();
             var children = list.Where(item => Equals(parentPropertyInfo.GetValue(item), idPropertyInfo.GetValue(currentNode))).ToList();
-            children.Where(child => result.Add(child)).ForEach(child => queue.Enqueue(child));
+            children.Where(child => result.Add(child)).ToList().ForEach(child => queue.Enqueue(child));
         }
         if (isContainOneself) return result;
 

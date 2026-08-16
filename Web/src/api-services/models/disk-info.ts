@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 磁盘信息
  *
  * @export
  * @interface DiskInfo
@@ -21,36 +21,48 @@
 export interface DiskInfo {
 
     /**
+     * 磁盘名称
+     *
      * @type {string}
      * @memberof DiskInfo
      */
     diskName?: string | null;
 
     /**
+     * 磁盘类型
+     *
      * @type {string}
      * @memberof DiskInfo
      */
     typeName?: string | null;
 
     /**
+     * 总大小
+     *
      * @type {number}
      * @memberof DiskInfo
      */
     totalSpace?: number;
 
     /**
+     * 空闲大小
+     *
      * @type {number}
      * @memberof DiskInfo
      */
     freeSpace?: number;
 
     /**
+     * 已用大小
+     *
      * @type {number}
      * @memberof DiskInfo
      */
     usedSpace?: number;
 
     /**
+     * 可用占比
+     *
      * @type {number}
      * @memberof DiskInfo
      */

@@ -7,35 +7,35 @@
 						<tbody>
 							<tr>
 								<td class="sysInfo_td">主机名称：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.hostName }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.machineName }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">操作系统：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.systemOs }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.osDescription }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">系统架构：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.osArchitecture }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.osArchitecture }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">CPU核数：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.processorCount }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.processorCount }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">运行时长：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.sysRunTime }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.systemUptime }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">外网地址：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.remoteIp }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.remoteIp }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">内网地址：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.localIp }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.localIp }}</td>
 							</tr>
 							<tr>
 								<td class="sysInfo_td">运行框架：</td>
-								<td class="sysInfo_td">{{ state.machineBaseInfo.frameworkDescription }}</td>
+								<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.frameworkDescription }}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -79,15 +79,15 @@
 							<tbody>
 								<tr>
 									<td class="sysInfo_td">启动时间：</td>
-									<td class="sysInfo_td">{{ state.machineUseInfo.startTime }}</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.processStartTime }}</td>
 								</tr>
 								<tr>
 									<td class="sysInfo_td">运行时长：</td>
-									<td class="sysInfo_td">{{ state.machineUseInfo.runTime }}</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.systemUptime }}</td>
 								</tr>
 								<tr>
 									<td class="sysInfo_td">网站目录：</td>
-									<td class="sysInfo_td">{{ state.machineBaseInfo.wwwroot }}</td>
+									<td class="sysInfo_td">{{ state.machineBaseInfo.runtimeInfo?.currentDirectory }}</td>
 								</tr>
 								<tr>
 									<td class="sysInfo_td">开发环境：</td>
@@ -110,8 +110,8 @@
 					<div v-for="d in state.assemblyInfo" :key="d.name" style="display: inline-block; margin: 4px; text-align: left">
 						<el-tag round>
 							<div style="display: inline-flex">
-								<div>{{ d.name }}</div>
-								<div style="color: black; font-size: 9px; margin-left: 3px">v{{ d.version }}</div>
+								<div>{{ d.packageName }}</div>
+								<div style="color: black; font-size: 9px; margin-left: 3px">v{{ d.packageVersion }}</div>
 							</div>
 						</el-tag>
 					</div>
@@ -125,21 +125,21 @@
 					<el-row>
 						<el-col
 							:span="4"
-							:xs="(24 / state.machineDiskInfo.length) * 2"
-							:sm="24 / state.machineDiskInfo.length"
-							:md="24 / state.machineDiskInfo.length"
-							:lg="24 / state.machineDiskInfo.length"
-							:xl="24 / state.machineDiskInfo.length"
-							v-for="d in state.machineDiskInfo"
+							:xs="(24 / state.machineDiskInfo?.diskInfos.length) * 2"
+							:sm="24 / state.machineDiskInfo?.diskInfos.length"
+							:md="24 / state.machineDiskInfo?.diskInfos.length"
+							:lg="24 / state.machineDiskInfo?.diskInfos.length"
+							:xl="24 / state.machineDiskInfo?.diskInfos.length"
+							v-for="d in state.machineDiskInfo?.diskInfos"
 							:key="d.diskName"
 							style="text-align: center"
 						>
-							<el-progress type="circle" :percentage="d.availablePercent" :color="'var(--el-color-primary)'">
+							<el-progress type="circle" :percentage="d.availableRate" :color="'var(--el-color-primary)'">
 								<template #default>
-									<span>{{ d.availablePercent }}%<br /></span>
+									<span>{{ d.availableRate }}%<br /></span>
 									<span style="font-size: 10px">
-										已用:{{ d.used }}GB<br />
-										剩余:{{ d.availableFreeSpace }}GB<br />
+										已用:{{ (d.usedSpace / 1024 / 1024 / 1024).toFixed(2) }}GB<br />
+										剩余:{{ (d.freeSpace / 1024 / 1024 / 1024).toFixed(2) }}GB<br />
 										{{ d.diskName }}
 									</span>
 								</template>
@@ -175,25 +175,27 @@ onMounted(async () => {
 
 // 服务器配置信息
 const loadMachineBaseInfo = async () => {
-	var res = await getAPI(SysServerApi).apiSysServerServerBaseGet();
+	var res = await getAPI(SysServerApi).apiSysServerRuntimeInfoGet();
 	state.machineBaseInfo = res.data.result;
+	console.log(state.machineBaseInfo);
 };
 
 // 服务器内存信息
 const loadMachineUseInfo = async () => {
-	var res = await getAPI(SysServerApi).apiSysServerServerUsedGet();
-	state.machineUseInfo = res.data.result;
+	// var res = await getAPI(SysServerApi).apiSysServerHardwareInfoGet();
+	// state.machineUseInfo = res.data.result;
 };
 
 // 服务器磁盘信息
 const loadMachineDiskInfo = async () => {
-	var res = await getAPI(SysServerApi).apiSysServerServerDiskGet();
+	var res = await getAPI(SysServerApi).apiSysServerHardwareInfoGet();
 	state.machineDiskInfo = res.data.result;
+	console.log(state.machineDiskInfo);
 };
 
 // 框架程序集信息
 const loadAssemblyInfo = async () => {
-	var res = await getAPI(SysServerApi).apiSysServerAssemblyListGet();
+	var res = await getAPI(SysServerApi).apiSysServerNuGetPackageInfoGet();
 	state.assemblyInfo = res.data.result;
 };
 

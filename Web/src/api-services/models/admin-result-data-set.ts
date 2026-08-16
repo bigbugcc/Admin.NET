@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { DataSet } from './data-set';
  /**
  * 全局返回结果
  *
@@ -46,10 +45,12 @@ export interface AdminResultDataSet {
     message?: string | null;
 
     /**
-     * @type {DataSet}
+     * 数据
+     *
+     * @type {any}
      * @memberof AdminResultDataSet
      */
-    result?: DataSet;
+    result?: any | null;
 
     /**
      * 附加数据

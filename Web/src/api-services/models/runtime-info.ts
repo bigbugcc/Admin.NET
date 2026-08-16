@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 系统运行时信息
  *
  * @export
  * @interface RuntimeInfo
@@ -21,162 +21,224 @@
 export interface RuntimeInfo {
 
     /**
+     * 操作系统名称
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     osName?: string | null;
 
     /**
+     * 操作系统描述
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     osDescription?: string | null;
 
     /**
+     * 操作系统版本
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     osVersion?: string | null;
 
     /**
+     * 操作系统架构
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     osArchitecture?: string | null;
 
     /**
+     * 进程架构
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     processArchitecture?: string | null;
 
     /**
+     * 运行时框架描述
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     frameworkDescription?: string | null;
 
     /**
+     * 运行时版本
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     runtimeVersion?: string | null;
 
     /**
+     * 数据库类型
+     *
+     * @type {string}
+     * @memberof RuntimeInfo
+     */
+    databaseType?: string | null;
+
+    /**
+     * 是否64位操作系统
+     *
      * @type {boolean}
      * @memberof RuntimeInfo
      */
     is64BitOperatingSystem?: boolean;
 
     /**
+     * 是否64位进程
+     *
      * @type {boolean}
      * @memberof RuntimeInfo
      */
     is64BitProcess?: boolean;
 
     /**
+     * 是否交互模式
+     *
      * @type {boolean}
      * @memberof RuntimeInfo
      */
     isInteractive?: boolean;
 
     /**
+     * 交互模式描述
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     interactiveMode?: string | null;
 
     /**
+     * 处理器数量
+     *
      * @type {number}
      * @memberof RuntimeInfo
      */
     processorCount?: number;
 
     /**
+     * 系统目录
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     systemDirectory?: string | null;
 
     /**
+     * 当前目录
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     currentDirectory?: string | null;
 
     /**
+     * 机器名称
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     machineName?: string | null;
 
     /**
+     * 用户名
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     userName?: string | null;
 
     /**
+     * 用户域名
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     userDomainName?: string | null;
 
     /**
+     * 工作集大小（字节）
+     *
      * @type {number}
      * @memberof RuntimeInfo
      */
     workingSet?: number;
 
     /**
+     * 系统启动时间
+     *
      * @type {Date}
      * @memberof RuntimeInfo
      */
     systemStartTime?: Date;
 
     /**
+     * 系统运行时间
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     systemUptime?: string;
 
     /**
+     * 进程启动时间
+     *
      * @type {Date}
      * @memberof RuntimeInfo
      */
     processStartTime?: Date;
 
     /**
+     * 进程运行时间
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     processUptime?: string;
 
     /**
+     * 进程ID
+     *
      * @type {number}
      * @memberof RuntimeInfo
      */
     processId?: number;
 
     /**
+     * 进程名称
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     processName?: string | null;
 
     /**
+     * CLR版本
+     *
      * @type {string}
      * @memberof RuntimeInfo
      */
     clrVersion?: string | null;
 
     /**
+     * 环境变量数量
+     *
      * @type {number}
      * @memberof RuntimeInfo
      */
     environmentVariableCount?: number;
 
     /**
+     * 命令行参数
+     *
      * @type {Array<string>}
      * @memberof RuntimeInfo
      */

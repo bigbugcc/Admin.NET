@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * IP地址信息
  *
  * @export
  * @interface IpAddressInfo
@@ -21,18 +21,24 @@
 export interface IpAddressInfo {
 
     /**
+     * IP地址
+     *
      * @type {string}
      * @memberof IpAddressInfo
      */
     address?: string | null;
 
     /**
+     * 子网掩码
+     *
      * @type {string}
      * @memberof IpAddressInfo
      */
     subnetMask?: string | null;
 
     /**
+     * 前缀长度
+     *
      * @type {number}
      * @memberof IpAddressInfo
      */

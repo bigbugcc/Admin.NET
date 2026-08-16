@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * NuGet 程序包信息记录  表示一个 NuGet 包的基本信息，包括包名和版本
  *
  * @export
  * @interface NuGetPackage
@@ -21,12 +21,16 @@
 export interface NuGetPackage {
 
     /**
+     * NuGet 包名称
+     *
      * @type {string}
      * @memberof NuGetPackage
      */
     packageName?: string | null;
 
     /**
+     * NuGet 包版本号
+     *
      * @type {string}
      * @memberof NuGetPackage
      */

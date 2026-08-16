@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * GPU信息
  *
  * @export
  * @interface GpuInfo
@@ -21,72 +21,96 @@
 export interface GpuInfo {
 
     /**
+     * GPU名称
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     name?: string | null;
 
     /**
+     * 描述
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     description?: string | null;
 
     /**
+     * 厂商
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     vendor?: string | null;
 
     /**
+     * 设备ID
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     deviceId?: string | null;
 
     /**
+     * 总线信息
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     busInfo?: string | null;
 
     /**
+     * 驱动版本
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     driverVersion?: string | null;
 
     /**
+     * 显存大小（字节）
+     *
      * @type {number}
      * @memberof GpuInfo
      */
     memoryBytes?: number;
 
     /**
+     * GPU温度（°C）
+     *
      * @type {number}
      * @memberof GpuInfo
      */
     temperature?: number | null;
 
     /**
+     * 视频模式描述
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     videoModeDescription?: string | null;
 
     /**
+     * 状态
+     *
      * @type {string}
      * @memberof GpuInfo
      */
     status?: string | null;
 
     /**
+     * GPU使用率（%）
+     *
      * @type {number}
      * @memberof GpuInfo
      */
     utilizationPercentage?: number | null;
 
     /**
+     * 显存使用率（%）
+     *
      * @type {number}
      * @memberof GpuInfo
      */

@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 内存信息
  *
  * @export
  * @interface RamInfo
@@ -21,42 +21,56 @@
 export interface RamInfo {
 
     /**
+     * 总内存大小（字节）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     totalBytes?: number;
 
     /**
+     * 已用内存大小（字节）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     usedBytes?: number;
 
     /**
+     * 空闲内存大小（字节）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     freeBytes?: number;
 
     /**
+     * 可用内存大小（字节）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     availableBytes?: number;
 
     /**
+     * 缓冲区和缓存大小（字节）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     buffersCachedBytes?: number;
 
     /**
+     * 内存使用率（%）
+     *
      * @type {number}
      * @memberof RamInfo
      */
     usagePercentage?: number;
 
     /**
+     * 可用内存占比（%）
+     *
      * @type {number}
      * @memberof RamInfo
      */

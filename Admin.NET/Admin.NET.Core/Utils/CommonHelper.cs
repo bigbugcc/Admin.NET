@@ -6,6 +6,7 @@
 
 using IPTools.Core;
 using Magicodes.ExporterAndImporter.Core.Models;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -573,10 +574,10 @@ public static class CommonHelper
         }
 
         // 登录时从请求参数获取用户信息
-        if (result.UserId == null && loggingMonitor.ActionName == "login" && loggingMonitor.Parameters?.FirstOrDefault()?.Value is JObject jObject)
+        if (result.UserId == null && loggingMonitor.ActionName == "login" && loggingMonitor.Parameters?.FirstOrDefault()?.Value is JsonElement jsonElement)
         {
-            result.Account = jObject.GetValue("account")?.ToString();
-            if (string.IsNullOrEmpty(result.Account)) return result;
+            result.Account = jsonElement.TryGetProperty("account", out var account) ? account.GetString() : null;
+            if (string.IsNullOrWhiteSpace(result.Account)) return result;
 
             var db = SqlSugarSetup.ITenant.GetConnectionScope(SqlSugarConst.MainConfigId);
             var user = db.Queryable<SysUser>().First(u => u.Account == result.Account);

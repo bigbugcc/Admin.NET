@@ -13,7 +13,7 @@
  */
 
  /**
- * 
+ * 网络接口统计信息
  *
  * @export
  * @interface NetworkInterfaceStatistics
@@ -21,48 +21,64 @@
 export interface NetworkInterfaceStatistics {
 
     /**
+     * 接收字节数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     bytesReceived?: number;
 
     /**
+     * 发送字节数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     bytesSent?: number;
 
     /**
+     * 接收数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     packetsReceived?: number;
 
     /**
+     * 发送数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     packetsSent?: number;
 
     /**
+     * 丢弃的传入数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     incomingPacketsDiscarded?: number;
 
     /**
+     * 丢弃的传出数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     outgoingPacketsDiscarded?: number;
 
     /**
+     * 传入错误数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */
     incomingPacketsWithErrors?: number;
 
     /**
+     * 传出错误数据包数
+     *
      * @type {number}
      * @memberof NetworkInterfaceStatistics
      */

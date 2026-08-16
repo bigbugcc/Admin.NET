@@ -15,7 +15,7 @@
 import { IpAddressInfo } from './ip-address-info';
 import { NetworkInterfaceStatistics } from './network-interface-statistics';
  /**
- * 
+ * 网卡信息
  *
  * @export
  * @interface NetworkInfo
@@ -23,78 +23,104 @@ import { NetworkInterfaceStatistics } from './network-interface-statistics';
 export interface NetworkInfo {
 
     /**
+     * 名称
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     name?: string | null;
 
     /**
+     * 描述
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     description?: string | null;
 
     /**
+     * 类型
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     type?: string | null;
 
     /**
+     * 操作状态
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     operationalStatus?: string | null;
 
     /**
+     * 速度
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     speed?: string | null;
 
     /**
+     * 物理地址(mac 地址)
+     *
      * @type {string}
      * @memberof NetworkInfo
      */
     physicalAddress?: string | null;
 
     /**
+     * 是否支持多播
+     *
      * @type {boolean}
      * @memberof NetworkInfo
      */
     supportsMulticast?: boolean;
 
     /**
+     * 是否只接收
+     *
      * @type {boolean}
      * @memberof NetworkInfo
      */
     isReceiveOnly?: boolean;
 
     /**
+     * DNS 地址
+     *
      * @type {Array<string>}
      * @memberof NetworkInfo
      */
     dnsAddresses?: Array<string> | null;
 
     /**
+     * 网关地址
+     *
      * @type {Array<string>}
      * @memberof NetworkInfo
      */
     gatewayAddresses?: Array<string> | null;
 
     /**
+     * DHCP服务器地址
+     *
      * @type {Array<string>}
      * @memberof NetworkInfo
      */
     dhcpServerAddresses?: Array<string> | null;
 
     /**
+     * IPv4 地址详细信息
+     *
      * @type {Array<IpAddressInfo>}
      * @memberof NetworkInfo
      */
     iPv4Addresses?: Array<IpAddressInfo> | null;
 
     /**
+     * IPv6 地址详细信息
+     *
      * @type {Array<IpAddressInfo>}
      * @memberof NetworkInfo
      */
