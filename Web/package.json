@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "2.4.33",
 	"packageManager": "pnpm@11.22.0",
-	"lastBuildTime": "2026.08.16",
+	"lastBuildTime": "2026.08.17",
 	"description": "Admin.NET 站在巨人肩膀上的 .NET 通用权限开发框架",
 	"author": "zuohuaijun",
 	"license": "MIT",

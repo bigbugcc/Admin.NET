@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion.Xunit" Version="4.9.9.79" />
+    <PackageReference Include="Furion.Xunit" Version="4.9.9.80" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
     <PackageReference Include="Selenium.Support" Version="4.47.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.47.0" />
