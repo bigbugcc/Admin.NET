@@ -187,7 +187,7 @@ public class RuntimeMonitor : IDisposable
     /// <param name="counterType">计数器类型</param>
     /// <param name="timeRange">分析时间范围，null表示分析所有数据</param>
     /// <returns>性能趋势分析结果</returns>
-    public PerformanceTrend AnalyzeTrend(PerformanceCounterType counterType, TimeSpan? timeRange = null)
+    public PerformanceTrend AnalyzeTrend(PerformanceCounterTypeEnum counterType, TimeSpan? timeRange = null)
     {
         var snapshots = timeRange.HasValue
             ? GetSnapshotsInTimeRange(timeRange.Value)
@@ -250,7 +250,7 @@ public class RuntimeMonitor : IDisposable
     public string GetPerformanceSummary()
     {
         var current = GetCurrentSnapshot();
-        var cpuTrend = AnalyzeTrend(PerformanceCounterType.CpuUsage, TimeSpan.FromMinutes(5));
+        var cpuTrend = AnalyzeTrend(PerformanceCounterTypeEnum.CpuUsage, TimeSpan.FromMinutes(5));
         //var memoryTrend = AnalyzeTrend(PerformanceCounterType.MemoryUsage, TimeSpan.FromMinutes(5));
 
         return string.Format("运行时性能摘要:\n") +
@@ -287,15 +287,15 @@ public class RuntimeMonitor : IDisposable
     /// <param name="snapshot">性能快照</param>
     /// <param name="counterType">计数器类型</param>
     /// <returns>计数器值</returns>
-    private static double GetCounterValue(PerformanceSnapshot snapshot, PerformanceCounterType counterType)
+    private static double GetCounterValue(PerformanceSnapshot snapshot, PerformanceCounterTypeEnum counterType)
     {
         return counterType switch
         {
-            PerformanceCounterType.CpuUsage => snapshot.CpuUsage,
-            PerformanceCounterType.MemoryUsage => snapshot.MemoryUsage,
-            PerformanceCounterType.GcCollections => snapshot.GcGen0Collections + snapshot.GcGen1Collections + snapshot.GcGen2Collections,
-            PerformanceCounterType.ThreadCount => snapshot.ThreadCount,
-            PerformanceCounterType.HandleCount => snapshot.HandleCount,
+            PerformanceCounterTypeEnum.CpuUsage => snapshot.CpuUsage,
+            PerformanceCounterTypeEnum.MemoryUsage => snapshot.MemoryUsage,
+            PerformanceCounterTypeEnum.GcCollections => snapshot.GcGen0Collections + snapshot.GcGen1Collections + snapshot.GcGen2Collections,
+            PerformanceCounterTypeEnum.ThreadCount => snapshot.ThreadCount,
+            PerformanceCounterTypeEnum.HandleCount => snapshot.HandleCount,
             _ => 0
         };
     }
@@ -470,7 +470,7 @@ public record PerformanceTrend
     /// <summary>
     /// 计数器类型
     /// </summary>
-    public PerformanceCounterType CounterType { get; set; }
+    public PerformanceCounterTypeEnum CounterType { get; set; }
 
     /// <summary>
     /// 当前值
@@ -516,7 +516,7 @@ public record PerformanceTrend
 /// <summary>
 /// 性能计数器类型枚举
 /// </summary>
-public enum PerformanceCounterType
+public enum PerformanceCounterTypeEnum
 {
     /// <summary>
     /// CPU使用率
