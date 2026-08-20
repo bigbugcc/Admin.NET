@@ -219,6 +219,9 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // 获取登录租户和用户
         var (_, user) = await GetLoginUserAndTenant(input.TenantId, phone: input.Phone);
+       
+        // 账号是否被冻结
+        if (user.Status == StatusEnum.Disable) throw Oops.Oh(ErrorCodeEnum.D1017);
 
         return await CreateToken(user);
     }
