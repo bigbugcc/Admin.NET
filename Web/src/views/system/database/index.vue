@@ -8,14 +8,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="表名">
-					<el-select v-model="state.tableName" placeholder="表名" filterable clearable @change="handleQueryColumn">
+					<el-select v-model="state.tableName" placeholder="表名" filterable clearable :filter-method="filterTable" @change="handleQueryColumn">
                         <template #label="{ label, value }">
                             <div class="flex flex-items-center">
                                 <span>{{ value }}</span>
                                 <span class="desc">{{ label }}</span>
                             </div>
                         </template>
-						<el-option v-for="item in state.tableData" :key="item.name" :data="item" :label="item.description" :value="item.name">
+						<el-option v-for="item in state.filteredTableData" :key="item.name" :data="item" :label="item.description" :value="item.name">
                             <div class="flex flex-items-center">
                                 <span style="flex: 1">{{ item.name }}</span>
                                 <el-tag type="info" size="small">{{ item.description }}</el-tag>
@@ -118,6 +118,7 @@ const state = reactive({
 	dbData: [] as any,
 	configId: '',
 	tableData: [] as Array<DbTableInfo>,
+    filteredTableData: [] as Array<DbTableInfo>, //songhy模糊匹配表名：增加一个展示用数组
 	tableName: '',
 	columnData: [] as Array<DbColumnOutput>,
 	queryParams: {
@@ -170,6 +171,7 @@ const handleQueryColumn = async () => {
 	state.loading1 = true;
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseColumnListTableNameConfigIdGet(state.tableName, state.configId);
 	state.columnData = res.data.result ?? [];
+    state.filteredTableData = state.tableData;  //songhy模糊匹配表名：同步初始化
 	state.loading1 = false;
 };
 
@@ -387,6 +389,16 @@ const visualTable = () => {
 	}
 	router.push(`/develop/database/visual?configId=${state.configId}`);
 };
+// songhy模糊匹配表名，原始框架中，Element Plus 默认按 option 的 label（即 item.description） 模糊过滤
+// 而表名 item.name 显示在自定义 option 内，不会参与匹配，所以输入表名无法筛到
+const filterTable = (query: string) => {
+	const q = query.trim().toLowerCase();
+	state.filteredTableData = q === ''
+		? state.tableData
+		: state.tableData.filter((item: any) =>
+			item.name.toLowerCase().includes(q) ||
+			(item.description ?? '').toLowerCase().includes(q));
+}; 
 </script>
 
 <style lang="scss" scoped>
