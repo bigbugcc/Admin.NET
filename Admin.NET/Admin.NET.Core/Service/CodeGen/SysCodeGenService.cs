@@ -94,8 +94,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             _db.AsTenant().BeginTran();
             if (input.GenerateMenu)
             {
-                var oldTitle = $"{oldRecord.BusName}管理";
-                var newTitle = $"{input.BusName}管理";
+                var oldTitle = $"{oldRecord.BusName}";
+                var newTitle = $"{input.BusName}";
                 var updateObj = await _db.Queryable<SysMenu>().FirstAsync(u => u.Title == oldTitle);
                 if (updateObj != null)
                 {
@@ -522,7 +522,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// <returns></returns>
     private async Task AddOrUpdateMenu(string className, string busName, long pid, string menuIcon, string pagePath, List<CodeGenConfig> tableFieldList)
     {
-        var title = $"{busName}管理";
+        var title = $"{busName}";
         var lowerClassName = className.ToFirstLetterLowerCase();
         var menuType = pid == 0 ? MenuTypeEnum.Dir : MenuTypeEnum.Menu;
 
@@ -644,7 +644,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     private async Task AddMenu(string className, string busName, long pid, string menuIcon, string pagePath, List<CodeGenConfig> tableFieldList)
     {
         // 删除已存在的菜单
-        var title = $"{busName}管理";
+        var title = $"{busName}";
         await DeleteMenuTree(title, pid == 0 ? MenuTypeEnum.Dir : MenuTypeEnum.Menu);
 
         var parentMenuPath = "";
