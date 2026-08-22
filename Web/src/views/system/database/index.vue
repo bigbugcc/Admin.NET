@@ -153,6 +153,7 @@ const handleQueryTable = async () => {
 
 	var res = await getAPI(SysDatabaseApi).apiSysDatabaseTableListConfigIdGet(state.configId);
 	let tableData = res.data.result ?? [];
+    tableData.sort((a: any, b: any) => a.name.localeCompare(b.name));
 	state.tableData = [];
 	tableData.forEach((element: any) => {
 		//排除zero_开头的表
