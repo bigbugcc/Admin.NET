@@ -19,14 +19,14 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="3.0.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.5.0" />
-    <PackageReference Include="Furion" Version="4.9.9.82" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.82" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.82" />
+    <PackageReference Include="Furion" Version="4.9.9.83" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.9.83" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.9.83" />
     <PackageReference Include="Hardware.Info" Version="110.0.0.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
     <PackageReference Include="IPTools.International" Version="1.6.0" />
-    <PackageReference Include="log4net" Version="3.3.2" />
+    <PackageReference Include="log4net" Version="3.4.0" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.2.4" />    
     <PackageReference Include="Magicodes.IE.Excel" Version="2.9.0" />
     <PackageReference Include="Magicodes.IE.Pdf" Version="2.9.0" />
@@ -40,7 +40,7 @@
     <PackageReference Include="QRCoder" Version="1.8.0" />
     <PackageReference Include="RabbitMQ.Client" Version="7.2.2" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.2.0" />
-    <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.14.0" />
+    <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.15.0" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.17.0" />
     <PackageReference Include="SqlSugar.MongoDbCore" Version="5.1.4.277" />
     <PackageReference Include="SqlSugarCore" Version="5.1.4.217" />
