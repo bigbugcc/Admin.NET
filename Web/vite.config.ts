@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { defineConfig, loadEnv, ConfigEnv } from 'vite';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 import compression from 'vite-plugin-compression2';
-import { buildConfig } from './src/utils/build';
+import { buildConfig } from './src/utils/build.ts';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { CodeInspectorPlugin } from 'code-inspector-plugin';
 import fs from 'fs';
@@ -12,7 +12,7 @@ import { webUpdateNotice } from '@plugin-web-update-notification/vite';
 import vitePluginsAutoI18n, { EmptyTranslator } from 'vite-auto-i18n-plugin';
 
 const pathResolve = (dir: string) => {
-	return resolve(__dirname, '.', dir);
+	return resolve(import.meta.dirname, '.', dir);
 };
 
 const alias: Record<string, string> = {
