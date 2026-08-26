@@ -110,6 +110,7 @@ public class Startup : AppStartup
                 options.JsonSerializerOptions.Converters.AddTimeOnlyConverters("HH:mm:ss"); // TimeOnly
                 options.JsonSerializerOptions.Converters.AddClayConverters(); // 粘土对象 Clay 类型序列化
                 //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // 枚举和字符串互转
+                options.JsonSerializerOptions.Converters.AddEnumConverters(); // 枚举类型序列化
                 options.JsonSerializerOptions.Converters.AddDataTableConverters(); // 类型 DataTable 序列化
                 options.JsonSerializerOptions.Converters.AddDataSetConverters(); // 类型 DataSet 序列化
 
