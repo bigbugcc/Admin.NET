@@ -26,6 +26,7 @@ export default {
 import { reactive, onMounted } from 'vue';
 import { formatDate } from '/@/utils/formatTime';
 import CardPro from '/@/components/CardPro/index.vue';
+import request from "/@/utils/request";
 
 const state = reactive({
 	loading: false,
@@ -33,17 +34,17 @@ const state = reactive({
 });
 
 const getList = () => {
-	axios({
-		method: 'get',
-		url: 'https://gitee.com/api/v5/repos/zuohuaijun/Admin.NET/commits',
-		params: {
-			page: 1,
-			per_page: 10,
-		},
-	}).then((res: any) => {
-		state.list = res.data;
-		state.loading = false;
-	});
+    return request({
+        method: "get",
+        url: 'https://gitee.com/api/v5/repos/zuohuaijun/Admin.NET/commits',
+        params: { page: 1, per_page: 10 },
+        transformRequest: [
+            (data, headers) => {
+                delete headers.Authorization;
+                return data;
+            },
+        ]
+    }).then((res: any) => { state.list = res.data }).finally(() => { state.loading = false });
 };
 
 const refresh = () => {
