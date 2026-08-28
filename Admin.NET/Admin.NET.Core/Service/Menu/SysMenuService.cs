@@ -99,7 +99,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     /// 获取菜单列表 🔖
     /// </summary>
     /// <returns></returns>
-    [DisplayName("获取菜单列表")]
+    [DisplayName("获取菜单列表"), AllowAnonymous]
     public async Task<List<SysMenu>> GetList([FromQuery] MenuInput input)
     {
         var langCode = _userManager.LangCode;
