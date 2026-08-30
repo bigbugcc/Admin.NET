@@ -4,7 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using Furion.Logging.Extensions;
 using Newtonsoft.Json;
 
 namespace Admin.NET.Core.Service;
@@ -175,7 +174,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
         var response = await _wechatTenpayClient.ExecuteCreatePayTransactionNativeAsync(request);
         if (!response.IsSuccessful())
         {
-            JsonConvert.SerializeObject(response).LogInformation();
+            Log.Information(JsonConvert.SerializeObject(response));
             throw Oops.Oh(response.ErrorMessage);
         }
         // 保存订单信息
@@ -448,7 +447,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             }
             catch (Exception ex)
             {
-                "微信支付回调时出错：".LogError(ex);
+                Log.Error("微信支付回调时出错：" + ex);
             }
         }
         else if ("REFUND.SUCCESS".Equals(callbackModel.EventType))
@@ -469,12 +468,12 @@ public class SysWechatPayService : IDynamicApiController, ITransient
             }
             catch (Exception ex)
             {
-                "微信退款回调时出错：".LogError(ex);
+                Log.Error("微信退款回调时出错：" + ex);
             }
         }
         else
         {
-            callbackModel.EventType.LogInformation();
+            Log.Information(callbackModel.EventType);
         }
 
         return null;
