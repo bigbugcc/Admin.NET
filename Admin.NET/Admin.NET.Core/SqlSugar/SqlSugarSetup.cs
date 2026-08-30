@@ -245,6 +245,12 @@ public static class SqlSugarSetup
                     if (string.IsNullOrEmpty(createOrgName))
                         entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgName)?.Value);
                 }
+                else if (entityInfo.PropertyName == nameof(EntityBaseOrg.OrgId))
+                {
+                    var orgId = entityValue.OrgId;
+                    if (orgId == 0 || orgId == null)
+                        entityInfo.SetValue(App.User.FindFirst(ClaimConst.OrgId)?.Value);
+                }
             }
             // 编辑/更新
             else if (entityInfo.OperationType == DataFilterType.UpdateByObject)
