@@ -92,7 +92,7 @@ public class Startup : AppStartup
             .AddJsonOptions(options =>
             {
                 //options.JsonSerializerOptions.PropertyNamingPolicy = null; // 序列化属性名大写（属性原样输出）
-                options.JsonSerializerOptions.Converters.AddDateTimeTypeConverters("yyyy-MM-dd HH:mm:ss", localized: true); // 时间格式化
+                options.JsonSerializerOptions.Converters.AddDateTimeConverters("yyyy-MM-dd HH:mm:ss", localized: true); // 时间格式化
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // 忽略循环引用
                 //options.JsonSerializerOptions.IncludeFields = true; // 包含成员字段序列化
                 options.JsonSerializerOptions.AllowTrailingCommas = true; // 允许尾随逗号
@@ -103,7 +103,7 @@ public class Startup : AppStartup
                 //options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull; // 忽略所有 null 属性
                 //options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault; // 忽略所有默认值属性
                 options.JsonSerializerOptions.WriteIndented = true; // JSON 字符串缩进
-                options.JsonSerializerOptions.Converters.AddLongTypeConverters(overMaxLengthOf17: true); // long 类型序列化时转 string（超过 17 位再转换）
+                options.JsonSerializerOptions.Converters.AddLongConverters(overMaxLengthOf17: true); // long 类型序列化时转 string（超过 17 位再转换）
                 //options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString; // String 转 Number
                 //options.JsonSerializerOptions.Converters.Add(new StringJsonConverter()); // Number 和 Boolean 转 String
                 options.JsonSerializerOptions.Converters.AddDateOnlyConverters("yyyy-MM-dd"); // DateOnly
