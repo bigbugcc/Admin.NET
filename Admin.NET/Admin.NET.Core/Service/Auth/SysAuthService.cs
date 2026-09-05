@@ -106,6 +106,9 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // 登录成功则清空密码错误次数
         _sysCacheService.Remove(keyPasswordErrorTimes);
+        
+        // 清除用户按钮权限缓存，确保获取最新权限码（避免菜单/角色变更后旧缓存导致按钮不显示）
+        _sysCacheService.Remove($"{CacheConst.KeyUserButton}{user.Id}");
 
         return await CreateToken(user);
     }
