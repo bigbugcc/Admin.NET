@@ -407,6 +407,9 @@ public class SysTenantService : IDynamicApiController, ITransient
     [DisplayName("删除租户")]
     public async Task DeleteTenant(DeleteTenantInput input)
     {
+        // 检查 Id 是否有效（避免前端传递的字符串 Id 反序列化为 0 导致删除无效但不报错）
+        if (input.Id <= 0) throw Oops.Oh(ErrorCodeEnum.D0009);
+        
         // 禁止删除默认租户
         if (input.Id.ToString() == SqlSugarConst.MainConfigId) throw Oops.Oh(ErrorCodeEnum.D1023);
 
