@@ -46,13 +46,13 @@ public class DingTalkWokerflowLog
     /// <summary>
     /// 审批人 userId 列表
     /// </summary>
-    [SugarColumn(ColumnDescription = "审批人userId列表", IsJson = true, IsNullable = true)]
+    [SugarColumn(ColumnDescription = "审批人userId列表", IsJson = true, IsNullable = true, ColumnDataType = StaticConfig.CodeFirst_BigString)]
     public List<string>? ApproverUserIds { get; set; }
 
     /// <summary>
     /// 抄送人 userId 列表
     /// </summary>
-    [SugarColumn(ColumnDescription = "抄送人userId列表", IsJson = true, IsNullable = true)]
+    [SugarColumn(ColumnDescription = "抄送人userId列表", IsJson = true, IsNullable = true, ColumnDataType = StaticConfig.CodeFirst_BigString)]
     public List<string>? CcUserIds { get; set; }
 
     /// <summary>
@@ -70,7 +70,7 @@ public class DingTalkWokerflowLog
     /// <summary>
     /// 其他信息
     /// </summary>
-    [SugarColumn(ColumnDescription = "其他信息", IsJson = true)]
+    [SugarColumn(ColumnDescription = "其他信息", IsJson = true, ColumnDataType = StaticConfig.CodeFirst_BigString)]
     public Dictionary<string, object>? other_info { get; set; }
 
     ///// <summary>
@@ -82,7 +82,7 @@ public class DingTalkWokerflowLog
     /// <summary>
     /// 是否回传结果给第三方
     /// </summary>
-    [SugarColumn(ColumnDescription = "回传结果", IsJson = true)]
+    [SugarColumn(ColumnDescription = "回传结果", IsJson = true, ColumnDataType = StaticConfig.CodeFirst_BigString)]
     public object? WmsReturn { get; set; }
 
     /// <summary>
