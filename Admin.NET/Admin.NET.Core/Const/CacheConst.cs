@@ -49,7 +49,7 @@ public class CacheConst
     /// <summary>
     /// 租户缓存
     /// </summary>
-    public const string KeyTenant = "sys_tenant";
+    public const string KeyTenantHash = "sys_tenant_hash";
 
     /// <summary>
     /// 常量下拉框
