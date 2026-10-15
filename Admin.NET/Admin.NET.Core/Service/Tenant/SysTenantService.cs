@@ -27,6 +27,11 @@ public class SysTenantService : IDynamicApiController, ITransient
     private readonly SysCacheService _sysCacheService;
     private readonly UploadOptions _uploadOptions;
 
+    /// <summary>
+    /// 全量刷新租户缓存时，按此大小分批提交以合并网络往返
+    /// </summary>
+    private const int BatchSize = 500;
+
     public SysTenantService(
         SqlSugarRepository<SysUserExtOrg> sysUserExtOrgRep,
         SqlSugarRepository<SysTenantMenu> sysTenantMenuRep,
@@ -192,7 +197,8 @@ public class SysTenantService : IDynamicApiController, ITransient
         tenant.Id = _sysTenantRep.InsertReturnEntity(tenant).Id;
         await InitNewTenant(tenant);
 
-        await CacheTenant();
+        // 只缓存新增的这一个租户，不再全量重建租户缓存
+        await CacheTenant(tenant.Id);
     }
 
     /// <summary>
@@ -663,24 +669,108 @@ public class SysTenantService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 缓存所有租户
+    /// 缓存租户
     /// </summary>
-    /// <param name="tenantId"></param>
+    /// <param name="tenantId">指定租户Id时只刷新该租户；为0时全量刷新</param>
     /// <returns></returns>
     [NonAction]
     public async Task CacheTenant(long tenantId = 0)
     {
+        if (tenantId > 0)
+            await CacheTenantSingle(tenantId);
+        else
+            await CacheTenantAll();
+    }
+
+    /// <summary>
+    /// 缓存单个租户
+    /// </summary>
+    /// <param name="tenantId"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task CacheTenantSingle(long tenantId)
+    {
+        if (tenantId <= 0) return;
+
         // 移除 ISqlSugarClient 中的库连接并排除默认主库
-        if (tenantId > 0 && tenantId.ToString() != SqlSugarConst.MainConfigId)
+        if (tenantId.ToString() != SqlSugarConst.MainConfigId)
             _sysTenantRep.AsTenant().RemoveConnection(tenantId);
 
+        var tenant = await _sysTenantRep.GetFirstAsync(u => u.Id == tenantId);
+
+        // 租户已不存在（如删除后）则移除该 field
+        if (tenant == null)
+        {
+            _sysCacheService.HashDel<SysTenant>(CacheConst.KeyTenantHash, tenantId.ToString());
+            return;
+        }
+
+        // 对租户库连接进行SM2加密
+        EncryptTenantConnection(tenant);
+
+        _sysCacheService.HashSet(CacheConst.KeyTenantHash, tenantId.ToString(), tenant);
+    }
+
+    /// <summary>
+    /// 全量刷新租户缓存
+    /// </summary>
+    /// <remarks>
+    /// 写入缓存时按 <see cref="BatchSize"/> 分批提交，把 N 次网络往返合并为约 N/BatchSize 次。
+    /// </remarks>
+    /// <returns></returns>
+    [NonAction]
+    public async Task CacheTenantAll()
+    {
         var tenantList = await _sysTenantRep.GetListAsync();
 
         // 对租户库连接进行SM2加密
-        foreach (var tenant in tenantList.Where(tenant => !string.IsNullOrWhiteSpace(tenant.Connection)))
-            tenant.Connection = CryptogramUtil.SM2Encrypt(tenant.Connection);
+        foreach (var tenant in tenantList)
+            EncryptTenantConnection(tenant);
 
-        _sysCacheService.Set(CacheConst.KeyTenant, tenantList);
+        // 开启自动管道，把 N 次网络往返合并为约 N/BatchSize 次。
+        // 必须用 try-finally 保证关闭：FullRedis 是单例，若中途抛异常而未复位，
+        // 自动管道会一直保持开启，污染后续所有缓存写操作。
+        try
+        {
+            _sysCacheService.SetAutoPipeline(BatchSize);
+
+            foreach (var tenant in tenantList)
+                _sysCacheService.HashSet(CacheConst.KeyTenantHash, tenant.Id.ToString(), tenant);
+
+            // 规避 NewLife.Redis 6.6 的缺陷：StartPipeline() 生成的是空列表而非 null，
+            // 而 StopPipeline(true) 只判了 ps == null，未判 ps.Count == 0。
+            // 一旦管道残留 0 条命令，后续操作会走到 GetResponse(ns, 0) 做一次永无响应的
+            // 同步阻塞读而永久挂起（实测写入数为阈值整数倍时必现）。
+            // 这里在写入数恰为批大小整数倍时补写一条（幂等，重复写同一 field 无副作用），
+            // 确保下面读操作触发提交时管道内至少有 1 条命令。
+            // 注：租户数为 0 时循环未执行，_client 未初始化，读操作不会进入管道，同样安全。
+            if (tenantList.Count > 0 && tenantList.Count % BatchSize == 0)
+            {
+                var last = tenantList[^1];
+                _sysCacheService.HashSet(CacheConst.KeyTenantHash, last.Id.ToString(), last);
+            }
+        }
+        finally
+        {
+            _sysCacheService.SetAutoPipeline(0);
+        }
+
+        // 触发管道内残余命令的提交，并清理缓存中已不存在的租户（例如库中被直接删除的数据）
+        var tenantIds = tenantList.Select(u => u.Id.ToString()).ToHashSet();
+        var staleFields = _sysCacheService.HashGetAllKeys<SysTenant>(CacheConst.KeyTenantHash)
+            .Where(u => !tenantIds.Contains(u)).ToArray();
+        if (staleFields.Length > 0)
+            _sysCacheService.HashDel<SysTenant>(CacheConst.KeyTenantHash, staleFields);
+    }
+
+    /// <summary>
+    /// 对租户库连接进行SM2加密（缓存中只存密文）
+    /// </summary>
+    /// <param name="tenant"></param>
+    private static void EncryptTenantConnection(SysTenant tenant)
+    {
+        if (!string.IsNullOrWhiteSpace(tenant.Connection))
+            tenant.Connection = CryptogramUtil.SM2Encrypt(tenant.Connection);
     }
 
     /// <summary>
@@ -744,9 +834,20 @@ public class SysTenantService : IDynamicApiController, ITransient
 
         lock (iTenant)
         {
-            // 从缓存里面获取租户信息
-            var tenant = _sysCacheService.Get<List<SysTenant>>(CacheConst.KeyTenant)?.FirstOrDefault(u => u.Id == tenantId);
-            if (tenant == null || tenant.TenantType == TenantTypeEnum.Id) return null;
+            // 从缓存里面获取租户信息（Hash 结构，只取当前这一个租户，不再反序列化整个租户列表）
+            var tenant = _sysCacheService.HashGetOne<SysTenant>(CacheConst.KeyTenantHash, tenantId.ToString());
+
+            // 缓存缺失时兜底查库并回写缓存，避免静默回落到默认主库造成租户数据串库
+            if (tenant == null)
+            {
+                tenant = _sysTenantRep.AsQueryable().ClearFilter().Where(u => u.Id == tenantId).ToList().FirstOrDefault();
+                if (tenant == null) return null;
+
+                EncryptTenantConnection(tenant);
+                _sysCacheService.HashSet(CacheConst.KeyTenantHash, tenantId.ToString(), tenant);
+            }
+
+            if (tenant.TenantType == TenantTypeEnum.Id) return null;
 
             // 获取默认库连接配置
             var dbOptions = App.GetOptions<DbConnectionOptions>();

@@ -234,6 +234,30 @@ public class SysCacheService : IDynamicApiController, ISingleton
     }
 
     /// <summary>
+    /// 设置自动管道阈值
+    /// </summary>
+    /// <param name="threshold">累积多少条命令后自动提交，0 表示关闭</param>
+    /// <remarks>
+    /// 仅对 Redis 生效，用于把 N 次网络往返合并为约 N/threshold 次。
+    /// <para><b>使用约束（务必遵守）</b>：NewLife.Redis 6.6 存在缺陷——<c>StartPipeline()</c>
+    /// 生成的是空列表而非 <c>null</c>，而 <c>StopPipeline(true)</c> 只判了 <c>ps == null</c>，
+    /// 未判 <c>ps.Count == 0</c>。因此一旦管道内<b>残留 0 条命令</b>，后续操作会走到
+    /// <c>GetResponse(ns, 0)</c> 做一次永无响应的同步阻塞读而<b>永久挂起</b>
+    /// （实测写入数为阈值整数倍时必现）。</para>
+    /// <para>规避方式：批量写完后，若写入数恰为阈值整数倍，需<b>再补写至少 1 条</b>（幂等即可），
+    /// 确保由读操作触发提交时管道内非空。参见 <c>SysTenantService.CacheTenantAll</c> 的用法。
+    /// </para>
+    /// <para>另外注意：把阈值置回 0 <b>不会</b>提交缓冲区内的残余命令，需由一次读操作或
+    /// <c>Commit()</c> 触发提交。</para>
+    /// </remarks>
+    [NonAction]
+    public void SetAutoPipeline(int threshold)
+    {
+        if (_cacheProvider.Cache is FullRedis redis)
+            redis.AutoPipeline = threshold;
+    }
+
+    /// <summary>
     /// 获取或添加缓存（在数据不存在时执行委托请求数据）
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -309,7 +333,8 @@ public class SysCacheService : IDynamicApiController, ISingleton
     /// <returns></returns>
     private IDictionary<String, T> GetHashMap<T>(string key)
     {
-        return _cacheProvider.Cache.GetDictionary<T>(key);
+        // 与 Set/Get 保持一致，统一补上全局缓存前缀
+        return _cacheProvider.Cache.GetDictionary<T>($"{_cacheOptions.Prefix}{key}");
     }
 
     /// <summary>
@@ -358,6 +383,19 @@ public class SysCacheService : IDynamicApiController, ISingleton
     }
 
     /// <summary>
+    /// 直接写入一条HASH（不做存在性探测）
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="hashKey"></param>
+    /// <param name="value"></param>
+    [NonAction]
+    public void HashSet<T>(string key, string hashKey, T value)
+    {
+        GetHashMap<T>(key)[hashKey] = value;
+    }
+
+    /// <summary>
     /// 获取所有HASH
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -368,6 +406,19 @@ public class SysCacheService : IDynamicApiController, ISingleton
     {
         var hash = GetHashMap<T>(key);
         return hash.Values;
+    }
+
+    /// <summary>
+    /// 获取HASH的所有field
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    [NonAction]
+    public ICollection<String> HashGetAllKeys<T>(string key)
+    {
+        var hash = GetHashMap<T>(key);
+        return hash.Keys;
     }
 
     /// <summary>
