@@ -7,6 +7,7 @@
 using AspectCore.Extensions.Reflection;
 using Newtonsoft.Json.Linq;
 using System.Dynamic;
+using System.Globalization;
 
 namespace Admin.NET.Core.Service;
 
@@ -33,6 +34,9 @@ public class SelectTable : ISingleton
     /// <returns></returns>
     public virtual bool IsTable(string table)
     {
+        // 表名后续会进入元数据查询与 SqlSugar 拼接，先做白名单校验（列名不校验，可能是 sum(x) 这类函数表达式）
+        SqlSecurityHelper.ValidateIdentifier(table, nameof(table));
+
         return _db.DbMaintenance.GetTableInfoList().Any(it => it.Name.Equals(table, StringComparison.CurrentCultureIgnoreCase))
             ? true
             : throw new Exception($"表名【{table}】不正确！");
@@ -46,6 +50,9 @@ public class SelectTable : ISingleton
     /// <returns></returns>
     public virtual bool IsCol(string table, string col)
     {
+        // 表名会被原样拼进元数据查询语句（MySQL 为 TABLE_NAME='{0}'），先做白名单校验
+        SqlSecurityHelper.ValidateIdentifier(table, nameof(table));
+
         return _db.DbMaintenance.GetColumnInfosByTableName(table).Any(it => it.DbColumnName.Equals(col, StringComparison.CurrentCultureIgnoreCase))
             ? true
             : throw new Exception($"表【{table}】不存在列【{col}】！请检查输入参数");
@@ -474,6 +481,10 @@ public class SelectTable : ISingleton
             // 判断列表是否有权限  sum(1)、sum(*)、Count(1)这样的值直接有效
             if (colName == "*" || int.TryParse(colName, out int colNumber) || (IsCol(subtable, colName) && _identitySvc.ColIsRole(colName, selectrole.Split(','))))
             {
+                // 函数表达式（如 sum(price)、count(*)）无法参数化，需做白名单校验后再拼接，防止注入
+                if (ziduan[0].Contains('('))
+                    SqlSecurityHelper.ValidateSqlExpression(ziduan[0], "@column");
+
                 // 字段名加引号，防止和SQL关键字冲突(mysql为反引号)
                 string qm = "\"";
                 if (tb.Context.CurrentConnectionConfig.DbType is SqlSugar.DbType.MySql)
@@ -560,68 +571,105 @@ public class SelectTable : ISingleton
             tb.Where(conModels);
     }
 
-    // "@having":"function0(...)?value0;function1(...)?value1;function2(...)?value2..."，
+    // "@having":"count(*)>0,sum(amount)>=100"，
     // SQL函数条件，一般和 @group一起用，函数一般在 @column里声明
     private static void ProcessHaving(JObject values, ISugarQueryable<ExpandoObject> tb)
     {
-        if (!values["@having"].IsNullOrEmpty())
+        if (values["@having"].IsNullOrEmpty())
+            return;
+
+        var havingItems = new List<string>();
+        if (values["@having"].HasValues)
+            havingItems = values["@having"].Select(p => p.ToString()).ToList();
+        else
+            havingItems.Add(values["@having"].ToString());
+
+        var (havingSql, parameters) = BuildHavingClause(havingItems);
+        if (parameters.Count == 0)
+            return;
+
+        // 通过参数占位符绑定取值，避免将用户输入直接拼接进 HAVING 子句造成注入
+        tb.Having(havingSql, parameters.ToArray());
+    }
+
+    /// <summary>
+    /// 解析 @having 条件并生成参数化的 HAVING 子句
+    /// <para>左侧字段表达式无法参数化，做白名单校验；右侧比较值通过参数占位符绑定，避免 SQL 注入。</para>
+    /// </summary>
+    /// <param name="havingItems">@having 原始条件集合，如 count(*)&gt;0</param>
+    /// <returns>参数化的 HAVING 子句 SQL 及对应参数</returns>
+    public static (string Sql, List<SugarParameter> Parameters) BuildHavingClause(IEnumerable<string> havingItems)
+    {
+        var havingSql = new StringBuilder();
+        var parameters = new List<SugarParameter>();
+        var parameterIndex = 0;
+
+        foreach (var rawItem in havingItems)
         {
-            var hw = new List<IConditionalModel>();
-            var havingItems = new List<string>();
-            if (values["@having"].HasValues)
-            {
-                havingItems = values["@having"].Select(p => p.ToString()).ToList();
-            }
-            else
-            {
-                havingItems.Add(values["@having"].ToString());
-            }
-            foreach (var item in havingItems)
-            {
-                var and = item.ToString();
-                var model = new ConditionalModel();
-                if (and.Contains(">="))
-                {
-                    model.FieldName = and.Split(new string[] { ">=" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.GreaterThanOrEqual;
-                    model.FieldValue = and.Split(new string[] { ">=" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                else if (and.Contains("<="))
-                {
-                    model.FieldName = and.Split(new string[] { "<=" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.LessThanOrEqual;
-                    model.FieldValue = and.Split(new string[] { "<=" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                else if (and.Contains('>'))
-                {
-                    model.FieldName = and.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.GreaterThan;
-                    model.FieldValue = and.Split(new string[] { ">" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                else if (and.Contains('<'))
-                {
-                    model.FieldName = and.Split(new string[] { "<" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.LessThan;
-                    model.FieldValue = and.Split(new string[] { "<" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                else if (and.Contains("!="))
-                {
-                    model.FieldName = and.Split(new string[] { "!=" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.NoEqual;
-                    model.FieldValue = and.Split(new string[] { "!=" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                else if (and.Contains('='))
-                {
-                    model.FieldName = and.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    model.ConditionalType = ConditionalType.Equal;
-                    model.FieldValue = and.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries)[1];
-                }
-                hw.Add(model);
-            }
-            //var d = db.Context.Utilities.ConditionalModelToSql(hw);
-            //tb.Having(d.Key, d.Value);
-            tb.Having(string.Join(",", havingItems));
+            var item = rawItem?.Trim();
+            if (string.IsNullOrEmpty(item))
+                continue;
+
+            // 解析比较运算符（注意顺序：先长后短，且 != 需先于 = 判断）
+            string op;
+            if (item.Contains(">=")) op = ">=";
+            else if (item.Contains("<=")) op = "<=";
+            else if (item.Contains("!=")) op = "!=";
+            else if (item.Contains('>')) op = ">";
+            else if (item.Contains('<')) op = "<";
+            else if (item.Contains('=')) op = "=";
+            else throw Oops.Oh($"@having 条件【{item}】格式不正确，应形如 count(*)>0");
+
+            var (fieldName, fieldValue) = SplitHavingItem(item, op);
+
+            // 左侧字段表达式无法参数化，必须做白名单校验；右侧取值交由参数占位符绑定
+            SqlSecurityHelper.ValidateSqlExpression(fieldName, "@having");
+            if (string.IsNullOrEmpty(fieldValue))
+                throw Oops.Oh($"@having 条件【{item}】缺少比较值");
+
+            var parameterName = $"@apiJsonHaving{parameterIndex++}";
+            havingSql.Append($"{fieldName}{op}{parameterName},");
+            parameters.Add(new SugarParameter(parameterName, ConvertHavingValue(fieldValue)));
         }
+
+        return (havingSql.ToString().TrimEnd(','), parameters);
+    }
+
+    /// <summary>
+    /// 按比较运算符拆分 @having 条件，返回（字段表达式, 比较值）
+    /// </summary>
+    private static (string Field, string Value) SplitHavingItem(string item, string op)
+    {
+        var parts = item.Split(op, 2, StringSplitOptions.None);
+        return (parts[0].Trim(), parts.Length > 1 ? parts[1].Trim() : string.Empty);
+    }
+
+    /// <summary>
+    /// 将 @having 比较值转换为合适的 CLR 类型，保证参数化后与原 SQL 字面量具有相同的比较语义
+    /// <para>
+    /// 注意两点：
+    /// 1. <b>必须数字优先</b>。若先做日期识别，<c>1.5</c>、<c>12.31</c> 这类小数会被 <c>DateTime.TryParse</c>
+    ///    当作「月.日」解析成日期（如 <c>1.5</c> → 2026-01-05），导致 <c>sum(amount)&gt;=1.5</c> 语义被改变。
+    /// 2. <b>必须使用不变文化</b>。否则服务器区域设置会影响解析结果，例如 de-DE 下 <c>1.5</c> 会被解析为 <c>15</c>。
+    /// </para>
+    /// </summary>
+    private static object ConvertHavingValue(string value)
+    {
+        // 去除可选的单引号包裹（如 'abc'），使字符串取值能正确参数化
+        var trimmed = value.Length >= 2 && value[0] == '\'' && value[^1] == '\''
+            ? value[1..^1]
+            : value;
+
+        const NumberStyles intStyles = NumberStyles.Integer;
+        const NumberStyles numberStyles = NumberStyles.Number;
+
+        if (int.TryParse(trimmed, intStyles, CultureInfo.InvariantCulture, out var intValue)) return intValue;
+        if (long.TryParse(trimmed, intStyles, CultureInfo.InvariantCulture, out var longValue)) return longValue;
+        if (decimal.TryParse(trimmed, numberStyles, CultureInfo.InvariantCulture, out var decimalValue)) return decimalValue;
+        if (bool.TryParse(trimmed, out var boolValue)) return boolValue;
+        if (DateTime.TryParse(trimmed, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue)) return dateValue;
+
+        return trimmed;
     }
 
     // "@group":"column0,column1..."，分组方式。如果 @column里声明了Table的id，则id也必须在 @group中声明；其它情况下必须满足至少一个条件:
@@ -863,6 +911,7 @@ public class SelectTable : ISingleton
         str = str.Replace("%", "");
         str = str.Replace("$", "");
         str = str.Replace("\"", "");
+        str = str.Replace("`", "");
 
         // 删除与数据库相关的词
         str = Regex.Replace(str, "delete from", "", RegexOptions.IgnoreCase);
