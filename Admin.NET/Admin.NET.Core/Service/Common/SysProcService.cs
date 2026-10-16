@@ -26,6 +26,9 @@ public class SysProcService : IDynamicApiController, ITransient
     public async Task<IActionResult> PocExport2(ExportProcInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 存储过程名无法参数化，先做白名单校验再调用，防止注入
+        SqlSecurityHelper.ValidateProcedureName(input.ProcId, nameof(input.ProcId));
         var dt = await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
 
         var headers = new Dictionary<string, Tuple<string, int>>();
@@ -48,12 +51,41 @@ public class SysProcService : IDynamicApiController, ITransient
     public async Task<IActionResult> PocExport(ExportProcByTMPInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 存储过程名无法参数化，先做白名单校验再调用，防止注入
+        SqlSecurityHelper.ValidateProcedureName(input.ProcId, nameof(input.ProcId));
         var dt = await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
 
         var excelExporter = new ExcelExporter();
-        string template = AppDomain.CurrentDomain.BaseDirectory + "/wwwroot/template/" + input.Template + ".xlsx";
+        var template = GetSafeTemplatePath(input.Template);
         var bs = await excelExporter.ExportBytesByTemplate(dt, template);
         return new FileContentResult(bs, "application/octet-stream") { FileDownloadName = input.ProcId + ".xlsx" };
+    }
+
+    /// <summary>
+    /// 获取安全的导出模板绝对路径，防止路径穿越
+    /// </summary>
+    /// <param name="templateName">模板名称（不含扩展名）</param>
+    /// <returns>模板文件的绝对路径</returns>
+    private static string GetSafeTemplatePath(string templateName)
+    {
+        if (string.IsNullOrWhiteSpace(templateName))
+            throw Oops.Oh("模板名称不能为空");
+
+        var templateRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "template"));
+        var fullPath = Path.GetFullPath(Path.Combine(templateRoot, templateName + ".xlsx"));
+
+        // 确认解析后的绝对路径仍位于模板根目录内，防止 ../ 形式的路径穿越
+        var rootWithSeparator = templateRoot.EndsWith(Path.DirectorySeparatorChar)
+            ? templateRoot
+            : templateRoot + Path.DirectorySeparatorChar;
+        if (!fullPath.StartsWith(rootWithSeparator, StringComparison.OrdinalIgnoreCase))
+            throw Oops.Oh("非法的模板名称");
+
+        if (!File.Exists(fullPath))
+            throw Oops.Oh($"模板文件【{templateName}】不存在");
+
+        return fullPath;
     }
 
     /// <summary>
@@ -64,6 +96,9 @@ public class SysProcService : IDynamicApiController, ITransient
     public async Task<DataSet> ProcTable(BaseProcInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 存储过程名无法参数化，先做白名单校验再调用，防止注入
+        SqlSecurityHelper.ValidateProcedureName(input.ProcId, nameof(input.ProcId));
         var dt = await db.Ado.UseStoredProcedure().GetDataTableAsync(input.ProcId, input.ProcParams);
         return new DataSet { Tables = { dt } };
     }
@@ -78,6 +113,9 @@ public class SysProcService : IDynamicApiController, ITransient
     public async Task<DataSet> CommonDataSet(BaseProcInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 存储过程名无法参数化，先做白名单校验再调用，防止注入
+        SqlSecurityHelper.ValidateProcedureName(input.ProcId, nameof(input.ProcId));
         return await db.Ado.UseStoredProcedure().GetDataSetAllAsync(input.ProcId, input.ProcParams);
     }
 

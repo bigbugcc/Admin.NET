@@ -109,7 +109,12 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     public List<DbColumnOutput> GetColumnList(string tableName, string configId = SqlSugarConst.MainConfigId)
     {
         var db = _db.AsTenant().GetConnectionScope(configId);
-        return string.IsNullOrWhiteSpace(tableName) ? new List<DbColumnOutput>() : db.DbMaintenance.GetColumnInfosByTableName(tableName, false).Adapt<List<DbColumnOutput>>();
+        if (string.IsNullOrWhiteSpace(tableName)) return new List<DbColumnOutput>();
+
+        // 表名会被 SqlSugar 原样拼进元数据查询语句（如 MySQL 的 TABLE_NAME='{0}'），必须先做白名单校验
+        SqlSecurityHelper.ValidateIdentifier(tableName, nameof(tableName));
+
+        return db.DbMaintenance.GetColumnInfosByTableName(tableName, false).Adapt<List<DbColumnOutput>>();
     }
 
     /// <summary>
@@ -132,6 +137,15 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     [DisplayName("增加列")]
     public void AddColumn(DbColumnInput input)
     {
+        var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 表名、列名、数据类型、默认值、描述均会被 SqlSugar 拼接进 SQL，分别做白名单校验与字面量转义，防止注入
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+        SqlSecurityHelper.ValidateIdentifier(input.DbColumnName, nameof(input.DbColumnName));
+        var dataType = SqlSecurityHelper.ValidateSqlType(input.DataType, nameof(input.DataType));
+        var defaultValue = SqlSecurityHelper.ValidateDefaultValue(input.DefaultValue, nameof(input.DefaultValue));
+        var columnDescription = SqlSecurityHelper.EscapeSqlLiteral(input.ColumnDescription, db.CurrentConnectionConfig.DbType);
+
         var column = new DbColumnInfo
         {
             ColumnDescription = input.ColumnDescription,
@@ -141,16 +155,15 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             IsPrimarykey = input.IsPrimarykey == 1,
             Length = input.Length,
             DecimalDigits = input.DecimalDigits,
-            DataType = input.DataType
+            DataType = dataType
         };
-        var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
         db.DbMaintenance.AddColumn(input.TableName, column);
         // 默认值直接添加报错
-        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        if (!string.IsNullOrWhiteSpace(defaultValue))
         {
-            db.DbMaintenance.AddDefaultValue(input.TableName, column.DbColumnName, input.DefaultValue);
+            db.DbMaintenance.AddDefaultValue(input.TableName, column.DbColumnName, defaultValue);
         }
-        db.DbMaintenance.AddColumnRemark(input.DbColumnName, input.TableName, input.ColumnDescription);
+        db.DbMaintenance.AddColumnRemark(input.DbColumnName, input.TableName, columnDescription);
         if (column.IsPrimarykey) db.DbMaintenance.AddPrimaryKey(input.TableName, input.DbColumnName);
     }
 
@@ -176,22 +189,29 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
 
+        // 表名、列名、默认值、描述均会被 SqlSugar 拼接进 SQL，分别做白名单校验与字面量转义，防止注入
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+        SqlSecurityHelper.ValidateIdentifier(input.OldColumnName, nameof(input.OldColumnName));
+        SqlSecurityHelper.ValidateIdentifier(input.ColumnName, nameof(input.ColumnName));
+        var defaultValue = SqlSecurityHelper.ValidateDefaultValue(input.DefaultValue, nameof(input.DefaultValue));
+        var description = SqlSecurityHelper.EscapeSqlLiteral(input.Description, db.CurrentConnectionConfig.DbType);
+
         // 前端未修改列名时，不进行重命名操作，避免报错
         if (input.OldColumnName != input.ColumnName)
         {
             db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
         }
 
-        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        if (!string.IsNullOrWhiteSpace(defaultValue))
         {
-            db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
+            db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, defaultValue);
         }
         //if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
         //{
         //    db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
         //}
 
-        db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : input.Description);
+        db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : description);
     }
 
     /// <summary>
@@ -207,12 +227,23 @@ public class SysDatabaseService : IDynamicApiController, ITransient
 
         var dbType = db.CurrentConnectionConfig.DbType;
 
+        // 表名、列名等标识符无法通过参数化传递，必须先做白名单校验再拼接 SQL，防止注入
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+        SqlSecurityHelper.ValidateIdentifier(input.ColumnName, nameof(input.ColumnName));
+        if (!string.IsNullOrWhiteSpace(input.AfterColumnName))
+            SqlSecurityHelper.ValidateIdentifier(input.AfterColumnName, nameof(input.AfterColumnName));
+
         var columns = dbMaintenance.GetColumnInfosByTableName(input.TableName, false);
         var targetColumn = columns.FirstOrDefault(c =>
             c.DbColumnName.Equals(input.ColumnName, StringComparison.OrdinalIgnoreCase));
 
         if (targetColumn == null)
             throw new Exception($"列 {input.ColumnName} 在表 {input.TableName} 中不存在");
+
+        // 校验目标参照列是否存在，避免拼接无效或恶意的列名
+        if (!string.IsNullOrWhiteSpace(input.AfterColumnName) &&
+            !columns.Any(c => c.DbColumnName.Equals(input.AfterColumnName, StringComparison.OrdinalIgnoreCase)))
+            throw new Exception($"列 {input.AfterColumnName} 在表 {input.TableName} 中不存在");
 
         switch (dbType)
         {
@@ -236,6 +267,10 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <exception cref="Exception"></exception>
     private string GetColumnDefinitionInMySQL(ISqlSugarClient db, string tableName, string columnName, bool noDefault = false)
     {
+        // 表名、列名无法参数化，先做白名单校验再拼接 SQL，防止注入
+        SqlSecurityHelper.ValidateIdentifier(tableName, nameof(tableName));
+        SqlSecurityHelper.ValidateIdentifier(columnName, nameof(columnName));
+
         var columnDef = db.Ado.SqlQuery<dynamic>(
             $"SHOW FULL COLUMNS FROM `{tableName}` WHERE Field = '{columnName}'"
         ).FirstOrDefault();
@@ -250,7 +285,11 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         // 处理约束条件
         definition.Append(columnDef.Null == "YES" ? "NULL " : "NOT NULL ");
         if (columnDef.Default != null && !noDefault)
-            definition.Append($"DEFAULT '{columnDef.Default}' ");
+        {
+            // 默认值来自数据库元数据，仍对单引号做转义，避免破坏拼接出的 SQL
+            var defaultValue = Convert.ToString(columnDef.Default) ?? string.Empty;
+            definition.Append($"DEFAULT '{defaultValue.Replace("'", "''")}' ");
+        }
         if (!string.IsNullOrEmpty(columnDef.Extra))
             definition.Append($"{columnDef.Extra} ");
         if (!string.IsNullOrEmpty(columnDef.Comment))
@@ -268,6 +307,12 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <param name="afterColumnName"></param>
     private void MoveColumnInMySQL(ISqlSugarClient db, string tableName, string columnName, string afterColumnName)
     {
+        // 表名、列名无法参数化，先做白名单校验再拼接 SQL，防止注入
+        SqlSecurityHelper.ValidateIdentifier(tableName, nameof(tableName));
+        SqlSecurityHelper.ValidateIdentifier(columnName, nameof(columnName));
+        if (!string.IsNullOrEmpty(afterColumnName))
+            SqlSecurityHelper.ValidateIdentifier(afterColumnName, nameof(afterColumnName));
+
         var definition = GetColumnDefinitionInMySQL(db, tableName, columnName);
         var sql = new StringBuilder();
         sql.Append($"ALTER TABLE `{tableName}` MODIFY COLUMN {definition}");
@@ -308,16 +353,25 @@ public class SysDatabaseService : IDynamicApiController, ITransient
 
         var config = App.GetOptions<DbConnectionOptions>().ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 表名、列名与列的数据类型都会被 SqlSugar 拼接进 CREATE TABLE，其中数据类型是「原样拼接」，
+        // 未校验时可被叠加语句注入（如 DataType = "INT); DROP TABLE x; --"），故逐一做白名单校验
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+
         var typeBuilder = db.DynamicBuilder().CreateClass(input.TableName, new SugarTable() { TableName = input.TableName, TableDescription = input.Description });
         input.DbColumnInfoList.ForEach(u =>
         {
-            var dbColumnName = config!.DbSettings.EnableUnderLine ? u.DbColumnName.Trim().ToUnderLine() : u.DbColumnName.Trim();
+            var columnName = u.DbColumnName?.Trim();
+            SqlSecurityHelper.ValidateIdentifier(columnName, nameof(u.DbColumnName));
+            var dataType = SqlSecurityHelper.ValidateSqlType(u.DataType, nameof(u.DataType));
+
+            var dbColumnName = config!.DbSettings.EnableUnderLine ? columnName.ToUnderLine() : columnName;
             // 虚拟类都默认string类型，具体以列数据类型为准
             typeBuilder.CreateProperty(dbColumnName, typeof(string), new SugarColumn()
             {
                 IsPrimaryKey = u.IsPrimarykey == 1,
                 IsIdentity = u.IsIdentity == 1,
-                ColumnDataType = u.DataType,
+                ColumnDataType = dataType,
                 Length = u.Length,
                 IsNullable = u.IsNullable == 1,
                 DecimalDigits = u.DecimalDigits,
@@ -349,6 +403,13 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     public void UpdateTable(UpdateDbTableInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+
+        // 表名与描述会被 SqlSugar 原样拼接进 SQL（RenameTable / AddTableRemark 模板均未加引号保护），
+        // 故表名做白名单校验、描述做字面量转义，防止注入
+        SqlSecurityHelper.ValidateIdentifier(input.OldTableName, nameof(input.OldTableName));
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+        var description = SqlSecurityHelper.EscapeSqlLiteral(input.Description, db.CurrentConnectionConfig.DbType);
+
         db.DbMaintenance.RenameTable(input.OldTableName, input.TableName);
         try
         {
@@ -356,7 +417,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                 db.DbMaintenance.DeleteTableRemark(input.TableName);
 
             if (!string.IsNullOrWhiteSpace(input.Description))
-                db.DbMaintenance.AddTableRemark(input.TableName, input.Description);
+                db.DbMaintenance.AddTableRemark(input.TableName, description);
         }
         catch (NotSupportedException ex)
         {
@@ -372,6 +433,9 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     [DisplayName("创建实体")]
     public void CreateEntity(CreateEntityInput input)
     {
+        // 表名会进入元数据查询语句（GetColumnInfosByTableName）并被拼接，先做白名单校验
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+
         var config = App.GetOptions<DbConnectionOptions>().ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);
         input.Position = string.IsNullOrWhiteSpace(input.Position) ? "Admin.NET.Application" : input.Position;
         input.EntityName = string.IsNullOrWhiteSpace(input.EntityName) ? (config.DbSettings.EnableUnderLine ? CodeGenUtil.CamelColumnName(input.TableName, null) : input.TableName) : input.EntityName;
@@ -427,6 +491,9 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     [DisplayName("创建种子数据")]
     public async Task CreateSeedData(CreateSeedDataInput input)
     {
+        // 表名会进入元数据查询语句（GetColumnInfosByTableName）并被拼接，先做白名单校验
+        SqlSecurityHelper.ValidateIdentifier(input.TableName, nameof(input.TableName));
+
         var config = App.GetOptions<DbConnectionOptions>().ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);
         input.Position = string.IsNullOrWhiteSpace(input.Position) ? "Admin.NET.Core" : input.Position;
 

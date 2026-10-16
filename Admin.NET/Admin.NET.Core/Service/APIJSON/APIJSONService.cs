@@ -186,30 +186,50 @@ public class APIJSONService : IDynamicApiController, ITransient
             //    throw Oops.Bah("未传主键id");
 
             var value = JObject.Parse(table.Value.ToString());
-            var sb = new StringBuilder(100);
-            var parameters = new List<SugarParameter>();
-            foreach (var f in value)
-            {
-                if (f.Value is JArray)
-                {
-                    sb.Append($"{f.Key} in (@{f.Key}) and ");
-                    var paraArray = FuncList.TransJArrayToSugarPara(f.Value);
-                    parameters.Add(new SugarParameter($"@{f.Key}", paraArray));
-                }
-                else
-                {
-                    sb.Append($"{f.Key}=@{f.Key} and ");
-                    parameters.Add(new SugarParameter($"@{f.Key}", FuncList.TransJObjectToSugarPara(f.Value)));
-                }
-            }
-            if (parameters.Count == 0)
-                throw Oops.Bah("请输入删除条件");
-
-            var whereSql = sb.ToString().TrimEnd(" and ");
+            // 删除条件的字段名会被拼接进 WHERE 子句，必须校验为合法标识符且确实属于该表，防止 SQL 注入
+            var (whereSql, parameters) = BuildDeleteWhereClause(value, col => _selectTable.IsCol(talbeName, col));
             var count = _db.Deleteable<object>().AS(talbeName).Where(whereSql, parameters).ExecuteCommand(); // 无实体删除
             value.Add("count", count); // 命中数量
             ht.Add(talbeName, value);
         }
         return ht;
+    }
+
+    /// <summary>
+    /// 构建 APIJSON 删除条件的 WHERE 子句
+    /// <para>
+    /// 删除条件的字段名（列名）无法参数化，会被直接拼接进 SQL，因此先做标识符白名单校验，
+    /// 再交由 <paramref name="validateColumn"/> 按表结构校验；比较取值一律使用参数占位符绑定，避免 SQL 注入。
+    /// </para>
+    /// </summary>
+    /// <param name="fields">删除条件（字段名 → 取值）</param>
+    /// <param name="validateColumn">列名校验委托，校验不通过时应抛出异常</param>
+    /// <returns>参数化的 WHERE 子句 SQL 及参数集合</returns>
+    public static (string WhereSql, List<SugarParameter> Parameters) BuildDeleteWhereClause(IEnumerable<KeyValuePair<string, JToken>> fields, Action<string> validateColumn)
+    {
+        var conditions = new List<string>();
+        var parameters = new List<SugarParameter>();
+        foreach (var f in fields)
+        {
+            // 字段名将拼接进 SQL，先做标识符白名单校验，再按表结构校验列是否存在
+            SqlSecurityHelper.ValidateIdentifier(f.Key, "字段名");
+            validateColumn(f.Key);
+
+            if (f.Value is JArray)
+            {
+                conditions.Add($"{f.Key} in (@{f.Key})");
+                var paraArray = FuncList.TransJArrayToSugarPara(f.Value);
+                parameters.Add(new SugarParameter($"@{f.Key}", paraArray));
+            }
+            else
+            {
+                conditions.Add($"{f.Key}=@{f.Key}");
+                parameters.Add(new SugarParameter($"@{f.Key}", FuncList.TransJObjectToSugarPara(f.Value)));
+            }
+        }
+        if (conditions.Count == 0)
+            throw Oops.Bah("请输入删除条件");
+
+        return (string.Join(" and ", conditions), parameters);
     }
 }
