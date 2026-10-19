@@ -617,29 +617,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             propertyList[0] = temp;
         }
         // 拼接数据
-        var recordList = records.Select(obj => string.Join(", ", propertyList.Select(prop =>
-        {
-            var propType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-            object value = prop.GetValue(obj);
-            if (value == null) value = "null";
-            else if (propType == typeof(string))
-            {
-                value = $"@\"{value}\"";
-            }
-            else if (propType.IsEnum)
-            {
-                value = $"{propType.Name}.{value}";
-            }
-            else if (propType == typeof(bool))
-            {
-                value = (bool)value ? "true" : "false";
-            }
-            else if (propType == typeof(DateTime))
-            {
-                value = $"DateTime.Parse(\"{((DateTime)value):yyyy-MM-dd HH:mm:ss.fff}\")";
-            }
-            return $"{prop.Name}={value}";
-        }))).ToList();
+        var recordList = records.Select(obj => string.Join(", ", propertyList.Select(prop => $"{prop.Name}={SeedDataValueFormatter.Format(prop.PropertyType, prop.GetValue(obj))}"))).ToList();
 
         var tContent = await File.ReadAllTextAsync(templatePath);
         var data = new

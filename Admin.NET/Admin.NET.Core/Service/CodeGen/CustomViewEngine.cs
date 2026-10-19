@@ -9,7 +9,9 @@ namespace Admin.NET.Core.Service;
 /// <summary>
 /// 自定义模板引擎
 /// </summary>
-public class CustomViewEngine : ViewEngineModel
+// 禁止继承 ViewEngineModel：Furion 4.9.9.90+ 会把模板生成类的基类改为本类型，使 Model 退化为 dynamic，
+// 模板中所有带 lambda 的链式调用（如 Model.TableField.Where(u => ...)）将无法编译（CS1977/CS1929）。
+public class CustomViewEngine
 {
     /// <summary>
     /// 库定位器
