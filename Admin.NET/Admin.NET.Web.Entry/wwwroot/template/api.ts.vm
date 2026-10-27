@@ -42,18 +42,46 @@ export const use@(Model.ClassName)Api = () => {
 // @(Model.BusName)实体
 export interface @(Model.ClassName) {
 @{
+// 代码生成配置里的 DataType 取自 CodeGenUtil.ConvertDataType，即 .NET 类型名（Single?、decimal?…），
+// 而按表名读取列信息的链路给的是物理类型名（bigint、numeric…），故两种命名都要覆盖
 var typeMap = new Dictionary<string, string>() {
 	{ "bool", "boolean" },
+	{ "boolean", "boolean" },
+	{ "bit", "boolean" },
+	{ "byte", "number" },
+	{ "sbyte", "number" },
+	{ "short", "number" },
+	{ "ushort", "number" },
 	{ "int", "number" },
+	{ "uint", "number" },
 	{ "long", "number" },
-	{ "double", "number" },
+	{ "ulong", "number" },
 	{ "float", "number" },
+	{ "single", "number" },
+	{ "double", "number" },
 	{ "decimal", "number" },
-	{ "byte", "number" }
+	{ "int2", "number" },
+	{ "int4", "number" },
+	{ "int8", "number" },
+	{ "smallint", "number" },
+	{ "tinyint", "number" },
+	{ "mediumint", "number" },
+	{ "bigint", "number" },
+	{ "integer", "number" },
+	{ "serial", "number" },
+	{ "real", "number" },
+	{ "float4", "number" },
+	{ "float8", "number" },
+	{ "numeric", "number" },
+	{ "money", "number" }
 };
 foreach (var column in Model.TableField) {
+	// 枚举字典编码以 Enum 结尾（与 SysCodeGenConfigService 的 EnumSelector 判定一致），枚举值按数字序列化
+	var netType = (column.NetType ?? "").TrimEnd('?');
+	// 物理类型可能带长度或精度（如 decimal(10,2)、char(1)），取括号前的主类型再查表
+	var dbType = Regex.Match(column.DataType ?? "", @"^\s*[\w ]+").Value.Trim().ToLowerInvariant();
 	@:// @(column.ColumnComment)
-	@:@(column.LowerPropertyName)@(column.WhetherRequired == "Y" ? "?" : ""): @(Regex.IsMatch("@(column.DataType.Trim('?'))", ".*?Enum") ? "number" : typeMap.GetValueOrDefault(column.DataType.Trim('?').ToLower(), "string"));
+	@:@(column.LowerPropertyName)@(column.WhetherRequired == "Y" ? "?" : ""): @(netType.EndsWith("Enum") ? "number" : typeMap.GetValueOrDefault(dbType, "string"));
 }
 }
 }

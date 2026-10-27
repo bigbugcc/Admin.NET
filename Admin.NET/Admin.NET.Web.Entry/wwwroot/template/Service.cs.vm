@@ -186,6 +186,8 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
     [ApiDescriptionSettings(Name = "BatchDelete"), HttpPost]
     public async Task<int> BatchDelete([Required(ErrorMessage = "主键列表不能为空")]List<Delete@(Model.ClassName)Input> input)
     {
+        // 空列表会让表达式不含任何条件，进而匹配全表数据
+        if (input == null || input.Count == 0) return 0;
         var exp = Expressionable.Create<@(Model.ClassName)>();
         foreach (var row in input) exp = exp.Or(it => @Model.PrimaryKeysFormat(" && ", "it.{0} == row.{0}"));
         var list = await _@(Model.LowerClassName)Rep.AsQueryable().Where(exp.ToExpression()).ToListAsync();
