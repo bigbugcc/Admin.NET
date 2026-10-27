@@ -279,6 +279,9 @@ public class DbJobPersistence : IJobPersistence
         var db = scope.ServiceProvider.GetRequiredService<ISqlSugarClient>().CopyNew();
 
         var jobTriggerRecord = context.Timeline.Adapt<SysJobTriggerRecord>();
+        // 执行结果列长度为 128，作业返回超长会让插入报 22001 进而丢失运行记录，这里统一截断
+        if (jobTriggerRecord.Result?.Length > 128)
+            jobTriggerRecord.Result = jobTriggerRecord.Result[..128];
         await db.Insertable(jobTriggerRecord).ExecuteCommandAsync();
 
         await scope.ServiceProvider.GetRequiredService<SysJobService>().ClearExpireJobTriggerRecord(jobTriggerRecord);
