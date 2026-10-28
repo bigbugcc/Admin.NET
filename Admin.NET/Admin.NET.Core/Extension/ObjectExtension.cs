@@ -4,7 +4,10 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using Newtonsoft.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using NewLife.Serialization;
 
 namespace Admin.NET.Core;
 
@@ -71,6 +74,15 @@ public static partial class ObjectExtension
         return string.IsNullOrEmpty(str) ? "" : System.Uri.EscapeDataString(str);
     }
 
+    private static object Snapshot(Exception exception) => new
+    {
+        type = exception.GetType().FullName,        // 异常类型全名
+        message = exception.Message,                // 异常消息
+        source = exception.Source,                  // 异常来源程序集
+        stackTrace = exception.StackTrace,          // 堆栈
+        innerException = exception.InnerException == null ? null : Snapshot(exception.InnerException) // 内层异常递归
+    };
+
     /// <summary>
     /// 对象序列化成Json字符串
     /// </summary>
@@ -78,19 +90,64 @@ public static partial class ObjectExtension
     /// <returns></returns>
     public static string ToJson(this object obj)
     {
-        var jsonSettings = SetNewtonsoftJsonSetting();
-        return JSON.GetJsonSerializer().Serialize(obj, jsonSettings);
+        try
+        {
+            var payload = obj is Exception ex ? Snapshot(ex) : obj;
+            return JsonSerializer.Serialize(payload, SystemTextJsonOptions);
+        }
+        catch (Exception)
+        {
+            try
+            {
+                // Newtonsoft.Json可以直接序列化异常而不报错
+                return Newtonsoft.Json.JsonConvert.SerializeObject(obj, NewtonsoftJsonSetting);
+            }
+            catch (Exception)
+            {
+                return obj.ToString();
+            }
+        }
     }
 
-    private static JsonSerializerSettings SetNewtonsoftJsonSetting()
+    private static Newtonsoft.Json.JsonSerializerSettings _newtonsoftJsonSetting;
+    public static Newtonsoft.Json.JsonSerializerSettings NewtonsoftJsonSetting
+        => _newtonsoftJsonSetting ??= SetNewtonsoftJsonSetting();
+
+    private static Newtonsoft.Json.JsonSerializerSettings SetNewtonsoftJsonSetting()
     {
-        JsonSerializerSettings setting = new JsonSerializerSettings();
-        setting.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-        setting.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-        setting.DateFormatString = "yyyy-MM-dd HH:mm:ss"; // 时间格式化
-        setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // 忽略循环引用
-                                                                      //setting.ContractResolver = new HelErpContractResolver("StartTime", customName);
+        Newtonsoft.Json.JsonSerializerSettings setting = new()
+        {
+            DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
+            DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local,
+            DateFormatString = "yyyy-MM-dd HH:mm:ss", // 时间格式化
+            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore // 忽略循环引用
+        };
         return setting;
+    }
+
+    private static JsonSerializerOptions? _systemTextJsonOptions;
+
+    public static JsonSerializerOptions SystemTextJsonOptions
+        => _systemTextJsonOptions ??= SetSystemTextJsonOptions();
+
+    private static JsonSerializerOptions SetSystemTextJsonOptions()
+    {
+        JsonSerializerOptions option = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // 属性名小驼峰（与 Startup.cs MVC JSON 配置保持一致）
+            ReferenceHandler = ReferenceHandler.IgnoreCycles, // 忽略循环引用
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, // 处理（中文）乱码
+            WriteIndented = false // JSON 字符串缩进
+        };
+        option.Converters.AddDateTimeConverters("yyyy-MM-dd HH:mm:ss", localized: true); // 时间格式化
+        option.Converters.AddLongConverters(overMaxLengthOf17: true); // long 类型序列化时转 string（超过 17 位再转换）
+        option.Converters.AddDateOnlyConverters("yyyy-MM-dd"); // DateOnly
+        option.Converters.AddTimeOnlyConverters("HH:mm:ss"); // TimeOnly
+        option.Converters.AddClayConverters(); // 粘土对象 Clay 类型序列化
+        option.Converters.AddEnumConverters(); // 枚举类型序列化
+        option.Converters.AddDataTableConverters(); // 类型 DataTable 序列化
+        option.Converters.AddDataSetConverters(); // 类型 DataSet 序列化
+        return option;
     }
 
     /// <summary>
