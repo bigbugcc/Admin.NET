@@ -98,7 +98,7 @@ public class SuperApiAop : DefaultSuperApiAop
                     value = realName
                 },
             },
-            exception = aopContext.Exception == null ? null : JSON.Serialize(aopContext.Exception)
+            exception = aopContext.Exception?.ToJson()
         };
 
         var logger = App.GetRequiredService<ILoggerFactory>().CreateLogger(CommonConst.SysLogCategoryName);

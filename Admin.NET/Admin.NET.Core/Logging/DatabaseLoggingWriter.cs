@@ -145,7 +145,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             EventId = logMsg.EventId.Id,                                                     // 事件ID
             ThreadId = logMsg.ThreadId,                                                      // 线程ID
             TraceId = logMsg.TraceId,                                                        // 追踪ID（用于链路追踪）
-            Exception = ExceptionSanitizer.ToJson(logMsg.Exception, o => JSON.Serialize(o)),  // 异常信息
+            Exception = logMsg.Exception?.ToJson(),                                           // 异常信息
             Message = logMsg.Message,                                                        // 日志消息内容
             LogLevel = logMsg.LogLevel,                                                      // 日志级别
             HttpMethod = logMsg.Context?.Get("Method")?.ToString() ?? "",                    // HTTP方法
@@ -201,7 +201,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             ReturnResult = loggingMonitor.ReturnInformation?.Value != null ? JSON.Serialize(loggingMonitor.ReturnInformation.Value) : null,              // 返回结果
 
             // 异常信息
-            Exception = ExceptionSanitizer.ToJson(logMsg.Exception ?? loggingMonitor.Exception, o => JSON.Serialize(o)), // 异常详情
+            Exception = logMsg.Exception?.ToJson() ?? loggingMonitor.Exception?.ToJson(),                  // 异常详情
 
             // 日志元数据
             LogDateTime = logMsg.LogDateTime,                        // 日志时间
