@@ -52,6 +52,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// 获取参数配置列表 🔖
     /// </summary>
     /// <returns></returns>
+    [SysAdminOnly]
     [DisplayName("获取参数配置列表")]
     public async Task<List<SysConfig>> List(PageConfigInput input)
     {
@@ -145,6 +146,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [SysAdminOnly]
     [DisplayName("获取参数配置详情")]
     public async Task<SysConfig> GetDetail([FromQuery] ConfigInput input)
     {
