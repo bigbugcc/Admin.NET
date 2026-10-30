@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// 系统在线用户服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 300)]
+[SysAdminOnly]
 public class SysOnlineUserService : IDynamicApiController, ITransient
 {
     private readonly UserManager _userManager;

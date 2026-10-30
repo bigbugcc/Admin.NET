@@ -285,6 +285,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [UnitOfWork]
+    [SysAdminOnly]
     [DisplayName("设置菜单状态")]
     public virtual async Task<int> SetStatus(MenuStatusInput input)
     {

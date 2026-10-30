@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -73,6 +73,14 @@ public class JwtHandler : AppAuthorizeHandler
     /// <returns></returns>
     private static async Task<bool> CheckAuthorizeAsync(DefaultHttpContext httpContext)
     {
+        // 标记了[SysAdminOnly]的接口仅超级管理员/系统管理员可访问（最高优先级，不受登录模式影响）
+        if (httpContext.GetEndpoint()?.Metadata.GetMetadata<SysAdminOnlyAttribute>() != null)
+        {
+            var accountType = App.User.FindFirst(ClaimConst.AccountType)?.Value;
+            return accountType == ((int)AccountTypeEnum.SuperAdmin).ToString()
+                || accountType == ((int)AccountTypeEnum.SysAdmin).ToString();
+        }
+
         // 登录模式判断PC、APP
         if (App.User.FindFirst(ClaimConst.LoginMode)?.Value == ((int)LoginModeEnum.APP).ToString())
             return true;

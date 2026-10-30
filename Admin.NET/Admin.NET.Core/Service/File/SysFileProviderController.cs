@@ -10,6 +10,7 @@ namespace Admin.NET.Core.Service;
 /// 文件存储提供者管理控制器 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 412, Description = "文件存储提供者管理")]
+[SysAdminOnly]
 public class SysFileProviderController : IDynamicApiController, ITransient
 {
     private readonly SysFileProviderService _fileProviderService;

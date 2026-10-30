@@ -14,6 +14,7 @@ namespace Admin.NET.Plugin.DingTalk.Service;
 /// 钉钉服务 🧩
 /// </summary>
 [ApiDescriptionSettings(DingTalkConst.GroupName, Order = 100)]
+[SysAdminOnly]
 public class DingTalkService : IDynamicApiController, IScoped
 {
     private readonly IDingTalkApi _dingTalkApi;

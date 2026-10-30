@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// 系统消息发送服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 370)]
+[SysAdminOnly]
 public class SysMessageService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;

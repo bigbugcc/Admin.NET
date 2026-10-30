@@ -14,6 +14,7 @@ namespace Admin.NET.Core.Service;
 /// 系统更新管理服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 390)]
+[SysAdminOnly]
 public class SysUpdateService : IDynamicApiController, ITransient
 {
     private readonly SysCacheService _sysCacheService;

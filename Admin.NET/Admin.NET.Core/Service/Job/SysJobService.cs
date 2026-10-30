@@ -10,6 +10,7 @@ namespace Admin.NET.Core.Service;
 /// 系统作业任务服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 320, Description = "作业任务")]
+[SysAdminOnly]
 public class SysJobService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysJobDetail> _sysJobDetailRep;

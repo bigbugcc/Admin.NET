@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// 系统数据库管理服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 250)]
+[SysAdminOnly]
 public class SysDatabaseService : IDynamicApiController, ITransient
 {
     private readonly ISqlSugarClient _db;
