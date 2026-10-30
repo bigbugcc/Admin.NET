@@ -307,13 +307,24 @@ public class SysUserService : IDynamicApiController, ITransient
     /// <summary>
     /// 更新用户基本信息 🔖
     /// </summary>
+    /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "BaseInfo"), HttpPost]
     [DisplayName("更新用户基本信息")]
-    public virtual async Task<int> UpdateBaseInfo(SysUser user)
+    public virtual async Task<int> UpdateBaseInfo(UpdateUserBaseInfoInput input)
     {
+        // 手机号唯一校验
+        if (!string.IsNullOrWhiteSpace(input.Phone) && await _sysUserRep.AsQueryable().ClearFilter().AnyAsync(u => u.Phone == input.Phone && u.Id != _userManager.UserId))
+            throw Oops.Oh(ErrorCodeEnum.D1032);
+
+        // 强制目标为当前登录用户，禁止越权修改他人资料
+        var user = input.Adapt<SysUser>();
+        user.Id = _userManager.UserId;
+
+        // 白名单列更新，仅允许用户自行维护个人基础资料
         return await _sysUserRep.AsUpdateable(user)
-            .IgnoreColumns(u => new { u.CreateTime, u.Account, u.Password, u.AccountType, u.OrgId, u.PosId }).ExecuteCommandAsync();
+            .UpdateColumns(u => new { u.RealName, u.NickName, u.Avatar, u.Sex, u.Birthday, u.Phone, u.Email, u.Address, u.Remark, u.Signature, u.LangCode, u.Homepage })
+            .ExecuteCommandAsync();
     }
 
     /// <summary>
