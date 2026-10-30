@@ -30,6 +30,10 @@ public class SysUserRoleService : ITransient
     {
         await _sysUserRoleRep.DeleteAsync(u => u.UserId == input.UserId);
 
+        // 无论角色列表是否为空，均需清除用户权限、机构与数据范围缓存，
+        // 否则撤销全部角色后旧权限会继续生效（缓存有效期七天）
+        SqlSugarFilter.DeleteUserOrgCache(input.UserId, _sysUserRoleRep.Context.CurrentConnectionConfig.ConfigId.ToString());
+
         if (input.RoleIdList == null || input.RoleIdList.Count < 1) return;
         var roles = input.RoleIdList.Select(u => new SysUserRole
         {
@@ -37,7 +41,6 @@ public class SysUserRoleService : ITransient
             RoleId = u
         }).ToList();
         await _sysUserRoleRep.InsertRangeAsync(roles);
-        _sysCacheService.Remove(CacheConst.KeyUserButton + input.UserId);
     }
 
     /// <summary>
@@ -47,12 +50,14 @@ public class SysUserRoleService : ITransient
     /// <returns></returns>
     public async Task DeleteUserRoleByRoleId(long roleId)
     {
+        var dbConfigId = _sysUserRoleRep.Context.CurrentConnectionConfig.ConfigId.ToString();
+
         await _sysUserRoleRep.AsQueryable()
              .Where(u => u.RoleId == roleId)
              .Select(u => u.UserId)
              .ForEachAsync(userId =>
              {
-                 _sysCacheService.Remove(CacheConst.KeyUserButton + userId);
+                 SqlSugarFilter.DeleteUserOrgCache(userId, dbConfigId);
              });
 
         await _sysUserRoleRep.DeleteAsync(u => u.RoleId == roleId);
@@ -66,7 +71,7 @@ public class SysUserRoleService : ITransient
     public async Task DeleteUserRoleByUserId(long userId)
     {
         await _sysUserRoleRep.DeleteAsync(u => u.UserId == userId);
-        _sysCacheService.Remove(CacheConst.KeyUserButton + userId);
+        SqlSugarFilter.DeleteUserOrgCache(userId, _sysUserRoleRep.Context.CurrentConnectionConfig.ConfigId.ToString());
     }
 
     /// <summary>
