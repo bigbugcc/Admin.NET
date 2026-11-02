@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// 系统代码生成器服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 270)]
+[SysAdminOnly]
 public class SysCodeGenService : IDynamicApiController, ITransient
 {
     private readonly ISqlSugarClient _db;

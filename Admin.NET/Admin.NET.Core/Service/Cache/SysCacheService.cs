@@ -12,6 +12,7 @@ namespace Admin.NET.Core.Service;
 /// 系统缓存服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 400, Description = "系统缓存")]
+[SysAdminOnly]
 public class SysCacheService : IDynamicApiController, ISingleton
 {
     private readonly ICacheProvider _cacheProvider;

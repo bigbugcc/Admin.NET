@@ -52,6 +52,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// 获取参数配置列表 🔖
     /// </summary>
     /// <returns></returns>
+    [SysAdminOnly]
     [DisplayName("获取参数配置列表")]
     public async Task<List<SysConfig>> List(PageConfigInput input)
     {
@@ -123,6 +124,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// <param name="ids"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "BatchDelete"), HttpPost]
+    [SysAdminOnly]
     [DisplayName("批量删除参数配置")]
     public async Task BatchDeleteConfig(List<long> ids)
     {
@@ -144,6 +146,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [SysAdminOnly]
     [DisplayName("获取参数配置详情")]
     public async Task<SysConfig> GetDetail([FromQuery] ConfigInput input)
     {
@@ -175,6 +178,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
+    [SysAdminOnly]
     [DisplayName("根据Code获取配置参数值")]
     public async Task<string> GetConfigValueByCode(string code)
     {
@@ -261,6 +265,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// <param name="input"></param>
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "BatchUpdate"), HttpPost]
+    [SysAdminOnly]
     [DisplayName("批量更新参数配置值")]
     public async Task BatchUpdateConfig(List<BatchConfigInput> input)
     {
@@ -316,6 +321,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [UnitOfWork]
+    [SysAdminOnly]
     [DisplayName("保存系统信息")]
     public async Task SaveSysInfo(InfoSaveInput input)
     {
