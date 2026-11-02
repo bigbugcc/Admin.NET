@@ -108,6 +108,81 @@ public class ResetPwdUserInput : BaseIdInput
 }
 
 /// <summary>
+/// 更新用户基本信息输入参数
+/// </summary>
+public class UpdateUserBaseInfoInput
+{
+    /// <summary>
+    /// 真实姓名
+    /// </summary>
+    [Required(ErrorMessage = "真实姓名不能为空"), MaxLength(32)]
+    public string RealName { get; set; }
+
+    /// <summary>
+    /// 昵称
+    /// </summary>
+    [MaxLength(32)]
+    public string? NickName { get; set; }
+
+    /// <summary>
+    /// 头像
+    /// </summary>
+    [MaxLength(512)]
+    public string? Avatar { get; set; }
+
+    /// <summary>
+    /// 性别-男_1、女_2
+    /// </summary>
+    public GenderEnum Sex { get; set; } = GenderEnum.Male;
+
+    /// <summary>
+    /// 出生日期
+    /// </summary>
+    public DateTime? Birthday { get; set; }
+
+    /// <summary>
+    /// 手机号码
+    /// </summary>
+    [MaxLength(16)]
+    public string? Phone { get; set; }
+
+    /// <summary>
+    /// 邮箱
+    /// </summary>
+    [MaxLength(64)]
+    public string? Email { get; set; }
+
+    /// <summary>
+    /// 地址
+    /// </summary>
+    [MaxLength(256)]
+    public string? Address { get; set; }
+
+    /// <summary>
+    /// 备注
+    /// </summary>
+    [MaxLength(256)]
+    public string? Remark { get; set; }
+
+    /// <summary>
+    /// 电子签名
+    /// </summary>
+    [MaxLength(512)]
+    public string? Signature { get; set; }
+
+    /// <summary>
+    /// 语言代码（如 zh-CN）
+    /// </summary>
+    public string LangCode { get; set; }
+
+    /// <summary>
+    /// 个性化首页地址
+    /// </summary>
+    [MaxLength(512)]
+    public string? Homepage { get; set; }
+}
+
+/// <summary>
 /// 修改用户密码输入参数
 /// </summary>
 public class ChangePwdInput
